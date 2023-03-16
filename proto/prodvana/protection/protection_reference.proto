@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+
+import "validate/validate.proto";
+
+message ProtectionReference {
+    oneof ref {
+        option (validate.required) = true;
+        string name = 1; // Use latest config for this protection
+
+        // TODO: Option to freeze a specific version.
+    }
+}

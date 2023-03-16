@@ -1,0 +1,25 @@
+syntax = "proto3";
+package prodvana.volumes;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/volumes";
+
+import "validate/validate.proto";
+
+message VolumeSource {
+    message SecretSource {
+        string secret_name = 1 [(validate.rules).string.min_len = 1];
+    }
+    oneof source {
+        SecretSource secret = 1;
+    }
+}
+
+message VolumeMount {
+    string mount_path = 1;
+    bool read_only = 2;
+}
+
+message Volume {
+    string name = 1 [(validate.rules).string.min_len = 1];
+    VolumeSource source = 2;
+    VolumeMount mount = 3;
+}

@@ -1,0 +1,160 @@
+syntax = "proto3";
+package prodvana.events;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/events";
+
+import "prodvana/desired_state/model/desired_state.proto";
+
+enum EventType {
+    UNKNOWN = 0;
+    // when a user sets a new desired state
+    SET_DESIRED_STATE = 1;
+    // when dyanmic delivery sets a new target state as part of convergence. A desired state convergence
+    // involves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.
+    SET_TARGET_STATE = 2;
+    PROGRAM_EXIT = 3;
+    // When dynamic delivery materializes a target state to physical infrastructure as part of convergence.
+    // Each SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.
+    APPLY_TARGET_STATE = 4;
+    MANUAL_APPROVAL = 6;
+    CUSTOM_TASK_EXECUTION = 7;
+    // generic runtime events when more specific event types are not available.
+    RUNTIME_UPDATE = 8;
+    DELIVERY_PROGRESS = 9;
+    DELIVERY_MANUAL_PROMOTION = 10;
+    DESIRED_STATE_STATUS_CHANGE = 11;
+
+    reserved 5;
+}
+
+message SetDesiredStateEvent {
+    prodvana.desired_state.model.Identifier id = 1;
+    string desired_state_id = 3;
+    string root_desired_state_id = 4;
+    prodvana.desired_state.model.State desired = 2;
+    bool is_rollback = 5;
+
+    // next tag: 6
+}
+
+message SetTargetStateEvent {
+    prodvana.desired_state.model.Identifier id = 1;
+    string desired_state_id = 8;
+    string root_desired_state_id = 9;
+    // state that prodvana runtime will immediately converge towards
+    prodvana.desired_state.model.State target = 2;
+    // final desired state that this entity should eventually get to
+    prodvana.desired_state.model.State desired = 3;
+    // current state for this entity before setting target state
+    prodvana.desired_state.model.State current = 4;
+    // whether this is part of an automated rollback action
+    bool is_auto_rollback = 5;
+    // status and explanations at the time of SetTargetState
+    prodvana.desired_state.model.Status status = 6;
+    repeated prodvana.desired_state.model.StatusExplanation status_explanations = 7;
+
+    // next tag: 10
+}
+
+message ApplyTargetStateEvent {
+    enum ApplyResult {
+        UNKNOWN = 0;
+        SUCCEEDED = 1;
+        FAILED = 2;
+    }
+    prodvana.desired_state.model.Identifier id = 1;
+    string desired_state_id = 6;
+    string root_desired_state_id = 7;
+    // state that prodvana runtime will immediately converge towards
+    prodvana.desired_state.model.State target = 2;
+    // current state for this entity before setting target state
+    prodvana.desired_state.model.State current = 3;
+    // whether this is part of an automated rollback action
+    bool is_auto_rollback = 4;
+    ApplyResult result = 5;
+
+    // next tag: 8
+}
+
+message ProgramExitEvent {
+    string namespace = 1;
+    string pod = 2;
+    string program = 3;  // in k8s, this is container name
+    int32 restart_count = 4;
+    string reason = 5;  // reason why process exited
+    string killed_reason = 9;  // if killed, this is the reason why it was killed (best effort)
+    int32 exit_code = 6;
+    int32 signal = 7; // signal used to terminate this process, if any
+    bytes logs = 8;
+    // next tag: 10
+}
+
+message DeliveryProgressEvent {
+    prodvana.desired_state.model.DeliveryState state = 1;
+}
+message DeliveryManualPromotionEvent {
+    prodvana.desired_state.model.DeliveryState state = 1;
+    int64 stage = 2;
+    bool full = 3;
+}
+
+message ManualApprovalEvent {
+    // Approved/rejected?
+    prodvana.desired_state.model.ManualApprovalStatus status = 1;
+    string topic = 2;
+    // Actor etc ...
+}
+
+message CustomTaskExecutionEvent {
+    bool successful = 1;
+    int32 attempts = 2;
+    string reason = 3; // Why did this job exit/fail?
+    bytes logs = 4;
+}
+
+message RuntimeObject {
+    string name = 1; // name of object as it appears in the runtime layer
+    string kind = 2;
+    string namespace = 3; // optional, depends on if runtime has support for it
+    string url = 4; // optional, depends on if there is a unique URL to view this object.
+}
+
+message RuntimeUpdateEvent {
+    enum RuntimeAction {
+        UNKNOWN = 0;
+        CREATE_OR_UPDATE = 1;
+        WAIT_HEALTHY = 2;
+    }
+    RuntimeAction action = 1;
+    RuntimeObject object = 2;
+    enum RuntimeStatus {
+        RUNTIME_STATUS_UNKNOWN = 0;
+        PENDING = 1;
+        SUCCESS = 2;
+        FAILURE = 3;
+    }
+    RuntimeStatus status = 3;
+}
+
+message DesiredStateStatusChangeEvent {
+    prodvana.desired_state.model.Identifier id = 1;
+    string desired_state_id = 2;
+    string root_desired_state_id = 3;
+    prodvana.desired_state.model.Status old_status = 4;
+    prodvana.desired_state.model.Status new_status = 5;
+}
+
+message EventDetails {
+    oneof details {
+        SetDesiredStateEvent set_desired_state = 1;
+        SetTargetStateEvent set_target_state = 2;
+        ProgramExitEvent program_exit = 3;
+        ApplyTargetStateEvent apply_target_state = 4;
+        ManualApprovalEvent manual_approval = 6;
+        CustomTaskExecutionEvent custom_task_execution = 7;
+        RuntimeUpdateEvent runtime_update = 8;
+        DeliveryProgressEvent delivery_progress = 9;
+        DeliveryManualPromotionEvent delivery_promotion = 10;
+        DesiredStateStatusChangeEvent desired_state_status_change = 11;
+    }
+    reserved 5;
+}

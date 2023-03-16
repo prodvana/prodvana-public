@@ -1,0 +1,26 @@
+syntax = "proto3";
+package prodvana.insights;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/insights";
+
+enum Class {
+    UNKNOWN = 0;
+    SUCCESSFUL_DEPLOYMENT_FREQUENCY_DECREASE = 1;
+    DEPLOYMENT_FAILURE_RATE_INCREASE = 2;
+    MEDIAN_SUCCESSFUL_DEPLOYMENT_DURATION_INCREASE = 3;
+    MEDIAN_SUCCESSFUL_ROLLBACK_DURATION_INCREASE = 4;
+}
+
+message Insight {
+    message Subject {
+        string id = 1;
+        string name = 2;
+    }
+    string title = 1;
+    string description = 2;
+    Class class = 6;
+    oneof subject_oneof {
+        Subject service = 3;
+        Subject application = 4;
+        Subject organization = 5;
+    }
+}

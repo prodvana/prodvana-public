@@ -1,0 +1,70 @@
+syntax = "proto3";
+package prodvana.settings.organization;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/settings/organization";
+import "google/api/annotations.proto";
+import "prodvana/users/users.proto";
+
+message SettingsUser {
+    prodvana.users.User user = 1;
+    repeated string roles = 2;
+}
+
+message GetUserReq {
+    string user_id = 1;
+}
+
+message GetUserResp {
+    SettingsUser user = 1;
+}
+
+message ListRolesReq {
+}
+
+message RoleDefinition {
+    string name = 1;
+    string description = 2;
+}
+
+message ListRolesResp {
+    repeated RoleDefinition roles = 1;
+}
+
+message ListUsersReq {
+    string page_token = 1;
+    int32 page_size = 2;
+}
+
+message ListUsersResp {
+    repeated SettingsUser users = 1;
+    string next_page_token = 2;
+}
+
+message SetRolesReq {
+    string user_id = 1;
+    repeated string roles = 2;
+}
+
+message SetRolesResp {}
+
+service UsersSettingsManager {
+    rpc GetUser (GetUserReq) returns (GetUserResp) {
+        option (google.api.http) = {
+            get: "/v1/settings/organization/users/{user_id}"
+        };
+    }
+    rpc ListUsers (ListUsersReq) returns (ListUsersResp) {
+        option (google.api.http) = {
+            get: "/v1/settings/organization/users"
+        };
+    }
+    rpc ListRoles (ListRolesReq) returns (ListRolesResp) {
+        option (google.api.http) = {
+            get: "/v1/settings/organization/roles"
+        };
+    }
+    rpc SetRoles (SetRolesReq) returns (SetRolesResp) {
+        option (google.api.http) = {
+            post: "/v1/settings/organization/users/{user_id}/roles"
+        };
+    }
+}

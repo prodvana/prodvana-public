@@ -1,0 +1,448 @@
+syntax = "proto3";
+package prodvana.workflow;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/workflow";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/common_config/program.proto";
+import "prodvana/common_config/env.proto";
+import "validate/validate.proto";
+import "prodvana/repo/repo.proto";
+
+enum RegistryType {
+  UNKNOWN = 0;
+  DOCKER_REGISTRY = 1;
+  ECR = 2;
+}
+
+enum RegistryStatus {
+  UNDEFINED = 0;
+  CONNECTED = 1;
+  FAILED = 2; // Augment/replace with UNAUTHENTICATED, UNAVAILABLE, ... in the future
+}
+
+message RegistryImage {
+  google.protobuf.Timestamp created = 2;
+  string url = 3;
+  string tag = 5;
+  prodvana.repo.Commit commit = 6;
+
+  reserved "digest", "tags";
+  reserved 1, 4;
+}
+
+message CreateContainerRegistryIntegrationReq {
+  string name = 6 [
+    (validate.rules).string = {
+        min_len: 1,
+        max_len: 63,
+        pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+    }
+  ];  // readable name for this registry
+  string url = 1;
+  string username = 2;
+  string secret = 3;
+  RegistryType type = 4;
+
+  message ECROptions {
+    string access_key = 1;
+    string secret_key = 2;
+    string region = 3;
+    string role_arn = 4;
+  }
+
+  message PublicRegistryOptions {
+  }
+
+  oneof registry_options {
+    ECROptions ecr_options = 5;
+    PublicRegistryOptions public_registry_options = 7;
+  }
+
+  // next tag: 8
+}
+
+message CreateContainerRegistryIntegrationRes {
+  string integration_id = 1;
+}
+
+message ListContainerRegistryIntegrationsReq {
+  // if true, verifies connection to registry
+  bool fetch_status = 1;
+}
+
+message ListContainerRegistryIntegrationsResp {
+  message ECRInfo {
+    string region = 1;
+  }
+
+  message ContainerRegistryIntegrationInfo {
+    string integration_id = 1;
+    string name = 8;
+    string url = 2;
+    string type = 5; // Implicit from registry_info below
+    RegistryStatus status = 6;
+
+    oneof registry_info {
+      ECRInfo ecr_info = 7;
+    }
+
+    reserved 3, 4;
+    reserved "username", "masked_secret";
+
+    // next tag: 9
+  }
+  repeated ContainerRegistryIntegrationInfo container_registries = 1;
+}
+
+message GetContainerRegistryImagesReq {
+  string integration_id = 1;
+  string image_repository = 2;
+  bool skip_registry_cache = 3;
+  string page_token = 4;
+  int32 page_size = 5;
+}
+
+message GetContainerRegistryImagesRes {
+  // will be sorted by creation time, descending
+  repeated RegistryImage images = 1;
+  string next_page_token = 2;
+}
+
+message GetProgramDefaultsReq {
+  string integration_id = 1;
+  string repository = 2;
+
+  oneof image_id_oneof {
+    string tag = 3;
+    string image = 4;
+  };
+  bool skip_registry_cache = 5;
+}
+
+// when updating this, make sure to also invalidate docker image cache warmer
+message ProgramDefaults {
+  repeated string cmd = 1;
+  repeated string entrypoint = 2;
+  map<string, prodvana.common_config.EnvValue> env = 3;
+  repeated prodvana.common_config.PortConfig ports = 4;
+}
+
+message GetProgramDefaultsResp {
+  ProgramDefaults program_defaults = 1;
+}
+
+message GetServiceImageInfoReq {
+  string service = 1;
+  repeated string versions = 2; // omit to get just the latest version
+  string application = 3;
+}
+
+message GetServiceImageInfoResp {
+  message VersionInfo {
+    string version = 1;
+    repeated ProgramInfo program_infos = 2;
+    repeated PerReleaseChannel per_release_channel = 3;
+  }
+  message ProgramInfo {
+    string image_url = 1;
+    repeated string tags = 3;
+
+    reserved "digest";
+    reserved 2;
+  }
+  message PerReleaseChannel {
+    string release_channel = 1;
+    repeated ProgramInfo program_infos = 2;
+  }
+  string service_id = 1;
+  string service_name = 2;
+  repeated VersionInfo version_infos = 3;
+}
+
+message InstallSlackReq {
+  string error = 1;
+  string code = 2;
+  string redirect_uri = 3;
+}
+
+message InstallSlackResp {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetInstallSlackUrlReq {
+}
+
+message GetInstallSlackUrlResp {
+  string url = 1;
+}
+
+message UninstallSlackReq {
+}
+
+message UninstallSlackResp {
+  bool success = 1;
+}
+
+message SlackChannel {
+  string id = 1;
+  string name = 2;
+}
+
+message InstallPagerDutyReq {
+  string error = 1;
+  string code = 2;
+  string redirect_uri = 3;
+}
+
+message InstallPagerDutyResp {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetInstallPagerDutyUrlReq {
+}
+
+message GetInstallPagerDutyUrlResp {
+  string url = 1;
+}
+
+message UninstallPagerDutyReq {
+}
+
+message UninstallPagerDutyResp {
+  bool success = 1;
+}
+
+message PagerDutyService {
+  string id = 1;
+  string name = 2;
+}
+
+message InstallGrafanaReq {
+  string url = 1 [(validate.rules).string.min_len = 1];
+  string api_token = 2 [(validate.rules).string.min_len = 1];
+}
+
+message InstallGrafanaResp {
+  string integration_id = 1;
+}
+
+message UninstallGrafanaReq {
+}
+
+message UninstallGrafanaResp {
+  string integration_id = 1;
+}
+
+// TODO(rohit): Should this get refactored into a generic GET endpoint for all types of integrations?
+message GetGrafanaInstallationReq {
+}
+
+message GetGrafanaInstallationResp {
+  string integration_id = 1;
+  string url = 2;
+}
+
+message ListHoneycombEnvironmentsReq {
+}
+
+message ListHoneycombEnvironmentsResp {
+  message HoneycombEnvironment {
+    string integration_id = 1;
+    string name = 2;
+  }
+  repeated HoneycombEnvironment environments = 1;
+}
+
+message AddHoneycombEnvironmentReq {
+  string name = 1 [(validate.rules).string.min_len = 1];
+  string api_key = 2 [(validate.rules).string.min_len = 1];
+}
+
+message AddHoneycombEnvironmentResp {
+  string integration_id = 1;
+}
+
+message UpdateHoneycombEnvironmentReq {
+  string name = 1;
+  string api_key = 2;
+}
+
+message UpdateHoneycombEnvironmentResp {
+}
+
+message DeleteHoneycombEnvironmentReq {
+  string name = 1;
+}
+
+message DeleteHoneycombEnvironmentResp {
+}
+
+message UninstallHoneycombReq {
+}
+
+message UninstallHoneycombResp {
+  repeated string integration_ids = 1;
+}
+
+message CreateGitHubAppReq {
+  int64 app_id = 1;
+  string private_key = 2;
+  string client_secret = 3;
+  string webhook_secret = 4;
+  string github_organization = 5;
+}
+
+message CreateGitHubAppResp {
+  string integration_id = 1;
+}
+
+message InstallGitHubReq {
+  int64 installation_id = 1;
+}
+
+message InstallGitHubResp {
+}
+
+message Integration {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+}
+
+message ListIntegrationsReq {
+}
+
+message ListIntegrationsResp {
+  repeated Integration integrations = 1;
+}
+
+message DeleteIntegrationReq {
+  string integration_id = 1;
+}
+
+message DeleteIntegrationResp {
+}
+
+service WorkflowManager {
+    rpc ListIntegrations(ListIntegrationsReq) returns (ListIntegrationsResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations",
+        };
+    }
+    rpc DeleteIntegration (DeleteIntegrationReq) returns (DeleteIntegrationResp) {
+      option (google.api.http) = {
+          delete: "/v1/integrations/{integration_id=*}"
+      };
+    };
+    rpc CreateContainerRegistryIntegration(CreateContainerRegistryIntegrationReq) returns (CreateContainerRegistryIntegrationRes) {
+        option (google.api.http) = {
+            post: "/v1/integrations/container-registry/create",
+            body: "*"
+        };
+    };
+    rpc ListContainerRegistryIntegrations(ListContainerRegistryIntegrationsReq) returns (ListContainerRegistryIntegrationsResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/container-registry/list",
+        };
+    }
+    rpc GetServiceImageInfo(GetServiceImageInfoReq) returns (GetServiceImageInfoResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/image",
+        };
+    };
+    rpc GetContainerRegistryImages(GetContainerRegistryImagesReq) returns (GetContainerRegistryImagesRes) {
+        option (google.api.http) = {
+            get: "/v1/integrations/{integration_id=*}/images"
+        };
+    };
+    rpc GetProgramDefaults(GetProgramDefaultsReq) returns (GetProgramDefaultsResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/{integration_id=*}/program-defaults"
+        };
+    };
+    rpc InstallSlack (InstallSlackReq) returns (InstallSlackResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/slack/install" // TODO(rohit): This should be a POST request
+        };
+    };
+    rpc UninstallSlack (UninstallSlackReq) returns (UninstallSlackResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/slack/uninstall"
+        };
+    };
+    rpc GetInstallSlackUrl (GetInstallSlackUrlReq) returns (GetInstallSlackUrlResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/slack/install-url"
+        };
+    }
+    rpc InstallPagerDuty (InstallPagerDutyReq) returns (InstallPagerDutyResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/pagerduty/install" // TODO(rohit): This should be a POST request
+        };
+    };
+    rpc GetInstallPagerDutyUrl (GetInstallPagerDutyUrlReq) returns (GetInstallPagerDutyUrlResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/pagerduty/install-url"
+        };
+    };
+    rpc UninstallPagerDuty (UninstallPagerDutyReq) returns (UninstallPagerDutyResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/pagerduty/uninstall"
+        };
+    };
+    rpc GetGrafanaInstallation (GetGrafanaInstallationReq) returns (GetGrafanaInstallationResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/grafana"
+        };
+    };
+    rpc InstallGrafana (InstallGrafanaReq) returns (InstallGrafanaResp) {
+        option (google.api.http) = {
+            post: "/v1/integrations/grafana/install",
+            body: "*"
+        };
+    };
+    rpc UninstallGrafana (UninstallGrafanaReq) returns (UninstallGrafanaResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/grafana/uninstall",
+        };
+    };
+    rpc ListHoneycombEnvironments (ListHoneycombEnvironmentsReq) returns (ListHoneycombEnvironmentsResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/honeycomb/environment"
+        };
+    };
+    rpc AddHoneycombEnvironment (AddHoneycombEnvironmentReq) returns (AddHoneycombEnvironmentResp) {
+        option (google.api.http) = {
+            post: "/v1/integrations/honeycomb/environment",
+            body: "*"
+        };
+    };
+    rpc UpdateHoneycombEnvironment (UpdateHoneycombEnvironmentReq) returns (UpdateHoneycombEnvironmentResp) {
+        option (google.api.http) = {
+            put: "/v1/integrations/honeycomb/environment/{name=*}",
+            body: "*"
+        };
+    };
+    rpc DeleteHoneycombEnvironment (DeleteHoneycombEnvironmentReq) returns (DeleteHoneycombEnvironmentResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/honeycomb/environment/{name=*}",
+        };
+    };
+    rpc UninstallHoneycomb (UninstallHoneycombReq) returns (UninstallHoneycombResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/honeycomb",
+        };
+    };
+    rpc CreateGitHubApp (CreateGitHubAppReq) returns (CreateGitHubAppResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/github/create" // TODO(rohit): This should be a POST request
+        };
+    };
+    rpc InstallGitHub (InstallGitHubReq) returns (InstallGitHubResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/github/install" // TODO(rohit): This should be a POST request
+        };
+    };
+}

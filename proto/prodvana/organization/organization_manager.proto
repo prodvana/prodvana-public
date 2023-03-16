@@ -1,0 +1,103 @@
+syntax = "proto3";
+package prodvana.organization;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/config_writeback/writeback.proto";
+import "prodvana/insights/insights.proto";
+import "prodvana/metrics/metrics.proto";
+import "prodvana/organization/user_metadata.proto";
+import "validate/validate.proto";
+
+message OrganizationInfo {
+    string id = 1;
+    string display_name = 2;
+    prodvana.config_writeback.ConfigWritebackPath writeback_config = 3;
+    string slug = 4;
+    OrganizationUserMetadata user_metadata = 5;
+}
+
+message GetOrganizationReq {}
+message GetOrganizationResp {
+    OrganizationInfo organization = 1;
+}
+
+message GetOrganizationMetricsReq {
+    google.protobuf.Timestamp start_timestamp = 1;
+    google.protobuf.Timestamp end_timestamp = 2;
+}
+
+message GetOrganizationMetricsResp {
+    prodvana.metrics.DeploymentMetrics deployment_metrics = 1;
+}
+
+message GetOrganizationInsightsReq {}
+
+message GetOrganizationInsightsResp {
+    repeated prodvana.insights.Insight insights = 1;
+}
+
+message SnoozeOrganizationInsightReq {
+    prodvana.insights.Class class = 1 [(validate.rules).enum.defined_only = true];
+    google.protobuf.Duration duration = 2 [(validate.rules).duration = {
+        required: true,
+        gt: {
+            seconds: 0,
+        }
+    }];
+}
+
+message SnoozeOrganizationInsightResp {
+}
+
+message GetOrganizationMetadataReq {
+}
+
+message GetOrganizationMetadataResp {
+    // metadata with no variables substitution, no modifications from parents
+    OrganizationUserMetadata metadata = 1;
+}
+
+message SetOrganizationMetadataReq {
+    OrganizationUserMetadata metadata = 1 [(validate.rules).message.required = true];
+}
+
+message SetOrganizationMetadataResp {
+}
+
+service OrganizationManager {
+    rpc GetOrganization (GetOrganizationReq) returns (GetOrganizationResp) {
+        option (google.api.http) = {
+            get: "/v1/organization"
+        };
+    }
+    rpc GetOrganizationMetrics(GetOrganizationMetricsReq) returns (GetOrganizationMetricsResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/metrics"
+        };
+    }
+    rpc GetOrganizationInsights(GetOrganizationInsightsReq) returns (GetOrganizationInsightsResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/insights"
+        };
+    }
+    rpc SnoozeOrganizationInsight(SnoozeOrganizationInsightReq) returns (SnoozeOrganizationInsightResp) {
+        option (google.api.http) = {
+            put: "/v1/organization/insights/snooze"
+        };
+    }
+
+     // Get org metadata, useful for constructing edit workflows for metadata
+     rpc GetOrganizationMetadata(GetOrganizationMetadataReq) returns (GetOrganizationMetadataResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/metadata"
+        };
+    }
+    rpc SetOrganizationMetadata(SetOrganizationMetadataReq) returns (SetOrganizationMetadataResp) {
+        option (google.api.http) = {
+            post: "/v1/organization/metadata"
+            body: "*"
+        };
+    }
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+
+import "prodvana/object/meta.proto";
+import "prodvana/protection/protection_config.proto";
+
+message Protection {
+    prodvana.object.ObjectMeta meta = 1;
+    ProtectionConfig config = 2;
+    // TODO: Add information about where this protection is currently used?
+}

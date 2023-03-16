@@ -1,0 +1,81 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+
+import "google/api/annotations.proto";
+import "prodvana/protection/object.proto";
+import "prodvana/protection/protection_config.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ConfigureProtectionReq {
+    ProtectionConfig protection_config = 1 [(validate.rules).message.required = true];
+    prodvana.version.Source source = 2;
+    prodvana.version.SourceMetadata source_metadata = 3;
+}
+
+message ConfigureProtectionResp {
+    string protection_id = 1;
+    string version = 2;
+}
+
+message ValidateConfigureProtectionResp {
+}
+
+message ListProtectionsReq {
+    string page_token = 1;
+    int32 page_size = 2;
+}
+
+message ListProtectionsResp {
+    repeated Protection protections = 1;
+    string next_page_token = 2;
+}
+
+message GetProtectionReq {
+    string protection = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetProtectionResp {
+    Protection protection = 1;
+}
+
+message GetProtectionConfigReq {
+    string protection = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetProtectionConfigResp {
+    ProtectionConfig config = 1;
+    string version = 2;
+}
+
+service ProtectionManager {
+    rpc ConfigureProtection (ConfigureProtectionReq) returns (ConfigureProtectionResp) {
+        option (google.api.http) = {
+            post: "/v1/protections/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureProtection (ConfigureProtectionReq) returns (ValidateConfigureProtectionResp) {
+        option (google.api.http) = {
+            post: "/v1/protections/configure/validate"
+            body: "*"
+        };
+    }
+    rpc ListProtections (ListProtectionsReq) returns (ListProtectionsResp) {
+        option (google.api.http) = {
+            get: "/v1/protections"
+        };
+    }
+    rpc GetProtection (GetProtectionReq) returns (GetProtectionResp) {
+        option (google.api.http) = {
+            get: "/v1/protections/{protection=*}"
+        };
+    }
+    rpc GetProtectionConfig (GetProtectionConfigReq) returns (GetProtectionConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/protections/{protection=*}/config"
+        };
+    }
+}

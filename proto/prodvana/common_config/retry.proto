@@ -1,0 +1,25 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+import "validate/validate.proto";
+import "google/protobuf/duration.proto";
+import "prodvana/common_config/notification.proto";
+
+message Notification {
+    NotificationConfig config_override = 1;  // will default to application's notification config
+    string message = 2 [(validate.rules).string.min_len = 1];
+}
+
+message RetryConfig {
+    oneof limit {
+        option (validate.required) = true;
+        google.protobuf.Duration max_retry_duration = 1 [(validate.rules).duration = {
+            gt: {
+                seconds: 0,
+            }
+        }];
+        bool retry_forever = 2;
+    }
+    Notification first_failure_notification = 3;
+}

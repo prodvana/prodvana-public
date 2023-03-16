@@ -1,0 +1,13 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+message VersionPushOption {
+    enum Type {
+        UNKNOWN = 0;
+        PUSH_LATEST = 1;
+        PUSH_VERSION = 2;
+    }
+    Type type = 1;
+    string version = 2;  // only valid if type = PUSH_VERSION
+}

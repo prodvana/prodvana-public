@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.organization;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization";
+import "prodvana/common_config/links.proto";
+import "validate/validate.proto";
+
+message OrganizationUserMetadata {
+    // Links that every app should get automatically
+    repeated prodvana.common_config.Link application_links = 1 [(validate.rules).repeated.items.message.required = true];
+    // Links that every service should get automatically
+    repeated prodvana.common_config.Link service_links = 2 [(validate.rules).repeated.items.message.required = true];
+
+    repeated prodvana.common_config.Link links = 3 [(validate.rules).repeated.items.message.required = true];
+}

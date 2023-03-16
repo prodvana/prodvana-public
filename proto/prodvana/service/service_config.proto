@@ -1,0 +1,242 @@
+syntax = "proto3";
+package prodvana.service;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service";
+
+import "google/protobuf/duration.proto";
+import "prodvana/capability/capability.proto";
+import "prodvana/common_config/env.proto";
+import "prodvana/common_config/maturity.proto";
+import "prodvana/common_config/program.proto";
+import "prodvana/common_config/ref.proto";
+import "prodvana/common_config/retry.proto";
+import "prodvana/delivery/delivery_config.proto";
+import "prodvana/release_channel/release_channel_config.proto";
+import "prodvana/runtimes/runtimes_config.proto";
+import "prodvana/workflow/integration_config.proto";
+import "prodvana/volumes/volumes.proto";
+import "validate/validate.proto";
+import "prodvana/protection/protection_config.proto";
+import "prodvana/protection/protection_reference.proto";
+
+message ReplicasConfig {
+    oneof config_oneof {
+        // no validations, server side has defaults
+        int32 fixed = 1;
+    }
+}
+
+message MetricAnalysis {
+    message SuccessRateConfig {
+        double min_threshold_percent = 1;
+    }
+    message LatencyConfig {
+        google.protobuf.Duration max_latency = 1;
+    }
+
+    oneof analysis_oneof {
+        SuccessRateConfig success_rate = 2;
+        LatencyConfig latency_p95 = 3;
+    }
+}
+
+message ReleaseStrategyConfig {
+    google.protobuf.Duration individual_stage_deadline = 1;  // deadline in each stage before the push is rolled back. Includes the time it takes for pods to be healthy. Defaults to 10 minutes.
+    google.protobuf.Duration automated_testing_duration = 2;  // duration of the automated testing phase, before manual approval. Defaults to 30m.
+    repeated MetricAnalysis metrics_analysis = 3;
+    bool manual_approval = 4;
+
+    // advanced settings that do not typically need to be set. Exposed mainly for testing purposes.
+    google.protobuf.Duration check_interval = 5;  // defaults to 30s
+    int32 failure_threshold = 6;  // defaults to 5
+}
+
+message TLSSecret {
+    oneof tls_secret {
+        option (validate.required) = true;
+        // Raw secret value to be used for user-editable YAML and RPC calls.
+        string raw_secret = 3;
+        // Externally stored secret.
+        prodvana.common_config.Secret secret = 4;
+    }
+}
+
+message TLSCertificate {
+    TLSSecret tls_cert = 1 [(validate.rules).message.required = true];
+    TLSSecret tls_key = 2 [(validate.rules).message.required = true];
+}
+
+message Certificate {
+    oneof certificate {
+        option (validate.required) = true;
+        TLSCertificate tls = 1;
+        string aws_acm_cert = 2;
+    }
+}
+
+message PerReleaseChannelConfig {
+    string release_channel = 1 [(validate.rules).string.min_len = 1];
+    repeated string custom_hostnames = 2 [
+        (validate.rules).repeated.items.string.hostname = true
+    ];
+
+    repeated prodvana.common_config.PerReleaseChannelProgramConfig programs = 5 [
+        (validate.rules).repeated.items.message.required = true
+    ];
+
+    Certificate cert = 6;
+    prodvana.delivery.DeliveryConfig delivery_config = 7;
+    repeated prodvana.volumes.Volume volumes = 8 [(validate.rules).repeated.items.message.required = true];
+    ReplicasConfig replicas = 9;
+
+    repeated TaskConfig pre_push_tasks = 10 [
+        (validate.rules).repeated.items.message.required = true
+    ];
+
+    RuntimeSpecificConfig runtime_specific = 11;
+
+    repeated prodvana.protection.ProtectionReference protections = 12 [(validate.rules).repeated.items.message.required = true];
+
+    reserved 3, 4;
+}
+
+message CapabilityReference {
+    string name = 1 [(validate.rules).string.min_len = 1];
+}
+
+message CompiledCapabilityConfig {
+    prodvana.capability.CapabilityConfig capability = 1;
+
+    // any extra settings present in CapabilityReference will show up here
+}
+
+message ProgramReference {
+    oneof ref {
+        option (validate.required) = true;
+        string name = 1;
+    }
+}
+
+message TaskReference {
+    oneof ref {
+        option (validate.required) = true;
+        string release_channel = 1;
+    }
+}
+
+message TaskConfig {
+    prodvana.common_config.ProgramConfig program = 1 [(validate.rules).message.required = true];
+    // optional base program to take configs from. If specified, `program` field will act
+    // like an override instead.
+    ProgramReference base_program = 2;
+
+    // if not set, the task will not be retried once it starts executing once.
+    prodvana.common_config.RetryConfig retry_config = 3;
+
+    // Instead of defining a new task, reference an existing custom task and use that. This is meant
+    // to be used in conjunection with per_release_channel to allow multiple release channels to use
+    // a single custom task. If set, the program definition is ignored except for program name.
+    TaskReference ref = 4;
+}
+
+// RuntimeSpecificConfig contains Service level configuration options that only make sense for a
+// specific Runtime type. Configuration added here should only apply to a single Service; if the
+// Runtime specific configuration relates to all services, it should be configured as at the
+// Runtime cluster level (or as a runtime extension).
+message RuntimeSpecificConfig {
+    message K8SConfig {
+            // Annotations to add to the Kubernetes Service object
+        map<string, string> service_annotations = 1;
+
+        // TODO(mike): add support for pod annotations and labels
+    }
+    oneof runtime_config {
+        K8SConfig k8s = 1;
+    }
+}
+
+message GenericRuntimeConfig {
+    // TODO(naphat) put parameters here
+}
+
+message ServiceConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+    repeated prodvana.common_config.ProgramConfig programs = 2 [
+        (validate.rules).repeated = {
+            items: {
+                message: {
+                    required: true
+                }
+            }
+        }
+    ];
+    ReplicasConfig replicas = 4;
+    ReleaseStrategyConfig release_strategy = 5;
+    repeated PerReleaseChannelConfig per_release_channel = 9 [
+        (validate.rules).repeated.items.message.required = true
+    ];
+    repeated CapabilityReference capabilities = 10 [(validate.rules).repeated.items.message.required = true];
+    prodvana.delivery.DeliveryConfig delivery_config = 11;
+    repeated prodvana.volumes.Volume volumes = 12 [(validate.rules).repeated.items.message.required = true];
+    prodvana.workflow.AnnotationsConfig deploy_annotations = 13;
+
+    prodvana.common_config.ServiceTemplateRef base_template = 14;
+
+    repeated TaskConfig pre_push_tasks = 15;
+
+    RuntimeSpecificConfig runtime_specific = 16;
+
+    repeated prodvana.protection.ProtectionReference protections = 17 [(validate.rules).repeated.items.message.required = true];
+
+    reserved 6, 7, 8;
+    reserved "external", "image_repository", "container_registry_id";
+
+    GenericRuntimeConfig generic_runtime = 18;
+
+    // next tag: 19
+}
+
+// a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
+message CompiledServiceInstanceConfig {
+    string service = 1;
+    string application = 18;
+    string release_channel = 2;
+    repeated prodvana.common_config.ProgramConfig programs = 3;
+    ReplicasConfig replicas = 4;
+    prodvana.common_config.Maturity maturity = 5;
+    ReleaseStrategyConfig release_strategy = 6;
+    repeated string custom_hostnames = 7;
+
+    Certificate cert = 10;
+
+    prodvana.release_channel.ReleaseChannelRuntimeConfig runtime = 11;
+    repeated CompiledCapabilityConfig capabilities = 12;
+    prodvana.delivery.DeliveryConfig delivery_config = 13;
+    repeated prodvana.volumes.Volume volumes = 14 [(validate.rules).repeated.items.message.required = true];
+    prodvana.workflow.AnnotationsConfig deploy_annotations = 15;
+
+    prodvana.common_config.ServiceTemplateRef base_template = 16;
+
+    repeated TaskConfig pre_push_tasks = 17;
+
+    RuntimeSpecificConfig runtime_specific = 19;
+
+    repeated prodvana.protection.ProtectionInstanceConfig protections = 20;
+
+    reserved 8, 9, 21;
+    reserved "runtime_type";
+
+    // next tag: 22
+}
+
+message CompiledJobConfig {
+    string name_prefix = 1;
+    string release_channel = 2;
+    repeated prodvana.common_config.ProgramConfig programs = 3;
+    prodvana.release_channel.ReleaseChannelRuntimeConfig runtime = 4;
+}

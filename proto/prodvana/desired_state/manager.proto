@@ -1,0 +1,204 @@
+syntax = "proto3";
+package prodvana.desired_state;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/desired_state/model/desired_state.proto";
+import "prodvana/service/service_config.proto";
+import "validate/validate.proto";
+import "prodvana/events/events.proto";
+
+message SetDesiredStateReq {
+    prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
+    // set if this is a rollback, which will generate a desired state with faster preconditions
+    bool rollback = 2;
+}
+
+message ValidateDesiredStateReq {
+    prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
+    // set if this is a rollback, which will generate a desired state with faster preconditions
+    bool rollback = 2;
+    // optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateConfigureService followed by a ValidateDesiredState
+    repeated prodvana.service.CompiledServiceInstanceConfig service_instance_configs = 3;
+}
+
+message SetDesiredStateResp {
+    string desired_state_id = 1;  // unique identifier for the desired state that was just set
+}
+
+message GetServiceDesiredStateConvergenceSummaryReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message StatusExplanations {
+    repeated prodvana.desired_state.model.StatusExplanation status_explanations = 1;
+}
+
+message DesiredStateSummary {
+    prodvana.desired_state.model.State starting_state = 1;
+    prodvana.desired_state.model.State last_seen_state = 2;
+    prodvana.desired_state.model.State desired_state = 3;
+    // status of the desired state, all its descendents, and the root desired state.
+    map<string, prodvana.desired_state.model.Status> statuses = 4;
+    google.protobuf.Timestamp creation_timestamp = 5;
+    google.protobuf.Timestamp last_update_timestamp = 6;
+    // will only be set if desired state has been replaced
+    google.protobuf.Timestamp replaced_timestamp = 7;
+    // State of all preconditions involved in the desired state.
+    // Key format - "{desired_state_id}-{index}", e.g., "des-0752d6c76a6943abbfcf0515634584ba-0".
+    map<string, prodvana.desired_state.model.ConditionState> precondition_statuses = 8;
+    map<string, StatusExplanations> status_explanations = 9;
+}
+
+message DesiredStateConvergenceDetails {
+    repeated prodvana.events.Event events = 1;
+}
+
+message GetDesiredStateConvergenceReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDesiredStateConvergenceEventsReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    string page_token = 2;
+    int32 page_size = 3;
+}
+
+message GetDesiredStateConvergenceEventsResp {
+    repeated prodvana.events.Event events = 1;
+    string next_page_token = 2;
+}
+
+message GetDesiredStateConvergenceSummaryResp {
+    DesiredStateSummary summary = 1;
+}
+
+message GetDesiredStateConvergenceDetailsResp {
+    DesiredStateSummary summary = 1;
+    DesiredStateConvergenceDetails details = 2;
+}
+
+message GetServiceDesiredStateConvergenceSummaryResp {
+    DesiredStateSummary summary = 1;
+}
+
+message GetServiceLastConvergedStateReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceLastConvergedStateResp {
+    repeated prodvana.desired_state.model.ServiceInstanceState service_instance_states = 1;
+}
+
+message GetServiceDesiredStateHistoryReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message GetServiceDesiredStateHistoryResp {
+    repeated DesiredStateSummary desired_states = 1;
+    string next_page_token = 2;
+}
+
+message GetDesiredStateReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDesiredStateResp {
+    prodvana.desired_state.model.State desired_state = 1;
+    prodvana.desired_state.model.State compiled_desired_state = 2;
+}
+
+message ValidateDesiredStateResp {
+    prodvana.desired_state.model.State desired_state = 1;
+    prodvana.desired_state.model.State compiled_desired_state = 2;
+}
+
+message SetManualApprovalReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    // string application = 2 [(validate.rules).string.min_len = 1];
+    // string service = 3 [(validate.rules).string.min_len = 1];
+    // string release_channel = 4 [(validate.rules).string.min_len = 1];
+    string topic = 2 [(validate.rules).string.min_len =1];
+    bool reject = 3;
+}
+
+message SetManualApprovalResp {
+}
+
+message PromoteDeliveryReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    int64 stage = 2;
+    bool full = 3;
+    string source = 4 [(validate.rules).string.min_len = 1];
+}
+
+message PromoteDeliveryResp {
+}
+
+service DesiredStateManager {
+    rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states"
+            body: "*"
+        };
+    }
+    rpc GetServiceDesiredStateConvergenceSummary(GetServiceDesiredStateConvergenceSummaryReq) returns (GetServiceDesiredStateConvergenceSummaryResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/latest_desired_state"
+        };
+    }
+    rpc GetServiceLastConvergedStates(GetServiceLastConvergedStateReq) returns (GetServiceLastConvergedStateResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/last_converged"
+        };
+    }
+    rpc GetServiceDesiredStateHistory(GetServiceDesiredStateHistoryReq) returns (GetServiceDesiredStateHistoryResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/desired_states"
+        };
+    }
+    rpc GetDesiredState(GetDesiredStateReq) returns (GetDesiredStateResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}"
+        };
+    }
+    rpc GetDesiredStateConvergenceSummary(GetDesiredStateConvergenceReq) returns (GetDesiredStateConvergenceSummaryResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/summary"
+        };
+    }
+    // deprecated, use GetDesiredStateConvergenceEvents in conjunction with summary
+    rpc GetDesiredStateConvergenceDetails(GetDesiredStateConvergenceReq) returns (GetDesiredStateConvergenceDetailsResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/details"
+        };
+    }
+    rpc GetDesiredStateConvergenceEvents(GetDesiredStateConvergenceEventsReq) returns (GetDesiredStateConvergenceEventsResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/events"
+        };
+    }
+    rpc ValidateDesiredState(ValidateDesiredStateReq) returns (ValidateDesiredStateResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/validate"
+            body: "*"
+        };
+    }
+    rpc SetManualApproval(SetManualApprovalReq) returns (SetManualApprovalResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/approve_manual_condition"
+            body: "*"
+        };
+    }
+    rpc PromoteDelivery(PromoteDeliveryReq) returns (PromoteDeliveryResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/promote_delivery"
+            body: "*"
+        };
+    }
+}

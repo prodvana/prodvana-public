@@ -1,0 +1,10 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+// TODO(naphat) maturity likely should not be hardcoded but be flexible per organization
+enum Maturity {
+    FAST_ITERATION = 0;
+    PRELAUNCH = 1;
+    LIVE = 2;
+}

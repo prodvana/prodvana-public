@@ -1,0 +1,18 @@
+syntax = "proto3";
+package prodvana.application;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
+import "prodvana/application/application_config.proto";
+import "prodvana/application/user_metadata.proto";
+import "prodvana/object/meta.proto";
+
+message ApplicationState {
+    reserved 1, 2;
+    reserved "is_default", "is_legacy";
+}
+
+message Application {
+    prodvana.object.ObjectMeta meta = 1;
+    ApplicationConfig config = 2;
+    ApplicationState state = 3;
+    ApplicationUserMetadata user_metadata = 4;
+}

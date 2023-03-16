@@ -1,0 +1,19 @@
+syntax = "proto3";
+package prodvana.delivery;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery";
+
+import "google/protobuf/duration.proto";
+import "validate/validate.proto";
+
+message CanaryProgress {
+    // weight to advance canary to, percentage 0-100
+    int32 canary_weight = 1 [(validate.rules).int32 = { gte: 0,  lte: 100 }];
+    // duration to pause at this weight before advancing
+    google.protobuf.Duration duration = 2;
+}
+
+message DeliveryConfig {
+    // progression of canary as delivery occurs
+    repeated CanaryProgress canary_progress = 1;
+    repeated string analysis_templates = 2;
+}

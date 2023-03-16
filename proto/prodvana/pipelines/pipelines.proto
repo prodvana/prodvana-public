@@ -1,0 +1,122 @@
+syntax = "proto3";
+package prodvana.pipelines;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pipelines";
+import "google/protobuf/duration.proto";
+import "validate/validate.proto";
+import "prodvana/common_config/program.proto";
+import "prodvana/common_config/retry.proto";
+import "prodvana/common_config/notification.proto";
+
+message PushTask {
+    // when passing as input, only specify one of service or service_id, not both
+    string service_id = 1;
+    string service = 2;
+    // when passing as input, only specify one of release_channel or release_channel_id, not both
+    string release_channel_id = 3;
+    string release_channel = 4;
+    // deprecated, set at pipeline level instead of task level
+    bool rollback = 5;
+    string application_id = 6;
+    string application = 7;
+}
+
+message WaitTask {
+    google.protobuf.Duration duration = 1 [(validate.rules).duration = {
+        required: true,
+        gt: {
+            seconds: 0,
+        }
+    }];
+}
+
+message ParallelTask {
+    message TaskTrack {
+        repeated Task tasks = 1;
+    }
+    repeated TaskTrack tracks = 1;
+}
+
+message ManualApprovalTask {
+}
+
+message CustomTask {
+    // description used for displaying this task
+    string description = 7 [(validate.rules).string.min_len = 1];
+    prodvana.common_config.ProgramConfig program = 1 [(validate.rules).message.required = true];
+
+    // if not set, the custom task will not be retried once it starts executing once.
+    prodvana.common_config.RetryConfig retry_config = 2;
+
+    // TODO(naphat) is this the best interface, or do we just take runtime + namespace?
+    string application = 3;
+    string application_id = 4;
+    string release_channel = 5;
+    string release_channel_id = 6;
+
+    // if set, treat the program as the final program, avoid any internal Prodvana compilation (e.g. setting default env from app config)
+    bool final_compiled_program = 8;
+
+    // next tag: 9
+}
+
+message Task {
+    // Metadata contains information generic to all task types.
+    // Compilation of a task can be done entirely with its metadata and specific task-type config.
+    message Metadata {
+        int32 id = 1;
+    }
+    Metadata metadata = 1;
+    oneof task_oneof {
+        option (validate.required) = true;
+        PushTask push_task = 2;
+        WaitTask wait_task = 3;
+        ParallelTask parallel_task = 4;
+        ManualApprovalTask manual_approval_task = 5;
+        CustomTask custom_task = 6;
+    }
+}
+
+message PipelineConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+    repeated Task tasks = 2 [
+        (validate.rules).repeated = {
+            min_items: 1,
+            items: {
+                message: {
+                    required: true
+                }
+            }
+        }
+    ];
+    bool rollback = 3;
+    prodvana.common_config.NotificationConfig notifications = 4;
+}
+
+// Similar to pipeline, but the task IDs and service fields are expected to not be filled out.
+message PipelineTemplate {
+    string name_suffix = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+    repeated Task tasks = 2 [
+        (validate.rules).repeated = {
+            min_items: 1,
+            items: {
+                message: {
+                    required: true
+                }
+            }
+        }
+    ];
+    bool rollback = 3;
+    prodvana.common_config.NotificationConfig notifications = 4;  // optional, will default to application's notification config
+}

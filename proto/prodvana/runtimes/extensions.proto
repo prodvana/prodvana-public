@@ -1,0 +1,12 @@
+syntax = "proto3";
+package prodvana.runtimes;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes";
+
+enum ExtensionType {
+    UNKNOWN = 0;
+    EXPOSED_SERVICE = 1;
+    TLS_SERVICE = 2;
+    COST_ANALYSIS = 3;
+    DATADOG = 4;
+	ARGO_ROLLOUTS = 5;
+}

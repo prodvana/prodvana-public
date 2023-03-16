@@ -1,0 +1,44 @@
+syntax = "proto3";
+package prodvana.metrics;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/metrics";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+message DeploymentMetrics {
+    message Deltas {
+        double total_deployments = 1;
+        double successful_deployments = 2;
+        double successful_deployments_per_day = 3;
+        double failed_deployments = 4;
+        double median_successful_deployment_duration = 5;
+        double deployment_failure_rate = 6;
+        double total_rollbacks = 7;
+        double successful_rollbacks = 8;
+        double median_successful_rollback_duration = 9;
+    }
+    message Values {
+        double total_deployments = 1;
+        double successful_deployments = 2;
+        double successful_deployments_per_day = 3;
+        double failed_deployments = 4;
+        google.protobuf.Duration median_successful_deployment_duration = 5;
+        double deployment_failure_rate = 6;
+        double total_rollbacks = 7;
+        double successful_rollbacks = 8;
+        google.protobuf.Duration median_successful_rollback_duration = 9;
+        google.protobuf.Timestamp last_successful_deployment_completion_time = 10;
+    }
+    message TimeseriesMetrics {
+        google.protobuf.Timestamp timestamp = 1;
+        double successful_deployments = 2;
+        double failed_deployments = 3;
+    }
+    Values values = 1;
+    repeated TimeseriesMetrics timeseries = 2;
+    Deltas deltas = 3;
+}
+
+message Cost {
+    bool configured = 1;
+    float cost = 2;
+}

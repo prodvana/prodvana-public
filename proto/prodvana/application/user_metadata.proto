@@ -1,0 +1,12 @@
+syntax = "proto3";
+package prodvana.application;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
+import "prodvana/common_config/links.proto";
+import "validate/validate.proto";
+
+message ApplicationUserMetadata {
+    string description = 1;
+    repeated prodvana.common_config.Link links = 2;
+    // Links that every service should get automatically
+    repeated prodvana.common_config.Link service_links = 3 [(validate.rules).repeated.items.message.required = true];
+}

@@ -1,0 +1,166 @@
+syntax = "proto3";
+package prodvana.environment;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/environment/clusters.proto";
+import "prodvana/config_writeback/writeback.proto";
+import "prodvana/version/source_metadata.proto";
+
+message LinkClusterReq {
+    string name = 1;
+    ClusterAuth auth = 2;
+    // HACK(naphat) this should never be set by users. delete once pulumi runner no longer relies on this endpoint.
+    bool prodvana_managed = 3;
+    bool disable_istio = 4;
+    bool disable_flagger = 5;
+
+    ClusterType type = 6;
+
+    prodvana.version.Source source = 7;
+    prodvana.version.SourceMetadata source_metadata = 8;
+}
+
+message LinkClusterResp {
+    // LinkCluster will attempt to talk to the cluster to validate the
+    // credentials. If it fails, want to communicate back what the failure was.
+    bool success = 1;
+    string msg = 2;
+    string cluster_id = 3;
+
+    // Magic URL to install agent
+    string k8s_agent_url = 4;
+}
+
+message RemoveClusterReq {
+    string name = 1;
+    // TODO(mike): add an option to remove by cluster_id as well?
+}
+
+message RemoveClusterResp{
+}
+
+message GetClusterAuthReq {
+    string cluster_id = 1;
+}
+
+message GetClusterAuthResp{
+    ClusterAuth auth = 1;
+}
+
+message ListClustersReq{
+}
+
+message ListClustersResp{
+    message ClusterInfo {
+        string name = 1;
+        string id = 2;
+        Cluster.Origin origin = 3;
+        string endpoint = 4;
+        string service_account = 5;
+        prodvana.config_writeback.ConfigWritebackPath writeback_config = 6;
+        ClusterType type = 7;
+
+        message EcsInfo {
+            string region = 1;
+            string cluster_arn = 2;
+        }
+        oneof info {
+            EcsInfo ecs = 8;
+        }
+
+        google.protobuf.Timestamp last_heartbeat_timestamp = 9;
+    }
+    repeated ClusterInfo clusters = 1;
+}
+
+message ConfigureClusterReq {
+    string runtime_name = 1;
+    ClusterConfig config = 2;
+    prodvana.version.Source source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
+}
+
+message ConfigureClusterResp {
+}
+
+message ValidateConfigureClusterResp {
+}
+
+message GetClusterConfigReq {
+    string runtime_name = 1;
+}
+
+message GetClusterConfigResp {
+    ClusterConfig config = 2;
+}
+
+message DetectClusterConfigReq {
+    string runtime_name = 1;
+}
+
+message DetectClusterConfigResp {
+    ClusterConfig config = 2;
+}
+
+message GetClusterStatusReq {
+    string cluster_id = 1;
+}
+
+message GetClusterStatusResp{
+    google.protobuf.Timestamp last_heartbeat_timestamp = 1;
+}
+
+service EnvironmentManager {
+    rpc LinkCluster (LinkClusterReq) returns (LinkClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/link"
+            body: "*"
+        };
+    }
+    rpc ListClusters (ListClustersReq) returns (ListClustersResp) {
+        option (google.api.http) = {
+            get: "/v1/clusters/list"
+        };
+    }
+    rpc RemoveCluster (RemoveClusterReq) returns (RemoveClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/remove"
+            body: "*"
+        };
+    }
+    rpc GetClusterAuth (GetClusterAuthReq) returns (GetClusterAuthResp) {
+        option (google.api.http) = {
+            get: "/v1/clusters/get_auth"
+        };
+    }
+    rpc GetClusterConfig(GetClusterConfigReq) returns (GetClusterConfigResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/{runtime_name=*}/config"
+            body: "*"
+        };
+    }
+    rpc DetectClusterConfig(DetectClusterConfigReq) returns (DetectClusterConfigResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/{runtime_name=*}/detect-config"
+            body: "*"
+        };
+    }
+    rpc ConfigureCluster(ConfigureClusterReq) returns (ConfigureClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureCluster(ConfigureClusterReq) returns (ValidateConfigureClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/configure/validate"
+            body: "*"
+        };
+    }
+    rpc GetClusterStatus (GetClusterStatusReq) returns (GetClusterStatusResp) {
+        option (google.api.http) = {
+            get: "/v1/clusters/get_status"
+        };
+    }
+}

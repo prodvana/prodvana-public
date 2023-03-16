@@ -1,0 +1,19 @@
+syntax = "proto3";
+package prodvana.version;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version";
+
+enum Source {
+    UNKNOWN_SOURCE = 0;
+    WEB = 1;
+    INTERACTIVE_PVNCTL = 2;
+    CONFIG_FILE = 3;
+    REPO_FOLLOW = 4;
+}
+
+// all of these fields are optional and only set if it makes sense for a given source.
+message SourceMetadata {
+    // full repo URL, like git@github.com:foo/bar.git or https://github.com/foo/bar
+    string repo_url = 1;
+    string file_path = 2;
+    string commit = 3;
+}

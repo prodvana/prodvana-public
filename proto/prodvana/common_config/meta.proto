@@ -1,0 +1,18 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+import "prodvana/object/meta.proto";
+
+// oneoff meta definitions stored here to allow referencing without import cycles
+
+// HACK(naphat) service instances do not have their own id and names today
+message ServiceInstanceObjectMeta {
+    // These metas will only have versions set if service instance has been pushed before
+    prodvana.object.ObjectMeta service_meta = 1;
+    prodvana.object.ObjectMeta release_channel_meta = 2;
+}
+
+message PipelineRunObjectMeta {
+    prodvana.object.ObjectMeta pipeline_meta = 1;
+    string run_name = 2;
+}

@@ -1,0 +1,49 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+
+import "validate/validate.proto";
+import "prodvana/common_config/task.proto";
+
+message ProtectionConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+
+    oneof exec_config {
+        option (validate.required) = true;
+
+        // Inline task config with retry, template support.
+        prodvana.common_config.TaskConfig task_config = 2;
+
+        // Other options here:
+        // - Ref to external repository of protection definitions.
+    }
+
+    // TODO: Allow Protections to declare context/parameters/inputs that need to be bound before execution.
+    // E.g., instance name for DB/bucket to be polled, duration/thresholds for post-push validation.
+    //
+    // repeated Parameter parameters = 3;
+    //
+    // message Parameter {
+    //     string key = 1; // Token used in config that needs to be replaced
+    //     string description = 2; // User-friendly description to be shown in the UI
+    //     // Type?
+    //     // Defaults?
+    //     // See https://circleci.com/docs/reusing-config/#parameter-syntax
+    // }
+}
+
+message ProtectionInstanceConfig {
+    ProtectionConfig config = 1;
+
+    // TODO: Context/parameter/input bindings.
+
+    // TODO: Protection source - where did this protection get attached from (service/app/org/...)?
+
+    // TODO: When should this protection run? Pre-push? Is it an approval? Run post-push?
+}

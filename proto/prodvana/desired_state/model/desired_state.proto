@@ -1,0 +1,332 @@
+syntax = "proto3";
+package prodvana.desired_state.model;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "prodvana/common_config/program.proto";
+import "prodvana/common_config/retry.proto";
+
+enum Type {
+    UNKNOWN = 0;
+    SERVICE = 1;
+    SERVICE_INSTANCE = 2;
+    SERVICE_GROUP = 3;
+    RUNTIME_OBJECT = 4;
+    MANUAL_APPROVAL = 5;
+    CUSTOM_TASK = 6;
+}
+
+enum CustomTaskType {
+    CUSTOM_TASK_TYPE_UNKNOWN = 0;
+    // Runs before everything else. May wait for any dependent RCs to be stable.
+    PRE_APPROVAL_TASK = 1;
+    // Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.
+    APPROVAL = 2;
+    // Runs after approval, just before service push.
+    POST_APPROVAL_TASK = 3;
+}
+
+message Condition {
+    // TODO(naphat) conditions need health
+    message ReleaseChannelStableCondition {
+        string application = 1;
+        string service = 2; // service name or id
+        string service_id = 3; // service id, normalized. Set internally by Prodvana
+        string release_channel = 4; // release channel name or id
+        string release_channel_id = 5; // release channel id, normalized. Set internally by Prodvana
+        string service_version = 6;
+    }
+
+    message ManualApproval {
+        string topic = 1;
+    }
+
+    message CustomTaskSuccessfulCondition {
+        message Protection {
+            string name = 1;
+            CustomTaskType task_type = 3;
+        }
+
+        string custom_task_name = 1;
+        oneof source {
+            Protection protection = 2;
+        }
+    }
+
+    oneof condition {
+        ReleaseChannelStableCondition rc_cond = 1;
+        ManualApproval manual_approval = 2;
+        CustomTaskSuccessfulCondition custom_task = 3;
+    }
+
+    // Generated during SetDesiredState.
+    // Do not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions.
+    string desired_state_id = 4;
+}
+
+message Identifier {
+    Type type = 1;
+    // globally unique identifier
+    string name = 2;
+}
+
+message Metadata {
+    repeated Condition preconditions = 1;
+    repeated Condition invariants = 2;
+    Identifier self = 3;
+    string desired_state_id = 4;
+    string root_desired_state_id = 5;
+}
+
+enum Status {
+    UNKNOWN_STATUS = 0;
+    CONVERGING = 1;
+    CONVERGED = 2;
+    FAILED = 3;
+    ROLLING_BACK = 4;
+    ROLLED_BACK = 5;
+    PAUSED = 6;
+    CHILD_PAUSED = 7; // entity itself not paused, but one of its children is paused, so it is not making any progress
+    WAITING_PRECONDITIONS = 8; // Waiting for non-manual approval preconditions
+    REPLACED = 9;
+    WAITING_MANUAL_APPROVAL = 10; // Waiting only for manual approval
+    DELETED = 11;
+}
+
+enum StatusReason {
+    REASON_UNKNOWN = 0;
+    // Prodvana has not fetched the data it needs to act on the entity
+    NO_CURRENT_STATE = 1;
+    // the command to apply target state failed
+    APPLY_FAILED = 2;
+    // unhealthy pods detected
+    UNHEALTHY_PODS = 3;
+    // pods are being updated
+    UPDATING_PODS = 4;
+    // no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band
+    VERSION_MISMATCH = 5;
+    // after applying successfully, the object arrived at a a failed state
+    RUNTIME_OBJECT_FAILED = 6;
+    // a precondition failed in an unrecoverable way
+    PRECONDITIONS_FAILED = 7;
+    MANUAL_APPROVAL_REJECTED = 8;
+}
+
+message StatusExplanation {
+    Identifier subject = 1;  // the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself.
+    StatusReason reason = 2;
+}
+
+message Version {
+    string service_version = 1;
+    int32 replicas = 2;
+    bool unhealthy = 3;
+    google.protobuf.Timestamp push_timestamp = 4;
+    // A version is active if it is the version in which the underlying object is converging to.
+    // A runtime object will have exactly one active version, while a service instance may have one or more
+    // depending on if it maps to more than one runtime object.
+    bool active = 5;
+}
+
+message ServiceInstanceState {
+    Metadata meta = 1;
+    string application = 2;
+    string service = 3;
+    string release_channel = 4;
+    string service_id = 8;  // set internally by prodvana
+    string release_channel_id = 9;  // set internally by prodvana
+    repeated Version versions = 5;
+    Version rollback_version = 6;
+    bool rollback = 7;
+    DeliveryState delivery = 10;
+
+    // next tag: 11
+}
+
+message ServiceState {
+    Metadata meta = 1;
+    string application = 2;
+    string service = 3;
+    string service_id = 5;  // set internally by prodvana
+    repeated ServiceInstanceState release_channels = 6;
+    // Definitions for custom tasks used by this service. Must be empty if part of service group.
+    repeated CustomTaskState custom_tasks = 7;
+    reserved 4;
+    // next tag: 8
+}
+
+message ServiceGroupState {
+    Metadata meta = 1;
+    repeated ServiceState services = 2;
+    // Definitions for custom tasks used by this service group.
+    repeated CustomTaskState custom_tasks = 3;
+}
+
+message CanaryProgressState {
+    enum Status {
+        UNKNOWN = 0;
+        PENDING = 1;
+        PAUSED = 2;
+        COMPLETED = 3;
+    }
+    Status status = 1;
+    // current canary weight
+    int32 canary_weight = 2 [(validate.rules).int32 = { gte: 0,  lte: 100 }];
+    // pause duration at this weight before advancing
+    google.protobuf.Duration duration = 3;
+    // when status = PAUSED this indicates when the pause started
+    google.protobuf.Timestamp pause_start_timestamp = 4;
+}
+
+message DeliveryState {
+    enum Status {
+        STATUS_UNKNOWN = 0;
+        STATUS_PROGRESSING = 1;
+        STATUS_PAUSED = 2;
+        STATUS_HEALTHY = 3;
+        STATUS_UNHEALTHY = 4;
+    }
+	string desired_state_id = 12;
+    // overall delivery status
+    Status status = 8;
+    // human readable message from the delivery controller
+    string message = 6;
+    // current state of all Canary progression
+    repeated CanaryProgressState canary_progress = 11;
+    bool first_run = 13;
+    // string unique to each PD controller convergence,
+    // e.g. when Argo Rollouts starts a new rollout, this will change.
+    string generation = 14;
+
+    reserved 1, 2, 3,  4, 5, 7, 9, 10;
+
+    // next: 14
+}
+
+message RuntimeObject {
+    Metadata meta = 1;
+    string object_type = 2;
+    string namespace = 3;
+    string name = 4;
+    enum Status {
+        PENDING = 0;
+        SUCCEEDED = 1;
+        FAILED = 2;
+    }
+    repeated Version versions = 5;
+    Status status = 6;
+    Version rollback_version = 7;
+    DeliveryState delivery = 8;
+    bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
+    bytes state_hash = 11; // Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)
+
+    reserved 9;
+    reserved "unhealthy_pods";
+}
+
+enum ConditionStatus {
+    CONDITION_UNKNOWN_STATUS = 0;
+    CONDITION_PENDING = 1;
+    CONDITION_SATISFIED = 2;
+    CONDITION_MANUALLY_BYPASSED = 3;
+    CONDITION_FAILED = 4;
+}
+
+message ConditionState {
+    ConditionStatus status = 1;
+}
+
+message ControlState {
+    bool rollback = 1;
+    repeated ConditionState precondition_states = 2;
+    repeated ConditionState invariant_states = 3;
+    // An entity is paused if itself or any of its ancestors have paused field set.
+    // Unlike rollback, this field does not get propagated to children.
+    // Doing so would make to differentiate unpausing vs. the field not being set,
+    // especially if pausing can happen at any layer.
+    bool paused = 4;
+
+    // explanation for current status, will have more than one in the event multiple children have the same status
+    repeated StatusExplanation status_explanations = 5;
+}
+
+enum ManualApprovalStatus {
+    PENDING = 0;
+    APPROVED = 1;
+    REJECTED = 2;
+}
+
+message ManualApprovalState {
+    Metadata meta = 1;
+    ManualApprovalStatus status = 2;
+    string topic = 3;
+}
+
+message State {
+    oneof state_oneof {
+        ServiceState service = 1;
+        ServiceInstanceState service_instance = 2;
+        ServiceGroupState service_group = 3;
+    }
+}
+
+message Annotations {
+    message Annotation {
+        string key = 1;
+        string value = 2;
+    }
+    repeated Annotation annotations = 1;
+}
+
+enum CustomTaskStatus {
+    CUSTOM_TASK_PENDING = 0;
+    CUSTOM_TASK_SUCCESSFUL = 1;
+    CUSTOM_TASK_RETRIES_EXHAUSTED = 2;
+    CUSTOM_TASK_TIMED_OUT = 3;
+}
+
+message CustomTaskExecutionState {
+    CustomTaskStatus status = 1;
+    int64 attempts = 2;
+    google.protobuf.Timestamp latest_attempt_end_timestamp = 3;
+}
+
+message CustomTaskState {
+    Metadata meta = 1;
+    string name = 2 [(validate.rules).string.min_len = 1];
+    string description = 3 [(validate.rules).string.min_len = 1];
+    string application = 4;
+    string application_id = 5;
+    string release_channel = 6;
+    string release_channel_id = 7;
+
+    prodvana.common_config.ProgramConfig program = 9 [(validate.rules).message.required = true];
+    CustomTaskExecutionState task_state = 12;
+    // if not set, the custom task will not be retried once it starts executing once.
+    prodvana.common_config.RetryConfig retry_config = 13;
+
+    repeated string service_ids = 14;
+
+    reserved 8, 10, 11;
+}
+
+enum SignalType {
+    SIGNAL_UNKNOWN = 0;
+    DELIVERY_PROMOTION = 1;
+}
+
+message Signal {
+    SignalType type = 1;
+
+    message DeliveryPromotionConfig {
+        // which canary progress stage to promote
+        int64 stage = 1;
+        // when true, indicates delivery should be promoted fully, e.g. 100%
+        bool full = 2;
+    }
+
+    oneof config {
+        DeliveryPromotionConfig delivery_promotion = 2;
+    }
+}

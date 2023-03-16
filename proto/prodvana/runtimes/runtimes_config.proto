@@ -1,0 +1,18 @@
+syntax = "proto3";
+package prodvana.runtimes;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes";
+
+message K8SRuntimeInitializationConfig {
+    string agent_image = 1;
+    string auth_token = 3;
+    bool use_resource_default = 4;
+    string interaction_server_address = 5;
+    reserved 2;
+    reserved "apiserver_address";
+}
+
+message RuntimeInitializationConfig {
+    oneof runtime_specific {
+        K8SRuntimeInitializationConfig k8s = 1;
+    }
+}

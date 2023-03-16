@@ -1,0 +1,21 @@
+syntax = "proto3";
+package prodvana.repo;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/repo";
+
+message User {
+    string name = 1;
+    string email = 2;
+}
+
+message Commit {
+    string commit_id = 1;
+    string url = 2;
+    string message = 3;
+    User author = 4;
+    // TODO: Other fields, like author, timestamps etc
+}
+
+message FuzzyCommit {
+    string commit_ish = 1;
+    string source = 2;
+}

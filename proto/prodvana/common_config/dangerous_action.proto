@@ -1,0 +1,8 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+message DangerousAction {
+    string id = 1;
+    string explanation = 2;
+}

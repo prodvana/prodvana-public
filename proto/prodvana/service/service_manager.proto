@@ -1,0 +1,311 @@
+syntax = "proto3";
+package prodvana.service;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/service/service_config.proto";
+import "prodvana/service/user_metadata.proto";
+import "prodvana/service/object.proto";
+import "prodvana/stat/efficiency.proto";
+import "prodvana/metrics/metrics.proto";
+import "prodvana/insights/insights.proto";
+import "prodvana/repo/repo.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ConfigureServiceReq {
+    ServiceConfig service_config = 1 [(validate.rules).message.required = true];
+    // If set, only configure changes in these release channels.
+    repeated string release_channels = 2;
+
+    // skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults
+    bool test_only_skip_registry_check = 4;
+
+    // TODO(naphat) add validation to application fields once pvnctl is updated everywhere.
+    string application = 5;
+
+    prodvana.version.Source source = 6;
+    prodvana.version.SourceMetadata source_metadata = 7;
+
+    reserved 3;
+    reserved "compute_efficiency";
+}
+
+message ConfigureServiceResp {
+    string service_id = 1;
+    string version = 2;
+
+    // only set if compute_efficiency was set in request
+    stat.EfficiencyStat efficiency_stat = 3;
+}
+
+message ValidateConfigureServiceResp {
+    ServiceConfig config = 1;  // config as passed in by user
+    ServiceConfig compiled_config = 2;  // config with defaults applied
+    string app_version = 3; // the app version that is used for validation
+    repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
+}
+
+message PushHistoryReq {
+    string service = 1 [(validate.rules).string.min_len = 1];
+    string release_channel = 2 [(validate.rules).string.min_len = 1];
+    string application = 3;
+}
+
+message PushHistoryResp {
+    repeated Push pushes = 1;
+}
+
+message GetPushReq {
+    string service = 1 [(validate.rules).string.min_len = 1];
+    string release_channel = 2 [(validate.rules).string.min_len = 1];
+    google.protobuf.Timestamp creation_timestamp = 3;
+    string application = 4;
+}
+
+message GetServiceConfigReq {
+    string service = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+    string application = 3;
+}
+
+message GetServiceConfigResp {
+    ServiceConfig config = 1;  // config as passed in by user
+    string version = 2;
+    ServiceConfig compiled_config = 3;  // config with defaults applied
+    repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
+}
+
+message DeleteServiceReq {
+    string service = 1 [(validate.rules).string.min_len = 1];
+    string application = 2;
+}
+
+message DeleteServiceResp {
+}
+
+message ListServicesReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    bool detailed = 2; // if not set, only meta without version is returned
+}
+
+message ListServicesResp {
+    repeated Service services = 1;
+}
+
+message GetServiceReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceResp {
+    Service service = 1;
+}
+
+message ListServiceInstancesReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message ListServiceInstancesResp {
+    repeated ServiceInstance service_instances = 1;
+}
+
+message GetServiceInstanceReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string release_channel = 3 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceInstanceResp {
+    ServiceInstance service_instance = 1;
+}
+
+message GetServiceMetricsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    google.protobuf.Timestamp start_timestamp = 3;
+    google.protobuf.Timestamp end_timestamp = 4;
+    bool include_cost = 5;
+}
+
+message GetServiceMetricsResp {
+    prodvana.metrics.DeploymentMetrics deployment_metrics = 1;
+    prodvana.metrics.Cost cost = 2;
+}
+
+message GetServiceInsightsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message ListCommitsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message ListCommitsResp {
+    repeated prodvana.repo.Commit commits = 1;
+    string next_page_token = 2;
+}
+
+message GetServiceInsightsResp {
+    repeated prodvana.insights.Insight insights = 1;
+}
+
+message SnoozeServiceInsightReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    prodvana.insights.Class class = 3 [(validate.rules).enum.defined_only = true];
+    google.protobuf.Duration duration = 4 [(validate.rules).duration = {
+        required: true,
+        gt: {
+            seconds: 0,
+        }
+    }];
+}
+
+message SnoozeServiceInsightResp {
+}
+
+message GetServiceMetadataReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceMetadataResp {
+    // metadata with no variables substitution, no modifications from parents
+    ServiceUserMetadata metadata = 1;
+}
+
+message SetServiceMetadataReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    ServiceUserMetadata metadata = 3 [(validate.rules).message.required = true];
+}
+
+message SetServiceMetadataResp {
+}
+
+message ListServiceVersionsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message ListServiceVersionsResp {
+    message VersionMetadata {
+        string version = 1;
+        google.protobuf.Timestamp creation_timestamp = 2;
+    }
+    repeated VersionMetadata versions = 1;
+    string next_page_token = 2;
+}
+
+service ServiceManager {
+    rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
+        option (google.api.http) = {
+            post: "/v1/{application=*}/services/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureService (ConfigureServiceReq) returns (ValidateConfigureServiceResp) {
+        option (google.api.http) = {
+            post: "/v1/{application=*}/services/configure/validate"
+            body: "*"
+        };
+    }
+    rpc PushHistory(PushHistoryReq) returns (PushHistoryResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/instances/{release_channel=*}/pushes"
+        };
+    }
+    rpc GetPush(GetPushReq) returns (Push) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/instances/{release_channel=*}/pushes/{creation_timestamp=*}"
+        };
+    }
+    rpc GetServiceConfig(GetServiceConfigReq) returns (GetServiceConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/config"
+        };
+    }
+    rpc ListServiceVersions(ListServiceVersionsReq) returns (ListServiceVersionsResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/versions"
+        };
+    }
+    rpc DeleteService(DeleteServiceReq) returns (DeleteServiceResp) {
+        option (google.api.http) = {
+            delete: "/v1/{application=*}/services/{service=*}/delete"
+        };
+    }
+
+    rpc ListServices(ListServicesReq) returns (ListServicesResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services"
+        };
+    }
+    // identical to ListServices, kept around for compatibility purposes
+    rpc ListServicesV2(ListServicesReq) returns (ListServicesResp) {
+    }
+    rpc ListCommits(ListCommitsReq) returns (ListCommitsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/commits"
+        };
+    }
+    rpc GetService(GetServiceReq) returns (GetServiceResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}"
+        };
+    }
+    // identical to GetService, kept around for compatibility purposes
+    rpc GetServiceV2(GetServiceReq) returns (GetServiceResp) {
+    }
+    rpc ListServiceInstances(ListServiceInstancesReq) returns (ListServiceInstancesResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/release-channels"
+        };
+    }
+    // identical to ListServiceInstances, kept around for compatibility purposes
+    rpc ListServiceInstancesV2(ListServiceInstancesReq) returns (ListServiceInstancesResp) {
+    }
+    rpc GetServiceInstance(GetServiceInstanceReq) returns (GetServiceInstanceResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/release-channels/{release_channel=*}"
+        };
+    }
+    // identical to GetServiceInstance, kept around for compatibility purposes
+    rpc GetServiceInstanceV2(GetServiceInstanceReq) returns (GetServiceInstanceResp) {
+    }
+    rpc GetServiceMetrics(GetServiceMetricsReq) returns (GetServiceMetricsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/metrics"
+        };
+    }
+    rpc GetServiceInsights(GetServiceInsightsReq) returns (GetServiceInsightsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/insights"
+        };
+    }
+    rpc SnoozeServiceInsight(SnoozeServiceInsightReq) returns (SnoozeServiceInsightResp) {
+        option (google.api.http) = {
+            put: "/v1/applications/{application=*}/services/{service=*}/insights/snooze"
+        };
+    }
+    rpc GetServiceMetadata(GetServiceMetadataReq) returns (GetServiceMetadataResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/metadata"
+        };
+    }
+    rpc SetServiceMetadata(SetServiceMetadataReq) returns (SetServiceMetadataResp) {
+        option (google.api.http) = {
+            post: "/v1/applications/{application=*}/services/{service=*}/metadata"
+            body: "*"
+        };
+    }
+}

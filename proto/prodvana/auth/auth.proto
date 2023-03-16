@@ -1,0 +1,22 @@
+syntax = "proto3";
+package prodvana.auth;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/auth";
+
+message AuthToken {
+    string token = 1;
+}
+
+message AuthContext {
+    AuthToken auth_token = 1;
+    string api_token = 2;
+    string addr = 3;
+}
+
+message Session {
+    map<string, AuthContext> contexts = 3;
+    string current_context = 4;
+    map<string, AuthContext> admin_contexts = 5;
+    string current_admin_context = 6;
+    reserved 1, 2;
+    reserved "auth_token", "api_token";
+}

@@ -1,0 +1,177 @@
+syntax = "proto3";
+package prodvana.application;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "prodvana/application/application_config.proto";
+import "prodvana/application/object.proto";
+import "prodvana/application/user_metadata.proto";
+import "prodvana/common_config/dangerous_action.proto";
+import "prodvana/metrics/metrics.proto";
+import "prodvana/insights/insights.proto";
+import "prodvana/object/meta.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ListApplicationsReq {
+    bool detailed = 1; // if not set, only meta without version is returned
+}
+
+message ListApplicationsResp {
+    repeated Application applications = 1;
+}
+
+message GetApplicationReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetApplicationResp {
+    Application application = 1;
+}
+
+message ConfigureApplicationReq {
+    ApplicationConfig application_config = 1 [(validate.rules).message.required = true];
+    repeated string approved_dangerous_action_ids = 2;
+    prodvana.version.Source source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
+}
+
+message ConfigureApplicationResp {
+    prodvana.object.ObjectMeta meta = 1;
+}
+
+message ValidateConfigureApplicationResp {
+    ApplicationConfig config = 1;  // config as passed in by user
+    ApplicationConfig compiled_config = 2;  // config with defaults applied
+    repeated prodvana.common_config.DangerousAction dangerous_actions = 3;
+}
+
+message GetApplicationConfigReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetApplicationConfigResp {
+    ApplicationConfig config = 1;  // config as passed in by user
+    string version = 2;
+    ApplicationConfig compiled_config = 3;  // config with defaults applied
+}
+
+message DeleteApplicationReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+}
+
+message DeleteApplicationResp {
+}
+
+message GetApplicationMetricsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    google.protobuf.Timestamp start_timestamp = 2;
+    google.protobuf.Timestamp end_timestamp = 3;
+}
+
+message GetApplicationMetricsResp {
+    prodvana.metrics.DeploymentMetrics deployment_metrics = 1;
+}
+
+message GetApplicationInsightsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetApplicationInsightsResp {
+    repeated prodvana.insights.Insight insights = 1;
+}
+
+message SnoozeApplicationInsightReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    prodvana.insights.Class class = 2 [(validate.rules).enum.defined_only = true];
+    google.protobuf.Duration duration = 3 [(validate.rules).duration = {
+        required: true,
+        gt: {
+            seconds: 0,
+        }
+    }];
+}
+
+message SnoozeApplicationInsightResp {
+}
+
+message GetApplicationMetadataReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetApplicationMetadataResp {
+    // metadata with no variables substitution, no modifications from parents
+    ApplicationUserMetadata metadata = 1;
+}
+
+message SetApplicationMetadataReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    ApplicationUserMetadata metadata = 2 [(validate.rules).message.required = true];
+}
+
+message SetApplicationMetadataResp {
+}
+
+service ApplicationManager {
+    rpc ConfigureApplication(ConfigureApplicationReq) returns (ConfigureApplicationResp) {
+        option (google.api.http) = {
+            post: "/v1/applications/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureApplication(ConfigureApplicationReq) returns (ValidateConfigureApplicationResp) {
+        option (google.api.http) = {
+            post: "/v1/applications/configure/validate"
+            body: "*"
+        };
+    }
+    rpc ListApplications(ListApplicationsReq) returns (ListApplicationsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications"
+        };
+    }
+    rpc GetApplicationConfig(GetApplicationConfigReq) returns (GetApplicationConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/config"
+        };
+    }
+    rpc GetApplication(GetApplicationReq) returns (GetApplicationResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}"
+        };
+    }
+    rpc DeleteApplication(DeleteApplicationReq) returns (DeleteApplicationResp) {
+        option (google.api.http) = {
+            delete: "/v1/{application=*}/delete"
+        };
+    }
+    rpc GetApplicationMetrics(GetApplicationMetricsReq) returns (GetApplicationMetricsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/metrics"
+        };
+    }
+    rpc GetApplicationInsights(GetApplicationInsightsReq) returns (GetApplicationInsightsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/insights"
+        };
+    }
+    rpc SnoozeApplicationInsight(SnoozeApplicationInsightReq) returns (SnoozeApplicationInsightResp) {
+        option (google.api.http) = {
+            put: "/v1/applications/{application=*}/insights/snooze"
+        };
+    }
+    // Get application metadata, useful for constructing edit workflows for metadata
+    rpc GetApplicationMetadata(GetApplicationMetadataReq) returns (GetApplicationMetadataResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/metadata"
+        };
+    }
+    rpc SetApplicationMetadata(SetApplicationMetadataReq) returns (SetApplicationMetadataResp) {
+        option (google.api.http) = {
+            post: "/v1/applications/{application=*}/metadata"
+            body: "*"
+        };
+    }
+}

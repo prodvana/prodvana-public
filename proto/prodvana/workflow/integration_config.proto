@@ -1,0 +1,33 @@
+syntax = "proto3";
+package prodvana.workflow;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/workflow";
+import "validate/validate.proto";
+
+message AlertingConfig {
+    message PagerDuty {
+        string service = 1 [(validate.rules).string.min_len = 1];
+    }
+    PagerDuty pagerduty = 1;
+}
+
+message AnnotationsConfig {
+    message Honeycomb {
+        string environment = 1 [(validate.rules).string.min_len = 1];
+        string dataset =  2;
+    }
+    Honeycomb honeycomb = 1;
+}
+
+message TokenConfig {
+    string token_secret_key = 1;
+    string token_secret_version = 2;
+}
+
+message IntegrationConfig {
+    oneof config_oneof {
+        option (validate.required) = true;
+        TokenConfig slack_config = 1;
+        TokenConfig pagerduty_config = 2;
+    }
+    reserved 3;
+}

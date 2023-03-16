@@ -1,0 +1,165 @@
+syntax = "proto3";
+package prodvana.agent;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/agent";
+import "google/api/visibility.proto";
+import "google/protobuf/timestamp.proto";
+
+message HeartbeatReq {
+    string cluster_id = 1;
+    // TODO(naphat) there needs to be some auth/id for agent
+}
+
+message HeartbeatResp {
+}
+
+message RecordNewUnknownPushReq {
+    string release_channel_id = 1;
+    string service_id = 2;
+    string cluster_id = 3;
+    google.protobuf.Timestamp creation_timestamp = 4;
+}
+
+message RecordNewUnknownPushResp {
+}
+
+message RecordPushStartReq {
+    string release_channel_id = 1;
+    string service_id = 2;
+    google.protobuf.Timestamp creation_timestamp = 5;
+    string cluster_id = 3;
+    google.protobuf.Timestamp start_timestamp = 4;
+}
+
+message RecordPushStartResp {
+}
+
+message RecordPushOngoingReq {
+    string release_channel_id = 1;
+    string service_id = 2;
+    google.protobuf.Timestamp creation_timestamp = 4;
+    string cluster_id = 3;
+}
+
+message RecordPushOngoingResp {
+}
+
+message RecordPushCompleteReq {
+    enum Type {
+        UNKNOWN = 0;
+        SUCCEEDED = 1;
+        ROLLED_BACK = 2;
+    }
+    string release_channel_id = 1;
+    string service_id = 2;
+    google.protobuf.Timestamp creation_timestamp = 5;
+    string cluster_id = 3;
+    Type type = 4;
+}
+
+message RecordPushCompleteResp {
+}
+
+message ConfirmPushApprovalReq {
+    string release_channel_id = 1;
+    string service_id = 2;
+    google.protobuf.Timestamp creation_timestamp = 4;
+    string cluster_id = 3;
+}
+
+message ConfirmPushApprovalResp {
+    bool approved = 1;
+}
+
+enum InformerAction {
+    ADD = 0;
+    UPDATE = 1;
+    DELETE = 2;
+}
+
+message RecordPodReq {
+    bytes pod = 1;
+    InformerAction action = 2;
+    string runtime_id = 3;
+}
+
+message RecordPodResp {
+}
+
+message RecordPodsReq {
+    repeated bytes pods = 1;
+    string runtime_id = 2;
+    // If we're running into perf/size limits with number of pods in a service, add "shard"/"count" fields
+    // to overwrite a determinstic slice of pods.
+}
+
+message RecordPodsResp {
+}
+
+message RecordDeploymentReq {
+    bytes deployment = 1;
+    InformerAction action = 2;
+}
+
+message RecordDeploymentResp {
+    google.protobuf.Timestamp push_timestamp = 1;
+}
+
+message RecordRolloutReq {
+    bytes rollout = 1;
+    InformerAction action = 2;
+}
+
+message RecordRolloutResp {
+    google.protobuf.Timestamp push_timestamp = 1;
+}
+
+message ProxyAPIServerReq {
+    oneof msg {
+        string runtime_id = 1; // Header
+        bytes blob = 2; // Everything after header
+    }
+}
+
+message ProxyAPIServerResp {
+    enum Type {
+        UNKNOWN = 0;
+        PROXY_APISERVER = 1;
+        // More operations like docker registry interactions
+    }
+
+    oneof msg {
+        Type type = 1; // Header
+        bytes blob = 2;
+    }
+}
+
+message DebugInfo {
+    string error = 1;  // set only if there's any error running debug commands
+    string tcptraceroute_out = 2;
+}
+
+message ReportDebugInfoReq {
+    string runtime_id = 1;
+    DebugInfo info = 2;
+}
+
+message ReportDebugInfoResp {
+}
+
+service AgentInteraction {
+    option (google.api.api_visibility).restriction = "INTERNAL";
+    rpc Heartbeat (HeartbeatReq) returns (HeartbeatResp) {}
+    rpc ConfirmPushApproval(ConfirmPushApprovalReq) returns (ConfirmPushApprovalResp) {}
+    rpc RecordNewUnknownPush(RecordNewUnknownPushReq) returns (RecordNewUnknownPushResp){}
+    rpc RecordPushStart(RecordPushStartReq) returns (RecordPushStartResp){}
+    rpc RecordPushOngoing(RecordPushOngoingReq) returns (RecordPushOngoingResp) {}
+    rpc RecordPushComplete(RecordPushCompleteReq) returns (RecordPushCompleteResp) {}
+    rpc RecordPod(RecordPodReq) returns (RecordPodResp) {}
+    // Dump a snapshot of all pods for a service. Can potentially contain multiple services, or all services.
+    // Guaranteed to contain all pods for one service.
+    rpc RecordPods(RecordPodsReq) returns (RecordPodsResp) {}
+    rpc RecordDeployment(RecordDeploymentReq) returns (RecordDeploymentResp) {}
+    rpc RecordRollout(RecordRolloutReq) returns (RecordRolloutResp) {}
+    rpc ProxyAPIServer(stream ProxyAPIServerReq) returns (stream ProxyAPIServerResp) {}
+    rpc ReportDebugInfo(ReportDebugInfoReq) returns (ReportDebugInfoResp) {}
+}

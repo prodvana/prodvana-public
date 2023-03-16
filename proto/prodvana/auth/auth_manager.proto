@@ -1,0 +1,109 @@
+syntax = "proto3";
+package prodvana.auth;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/auth";
+import "google/api/annotations.proto";
+import "prodvana/auth/auth.proto";
+import "prodvana/users/users.proto";
+
+message GetTokenRequest {
+    string code = 1;
+    string redirect_url = 2;
+    bool for_cli = 3;
+}
+
+message GetAuthUrlResponse {
+    string auth_url = 1;
+}
+
+message GetAuthUrlRequest {
+    string state = 2;
+    bool for_cli = 3;
+    string invitation = 4; // optional invitation id for the invite flow
+    // generate an auth url without passing this cluster's default org_id
+    bool no_org = 5;
+    reserved 1;
+    reserved "redirect_url";
+}
+
+message CliAuthReq {
+}
+
+message CliAuthResp {
+    message UserPrompt {
+        string user_code = 1;
+        string verification_uri = 2;
+        string verification_uri_complete = 3;
+    }
+    oneof resp_oneof {
+        UserPrompt user_prompt = 1;
+        AuthToken token = 2;
+    }
+}
+
+message RefreshTokenReq {
+    AuthToken token = 1;
+    bool for_cli = 2;
+}
+
+message GetAuthTokenResp {
+    AuthToken token = 1;
+    prodvana.users.User user = 2;
+}
+
+service AuthManager {
+    // web auth flow
+    // TODO(naphat) we should make this only available to our UI app
+    rpc GetAuthToken (GetTokenRequest) returns (GetAuthTokenResp) {
+        option (google.api.http) = {
+            get: "/v1/auth/get_token"
+        };
+    }
+
+    rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse) {
+        option (google.api.http) = {
+            get: "/v1/auth/get_auth_url"
+        };
+    }
+
+    rpc RefreshToken (RefreshTokenReq) returns (GetAuthTokenResp) {
+        option (google.api.http) = {
+            post: "/v1/auth/refresh_auth_token"
+            body: "*"
+        };
+    }
+
+    // cli auth flow
+    // This returns a streaming response with exactly two items:
+    // 1. Immediately, a UserPrmopt will be returned which should then be conveyed to the user
+    // 2. Once user authenticates via a browser, a Token will be returned
+    rpc CliAuth(CliAuthReq) returns (stream CliAuthResp) {}
+}
+
+message Empty {}
+
+// unlike AuthManager, AuthSessionManager is about the current authenticated session, i.e. it requires
+// user to be authed already
+service AuthSessionManager {
+    // check if user is authenticated and token is still valid
+    rpc Check(Empty) returns (Empty) {
+        option (google.api.http) = {
+            get: "/v1/auth/session/check"
+        };
+    };
+}
+
+message CreateOrgApiTokenResp {
+    string api_token = 1;
+}
+
+service ApiTokenManager {
+    // Create an api token tied to the organization. This api token is not tied to the user in anyway,
+    // e.g. if the user is deleted, the token will continue to have access to the organization.
+    // This token currently does not expire, so be very careful with storing them.
+    rpc CreateOrgApiToken(Empty) returns (CreateOrgApiTokenResp) {
+        option (google.api.http) = {
+            post: "/v1/auth/api/create_org_token"
+            body: "*"
+        };
+    }
+}

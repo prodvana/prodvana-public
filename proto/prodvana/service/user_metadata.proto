@@ -1,0 +1,15 @@
+syntax = "proto3";
+package prodvana.service;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service";
+import "prodvana/common_config/links.proto";
+import "validate/validate.proto";
+
+message ServiceUserMetadata {
+    string description = 1;
+    repeated prodvana.common_config.Link links = 2 [(validate.rules).repeated.items.message.required = true];
+    FollowContainerRepositorySettings follow_repository = 3;
+}
+
+message FollowContainerRepositorySettings {
+    bool enabled = 1;
+}

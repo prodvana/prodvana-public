@@ -1,0 +1,49 @@
+syntax = "proto3";
+package prodvana.capability;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/capability";
+
+import "prodvana/common_config/env.proto";
+import "prodvana/pipelines/pipelines.proto";
+import "validate/validate.proto";
+
+message PerReleaseChannelCapabilityConfig {
+    string release_channel = 1 [(validate.rules).string.min_len = 1];
+
+    oneof definition_oneof {
+        option (validate.required) = true;
+        // either inline capability config definition, or reference a CapabilityInstanceDefinition
+        // on the top level application object
+        CapabilityInstanceConfig inlined = 2;
+        CapabilityInstanceRef ref = 3;
+    }
+}
+
+message CapabilityConfig {
+    string name = 1 [(validate.rules).string.min_len = 1];
+    repeated PerReleaseChannelCapabilityConfig per_release_channel = 2 [
+        (validate.rules).repeated.items.message.required = true
+    ];
+}
+
+message CapabilityInstanceConfig {
+    string name = 1;  // omit if inlined
+    // env vars to inject
+    map<string, prodvana.common_config.EnvValue> env = 2 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
+    // Tasks to inject in the pipeline, before the push of the service instance depending on this capability
+    // Custom tasks will automatically have env vars from `env` above injected.
+    // When multiple service instances reference the same capability instance, the tasks are deduped and injected
+    // before the push of the first service instance in the pipeline.
+    repeated prodvana.pipelines.Task pre_push_tasks = 3 [(validate.rules).repeated.items.message.required = true];
+}
+
+message CapabilityInstanceRef {
+    string name = 1 [(validate.rules).string.min_len = 1];
+}

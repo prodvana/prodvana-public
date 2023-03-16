@@ -1,0 +1,8 @@
+syntax = "proto3";
+package prodvana.config_writeback;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/config_writeback";
+
+message ConfigWritebackPath {
+    string display_name = 1; // short, user-readable name of what this config is. May contain spaces.
+    string display_path = 2; // will be HTTP if apiserver is configured with a http display path, otherwise will be a git ssh/local path
+}

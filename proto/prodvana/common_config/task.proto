@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+import "validate/validate.proto";
+import "prodvana/common_config/retry.proto";
+import "prodvana/common_config/program.proto";
+
+message TaskConfig {
+    ProgramConfig program = 1 [(validate.rules).message.required = true];
+
+    // If not set, the task will not be retried once it starts executing once.
+    RetryConfig retry_config = 2;
+}

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package prodvana.scm;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/scm";
+
+enum ScmType {
+    UNKNOWN = 0;
+    GITHUB = 1;
+}

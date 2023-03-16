@@ -1,0 +1,16 @@
+syntax = "proto3";
+package prodvana.release_channel;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel";
+
+import "prodvana/object/meta.proto";
+import "prodvana/release_channel/release_channel_config.proto";
+
+message ReleaseChannelState {
+    // TODO(naphat) put stuff here
+}
+
+message ReleaseChannel {
+    prodvana.object.ObjectMeta meta = 1;
+    ReleaseChannelConfig config = 2;
+    ReleaseChannelState state = 3;
+}

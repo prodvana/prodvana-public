@@ -1,0 +1,11 @@
+syntax = "proto3";
+package prodvana.stat;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/stat";
+
+message EfficiencyStat {
+    // how many lines did Prodvana save you from writing? Computed by comparing materialized yaml to proto text format
+    int32 saved_lines = 1;
+
+    // how many lines of materialized config was either added, modified, or deleted?
+    int32 materialized_lines = 2;
+}

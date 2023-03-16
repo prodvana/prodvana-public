@@ -1,0 +1,130 @@
+syntax = "proto3";
+package prodvana.managed_resource;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/managed_resource";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message ConfigureK8sClusterReq {
+    string name = 1;
+    message GcpOptions {
+        string project = 1;
+        // TODO(naphat) there should be an integrations table for this and elevate to top level data model
+        string credentials = 2;
+    }
+    message EKSOptions {
+        string access_key = 1;
+        string secret_key = 2;
+        string account_id = 3;
+        string role_arn = 4;
+    }
+    oneof cloud_provider_oneof {
+        GcpOptions gcp_options = 2;
+        EKSOptions eks_options = 7;
+    }
+
+    string instance_type = 3;
+    repeated string nodepool_zones = 4;
+    int32 node_count_per_zone = 5;
+    string region = 6;
+}
+
+message ConfigureK8sClusterResp {
+    string id = 4;
+    google.protobuf.Timestamp run_id = 1;
+    string version = 2;
+    // TODO(naphat) delete archive_url once we automate pulumi runs
+    string archive_url = 3;
+
+    // next tag: 5
+}
+
+message ManagedResource {
+    message Run {
+        string version = 1;
+        string state = 2;
+        bool terminal = 3;
+        google.protobuf.Timestamp creation_timestamp = 4;
+        google.protobuf.Timestamp last_update_timestamp = 5;
+        string message = 6;
+    }
+    string id = 1;
+    string name = 2;
+    string type = 3;
+    Run latest_run = 4;
+}
+
+message GetManagedResourceReq {
+    string managed_resource = 1;
+}
+
+message GetManagedResourceResp {
+    ManagedResource managed_resource = 1;
+}
+
+message ListManagedResourcesReq {
+}
+
+message ListManagedResourcesResp {
+    repeated ManagedResource managed_resources = 1;
+}
+
+message GetArchiveReq {
+    string managed_resource = 1;
+    string version = 2;  // default to latest version
+}
+
+message GetArchiveResp {
+    bytes bytes = 1;
+}
+
+message MarkRunDoneReq {
+    string managed_resource = 1;
+    google.protobuf.Timestamp run_id = 2;
+    bool succeeded = 3;
+    string msg = 4;
+}
+
+message MarkRunDoneResp {
+}
+
+message DeleteManagedResourceReq {
+    string managed_resource = 1;
+}
+
+message DeleteManagedResourceResp {
+    // resource ID and run ID, which can be used in conjunction with GetManagedResource to track
+    // status of deletion.
+    string id = 1;
+    google.protobuf.Timestamp run_id = 2;
+}
+
+service ResourceManager {
+    rpc ConfigureK8sCluster (ConfigureK8sClusterReq) returns (ConfigureK8sClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/managed_resources/k8s/configure"
+            body: "*"
+        };
+    }
+    rpc GetManagedResource (GetManagedResourceReq) returns (GetManagedResourceResp) {
+        option (google.api.http) = {
+            get: "/v1/managed_resources/{managed_resource=*}"
+        };
+    }
+    rpc ListManagedResources (ListManagedResourcesReq) returns (ListManagedResourcesResp) {
+        option (google.api.http) = {
+            get: "/v1/managed_resources"
+        };
+    }
+    rpc GetArchive (GetArchiveReq) returns (stream GetArchiveResp) {
+        option (google.api.http) = {
+            get: "/v1/managed_resources/{managed_resource=*}/archive/archive/archive/archive"
+        };
+    }
+    rpc DeleteManagedResource (DeleteManagedResourceReq) returns (DeleteManagedResourceResp) {
+        option (google.api.http) = {
+            delete: "/v1/managed_resources/{managed_resource=*}/delete"
+        };
+    }
+    // TODO(naphat) delete this endpoint once we automate pulumi runs
+    rpc MarkRunDone (MarkRunDoneReq) returns (MarkRunDoneResp) {}
+}

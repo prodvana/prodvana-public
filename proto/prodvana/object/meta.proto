@@ -1,0 +1,9 @@
+syntax = "proto3";
+package prodvana.object;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object";
+
+message ObjectMeta {
+    string id = 1;
+    string name = 2;
+    string version = 3;
+}

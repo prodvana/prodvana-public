@@ -1,0 +1,42 @@
+syntax = "proto3";
+package prodvana.application;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
+import "prodvana/capability/capability.proto";
+import "prodvana/common_config/notification.proto";
+import "prodvana/pipelines/pipelines.proto";
+import "prodvana/release_channel/release_channel_config.proto";
+import "prodvana/template/service.proto";
+import "prodvana/workflow/integration_config.proto";
+import "validate/validate.proto";
+
+message ApplicationConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+    repeated prodvana.release_channel.ReleaseChannelConfig release_channels = 2;
+    repeated prodvana.pipelines.PipelineTemplate pipeline_templates = 3;
+    prodvana.common_config.NotificationConfig notifications = 4;
+    prodvana.workflow.AlertingConfig alerts = 5;
+
+    // capabilities are dependencies that services in this applications can use
+    repeated prodvana.capability.CapabilityConfig capabilities = 6 [(validate.rules).repeated.items.message.required = true];
+
+    // optional capability instances that can be referenced by `capabilities`, useful to deduplication.
+    // for example, you may choose to have two database capability instances, staging and prod,
+    // and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
+    repeated prodvana.capability.CapabilityInstanceConfig capability_instances = 7 [(validate.rules).repeated.items.message.required = true];
+
+    // service templates are sets of service configurations that can be used as the base of a service.
+    // this is useful for setting default values that are kept in sync when the templates change.
+    repeated prodvana.template.ServiceTemplate service_templates = 8 [(validate.rules).repeated.items.message.required = true];
+    // if set, all services in this application will use dynamic delivery for deploys
+    bool use_dynamic_delivery = 9;
+    // if set and use_dynamic_delivery is set, transform custom tasks to DD preconditions for all services.
+    // Only used for safely migrating prime capabilities to DD.
+    // UNUSED: Remove from proto once the flag has been removed from all persisted configs.
+    bool enable_custom_tasks_dynamic_delivery = 10;
+}
