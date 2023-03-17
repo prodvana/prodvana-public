@@ -11,7 +11,6 @@ import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/release_channel/release_channel_config.proto";
-import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/workflow/integration_config.proto";
 import "prodvana/volumes/volumes.proto";
 import "validate/validate.proto";
@@ -158,6 +157,24 @@ message GenericRuntimeConfig {
     // TODO(naphat) put parameters here
 }
 
+message LocalConfig {
+    string path = 1;
+}
+
+message ExternalConfig {
+    enum Type {
+        UNKNOWN = 0;
+        KUBERNETES = 1;
+        KUSTOMIZE = 2;
+        HELM = 3;
+    }
+    Type type = 1;
+    oneof config_oneof {
+        string inlined = 2;
+        LocalConfig local = 3;
+    }
+}
+
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -196,9 +213,12 @@ message ServiceConfig {
     reserved 6, 7, 8;
     reserved "external", "image_repository", "container_registry_id";
 
-    GenericRuntimeConfig generic_runtime = 18;
+    oneof config_oneof {
+        GenericRuntimeConfig generic_runtime = 18;
+        ExternalConfig external_config = 19;
+    }
 
-    // next tag: 19
+    // next tag: 20
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
