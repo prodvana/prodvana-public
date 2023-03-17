@@ -552,6 +552,11 @@ type PerReleaseChannelConfig struct {
 	PrePushTasks    []*TaskConfig                                   `protobuf:"bytes,10,rep,name=pre_push_tasks,json=prePushTasks,proto3" json:"pre_push_tasks,omitempty"`
 	RuntimeSpecific *RuntimeSpecificConfig                          `protobuf:"bytes,11,opt,name=runtime_specific,json=runtimeSpecific,proto3" json:"runtime_specific,omitempty"`
 	Protections     []*protection.ProtectionReference               `protobuf:"bytes,12,rep,name=protections,proto3" json:"protections,omitempty"`
+	// Types that are assignable to ConfigOneof:
+	//
+	//	*PerReleaseChannelConfig_GenericRuntime
+	//	*PerReleaseChannelConfig_ExternalConfig
+	ConfigOneof isPerReleaseChannelConfig_ConfigOneof `protobuf_oneof:"config_oneof"`
 }
 
 func (x *PerReleaseChannelConfig) Reset() {
@@ -655,6 +660,43 @@ func (x *PerReleaseChannelConfig) GetProtections() []*protection.ProtectionRefer
 	}
 	return nil
 }
+
+func (m *PerReleaseChannelConfig) GetConfigOneof() isPerReleaseChannelConfig_ConfigOneof {
+	if m != nil {
+		return m.ConfigOneof
+	}
+	return nil
+}
+
+func (x *PerReleaseChannelConfig) GetGenericRuntime() *GenericRuntimeConfig {
+	if x, ok := x.GetConfigOneof().(*PerReleaseChannelConfig_GenericRuntime); ok {
+		return x.GenericRuntime
+	}
+	return nil
+}
+
+func (x *PerReleaseChannelConfig) GetExternalConfig() *ExternalConfig {
+	if x, ok := x.GetConfigOneof().(*PerReleaseChannelConfig_ExternalConfig); ok {
+		return x.ExternalConfig
+	}
+	return nil
+}
+
+type isPerReleaseChannelConfig_ConfigOneof interface {
+	isPerReleaseChannelConfig_ConfigOneof()
+}
+
+type PerReleaseChannelConfig_GenericRuntime struct {
+	GenericRuntime *GenericRuntimeConfig `protobuf:"bytes,13,opt,name=generic_runtime,json=genericRuntime,proto3,oneof"`
+}
+
+type PerReleaseChannelConfig_ExternalConfig struct {
+	ExternalConfig *ExternalConfig `protobuf:"bytes,14,opt,name=external_config,json=externalConfig,proto3,oneof"`
+}
+
+func (*PerReleaseChannelConfig_GenericRuntime) isPerReleaseChannelConfig_ConfigOneof() {}
+
+func (*PerReleaseChannelConfig_ExternalConfig) isPerReleaseChannelConfig_ConfigOneof() {}
 
 type CapabilityReference struct {
 	state         protoimpl.MessageState
@@ -1123,11 +1165,11 @@ type ExternalConfig struct {
 	unknownFields protoimpl.UnknownFields
 
 	Type ExternalConfig_Type `protobuf:"varint,1,opt,name=type,proto3,enum=prodvana.service.ExternalConfig_Type" json:"type,omitempty"`
-	// Types that are assignable to ConfigOneof:
+	// Types that are assignable to SourceOneof:
 	//
 	//	*ExternalConfig_Inlined
 	//	*ExternalConfig_Local
-	ConfigOneof isExternalConfig_ConfigOneof `protobuf_oneof:"config_oneof"`
+	SourceOneof isExternalConfig_SourceOneof `protobuf_oneof:"source_oneof"`
 }
 
 func (x *ExternalConfig) Reset() {
@@ -1169,29 +1211,29 @@ func (x *ExternalConfig) GetType() ExternalConfig_Type {
 	return ExternalConfig_UNKNOWN
 }
 
-func (m *ExternalConfig) GetConfigOneof() isExternalConfig_ConfigOneof {
+func (m *ExternalConfig) GetSourceOneof() isExternalConfig_SourceOneof {
 	if m != nil {
-		return m.ConfigOneof
+		return m.SourceOneof
 	}
 	return nil
 }
 
 func (x *ExternalConfig) GetInlined() string {
-	if x, ok := x.GetConfigOneof().(*ExternalConfig_Inlined); ok {
+	if x, ok := x.GetSourceOneof().(*ExternalConfig_Inlined); ok {
 		return x.Inlined
 	}
 	return ""
 }
 
 func (x *ExternalConfig) GetLocal() *LocalConfig {
-	if x, ok := x.GetConfigOneof().(*ExternalConfig_Local); ok {
+	if x, ok := x.GetSourceOneof().(*ExternalConfig_Local); ok {
 		return x.Local
 	}
 	return nil
 }
 
-type isExternalConfig_ConfigOneof interface {
-	isExternalConfig_ConfigOneof()
+type isExternalConfig_SourceOneof interface {
+	isExternalConfig_SourceOneof()
 }
 
 type ExternalConfig_Inlined struct {
@@ -1202,9 +1244,9 @@ type ExternalConfig_Local struct {
 	Local *LocalConfig `protobuf:"bytes,3,opt,name=local,proto3,oneof"`
 }
 
-func (*ExternalConfig_Inlined) isExternalConfig_ConfigOneof() {}
+func (*ExternalConfig_Inlined) isExternalConfig_SourceOneof() {}
 
-func (*ExternalConfig_Local) isExternalConfig_ConfigOneof() {}
+func (*ExternalConfig_Local) isExternalConfig_SourceOneof() {}
 
 type ServiceConfig struct {
 	state         protoimpl.MessageState
@@ -1423,6 +1465,11 @@ type CompiledServiceInstanceConfig struct {
 	PrePushTasks      []*TaskConfig                                `protobuf:"bytes,17,rep,name=pre_push_tasks,json=prePushTasks,proto3" json:"pre_push_tasks,omitempty"`
 	RuntimeSpecific   *RuntimeSpecificConfig                       `protobuf:"bytes,19,opt,name=runtime_specific,json=runtimeSpecific,proto3" json:"runtime_specific,omitempty"`
 	Protections       []*protection.ProtectionInstanceConfig       `protobuf:"bytes,20,rep,name=protections,proto3" json:"protections,omitempty"`
+	// Types that are assignable to ConfigOneof:
+	//
+	//	*CompiledServiceInstanceConfig_GenericRuntime
+	//	*CompiledServiceInstanceConfig_ExternalConfig
+	ConfigOneof isCompiledServiceInstanceConfig_ConfigOneof `protobuf_oneof:"config_oneof"`
 }
 
 func (x *CompiledServiceInstanceConfig) Reset() {
@@ -1582,6 +1629,43 @@ func (x *CompiledServiceInstanceConfig) GetProtections() []*protection.Protectio
 	}
 	return nil
 }
+
+func (m *CompiledServiceInstanceConfig) GetConfigOneof() isCompiledServiceInstanceConfig_ConfigOneof {
+	if m != nil {
+		return m.ConfigOneof
+	}
+	return nil
+}
+
+func (x *CompiledServiceInstanceConfig) GetGenericRuntime() *GenericRuntimeConfig {
+	if x, ok := x.GetConfigOneof().(*CompiledServiceInstanceConfig_GenericRuntime); ok {
+		return x.GenericRuntime
+	}
+	return nil
+}
+
+func (x *CompiledServiceInstanceConfig) GetExternalConfig() *ExternalConfig {
+	if x, ok := x.GetConfigOneof().(*CompiledServiceInstanceConfig_ExternalConfig); ok {
+		return x.ExternalConfig
+	}
+	return nil
+}
+
+type isCompiledServiceInstanceConfig_ConfigOneof interface {
+	isCompiledServiceInstanceConfig_ConfigOneof()
+}
+
+type CompiledServiceInstanceConfig_GenericRuntime struct {
+	GenericRuntime *GenericRuntimeConfig `protobuf:"bytes,22,opt,name=generic_runtime,json=genericRuntime,proto3,oneof"`
+}
+
+type CompiledServiceInstanceConfig_ExternalConfig struct {
+	ExternalConfig *ExternalConfig `protobuf:"bytes,23,opt,name=external_config,json=externalConfig,proto3,oneof"`
+}
+
+func (*CompiledServiceInstanceConfig_GenericRuntime) isCompiledServiceInstanceConfig_ConfigOneof() {}
+
+func (*CompiledServiceInstanceConfig_ExternalConfig) isCompiledServiceInstanceConfig_ConfigOneof() {}
 
 type CompiledJobConfig struct {
 	state         protoimpl.MessageState
@@ -1914,7 +1998,7 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x77, 0x73, 0x5f, 0x61, 0x63, 0x6d, 0x5f, 0x63, 0x65, 0x72, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
 	0x09, 0x48, 0x00, 0x52, 0x0a, 0x61, 0x77, 0x73, 0x41, 0x63, 0x6d, 0x43, 0x65, 0x72, 0x74, 0x42,
 	0x12, 0x0a, 0x0b, 0x63, 0x65, 0x72, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x65, 0x12, 0x03,
-	0xf8, 0x42, 0x01, 0x22, 0xf5, 0x05, 0x0a, 0x17, 0x50, 0x65, 0x72, 0x52, 0x65, 0x6c, 0x65, 0x61,
+	0xf8, 0x42, 0x01, 0x22, 0xa5, 0x07, 0x0a, 0x17, 0x50, 0x65, 0x72, 0x52, 0x65, 0x6c, 0x65, 0x61,
 	0x73, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x12,
 	0x30, 0x0a, 0x0f, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x63, 0x68, 0x61, 0x6e, 0x6e,
 	0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10,
@@ -1960,7 +2044,18 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
 	0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65,
 	0x6e, 0x63, 0x65, 0x42, 0x0d, 0xfa, 0x42, 0x0a, 0x92, 0x01, 0x07, 0x22, 0x05, 0x8a, 0x01, 0x02,
-	0x10, 0x01, 0x52, 0x0b, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x4a,
+	0x10, 0x01, 0x52, 0x0b, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12,
+	0x51, 0x0a, 0x0f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x5f, 0x72, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76,
+	0x61, 0x6e, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65,
+	0x72, 0x69, 0x63, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x48, 0x00, 0x52, 0x0e, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x12, 0x4b, 0x0a, 0x0f, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f, 0x63,
+	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x70, 0x72,
+	0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45,
+	0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x48, 0x00, 0x52,
+	0x0e, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x42,
+	0x0e, 0x0a, 0x0c, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x4a,
 	0x04, 0x08, 0x03, 0x10, 0x04, 0x4a, 0x04, 0x08, 0x04, 0x10, 0x05, 0x22, 0x32, 0x0a, 0x13, 0x43,
 	0x61, 0x70, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e,
 	0x63, 0x65, 0x12, 0x1b, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
@@ -2034,8 +2129,8 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x54, 0x79, 0x70, 0x65, 0x12, 0x0b, 0x0a, 0x07, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10,
 	0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x4b, 0x55, 0x42, 0x45, 0x52, 0x4e, 0x45, 0x54, 0x45, 0x53, 0x10,
 	0x01, 0x12, 0x0d, 0x0a, 0x09, 0x4b, 0x55, 0x53, 0x54, 0x4f, 0x4d, 0x49, 0x5a, 0x45, 0x10, 0x02,
-	0x12, 0x08, 0x0a, 0x04, 0x48, 0x45, 0x4c, 0x4d, 0x10, 0x03, 0x42, 0x0e, 0x0a, 0x0c, 0x63, 0x6f,
-	0x6e, 0x66, 0x69, 0x67, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x22, 0xb7, 0x0a, 0x0a, 0x0d, 0x53,
+	0x12, 0x08, 0x0a, 0x04, 0x48, 0x45, 0x4c, 0x4d, 0x10, 0x03, 0x42, 0x0e, 0x0a, 0x0c, 0x73, 0x6f,
+	0x75, 0x72, 0x63, 0x65, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x22, 0xb7, 0x0a, 0x0a, 0x0d, 0x53,
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x12, 0x3f, 0x0a, 0x04,
 	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x2b, 0xfa, 0x42, 0x28, 0x72,
 	0x26, 0x10, 0x01, 0x18, 0x3f, 0x32, 0x20, 0x5e, 0x5b, 0x61, 0x2d, 0x7a, 0x5d, 0x28, 0x5b, 0x61,
@@ -2119,7 +2214,7 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x09, 0x52, 0x08, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x52, 0x10, 0x69, 0x6d, 0x61,
 	0x67, 0x65, 0x5f, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x15, 0x63,
 	0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x5f, 0x72, 0x65, 0x67, 0x69, 0x73, 0x74, 0x72,
-	0x79, 0x5f, 0x69, 0x64, 0x22, 0xd4, 0x09, 0x0a, 0x1d, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x65,
+	0x79, 0x5f, 0x69, 0x64, 0x22, 0x84, 0x0b, 0x0a, 0x1d, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x65,
 	0x64, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65,
 	0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
@@ -2194,7 +2289,18 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x2d, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65,
 	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
 	0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x52, 0x0b,
-	0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x4a, 0x04, 0x08, 0x08, 0x10,
+	0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x51, 0x0a, 0x0f, 0x67,
+	0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x5f, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x16,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52,
+	0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x48, 0x00, 0x52, 0x0e,
+	0x67, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x12, 0x4b,
+	0x0a, 0x0f, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69,
+	0x67, 0x18, 0x17, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61,
+	0x6e, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x78, 0x74, 0x65, 0x72,
+	0x6e, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x48, 0x00, 0x52, 0x0e, 0x65, 0x78, 0x74,
+	0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x42, 0x0e, 0x0a, 0x0c, 0x63,
+	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x4a, 0x04, 0x08, 0x08, 0x10,
 	0x09, 0x4a, 0x04, 0x08, 0x09, 0x10, 0x0a, 0x4a, 0x04, 0x08, 0x15, 0x10, 0x16, 0x52, 0x0c, 0x72,
 	0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x22, 0xf1, 0x01, 0x0a, 0x11,
 	0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x65, 0x64, 0x4a, 0x6f, 0x62, 0x43, 0x6f, 0x6e, 0x66, 0x69,
@@ -2293,51 +2399,55 @@ var file_prodvana_service_service_config_proto_depIdxs = []int32{
 	12, // 15: prodvana.service.PerReleaseChannelConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
 	13, // 16: prodvana.service.PerReleaseChannelConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
 	29, // 17: prodvana.service.PerReleaseChannelConfig.protections:type_name -> prodvana.protection.ProtectionReference
-	30, // 18: prodvana.service.CompiledCapabilityConfig.capability:type_name -> prodvana.capability.CapabilityConfig
-	31, // 19: prodvana.service.TaskConfig.program:type_name -> prodvana.common_config.ProgramConfig
-	10, // 20: prodvana.service.TaskConfig.base_program:type_name -> prodvana.service.ProgramReference
-	32, // 21: prodvana.service.TaskConfig.retry_config:type_name -> prodvana.common_config.RetryConfig
-	11, // 22: prodvana.service.TaskConfig.ref:type_name -> prodvana.service.TaskReference
-	22, // 23: prodvana.service.RuntimeSpecificConfig.k8s:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig
-	0,  // 24: prodvana.service.ExternalConfig.type:type_name -> prodvana.service.ExternalConfig.Type
-	15, // 25: prodvana.service.ExternalConfig.local:type_name -> prodvana.service.LocalConfig
-	31, // 26: prodvana.service.ServiceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	1,  // 27: prodvana.service.ServiceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
-	3,  // 28: prodvana.service.ServiceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
-	7,  // 29: prodvana.service.ServiceConfig.per_release_channel:type_name -> prodvana.service.PerReleaseChannelConfig
-	8,  // 30: prodvana.service.ServiceConfig.capabilities:type_name -> prodvana.service.CapabilityReference
-	27, // 31: prodvana.service.ServiceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
-	28, // 32: prodvana.service.ServiceConfig.volumes:type_name -> prodvana.volumes.Volume
-	33, // 33: prodvana.service.ServiceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
-	34, // 34: prodvana.service.ServiceConfig.base_template:type_name -> prodvana.common_config.ServiceTemplateRef
-	12, // 35: prodvana.service.ServiceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
-	13, // 36: prodvana.service.ServiceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
-	29, // 37: prodvana.service.ServiceConfig.protections:type_name -> prodvana.protection.ProtectionReference
-	14, // 38: prodvana.service.ServiceConfig.generic_runtime:type_name -> prodvana.service.GenericRuntimeConfig
-	16, // 39: prodvana.service.ServiceConfig.external_config:type_name -> prodvana.service.ExternalConfig
-	31, // 40: prodvana.service.CompiledServiceInstanceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	1,  // 41: prodvana.service.CompiledServiceInstanceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
-	35, // 42: prodvana.service.CompiledServiceInstanceConfig.maturity:type_name -> prodvana.common_config.Maturity
-	3,  // 43: prodvana.service.CompiledServiceInstanceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
-	6,  // 44: prodvana.service.CompiledServiceInstanceConfig.cert:type_name -> prodvana.service.Certificate
-	36, // 45: prodvana.service.CompiledServiceInstanceConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
-	9,  // 46: prodvana.service.CompiledServiceInstanceConfig.capabilities:type_name -> prodvana.service.CompiledCapabilityConfig
-	27, // 47: prodvana.service.CompiledServiceInstanceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
-	28, // 48: prodvana.service.CompiledServiceInstanceConfig.volumes:type_name -> prodvana.volumes.Volume
-	33, // 49: prodvana.service.CompiledServiceInstanceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
-	34, // 50: prodvana.service.CompiledServiceInstanceConfig.base_template:type_name -> prodvana.common_config.ServiceTemplateRef
-	12, // 51: prodvana.service.CompiledServiceInstanceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
-	13, // 52: prodvana.service.CompiledServiceInstanceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
-	37, // 53: prodvana.service.CompiledServiceInstanceConfig.protections:type_name -> prodvana.protection.ProtectionInstanceConfig
-	31, // 54: prodvana.service.CompiledJobConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	36, // 55: prodvana.service.CompiledJobConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
-	24, // 56: prodvana.service.MetricAnalysis.LatencyConfig.max_latency:type_name -> google.protobuf.Duration
-	23, // 57: prodvana.service.RuntimeSpecificConfig.K8SConfig.service_annotations:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig.ServiceAnnotationsEntry
-	58, // [58:58] is the sub-list for method output_type
-	58, // [58:58] is the sub-list for method input_type
-	58, // [58:58] is the sub-list for extension type_name
-	58, // [58:58] is the sub-list for extension extendee
-	0,  // [0:58] is the sub-list for field type_name
+	14, // 18: prodvana.service.PerReleaseChannelConfig.generic_runtime:type_name -> prodvana.service.GenericRuntimeConfig
+	16, // 19: prodvana.service.PerReleaseChannelConfig.external_config:type_name -> prodvana.service.ExternalConfig
+	30, // 20: prodvana.service.CompiledCapabilityConfig.capability:type_name -> prodvana.capability.CapabilityConfig
+	31, // 21: prodvana.service.TaskConfig.program:type_name -> prodvana.common_config.ProgramConfig
+	10, // 22: prodvana.service.TaskConfig.base_program:type_name -> prodvana.service.ProgramReference
+	32, // 23: prodvana.service.TaskConfig.retry_config:type_name -> prodvana.common_config.RetryConfig
+	11, // 24: prodvana.service.TaskConfig.ref:type_name -> prodvana.service.TaskReference
+	22, // 25: prodvana.service.RuntimeSpecificConfig.k8s:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig
+	0,  // 26: prodvana.service.ExternalConfig.type:type_name -> prodvana.service.ExternalConfig.Type
+	15, // 27: prodvana.service.ExternalConfig.local:type_name -> prodvana.service.LocalConfig
+	31, // 28: prodvana.service.ServiceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	1,  // 29: prodvana.service.ServiceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
+	3,  // 30: prodvana.service.ServiceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
+	7,  // 31: prodvana.service.ServiceConfig.per_release_channel:type_name -> prodvana.service.PerReleaseChannelConfig
+	8,  // 32: prodvana.service.ServiceConfig.capabilities:type_name -> prodvana.service.CapabilityReference
+	27, // 33: prodvana.service.ServiceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
+	28, // 34: prodvana.service.ServiceConfig.volumes:type_name -> prodvana.volumes.Volume
+	33, // 35: prodvana.service.ServiceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
+	34, // 36: prodvana.service.ServiceConfig.base_template:type_name -> prodvana.common_config.ServiceTemplateRef
+	12, // 37: prodvana.service.ServiceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
+	13, // 38: prodvana.service.ServiceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
+	29, // 39: prodvana.service.ServiceConfig.protections:type_name -> prodvana.protection.ProtectionReference
+	14, // 40: prodvana.service.ServiceConfig.generic_runtime:type_name -> prodvana.service.GenericRuntimeConfig
+	16, // 41: prodvana.service.ServiceConfig.external_config:type_name -> prodvana.service.ExternalConfig
+	31, // 42: prodvana.service.CompiledServiceInstanceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	1,  // 43: prodvana.service.CompiledServiceInstanceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
+	35, // 44: prodvana.service.CompiledServiceInstanceConfig.maturity:type_name -> prodvana.common_config.Maturity
+	3,  // 45: prodvana.service.CompiledServiceInstanceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
+	6,  // 46: prodvana.service.CompiledServiceInstanceConfig.cert:type_name -> prodvana.service.Certificate
+	36, // 47: prodvana.service.CompiledServiceInstanceConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
+	9,  // 48: prodvana.service.CompiledServiceInstanceConfig.capabilities:type_name -> prodvana.service.CompiledCapabilityConfig
+	27, // 49: prodvana.service.CompiledServiceInstanceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
+	28, // 50: prodvana.service.CompiledServiceInstanceConfig.volumes:type_name -> prodvana.volumes.Volume
+	33, // 51: prodvana.service.CompiledServiceInstanceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
+	34, // 52: prodvana.service.CompiledServiceInstanceConfig.base_template:type_name -> prodvana.common_config.ServiceTemplateRef
+	12, // 53: prodvana.service.CompiledServiceInstanceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
+	13, // 54: prodvana.service.CompiledServiceInstanceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
+	37, // 55: prodvana.service.CompiledServiceInstanceConfig.protections:type_name -> prodvana.protection.ProtectionInstanceConfig
+	14, // 56: prodvana.service.CompiledServiceInstanceConfig.generic_runtime:type_name -> prodvana.service.GenericRuntimeConfig
+	16, // 57: prodvana.service.CompiledServiceInstanceConfig.external_config:type_name -> prodvana.service.ExternalConfig
+	31, // 58: prodvana.service.CompiledJobConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	36, // 59: prodvana.service.CompiledJobConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
+	24, // 60: prodvana.service.MetricAnalysis.LatencyConfig.max_latency:type_name -> google.protobuf.Duration
+	23, // 61: prodvana.service.RuntimeSpecificConfig.K8SConfig.service_annotations:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig.ServiceAnnotationsEntry
+	62, // [62:62] is the sub-list for method output_type
+	62, // [62:62] is the sub-list for method input_type
+	62, // [62:62] is the sub-list for extension type_name
+	62, // [62:62] is the sub-list for extension extendee
+	0,  // [0:62] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_service_service_config_proto_init() }
@@ -2626,6 +2736,10 @@ func file_prodvana_service_service_config_proto_init() {
 		(*Certificate_Tls)(nil),
 		(*Certificate_AwsAcmCert)(nil),
 	}
+	file_prodvana_service_service_config_proto_msgTypes[6].OneofWrappers = []interface{}{
+		(*PerReleaseChannelConfig_GenericRuntime)(nil),
+		(*PerReleaseChannelConfig_ExternalConfig)(nil),
+	}
 	file_prodvana_service_service_config_proto_msgTypes[9].OneofWrappers = []interface{}{
 		(*ProgramReference_Name)(nil),
 	}
@@ -2642,6 +2756,10 @@ func file_prodvana_service_service_config_proto_init() {
 	file_prodvana_service_service_config_proto_msgTypes[16].OneofWrappers = []interface{}{
 		(*ServiceConfig_GenericRuntime)(nil),
 		(*ServiceConfig_ExternalConfig)(nil),
+	}
+	file_prodvana_service_service_config_proto_msgTypes[17].OneofWrappers = []interface{}{
+		(*CompiledServiceInstanceConfig_GenericRuntime)(nil),
+		(*CompiledServiceInstanceConfig_ExternalConfig)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

@@ -1436,6 +1436,93 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 
 	}
 
+	switch v := m.ConfigOneof.(type) {
+	case *PerReleaseChannelConfig_GenericRuntime:
+		if v == nil {
+			err := PerReleaseChannelConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGenericRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "GenericRuntime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "GenericRuntime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PerReleaseChannelConfigValidationError{
+					field:  "GenericRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *PerReleaseChannelConfig_ExternalConfig:
+		if v == nil {
+			err := PerReleaseChannelConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetExternalConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "ExternalConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "ExternalConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetExternalConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PerReleaseChannelConfigValidationError{
+					field:  "ExternalConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
 	if len(errors) > 0 {
 		return PerReleaseChannelConfigMultiError(errors)
 	}
@@ -2649,11 +2736,11 @@ func (m *ExternalConfig) validate(all bool) error {
 
 	// no validation rules for Type
 
-	switch v := m.ConfigOneof.(type) {
+	switch v := m.SourceOneof.(type) {
 	case *ExternalConfig_Inlined:
 		if v == nil {
 			err := ExternalConfigValidationError{
-				field:  "ConfigOneof",
+				field:  "SourceOneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
 			if !all {
@@ -2665,7 +2752,7 @@ func (m *ExternalConfig) validate(all bool) error {
 	case *ExternalConfig_Local:
 		if v == nil {
 			err := ExternalConfigValidationError{
-				field:  "ConfigOneof",
+				field:  "SourceOneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
 			if !all {
@@ -3872,6 +3959,93 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			}
 		}
 
+	}
+
+	switch v := m.ConfigOneof.(type) {
+	case *CompiledServiceInstanceConfig_GenericRuntime:
+		if v == nil {
+			err := CompiledServiceInstanceConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGenericRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "GenericRuntime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "GenericRuntime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledServiceInstanceConfigValidationError{
+					field:  "GenericRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *CompiledServiceInstanceConfig_ExternalConfig:
+		if v == nil {
+			err := CompiledServiceInstanceConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetExternalConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "ExternalConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "ExternalConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetExternalConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledServiceInstanceConfigValidationError{
+					field:  "ExternalConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {

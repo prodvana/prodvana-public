@@ -7759,6 +7759,12 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionInstanceConfig"
           }
+        },
+        "genericRuntime": {
+          "$ref": "#/definitions/serviceGenericRuntimeConfig"
+        },
+        "externalConfig": {
+          "$ref": "#/definitions/serviceExternalConfig"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
@@ -8036,6 +8042,12 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionReference"
           }
+        },
+        "genericRuntime": {
+          "$ref": "#/definitions/serviceGenericRuntimeConfig"
+        },
+        "externalConfig": {
+          "$ref": "#/definitions/serviceExternalConfig"
         }
       }
     },

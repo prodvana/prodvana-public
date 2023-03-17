@@ -95,7 +95,14 @@ message PerReleaseChannelConfig {
 
     repeated prodvana.protection.ProtectionReference protections = 12 [(validate.rules).repeated.items.message.required = true];
 
+    oneof config_oneof {
+        GenericRuntimeConfig generic_runtime = 13;
+        ExternalConfig external_config = 14;
+    }
+
     reserved 3, 4;
+
+    // next tag: 15
 }
 
 message CapabilityReference {
@@ -169,7 +176,7 @@ message ExternalConfig {
         HELM = 3;
     }
     Type type = 1;
-    oneof config_oneof {
+    oneof source_oneof {
         string inlined = 2;
         LocalConfig local = 3;
     }
@@ -249,10 +256,15 @@ message CompiledServiceInstanceConfig {
 
     repeated prodvana.protection.ProtectionInstanceConfig protections = 20;
 
+    oneof config_oneof {
+        GenericRuntimeConfig generic_runtime = 22;
+        ExternalConfig external_config = 23;
+    }
+
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 22
+    // next tag: 24
 }
 
 message CompiledJobConfig {
