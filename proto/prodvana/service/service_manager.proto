@@ -22,7 +22,7 @@ message ConfigureServiceReq {
     // skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults
     bool test_only_skip_registry_check = 4;
 
-    // TODO(naphat) add validation to application fields once pvnctl is updated everywhere.
+    // application can be specified here or as part of service config
     string application = 5;
 
     prodvana.version.Source source = 6;

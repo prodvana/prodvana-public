@@ -183,6 +183,7 @@ message ServiceConfig {
             pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
         }
     ];
+    string application = 20;
     repeated prodvana.common_config.ProgramConfig programs = 2 [
         (validate.rules).repeated = {
             items: {
@@ -218,7 +219,7 @@ message ServiceConfig {
         ExternalConfig external_config = 19;
     }
 
-    // next tag: 20
+    // next tag: 21
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

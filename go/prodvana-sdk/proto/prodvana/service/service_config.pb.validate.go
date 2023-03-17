@@ -2829,6 +2829,8 @@ func (m *ServiceConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for Application
+
 	for idx, item := range m.GetPrograms() {
 		_, _ = idx, item
 

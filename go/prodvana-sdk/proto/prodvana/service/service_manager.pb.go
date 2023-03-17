@@ -39,7 +39,7 @@ type ConfigureServiceReq struct {
 	ReleaseChannels []string `protobuf:"bytes,2,rep,name=release_channels,json=releaseChannels,proto3" json:"release_channels,omitempty"`
 	// skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults
 	TestOnlySkipRegistryCheck bool `protobuf:"varint,4,opt,name=test_only_skip_registry_check,json=testOnlySkipRegistryCheck,proto3" json:"test_only_skip_registry_check,omitempty"`
-	// TODO(naphat) add validation to application fields once pvnctl is updated everywhere.
+	// application can be specified here or as part of service config
 	Application    string                  `protobuf:"bytes,5,opt,name=application,proto3" json:"application,omitempty"`
 	Source         version.Source          `protobuf:"varint,6,opt,name=source,proto3,enum=prodvana.version.Source" json:"source,omitempty"`
 	SourceMetadata *version.SourceMetadata `protobuf:"bytes,7,opt,name=source_metadata,json=sourceMetadata,proto3" json:"source_metadata,omitempty"`

@@ -3311,7 +3311,7 @@
         "parameters": [
           {
             "name": "application",
-            "description": "TODO(naphat) add validation to application fields once pvnctl is updated everywhere.",
+            "description": "application can be specified here or as part of service config",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3373,7 +3373,7 @@
         "parameters": [
           {
             "name": "application",
-            "description": "TODO(naphat) add validation to application fields once pvnctl is updated everywhere.",
+            "description": "application can be specified here or as part of service config",
             "in": "path",
             "required": true,
             "type": "string",
@@ -8102,6 +8102,9 @@
       "type": "object",
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "application": {
           "type": "string"
         },
         "programs": {
