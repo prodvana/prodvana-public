@@ -6119,6 +6119,12 @@
         },
         "runtimeId": {
           "type": "string"
+        },
+        "externalLogs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },

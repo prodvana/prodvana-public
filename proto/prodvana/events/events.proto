@@ -21,4 +21,5 @@ message RelatedObjects {
     string desired_state_id = 4;
     string root_desired_state_id = 5;
     string runtime_id = 6;
+    map<string, string> external_logs = 7;
 }

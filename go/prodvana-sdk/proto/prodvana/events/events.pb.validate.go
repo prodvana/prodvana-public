@@ -260,6 +260,8 @@ func (m *RelatedObjects) validate(all bool) error {
 
 	// no validation rules for RuntimeId
 
+	// no validation rules for ExternalLogs
+
 	if len(errors) > 0 {
 		return RelatedObjectsMultiError(errors)
 	}
