@@ -24,6 +24,7 @@ const (
 	ReleaseChannelManager_DeleteReleaseChannel_FullMethodName    = "/prodvana.release_channel.ReleaseChannelManager/DeleteReleaseChannel"
 	ReleaseChannelManager_ListReleaseChannelsV2_FullMethodName   = "/prodvana.release_channel.ReleaseChannelManager/ListReleaseChannelsV2"
 	ReleaseChannelManager_GetReleaseChannel_FullMethodName       = "/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannel"
+	ReleaseChannelManager_GetReleaseChannelEvents_FullMethodName = "/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelEvents"
 )
 
 // ReleaseChannelManagerClient is the client API for ReleaseChannelManager service.
@@ -36,6 +37,7 @@ type ReleaseChannelManagerClient interface {
 	// identical to ListReleaseChannels, kept for backwards compatibility
 	ListReleaseChannelsV2(ctx context.Context, in *ListReleaseChannelsReq, opts ...grpc.CallOption) (*ListReleaseChannelsResp, error)
 	GetReleaseChannel(ctx context.Context, in *GetReleaseChannelReq, opts ...grpc.CallOption) (*GetReleaseChannelResp, error)
+	GetReleaseChannelEvents(ctx context.Context, in *GetReleaseChannelEventsReq, opts ...grpc.CallOption) (*GetReleaseChannelEventsResp, error)
 }
 
 type releaseChannelManagerClient struct {
@@ -91,6 +93,15 @@ func (c *releaseChannelManagerClient) GetReleaseChannel(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *releaseChannelManagerClient) GetReleaseChannelEvents(ctx context.Context, in *GetReleaseChannelEventsReq, opts ...grpc.CallOption) (*GetReleaseChannelEventsResp, error) {
+	out := new(GetReleaseChannelEventsResp)
+	err := c.cc.Invoke(ctx, ReleaseChannelManager_GetReleaseChannelEvents_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReleaseChannelManagerServer is the server API for ReleaseChannelManager service.
 // All implementations must embed UnimplementedReleaseChannelManagerServer
 // for forward compatibility
@@ -101,6 +112,7 @@ type ReleaseChannelManagerServer interface {
 	// identical to ListReleaseChannels, kept for backwards compatibility
 	ListReleaseChannelsV2(context.Context, *ListReleaseChannelsReq) (*ListReleaseChannelsResp, error)
 	GetReleaseChannel(context.Context, *GetReleaseChannelReq) (*GetReleaseChannelResp, error)
+	GetReleaseChannelEvents(context.Context, *GetReleaseChannelEventsReq) (*GetReleaseChannelEventsResp, error)
 	mustEmbedUnimplementedReleaseChannelManagerServer()
 }
 
@@ -122,6 +134,9 @@ func (UnimplementedReleaseChannelManagerServer) ListReleaseChannelsV2(context.Co
 }
 func (UnimplementedReleaseChannelManagerServer) GetReleaseChannel(context.Context, *GetReleaseChannelReq) (*GetReleaseChannelResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReleaseChannel not implemented")
+}
+func (UnimplementedReleaseChannelManagerServer) GetReleaseChannelEvents(context.Context, *GetReleaseChannelEventsReq) (*GetReleaseChannelEventsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReleaseChannelEvents not implemented")
 }
 func (UnimplementedReleaseChannelManagerServer) mustEmbedUnimplementedReleaseChannelManagerServer() {}
 
@@ -226,6 +241,24 @@ func _ReleaseChannelManager_GetReleaseChannel_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReleaseChannelManager_GetReleaseChannelEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReleaseChannelEventsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReleaseChannelManagerServer).GetReleaseChannelEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReleaseChannelManager_GetReleaseChannelEvents_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReleaseChannelManagerServer).GetReleaseChannelEvents(ctx, req.(*GetReleaseChannelEventsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReleaseChannelManager_ServiceDesc is the grpc.ServiceDesc for ReleaseChannelManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -252,6 +285,10 @@ var ReleaseChannelManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetReleaseChannel",
 			Handler:    _ReleaseChannelManager_GetReleaseChannel_Handler,
+		},
+		{
+			MethodName: "GetReleaseChannelEvents",
+			Handler:    _ReleaseChannelManager_GetReleaseChannelEvents_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

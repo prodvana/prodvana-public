@@ -2,8 +2,10 @@ syntax = "proto3";
 package prodvana.release_channel;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel";
 import "google/api/annotations.proto";
-import "prodvana/release_channel/release_channel_config.proto";
+import "prodvana/events/events.proto";
 import "prodvana/release_channel/object.proto";
+import "prodvana/release_channel/release_channel_config.proto";
+import "validate/validate.proto";
 
 message ConfigureReleaseChannelReq {
     ReleaseChannelConfig release_channel = 1;
@@ -41,6 +43,18 @@ message GetReleaseChannelResp {
     ReleaseChannel release_channel = 1;
 }
 
+message GetReleaseChannelEventsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string release_channel = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message GetReleaseChannelEventsResp {
+    repeated prodvana.events.Event events = 1;
+    string next_page_token = 2;
+}
+
 service ReleaseChannelManager {
     rpc ConfigureReleaseChannel (ConfigureReleaseChannelReq) returns (ConfigureReleaseChannelResp) {
         option (google.api.http) = {
@@ -66,6 +80,12 @@ service ReleaseChannelManager {
     rpc GetReleaseChannel (GetReleaseChannelReq) returns (GetReleaseChannelResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/release-channels/{release_channel=*}"
+        };
+    }
+
+    rpc GetReleaseChannelEvents (GetReleaseChannelEventsReq) returns (GetReleaseChannelEventsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/release-channels/{release_channel=*}/events"
         };
     }
 }

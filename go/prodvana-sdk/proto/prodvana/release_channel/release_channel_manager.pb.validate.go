@@ -957,3 +957,270 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetReleaseChannelRespValidationError{}
+
+// Validate checks the field values on GetReleaseChannelEventsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReleaseChannelEventsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReleaseChannelEventsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReleaseChannelEventsReqMultiError, or nil if none found.
+func (m *GetReleaseChannelEventsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReleaseChannelEventsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GetReleaseChannelEventsReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
+		err := GetReleaseChannelEventsReqValidationError{
+			field:  "ReleaseChannel",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return GetReleaseChannelEventsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReleaseChannelEventsReqMultiError is an error wrapping multiple
+// validation errors returned by GetReleaseChannelEventsReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetReleaseChannelEventsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReleaseChannelEventsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReleaseChannelEventsReqMultiError) AllErrors() []error { return m }
+
+// GetReleaseChannelEventsReqValidationError is the validation error returned
+// by GetReleaseChannelEventsReq.Validate if the designated constraints aren't met.
+type GetReleaseChannelEventsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReleaseChannelEventsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReleaseChannelEventsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReleaseChannelEventsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReleaseChannelEventsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReleaseChannelEventsReqValidationError) ErrorName() string {
+	return "GetReleaseChannelEventsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReleaseChannelEventsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReleaseChannelEventsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReleaseChannelEventsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReleaseChannelEventsReqValidationError{}
+
+// Validate checks the field values on GetReleaseChannelEventsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReleaseChannelEventsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReleaseChannelEventsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReleaseChannelEventsRespMultiError, or nil if none found.
+func (m *GetReleaseChannelEventsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReleaseChannelEventsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetEvents() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetReleaseChannelEventsRespValidationError{
+						field:  fmt.Sprintf("Events[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetReleaseChannelEventsRespValidationError{
+						field:  fmt.Sprintf("Events[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetReleaseChannelEventsRespValidationError{
+					field:  fmt.Sprintf("Events[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return GetReleaseChannelEventsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReleaseChannelEventsRespMultiError is an error wrapping multiple
+// validation errors returned by GetReleaseChannelEventsResp.ValidateAll() if
+// the designated constraints aren't met.
+type GetReleaseChannelEventsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReleaseChannelEventsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReleaseChannelEventsRespMultiError) AllErrors() []error { return m }
+
+// GetReleaseChannelEventsRespValidationError is the validation error returned
+// by GetReleaseChannelEventsResp.Validate if the designated constraints
+// aren't met.
+type GetReleaseChannelEventsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReleaseChannelEventsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReleaseChannelEventsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReleaseChannelEventsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReleaseChannelEventsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReleaseChannelEventsRespValidationError) ErrorName() string {
+	return "GetReleaseChannelEventsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReleaseChannelEventsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReleaseChannelEventsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReleaseChannelEventsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReleaseChannelEventsRespValidationError{}

@@ -486,6 +486,57 @@
         ]
       }
     },
+    "/v1/applications/{application}/release-channels/{releaseChannel}/events": {
+      "get": {
+        "operationId": "ReleaseChannelManager_GetReleaseChannelEvents",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/release_channelGetReleaseChannelEventsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "releaseChannel",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.release_channel.ReleaseChannelManager"
+        ]
+      }
+    },
     "/v1/applications/{application}/services": {
       "get": {
         "operationId": "ServiceManager_ListServices",
@@ -7417,6 +7468,21 @@
     },
     "release_channelDeleteReleaseChannelResp": {
       "type": "object"
+    },
+    "release_channelGetReleaseChannelEventsResp": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventsEvent"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
     },
     "release_channelGetReleaseChannelResp": {
       "type": "object",
