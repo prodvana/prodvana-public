@@ -2,15 +2,10 @@ syntax = "proto3";
 package prodvana.service;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service";
 
-import "google/protobuf/duration.proto";
-import "google/protobuf/timestamp.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/common_config/meta.proto";
-import "prodvana/config_writeback/writeback.proto";
 import "prodvana/service/service_config.proto";
-import "prodvana/pipelines/object.proto";
 import "prodvana/service/user_metadata.proto";
-import "validate/validate.proto";
 
 message ExternalAddr {
     enum Type {
@@ -25,67 +20,9 @@ message ExternalAddr {
     Type type = 2;
 }
 
-message Push {
-    string service_id = 1;
-    string service_name = 2;
-    string release_channel_id = 3;
-    string release_channel_name = 4;
-    google.protobuf.Timestamp push_creation_timestamp = 5;
-    string version = 6;  // will be set if initiator = PRODVANA
-    string initiator = 7;
-    string state = 8;
-    google.protobuf.Timestamp last_update_timestamp = 9;
-    bool terminal = 10; // if push is in a terminal state
-    CompiledServiceInstanceConfig compiled_config = 11;  // will be set if initiator = PRODVANA
-}
-
-message ServiceInstancePodContainer {
-    enum State {
-        UNKNOWN = 0;
-        INITIALIZING = 1;
-        RUNNING = 2;
-        FAILED = 3;
-        CRASH_LOOP_BACKOFF = 4;
-    }
-    string name = 1;
-    State state = 2;
-    string reason = 3;
-    int32 restarts = 4;
-}
-
-message ServiceInstancePod {
-    enum State {
-        UNKNOWN = 0;
-        PENDING = 1;
-        INITIALIZING_CONTAINERS = 2;
-        RUNNING = 3;
-        SUCCEEDED = 4;
-        FAILED = 5;
-        TERMINATING = 6;
-    }
-    string name = 1;
-    string service_version = 2;
-    State state = 3;
-    bool needs_attention = 4;
-    repeated ServiceInstancePodContainer containers = 5;
-    bool is_ongoing_push = 6;
-}
-
 message ServiceState {
-    enum State {
-        UNKNOWN = 0;
-        INSTANCES_UPDATING_NO_PIPELINE = 1;  // one of the instances is updating, but there is no ongoing pipeline
-        HEALTHY = 2;
-        INFRA_ERROR = 3;
-        APP_ERROR = 4;
-        PENDING_DEPLOY = 5; // created but not pushed
-        APPROVAL_REQUESTED = 6;  // a pipeline is waiting on manual approval
-        ONGOING_PIPELINE = 7;
-    }
-    // ongoing pipeline runs. Because there are only going to ever be a few of these (mostly 1) at a time,
-    // this will return the full run object as if it was retrieved using the get pipeline run function
-    repeated prodvana.pipelines.PipelineRun ongoing_pipeline_runs = 1;
-    State state = 2;
+    reserved 1, 2;
+    reserved "ongoing_pipeline_runs", "state";
 }
 
 message Service {
@@ -95,85 +32,11 @@ message Service {
     ServiceUserMetadata user_metadata = 4;
 }
 
-message ServiceInstanceCanaryState {
-    enum Status {
-        UNKNOWN = 0;
-        PENDING = 1; // analysis is preparing to start but has not started
-        RUNNING = 2; // analysis is running
-        SUCCEEDED = 3; // analysis at this stage has succeeded
-        FAILED = 4; // analysis ran and the test failed
-        ERROR = 5; //  analysis hit an error while running (not due to analysis failure)
-        INCONCLUSIVE = 6; //  analysis ran but neither a failure nor success condition was reached (or none was defined)
-    }
-    // current canary weight
-    int32 canary_weight = 1 [(validate.rules).int32 = { gte: 0,  lte: 100 }];
-    // current status of canary analysis
-    Status status = 2;
-    // message about the current status
-    string message = 3;
-    // current stage of canary progress
-    int32 current_stage = 4;
-	// total number of canary progress stages
-    int32 total_stages = 5;
-}
-
-message ServiceInstanceDeliveryState {
-    enum Status {
-        UNKNOWN = 0;
-        PROGRESSING = 1;
-        PAUSED = 2;
-        HEALTHY = 3;
-        UNHEALTHY = 4;
-    }
-    // overall delivery status
-    Status status = 6;
-    // current state of canary progress at this stage
-    ServiceInstanceCanaryState canary = 1;
-    // current stage of delivery
-    int32 current_stage = 2;  // deprecated, use canary.current_stage
-	// total number of stages
-    int32 total_stages = 3; // deprecated, use canary.total_stages
-    // human readable message from the delivery controller
-    string message = 4;
-    // when status = PAUSED this indicates when the pause started
-    google.protobuf.Timestamp pause_start_timestamp = 5;
-	// when status = PAUSED this indicates how long the pause should last
-    google.protobuf.Duration pause_duration = 7;
-
-    // next: 8;
-}
-
 message ServiceInstanceState {
-    enum State {
-        UNKNOWN = 0;
-        UPDATING = 1;
-        HEALTHY = 2;
-        INFRA_ERROR = 3;
-        APP_ERROR = 4;  // app error where process started and we have logs
-        PENDING_DEPLOY = 5; // service instance is created but it has not been pushed to yet
-    }
-    State state = 1;
-    int32 available_pods = 2;
-    int32 desired_pods = 3;
-    // TODO(naphat) should pods be returned separately?
-    repeated ServiceInstancePod pods = 11;
-    // This will always be set if a service instance has ever been pushed and can be used to derive the latest version the service instance is on.
-    // Will be empty if the service instance has never been pushed.
-    Push latest_successful_prodvana_push = 4;
-
-    // This will be set iff there is a detected unknown push after the latest prodvana push.
-    Push latest_successful_unknown_push_after_prodvana_push = 5;
-
-    // Will only be set if there is an ongoing push
-    Push ongoing_push = 6;
-
     repeated ExternalAddr external_addrs = 7;
-    repeated prodvana.config_writeback.ConfigWritebackPath writeback_config = 8;
 
-    string runtime_id = 9;
-    string runtime_name = 10;
-
-    ServiceInstanceDeliveryState delivery_state = 12;
+    reserved 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12;
+    reserved "state", "available_pods", "desired_pods", "latest_successful_prodvana_push", "latest_successful_unknown_push_after_prodvana_push", "ongoing_push", "pods", "runtime_id", "runtime_name", "writeback_config", "delivery_state";
 
     // next tag: 13
 }

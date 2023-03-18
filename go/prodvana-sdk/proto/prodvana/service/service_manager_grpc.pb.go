@@ -21,8 +21,6 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ServiceManager_ConfigureService_FullMethodName         = "/prodvana.service.ServiceManager/ConfigureService"
 	ServiceManager_ValidateConfigureService_FullMethodName = "/prodvana.service.ServiceManager/ValidateConfigureService"
-	ServiceManager_PushHistory_FullMethodName              = "/prodvana.service.ServiceManager/PushHistory"
-	ServiceManager_GetPush_FullMethodName                  = "/prodvana.service.ServiceManager/GetPush"
 	ServiceManager_GetServiceConfig_FullMethodName         = "/prodvana.service.ServiceManager/GetServiceConfig"
 	ServiceManager_ListServiceVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceVersions"
 	ServiceManager_DeleteService_FullMethodName            = "/prodvana.service.ServiceManager/DeleteService"
@@ -48,8 +46,6 @@ const (
 type ServiceManagerClient interface {
 	ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error)
 	ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error)
-	PushHistory(ctx context.Context, in *PushHistoryReq, opts ...grpc.CallOption) (*PushHistoryResp, error)
-	GetPush(ctx context.Context, in *GetPushReq, opts ...grpc.CallOption) (*Push, error)
 	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
 	ListServiceVersions(ctx context.Context, in *ListServiceVersionsReq, opts ...grpc.CallOption) (*ListServiceVersionsResp, error)
 	DeleteService(ctx context.Context, in *DeleteServiceReq, opts ...grpc.CallOption) (*DeleteServiceResp, error)
@@ -93,24 +89,6 @@ func (c *serviceManagerClient) ConfigureService(ctx context.Context, in *Configu
 func (c *serviceManagerClient) ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error) {
 	out := new(ValidateConfigureServiceResp)
 	err := c.cc.Invoke(ctx, ServiceManager_ValidateConfigureService_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceManagerClient) PushHistory(ctx context.Context, in *PushHistoryReq, opts ...grpc.CallOption) (*PushHistoryResp, error) {
-	out := new(PushHistoryResp)
-	err := c.cc.Invoke(ctx, ServiceManager_PushHistory_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceManagerClient) GetPush(ctx context.Context, in *GetPushReq, opts ...grpc.CallOption) (*Push, error) {
-	out := new(Push)
-	err := c.cc.Invoke(ctx, ServiceManager_GetPush_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -276,8 +254,6 @@ func (c *serviceManagerClient) SetServiceMetadata(ctx context.Context, in *SetSe
 type ServiceManagerServer interface {
 	ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error)
 	ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error)
-	PushHistory(context.Context, *PushHistoryReq) (*PushHistoryResp, error)
-	GetPush(context.Context, *GetPushReq) (*Push, error)
 	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
 	ListServiceVersions(context.Context, *ListServiceVersionsReq) (*ListServiceVersionsResp, error)
 	DeleteService(context.Context, *DeleteServiceReq) (*DeleteServiceResp, error)
@@ -311,12 +287,6 @@ func (UnimplementedServiceManagerServer) ConfigureService(context.Context, *Conf
 }
 func (UnimplementedServiceManagerServer) ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateConfigureService not implemented")
-}
-func (UnimplementedServiceManagerServer) PushHistory(context.Context, *PushHistoryReq) (*PushHistoryResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PushHistory not implemented")
-}
-func (UnimplementedServiceManagerServer) GetPush(context.Context, *GetPushReq) (*Push, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPush not implemented")
 }
 func (UnimplementedServiceManagerServer) GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig not implemented")
@@ -414,42 +384,6 @@ func _ServiceManager_ValidateConfigureService_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceManagerServer).ValidateConfigureService(ctx, req.(*ConfigureServiceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceManager_PushHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PushHistoryReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).PushHistory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_PushHistory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).PushHistory(ctx, req.(*PushHistoryReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceManager_GetPush_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPushReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).GetPush(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_GetPush_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).GetPush(ctx, req.(*GetPushReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -774,14 +708,6 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateConfigureService",
 			Handler:    _ServiceManager_ValidateConfigureService_Handler,
-		},
-		{
-			MethodName: "PushHistory",
-			Handler:    _ServiceManager_PushHistory_Handler,
-		},
-		{
-			MethodName: "GetPush",
-			Handler:    _ServiceManager_GetPush_Handler,
 		},
 		{
 			MethodName: "GetServiceConfig",

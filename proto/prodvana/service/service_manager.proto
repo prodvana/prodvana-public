@@ -47,23 +47,6 @@ message ValidateConfigureServiceResp {
     repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
 }
 
-message PushHistoryReq {
-    string service = 1 [(validate.rules).string.min_len = 1];
-    string release_channel = 2 [(validate.rules).string.min_len = 1];
-    string application = 3;
-}
-
-message PushHistoryResp {
-    repeated Push pushes = 1;
-}
-
-message GetPushReq {
-    string service = 1 [(validate.rules).string.min_len = 1];
-    string release_channel = 2 [(validate.rules).string.min_len = 1];
-    google.protobuf.Timestamp creation_timestamp = 3;
-    string application = 4;
-}
-
 message GetServiceConfigReq {
     string service = 1 [(validate.rules).string.min_len = 1];
     string version = 2; // omit to get latest version
@@ -217,16 +200,6 @@ service ServiceManager {
         option (google.api.http) = {
             post: "/v1/{application=*}/services/configure/validate"
             body: "*"
-        };
-    }
-    rpc PushHistory(PushHistoryReq) returns (PushHistoryResp) {
-        option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/instances/{release_channel=*}/pushes"
-        };
-    }
-    rpc GetPush(GetPushReq) returns (Push) {
-        option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/instances/{release_channel=*}/pushes/{creation_timestamp=*}"
         };
     }
     rpc GetServiceConfig(GetServiceConfigReq) returns (GetServiceConfigResp) {

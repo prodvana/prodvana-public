@@ -3549,104 +3549,6 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/instances/{releaseChannel}/pushes": {
-      "get": {
-        "operationId": "ServiceManager_PushHistory",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/servicePushHistoryResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "application",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "service",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "releaseChannel",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          }
-        ],
-        "tags": [
-          "prodvana.service.ServiceManager"
-        ]
-      }
-    },
-    "/v1/{application}/services/{service}/instances/{releaseChannel}/pushes/{creationTimestamp}": {
-      "get": {
-        "operationId": "ServiceManager_GetPush",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/servicePush"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "application",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "service",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "releaseChannel",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "creationTimestamp",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "date-time",
-            "pattern": "[^/]+"
-          }
-        ],
-        "tags": [
-          "prodvana.service.ServiceManager"
-        ]
-      }
-    },
     "/v1/{application}/services/{service}/versions": {
       "get": {
         "operationId": "ServiceManager_ListServiceVersions",
@@ -5011,17 +4913,6 @@
         }
       }
     },
-    "common_configPipelineRunObjectMeta": {
-      "type": "object",
-      "properties": {
-        "pipelineMeta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "runName": {
-          "type": "string"
-        }
-      }
-    },
     "common_configPortConfig": {
       "type": "object",
       "properties": {
@@ -5179,27 +5070,6 @@
         }
       }
     },
-    "common_configVersionPushOption": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/common_configVersionPushOptionType"
-        },
-        "version": {
-          "type": "string",
-          "title": "only valid if type = PUSH_VERSION"
-        }
-      }
-    },
-    "common_configVersionPushOptionType": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "PUSH_LATEST",
-        "PUSH_VERSION"
-      ],
-      "default": "UNKNOWN"
-    },
     "config_writebackConfigWritebackPath": {
       "type": "object",
       "properties": {
@@ -5262,13 +5132,13 @@
       "type": "object",
       "properties": {
         "startingState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "lastSeenState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "desiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "statuses": {
           "type": "object",
@@ -5343,10 +5213,10 @@
       "type": "object",
       "properties": {
         "desiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "compiledDesiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         }
       }
     },
@@ -5410,7 +5280,7 @@
       "type": "object",
       "properties": {
         "desiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "rollback": {
           "type": "boolean",
@@ -5461,7 +5331,7 @@
       "type": "object",
       "properties": {
         "desiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "rollback": {
           "type": "boolean",
@@ -5481,10 +5351,10 @@
       "type": "object",
       "properties": {
         "desiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "compiledDesiredState": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         }
       }
     },
@@ -5587,20 +5457,6 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service. Must be empty if part of service group."
-        }
-      }
-    },
-    "desired_statemodelState": {
-      "type": "object",
-      "properties": {
-        "service": {
-          "$ref": "#/definitions/desired_statemodelServiceState"
-        },
-        "serviceInstance": {
-          "$ref": "#/definitions/desired_statemodelServiceInstanceState"
-        },
-        "serviceGroup": {
-          "$ref": "#/definitions/modelServiceGroupState"
         }
       }
     },
@@ -5889,11 +5745,11 @@
           "type": "string"
         },
         "target": {
-          "$ref": "#/definitions/desired_statemodelState",
+          "$ref": "#/definitions/modelState",
           "title": "state that prodvana runtime will immediately converge towards"
         },
         "current": {
-          "$ref": "#/definitions/desired_statemodelState",
+          "$ref": "#/definitions/modelState",
           "title": "current state for this entity before setting target state"
         },
         "isAutoRollback": {
@@ -6155,7 +6011,7 @@
           "type": "string"
         },
         "desired": {
-          "$ref": "#/definitions/desired_statemodelState"
+          "$ref": "#/definitions/modelState"
         },
         "isRollback": {
           "type": "boolean"
@@ -6175,15 +6031,15 @@
           "type": "string"
         },
         "target": {
-          "$ref": "#/definitions/desired_statemodelState",
+          "$ref": "#/definitions/modelState",
           "title": "state that prodvana runtime will immediately converge towards"
         },
         "desired": {
-          "$ref": "#/definitions/desired_statemodelState",
+          "$ref": "#/definitions/modelState",
           "title": "final desired state that this entity should eventually get to"
         },
         "current": {
-          "$ref": "#/definitions/desired_statemodelState",
+          "$ref": "#/definitions/modelState",
           "title": "current state for this entity before setting target state"
         },
         "isAutoRollback": {
@@ -6639,6 +6495,20 @@
         }
       }
     },
+    "modelState": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "$ref": "#/definitions/desired_statemodelServiceState"
+        },
+        "serviceInstance": {
+          "$ref": "#/definitions/desired_statemodelServiceInstanceState"
+        },
+        "serviceGroup": {
+          "$ref": "#/definitions/modelServiceGroupState"
+        }
+      }
+    },
     "modelStatusExplanation": {
       "type": "object",
       "properties": {
@@ -6881,112 +6751,6 @@
         }
       }
     },
-    "pipelinesPipelineConfig": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "tasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesTask"
-          }
-        },
-        "rollback": {
-          "type": "boolean"
-        },
-        "notifications": {
-          "$ref": "#/definitions/common_configNotificationConfig"
-        }
-      }
-    },
-    "pipelinesPipelineRun": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/common_configPipelineRunObjectMeta"
-        },
-        "config": {
-          "$ref": "#/definitions/pipelinesPipelineRunConfig"
-        },
-        "state": {
-          "$ref": "#/definitions/pipelinesPipelineRunState"
-        }
-      }
-    },
-    "pipelinesPipelineRunConfig": {
-      "type": "object",
-      "properties": {
-        "pipelineConfig": {
-          "$ref": "#/definitions/pipelinesPipelineConfig"
-        },
-        "servicePushParams": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesServicePushParam"
-          }
-        },
-        "skipRollbackValidation": {
-          "type": "boolean"
-        },
-        "serviceInstancePushes": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesServiceInstancePush"
-          }
-        },
-        "skipAlertChecks": {
-          "type": "boolean"
-        }
-      }
-    },
-    "pipelinesPipelineRunState": {
-      "type": "object",
-      "properties": {
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "state": {
-          "type": "string"
-        },
-        "terminal": {
-          "type": "boolean",
-          "title": "if pipeline run is in a terminal state"
-        },
-        "taskStatuses": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesTaskStatus"
-          },
-          "title": "This will only be set when querying specifically about this pipeline run"
-        },
-        "lastActor": {
-          "type": "string"
-        },
-        "initiator": {
-          "type": "string"
-        },
-        "reason": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "externalLink": {
-          "type": "string"
-        }
-      }
-    },
     "pipelinesPipelineTemplate": {
       "type": "object",
       "properties": {
@@ -7039,36 +6803,6 @@
         }
       }
     },
-    "pipelinesServiceInstancePush": {
-      "type": "object",
-      "properties": {
-        "applicationMeta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "serviceInstanceMeta": {
-          "$ref": "#/definitions/common_configServiceInstanceObjectMeta",
-          "title": "service starting version stored in service_instance_meta"
-        },
-        "targetVersion": {
-          "type": "string",
-          "title": "TODO(naphat/rohit) store rollback target information here\n string rollback_target_version = 4;"
-        }
-      }
-    },
-    "pipelinesServicePushParam": {
-      "type": "object",
-      "properties": {
-        "service": {
-          "type": "string"
-        },
-        "versionPush": {
-          "$ref": "#/definitions/common_configVersionPushOption"
-        },
-        "application": {
-          "type": "string"
-        }
-      }
-    },
     "pipelinesTask": {
       "type": "object",
       "properties": {
@@ -7101,26 +6835,6 @@
         }
       },
       "description": "Metadata contains information generic to all task types.\nCompilation of a task can be done entirely with its metadata and specific task-type config."
-    },
-    "pipelinesTaskStatus": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "state": {
-          "type": "string"
-        },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
     },
     "pipelinesWaitTask": {
       "type": "object",
@@ -7221,77 +6935,17 @@
     "prodvanaserviceServiceInstanceState": {
       "type": "object",
       "properties": {
-        "state": {
-          "$ref": "#/definitions/serviceServiceInstanceStateState"
-        },
-        "availablePods": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "desiredPods": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pods": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/serviceServiceInstancePod"
-          },
-          "title": "TODO(naphat) should pods be returned separately?"
-        },
-        "latestSuccessfulProdvanaPush": {
-          "$ref": "#/definitions/servicePush",
-          "description": "This will always be set if a service instance has ever been pushed and can be used to derive the latest version the service instance is on.\nWill be empty if the service instance has never been pushed."
-        },
-        "latestSuccessfulUnknownPushAfterProdvanaPush": {
-          "$ref": "#/definitions/servicePush",
-          "description": "This will be set iff there is a detected unknown push after the latest prodvana push."
-        },
-        "ongoingPush": {
-          "$ref": "#/definitions/servicePush",
-          "title": "Will only be set if there is an ongoing push"
-        },
         "externalAddrs": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/serviceExternalAddr"
           }
-        },
-        "writebackConfig": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/config_writebackConfigWritebackPath"
-          }
-        },
-        "runtimeId": {
-          "type": "string"
-        },
-        "runtimeName": {
-          "type": "string"
-        },
-        "deliveryState": {
-          "$ref": "#/definitions/serviceServiceInstanceDeliveryState"
         }
       }
     },
     "prodvanaserviceServiceState": {
-      "type": "object",
-      "properties": {
-        "ongoingPipelineRuns": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesPipelineRun"
-          },
-          "title": "ongoing pipeline runs. Because there are only going to ever be a few of these (mostly 1) at a time,\nthis will return the full run object as if it was retrieved using the get pipeline run function"
-        },
-        "state": {
-          "$ref": "#/definitions/serviceServiceStateState"
-        }
-      }
+      "type": "object"
     },
     "prodvanaserviceTaskConfig": {
       "type": "object",
@@ -8059,61 +7713,6 @@
         }
       }
     },
-    "servicePush": {
-      "type": "object",
-      "properties": {
-        "serviceId": {
-          "type": "string"
-        },
-        "serviceName": {
-          "type": "string"
-        },
-        "releaseChannelId": {
-          "type": "string"
-        },
-        "releaseChannelName": {
-          "type": "string"
-        },
-        "pushCreationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "version": {
-          "type": "string",
-          "title": "will be set if initiator = PRODVANA"
-        },
-        "initiator": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "terminal": {
-          "type": "boolean",
-          "title": "if push is in a terminal state"
-        },
-        "compiledConfig": {
-          "$ref": "#/definitions/serviceCompiledServiceInstanceConfig",
-          "title": "will be set if initiator = PRODVANA"
-        }
-      }
-    },
-    "servicePushHistoryResp": {
-      "type": "object",
-      "properties": {
-        "pushes": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/servicePush"
-          }
-        }
-      }
-    },
     "serviceReleaseStrategyConfig": {
       "type": "object",
       "properties": {
@@ -8273,194 +7872,6 @@
           "$ref": "#/definitions/prodvanaserviceServiceInstanceState"
         }
       }
-    },
-    "serviceServiceInstanceCanaryState": {
-      "type": "object",
-      "properties": {
-        "canaryWeight": {
-          "type": "integer",
-          "format": "int32",
-          "title": "current canary weight"
-        },
-        "status": {
-          "$ref": "#/definitions/serviceServiceInstanceCanaryStateStatus",
-          "title": "current status of canary analysis"
-        },
-        "message": {
-          "type": "string",
-          "title": "message about the current status"
-        },
-        "currentStage": {
-          "type": "integer",
-          "format": "int32",
-          "title": "current stage of canary progress"
-        },
-        "totalStages": {
-          "type": "integer",
-          "format": "int32",
-          "title": "total number of canary progress stages"
-        }
-      }
-    },
-    "serviceServiceInstanceCanaryStateStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "PENDING",
-        "RUNNING",
-        "SUCCEEDED",
-        "FAILED",
-        "ERROR",
-        "INCONCLUSIVE"
-      ],
-      "default": "UNKNOWN",
-      "title": "- PENDING: analysis is preparing to start but has not started\n - RUNNING: analysis is running\n - SUCCEEDED: analysis at this stage has succeeded\n - FAILED: analysis ran and the test failed\n - ERROR: analysis hit an error while running (not due to analysis failure)\n - INCONCLUSIVE: analysis ran but neither a failure nor success condition was reached (or none was defined)"
-    },
-    "serviceServiceInstanceDeliveryState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/serviceServiceInstanceDeliveryStateStatus",
-          "title": "overall delivery status"
-        },
-        "canary": {
-          "$ref": "#/definitions/serviceServiceInstanceCanaryState",
-          "title": "current state of canary progress at this stage"
-        },
-        "currentStage": {
-          "type": "integer",
-          "format": "int32",
-          "description": "deprecated, use canary.current_stage",
-          "title": "current stage of delivery"
-        },
-        "totalStages": {
-          "type": "integer",
-          "format": "int32",
-          "description": "deprecated, use canary.total_stages",
-          "title": "total number of stages"
-        },
-        "message": {
-          "type": "string",
-          "title": "human readable message from the delivery controller"
-        },
-        "pauseStartTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "when status = PAUSED this indicates when the pause started"
-        },
-        "pauseDuration": {
-          "type": "string",
-          "title": "when status = PAUSED this indicates how long the pause should last"
-        }
-      }
-    },
-    "serviceServiceInstanceDeliveryStateStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "PROGRESSING",
-        "PAUSED",
-        "HEALTHY",
-        "UNHEALTHY"
-      ],
-      "default": "UNKNOWN"
-    },
-    "serviceServiceInstancePod": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "serviceVersion": {
-          "type": "string"
-        },
-        "state": {
-          "$ref": "#/definitions/serviceServiceInstancePodState"
-        },
-        "needsAttention": {
-          "type": "boolean"
-        },
-        "containers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/serviceServiceInstancePodContainer"
-          }
-        },
-        "isOngoingPush": {
-          "type": "boolean"
-        }
-      }
-    },
-    "serviceServiceInstancePodContainer": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "state": {
-          "$ref": "#/definitions/serviceServiceInstancePodContainerState"
-        },
-        "reason": {
-          "type": "string"
-        },
-        "restarts": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "serviceServiceInstancePodContainerState": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "INITIALIZING",
-        "RUNNING",
-        "FAILED",
-        "CRASH_LOOP_BACKOFF"
-      ],
-      "default": "UNKNOWN"
-    },
-    "serviceServiceInstancePodState": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "PENDING",
-        "INITIALIZING_CONTAINERS",
-        "RUNNING",
-        "SUCCEEDED",
-        "FAILED",
-        "TERMINATING"
-      ],
-      "default": "UNKNOWN"
-    },
-    "serviceServiceInstanceStateState": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "UPDATING",
-        "HEALTHY",
-        "INFRA_ERROR",
-        "APP_ERROR",
-        "PENDING_DEPLOY"
-      ],
-      "default": "UNKNOWN",
-      "title": "- APP_ERROR: app error where process started and we have logs\n - PENDING_DEPLOY: service instance is created but it has not been pushed to yet"
-    },
-    "serviceServiceStateState": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "INSTANCES_UPDATING_NO_PIPELINE",
-        "HEALTHY",
-        "INFRA_ERROR",
-        "APP_ERROR",
-        "PENDING_DEPLOY",
-        "APPROVAL_REQUESTED",
-        "ONGOING_PIPELINE"
-      ],
-      "default": "UNKNOWN",
-      "title": "- INSTANCES_UPDATING_NO_PIPELINE: one of the instances is updating, but there is no ongoing pipeline\n - PENDING_DEPLOY: created but not pushed\n - APPROVAL_REQUESTED: a pipeline is waiting on manual approval"
     },
     "serviceServiceUserMetadata": {
       "type": "object",
