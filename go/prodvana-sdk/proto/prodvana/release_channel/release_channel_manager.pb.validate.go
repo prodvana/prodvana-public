@@ -1006,6 +1006,8 @@ func (m *GetReleaseChannelEventsReq) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for OrderByDescTimestamp
+
 	if len(errors) > 0 {
 		return GetReleaseChannelEventsReqMultiError(errors)
 	}

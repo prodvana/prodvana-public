@@ -48,6 +48,7 @@ message GetReleaseChannelEventsReq {
     string release_channel = 2 [(validate.rules).string.min_len = 1];
     string page_token = 3;
     int32 page_size = 4;
+    bool order_by_desc_timestamp = 5;
 }
 
 message GetReleaseChannelEventsResp {

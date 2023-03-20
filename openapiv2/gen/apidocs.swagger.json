@@ -530,6 +530,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "orderByDescTimestamp",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
