@@ -1,0 +1,21 @@
+syntax = "proto3";
+package prodvana.blobs;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/blobs";
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+message GetCasBlobReq {
+    string id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetCasBlobResp {
+    bytes bytes = 1;
+}
+
+service BlobsManager {
+    rpc GetCasBlob(GetCasBlobReq) returns (stream GetCasBlobResp) {
+        option (google.api.http) = {
+            get: "/v1/blobs/cas/{id=*}"
+        };
+    }
+}

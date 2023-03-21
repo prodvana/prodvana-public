@@ -18,6 +18,9 @@
       "name": "prodvana.auth.ApiTokenManager"
     },
     {
+      "name": "prodvana.blobs.BlobsManager"
+    },
+    {
       "name": "prodvana.desired_state.DesiredStateManager"
     },
     {
@@ -1351,6 +1354,46 @@
         },
         "tags": [
           "prodvana.auth.AuthSessionManager"
+        ]
+      }
+    },
+    "/v1/blobs/cas/{id}": {
+      "get": {
+        "operationId": "BlobsManager_GetCasBlob",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/blobsGetCasBlobResp"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of blobsGetCasBlobResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.blobs.BlobsManager"
         ]
       }
     },
@@ -4777,6 +4820,15 @@
         },
         "forCli": {
           "type": "boolean"
+        }
+      }
+    },
+    "blobsGetCasBlobResp": {
+      "type": "object",
+      "properties": {
+        "bytes": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },
