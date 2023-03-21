@@ -1,0 +1,36 @@
+syntax = "proto3";
+package prodvana.events;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/events";
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "prodvana/events/events.proto";
+import "prodvana/events/types.proto";
+
+message Lookup {
+    oneof lookup_oneof {
+        option (validate.required) = true;
+        string desired_state_id = 1;
+    }
+}
+
+message GetEventsReq {
+    Lookup lookup = 1 [(validate.rules).message.required = true];
+    // empty means to include all types
+    repeated EventType types = 2;
+    string page_token = 3;
+    int32 page_size = 4;
+    bool order_by_desc_timestamp = 5;
+}
+
+message GetEventsResp {
+    repeated Event events = 1;
+    string next_page_token = 2;
+}
+
+service EventsManager {
+    rpc GetEvents(GetEventsReq) returns (GetEventsResp) {
+        option (google.api.http) = {
+            get: "/v1/events"
+        };
+    }
+}

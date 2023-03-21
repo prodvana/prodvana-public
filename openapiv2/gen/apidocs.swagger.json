@@ -24,6 +24,9 @@
       "name": "prodvana.environment.EnvironmentManager"
     },
     {
+      "name": "prodvana.events.EventsManager"
+    },
+    {
       "name": "prodvana.managed_resource.ResourceManager"
     },
     {
@@ -1902,6 +1905,79 @@
         ],
         "tags": [
           "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
+    "/v1/events": {
+      "get": {
+        "operationId": "EventsManager_GetEvents",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/eventsGetEventsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "lookup.desiredStateId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "types",
+            "description": "empty means to include all types\n\n - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "UNKNOWN",
+                "SET_DESIRED_STATE",
+                "SET_TARGET_STATE",
+                "PROGRAM_EXIT",
+                "APPLY_TARGET_STATE",
+                "MANUAL_APPROVAL",
+                "CUSTOM_TASK_EXECUTION",
+                "RUNTIME_UPDATE",
+                "DELIVERY_PROGRESS",
+                "DELIVERY_MANUAL_PROMOTION",
+                "DESIRED_STATE_STATUS_CHANGE"
+              ]
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderByDescTimestamp",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "prodvana.events.EventsManager"
         ]
       }
     },
@@ -5906,6 +5982,29 @@
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available."
+    },
+    "eventsGetEventsResp": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventsEvent"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "eventsLookup": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        }
+      }
     },
     "eventsManualApprovalEvent": {
       "type": "object",
