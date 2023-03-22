@@ -42,6 +42,9 @@
       "name": "prodvana.release_channel.ReleaseChannelManager"
     },
     {
+      "name": "prodvana.environment.SecretsManager"
+    },
+    {
       "name": "prodvana.service.ServiceManager"
     },
     {
@@ -3314,6 +3317,160 @@
         ]
       }
     },
+    "/v1/secrets": {
+      "post": {
+        "operationId": "SecretsManager_SetSecret",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentSetSecretResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/environmentSetSecretReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.environment.SecretsManager"
+        ]
+      }
+    },
+    "/v1/secrets/list": {
+      "get": {
+        "operationId": "SecretsManager_ListSecrets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentListSecretsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.environment.SecretsManager"
+        ]
+      }
+    },
+    "/v1/secrets/{key}/delete": {
+      "delete": {
+        "operationId": "SecretsManager_DeleteSecret",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentDeleteSecretResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.environment.SecretsManager"
+        ]
+      }
+    },
+    "/v1/secrets/{key}/versions": {
+      "get": {
+        "operationId": "SecretsManager_ListSecretVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentListSecretVersionsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.environment.SecretsManager"
+        ]
+      }
+    },
+    "/v1/secrets/{key}/versions/{version}/delete": {
+      "delete": {
+        "operationId": "SecretsManager_DeleteSecretVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentDeleteSecretVersionResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.environment.SecretsManager"
+        ]
+      }
+    },
     "/v1/settings/organization/roles": {
       "get": {
         "operationId": "UsersSettingsManager_ListRoles",
@@ -5755,6 +5912,12 @@
     "environmentConfigureClusterResp": {
       "type": "object"
     },
+    "environmentDeleteSecretResp": {
+      "type": "object"
+    },
+    "environmentDeleteSecretVersionResp": {
+      "type": "object"
+    },
     "environmentDetectClusterConfigResp": {
       "type": "object",
       "properties": {
@@ -5880,6 +6043,29 @@
         }
       }
     },
+    "environmentListSecretVersionsResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "environmentListSecretsResp": {
+      "type": "object",
+      "properties": {
+        "secrets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configSecret"
+          }
+        }
+      }
+    },
     "environmentRemoveClusterReq": {
       "type": "object",
       "properties": {
@@ -5891,6 +6077,25 @@
     },
     "environmentRemoveClusterResp": {
       "type": "object"
+    },
+    "environmentSetSecretReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "environmentSetSecretResp": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      }
     },
     "environmentValidateConfigureClusterResp": {
       "type": "object"
