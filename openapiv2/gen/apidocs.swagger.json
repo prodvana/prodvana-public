@@ -5937,10 +5937,6 @@
         "reason": {
           "type": "string",
           "title": "Why did this job exit/fail?"
-        },
-        "logs": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },
@@ -6133,11 +6129,6 @@
           "type": "integer",
           "format": "int32",
           "title": "signal used to terminate this process, if any"
-        },
-        "logs": {
-          "type": "string",
-          "format": "byte",
-          "title": "next tag: 10"
         }
       }
     },

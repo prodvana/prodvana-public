@@ -84,7 +84,8 @@ message ProgramExitEvent {
     string killed_reason = 9;  // if killed, this is the reason why it was killed (best effort)
     int32 exit_code = 6;
     int32 signal = 7; // signal used to terminate this process, if any
-    bytes logs = 8;
+    reserved 8;
+    reserved "logs";
     // next tag: 10
 }
 
@@ -108,7 +109,8 @@ message CustomTaskExecutionEvent {
     bool successful = 1;
     int32 attempts = 2;
     string reason = 3; // Why did this job exit/fail?
-    bytes logs = 4;
+    reserved 4;
+    reserved "logs";
 }
 
 message RuntimeObject {

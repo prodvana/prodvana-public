@@ -700,8 +700,6 @@ func (m *ProgramExitEvent) validate(all bool) error {
 
 	// no validation rules for Signal
 
-	// no validation rules for Logs
-
 	if len(errors) > 0 {
 		return ProgramExitEventMultiError(errors)
 	}
@@ -1180,8 +1178,6 @@ func (m *CustomTaskExecutionEvent) validate(all bool) error {
 	// no validation rules for Attempts
 
 	// no validation rules for Reason
-
-	// no validation rules for Logs
 
 	if len(errors) > 0 {
 		return CustomTaskExecutionEventMultiError(errors)
