@@ -8,8 +8,17 @@ message VolumeSource {
     message SecretSource {
         string secret_name = 1 [(validate.rules).string.min_len = 1];
     }
+    message EphemeralSource {
+        enum Medium {
+            UNKNOWN = 0;
+            DEFAULT = 1; // for kubernetes, this the the node's default storage medium
+            MEMORY = 2;
+        }
+        Medium medium = 1;
+    }
     oneof source {
         SecretSource secret = 1;
+        EphemeralSource ephemeral = 2;
     }
 }
 

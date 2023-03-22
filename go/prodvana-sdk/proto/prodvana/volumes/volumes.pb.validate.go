@@ -99,6 +99,47 @@ func (m *VolumeSource) validate(all bool) error {
 			}
 		}
 
+	case *VolumeSource_Ephemeral:
+		if v == nil {
+			err := VolumeSourceValidationError{
+				field:  "Source",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetEphemeral()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, VolumeSourceValidationError{
+						field:  "Ephemeral",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, VolumeSourceValidationError{
+						field:  "Ephemeral",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEphemeral()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return VolumeSourceValidationError{
+					field:  "Ephemeral",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -562,3 +603,108 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = VolumeSource_SecretSourceValidationError{}
+
+// Validate checks the field values on VolumeSource_EphemeralSource with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VolumeSource_EphemeralSource) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VolumeSource_EphemeralSource with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VolumeSource_EphemeralSourceMultiError, or nil if none found.
+func (m *VolumeSource_EphemeralSource) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VolumeSource_EphemeralSource) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Medium
+
+	if len(errors) > 0 {
+		return VolumeSource_EphemeralSourceMultiError(errors)
+	}
+
+	return nil
+}
+
+// VolumeSource_EphemeralSourceMultiError is an error wrapping multiple
+// validation errors returned by VolumeSource_EphemeralSource.ValidateAll() if
+// the designated constraints aren't met.
+type VolumeSource_EphemeralSourceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VolumeSource_EphemeralSourceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VolumeSource_EphemeralSourceMultiError) AllErrors() []error { return m }
+
+// VolumeSource_EphemeralSourceValidationError is the validation error returned
+// by VolumeSource_EphemeralSource.Validate if the designated constraints
+// aren't met.
+type VolumeSource_EphemeralSourceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VolumeSource_EphemeralSourceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VolumeSource_EphemeralSourceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VolumeSource_EphemeralSourceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VolumeSource_EphemeralSourceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VolumeSource_EphemeralSourceValidationError) ErrorName() string {
+	return "VolumeSource_EphemeralSourceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VolumeSource_EphemeralSourceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVolumeSource_EphemeralSource.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VolumeSource_EphemeralSourceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VolumeSource_EphemeralSourceValidationError{}

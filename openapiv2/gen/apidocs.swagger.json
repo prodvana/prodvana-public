@@ -4149,6 +4149,16 @@
         }
       }
     },
+    "EphemeralSourceMedium": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "DEFAULT",
+        "MEMORY"
+      ],
+      "default": "UNKNOWN",
+      "title": "- DEFAULT: for kubernetes, this the the node's default storage medium"
+    },
     "FakeClusterConfigCrashingProgramPatterns": {
       "type": "object",
       "properties": {
@@ -4427,6 +4437,14 @@
         "FAILURE"
       ],
       "default": "RUNTIME_STATUS_UNKNOWN"
+    },
+    "VolumeSourceEphemeralSource": {
+      "type": "object",
+      "properties": {
+        "medium": {
+          "$ref": "#/definitions/EphemeralSourceMedium"
+        }
+      }
     },
     "VolumeSourceSecretSource": {
       "type": "object",
@@ -8198,6 +8216,9 @@
       "properties": {
         "secret": {
           "$ref": "#/definitions/VolumeSourceSecretSource"
+        },
+        "ephemeral": {
+          "$ref": "#/definitions/VolumeSourceEphemeralSource"
         }
       }
     },
