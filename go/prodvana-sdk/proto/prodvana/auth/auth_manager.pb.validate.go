@@ -63,6 +63,8 @@ func (m *GetTokenRequest) validate(all bool) error {
 
 	// no validation rules for ForCli
 
+	// no validation rules for ProdvanaOnlyAdminOrg
+
 	if len(errors) > 0 {
 		return GetTokenRequestMultiError(errors)
 	}
@@ -273,7 +275,7 @@ func (m *GetAuthUrlRequest) validate(all bool) error {
 
 	// no validation rules for Invitation
 
-	// no validation rules for NoOrg
+	// no validation rules for ProdvanaOnlyAdminOrg
 
 	if len(errors) > 0 {
 		return GetAuthUrlRequestMultiError(errors)
@@ -692,6 +694,8 @@ func (m *RefreshTokenReq) validate(all bool) error {
 	}
 
 	// no validation rules for ForCli
+
+	// no validation rules for ProdvanaOnlyAdminOrg
 
 	if len(errors) > 0 {
 		return RefreshTokenReqMultiError(errors)

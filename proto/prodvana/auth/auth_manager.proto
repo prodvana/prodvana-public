@@ -9,6 +9,7 @@ message GetTokenRequest {
     string code = 1;
     string redirect_url = 2;
     bool for_cli = 3;
+    bool prodvana_only_admin_org = 4; // prodvana internal use
 }
 
 message GetAuthUrlResponse {
@@ -19,10 +20,9 @@ message GetAuthUrlRequest {
     string state = 2;
     bool for_cli = 3;
     string invitation = 4; // optional invitation id for the invite flow
-    // generate an auth url without passing this cluster's default org_id
-    bool no_org = 5;
-    reserved 1;
-    reserved "redirect_url";
+    bool prodvana_only_admin_org = 6; // prodvana internal use
+    reserved 1, 5;
+    reserved "redirect_url", "no_org";
 }
 
 message CliAuthReq {
@@ -43,6 +43,7 @@ message CliAuthResp {
 message RefreshTokenReq {
     AuthToken token = 1;
     bool for_cli = 2;
+    bool prodvana_only_admin_org = 3; // prodvana internal use
 }
 
 message GetAuthTokenResp {

@@ -1247,8 +1247,8 @@
             "type": "string"
           },
           {
-            "name": "noOrg",
-            "description": "generate an auth url without passing this cluster's default org_id",
+            "name": "prodvanaOnlyAdminOrg",
+            "description": "prodvana internal use",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -1292,6 +1292,13 @@
           },
           {
             "name": "forCli",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "prodvanaOnlyAdminOrg",
+            "description": "prodvana internal use",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -4838,6 +4845,10 @@
         },
         "forCli": {
           "type": "boolean"
+        },
+        "prodvanaOnlyAdminOrg": {
+          "type": "boolean",
+          "title": "prodvana internal use"
         }
       }
     },
