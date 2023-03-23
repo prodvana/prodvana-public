@@ -525,6 +525,51 @@ func local_request_DesiredStateManager_GetDesiredStateConvergenceEvents_0(ctx co
 
 }
 
+var (
+	filter_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0 = &utilities.DoubleArray{Encoding: map[string]int{"desired_state_id": 0, "desiredStateId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (DesiredStateManager_GetAllDesiredStateConvergenceEventsClient, runtime.ServerMetadata, error) {
+	var protoReq GetDesiredStateConvergenceEventsReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["desired_state_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "desired_state_id")
+	}
+
+	protoReq.DesiredStateId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	stream, err := client.GetAllDesiredStateConvergenceEvents(ctx, &protoReq)
+	if err != nil {
+		return nil, metadata, err
+	}
+	header, err := stream.Header()
+	if err != nil {
+		return nil, metadata, err
+	}
+	metadata.HeaderMD = header
+	return stream, metadata, nil
+
+}
+
 func request_DesiredStateManager_ValidateDesiredState_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ValidateDesiredStateReq
 	var metadata runtime.ServerMetadata
@@ -833,6 +878,13 @@ func RegisterDesiredStateManagerHandlerServer(ctx context.Context, mux *runtime.
 
 	})
 
+	mux.Handle("GET", pattern_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
+		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+		return
+	})
+
 	mux.Handle("POST", pattern_DesiredStateManager_ValidateDesiredState_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1125,6 +1177,28 @@ func RegisterDesiredStateManagerHandlerClient(ctx context.Context, mux *runtime.
 
 	})
 
+	mux.Handle("GET", pattern_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.desired_state.DesiredStateManager/GetAllDesiredStateConvergenceEvents", runtime.WithHTTPPathPattern("/v1/desired_states/{desired_state_id=*}/events/all"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_DesiredStateManager_ValidateDesiredState_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1211,6 +1285,8 @@ var (
 
 	pattern_DesiredStateManager_GetDesiredStateConvergenceEvents_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "desired_states", "desired_state_id", "events"}, ""))
 
+	pattern_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "desired_states", "desired_state_id", "events", "all"}, ""))
+
 	pattern_DesiredStateManager_ValidateDesiredState_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "validate"}, ""))
 
 	pattern_DesiredStateManager_SetManualApproval_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "approve_manual_condition"}, ""))
@@ -1234,6 +1310,8 @@ var (
 	forward_DesiredStateManager_GetDesiredStateConvergenceDetails_0 = runtime.ForwardResponseMessage
 
 	forward_DesiredStateManager_GetDesiredStateConvergenceEvents_0 = runtime.ForwardResponseMessage
+
+	forward_DesiredStateManager_GetAllDesiredStateConvergenceEvents_0 = runtime.ForwardResponseStream
 
 	forward_DesiredStateManager_ValidateDesiredState_0 = runtime.ForwardResponseMessage
 

@@ -1930,6 +1930,60 @@
         ]
       }
     },
+    "/v1/desired_states/{desiredStateId}/events/all": {
+      "get": {
+        "summary": "same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified",
+        "operationId": "DesiredStateManager_GetAllDesiredStateConvergenceEvents",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/desired_stateGetDesiredStateConvergenceEventsResp"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of desired_stateGetDesiredStateConvergenceEventsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "desiredStateId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/{desiredStateId}/summary": {
       "get": {
         "operationId": "DesiredStateManager_GetDesiredStateConvergenceSummary",

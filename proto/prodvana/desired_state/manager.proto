@@ -183,6 +183,12 @@ service DesiredStateManager {
             get: "/v1/desired_states/{desired_state_id=*}/events"
         };
     }
+    // same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified
+    rpc GetAllDesiredStateConvergenceEvents(GetDesiredStateConvergenceEventsReq) returns (stream GetDesiredStateConvergenceEventsResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/events/all"
+        };
+    }
     rpc ValidateDesiredState(ValidateDesiredStateReq) returns (ValidateDesiredStateResp) {
         option (google.api.http) = {
             post: "/v1/desired_states/validate"
