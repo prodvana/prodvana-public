@@ -33,10 +33,12 @@ message ApplicationConfig {
     // service templates are sets of service configurations that can be used as the base of a service.
     // this is useful for setting default values that are kept in sync when the templates change.
     repeated prodvana.template.ServiceTemplate service_templates = 8 [(validate.rules).repeated.items.message.required = true];
-    // if set, all services in this application will use dynamic delivery for deploys
-    bool use_dynamic_delivery = 9;
     // if set and use_dynamic_delivery is set, transform custom tasks to DD preconditions for all services.
     // Only used for safely migrating prime capabilities to DD.
     // UNUSED: Remove from proto once the flag has been removed from all persisted configs.
     bool enable_custom_tasks_dynamic_delivery = 10;
+
+    reserved 9;
+    reserved "use_dynamic_delivery";
+    // next tag: 11
 }
