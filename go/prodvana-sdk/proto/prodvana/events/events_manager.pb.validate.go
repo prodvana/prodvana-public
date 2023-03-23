@@ -58,6 +58,61 @@ func (m *Lookup) validate(all bool) error {
 
 	oneofLookupOneofPresent := false
 	switch v := m.LookupOneof.(type) {
+	case *Lookup_RootDesiredStateId:
+		if v == nil {
+			err := LookupValidationError{
+				field:  "LookupOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLookupOneofPresent = true
+		// no validation rules for RootDesiredStateId
+	case *Lookup_EntityId:
+		if v == nil {
+			err := LookupValidationError{
+				field:  "LookupOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLookupOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetEntityId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "EntityId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "EntityId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return LookupValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	case *Lookup_DesiredStateId:
 		if v == nil {
 			err := LookupValidationError{

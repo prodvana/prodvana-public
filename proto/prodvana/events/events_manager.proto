@@ -5,11 +5,14 @@ import "google/api/annotations.proto";
 import "validate/validate.proto";
 import "prodvana/events/events.proto";
 import "prodvana/events/types.proto";
+import "prodvana/desired_state/model/desired_state.proto";
 
 message Lookup {
     oneof lookup_oneof {
         option (validate.required) = true;
-        string desired_state_id = 1;
+        string root_desired_state_id = 1;
+        prodvana.desired_state.model.Identifier entity_id = 2;
+        string desired_state_id = 3;
     }
 }
 

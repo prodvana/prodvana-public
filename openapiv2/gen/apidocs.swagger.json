@@ -1980,6 +1980,35 @@
         },
         "parameters": [
           {
+            "name": "lookup.rootDesiredStateId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lookup.entityId.type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "SERVICE",
+              "SERVICE_INSTANCE",
+              "SERVICE_GROUP",
+              "RUNTIME_OBJECT",
+              "MANUAL_APPROVAL",
+              "CUSTOM_TASK"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "lookup.entityId.name",
+            "description": "globally unique identifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "lookup.desiredStateId",
             "in": "query",
             "required": false,
@@ -6279,6 +6308,12 @@
     "eventsLookup": {
       "type": "object",
       "properties": {
+        "rootDesiredStateId": {
+          "type": "string"
+        },
+        "entityId": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
         "desiredStateId": {
           "type": "string"
         }
