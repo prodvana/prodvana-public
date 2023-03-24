@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "prodvana/service/service_config.proto";
 import "validate/validate.proto";
-import "prodvana/events/events.proto";
 
 message SetDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
@@ -51,32 +50,12 @@ message DesiredStateSummary {
     map<string, StatusExplanations> status_explanations = 9;
 }
 
-message DesiredStateConvergenceDetails {
-    repeated prodvana.events.Event events = 1;
-}
-
 message GetDesiredStateConvergenceReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-message GetDesiredStateConvergenceEventsReq {
-    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
-    string page_token = 2;
-    int32 page_size = 3;
-}
-
-message GetDesiredStateConvergenceEventsResp {
-    repeated prodvana.events.Event events = 1;
-    string next_page_token = 2;
-}
-
 message GetDesiredStateConvergenceSummaryResp {
     DesiredStateSummary summary = 1;
-}
-
-message GetDesiredStateConvergenceDetailsResp {
-    DesiredStateSummary summary = 1;
-    DesiredStateConvergenceDetails details = 2;
 }
 
 message GetServiceDesiredStateConvergenceSummaryResp {
@@ -170,23 +149,6 @@ service DesiredStateManager {
     rpc GetDesiredStateConvergenceSummary(GetDesiredStateConvergenceReq) returns (GetDesiredStateConvergenceSummaryResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/{desired_state_id=*}/summary"
-        };
-    }
-    // deprecated, use GetDesiredStateConvergenceEvents in conjunction with summary
-    rpc GetDesiredStateConvergenceDetails(GetDesiredStateConvergenceReq) returns (GetDesiredStateConvergenceDetailsResp) {
-        option (google.api.http) = {
-            get: "/v1/desired_states/{desired_state_id=*}/details"
-        };
-    }
-    rpc GetDesiredStateConvergenceEvents(GetDesiredStateConvergenceEventsReq) returns (GetDesiredStateConvergenceEventsResp) {
-        option (google.api.http) = {
-            get: "/v1/desired_states/{desired_state_id=*}/events"
-        };
-    }
-    // same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified
-    rpc GetAllDesiredStateConvergenceEvents(GetDesiredStateConvergenceEventsReq) returns (stream GetDesiredStateConvergenceEventsResp) {
-        option (google.api.http) = {
-            get: "/v1/desired_states/{desired_state_id=*}/events/all"
         };
     }
     rpc ValidateDesiredState(ValidateDesiredStateReq) returns (ValidateDesiredStateResp) {

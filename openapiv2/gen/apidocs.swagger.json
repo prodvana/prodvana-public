@@ -1854,136 +1854,6 @@
         ]
       }
     },
-    "/v1/desired_states/{desiredStateId}/details": {
-      "get": {
-        "summary": "deprecated, use GetDesiredStateConvergenceEvents in conjunction with summary",
-        "operationId": "DesiredStateManager_GetDesiredStateConvergenceDetails",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/desired_stateGetDesiredStateConvergenceDetailsResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "desiredStateId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          }
-        ],
-        "tags": [
-          "prodvana.desired_state.DesiredStateManager"
-        ]
-      }
-    },
-    "/v1/desired_states/{desiredStateId}/events": {
-      "get": {
-        "operationId": "DesiredStateManager_GetDesiredStateConvergenceEvents",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/desired_stateGetDesiredStateConvergenceEventsResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "desiredStateId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "pageToken",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "prodvana.desired_state.DesiredStateManager"
-        ]
-      }
-    },
-    "/v1/desired_states/{desiredStateId}/events/all": {
-      "get": {
-        "summary": "same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified",
-        "operationId": "DesiredStateManager_GetAllDesiredStateConvergenceEvents",
-        "responses": {
-          "200": {
-            "description": "A successful response.(streaming responses)",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/desired_stateGetDesiredStateConvergenceEventsResp"
-                },
-                "error": {
-                  "$ref": "#/definitions/googlerpcStatus"
-                }
-              },
-              "title": "Stream result of desired_stateGetDesiredStateConvergenceEventsResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "desiredStateId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "pageToken",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "prodvana.desired_state.DesiredStateManager"
-        ]
-      }
-    },
     "/v1/desired_states/{desiredStateId}/summary": {
       "get": {
         "operationId": "DesiredStateManager_GetDesiredStateConvergenceSummary",
@@ -5438,18 +5308,6 @@
         }
       }
     },
-    "desired_stateDesiredStateConvergenceDetails": {
-      "type": "object",
-      "properties": {
-        "events": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/eventsEvent"
-          }
-        }
-      }
-    },
     "desired_stateDesiredStateSummary": {
       "type": "object",
       "properties": {
@@ -5494,32 +5352,6 @@
           "additionalProperties": {
             "$ref": "#/definitions/desired_stateStatusExplanations"
           }
-        }
-      }
-    },
-    "desired_stateGetDesiredStateConvergenceDetailsResp": {
-      "type": "object",
-      "properties": {
-        "summary": {
-          "$ref": "#/definitions/desired_stateDesiredStateSummary"
-        },
-        "details": {
-          "$ref": "#/definitions/desired_stateDesiredStateConvergenceDetails"
-        }
-      }
-    },
-    "desired_stateGetDesiredStateConvergenceEventsResp": {
-      "type": "object",
-      "properties": {
-        "events": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/eventsEvent"
-          }
-        },
-        "nextPageToken": {
-          "type": "string"
         }
       }
     },

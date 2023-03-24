@@ -25,9 +25,6 @@ const (
 	DesiredStateManager_GetServiceDesiredStateHistory_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateHistory"
 	DesiredStateManager_GetDesiredState_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/GetDesiredState"
 	DesiredStateManager_GetDesiredStateConvergenceSummary_FullMethodName        = "/prodvana.desired_state.DesiredStateManager/GetDesiredStateConvergenceSummary"
-	DesiredStateManager_GetDesiredStateConvergenceDetails_FullMethodName        = "/prodvana.desired_state.DesiredStateManager/GetDesiredStateConvergenceDetails"
-	DesiredStateManager_GetDesiredStateConvergenceEvents_FullMethodName         = "/prodvana.desired_state.DesiredStateManager/GetDesiredStateConvergenceEvents"
-	DesiredStateManager_GetAllDesiredStateConvergenceEvents_FullMethodName      = "/prodvana.desired_state.DesiredStateManager/GetAllDesiredStateConvergenceEvents"
 	DesiredStateManager_ValidateDesiredState_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/ValidateDesiredState"
 	DesiredStateManager_SetManualApproval_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/SetManualApproval"
 	DesiredStateManager_PromoteDelivery_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/PromoteDelivery"
@@ -43,11 +40,6 @@ type DesiredStateManagerClient interface {
 	GetServiceDesiredStateHistory(ctx context.Context, in *GetServiceDesiredStateHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*GetDesiredStateResp, error)
 	GetDesiredStateConvergenceSummary(ctx context.Context, in *GetDesiredStateConvergenceReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceSummaryResp, error)
-	// deprecated, use GetDesiredStateConvergenceEvents in conjunction with summary
-	GetDesiredStateConvergenceDetails(ctx context.Context, in *GetDesiredStateConvergenceReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceDetailsResp, error)
-	GetDesiredStateConvergenceEvents(ctx context.Context, in *GetDesiredStateConvergenceEventsReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceEventsResp, error)
-	// same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified
-	GetAllDesiredStateConvergenceEvents(ctx context.Context, in *GetDesiredStateConvergenceEventsReq, opts ...grpc.CallOption) (DesiredStateManager_GetAllDesiredStateConvergenceEventsClient, error)
 	ValidateDesiredState(ctx context.Context, in *ValidateDesiredStateReq, opts ...grpc.CallOption) (*ValidateDesiredStateResp, error)
 	SetManualApproval(ctx context.Context, in *SetManualApprovalReq, opts ...grpc.CallOption) (*SetManualApprovalResp, error)
 	PromoteDelivery(ctx context.Context, in *PromoteDeliveryReq, opts ...grpc.CallOption) (*PromoteDeliveryResp, error)
@@ -115,56 +107,6 @@ func (c *desiredStateManagerClient) GetDesiredStateConvergenceSummary(ctx contex
 	return out, nil
 }
 
-func (c *desiredStateManagerClient) GetDesiredStateConvergenceDetails(ctx context.Context, in *GetDesiredStateConvergenceReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceDetailsResp, error) {
-	out := new(GetDesiredStateConvergenceDetailsResp)
-	err := c.cc.Invoke(ctx, DesiredStateManager_GetDesiredStateConvergenceDetails_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *desiredStateManagerClient) GetDesiredStateConvergenceEvents(ctx context.Context, in *GetDesiredStateConvergenceEventsReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceEventsResp, error) {
-	out := new(GetDesiredStateConvergenceEventsResp)
-	err := c.cc.Invoke(ctx, DesiredStateManager_GetDesiredStateConvergenceEvents_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *desiredStateManagerClient) GetAllDesiredStateConvergenceEvents(ctx context.Context, in *GetDesiredStateConvergenceEventsReq, opts ...grpc.CallOption) (DesiredStateManager_GetAllDesiredStateConvergenceEventsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &DesiredStateManager_ServiceDesc.Streams[0], DesiredStateManager_GetAllDesiredStateConvergenceEvents_FullMethodName, opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &desiredStateManagerGetAllDesiredStateConvergenceEventsClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type DesiredStateManager_GetAllDesiredStateConvergenceEventsClient interface {
-	Recv() (*GetDesiredStateConvergenceEventsResp, error)
-	grpc.ClientStream
-}
-
-type desiredStateManagerGetAllDesiredStateConvergenceEventsClient struct {
-	grpc.ClientStream
-}
-
-func (x *desiredStateManagerGetAllDesiredStateConvergenceEventsClient) Recv() (*GetDesiredStateConvergenceEventsResp, error) {
-	m := new(GetDesiredStateConvergenceEventsResp)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *desiredStateManagerClient) ValidateDesiredState(ctx context.Context, in *ValidateDesiredStateReq, opts ...grpc.CallOption) (*ValidateDesiredStateResp, error) {
 	out := new(ValidateDesiredStateResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_ValidateDesiredState_FullMethodName, in, out, opts...)
@@ -202,11 +144,6 @@ type DesiredStateManagerServer interface {
 	GetServiceDesiredStateHistory(context.Context, *GetServiceDesiredStateHistoryReq) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(context.Context, *GetDesiredStateReq) (*GetDesiredStateResp, error)
 	GetDesiredStateConvergenceSummary(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceSummaryResp, error)
-	// deprecated, use GetDesiredStateConvergenceEvents in conjunction with summary
-	GetDesiredStateConvergenceDetails(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceDetailsResp, error)
-	GetDesiredStateConvergenceEvents(context.Context, *GetDesiredStateConvergenceEventsReq) (*GetDesiredStateConvergenceEventsResp, error)
-	// same as GetDesiredStateConvergenceEventsReq, but streaming response and page sizes/numbers cannot be specified
-	GetAllDesiredStateConvergenceEvents(*GetDesiredStateConvergenceEventsReq, DesiredStateManager_GetAllDesiredStateConvergenceEventsServer) error
 	ValidateDesiredState(context.Context, *ValidateDesiredStateReq) (*ValidateDesiredStateResp, error)
 	SetManualApproval(context.Context, *SetManualApprovalReq) (*SetManualApprovalResp, error)
 	PromoteDelivery(context.Context, *PromoteDeliveryReq) (*PromoteDeliveryResp, error)
@@ -234,15 +171,6 @@ func (UnimplementedDesiredStateManagerServer) GetDesiredState(context.Context, *
 }
 func (UnimplementedDesiredStateManagerServer) GetDesiredStateConvergenceSummary(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceSummaryResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredStateConvergenceSummary not implemented")
-}
-func (UnimplementedDesiredStateManagerServer) GetDesiredStateConvergenceDetails(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceDetailsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredStateConvergenceDetails not implemented")
-}
-func (UnimplementedDesiredStateManagerServer) GetDesiredStateConvergenceEvents(context.Context, *GetDesiredStateConvergenceEventsReq) (*GetDesiredStateConvergenceEventsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredStateConvergenceEvents not implemented")
-}
-func (UnimplementedDesiredStateManagerServer) GetAllDesiredStateConvergenceEvents(*GetDesiredStateConvergenceEventsReq, DesiredStateManager_GetAllDesiredStateConvergenceEventsServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetAllDesiredStateConvergenceEvents not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) ValidateDesiredState(context.Context, *ValidateDesiredStateReq) (*ValidateDesiredStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateDesiredState not implemented")
@@ -374,63 +302,6 @@ func _DesiredStateManager_GetDesiredStateConvergenceSummary_Handler(srv interfac
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DesiredStateManager_GetDesiredStateConvergenceDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDesiredStateConvergenceReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DesiredStateManagerServer).GetDesiredStateConvergenceDetails(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DesiredStateManager_GetDesiredStateConvergenceDetails_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DesiredStateManagerServer).GetDesiredStateConvergenceDetails(ctx, req.(*GetDesiredStateConvergenceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DesiredStateManager_GetDesiredStateConvergenceEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDesiredStateConvergenceEventsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DesiredStateManagerServer).GetDesiredStateConvergenceEvents(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DesiredStateManager_GetDesiredStateConvergenceEvents_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DesiredStateManagerServer).GetDesiredStateConvergenceEvents(ctx, req.(*GetDesiredStateConvergenceEventsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DesiredStateManager_GetAllDesiredStateConvergenceEvents_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetDesiredStateConvergenceEventsReq)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(DesiredStateManagerServer).GetAllDesiredStateConvergenceEvents(m, &desiredStateManagerGetAllDesiredStateConvergenceEventsServer{stream})
-}
-
-type DesiredStateManager_GetAllDesiredStateConvergenceEventsServer interface {
-	Send(*GetDesiredStateConvergenceEventsResp) error
-	grpc.ServerStream
-}
-
-type desiredStateManagerGetAllDesiredStateConvergenceEventsServer struct {
-	grpc.ServerStream
-}
-
-func (x *desiredStateManagerGetAllDesiredStateConvergenceEventsServer) Send(m *GetDesiredStateConvergenceEventsResp) error {
-	return x.ServerStream.SendMsg(m)
-}
-
 func _DesiredStateManager_ValidateDesiredState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateDesiredStateReq)
 	if err := dec(in); err != nil {
@@ -517,14 +388,6 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DesiredStateManager_GetDesiredStateConvergenceSummary_Handler,
 		},
 		{
-			MethodName: "GetDesiredStateConvergenceDetails",
-			Handler:    _DesiredStateManager_GetDesiredStateConvergenceDetails_Handler,
-		},
-		{
-			MethodName: "GetDesiredStateConvergenceEvents",
-			Handler:    _DesiredStateManager_GetDesiredStateConvergenceEvents_Handler,
-		},
-		{
 			MethodName: "ValidateDesiredState",
 			Handler:    _DesiredStateManager_ValidateDesiredState_Handler,
 		},
@@ -537,12 +400,6 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DesiredStateManager_PromoteDelivery_Handler,
 		},
 	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "GetAllDesiredStateConvergenceEvents",
-			Handler:       _DesiredStateManager_GetAllDesiredStateConvergenceEvents_Handler,
-			ServerStreams: true,
-		},
-	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "prodvana/desired_state/manager.proto",
 }
