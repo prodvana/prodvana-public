@@ -2016,7 +2016,7 @@
       }
     },
     "/v1/events": {
-      "get": {
+      "post": {
         "operationId": "EventsManager_GetEvents",
         "responses": {
           "200": {
@@ -2034,82 +2034,12 @@
         },
         "parameters": [
           {
-            "name": "lookup.rootDesiredStateId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "lookup.entityId.type",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "UNKNOWN",
-              "SERVICE",
-              "SERVICE_INSTANCE",
-              "SERVICE_GROUP",
-              "RUNTIME_OBJECT",
-              "MANUAL_APPROVAL",
-              "CUSTOM_TASK"
-            ],
-            "default": "UNKNOWN"
-          },
-          {
-            "name": "lookup.entityId.name",
-            "description": "globally unique identifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "lookup.desiredStateId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "types",
-            "description": "empty means to include all types\n\n - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available.",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "UNKNOWN",
-                "SET_DESIRED_STATE",
-                "SET_TARGET_STATE",
-                "PROGRAM_EXIT",
-                "APPLY_TARGET_STATE",
-                "MANUAL_APPROVAL",
-                "CUSTOM_TASK_EXECUTION",
-                "RUNTIME_UPDATE",
-                "DELIVERY_PROGRESS",
-                "DELIVERY_MANUAL_PROMOTION",
-                "DESIRED_STATE_STATUS_CHANGE"
-              ]
-            },
-            "collectionFormat": "multi"
-          },
-          {
-            "name": "pageToken",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "orderByDescTimestamp",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsGetEventsReq"
+            }
           }
         ],
         "tags": [
@@ -6337,6 +6267,35 @@
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available."
     },
+    "eventsGetEventsReq": {
+      "type": "object",
+      "properties": {
+        "lookups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventsLookup"
+          }
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/eventsEventType"
+          },
+          "title": "empty means to include all types"
+        },
+        "pageToken": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderByDescTimestamp": {
+          "type": "boolean"
+        }
+      }
+    },
     "eventsGetEventsResp": {
       "type": "object",
       "properties": {
@@ -6363,6 +6322,12 @@
         },
         "desiredStateId": {
           "type": "string"
+        },
+        "service": {
+          "$ref": "#/definitions/eventsServiceLookup"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelLookup"
         }
       }
     },
@@ -6444,6 +6409,17 @@
         }
       }
     },
+    "eventsReleaseChannelLookup": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        }
+      }
+    },
     "eventsRuntimeUpdateEvent": {
       "type": "object",
       "properties": {
@@ -6455,6 +6431,17 @@
         },
         "status": {
           "$ref": "#/definitions/RuntimeUpdateEventRuntimeStatus"
+        }
+      }
+    },
+    "eventsServiceLookup": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
         }
       }
     },

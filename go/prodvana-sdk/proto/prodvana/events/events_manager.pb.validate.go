@@ -35,6 +35,252 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on ServiceLookup with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ServiceLookup) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ServiceLookup with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ServiceLookupMultiError, or
+// nil if none found.
+func (m *ServiceLookup) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ServiceLookup) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ServiceLookupValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ServiceLookupValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ServiceLookupMultiError(errors)
+	}
+
+	return nil
+}
+
+// ServiceLookupMultiError is an error wrapping multiple validation errors
+// returned by ServiceLookup.ValidateAll() if the designated constraints
+// aren't met.
+type ServiceLookupMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ServiceLookupMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ServiceLookupMultiError) AllErrors() []error { return m }
+
+// ServiceLookupValidationError is the validation error returned by
+// ServiceLookup.Validate if the designated constraints aren't met.
+type ServiceLookupValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceLookupValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceLookupValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceLookupValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceLookupValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceLookupValidationError) ErrorName() string { return "ServiceLookupValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServiceLookupValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceLookup.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceLookupValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceLookupValidationError{}
+
+// Validate checks the field values on ReleaseChannelLookup with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseChannelLookup) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseChannelLookup with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseChannelLookupMultiError, or nil if none found.
+func (m *ReleaseChannelLookup) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseChannelLookup) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ReleaseChannelLookupValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
+		err := ReleaseChannelLookupValidationError{
+			field:  "ReleaseChannel",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReleaseChannelLookupMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseChannelLookupMultiError is an error wrapping multiple validation
+// errors returned by ReleaseChannelLookup.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseChannelLookupMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseChannelLookupMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseChannelLookupMultiError) AllErrors() []error { return m }
+
+// ReleaseChannelLookupValidationError is the validation error returned by
+// ReleaseChannelLookup.Validate if the designated constraints aren't met.
+type ReleaseChannelLookupValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseChannelLookupValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseChannelLookupValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseChannelLookupValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseChannelLookupValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseChannelLookupValidationError) ErrorName() string {
+	return "ReleaseChannelLookupValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseChannelLookupValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseChannelLookup.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseChannelLookupValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseChannelLookupValidationError{}
+
 // Validate checks the field values on Lookup with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -126,6 +372,90 @@ func (m *Lookup) validate(all bool) error {
 		}
 		oneofLookupOneofPresent = true
 		// no validation rules for DesiredStateId
+	case *Lookup_Service:
+		if v == nil {
+			err := LookupValidationError{
+				field:  "LookupOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLookupOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return LookupValidationError{
+					field:  "Service",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Lookup_ReleaseChannel:
+		if v == nil {
+			err := LookupValidationError{
+				field:  "LookupOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLookupOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, LookupValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return LookupValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -239,10 +569,10 @@ func (m *GetEventsReq) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetLookup() == nil {
+	if len(m.GetLookups()) < 1 {
 		err := GetEventsReqValidationError{
-			field:  "Lookup",
-			reason: "value is required",
+			field:  "Lookups",
+			reason: "value must contain at least 1 item(s)",
 		}
 		if !all {
 			return err
@@ -250,33 +580,49 @@ func (m *GetEventsReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if all {
-		switch v := interface{}(m.GetLookup()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetEventsReqValidationError{
-					field:  "Lookup",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+	for idx, item := range m.GetLookups() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := GetEventsReqValidationError{
+				field:  fmt.Sprintf("Lookups[%v]", idx),
+				reason: "value is required",
 			}
-		case interface{ Validate() error }:
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetEventsReqValidationError{
+						field:  fmt.Sprintf("Lookups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetEventsReqValidationError{
+						field:  fmt.Sprintf("Lookups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetEventsReqValidationError{
-					field:  "Lookup",
+				return GetEventsReqValidationError{
+					field:  fmt.Sprintf("Lookups[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
-				})
+				}
 			}
 		}
-	} else if v, ok := interface{}(m.GetLookup()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetEventsReqValidationError{
-				field:  "Lookup",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
+
 	}
 
 	// no validation rules for PageToken

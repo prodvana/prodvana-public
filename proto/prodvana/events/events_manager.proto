@@ -7,17 +7,36 @@ import "prodvana/events/events.proto";
 import "prodvana/events/types.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 
+message ServiceLookup {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message ReleaseChannelLookup {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string release_channel = 2 [(validate.rules).string.min_len = 1];
+}
+
 message Lookup {
     oneof lookup_oneof {
         option (validate.required) = true;
         string root_desired_state_id = 1;
         prodvana.desired_state.model.Identifier entity_id = 2;
         string desired_state_id = 3;
+        ServiceLookup service = 4;
+        ReleaseChannelLookup release_channel = 5;
     }
 }
 
 message GetEventsReq {
-    Lookup lookup = 1 [(validate.rules).message.required = true];
+    repeated Lookup lookups = 1 [(validate.rules).repeated = {
+        min_items: 1,
+        items: {
+            message: {
+                required: true,
+            },
+        },
+    }];
     // empty means to include all types
     repeated EventType types = 2;
     string page_token = 3;
@@ -33,7 +52,9 @@ message GetEventsResp {
 service EventsManager {
     rpc GetEvents(GetEventsReq) returns (GetEventsResp) {
         option (google.api.http) = {
-            get: "/v1/events"
+            // actually just GET, but otherwise the generated openapi cannot take complex structs
+            post: "/v1/events"
+            body: "*"
         };
     }
 }
