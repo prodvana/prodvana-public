@@ -4833,13 +4833,6 @@
             "$ref": "#/definitions/release_channelReleaseChannelConfig"
           }
         },
-        "pipelineTemplates": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesPipelineTemplate"
-          }
-        },
         "notifications": {
           "$ref": "#/definitions/common_configNotificationConfig"
         },
@@ -7217,29 +7210,6 @@
           }
         }
       }
-    },
-    "pipelinesPipelineTemplate": {
-      "type": "object",
-      "properties": {
-        "nameSuffix": {
-          "type": "string"
-        },
-        "tasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pipelinesTask"
-          }
-        },
-        "rollback": {
-          "type": "boolean"
-        },
-        "notifications": {
-          "$ref": "#/definitions/common_configNotificationConfig",
-          "title": "optional, will default to application's notification config"
-        }
-      },
-      "description": "Similar to pipeline, but the task IDs and service fields are expected to not be filled out."
     },
     "pipelinesPushTask": {
       "type": "object",

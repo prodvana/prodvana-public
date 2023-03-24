@@ -3,7 +3,6 @@ package prodvana.application;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/notification.proto";
-import "prodvana/pipelines/pipelines.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/template/service.proto";
 import "prodvana/workflow/integration_config.proto";
@@ -18,7 +17,6 @@ message ApplicationConfig {
         }
     ];
     repeated prodvana.release_channel.ReleaseChannelConfig release_channels = 2;
-    repeated prodvana.pipelines.PipelineTemplate pipeline_templates = 3;
     prodvana.common_config.NotificationConfig notifications = 4;
     prodvana.workflow.AlertingConfig alerts = 5;
 
@@ -38,7 +36,7 @@ message ApplicationConfig {
     // UNUSED: Remove from proto once the flag has been removed from all persisted configs.
     bool enable_custom_tasks_dynamic_delivery = 10;
 
-    reserved 9;
-    reserved "use_dynamic_delivery";
+    reserved 3, 9;
+    reserved "pipeline_templates", "use_dynamic_delivery";
     // next tag: 11
 }
