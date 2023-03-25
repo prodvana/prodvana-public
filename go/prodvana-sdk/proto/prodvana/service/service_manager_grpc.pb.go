@@ -19,31 +19,39 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceManager_ConfigureService_FullMethodName         = "/prodvana.service.ServiceManager/ConfigureService"
-	ServiceManager_ValidateConfigureService_FullMethodName = "/prodvana.service.ServiceManager/ValidateConfigureService"
-	ServiceManager_GetServiceConfig_FullMethodName         = "/prodvana.service.ServiceManager/GetServiceConfig"
-	ServiceManager_ListServiceVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceVersions"
-	ServiceManager_DeleteService_FullMethodName            = "/prodvana.service.ServiceManager/DeleteService"
-	ServiceManager_ListServices_FullMethodName             = "/prodvana.service.ServiceManager/ListServices"
-	ServiceManager_ListServicesV2_FullMethodName           = "/prodvana.service.ServiceManager/ListServicesV2"
-	ServiceManager_ListCommits_FullMethodName              = "/prodvana.service.ServiceManager/ListCommits"
-	ServiceManager_GetService_FullMethodName               = "/prodvana.service.ServiceManager/GetService"
-	ServiceManager_GetServiceV2_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceV2"
-	ServiceManager_ListServiceInstances_FullMethodName     = "/prodvana.service.ServiceManager/ListServiceInstances"
-	ServiceManager_ListServiceInstancesV2_FullMethodName   = "/prodvana.service.ServiceManager/ListServiceInstancesV2"
-	ServiceManager_GetServiceInstance_FullMethodName       = "/prodvana.service.ServiceManager/GetServiceInstance"
-	ServiceManager_GetServiceInstanceV2_FullMethodName     = "/prodvana.service.ServiceManager/GetServiceInstanceV2"
-	ServiceManager_GetServiceMetrics_FullMethodName        = "/prodvana.service.ServiceManager/GetServiceMetrics"
-	ServiceManager_GetServiceInsights_FullMethodName       = "/prodvana.service.ServiceManager/GetServiceInsights"
-	ServiceManager_SnoozeServiceInsight_FullMethodName     = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
-	ServiceManager_GetServiceMetadata_FullMethodName       = "/prodvana.service.ServiceManager/GetServiceMetadata"
-	ServiceManager_SetServiceMetadata_FullMethodName       = "/prodvana.service.ServiceManager/SetServiceMetadata"
+	ServiceManager_RegisterServiceTemplate_FullMethodName     = "/prodvana.service.ServiceManager/RegisterServiceTemplate"
+	ServiceManager_MaterializeServiceTemplate_FullMethodName  = "/prodvana.service.ServiceManager/MaterializeServiceTemplate"
+	ServiceManager_ListServiceTemplateVersions_FullMethodName = "/prodvana.service.ServiceManager/ListServiceTemplateVersions"
+	ServiceManager_GetServiceTemplate_FullMethodName          = "/prodvana.service.ServiceManager/GetServiceTemplate"
+	ServiceManager_ConfigureService_FullMethodName            = "/prodvana.service.ServiceManager/ConfigureService"
+	ServiceManager_ValidateConfigureService_FullMethodName    = "/prodvana.service.ServiceManager/ValidateConfigureService"
+	ServiceManager_GetServiceConfig_FullMethodName            = "/prodvana.service.ServiceManager/GetServiceConfig"
+	ServiceManager_ListServiceVersions_FullMethodName         = "/prodvana.service.ServiceManager/ListServiceVersions"
+	ServiceManager_DeleteService_FullMethodName               = "/prodvana.service.ServiceManager/DeleteService"
+	ServiceManager_ListServices_FullMethodName                = "/prodvana.service.ServiceManager/ListServices"
+	ServiceManager_ListServicesV2_FullMethodName              = "/prodvana.service.ServiceManager/ListServicesV2"
+	ServiceManager_ListCommits_FullMethodName                 = "/prodvana.service.ServiceManager/ListCommits"
+	ServiceManager_GetService_FullMethodName                  = "/prodvana.service.ServiceManager/GetService"
+	ServiceManager_GetServiceV2_FullMethodName                = "/prodvana.service.ServiceManager/GetServiceV2"
+	ServiceManager_ListServiceInstances_FullMethodName        = "/prodvana.service.ServiceManager/ListServiceInstances"
+	ServiceManager_ListServiceInstancesV2_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceInstancesV2"
+	ServiceManager_GetServiceInstance_FullMethodName          = "/prodvana.service.ServiceManager/GetServiceInstance"
+	ServiceManager_GetServiceInstanceV2_FullMethodName        = "/prodvana.service.ServiceManager/GetServiceInstanceV2"
+	ServiceManager_GetServiceMetrics_FullMethodName           = "/prodvana.service.ServiceManager/GetServiceMetrics"
+	ServiceManager_GetServiceInsights_FullMethodName          = "/prodvana.service.ServiceManager/GetServiceInsights"
+	ServiceManager_SnoozeServiceInsight_FullMethodName        = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
+	ServiceManager_GetServiceMetadata_FullMethodName          = "/prodvana.service.ServiceManager/GetServiceMetadata"
+	ServiceManager_SetServiceMetadata_FullMethodName          = "/prodvana.service.ServiceManager/SetServiceMetadata"
 )
 
 // ServiceManagerClient is the client API for ServiceManager service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceManagerClient interface {
+	RegisterServiceTemplate(ctx context.Context, in *RegisterServiceTemplateReq, opts ...grpc.CallOption) (*RegisterServiceTemplateResp, error)
+	MaterializeServiceTemplate(ctx context.Context, in *MaterializeServiceTemplateReq, opts ...grpc.CallOption) (*MaterializeServiceTemplateResp, error)
+	ListServiceTemplateVersions(ctx context.Context, in *ListServiceTemplateVersionsReq, opts ...grpc.CallOption) (*ListServiceTemplateVersionsResp, error)
+	GetServiceTemplate(ctx context.Context, in *GetServiceTemplateReq, opts ...grpc.CallOption) (*GetServiceTemplateResp, error)
 	ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error)
 	ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error)
 	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
@@ -75,6 +83,42 @@ type serviceManagerClient struct {
 
 func NewServiceManagerClient(cc grpc.ClientConnInterface) ServiceManagerClient {
 	return &serviceManagerClient{cc}
+}
+
+func (c *serviceManagerClient) RegisterServiceTemplate(ctx context.Context, in *RegisterServiceTemplateReq, opts ...grpc.CallOption) (*RegisterServiceTemplateResp, error) {
+	out := new(RegisterServiceTemplateResp)
+	err := c.cc.Invoke(ctx, ServiceManager_RegisterServiceTemplate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceManagerClient) MaterializeServiceTemplate(ctx context.Context, in *MaterializeServiceTemplateReq, opts ...grpc.CallOption) (*MaterializeServiceTemplateResp, error) {
+	out := new(MaterializeServiceTemplateResp)
+	err := c.cc.Invoke(ctx, ServiceManager_MaterializeServiceTemplate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceManagerClient) ListServiceTemplateVersions(ctx context.Context, in *ListServiceTemplateVersionsReq, opts ...grpc.CallOption) (*ListServiceTemplateVersionsResp, error) {
+	out := new(ListServiceTemplateVersionsResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ListServiceTemplateVersions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceManagerClient) GetServiceTemplate(ctx context.Context, in *GetServiceTemplateReq, opts ...grpc.CallOption) (*GetServiceTemplateResp, error) {
+	out := new(GetServiceTemplateResp)
+	err := c.cc.Invoke(ctx, ServiceManager_GetServiceTemplate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *serviceManagerClient) ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error) {
@@ -252,6 +296,10 @@ func (c *serviceManagerClient) SetServiceMetadata(ctx context.Context, in *SetSe
 // All implementations must embed UnimplementedServiceManagerServer
 // for forward compatibility
 type ServiceManagerServer interface {
+	RegisterServiceTemplate(context.Context, *RegisterServiceTemplateReq) (*RegisterServiceTemplateResp, error)
+	MaterializeServiceTemplate(context.Context, *MaterializeServiceTemplateReq) (*MaterializeServiceTemplateResp, error)
+	ListServiceTemplateVersions(context.Context, *ListServiceTemplateVersionsReq) (*ListServiceTemplateVersionsResp, error)
+	GetServiceTemplate(context.Context, *GetServiceTemplateReq) (*GetServiceTemplateResp, error)
 	ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error)
 	ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error)
 	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
@@ -282,6 +330,18 @@ type ServiceManagerServer interface {
 type UnimplementedServiceManagerServer struct {
 }
 
+func (UnimplementedServiceManagerServer) RegisterServiceTemplate(context.Context, *RegisterServiceTemplateReq) (*RegisterServiceTemplateResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterServiceTemplate not implemented")
+}
+func (UnimplementedServiceManagerServer) MaterializeServiceTemplate(context.Context, *MaterializeServiceTemplateReq) (*MaterializeServiceTemplateResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MaterializeServiceTemplate not implemented")
+}
+func (UnimplementedServiceManagerServer) ListServiceTemplateVersions(context.Context, *ListServiceTemplateVersionsReq) (*ListServiceTemplateVersionsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListServiceTemplateVersions not implemented")
+}
+func (UnimplementedServiceManagerServer) GetServiceTemplate(context.Context, *GetServiceTemplateReq) (*GetServiceTemplateResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServiceTemplate not implemented")
+}
 func (UnimplementedServiceManagerServer) ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConfigureService not implemented")
 }
@@ -350,6 +410,78 @@ type UnsafeServiceManagerServer interface {
 
 func RegisterServiceManagerServer(s grpc.ServiceRegistrar, srv ServiceManagerServer) {
 	s.RegisterService(&ServiceManager_ServiceDesc, srv)
+}
+
+func _ServiceManager_RegisterServiceTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterServiceTemplateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).RegisterServiceTemplate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_RegisterServiceTemplate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).RegisterServiceTemplate(ctx, req.(*RegisterServiceTemplateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceManager_MaterializeServiceTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MaterializeServiceTemplateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).MaterializeServiceTemplate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_MaterializeServiceTemplate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).MaterializeServiceTemplate(ctx, req.(*MaterializeServiceTemplateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceManager_ListServiceTemplateVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListServiceTemplateVersionsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).ListServiceTemplateVersions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_ListServiceTemplateVersions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).ListServiceTemplateVersions(ctx, req.(*ListServiceTemplateVersionsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceManager_GetServiceTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceTemplateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).GetServiceTemplate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_GetServiceTemplate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).GetServiceTemplate(ctx, req.(*GetServiceTemplateReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceManager_ConfigureService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -701,6 +833,22 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "prodvana.service.ServiceManager",
 	HandlerType: (*ServiceManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RegisterServiceTemplate",
+			Handler:    _ServiceManager_RegisterServiceTemplate_Handler,
+		},
+		{
+			MethodName: "MaterializeServiceTemplate",
+			Handler:    _ServiceManager_MaterializeServiceTemplate_Handler,
+		},
+		{
+			MethodName: "ListServiceTemplateVersions",
+			Handler:    _ServiceManager_ListServiceTemplateVersions_Handler,
+		},
+		{
+			MethodName: "GetServiceTemplate",
+			Handler:    _ServiceManager_GetServiceTemplate_Handler,
+		},
 		{
 			MethodName: "ConfigureService",
 			Handler:    _ServiceManager_ConfigureService_Handler,

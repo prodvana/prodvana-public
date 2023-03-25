@@ -3638,6 +3638,56 @@
         ]
       }
     },
+    "/v1/{application}/services/register_template": {
+      "post": {
+        "operationId": "ServiceManager_RegisterServiceTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceRegisterServiceTemplateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "template": {
+                  "$ref": "#/definitions/common_configTemplate"
+                },
+                "source": {
+                  "$ref": "#/definitions/versionSource"
+                },
+                "sourceMetadata": {
+                  "$ref": "#/definitions/versionSourceMetadata"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
     "/v1/{application}/services/{service}/config": {
       "get": {
         "operationId": "ServiceManager_GetServiceConfig",
@@ -3714,6 +3764,164 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
+    "/v1/{application}/services/{service}/templates": {
+      "get": {
+        "operationId": "ServiceManager_ListServiceTemplateVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceListServiceTemplateVersionsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
+    "/v1/{application}/services/{service}/templates/{templateVersion}": {
+      "get": {
+        "operationId": "ServiceManager_GetServiceTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceGetServiceTemplateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "templateVersion",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
+    "/v1/{application}/services/{service}/templates/{templateVersion}/materialize": {
+      "post": {
+        "operationId": "ServiceManager_MaterializeServiceTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceMaterializeServiceTemplateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "templateVersion",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/common_configParameterValue"
+                  }
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -4358,18 +4566,6 @@
         }
       }
     },
-    "ListServiceVersionsRespVersionMetadata": {
-      "type": "object",
-      "properties": {
-        "version": {
-          "type": "string"
-        },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "ManagedResourceRun": {
       "type": "object",
       "properties": {
@@ -4974,6 +5170,18 @@
         }
       }
     },
+    "common_configDockerImageParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "initialValue": {
+          "type": "string",
+          "title": "empty not a valid value"
+        },
+        "imageRegistryInfo": {
+          "$ref": "#/definitions/common_configImageRegistryInfo"
+        }
+      }
+    },
     "common_configEnvValue": {
       "type": "object",
       "properties": {
@@ -5041,6 +5249,15 @@
         }
       }
     },
+    "common_configIntParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "initialValue": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "common_configLink": {
       "type": "object",
       "properties": {
@@ -5079,6 +5296,46 @@
       "properties": {
         "slack": {
           "$ref": "#/definitions/NotificationConfigSlack"
+        }
+      }
+    },
+    "common_configParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "parameter name, used in substitutions"
+        },
+        "description": {
+          "type": "string",
+          "title": "optional description for display purposes"
+        },
+        "string": {
+          "$ref": "#/definitions/common_configStringParameterDefinition"
+        },
+        "dockerImage": {
+          "$ref": "#/definitions/common_configDockerImageParameterDefinition"
+        },
+        "int": {
+          "$ref": "#/definitions/common_configIntParameterDefinition"
+        }
+      }
+    },
+    "common_configParameterValue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "string": {
+          "type": "string"
+        },
+        "dockerImage": {
+          "type": "string"
+        },
+        "int": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -5250,6 +5507,14 @@
         }
       }
     },
+    "common_configStringParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "initialValue": {
+          "type": "string"
+        }
+      }
+    },
     "common_configTcpProbe": {
       "type": "object",
       "properties": {
@@ -5259,6 +5524,21 @@
         },
         "host": {
           "type": "string"
+        }
+      }
+    },
+    "common_configTemplate": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
         }
       }
     },
@@ -7828,6 +8108,14 @@
         }
       }
     },
+    "serviceGetServiceTemplateResp": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/common_configTemplate"
+        }
+      }
+    },
     "serviceListCommitsResp": {
       "type": "object",
       "properties": {
@@ -7855,6 +8143,33 @@
         }
       }
     },
+    "serviceListServiceTemplateVersionsResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceListServiceTemplateVersionsRespVersionMetadata"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceListServiceTemplateVersionsRespVersionMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "serviceListServiceVersionsResp": {
       "type": "object",
       "properties": {
@@ -7862,11 +8177,23 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ListServiceVersionsRespVersionMetadata"
+            "$ref": "#/definitions/serviceListServiceVersionsRespVersionMetadata"
           }
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "serviceListServiceVersionsRespVersionMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -7887,6 +8214,14 @@
       "properties": {
         "path": {
           "type": "string"
+        }
+      }
+    },
+    "serviceMaterializeServiceTemplateResp": {
+      "type": "object",
+      "properties": {
+        "serviceConfig": {
+          "$ref": "#/definitions/serviceServiceConfig"
         }
       }
     },
@@ -7965,6 +8300,17 @@
       "type": "object",
       "properties": {
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceRegisterServiceTemplateResp": {
+      "type": "object",
+      "properties": {
+        "serviceId": {
+          "type": "string"
+        },
+        "templateVersion": {
           "type": "string"
         }
       }

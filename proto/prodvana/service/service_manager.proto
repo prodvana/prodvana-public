@@ -12,6 +12,7 @@ import "prodvana/metrics/metrics.proto";
 import "prodvana/insights/insights.proto";
 import "prodvana/repo/repo.proto";
 import "prodvana/version/source_metadata.proto";
+import "prodvana/common_config/parameters.proto";
 import "validate/validate.proto";
 
 message ConfigureServiceReq {
@@ -189,7 +190,79 @@ message ListServiceVersionsResp {
     string next_page_token = 2;
 }
 
+message RegisterServiceTemplateReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    prodvana.common_config.Template template = 2 [(validate.rules).message.required = true];
+    prodvana.version.Source source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
+}
+
+message RegisterServiceTemplateResp {
+    string service_id = 1;
+    string template_version = 2;
+}
+
+message MaterializeServiceTemplateReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string template_version = 3 [(validate.rules).string.min_len = 1];
+    repeated prodvana.common_config.ParameterValue parameters = 4 [(validate.rules).repeated.items.message.required = true];
+}
+
+message MaterializeServiceTemplateResp {
+    ServiceConfig service_config = 1;
+}
+
+message ListServiceTemplateVersionsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message ListServiceTemplateVersionsResp {
+    message VersionMetadata {
+        string version = 1;
+        google.protobuf.Timestamp creation_timestamp = 2;
+    }
+    repeated VersionMetadata versions = 1;
+    string next_page_token = 2;
+}
+
+message GetServiceTemplateReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string template_version = 3 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceTemplateResp {
+    prodvana.common_config.Template template = 1;
+}
+
 service ServiceManager {
+    rpc RegisterServiceTemplate (RegisterServiceTemplateReq) returns (RegisterServiceTemplateResp) {
+        option (google.api.http) = {
+            post: "/v1/{application=*}/services/register_template"
+            body: "*"
+        };
+    }
+    rpc MaterializeServiceTemplate (MaterializeServiceTemplateReq) returns (MaterializeServiceTemplateResp) {
+        option (google.api.http) = {
+            // actually just GET but need to work around passing a struct to the request
+            post: "/v1/{application=*}/services/{service=*}/templates/{template_version=*}/materialize"
+            body: "*"
+        };
+    }
+    rpc ListServiceTemplateVersions (ListServiceTemplateVersionsReq) returns (ListServiceTemplateVersionsResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/templates"
+        };
+    }
+    rpc GetServiceTemplate (GetServiceTemplateReq) returns (GetServiceTemplateResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/templates/{template_version=*}"
+        };
+    }
     rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
         option (google.api.http) = {
             post: "/v1/{application=*}/services/configure"

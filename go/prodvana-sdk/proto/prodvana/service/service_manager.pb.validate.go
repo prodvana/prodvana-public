@@ -4035,6 +4035,1144 @@ var _ interface {
 	ErrorName() string
 } = ListServiceVersionsRespValidationError{}
 
+// Validate checks the field values on RegisterServiceTemplateReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegisterServiceTemplateReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegisterServiceTemplateReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegisterServiceTemplateReqMultiError, or nil if none found.
+func (m *RegisterServiceTemplateReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegisterServiceTemplateReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := RegisterServiceTemplateReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetTemplate() == nil {
+		err := RegisterServiceTemplateReqValidationError{
+			field:  "Template",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTemplate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RegisterServiceTemplateReqValidationError{
+					field:  "Template",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RegisterServiceTemplateReqValidationError{
+					field:  "Template",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTemplate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RegisterServiceTemplateReqValidationError{
+				field:  "Template",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RegisterServiceTemplateReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RegisterServiceTemplateReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RegisterServiceTemplateReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RegisterServiceTemplateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegisterServiceTemplateReqMultiError is an error wrapping multiple
+// validation errors returned by RegisterServiceTemplateReq.ValidateAll() if
+// the designated constraints aren't met.
+type RegisterServiceTemplateReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegisterServiceTemplateReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegisterServiceTemplateReqMultiError) AllErrors() []error { return m }
+
+// RegisterServiceTemplateReqValidationError is the validation error returned
+// by RegisterServiceTemplateReq.Validate if the designated constraints aren't met.
+type RegisterServiceTemplateReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegisterServiceTemplateReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegisterServiceTemplateReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegisterServiceTemplateReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegisterServiceTemplateReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegisterServiceTemplateReqValidationError) ErrorName() string {
+	return "RegisterServiceTemplateReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegisterServiceTemplateReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegisterServiceTemplateReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegisterServiceTemplateReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegisterServiceTemplateReqValidationError{}
+
+// Validate checks the field values on RegisterServiceTemplateResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegisterServiceTemplateResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegisterServiceTemplateResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegisterServiceTemplateRespMultiError, or nil if none found.
+func (m *RegisterServiceTemplateResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegisterServiceTemplateResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ServiceId
+
+	// no validation rules for TemplateVersion
+
+	if len(errors) > 0 {
+		return RegisterServiceTemplateRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegisterServiceTemplateRespMultiError is an error wrapping multiple
+// validation errors returned by RegisterServiceTemplateResp.ValidateAll() if
+// the designated constraints aren't met.
+type RegisterServiceTemplateRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegisterServiceTemplateRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegisterServiceTemplateRespMultiError) AllErrors() []error { return m }
+
+// RegisterServiceTemplateRespValidationError is the validation error returned
+// by RegisterServiceTemplateResp.Validate if the designated constraints
+// aren't met.
+type RegisterServiceTemplateRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegisterServiceTemplateRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegisterServiceTemplateRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegisterServiceTemplateRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegisterServiceTemplateRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegisterServiceTemplateRespValidationError) ErrorName() string {
+	return "RegisterServiceTemplateRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegisterServiceTemplateRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegisterServiceTemplateResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegisterServiceTemplateRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegisterServiceTemplateRespValidationError{}
+
+// Validate checks the field values on MaterializeServiceTemplateReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MaterializeServiceTemplateReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaterializeServiceTemplateReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// MaterializeServiceTemplateReqMultiError, or nil if none found.
+func (m *MaterializeServiceTemplateReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaterializeServiceTemplateReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := MaterializeServiceTemplateReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := MaterializeServiceTemplateReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTemplateVersion()) < 1 {
+		err := MaterializeServiceTemplateReqValidationError{
+			field:  "TemplateVersion",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := MaterializeServiceTemplateReqValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MaterializeServiceTemplateReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MaterializeServiceTemplateReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MaterializeServiceTemplateReqValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return MaterializeServiceTemplateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaterializeServiceTemplateReqMultiError is an error wrapping multiple
+// validation errors returned by MaterializeServiceTemplateReq.ValidateAll()
+// if the designated constraints aren't met.
+type MaterializeServiceTemplateReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaterializeServiceTemplateReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaterializeServiceTemplateReqMultiError) AllErrors() []error { return m }
+
+// MaterializeServiceTemplateReqValidationError is the validation error
+// returned by MaterializeServiceTemplateReq.Validate if the designated
+// constraints aren't met.
+type MaterializeServiceTemplateReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaterializeServiceTemplateReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaterializeServiceTemplateReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaterializeServiceTemplateReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaterializeServiceTemplateReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaterializeServiceTemplateReqValidationError) ErrorName() string {
+	return "MaterializeServiceTemplateReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MaterializeServiceTemplateReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaterializeServiceTemplateReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaterializeServiceTemplateReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaterializeServiceTemplateReqValidationError{}
+
+// Validate checks the field values on MaterializeServiceTemplateResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MaterializeServiceTemplateResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaterializeServiceTemplateResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// MaterializeServiceTemplateRespMultiError, or nil if none found.
+func (m *MaterializeServiceTemplateResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaterializeServiceTemplateResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetServiceConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaterializeServiceTemplateRespValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaterializeServiceTemplateRespValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaterializeServiceTemplateRespValidationError{
+				field:  "ServiceConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MaterializeServiceTemplateRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaterializeServiceTemplateRespMultiError is an error wrapping multiple
+// validation errors returned by MaterializeServiceTemplateResp.ValidateAll()
+// if the designated constraints aren't met.
+type MaterializeServiceTemplateRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaterializeServiceTemplateRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaterializeServiceTemplateRespMultiError) AllErrors() []error { return m }
+
+// MaterializeServiceTemplateRespValidationError is the validation error
+// returned by MaterializeServiceTemplateResp.Validate if the designated
+// constraints aren't met.
+type MaterializeServiceTemplateRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaterializeServiceTemplateRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaterializeServiceTemplateRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaterializeServiceTemplateRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaterializeServiceTemplateRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaterializeServiceTemplateRespValidationError) ErrorName() string {
+	return "MaterializeServiceTemplateRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MaterializeServiceTemplateRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaterializeServiceTemplateResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaterializeServiceTemplateRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaterializeServiceTemplateRespValidationError{}
+
+// Validate checks the field values on ListServiceTemplateVersionsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListServiceTemplateVersionsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListServiceTemplateVersionsReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListServiceTemplateVersionsReqMultiError, or nil if none found.
+func (m *ListServiceTemplateVersionsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListServiceTemplateVersionsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ListServiceTemplateVersionsReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ListServiceTemplateVersionsReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return ListServiceTemplateVersionsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListServiceTemplateVersionsReqMultiError is an error wrapping multiple
+// validation errors returned by ListServiceTemplateVersionsReq.ValidateAll()
+// if the designated constraints aren't met.
+type ListServiceTemplateVersionsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListServiceTemplateVersionsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListServiceTemplateVersionsReqMultiError) AllErrors() []error { return m }
+
+// ListServiceTemplateVersionsReqValidationError is the validation error
+// returned by ListServiceTemplateVersionsReq.Validate if the designated
+// constraints aren't met.
+type ListServiceTemplateVersionsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListServiceTemplateVersionsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListServiceTemplateVersionsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListServiceTemplateVersionsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListServiceTemplateVersionsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListServiceTemplateVersionsReqValidationError) ErrorName() string {
+	return "ListServiceTemplateVersionsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListServiceTemplateVersionsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListServiceTemplateVersionsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListServiceTemplateVersionsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListServiceTemplateVersionsReqValidationError{}
+
+// Validate checks the field values on ListServiceTemplateVersionsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListServiceTemplateVersionsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListServiceTemplateVersionsResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListServiceTemplateVersionsRespMultiError, or nil if none found.
+func (m *ListServiceTemplateVersionsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListServiceTemplateVersionsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListServiceTemplateVersionsRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListServiceTemplateVersionsRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListServiceTemplateVersionsRespValidationError{
+					field:  fmt.Sprintf("Versions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return ListServiceTemplateVersionsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListServiceTemplateVersionsRespMultiError is an error wrapping multiple
+// validation errors returned by ListServiceTemplateVersionsResp.ValidateAll()
+// if the designated constraints aren't met.
+type ListServiceTemplateVersionsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListServiceTemplateVersionsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListServiceTemplateVersionsRespMultiError) AllErrors() []error { return m }
+
+// ListServiceTemplateVersionsRespValidationError is the validation error
+// returned by ListServiceTemplateVersionsResp.Validate if the designated
+// constraints aren't met.
+type ListServiceTemplateVersionsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListServiceTemplateVersionsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListServiceTemplateVersionsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListServiceTemplateVersionsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListServiceTemplateVersionsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListServiceTemplateVersionsRespValidationError) ErrorName() string {
+	return "ListServiceTemplateVersionsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListServiceTemplateVersionsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListServiceTemplateVersionsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListServiceTemplateVersionsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListServiceTemplateVersionsRespValidationError{}
+
+// Validate checks the field values on GetServiceTemplateReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetServiceTemplateReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceTemplateReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetServiceTemplateReqMultiError, or nil if none found.
+func (m *GetServiceTemplateReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceTemplateReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GetServiceTemplateReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := GetServiceTemplateReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTemplateVersion()) < 1 {
+		err := GetServiceTemplateReqValidationError{
+			field:  "TemplateVersion",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetServiceTemplateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceTemplateReqMultiError is an error wrapping multiple validation
+// errors returned by GetServiceTemplateReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceTemplateReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceTemplateReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceTemplateReqMultiError) AllErrors() []error { return m }
+
+// GetServiceTemplateReqValidationError is the validation error returned by
+// GetServiceTemplateReq.Validate if the designated constraints aren't met.
+type GetServiceTemplateReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceTemplateReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceTemplateReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceTemplateReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceTemplateReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceTemplateReqValidationError) ErrorName() string {
+	return "GetServiceTemplateReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceTemplateReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceTemplateReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceTemplateReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceTemplateReqValidationError{}
+
+// Validate checks the field values on GetServiceTemplateResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetServiceTemplateResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceTemplateResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetServiceTemplateRespMultiError, or nil if none found.
+func (m *GetServiceTemplateResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceTemplateResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTemplate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetServiceTemplateRespValidationError{
+					field:  "Template",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetServiceTemplateRespValidationError{
+					field:  "Template",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTemplate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetServiceTemplateRespValidationError{
+				field:  "Template",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetServiceTemplateRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceTemplateRespMultiError is an error wrapping multiple validation
+// errors returned by GetServiceTemplateResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceTemplateRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceTemplateRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceTemplateRespMultiError) AllErrors() []error { return m }
+
+// GetServiceTemplateRespValidationError is the validation error returned by
+// GetServiceTemplateResp.Validate if the designated constraints aren't met.
+type GetServiceTemplateRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceTemplateRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceTemplateRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceTemplateRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceTemplateRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceTemplateRespValidationError) ErrorName() string {
+	return "GetServiceTemplateRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceTemplateRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceTemplateResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceTemplateRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceTemplateRespValidationError{}
+
 // Validate checks the field values on ListServiceVersionsResp_VersionMetadata
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
@@ -4171,3 +5309,145 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListServiceVersionsResp_VersionMetadataValidationError{}
+
+// Validate checks the field values on
+// ListServiceTemplateVersionsResp_VersionMetadata with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ListServiceTemplateVersionsResp_VersionMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ListServiceTemplateVersionsResp_VersionMetadata with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// ListServiceTemplateVersionsResp_VersionMetadataMultiError, or nil if none found.
+func (m *ListServiceTemplateVersionsResp_VersionMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListServiceTemplateVersionsResp_VersionMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Version
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListServiceTemplateVersionsResp_VersionMetadataValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListServiceTemplateVersionsResp_VersionMetadataValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListServiceTemplateVersionsResp_VersionMetadataValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ListServiceTemplateVersionsResp_VersionMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListServiceTemplateVersionsResp_VersionMetadataMultiError is an error
+// wrapping multiple validation errors returned by
+// ListServiceTemplateVersionsResp_VersionMetadata.ValidateAll() if the
+// designated constraints aren't met.
+type ListServiceTemplateVersionsResp_VersionMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListServiceTemplateVersionsResp_VersionMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListServiceTemplateVersionsResp_VersionMetadataMultiError) AllErrors() []error { return m }
+
+// ListServiceTemplateVersionsResp_VersionMetadataValidationError is the
+// validation error returned by
+// ListServiceTemplateVersionsResp_VersionMetadata.Validate if the designated
+// constraints aren't met.
+type ListServiceTemplateVersionsResp_VersionMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) ErrorName() string {
+	return "ListServiceTemplateVersionsResp_VersionMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListServiceTemplateVersionsResp_VersionMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListServiceTemplateVersionsResp_VersionMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListServiceTemplateVersionsResp_VersionMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListServiceTemplateVersionsResp_VersionMetadataValidationError{}
