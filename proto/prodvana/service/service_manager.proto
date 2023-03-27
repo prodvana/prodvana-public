@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
+import "prodvana/common_config/parameters.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
 import "prodvana/service/object.proto";
@@ -14,10 +15,24 @@ import "prodvana/repo/repo.proto";
 import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
+message ServiceConfigVersionReference {
+    string application = 1; // TODO(naphat) unify with ConfigureServiceReq below
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string service_config_version = 3 [(validate.rules).string.min_len = 1];
+}
+
 message ConfigureServiceReq {
-    ServiceConfig service_config = 1 [(validate.rules).message.required = true];
-    // If set, only configure changes in these release channels.
-    repeated string release_channels = 2;
+    message PerReleaseChannel {
+        string release_channel = 1 [(validate.rules).string.min_len = 1];
+        // takes precedence over any parameters set at top level
+        repeated prodvana.common_config.ParameterValue parameters = 2 [(validate.rules).repeated.items.message.required = true];
+    }
+    oneof oneof {
+        option (validate.required) = true;
+        ServiceConfig service_config = 1;
+        ServiceConfigVersionReference service_config_version = 8;
+    }
+    repeated prodvana.common_config.ParameterValue parameters = 9 [(validate.rules).repeated.items.message.required = true];
 
     // skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults
     bool test_only_skip_registry_check = 4;
@@ -28,8 +43,10 @@ message ConfigureServiceReq {
     prodvana.version.Source source = 6;
     prodvana.version.SourceMetadata source_metadata = 7;
 
-    reserved 3;
-    reserved "compute_efficiency";
+    reserved 2, 3;
+    reserved "release_channels", "compute_efficiency";
+
+    // next tag: 10
 }
 
 message ConfigureServiceResp {

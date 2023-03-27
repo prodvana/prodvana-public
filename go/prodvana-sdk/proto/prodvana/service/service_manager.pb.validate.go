@@ -43,6 +43,133 @@ var (
 	_ = version.Source(0)
 )
 
+// Validate checks the field values on ServiceConfigVersionReference with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ServiceConfigVersionReference) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ServiceConfigVersionReference with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ServiceConfigVersionReferenceMultiError, or nil if none found.
+func (m *ServiceConfigVersionReference) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ServiceConfigVersionReference) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Application
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ServiceConfigVersionReferenceValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetServiceConfigVersion()) < 1 {
+		err := ServiceConfigVersionReferenceValidationError{
+			field:  "ServiceConfigVersion",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ServiceConfigVersionReferenceMultiError(errors)
+	}
+
+	return nil
+}
+
+// ServiceConfigVersionReferenceMultiError is an error wrapping multiple
+// validation errors returned by ServiceConfigVersionReference.ValidateAll()
+// if the designated constraints aren't met.
+type ServiceConfigVersionReferenceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ServiceConfigVersionReferenceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ServiceConfigVersionReferenceMultiError) AllErrors() []error { return m }
+
+// ServiceConfigVersionReferenceValidationError is the validation error
+// returned by ServiceConfigVersionReference.Validate if the designated
+// constraints aren't met.
+type ServiceConfigVersionReferenceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceConfigVersionReferenceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceConfigVersionReferenceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceConfigVersionReferenceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceConfigVersionReferenceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceConfigVersionReferenceValidationError) ErrorName() string {
+	return "ServiceConfigVersionReferenceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ServiceConfigVersionReferenceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceConfigVersionReference.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceConfigVersionReferenceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceConfigVersionReferenceValidationError{}
+
 // Validate checks the field values on ConfigureServiceReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -65,44 +192,49 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetServiceConfig() == nil {
-		err := ConfigureServiceReqValidationError{
-			field:  "ServiceConfig",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
 
-	if all {
-		switch v := interface{}(m.GetServiceConfig()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ConfigureServiceReqValidationError{
-					field:  "ServiceConfig",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+		if item == nil {
+			err := ConfigureServiceReqValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
 			}
-		case interface{ Validate() error }:
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ConfigureServiceReqValidationError{
-					field:  "ServiceConfig",
+				return ConfigureServiceReqValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
-				})
+				}
 			}
 		}
-	} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ConfigureServiceReqValidationError{
-				field:  "ServiceConfig",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
+
 	}
 
 	// no validation rules for TestOnlySkipRegistryCheck
@@ -138,6 +270,106 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	oneofOneofPresent := false
+	switch v := m.Oneof.(type) {
+	case *ConfigureServiceReq_ServiceConfig:
+		if v == nil {
+			err := ConfigureServiceReqValidationError{
+				field:  "Oneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetServiceConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  "ServiceConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  "ServiceConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConfigureServiceReqValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ConfigureServiceReq_ServiceConfigVersion:
+		if v == nil {
+			err := ConfigureServiceReqValidationError{
+				field:  "Oneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetServiceConfigVersion()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  "ServiceConfigVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  "ServiceConfigVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetServiceConfigVersion()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConfigureServiceReqValidationError{
+					field:  "ServiceConfigVersion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofOneofPresent {
+		err := ConfigureServiceReqValidationError{
+			field:  "Oneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -4858,6 +5090,167 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetServiceConfig2RespValidationError{}
+
+// Validate checks the field values on ConfigureServiceReq_PerReleaseChannel
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *ConfigureServiceReq_PerReleaseChannel) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConfigureServiceReq_PerReleaseChannel
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ConfigureServiceReq_PerReleaseChannelMultiError, or nil if none found.
+func (m *ConfigureServiceReq_PerReleaseChannel) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
+		err := ConfigureServiceReq_PerReleaseChannelValidationError{
+			field:  "ReleaseChannel",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := ConfigureServiceReq_PerReleaseChannelValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConfigureServiceReq_PerReleaseChannelValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConfigureServiceReq_PerReleaseChannelValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConfigureServiceReq_PerReleaseChannelValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ConfigureServiceReq_PerReleaseChannelMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConfigureServiceReq_PerReleaseChannelMultiError is an error wrapping
+// multiple validation errors returned by
+// ConfigureServiceReq_PerReleaseChannel.ValidateAll() if the designated
+// constraints aren't met.
+type ConfigureServiceReq_PerReleaseChannelMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConfigureServiceReq_PerReleaseChannelMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConfigureServiceReq_PerReleaseChannelMultiError) AllErrors() []error { return m }
+
+// ConfigureServiceReq_PerReleaseChannelValidationError is the validation error
+// returned by ConfigureServiceReq_PerReleaseChannel.Validate if the
+// designated constraints aren't met.
+type ConfigureServiceReq_PerReleaseChannelValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) ErrorName() string {
+	return "ConfigureServiceReq_PerReleaseChannelValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ConfigureServiceReq_PerReleaseChannelValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConfigureServiceReq_PerReleaseChannel.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConfigureServiceReq_PerReleaseChannelValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConfigureServiceReq_PerReleaseChannelValidationError{}
 
 // Validate checks the field values on ListServiceVersionsResp_VersionMetadata
 // with the rules defined in the proto definition for this message. If any

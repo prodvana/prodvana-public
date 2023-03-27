@@ -3551,12 +3551,15 @@
                 "serviceConfig": {
                   "$ref": "#/definitions/serviceServiceConfig"
                 },
-                "releaseChannels": {
+                "serviceConfigVersion": {
+                  "$ref": "#/definitions/serviceServiceConfigVersionReference"
+                },
+                "parameters": {
                   "type": "array",
                   "items": {
-                    "type": "string"
-                  },
-                  "description": "If set, only configure changes in these release channels."
+                    "type": "object",
+                    "$ref": "#/definitions/common_configParameterValue"
+                  }
                 },
                 "testOnlySkipRegistryCheck": {
                   "type": "boolean",
@@ -3613,12 +3616,15 @@
                 "serviceConfig": {
                   "$ref": "#/definitions/serviceServiceConfig"
                 },
-                "releaseChannels": {
+                "serviceConfigVersion": {
+                  "$ref": "#/definitions/serviceServiceConfigVersionReference"
+                },
+                "parameters": {
                   "type": "array",
                   "items": {
-                    "type": "string"
-                  },
-                  "description": "If set, only configure changes in these release channels."
+                    "type": "object",
+                    "$ref": "#/definitions/common_configParameterValue"
+                  }
                 },
                 "testOnlySkipRegistryCheck": {
                   "type": "boolean",
@@ -4369,21 +4375,6 @@
         }
       }
     },
-    "GetServiceImageInfoRespPerReleaseChannel": {
-      "type": "object",
-      "properties": {
-        "releaseChannel": {
-          "type": "string"
-        },
-        "programInfos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/GetServiceImageInfoRespProgramInfo"
-          }
-        }
-      }
-    },
     "GetServiceImageInfoRespProgramInfo": {
       "type": "object",
       "properties": {
@@ -4415,7 +4406,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/GetServiceImageInfoRespPerReleaseChannel"
+            "$ref": "#/definitions/workflowGetServiceImageInfoRespPerReleaseChannel"
           }
         }
       }
@@ -5292,6 +5283,24 @@
         },
         "int": {
           "$ref": "#/definitions/common_configIntParameterDefinition"
+        }
+      }
+    },
+    "common_configParameterValue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "string": {
+          "type": "string"
+        },
+        "dockerImage": {
+          "type": "string"
+        },
+        "int": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -8408,6 +8417,21 @@
         }
       }
     },
+    "serviceServiceConfigVersionReference": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string",
+          "title": "TODO(naphat) unify with ConfigureServiceReq below"
+        },
+        "service": {
+          "type": "string"
+        },
+        "serviceConfigVersion": {
+          "type": "string"
+        }
+      }
+    },
     "serviceServiceInstance": {
       "type": "object",
       "properties": {
@@ -8746,6 +8770,21 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/GetServiceImageInfoRespVersionInfo"
+          }
+        }
+      }
+    },
+    "workflowGetServiceImageInfoRespPerReleaseChannel": {
+      "type": "object",
+      "properties": {
+        "releaseChannel": {
+          "type": "string"
+        },
+        "programInfos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/GetServiceImageInfoRespProgramInfo"
           }
         }
       }
