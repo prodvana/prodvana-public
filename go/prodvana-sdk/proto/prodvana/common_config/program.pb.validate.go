@@ -1159,10 +1159,10 @@ func (m *ProgramConfig) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetName()) > 63 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 0 || l > 63 {
 		err := ProgramConfigValidationError{
 			field:  "Name",
-			reason: "value length must be at most 63 runes",
+			reason: "value length must be between 0 and 63 runes, inclusive",
 		}
 		if !all {
 			return err
