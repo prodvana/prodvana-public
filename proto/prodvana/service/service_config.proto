@@ -6,6 +6,7 @@ import "google/protobuf/duration.proto";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
+import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
@@ -217,6 +218,7 @@ message ServiceConfig {
     RuntimeSpecificConfig runtime_specific = 16;
 
     repeated prodvana.protection.ProtectionReference protections = 17 [(validate.rules).repeated.items.message.required = true];
+    repeated prodvana.common_config.ParameterDefinition parameters = 21 [(validate.rules).repeated.items.message.required = true];
 
     reserved 6, 7, 8;
     reserved "external", "image_repository", "container_registry_id";
@@ -226,7 +228,7 @@ message ServiceConfig {
         ExternalConfig external_config = 19;
     }
 
-    // next tag: 21
+    // next tag: 22
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

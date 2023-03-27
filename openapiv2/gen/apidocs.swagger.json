@@ -3516,6 +3516,7 @@
     },
     "/v1/{application}/services/configure": {
       "post": {
+        "summary": "TODO(naphat) rename this to ApplyParameters",
         "operationId": "ServiceManager_ConfigureService",
         "responses": {
           "200": {
@@ -3638,14 +3639,15 @@
         ]
       }
     },
-    "/v1/{application}/services/register_template": {
+    "/v1/{application}/services/configure2": {
       "post": {
-        "operationId": "ServiceManager_RegisterServiceTemplate",
+        "summary": "TODO(naphat) rename this to ConfigureService",
+        "operationId": "ServiceManager_ConfigureService2",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceRegisterServiceTemplateResp"
+              "$ref": "#/definitions/serviceConfigureService2Resp"
             }
           },
           "default": {
@@ -3670,8 +3672,8 @@
             "schema": {
               "type": "object",
               "properties": {
-                "template": {
-                  "$ref": "#/definitions/common_configTemplate"
+                "serviceConfig": {
+                  "$ref": "#/definitions/serviceServiceConfig"
                 },
                 "source": {
                   "$ref": "#/definitions/versionSource"
@@ -3690,6 +3692,7 @@
     },
     "/v1/{application}/services/{service}/config": {
       "get": {
+        "summary": "TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions",
         "operationId": "ServiceManager_GetServiceConfig",
         "responses": {
           "200": {
@@ -3733,52 +3736,14 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/delete": {
-      "delete": {
-        "operationId": "ServiceManager_DeleteService",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/serviceDeleteServiceResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "application",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "service",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          }
-        ],
-        "tags": [
-          "prodvana.service.ServiceManager"
-        ]
-      }
-    },
-    "/v1/{application}/services/{service}/templates": {
+    "/v1/{application}/services/{service}/config2": {
       "get": {
-        "operationId": "ServiceManager_ListServiceTemplateVersions",
+        "operationId": "ServiceManager_ListServiceConfigVersions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceListServiceTemplateVersionsResp"
+              "$ref": "#/definitions/serviceListServiceConfigVersionsResp"
             }
           },
           "default": {
@@ -3822,14 +3787,14 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/templates/{templateVersion}": {
+    "/v1/{application}/services/{service}/config2/{configVersion}": {
       "get": {
-        "operationId": "ServiceManager_GetServiceTemplate",
+        "operationId": "ServiceManager_GetServiceConfig2",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceGetServiceTemplateResp"
+              "$ref": "#/definitions/serviceGetServiceConfig2Resp"
             }
           },
           "default": {
@@ -3855,7 +3820,7 @@
             "pattern": "[^/]+"
           },
           {
-            "name": "templateVersion",
+            "name": "configVersion",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3867,14 +3832,14 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/templates/{templateVersion}/materialize": {
-      "post": {
-        "operationId": "ServiceManager_MaterializeServiceTemplate",
+    "/v1/{application}/services/{service}/delete": {
+      "delete": {
+        "operationId": "ServiceManager_DeleteService",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceMaterializeServiceTemplateResp"
+              "$ref": "#/definitions/serviceDeleteServiceResp"
             }
           },
           "default": {
@@ -3898,30 +3863,6 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
-          },
-          {
-            "name": "templateVersion",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "parameters": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "$ref": "#/definitions/common_configParameterValue"
-                  }
-                }
-              }
-            }
           }
         ],
         "tags": [
@@ -5321,24 +5262,6 @@
         }
       }
     },
-    "common_configParameterValue": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "string": {
-          "type": "string"
-        },
-        "dockerImage": {
-          "type": "string"
-        },
-        "int": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
     "common_configPerReleaseChannelProgramConfig": {
       "type": "object",
       "properties": {
@@ -5524,21 +5447,6 @@
         },
         "host": {
           "type": "string"
-        }
-      }
-    },
-    "common_configTemplate": {
-      "type": "object",
-      "properties": {
-        "template": {
-          "type": "string"
-        },
-        "parameters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common_configParameterDefinition"
-          }
         }
       }
     },
@@ -7959,6 +7867,17 @@
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
     },
+    "serviceConfigureService2Resp": {
+      "type": "object",
+      "properties": {
+        "serviceId": {
+          "type": "string"
+        },
+        "configVersion": {
+          "type": "string"
+        }
+      }
+    },
     "serviceConfigureServiceResp": {
       "type": "object",
       "properties": {
@@ -8036,6 +7955,14 @@
       "type": "object",
       "title": "TODO(naphat) put parameters here"
     },
+    "serviceGetServiceConfig2Resp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/serviceServiceConfig"
+        }
+      }
+    },
     "serviceGetServiceConfigResp": {
       "type": "object",
       "properties": {
@@ -8108,14 +8035,6 @@
         }
       }
     },
-    "serviceGetServiceTemplateResp": {
-      "type": "object",
-      "properties": {
-        "template": {
-          "$ref": "#/definitions/common_configTemplate"
-        }
-      }
-    },
     "serviceListCommitsResp": {
       "type": "object",
       "properties": {
@@ -8131,6 +8050,33 @@
         }
       }
     },
+    "serviceListServiceConfigVersionsResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceListServiceConfigVersionsRespVersionMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "serviceListServiceInstancesResp": {
       "type": "object",
       "properties": {
@@ -8140,33 +8086,6 @@
             "type": "object",
             "$ref": "#/definitions/serviceServiceInstance"
           }
-        }
-      }
-    },
-    "serviceListServiceTemplateVersionsResp": {
-      "type": "object",
-      "properties": {
-        "versions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/serviceListServiceTemplateVersionsRespVersionMetadata"
-          }
-        },
-        "nextPageToken": {
-          "type": "string"
-        }
-      }
-    },
-    "serviceListServiceTemplateVersionsRespVersionMetadata": {
-      "type": "object",
-      "properties": {
-        "version": {
-          "type": "string"
-        },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
@@ -8214,14 +8133,6 @@
       "properties": {
         "path": {
           "type": "string"
-        }
-      }
-    },
-    "serviceMaterializeServiceTemplateResp": {
-      "type": "object",
-      "properties": {
-        "serviceConfig": {
-          "$ref": "#/definitions/serviceServiceConfig"
         }
       }
     },
@@ -8300,17 +8211,6 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
-        }
-      }
-    },
-    "serviceRegisterServiceTemplateResp": {
-      "type": "object",
-      "properties": {
-        "serviceId": {
-          "type": "string"
-        },
-        "templateVersion": {
           "type": "string"
         }
       }
@@ -8450,6 +8350,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/protectionProtectionReference"
+          }
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
           }
         },
         "genericRuntime": {

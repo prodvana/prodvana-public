@@ -46,8 +46,3 @@ message ParameterValue {
 message ParametersConfig {
     repeated ParameterDefinition parameters = 1 [(validate.rules).repeated.items.message.required = true];
 }
-
-message Template {
-    string template = 1 [(validate.rules).string.min_len = 1];
-    repeated ParameterDefinition parameters = 2 [(validate.rules).repeated.items.message.required = true];
-}

@@ -31,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_ServiceManager_RegisterServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RegisterServiceTemplateReq
+func request_ServiceManager_ConfigureService2_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ConfigureService2Req
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -60,13 +60,13 @@ func request_ServiceManager_RegisterServiceTemplate_0(ctx context.Context, marsh
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
 	}
 
-	msg, err := client.RegisterServiceTemplate(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ConfigureService2(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceManager_RegisterServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RegisterServiceTemplateReq
+func local_request_ServiceManager_ConfigureService2_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ConfigureService2Req
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -94,125 +94,17 @@ func local_request_ServiceManager_RegisterServiceTemplate_0(ctx context.Context,
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
 	}
 
-	msg, err := server.RegisterServiceTemplate(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_ServiceManager_MaterializeServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq MaterializeServiceTemplateReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["application"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
-	}
-
-	protoReq.Application, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
-	}
-
-	val, ok = pathParams["service"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "service")
-	}
-
-	protoReq.Service, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
-	}
-
-	val, ok = pathParams["template_version"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "template_version")
-	}
-
-	protoReq.TemplateVersion, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "template_version", err)
-	}
-
-	msg, err := client.MaterializeServiceTemplate(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_ServiceManager_MaterializeServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq MaterializeServiceTemplateReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["application"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
-	}
-
-	protoReq.Application, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
-	}
-
-	val, ok = pathParams["service"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "service")
-	}
-
-	protoReq.Service, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
-	}
-
-	val, ok = pathParams["template_version"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "template_version")
-	}
-
-	protoReq.TemplateVersion, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "template_version", err)
-	}
-
-	msg, err := server.MaterializeServiceTemplate(ctx, &protoReq)
+	msg, err := server.ConfigureService2(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_ServiceManager_ListServiceTemplateVersions_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "service": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+	filter_ServiceManager_ListServiceConfigVersions_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "service": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
-func request_ServiceManager_ListServiceTemplateVersions_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListServiceTemplateVersionsReq
+func request_ServiceManager_ListServiceConfigVersions_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListServiceConfigVersionsReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -245,17 +137,17 @@ func request_ServiceManager_ListServiceTemplateVersions_0(ctx context.Context, m
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_ListServiceTemplateVersions_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_ListServiceConfigVersions_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.ListServiceTemplateVersions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ListServiceConfigVersions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceManager_ListServiceTemplateVersions_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListServiceTemplateVersionsReq
+func local_request_ServiceManager_ListServiceConfigVersions_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListServiceConfigVersionsReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -288,17 +180,17 @@ func local_request_ServiceManager_ListServiceTemplateVersions_0(ctx context.Cont
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_ListServiceTemplateVersions_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_ListServiceConfigVersions_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.ListServiceTemplateVersions(ctx, &protoReq)
+	msg, err := server.ListServiceConfigVersions(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_ServiceManager_GetServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetServiceTemplateReq
+func request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetServiceConfig2Req
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -328,23 +220,23 @@ func request_ServiceManager_GetServiceTemplate_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
 	}
 
-	val, ok = pathParams["template_version"]
+	val, ok = pathParams["config_version"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "template_version")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "config_version")
 	}
 
-	protoReq.TemplateVersion, err = runtime.String(val)
+	protoReq.ConfigVersion, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "template_version", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "config_version", err)
 	}
 
-	msg, err := client.GetServiceTemplate(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetServiceConfig2(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceManager_GetServiceTemplate_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetServiceTemplateReq
+func local_request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetServiceConfig2Req
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -374,17 +266,17 @@ func local_request_ServiceManager_GetServiceTemplate_0(ctx context.Context, mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
 	}
 
-	val, ok = pathParams["template_version"]
+	val, ok = pathParams["config_version"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "template_version")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "config_version")
 	}
 
-	protoReq.TemplateVersion, err = runtime.String(val)
+	protoReq.ConfigVersion, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "template_version", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "config_version", err)
 	}
 
-	msg, err := server.GetServiceTemplate(ctx, &protoReq)
+	msg, err := server.GetServiceConfig2(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1591,7 +1483,7 @@ func local_request_ServiceManager_SetServiceMetadata_0(ctx context.Context, mars
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterServiceManagerHandlerFromEndpoint instead.
 func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ServiceManagerServer) error {
 
-	mux.Handle("POST", pattern_ServiceManager_RegisterServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceManager_ConfigureService2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1599,12 +1491,12 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/RegisterServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/register_template"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceManager_RegisterServiceTemplate_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceManager_ConfigureService2_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1612,11 +1504,11 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_ServiceManager_RegisterServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ConfigureService2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_ServiceManager_MaterializeServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_ListServiceConfigVersions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1624,12 +1516,12 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/MaterializeServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates/{template_version=*}/materialize"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceManager_MaterializeServiceTemplate_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceManager_ListServiceConfigVersions_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1637,11 +1529,11 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_ServiceManager_MaterializeServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ListServiceConfigVersions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_ServiceManager_ListServiceTemplateVersions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1649,12 +1541,12 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceTemplateVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/{config_version=*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceManager_ListServiceTemplateVersions_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceManager_GetServiceConfig2_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1662,32 +1554,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_ServiceManager_ListServiceTemplateVersions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("GET", pattern_ServiceManager_GetServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates/{template_version=*}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_ServiceManager_GetServiceTemplate_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_ServiceManager_GetServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_GetServiceConfig2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2107,91 +1974,69 @@ func RegisterServiceManagerHandler(ctx context.Context, mux *runtime.ServeMux, c
 // "ServiceManagerClient" to call the correct interceptors.
 func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ServiceManagerClient) error {
 
-	mux.Handle("POST", pattern_ServiceManager_RegisterServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceManager_ConfigureService2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/RegisterServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/register_template"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceManager_RegisterServiceTemplate_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceManager_ConfigureService2_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceManager_RegisterServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ConfigureService2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_ServiceManager_MaterializeServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_ListServiceConfigVersions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/MaterializeServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates/{template_version=*}/materialize"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceManager_MaterializeServiceTemplate_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceManager_ListServiceConfigVersions_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceManager_MaterializeServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ListServiceConfigVersions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_ServiceManager_ListServiceTemplateVersions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceTemplateVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/{config_version=*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceManager_ListServiceTemplateVersions_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceManager_GetServiceConfig2_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceManager_ListServiceTemplateVersions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("GET", pattern_ServiceManager_GetServiceTemplate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceTemplate", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/templates/{template_version=*}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_ServiceManager_GetServiceTemplate_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_ServiceManager_GetServiceTemplate_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_GetServiceConfig2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2529,13 +2374,11 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_ServiceManager_RegisterServiceTemplate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "register_template"}, ""))
+	pattern_ServiceManager_ConfigureService2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure2"}, ""))
 
-	pattern_ServiceManager_MaterializeServiceTemplate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"v1", "application", "services", "service", "templates", "template_version", "materialize"}, ""))
+	pattern_ServiceManager_ListServiceConfigVersions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "config2"}, ""))
 
-	pattern_ServiceManager_ListServiceTemplateVersions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "templates"}, ""))
-
-	pattern_ServiceManager_GetServiceTemplate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "application", "services", "service", "templates", "template_version"}, ""))
+	pattern_ServiceManager_GetServiceConfig2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "application", "services", "service", "config2", "config_version"}, ""))
 
 	pattern_ServiceManager_ConfigureService_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure"}, ""))
 
@@ -2569,13 +2412,11 @@ var (
 )
 
 var (
-	forward_ServiceManager_RegisterServiceTemplate_0 = runtime.ForwardResponseMessage
+	forward_ServiceManager_ConfigureService2_0 = runtime.ForwardResponseMessage
 
-	forward_ServiceManager_MaterializeServiceTemplate_0 = runtime.ForwardResponseMessage
+	forward_ServiceManager_ListServiceConfigVersions_0 = runtime.ForwardResponseMessage
 
-	forward_ServiceManager_ListServiceTemplateVersions_0 = runtime.ForwardResponseMessage
-
-	forward_ServiceManager_GetServiceTemplate_0 = runtime.ForwardResponseMessage
+	forward_ServiceManager_GetServiceConfig2_0 = runtime.ForwardResponseMessage
 
 	forward_ServiceManager_ConfigureService_0 = runtime.ForwardResponseMessage
 

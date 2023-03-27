@@ -3351,6 +3351,51 @@ func (m *ServiceConfig) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := ServiceConfigValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceConfigValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	switch v := m.ConfigOneof.(type) {
 	case *ServiceConfig_GenericRuntime:
 		if v == nil {

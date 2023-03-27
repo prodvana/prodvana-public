@@ -12,7 +12,6 @@ import "prodvana/metrics/metrics.proto";
 import "prodvana/insights/insights.proto";
 import "prodvana/repo/repo.proto";
 import "prodvana/version/source_metadata.proto";
-import "prodvana/common_config/parameters.proto";
 import "validate/validate.proto";
 
 message ConfigureServiceReq {
@@ -190,37 +189,26 @@ message ListServiceVersionsResp {
     string next_page_token = 2;
 }
 
-message RegisterServiceTemplateReq {
+message ConfigureService2Req {
     string application = 1 [(validate.rules).string.min_len = 1];
-    prodvana.common_config.Template template = 2 [(validate.rules).message.required = true];
+    ServiceConfig service_config = 2 [(validate.rules).message.required = true];
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
 }
 
-message RegisterServiceTemplateResp {
+message ConfigureService2Resp {
     string service_id = 1;
-    string template_version = 2;
+    string config_version = 2;
 }
 
-message MaterializeServiceTemplateReq {
-    string application = 1 [(validate.rules).string.min_len = 1];
-    string service = 2 [(validate.rules).string.min_len = 1];
-    string template_version = 3 [(validate.rules).string.min_len = 1];
-    repeated prodvana.common_config.ParameterValue parameters = 4 [(validate.rules).repeated.items.message.required = true];
-}
-
-message MaterializeServiceTemplateResp {
-    ServiceConfig service_config = 1;
-}
-
-message ListServiceTemplateVersionsReq {
+message ListServiceConfigVersionsReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
     string page_token = 3;
     int32 page_size = 4;
 }
 
-message ListServiceTemplateVersionsResp {
+message ListServiceConfigVersionsResp {
     message VersionMetadata {
         string version = 1;
         google.protobuf.Timestamp creation_timestamp = 2;
@@ -229,40 +217,35 @@ message ListServiceTemplateVersionsResp {
     string next_page_token = 2;
 }
 
-message GetServiceTemplateReq {
+message GetServiceConfig2Req {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
-    string template_version = 3 [(validate.rules).string.min_len = 1];
+    string config_version = 3 [(validate.rules).string.min_len = 1];
 }
 
-message GetServiceTemplateResp {
-    prodvana.common_config.Template template = 1;
+message GetServiceConfig2Resp {
+    ServiceConfig config = 1;
 }
 
 service ServiceManager {
-    rpc RegisterServiceTemplate (RegisterServiceTemplateReq) returns (RegisterServiceTemplateResp) {
+    // TODO(naphat) rename this to ConfigureService
+    rpc ConfigureService2 (ConfigureService2Req) returns (ConfigureService2Resp) {
         option (google.api.http) = {
-            post: "/v1/{application=*}/services/register_template"
+            post: "/v1/{application=*}/services/configure2"
             body: "*"
         };
     }
-    rpc MaterializeServiceTemplate (MaterializeServiceTemplateReq) returns (MaterializeServiceTemplateResp) {
+    rpc ListServiceConfigVersions (ListServiceConfigVersionsReq) returns (ListServiceConfigVersionsResp) {
         option (google.api.http) = {
-            // actually just GET but need to work around passing a struct to the request
-            post: "/v1/{application=*}/services/{service=*}/templates/{template_version=*}/materialize"
-            body: "*"
+            get: "/v1/{application=*}/services/{service=*}/config2"
         };
     }
-    rpc ListServiceTemplateVersions (ListServiceTemplateVersionsReq) returns (ListServiceTemplateVersionsResp) {
+    rpc GetServiceConfig2 (GetServiceConfig2Req) returns (GetServiceConfig2Resp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/templates"
+            get: "/v1/{application=*}/services/{service=*}/config2/{config_version=*}"
         };
     }
-    rpc GetServiceTemplate (GetServiceTemplateReq) returns (GetServiceTemplateResp) {
-        option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/templates/{template_version=*}"
-        };
-    }
+    // TODO(naphat) rename this to ApplyParameters
     rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
         option (google.api.http) = {
             post: "/v1/{application=*}/services/configure"
@@ -275,6 +258,7 @@ service ServiceManager {
             body: "*"
         };
     }
+    // TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions
     rpc GetServiceConfig(GetServiceConfigReq) returns (GetServiceConfigResp) {
         option (google.api.http) = {
             get: "/v1/{application=*}/services/{service=*}/config"
