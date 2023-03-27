@@ -5,6 +5,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/service/parameters.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
 import "prodvana/service/object.proto";
@@ -33,6 +34,7 @@ message ConfigureServiceReq {
         ServiceConfigVersionReference service_config_version = 8;
     }
     repeated prodvana.common_config.ParameterValue parameters = 9 [(validate.rules).repeated.items.message.required = true];
+    repeated PerReleaseChannel per_release_channel = 10 [(validate.rules).repeated.items.message.required = true];
 
     // skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults
     bool test_only_skip_registry_check = 4;
@@ -46,7 +48,7 @@ message ConfigureServiceReq {
     reserved 2, 3;
     reserved "release_channels", "compute_efficiency";
 
-    // next tag: 10
+    // next tag: 11
 }
 
 message ConfigureServiceResp {
@@ -201,6 +203,8 @@ message ListServiceVersionsResp {
     message VersionMetadata {
         string version = 1;
         google.protobuf.Timestamp creation_timestamp = 2;
+        string config_version = 3;
+        ServiceParameterValues parameters = 4;
     }
     repeated VersionMetadata versions = 1;
     string next_page_token = 2;

@@ -237,6 +237,51 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetPerReleaseChannel() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := ConfigureServiceReqValidationError{
+				field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConfigureServiceReqValidationError{
+						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConfigureServiceReqValidationError{
+					field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	// no validation rules for TestOnlySkipRegistryCheck
 
 	// no validation rules for Application
@@ -5301,6 +5346,37 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ListServiceVersionsResp_VersionMetadataValidationError{
 				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ConfigVersion
+
+	if all {
+		switch v := interface{}(m.GetParameters()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+					field:  "Parameters",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+					field:  "Parameters",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetParameters()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListServiceVersionsResp_VersionMetadataValidationError{
+				field:  "Parameters",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

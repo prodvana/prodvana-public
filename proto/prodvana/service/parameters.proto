@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.service;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service";
+import "prodvana/common_config/parameters.proto";
+
+message PerReleaseChannelParameterValues {
+    string release_channel = 1;
+    repeated prodvana.common_config.ParameterValue parameters = 2;
+}
+
+message ServiceParameterValues {
+    repeated prodvana.common_config.ParameterValue parameters = 1;
+    repeated PerReleaseChannelParameterValues per_release_channel = 2;
+}

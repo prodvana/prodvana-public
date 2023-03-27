@@ -3561,6 +3561,13 @@
                     "$ref": "#/definitions/common_configParameterValue"
                   }
                 },
+                "perReleaseChannel": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/serviceConfigureServiceReqPerReleaseChannel"
+                  }
+                },
                 "testOnlySkipRegistryCheck": {
                   "type": "boolean",
                   "title": "skip any kind of attempts to contact container registry, e.g. to check if image exists or get program defaults"
@@ -3624,6 +3631,13 @@
                   "items": {
                     "type": "object",
                     "$ref": "#/definitions/common_configParameterValue"
+                  }
+                },
+                "perReleaseChannel": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/serviceConfigureServiceReqPerReleaseChannel"
                   }
                 },
                 "testOnlySkipRegistryCheck": {
@@ -7928,6 +7942,22 @@
         }
       }
     },
+    "serviceConfigureServiceReqPerReleaseChannel": {
+      "type": "object",
+      "properties": {
+        "releaseChannel": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          },
+          "title": "takes precedence over any parameters set at top level"
+        }
+      }
+    },
     "serviceConfigureServiceResp": {
       "type": "object",
       "properties": {
@@ -8163,6 +8193,12 @@
         "creationTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "configVersion": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/serviceServiceParameterValues"
         }
       }
     },
@@ -8254,6 +8290,21 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/serviceExternalConfig"
+        }
+      }
+    },
+    "servicePerReleaseChannelParameterValues": {
+      "type": "object",
+      "properties": {
+        "releaseChannel": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
         }
       }
     },
@@ -8444,6 +8495,25 @@
         },
         "state": {
           "$ref": "#/definitions/prodvanaserviceServiceInstanceState"
+        }
+      }
+    },
+    "serviceServiceParameterValues": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
+        },
+        "perReleaseChannel": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/servicePerReleaseChannelParameterValues"
+          }
         }
       }
     },
