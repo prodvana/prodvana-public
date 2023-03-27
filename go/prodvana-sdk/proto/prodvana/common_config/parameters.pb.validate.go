@@ -35,6 +35,117 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on ProgramChange with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ProgramChange) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProgramChange with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ProgramChangeMultiError, or
+// nil if none found.
+func (m *ProgramChange) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProgramChange) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := ProgramChangeValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ProgramChangeMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProgramChangeMultiError is an error wrapping multiple validation errors
+// returned by ProgramChange.ValidateAll() if the designated constraints
+// aren't met.
+type ProgramChangeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProgramChangeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProgramChangeMultiError) AllErrors() []error { return m }
+
+// ProgramChangeValidationError is the validation error returned by
+// ProgramChange.Validate if the designated constraints aren't met.
+type ProgramChangeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProgramChangeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProgramChangeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProgramChangeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProgramChangeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProgramChangeValidationError) ErrorName() string { return "ProgramChangeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ProgramChangeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProgramChange.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProgramChangeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProgramChangeValidationError{}
+
 // Validate checks the field values on StringParameterDefinition with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -212,6 +323,51 @@ func (m *DockerImageParameterDefinition) validate(all bool) error {
 		}
 	}
 
+	for idx, item := range m.GetChanges() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := DockerImageParameterDefinitionValidationError{
+				field:  fmt.Sprintf("Changes[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DockerImageParameterDefinitionValidationError{
+						field:  fmt.Sprintf("Changes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DockerImageParameterDefinitionValidationError{
+						field:  fmt.Sprintf("Changes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DockerImageParameterDefinitionValidationError{
+					field:  fmt.Sprintf("Changes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return DockerImageParameterDefinitionMultiError(errors)
 	}
@@ -293,6 +449,108 @@ var _ interface {
 	ErrorName() string
 } = DockerImageParameterDefinitionValidationError{}
 
+// Validate checks the field values on FixedReplicaChange with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FixedReplicaChange) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FixedReplicaChange with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FixedReplicaChangeMultiError, or nil if none found.
+func (m *FixedReplicaChange) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FixedReplicaChange) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return FixedReplicaChangeMultiError(errors)
+	}
+
+	return nil
+}
+
+// FixedReplicaChangeMultiError is an error wrapping multiple validation errors
+// returned by FixedReplicaChange.ValidateAll() if the designated constraints
+// aren't met.
+type FixedReplicaChangeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FixedReplicaChangeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FixedReplicaChangeMultiError) AllErrors() []error { return m }
+
+// FixedReplicaChangeValidationError is the validation error returned by
+// FixedReplicaChange.Validate if the designated constraints aren't met.
+type FixedReplicaChangeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FixedReplicaChangeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FixedReplicaChangeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FixedReplicaChangeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FixedReplicaChangeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FixedReplicaChangeValidationError) ErrorName() string {
+	return "FixedReplicaChangeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FixedReplicaChangeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFixedReplicaChange.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FixedReplicaChangeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FixedReplicaChangeValidationError{}
+
 // Validate checks the field values on IntParameterDefinition with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -316,6 +574,51 @@ func (m *IntParameterDefinition) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for InitialValue
+
+	for idx, item := range m.GetChanges() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := IntParameterDefinitionValidationError{
+				field:  fmt.Sprintf("Changes[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, IntParameterDefinitionValidationError{
+						field:  fmt.Sprintf("Changes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, IntParameterDefinitionValidationError{
+						field:  fmt.Sprintf("Changes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return IntParameterDefinitionValidationError{
+					field:  fmt.Sprintf("Changes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return IntParameterDefinitionMultiError(errors)
@@ -964,3 +1267,328 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ParametersConfigValidationError{}
+
+// Validate checks the field values on DockerImageParameterDefinition_Changes
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *DockerImageParameterDefinition_Changes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// DockerImageParameterDefinition_Changes with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// DockerImageParameterDefinition_ChangesMultiError, or nil if none found.
+func (m *DockerImageParameterDefinition_Changes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DockerImageParameterDefinition_Changes) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofOneofPresent := false
+	switch v := m.Oneof.(type) {
+	case *DockerImageParameterDefinition_Changes_Program:
+		if v == nil {
+			err := DockerImageParameterDefinition_ChangesValidationError{
+				field:  "Oneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetProgram()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DockerImageParameterDefinition_ChangesValidationError{
+						field:  "Program",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DockerImageParameterDefinition_ChangesValidationError{
+						field:  "Program",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetProgram()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DockerImageParameterDefinition_ChangesValidationError{
+					field:  "Program",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofOneofPresent {
+		err := DockerImageParameterDefinition_ChangesValidationError{
+			field:  "Oneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DockerImageParameterDefinition_ChangesMultiError(errors)
+	}
+
+	return nil
+}
+
+// DockerImageParameterDefinition_ChangesMultiError is an error wrapping
+// multiple validation errors returned by
+// DockerImageParameterDefinition_Changes.ValidateAll() if the designated
+// constraints aren't met.
+type DockerImageParameterDefinition_ChangesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DockerImageParameterDefinition_ChangesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DockerImageParameterDefinition_ChangesMultiError) AllErrors() []error { return m }
+
+// DockerImageParameterDefinition_ChangesValidationError is the validation
+// error returned by DockerImageParameterDefinition_Changes.Validate if the
+// designated constraints aren't met.
+type DockerImageParameterDefinition_ChangesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DockerImageParameterDefinition_ChangesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DockerImageParameterDefinition_ChangesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DockerImageParameterDefinition_ChangesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DockerImageParameterDefinition_ChangesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DockerImageParameterDefinition_ChangesValidationError) ErrorName() string {
+	return "DockerImageParameterDefinition_ChangesValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DockerImageParameterDefinition_ChangesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDockerImageParameterDefinition_Changes.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DockerImageParameterDefinition_ChangesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DockerImageParameterDefinition_ChangesValidationError{}
+
+// Validate checks the field values on IntParameterDefinition_Changes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *IntParameterDefinition_Changes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IntParameterDefinition_Changes with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// IntParameterDefinition_ChangesMultiError, or nil if none found.
+func (m *IntParameterDefinition_Changes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IntParameterDefinition_Changes) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofOneofPresent := false
+	switch v := m.Oneof.(type) {
+	case *IntParameterDefinition_Changes_FixedReplica:
+		if v == nil {
+			err := IntParameterDefinition_ChangesValidationError{
+				field:  "Oneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetFixedReplica()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, IntParameterDefinition_ChangesValidationError{
+						field:  "FixedReplica",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, IntParameterDefinition_ChangesValidationError{
+						field:  "FixedReplica",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetFixedReplica()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return IntParameterDefinition_ChangesValidationError{
+					field:  "FixedReplica",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofOneofPresent {
+		err := IntParameterDefinition_ChangesValidationError{
+			field:  "Oneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return IntParameterDefinition_ChangesMultiError(errors)
+	}
+
+	return nil
+}
+
+// IntParameterDefinition_ChangesMultiError is an error wrapping multiple
+// validation errors returned by IntParameterDefinition_Changes.ValidateAll()
+// if the designated constraints aren't met.
+type IntParameterDefinition_ChangesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IntParameterDefinition_ChangesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IntParameterDefinition_ChangesMultiError) AllErrors() []error { return m }
+
+// IntParameterDefinition_ChangesValidationError is the validation error
+// returned by IntParameterDefinition_Changes.Validate if the designated
+// constraints aren't met.
+type IntParameterDefinition_ChangesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IntParameterDefinition_ChangesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IntParameterDefinition_ChangesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IntParameterDefinition_ChangesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IntParameterDefinition_ChangesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IntParameterDefinition_ChangesValidationError) ErrorName() string {
+	return "IntParameterDefinition_ChangesValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e IntParameterDefinition_ChangesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIntParameterDefinition_Changes.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IntParameterDefinition_ChangesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IntParameterDefinition_ChangesValidationError{}

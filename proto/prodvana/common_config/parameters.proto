@@ -4,18 +4,39 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/common_config/program.proto";
 import "validate/validate.proto";
 
+message ProgramChange {
+    string name = 1 [(validate.rules).string.min_len = 1];
+}
+
 message StringParameterDefinition {
     string initial_value = 1;
 }
 
 message DockerImageParameterDefinition {
+    message Changes {
+        oneof oneof {
+            option (validate.required) = true;
+            ProgramChange program = 1;
+        }
+    }
     // empty not a valid value
     string initial_value = 1 [(validate.rules).string.min_len = 1];
     prodvana.common_config.ImageRegistryInfo image_registry_info = 2 [(validate.rules).message.required = true];
+    repeated Changes changes = 3 [(validate.rules).repeated.items.message.required = true];
+}
+
+message FixedReplicaChange {
 }
 
 message IntParameterDefinition {
+    message Changes {
+        oneof oneof {
+            option (validate.required) = true;
+            FixedReplicaChange fixed_replica = 1;
+        }
+    }
     int64 initial_value = 1;
+    repeated Changes changes = 2 [(validate.rules).repeated.items.message.required = true];
 }
 
 message ParameterDefinition {

@@ -5120,6 +5120,21 @@
         },
         "imageRegistryInfo": {
           "$ref": "#/definitions/common_configImageRegistryInfo"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configDockerImageParameterDefinitionChanges"
+          }
+        }
+      }
+    },
+    "common_configDockerImageParameterDefinitionChanges": {
+      "type": "object",
+      "properties": {
+        "program": {
+          "$ref": "#/definitions/common_configProgramChange"
         }
       }
     },
@@ -5138,6 +5153,9 @@
           "description": "Externally stored secret."
         }
       }
+    },
+    "common_configFixedReplicaChange": {
+      "type": "object"
     },
     "common_configHealthCheck": {
       "type": "object",
@@ -5196,6 +5214,21 @@
         "initialValue": {
           "type": "string",
           "format": "int64"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configIntParameterDefinitionChanges"
+          }
+        }
+      }
+    },
+    "common_configIntParameterDefinitionChanges": {
+      "type": "object",
+      "properties": {
+        "fixedReplica": {
+          "$ref": "#/definitions/common_configFixedReplicaChange"
         }
       }
     },
@@ -5307,6 +5340,14 @@
         "tls": {
           "type": "boolean",
           "title": "if the connection should use TLS"
+        }
+      }
+    },
+    "common_configProgramChange": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
         }
       }
     },
