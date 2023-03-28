@@ -13,6 +13,7 @@ import "prodvana/common_config/retry.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/workflow/integration_config.proto";
+import "prodvana/service/parameters.proto";
 import "prodvana/volumes/volumes.proto";
 import "validate/validate.proto";
 import "prodvana/protection/protection_config.proto";
@@ -219,6 +220,8 @@ message ServiceConfig {
 
     repeated prodvana.protection.ProtectionReference protections = 17 [(validate.rules).repeated.items.message.required = true];
     repeated prodvana.common_config.ParameterDefinition parameters = 21 [(validate.rules).repeated.items.message.required = true];
+    // only valid to set in compiled configs by Prodvana
+    ServiceParameterValues parameter_values = 22;
 
     reserved 6, 7, 8;
     reserved "external", "image_repository", "container_registry_id";
@@ -228,7 +231,7 @@ message ServiceConfig {
         ExternalConfig external_config = 19;
     }
 
-    // next tag: 22
+    // next tag: 23
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -258,6 +261,9 @@ message CompiledServiceInstanceConfig {
 
     repeated prodvana.protection.ProtectionInstanceConfig protections = 20;
 
+    repeated prodvana.common_config.ParameterDefinition parameters = 24;
+    repeated prodvana.common_config.ParameterValue parameter_values = 25;
+
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 22;
         ExternalConfig external_config = 23;
@@ -266,7 +272,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 24
+    // next tag: 26
 }
 
 message CompiledJobConfig {

@@ -7922,6 +7922,20 @@
             "$ref": "#/definitions/protectionProtectionInstanceConfig"
           }
         },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
+        },
+        "parameterValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
+        },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
@@ -8462,6 +8476,10 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterDefinition"
           }
+        },
+        "parameterValues": {
+          "$ref": "#/definitions/serviceServiceParameterValues",
+          "title": "only valid to set in compiled configs by Prodvana"
         },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
