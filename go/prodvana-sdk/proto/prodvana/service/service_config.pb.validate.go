@@ -3425,6 +3425,8 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ParametersAutogen
+
 	switch v := m.ConfigOneof.(type) {
 	case *ServiceConfig_GenericRuntime:
 		if v == nil {

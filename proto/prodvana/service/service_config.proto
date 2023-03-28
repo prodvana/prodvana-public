@@ -231,7 +231,20 @@ message ServiceConfig {
         ExternalConfig external_config = 19;
     }
 
-    // next tag: 23
+    enum ParametersAutogen {
+        UNKNOWN = 0;
+        // no autogen
+        NONE = 1;
+        // autogen one parameter per program for the image
+        IMAGE = 2;
+        // IMAGE + autogen a parameter for replicas count
+        IMAGE_AND_REPLICAS = 3;
+    }
+
+    // How to autogenerate parameters, defaults to IMAGE
+    ParametersAutogen parameters_autogen = 23;
+
+    // next tag: 24
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

@@ -4627,6 +4627,17 @@
       ],
       "default": "RUNTIME_STATUS_UNKNOWN"
     },
+    "ServiceConfigParametersAutogen": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "NONE",
+        "IMAGE",
+        "IMAGE_AND_REPLICAS"
+      ],
+      "default": "UNKNOWN",
+      "title": "- NONE: no autogen\n - IMAGE: autogen one parameter per program for the image\n - IMAGE_AND_REPLICAS: IMAGE + autogen a parameter for replicas count"
+    },
     "VolumeSourceEphemeralSource": {
       "type": "object",
       "properties": {
@@ -8486,6 +8497,10 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/serviceExternalConfig"
+        },
+        "parametersAutogen": {
+          "$ref": "#/definitions/ServiceConfigParametersAutogen",
+          "title": "How to autogenerate parameters, defaults to IMAGE"
         }
       }
     },
