@@ -168,7 +168,7 @@ func (m *StringParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for InitialValue
+	// no validation rules for DefaultValue
 
 	if len(errors) > 0 {
 		return StringParameterDefinitionMultiError(errors)
@@ -272,9 +272,9 @@ func (m *DockerImageParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetInitialValue()) < 1 {
+	if utf8.RuneCountInString(m.GetDefaultValue()) < 1 {
 		err := DockerImageParameterDefinitionValidationError{
-			field:  "InitialValue",
+			field:  "DefaultValue",
 			reason: "value length must be at least 1 runes",
 		}
 		if !all {
@@ -573,7 +573,7 @@ func (m *IntParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for InitialValue
+	// no validation rules for DefaultValue
 
 	for idx, item := range m.GetChanges() {
 		_, _ = idx, item

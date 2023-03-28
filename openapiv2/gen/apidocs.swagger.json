@@ -5119,7 +5119,7 @@
     "common_configDockerImageParameterDefinition": {
       "type": "object",
       "properties": {
-        "initialValue": {
+        "defaultValue": {
           "type": "string",
           "title": "empty not a valid value"
         },
@@ -5216,7 +5216,7 @@
     "common_configIntParameterDefinition": {
       "type": "object",
       "properties": {
-        "initialValue": {
+        "defaultValue": {
           "type": "string",
           "format": "int64"
         },
@@ -5497,7 +5497,7 @@
     "common_configStringParameterDefinition": {
       "type": "object",
       "properties": {
-        "initialValue": {
+        "defaultValue": {
           "type": "string"
         }
       }
