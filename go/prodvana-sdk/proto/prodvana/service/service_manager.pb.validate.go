@@ -4914,16 +4914,7 @@ func (m *GetServiceConfig2Req) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetConfigVersion()) < 1 {
-		err := GetServiceConfig2ReqValidationError{
-			field:  "ConfigVersion",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ConfigVersion
 
 	if len(errors) > 0 {
 		return GetServiceConfig2ReqMultiError(errors)
@@ -5055,6 +5046,8 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for ConfigVersion
 
 	if len(errors) > 0 {
 		return GetServiceConfig2RespMultiError(errors)

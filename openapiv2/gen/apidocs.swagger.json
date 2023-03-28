@@ -3758,6 +3758,51 @@
     },
     "/v1/{application}/services/{service}/config2": {
       "get": {
+        "operationId": "ServiceManager_GetServiceConfig2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceGetServiceConfig2Resp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "configVersion",
+            "description": "omit to get latest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
+    "/v1/{application}/services/{service}/config2/list": {
+      "get": {
         "operationId": "ServiceManager_ListServiceConfigVersions",
         "responses": {
           "200": {
@@ -3800,51 +3845,6 @@
             "required": false,
             "type": "integer",
             "format": "int32"
-          }
-        ],
-        "tags": [
-          "prodvana.service.ServiceManager"
-        ]
-      }
-    },
-    "/v1/{application}/services/{service}/config2/{configVersion}": {
-      "get": {
-        "operationId": "ServiceManager_GetServiceConfig2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/serviceGetServiceConfig2Resp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "application",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "service",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "configVersion",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
           }
         ],
         "tags": [
@@ -8040,6 +8040,9 @@
       "properties": {
         "config": {
           "$ref": "#/definitions/serviceServiceConfig"
+        },
+        "configVersion": {
+          "type": "string"
         }
       }
     },

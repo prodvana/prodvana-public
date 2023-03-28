@@ -189,6 +189,10 @@ func local_request_ServiceManager_ListServiceConfigVersions_0(ctx context.Contex
 
 }
 
+var (
+	filter_ServiceManager_GetServiceConfig2_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "service": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+)
+
 func request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetServiceConfig2Req
 	var metadata runtime.ServerMetadata
@@ -220,14 +224,11 @@ func request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler r
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
 	}
 
-	val, ok = pathParams["config_version"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "config_version")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.ConfigVersion, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "config_version", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig2_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetServiceConfig2(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -266,14 +267,11 @@ func local_request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marsh
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "service", err)
 	}
 
-	val, ok = pathParams["config_version"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "config_version")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.ConfigVersion, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "config_version", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig2_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetServiceConfig2(ctx, &protoReq)
@@ -1516,7 +1514,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1541,7 +1539,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/{config_version=*}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2002,7 +2000,7 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ListServiceConfigVersions", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2024,7 +2022,7 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2/{config_version=*}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2376,9 +2374,9 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 var (
 	pattern_ServiceManager_ConfigureService2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure2"}, ""))
 
-	pattern_ServiceManager_ListServiceConfigVersions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "config2"}, ""))
+	pattern_ServiceManager_ListServiceConfigVersions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"v1", "application", "services", "service", "config2", "list"}, ""))
 
-	pattern_ServiceManager_GetServiceConfig2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "application", "services", "service", "config2", "config_version"}, ""))
+	pattern_ServiceManager_GetServiceConfig2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "config2"}, ""))
 
 	pattern_ServiceManager_ConfigureService_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure"}, ""))
 

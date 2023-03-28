@@ -241,11 +241,13 @@ message ListServiceConfigVersionsResp {
 message GetServiceConfig2Req {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
-    string config_version = 3 [(validate.rules).string.min_len = 1];
+    // omit to get latest
+    string config_version = 3;
 }
 
 message GetServiceConfig2Resp {
     ServiceConfig config = 1;
+    string config_version = 2;
 }
 
 service ServiceManager {
@@ -258,12 +260,12 @@ service ServiceManager {
     }
     rpc ListServiceConfigVersions (ListServiceConfigVersionsReq) returns (ListServiceConfigVersionsResp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/config2"
+            get: "/v1/{application=*}/services/{service=*}/config2/list"
         };
     }
     rpc GetServiceConfig2 (GetServiceConfig2Req) returns (GetServiceConfig2Resp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/config2/{config_version=*}"
+            get: "/v1/{application=*}/services/{service=*}/config2"
         };
     }
     // TODO(naphat) rename this to ApplyParameters
