@@ -1537,6 +1537,8 @@ func (m *ContainerOrchestrationRuntime_K8S) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for PvnManaged
+
 	if len(errors) > 0 {
 		return ContainerOrchestrationRuntime_K8SMultiError(errors)
 	}

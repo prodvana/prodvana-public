@@ -62,7 +62,12 @@ message Precondition {
 
 message ContainerOrchestrationRuntime {
     message K8s {
+        // optionally set a custom namespace. If not set, Prodvana will create and manage the namespace.
+        // If set, the namespace *must* already exist and Prodvana will not try to create or delete it.
         string namespace = 1 [(validate.rules).string.min_len = 1];
+        // do not set this, this is used internally by Prodvana to keep track of if a namespace
+        // is managed by Prodvana or externally.
+        bool pvn_managed = 2;
     }
     message ECS {
         string prefix = 1 [(validate.rules).string.min_len = 1];

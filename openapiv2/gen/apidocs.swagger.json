@@ -4240,7 +4240,12 @@
       "type": "object",
       "properties": {
         "namespace": {
-          "type": "string"
+          "type": "string",
+          "description": "optionally set a custom namespace. If not set, Prodvana will create and manage the namespace.\nIf set, the namespace *must* already exist and Prodvana will not try to create or delete it."
+        },
+        "pvnManaged": {
+          "type": "boolean",
+          "description": "do not set this, this is used internally by Prodvana to keep track of if a namespace\nis managed by Prodvana or externally."
         }
       }
     },
