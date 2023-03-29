@@ -233,6 +233,8 @@ message ListServiceConfigVersionsResp {
     message VersionMetadata {
         string version = 1;
         google.protobuf.Timestamp creation_timestamp = 2;
+        prodvana.version.Source source = 3;
+        prodvana.version.SourceMetadata source_metadata = 4;
     }
     repeated VersionMetadata versions = 1;
     string next_page_token = 2;

@@ -8192,6 +8192,12 @@
         "creationTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
