@@ -1,9 +1,15 @@
 syntax = "proto3";
 package prodvana.object;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object";
+import "prodvana/version/source_metadata.proto";
 
 message ObjectMeta {
     string id = 1;
     string name = 2;
     string version = 3;
+    // only set for objects who has configurations with parametrization support. At the time of this writing, only services.
+    string config_version = 4;
+
+    prodvana.version.Source source = 5;
+    prodvana.version.SourceMetadata source_metadata = 6;
 }

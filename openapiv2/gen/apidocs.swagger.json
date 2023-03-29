@@ -7113,6 +7113,16 @@
         },
         "version": {
           "type": "string"
+        },
+        "configVersion": {
+          "type": "string",
+          "description": "only set for objects who has configurations with parametrization support. At the time of this writing, only services."
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
