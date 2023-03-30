@@ -8082,7 +8082,11 @@
           "$ref": "#/definitions/serviceServiceConfig"
         },
         "configVersion": {
-          "type": "string"
+          "type": "string",
+          "title": "deprecated, use config_version_metadata"
+        },
+        "configVersionMetadata": {
+          "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata"
         }
       }
     },

@@ -249,7 +249,8 @@ message GetServiceConfig2Req {
 
 message GetServiceConfig2Resp {
     ServiceConfig config = 1;
-    string config_version = 2;
+    string config_version = 2; // deprecated, use config_version_metadata
+    ListServiceConfigVersionsResp.VersionMetadata config_version_metadata = 3;
 }
 
 service ServiceManager {
