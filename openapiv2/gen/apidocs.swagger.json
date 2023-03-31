@@ -2741,6 +2741,43 @@
         ]
       }
     },
+    "/v1/integrations/{integrationId}/repos/untrack": {
+      "delete": {
+        "operationId": "WorkflowManager_StopTrackingImageRepository",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowStopTrackingImageRepositoryResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "integrationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/managed_resources": {
       "get": {
         "operationId": "ResourceManager_ListManagedResources",
@@ -9225,6 +9262,9 @@
         "ECR"
       ],
       "default": "UNKNOWN"
+    },
+    "workflowStopTrackingImageRepositoryResp": {
+      "type": "object"
     },
     "workflowTrackImageRepositoriesResp": {
       "type": "object"

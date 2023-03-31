@@ -28,6 +28,7 @@ const (
 	WorkflowManager_ListTrackedImageRepositories_FullMethodName       = "/prodvana.workflow.WorkflowManager/ListTrackedImageRepositories"
 	WorkflowManager_GetTrackedImageRepository_FullMethodName          = "/prodvana.workflow.WorkflowManager/GetTrackedImageRepository"
 	WorkflowManager_TrackImageRepositories_FullMethodName             = "/prodvana.workflow.WorkflowManager/TrackImageRepositories"
+	WorkflowManager_StopTrackingImageRepository_FullMethodName        = "/prodvana.workflow.WorkflowManager/StopTrackingImageRepository"
 	WorkflowManager_GetProgramDefaults_FullMethodName                 = "/prodvana.workflow.WorkflowManager/GetProgramDefaults"
 	WorkflowManager_InstallSlack_FullMethodName                       = "/prodvana.workflow.WorkflowManager/InstallSlack"
 	WorkflowManager_UninstallSlack_FullMethodName                     = "/prodvana.workflow.WorkflowManager/UninstallSlack"
@@ -60,6 +61,7 @@ type WorkflowManagerClient interface {
 	ListTrackedImageRepositories(ctx context.Context, in *ListTrackedImageRepositoriesReq, opts ...grpc.CallOption) (*ListTrackedImageRepositoriesResp, error)
 	GetTrackedImageRepository(ctx context.Context, in *GetTrackedImageRepositoryReq, opts ...grpc.CallOption) (*GetTrackedImageRepositoryResp, error)
 	TrackImageRepositories(ctx context.Context, in *TrackImageRepositoriesReq, opts ...grpc.CallOption) (*TrackImageRepositoriesResp, error)
+	StopTrackingImageRepository(ctx context.Context, in *StopTrackingImageRepositoryReq, opts ...grpc.CallOption) (*StopTrackingImageRepositoryResp, error)
 	GetProgramDefaults(ctx context.Context, in *GetProgramDefaultsReq, opts ...grpc.CallOption) (*GetProgramDefaultsResp, error)
 	InstallSlack(ctx context.Context, in *InstallSlackReq, opts ...grpc.CallOption) (*InstallSlackResp, error)
 	UninstallSlack(ctx context.Context, in *UninstallSlackReq, opts ...grpc.CallOption) (*UninstallSlackResp, error)
@@ -162,6 +164,15 @@ func (c *workflowManagerClient) GetTrackedImageRepository(ctx context.Context, i
 func (c *workflowManagerClient) TrackImageRepositories(ctx context.Context, in *TrackImageRepositoriesReq, opts ...grpc.CallOption) (*TrackImageRepositoriesResp, error) {
 	out := new(TrackImageRepositoriesResp)
 	err := c.cc.Invoke(ctx, WorkflowManager_TrackImageRepositories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) StopTrackingImageRepository(ctx context.Context, in *StopTrackingImageRepositoryReq, opts ...grpc.CallOption) (*StopTrackingImageRepositoryResp, error) {
+	out := new(StopTrackingImageRepositoryResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_StopTrackingImageRepository_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -334,6 +345,7 @@ type WorkflowManagerServer interface {
 	ListTrackedImageRepositories(context.Context, *ListTrackedImageRepositoriesReq) (*ListTrackedImageRepositoriesResp, error)
 	GetTrackedImageRepository(context.Context, *GetTrackedImageRepositoryReq) (*GetTrackedImageRepositoryResp, error)
 	TrackImageRepositories(context.Context, *TrackImageRepositoriesReq) (*TrackImageRepositoriesResp, error)
+	StopTrackingImageRepository(context.Context, *StopTrackingImageRepositoryReq) (*StopTrackingImageRepositoryResp, error)
 	GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error)
 	InstallSlack(context.Context, *InstallSlackReq) (*InstallSlackResp, error)
 	UninstallSlack(context.Context, *UninstallSlackReq) (*UninstallSlackResp, error)
@@ -384,6 +396,9 @@ func (UnimplementedWorkflowManagerServer) GetTrackedImageRepository(context.Cont
 }
 func (UnimplementedWorkflowManagerServer) TrackImageRepositories(context.Context, *TrackImageRepositoriesReq) (*TrackImageRepositoriesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TrackImageRepositories not implemented")
+}
+func (UnimplementedWorkflowManagerServer) StopTrackingImageRepository(context.Context, *StopTrackingImageRepositoryReq) (*StopTrackingImageRepositoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StopTrackingImageRepository not implemented")
 }
 func (UnimplementedWorkflowManagerServer) GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProgramDefaults not implemented")
@@ -607,6 +622,24 @@ func _WorkflowManager_TrackImageRepositories_Handler(srv interface{}, ctx contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkflowManagerServer).TrackImageRepositories(ctx, req.(*TrackImageRepositoriesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_StopTrackingImageRepository_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StopTrackingImageRepositoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).StopTrackingImageRepository(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_StopTrackingImageRepository_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).StopTrackingImageRepository(ctx, req.(*StopTrackingImageRepositoryReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -959,6 +992,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TrackImageRepositories",
 			Handler:    _WorkflowManager_TrackImageRepositories_Handler,
+		},
+		{
+			MethodName: "StopTrackingImageRepository",
+			Handler:    _WorkflowManager_StopTrackingImageRepository_Handler,
 		},
 		{
 			MethodName: "GetProgramDefaults",

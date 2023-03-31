@@ -22,9 +22,9 @@ enum RegistryStatus {
 
 enum IndexStatus {
     IS_UNKNOWN = 0;
-    PENDING = 1; // indexing requested but has not indexed before
-    INDEXING = 2; // indexing operation in progress 
-    INDEXED = 3; //  steady-state, has been indexed before but no ongoing operation
+    PENDING = 1;  // indexing requested but has not indexed before
+    INDEXING = 2; // indexing operation in progress
+    INDEXED = 3;  //  steady-state, has been indexed before but no ongoing operation
 }
 
 message TrackedImageRepository {
@@ -144,6 +144,13 @@ message TrackImageRepositoriesReq {
 }
 
 message TrackImageRepositoriesResp {}
+
+message StopTrackingImageRepositoryReq {
+  string integration_id = 1;
+  string repository = 2;
+}
+
+message StopTrackingImageRepositoryResp {}
 
 message GetProgramDefaultsReq {
   string integration_id = 1;
@@ -408,6 +415,11 @@ service WorkflowManager {
         option (google.api.http) = {
             post: "/v1/integrations/{integration_id=*}/repos/track",
             body: "*"
+        };
+    };
+    rpc StopTrackingImageRepository(StopTrackingImageRepositoryReq) returns (StopTrackingImageRepositoryResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/{integration_id=*}/repos/untrack",
         };
     };
     rpc GetProgramDefaults(GetProgramDefaultsReq) returns (GetProgramDefaultsResp) {

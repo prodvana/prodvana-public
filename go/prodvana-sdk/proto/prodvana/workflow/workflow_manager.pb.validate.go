@@ -1850,6 +1850,216 @@ var _ interface {
 	ErrorName() string
 } = TrackImageRepositoriesRespValidationError{}
 
+// Validate checks the field values on StopTrackingImageRepositoryReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StopTrackingImageRepositoryReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StopTrackingImageRepositoryReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// StopTrackingImageRepositoryReqMultiError, or nil if none found.
+func (m *StopTrackingImageRepositoryReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StopTrackingImageRepositoryReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	// no validation rules for Repository
+
+	if len(errors) > 0 {
+		return StopTrackingImageRepositoryReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// StopTrackingImageRepositoryReqMultiError is an error wrapping multiple
+// validation errors returned by StopTrackingImageRepositoryReq.ValidateAll()
+// if the designated constraints aren't met.
+type StopTrackingImageRepositoryReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StopTrackingImageRepositoryReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StopTrackingImageRepositoryReqMultiError) AllErrors() []error { return m }
+
+// StopTrackingImageRepositoryReqValidationError is the validation error
+// returned by StopTrackingImageRepositoryReq.Validate if the designated
+// constraints aren't met.
+type StopTrackingImageRepositoryReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StopTrackingImageRepositoryReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StopTrackingImageRepositoryReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StopTrackingImageRepositoryReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StopTrackingImageRepositoryReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StopTrackingImageRepositoryReqValidationError) ErrorName() string {
+	return "StopTrackingImageRepositoryReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StopTrackingImageRepositoryReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStopTrackingImageRepositoryReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StopTrackingImageRepositoryReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StopTrackingImageRepositoryReqValidationError{}
+
+// Validate checks the field values on StopTrackingImageRepositoryResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StopTrackingImageRepositoryResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StopTrackingImageRepositoryResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// StopTrackingImageRepositoryRespMultiError, or nil if none found.
+func (m *StopTrackingImageRepositoryResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StopTrackingImageRepositoryResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return StopTrackingImageRepositoryRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// StopTrackingImageRepositoryRespMultiError is an error wrapping multiple
+// validation errors returned by StopTrackingImageRepositoryResp.ValidateAll()
+// if the designated constraints aren't met.
+type StopTrackingImageRepositoryRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StopTrackingImageRepositoryRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StopTrackingImageRepositoryRespMultiError) AllErrors() []error { return m }
+
+// StopTrackingImageRepositoryRespValidationError is the validation error
+// returned by StopTrackingImageRepositoryResp.Validate if the designated
+// constraints aren't met.
+type StopTrackingImageRepositoryRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StopTrackingImageRepositoryRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StopTrackingImageRepositoryRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StopTrackingImageRepositoryRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StopTrackingImageRepositoryRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StopTrackingImageRepositoryRespValidationError) ErrorName() string {
+	return "StopTrackingImageRepositoryRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StopTrackingImageRepositoryRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStopTrackingImageRepositoryResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StopTrackingImageRepositoryRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StopTrackingImageRepositoryRespValidationError{}
+
 // Validate checks the field values on GetProgramDefaultsReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
