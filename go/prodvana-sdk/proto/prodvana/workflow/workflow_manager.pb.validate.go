@@ -35,6 +35,139 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on TrackedImageRepository with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TrackedImageRepository) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TrackedImageRepository with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TrackedImageRepositoryMultiError, or nil if none found.
+func (m *TrackedImageRepository) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TrackedImageRepository) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Repository
+
+	if all {
+		switch v := interface{}(m.GetLastIndex()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TrackedImageRepositoryValidationError{
+					field:  "LastIndex",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TrackedImageRepositoryValidationError{
+					field:  "LastIndex",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastIndex()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TrackedImageRepositoryValidationError{
+				field:  "LastIndex",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return TrackedImageRepositoryMultiError(errors)
+	}
+
+	return nil
+}
+
+// TrackedImageRepositoryMultiError is an error wrapping multiple validation
+// errors returned by TrackedImageRepository.ValidateAll() if the designated
+// constraints aren't met.
+type TrackedImageRepositoryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TrackedImageRepositoryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TrackedImageRepositoryMultiError) AllErrors() []error { return m }
+
+// TrackedImageRepositoryValidationError is the validation error returned by
+// TrackedImageRepository.Validate if the designated constraints aren't met.
+type TrackedImageRepositoryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TrackedImageRepositoryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TrackedImageRepositoryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TrackedImageRepositoryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TrackedImageRepositoryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TrackedImageRepositoryValidationError) ErrorName() string {
+	return "TrackedImageRepositoryValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TrackedImageRepositoryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTrackedImageRepository.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TrackedImageRepositoryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TrackedImageRepositoryValidationError{}
+
 // Validate checks the field values on RegistryImage with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1025,6 +1158,695 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetContainerRegistryImagesResValidationError{}
+
+// Validate checks the field values on ListTrackedImageRepositoriesReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListTrackedImageRepositoriesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTrackedImageRepositoriesReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListTrackedImageRepositoriesReqMultiError, or nil if none found.
+func (m *ListTrackedImageRepositoriesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTrackedImageRepositoriesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	if len(errors) > 0 {
+		return ListTrackedImageRepositoriesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTrackedImageRepositoriesReqMultiError is an error wrapping multiple
+// validation errors returned by ListTrackedImageRepositoriesReq.ValidateAll()
+// if the designated constraints aren't met.
+type ListTrackedImageRepositoriesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTrackedImageRepositoriesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTrackedImageRepositoriesReqMultiError) AllErrors() []error { return m }
+
+// ListTrackedImageRepositoriesReqValidationError is the validation error
+// returned by ListTrackedImageRepositoriesReq.Validate if the designated
+// constraints aren't met.
+type ListTrackedImageRepositoriesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTrackedImageRepositoriesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTrackedImageRepositoriesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTrackedImageRepositoriesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTrackedImageRepositoriesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTrackedImageRepositoriesReqValidationError) ErrorName() string {
+	return "ListTrackedImageRepositoriesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTrackedImageRepositoriesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTrackedImageRepositoriesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTrackedImageRepositoriesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTrackedImageRepositoriesReqValidationError{}
+
+// Validate checks the field values on ListTrackedImageRepositoriesResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListTrackedImageRepositoriesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTrackedImageRepositoriesResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListTrackedImageRepositoriesRespMultiError, or nil if none found.
+func (m *ListTrackedImageRepositoriesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTrackedImageRepositoriesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetRepositories() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListTrackedImageRepositoriesRespValidationError{
+						field:  fmt.Sprintf("Repositories[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListTrackedImageRepositoriesRespValidationError{
+						field:  fmt.Sprintf("Repositories[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTrackedImageRepositoriesRespValidationError{
+					field:  fmt.Sprintf("Repositories[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListTrackedImageRepositoriesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTrackedImageRepositoriesRespMultiError is an error wrapping multiple
+// validation errors returned by
+// ListTrackedImageRepositoriesResp.ValidateAll() if the designated
+// constraints aren't met.
+type ListTrackedImageRepositoriesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTrackedImageRepositoriesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTrackedImageRepositoriesRespMultiError) AllErrors() []error { return m }
+
+// ListTrackedImageRepositoriesRespValidationError is the validation error
+// returned by ListTrackedImageRepositoriesResp.Validate if the designated
+// constraints aren't met.
+type ListTrackedImageRepositoriesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTrackedImageRepositoriesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTrackedImageRepositoriesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTrackedImageRepositoriesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTrackedImageRepositoriesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTrackedImageRepositoriesRespValidationError) ErrorName() string {
+	return "ListTrackedImageRepositoriesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTrackedImageRepositoriesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTrackedImageRepositoriesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTrackedImageRepositoriesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTrackedImageRepositoriesRespValidationError{}
+
+// Validate checks the field values on GetTrackedImageRepositoryReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTrackedImageRepositoryReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTrackedImageRepositoryReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTrackedImageRepositoryReqMultiError, or nil if none found.
+func (m *GetTrackedImageRepositoryReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTrackedImageRepositoryReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	// no validation rules for Repository
+
+	if len(errors) > 0 {
+		return GetTrackedImageRepositoryReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTrackedImageRepositoryReqMultiError is an error wrapping multiple
+// validation errors returned by GetTrackedImageRepositoryReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetTrackedImageRepositoryReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTrackedImageRepositoryReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTrackedImageRepositoryReqMultiError) AllErrors() []error { return m }
+
+// GetTrackedImageRepositoryReqValidationError is the validation error returned
+// by GetTrackedImageRepositoryReq.Validate if the designated constraints
+// aren't met.
+type GetTrackedImageRepositoryReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTrackedImageRepositoryReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTrackedImageRepositoryReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTrackedImageRepositoryReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTrackedImageRepositoryReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTrackedImageRepositoryReqValidationError) ErrorName() string {
+	return "GetTrackedImageRepositoryReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTrackedImageRepositoryReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTrackedImageRepositoryReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTrackedImageRepositoryReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTrackedImageRepositoryReqValidationError{}
+
+// Validate checks the field values on GetTrackedImageRepositoryResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTrackedImageRepositoryResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTrackedImageRepositoryResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetTrackedImageRepositoryRespMultiError, or nil if none found.
+func (m *GetTrackedImageRepositoryResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTrackedImageRepositoryResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRepository()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetTrackedImageRepositoryRespValidationError{
+					field:  "Repository",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetTrackedImageRepositoryRespValidationError{
+					field:  "Repository",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRepository()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetTrackedImageRepositoryRespValidationError{
+				field:  "Repository",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetTrackedImageRepositoryRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTrackedImageRepositoryRespMultiError is an error wrapping multiple
+// validation errors returned by GetTrackedImageRepositoryResp.ValidateAll()
+// if the designated constraints aren't met.
+type GetTrackedImageRepositoryRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTrackedImageRepositoryRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTrackedImageRepositoryRespMultiError) AllErrors() []error { return m }
+
+// GetTrackedImageRepositoryRespValidationError is the validation error
+// returned by GetTrackedImageRepositoryResp.Validate if the designated
+// constraints aren't met.
+type GetTrackedImageRepositoryRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTrackedImageRepositoryRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTrackedImageRepositoryRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTrackedImageRepositoryRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTrackedImageRepositoryRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTrackedImageRepositoryRespValidationError) ErrorName() string {
+	return "GetTrackedImageRepositoryRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTrackedImageRepositoryRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTrackedImageRepositoryResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTrackedImageRepositoryRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTrackedImageRepositoryRespValidationError{}
+
+// Validate checks the field values on TrackImageRepositoriesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TrackImageRepositoriesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TrackImageRepositoriesReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TrackImageRepositoriesReqMultiError, or nil if none found.
+func (m *TrackImageRepositoriesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TrackImageRepositoriesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	if len(errors) > 0 {
+		return TrackImageRepositoriesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// TrackImageRepositoriesReqMultiError is an error wrapping multiple validation
+// errors returned by TrackImageRepositoriesReq.ValidateAll() if the
+// designated constraints aren't met.
+type TrackImageRepositoriesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TrackImageRepositoriesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TrackImageRepositoriesReqMultiError) AllErrors() []error { return m }
+
+// TrackImageRepositoriesReqValidationError is the validation error returned by
+// TrackImageRepositoriesReq.Validate if the designated constraints aren't met.
+type TrackImageRepositoriesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TrackImageRepositoriesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TrackImageRepositoriesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TrackImageRepositoriesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TrackImageRepositoriesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TrackImageRepositoriesReqValidationError) ErrorName() string {
+	return "TrackImageRepositoriesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TrackImageRepositoriesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTrackImageRepositoriesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TrackImageRepositoriesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TrackImageRepositoriesReqValidationError{}
+
+// Validate checks the field values on TrackImageRepositoriesResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TrackImageRepositoriesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TrackImageRepositoriesResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TrackImageRepositoriesRespMultiError, or nil if none found.
+func (m *TrackImageRepositoriesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TrackImageRepositoriesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return TrackImageRepositoriesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// TrackImageRepositoriesRespMultiError is an error wrapping multiple
+// validation errors returned by TrackImageRepositoriesResp.ValidateAll() if
+// the designated constraints aren't met.
+type TrackImageRepositoriesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TrackImageRepositoriesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TrackImageRepositoriesRespMultiError) AllErrors() []error { return m }
+
+// TrackImageRepositoriesRespValidationError is the validation error returned
+// by TrackImageRepositoriesResp.Validate if the designated constraints aren't met.
+type TrackImageRepositoriesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TrackImageRepositoriesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TrackImageRepositoriesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TrackImageRepositoriesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TrackImageRepositoriesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TrackImageRepositoriesRespValidationError) ErrorName() string {
+	return "TrackImageRepositoriesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TrackImageRepositoriesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTrackImageRepositoriesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TrackImageRepositoriesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TrackImageRepositoriesRespValidationError{}
 
 // Validate checks the field values on GetProgramDefaultsReq with the rules
 // defined in the proto definition for this message. If any rules are

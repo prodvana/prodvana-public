@@ -2625,6 +2625,122 @@
         ]
       }
     },
+    "/v1/integrations/{integrationId}/repo/{repository}": {
+      "get": {
+        "operationId": "WorkflowManager_GetTrackedImageRepository",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowGetTrackedImageRepositoryResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "integrationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "repository",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
+    "/v1/integrations/{integrationId}/repos": {
+      "get": {
+        "operationId": "WorkflowManager_ListTrackedImageRepositories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowListTrackedImageRepositoriesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "integrationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
+    "/v1/integrations/{integrationId}/repos/track": {
+      "post": {
+        "operationId": "WorkflowManager_TrackImageRepositories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowTrackImageRepositoriesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "integrationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "repositories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/managed_resources": {
       "get": {
         "operationId": "ResourceManager_ListManagedResources",
@@ -8920,6 +9036,14 @@
         }
       }
     },
+    "workflowGetTrackedImageRepositoryResp": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/definitions/workflowTrackedImageRepository"
+        }
+      }
+    },
     "workflowInstallGitHubResp": {
       "type": "object"
     },
@@ -9014,6 +9138,18 @@
         }
       }
     },
+    "workflowListTrackedImageRepositoriesResp": {
+      "type": "object",
+      "properties": {
+        "repositories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/workflowTrackedImageRepository"
+          }
+        }
+      }
+    },
     "workflowProgramDefaults": {
       "type": "object",
       "properties": {
@@ -9081,6 +9217,21 @@
         "ECR"
       ],
       "default": "UNKNOWN"
+    },
+    "workflowTrackImageRepositoriesResp": {
+      "type": "object"
+    },
+    "workflowTrackedImageRepository": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "lastIndex": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "workflowUninstallGrafanaResp": {
       "type": "object",

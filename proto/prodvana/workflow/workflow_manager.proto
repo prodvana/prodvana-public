@@ -20,6 +20,11 @@ enum RegistryStatus {
   FAILED = 2; // Augment/replace with UNAUTHENTICATED, UNAVAILABLE, ... in the future
 }
 
+message TrackedImageRepository {
+    string repository = 1;
+    google.protobuf.Timestamp last_index = 2;
+}
+
 message RegistryImage {
   google.protobuf.Timestamp created = 2;
   string url = 3;
@@ -107,6 +112,30 @@ message GetContainerRegistryImagesRes {
   repeated RegistryImage images = 1;
   string next_page_token = 2;
 }
+
+message ListTrackedImageRepositoriesReq {
+  string integration_id = 1;
+}
+
+message ListTrackedImageRepositoriesResp {
+    repeated TrackedImageRepository repositories = 1;
+}
+
+message GetTrackedImageRepositoryReq {
+  string integration_id = 1;
+  string repository = 2;
+}
+
+message GetTrackedImageRepositoryResp {
+    TrackedImageRepository repository = 1;
+}
+
+message TrackImageRepositoriesReq {
+  string integration_id = 1;
+  repeated string repositories = 2;
+}
+
+message TrackImageRepositoriesResp {}
 
 message GetProgramDefaultsReq {
   string integration_id = 1;
@@ -355,6 +384,22 @@ service WorkflowManager {
     rpc GetContainerRegistryImages(GetContainerRegistryImagesReq) returns (GetContainerRegistryImagesRes) {
         option (google.api.http) = {
             get: "/v1/integrations/{integration_id=*}/images"
+        };
+    };
+    rpc ListTrackedImageRepositories(ListTrackedImageRepositoriesReq) returns (ListTrackedImageRepositoriesResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/{integration_id=*}/repos"
+        };
+    };
+    rpc GetTrackedImageRepository(GetTrackedImageRepositoryReq) returns (GetTrackedImageRepositoryResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/{integration_id=*}/repo/{repository=*}"
+        };
+    };
+    rpc TrackImageRepositories(TrackImageRepositoriesReq) returns (TrackImageRepositoriesResp) {
+        option (google.api.http) = {
+            post: "/v1/integrations/{integration_id=*}/repos/track",
+            body: "*"
         };
     };
     rpc GetProgramDefaults(GetProgramDefaultsReq) returns (GetProgramDefaultsResp) {

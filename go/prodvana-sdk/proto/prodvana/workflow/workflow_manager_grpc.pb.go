@@ -25,6 +25,9 @@ const (
 	WorkflowManager_ListContainerRegistryIntegrations_FullMethodName  = "/prodvana.workflow.WorkflowManager/ListContainerRegistryIntegrations"
 	WorkflowManager_GetServiceImageInfo_FullMethodName                = "/prodvana.workflow.WorkflowManager/GetServiceImageInfo"
 	WorkflowManager_GetContainerRegistryImages_FullMethodName         = "/prodvana.workflow.WorkflowManager/GetContainerRegistryImages"
+	WorkflowManager_ListTrackedImageRepositories_FullMethodName       = "/prodvana.workflow.WorkflowManager/ListTrackedImageRepositories"
+	WorkflowManager_GetTrackedImageRepository_FullMethodName          = "/prodvana.workflow.WorkflowManager/GetTrackedImageRepository"
+	WorkflowManager_TrackImageRepositories_FullMethodName             = "/prodvana.workflow.WorkflowManager/TrackImageRepositories"
 	WorkflowManager_GetProgramDefaults_FullMethodName                 = "/prodvana.workflow.WorkflowManager/GetProgramDefaults"
 	WorkflowManager_InstallSlack_FullMethodName                       = "/prodvana.workflow.WorkflowManager/InstallSlack"
 	WorkflowManager_UninstallSlack_FullMethodName                     = "/prodvana.workflow.WorkflowManager/UninstallSlack"
@@ -54,6 +57,9 @@ type WorkflowManagerClient interface {
 	ListContainerRegistryIntegrations(ctx context.Context, in *ListContainerRegistryIntegrationsReq, opts ...grpc.CallOption) (*ListContainerRegistryIntegrationsResp, error)
 	GetServiceImageInfo(ctx context.Context, in *GetServiceImageInfoReq, opts ...grpc.CallOption) (*GetServiceImageInfoResp, error)
 	GetContainerRegistryImages(ctx context.Context, in *GetContainerRegistryImagesReq, opts ...grpc.CallOption) (*GetContainerRegistryImagesRes, error)
+	ListTrackedImageRepositories(ctx context.Context, in *ListTrackedImageRepositoriesReq, opts ...grpc.CallOption) (*ListTrackedImageRepositoriesResp, error)
+	GetTrackedImageRepository(ctx context.Context, in *GetTrackedImageRepositoryReq, opts ...grpc.CallOption) (*GetTrackedImageRepositoryResp, error)
+	TrackImageRepositories(ctx context.Context, in *TrackImageRepositoriesReq, opts ...grpc.CallOption) (*TrackImageRepositoriesResp, error)
 	GetProgramDefaults(ctx context.Context, in *GetProgramDefaultsReq, opts ...grpc.CallOption) (*GetProgramDefaultsResp, error)
 	InstallSlack(ctx context.Context, in *InstallSlackReq, opts ...grpc.CallOption) (*InstallSlackResp, error)
 	UninstallSlack(ctx context.Context, in *UninstallSlackReq, opts ...grpc.CallOption) (*UninstallSlackResp, error)
@@ -129,6 +135,33 @@ func (c *workflowManagerClient) GetServiceImageInfo(ctx context.Context, in *Get
 func (c *workflowManagerClient) GetContainerRegistryImages(ctx context.Context, in *GetContainerRegistryImagesReq, opts ...grpc.CallOption) (*GetContainerRegistryImagesRes, error) {
 	out := new(GetContainerRegistryImagesRes)
 	err := c.cc.Invoke(ctx, WorkflowManager_GetContainerRegistryImages_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) ListTrackedImageRepositories(ctx context.Context, in *ListTrackedImageRepositoriesReq, opts ...grpc.CallOption) (*ListTrackedImageRepositoriesResp, error) {
+	out := new(ListTrackedImageRepositoriesResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_ListTrackedImageRepositories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) GetTrackedImageRepository(ctx context.Context, in *GetTrackedImageRepositoryReq, opts ...grpc.CallOption) (*GetTrackedImageRepositoryResp, error) {
+	out := new(GetTrackedImageRepositoryResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetTrackedImageRepository_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) TrackImageRepositories(ctx context.Context, in *TrackImageRepositoriesReq, opts ...grpc.CallOption) (*TrackImageRepositoriesResp, error) {
+	out := new(TrackImageRepositoriesResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_TrackImageRepositories_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -298,6 +331,9 @@ type WorkflowManagerServer interface {
 	ListContainerRegistryIntegrations(context.Context, *ListContainerRegistryIntegrationsReq) (*ListContainerRegistryIntegrationsResp, error)
 	GetServiceImageInfo(context.Context, *GetServiceImageInfoReq) (*GetServiceImageInfoResp, error)
 	GetContainerRegistryImages(context.Context, *GetContainerRegistryImagesReq) (*GetContainerRegistryImagesRes, error)
+	ListTrackedImageRepositories(context.Context, *ListTrackedImageRepositoriesReq) (*ListTrackedImageRepositoriesResp, error)
+	GetTrackedImageRepository(context.Context, *GetTrackedImageRepositoryReq) (*GetTrackedImageRepositoryResp, error)
+	TrackImageRepositories(context.Context, *TrackImageRepositoriesReq) (*TrackImageRepositoriesResp, error)
 	GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error)
 	InstallSlack(context.Context, *InstallSlackReq) (*InstallSlackResp, error)
 	UninstallSlack(context.Context, *UninstallSlackReq) (*UninstallSlackResp, error)
@@ -339,6 +375,15 @@ func (UnimplementedWorkflowManagerServer) GetServiceImageInfo(context.Context, *
 }
 func (UnimplementedWorkflowManagerServer) GetContainerRegistryImages(context.Context, *GetContainerRegistryImagesReq) (*GetContainerRegistryImagesRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetContainerRegistryImages not implemented")
+}
+func (UnimplementedWorkflowManagerServer) ListTrackedImageRepositories(context.Context, *ListTrackedImageRepositoriesReq) (*ListTrackedImageRepositoriesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTrackedImageRepositories not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetTrackedImageRepository(context.Context, *GetTrackedImageRepositoryReq) (*GetTrackedImageRepositoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTrackedImageRepository not implemented")
+}
+func (UnimplementedWorkflowManagerServer) TrackImageRepositories(context.Context, *TrackImageRepositoriesReq) (*TrackImageRepositoriesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TrackImageRepositories not implemented")
 }
 func (UnimplementedWorkflowManagerServer) GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProgramDefaults not implemented")
@@ -508,6 +553,60 @@ func _WorkflowManager_GetContainerRegistryImages_Handler(srv interface{}, ctx co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkflowManagerServer).GetContainerRegistryImages(ctx, req.(*GetContainerRegistryImagesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_ListTrackedImageRepositories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTrackedImageRepositoriesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).ListTrackedImageRepositories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_ListTrackedImageRepositories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).ListTrackedImageRepositories(ctx, req.(*ListTrackedImageRepositoriesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_GetTrackedImageRepository_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTrackedImageRepositoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetTrackedImageRepository(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetTrackedImageRepository_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetTrackedImageRepository(ctx, req.(*GetTrackedImageRepositoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_TrackImageRepositories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TrackImageRepositoriesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).TrackImageRepositories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_TrackImageRepositories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).TrackImageRepositories(ctx, req.(*TrackImageRepositoriesReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -848,6 +947,18 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetContainerRegistryImages",
 			Handler:    _WorkflowManager_GetContainerRegistryImages_Handler,
+		},
+		{
+			MethodName: "ListTrackedImageRepositories",
+			Handler:    _WorkflowManager_ListTrackedImageRepositories_Handler,
+		},
+		{
+			MethodName: "GetTrackedImageRepository",
+			Handler:    _WorkflowManager_GetTrackedImageRepository_Handler,
+		},
+		{
+			MethodName: "TrackImageRepositories",
+			Handler:    _WorkflowManager_TrackImageRepositories_Handler,
 		},
 		{
 			MethodName: "GetProgramDefaults",
