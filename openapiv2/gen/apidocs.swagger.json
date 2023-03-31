@@ -9044,6 +9044,17 @@
         }
       }
     },
+    "workflowIndexStatus": {
+      "type": "string",
+      "enum": [
+        "IS_UNKNOWN",
+        "PENDING",
+        "INDEXING",
+        "INDEXED"
+      ],
+      "default": "IS_UNKNOWN",
+      "title": "- PENDING: indexing requested but has not indexed before\n - INDEXING: indexing operation in progress\n - INDEXED: steady-state, has been indexed before but no ongoing operation"
+    },
     "workflowInstallGitHubResp": {
       "type": "object"
     },
@@ -9230,6 +9241,9 @@
         "lastIndex": {
           "type": "string",
           "format": "date-time"
+        },
+        "indexStatus": {
+          "$ref": "#/definitions/workflowIndexStatus"
         }
       }
     },

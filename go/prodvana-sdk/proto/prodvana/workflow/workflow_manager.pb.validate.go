@@ -88,6 +88,8 @@ func (m *TrackedImageRepository) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for IndexStatus
+
 	if len(errors) > 0 {
 		return TrackedImageRepositoryMultiError(errors)
 	}

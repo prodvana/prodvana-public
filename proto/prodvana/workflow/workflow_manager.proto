@@ -20,9 +20,17 @@ enum RegistryStatus {
   FAILED = 2; // Augment/replace with UNAUTHENTICATED, UNAVAILABLE, ... in the future
 }
 
+enum IndexStatus {
+    IS_UNKNOWN = 0;
+    PENDING = 1; // indexing requested but has not indexed before
+    INDEXING = 2; // indexing operation in progress 
+    INDEXED = 3; //  steady-state, has been indexed before but no ongoing operation
+}
+
 message TrackedImageRepository {
     string repository = 1;
     google.protobuf.Timestamp last_index = 2;
+    IndexStatus index_status = 3;
 }
 
 message RegistryImage {
