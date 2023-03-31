@@ -6507,7 +6507,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "orderByDescTimestamp": {
+        "orderByAscTimestamp": {
           "type": "boolean"
         }
       }
@@ -6532,9 +6532,6 @@
       "properties": {
         "rootDesiredStateId": {
           "type": "string"
-        },
-        "entityId": {
-          "$ref": "#/definitions/modelIdentifier"
         },
         "desiredStateId": {
           "type": "string"

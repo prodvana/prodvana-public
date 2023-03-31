@@ -21,11 +21,13 @@ message Lookup {
     oneof lookup_oneof {
         option (validate.required) = true;
         string root_desired_state_id = 1;
-        prodvana.desired_state.model.Identifier entity_id = 2;
         string desired_state_id = 3;
         ServiceLookup service = 4;
         ReleaseChannelLookup release_channel = 5;
     }
+    // entity_id not supported yet because there is no backing index
+    reserved 2;
+    reserved "entity_id";
 }
 
 message GetEventsReq {
@@ -41,7 +43,9 @@ message GetEventsReq {
     repeated EventType types = 2;
     string page_token = 3;
     int32 page_size = 4;
-    bool order_by_desc_timestamp = 5;
+    bool order_by_asc_timestamp = 6;
+    reserved 5;
+    reserved "order_by_desc_timestamp";
 }
 
 message GetEventsResp {
