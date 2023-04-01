@@ -1,0 +1,30 @@
+syntax = "proto3";
+package prodvana.config_file;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/config_file";
+
+import "prodvana/application/application_config.proto";
+import "prodvana/application/user_metadata.proto";
+import "prodvana/environment/clusters.proto";
+import "prodvana/protection/protection_config.proto";
+import "prodvana/service/service_config.proto";
+import "prodvana/service/user_metadata.proto";
+import "validate/validate.proto";
+
+// schema for config.pvn.yaml
+message ProdvanaConfig {
+    oneof config_oneof {
+        option (validate.required) = true;
+        prodvana.application.ApplicationConfig application = 1;
+        prodvana.service.ServiceConfig service = 2;
+        prodvana.protection.ProtectionConfig protection = 3;
+        prodvana.environment.ClusterConfig runtime = 4;
+    }
+
+    // TODO(naphat) unify metadata format?
+    oneof metadata_oneof {
+        prodvana.application.ApplicationUserMetadata application_metadata = 5;
+        prodvana.service.ServiceUserMetadata service_metadata = 6;
+    }
+
+    // next tag: 7
+}
