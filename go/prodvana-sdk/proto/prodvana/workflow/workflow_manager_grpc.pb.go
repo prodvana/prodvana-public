@@ -23,6 +23,7 @@ const (
 	WorkflowManager_DeleteIntegration_FullMethodName                  = "/prodvana.workflow.WorkflowManager/DeleteIntegration"
 	WorkflowManager_CreateContainerRegistryIntegration_FullMethodName = "/prodvana.workflow.WorkflowManager/CreateContainerRegistryIntegration"
 	WorkflowManager_ListContainerRegistryIntegrations_FullMethodName  = "/prodvana.workflow.WorkflowManager/ListContainerRegistryIntegrations"
+	WorkflowManager_GetContainerRegistryIntegration_FullMethodName    = "/prodvana.workflow.WorkflowManager/GetContainerRegistryIntegration"
 	WorkflowManager_GetServiceImageInfo_FullMethodName                = "/prodvana.workflow.WorkflowManager/GetServiceImageInfo"
 	WorkflowManager_GetContainerRegistryImages_FullMethodName         = "/prodvana.workflow.WorkflowManager/GetContainerRegistryImages"
 	WorkflowManager_ListTrackedImageRepositories_FullMethodName       = "/prodvana.workflow.WorkflowManager/ListTrackedImageRepositories"
@@ -56,6 +57,7 @@ type WorkflowManagerClient interface {
 	DeleteIntegration(ctx context.Context, in *DeleteIntegrationReq, opts ...grpc.CallOption) (*DeleteIntegrationResp, error)
 	CreateContainerRegistryIntegration(ctx context.Context, in *CreateContainerRegistryIntegrationReq, opts ...grpc.CallOption) (*CreateContainerRegistryIntegrationRes, error)
 	ListContainerRegistryIntegrations(ctx context.Context, in *ListContainerRegistryIntegrationsReq, opts ...grpc.CallOption) (*ListContainerRegistryIntegrationsResp, error)
+	GetContainerRegistryIntegration(ctx context.Context, in *GetContainerRegistryIntegrationReq, opts ...grpc.CallOption) (*GetContainerRegistryIntegrationResp, error)
 	GetServiceImageInfo(ctx context.Context, in *GetServiceImageInfoReq, opts ...grpc.CallOption) (*GetServiceImageInfoResp, error)
 	GetContainerRegistryImages(ctx context.Context, in *GetContainerRegistryImagesReq, opts ...grpc.CallOption) (*GetContainerRegistryImagesRes, error)
 	ListTrackedImageRepositories(ctx context.Context, in *ListTrackedImageRepositoriesReq, opts ...grpc.CallOption) (*ListTrackedImageRepositoriesResp, error)
@@ -119,6 +121,15 @@ func (c *workflowManagerClient) CreateContainerRegistryIntegration(ctx context.C
 func (c *workflowManagerClient) ListContainerRegistryIntegrations(ctx context.Context, in *ListContainerRegistryIntegrationsReq, opts ...grpc.CallOption) (*ListContainerRegistryIntegrationsResp, error) {
 	out := new(ListContainerRegistryIntegrationsResp)
 	err := c.cc.Invoke(ctx, WorkflowManager_ListContainerRegistryIntegrations_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) GetContainerRegistryIntegration(ctx context.Context, in *GetContainerRegistryIntegrationReq, opts ...grpc.CallOption) (*GetContainerRegistryIntegrationResp, error) {
+	out := new(GetContainerRegistryIntegrationResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetContainerRegistryIntegration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -340,6 +351,7 @@ type WorkflowManagerServer interface {
 	DeleteIntegration(context.Context, *DeleteIntegrationReq) (*DeleteIntegrationResp, error)
 	CreateContainerRegistryIntegration(context.Context, *CreateContainerRegistryIntegrationReq) (*CreateContainerRegistryIntegrationRes, error)
 	ListContainerRegistryIntegrations(context.Context, *ListContainerRegistryIntegrationsReq) (*ListContainerRegistryIntegrationsResp, error)
+	GetContainerRegistryIntegration(context.Context, *GetContainerRegistryIntegrationReq) (*GetContainerRegistryIntegrationResp, error)
 	GetServiceImageInfo(context.Context, *GetServiceImageInfoReq) (*GetServiceImageInfoResp, error)
 	GetContainerRegistryImages(context.Context, *GetContainerRegistryImagesReq) (*GetContainerRegistryImagesRes, error)
 	ListTrackedImageRepositories(context.Context, *ListTrackedImageRepositoriesReq) (*ListTrackedImageRepositoriesResp, error)
@@ -381,6 +393,9 @@ func (UnimplementedWorkflowManagerServer) CreateContainerRegistryIntegration(con
 }
 func (UnimplementedWorkflowManagerServer) ListContainerRegistryIntegrations(context.Context, *ListContainerRegistryIntegrationsReq) (*ListContainerRegistryIntegrationsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListContainerRegistryIntegrations not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetContainerRegistryIntegration(context.Context, *GetContainerRegistryIntegrationReq) (*GetContainerRegistryIntegrationResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetContainerRegistryIntegration not implemented")
 }
 func (UnimplementedWorkflowManagerServer) GetServiceImageInfo(context.Context, *GetServiceImageInfoReq) (*GetServiceImageInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceImageInfo not implemented")
@@ -532,6 +547,24 @@ func _WorkflowManager_ListContainerRegistryIntegrations_Handler(srv interface{},
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkflowManagerServer).ListContainerRegistryIntegrations(ctx, req.(*ListContainerRegistryIntegrationsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_GetContainerRegistryIntegration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetContainerRegistryIntegrationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetContainerRegistryIntegration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetContainerRegistryIntegration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetContainerRegistryIntegration(ctx, req.(*GetContainerRegistryIntegrationReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -972,6 +1005,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListContainerRegistryIntegrations",
 			Handler:    _WorkflowManager_ListContainerRegistryIntegrations_Handler,
+		},
+		{
+			MethodName: "GetContainerRegistryIntegration",
+			Handler:    _WorkflowManager_GetContainerRegistryIntegration_Handler,
 		},
 		{
 			MethodName: "GetServiceImageInfo",

@@ -83,6 +83,24 @@ message ListContainerRegistryIntegrationsReq {
   bool fetch_status = 1;
 }
 
+message ContainerRegistryIntegration {
+  string integration_id = 1;
+  string name = 2;
+  string url = 3;
+  string type = 4; // Implicit from registry_info below
+  RegistryStatus status = 5;
+
+  message ECRInfo {
+    string region = 1;
+  }
+
+  oneof registry_info {
+    ECRInfo ecr_info = 6;
+  }
+
+  repeated TrackedImageRepository repositories = 7;
+}
+
 message ListContainerRegistryIntegrationsResp {
   message ECRInfo {
     string region = 1;
@@ -105,6 +123,14 @@ message ListContainerRegistryIntegrationsResp {
     // next tag: 9
   }
   repeated ContainerRegistryIntegrationInfo container_registries = 1;
+}
+
+message GetContainerRegistryIntegrationReq {
+  string registry_name = 1;
+}
+
+message GetContainerRegistryIntegrationResp {
+  ContainerRegistryIntegration registry = 1;
 }
 
 message GetContainerRegistryImagesReq {
@@ -388,7 +414,12 @@ service WorkflowManager {
     };
     rpc ListContainerRegistryIntegrations(ListContainerRegistryIntegrationsReq) returns (ListContainerRegistryIntegrationsResp) {
         option (google.api.http) = {
-            get: "/v1/integrations/container-registry/list",
+            get: "/v1/integrations/container-registry",
+        };
+    }
+    rpc GetContainerRegistryIntegration(GetContainerRegistryIntegrationReq) returns (GetContainerRegistryIntegrationResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/container-registry/{registry_name=*}",
         };
     }
     rpc GetServiceImageInfo(GetServiceImageInfoReq) returns (GetServiceImageInfoResp) {

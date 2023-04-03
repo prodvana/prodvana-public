@@ -1939,6 +1939,37 @@
         ]
       }
     },
+    "/v1/integrations/container-registry": {
+      "get": {
+        "operationId": "WorkflowManager_ListContainerRegistryIntegrations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowListContainerRegistryIntegrationsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fetchStatus",
+            "description": "if true, verifies connection to registry",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/integrations/container-registry/create": {
       "post": {
         "operationId": "WorkflowManager_CreateContainerRegistryIntegration",
@@ -1971,14 +2002,14 @@
         ]
       }
     },
-    "/v1/integrations/container-registry/list": {
+    "/v1/integrations/container-registry/{registryName}": {
       "get": {
-        "operationId": "WorkflowManager_ListContainerRegistryIntegrations",
+        "operationId": "WorkflowManager_GetContainerRegistryIntegration",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/workflowListContainerRegistryIntegrationsResp"
+              "$ref": "#/definitions/workflowGetContainerRegistryIntegrationResp"
             }
           },
           "default": {
@@ -1990,11 +2021,11 @@
         },
         "parameters": [
           {
-            "name": "fetchStatus",
-            "description": "if true, verifies connection to registry",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
+            "name": "registryName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
           }
         ],
         "tags": [
@@ -4647,15 +4678,7 @@
           "$ref": "#/definitions/workflowRegistryStatus"
         },
         "ecrInfo": {
-          "$ref": "#/definitions/ListContainerRegistryIntegrationsRespECRInfo"
-        }
-      }
-    },
-    "ListContainerRegistryIntegrationsRespECRInfo": {
-      "type": "object",
-      "properties": {
-        "region": {
-          "type": "string"
+          "$ref": "#/definitions/workflowListContainerRegistryIntegrationsRespECRInfo"
         }
       }
     },
@@ -8937,6 +8960,45 @@
         }
       }
     },
+    "workflowContainerRegistryIntegration": {
+      "type": "object",
+      "properties": {
+        "integrationId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "title": "Implicit from registry_info below"
+        },
+        "status": {
+          "$ref": "#/definitions/workflowRegistryStatus"
+        },
+        "ecrInfo": {
+          "$ref": "#/definitions/workflowContainerRegistryIntegrationECRInfo"
+        },
+        "repositories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/workflowTrackedImageRepository"
+          }
+        }
+      }
+    },
+    "workflowContainerRegistryIntegrationECRInfo": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string"
+        }
+      }
+    },
     "workflowCreateContainerRegistryIntegrationReq": {
       "type": "object",
       "properties": {
@@ -8999,6 +9061,14 @@
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "workflowGetContainerRegistryIntegrationResp": {
+      "type": "object",
+      "properties": {
+        "registry": {
+          "$ref": "#/definitions/workflowContainerRegistryIntegration"
         }
       }
     },
@@ -9156,6 +9226,14 @@
             "type": "object",
             "$ref": "#/definitions/ListContainerRegistryIntegrationsRespContainerRegistryIntegrationInfo"
           }
+        }
+      }
+    },
+    "workflowListContainerRegistryIntegrationsRespECRInfo": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string"
         }
       }
     },

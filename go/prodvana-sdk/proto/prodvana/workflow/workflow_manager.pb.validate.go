@@ -770,6 +770,199 @@ var _ interface {
 	ErrorName() string
 } = ListContainerRegistryIntegrationsReqValidationError{}
 
+// Validate checks the field values on ContainerRegistryIntegration with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ContainerRegistryIntegration) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerRegistryIntegration with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ContainerRegistryIntegrationMultiError, or nil if none found.
+func (m *ContainerRegistryIntegration) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerRegistryIntegration) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	// no validation rules for Name
+
+	// no validation rules for Url
+
+	// no validation rules for Type
+
+	// no validation rules for Status
+
+	for idx, item := range m.GetRepositories() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ContainerRegistryIntegrationValidationError{
+						field:  fmt.Sprintf("Repositories[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ContainerRegistryIntegrationValidationError{
+						field:  fmt.Sprintf("Repositories[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ContainerRegistryIntegrationValidationError{
+					field:  fmt.Sprintf("Repositories[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	switch v := m.RegistryInfo.(type) {
+	case *ContainerRegistryIntegration_EcrInfo:
+		if v == nil {
+			err := ContainerRegistryIntegrationValidationError{
+				field:  "RegistryInfo",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetEcrInfo()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ContainerRegistryIntegrationValidationError{
+						field:  "EcrInfo",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ContainerRegistryIntegrationValidationError{
+						field:  "EcrInfo",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEcrInfo()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ContainerRegistryIntegrationValidationError{
+					field:  "EcrInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ContainerRegistryIntegrationMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerRegistryIntegrationMultiError is an error wrapping multiple
+// validation errors returned by ContainerRegistryIntegration.ValidateAll() if
+// the designated constraints aren't met.
+type ContainerRegistryIntegrationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerRegistryIntegrationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerRegistryIntegrationMultiError) AllErrors() []error { return m }
+
+// ContainerRegistryIntegrationValidationError is the validation error returned
+// by ContainerRegistryIntegration.Validate if the designated constraints
+// aren't met.
+type ContainerRegistryIntegrationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerRegistryIntegrationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerRegistryIntegrationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerRegistryIntegrationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerRegistryIntegrationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerRegistryIntegrationValidationError) ErrorName() string {
+	return "ContainerRegistryIntegrationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerRegistryIntegrationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerRegistryIntegration.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerRegistryIntegrationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerRegistryIntegrationValidationError{}
+
 // Validate checks the field values on ListContainerRegistryIntegrationsResp
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
@@ -908,6 +1101,247 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListContainerRegistryIntegrationsRespValidationError{}
+
+// Validate checks the field values on GetContainerRegistryIntegrationReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetContainerRegistryIntegrationReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetContainerRegistryIntegrationReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetContainerRegistryIntegrationReqMultiError, or nil if none found.
+func (m *GetContainerRegistryIntegrationReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetContainerRegistryIntegrationReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for RegistryName
+
+	if len(errors) > 0 {
+		return GetContainerRegistryIntegrationReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetContainerRegistryIntegrationReqMultiError is an error wrapping multiple
+// validation errors returned by
+// GetContainerRegistryIntegrationReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetContainerRegistryIntegrationReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetContainerRegistryIntegrationReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetContainerRegistryIntegrationReqMultiError) AllErrors() []error { return m }
+
+// GetContainerRegistryIntegrationReqValidationError is the validation error
+// returned by GetContainerRegistryIntegrationReq.Validate if the designated
+// constraints aren't met.
+type GetContainerRegistryIntegrationReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetContainerRegistryIntegrationReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetContainerRegistryIntegrationReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetContainerRegistryIntegrationReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetContainerRegistryIntegrationReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetContainerRegistryIntegrationReqValidationError) ErrorName() string {
+	return "GetContainerRegistryIntegrationReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetContainerRegistryIntegrationReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetContainerRegistryIntegrationReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetContainerRegistryIntegrationReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetContainerRegistryIntegrationReqValidationError{}
+
+// Validate checks the field values on GetContainerRegistryIntegrationResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetContainerRegistryIntegrationResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetContainerRegistryIntegrationResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetContainerRegistryIntegrationRespMultiError, or nil if none found.
+func (m *GetContainerRegistryIntegrationResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetContainerRegistryIntegrationResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRegistry()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetContainerRegistryIntegrationRespValidationError{
+					field:  "Registry",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetContainerRegistryIntegrationRespValidationError{
+					field:  "Registry",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRegistry()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetContainerRegistryIntegrationRespValidationError{
+				field:  "Registry",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetContainerRegistryIntegrationRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetContainerRegistryIntegrationRespMultiError is an error wrapping multiple
+// validation errors returned by
+// GetContainerRegistryIntegrationResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetContainerRegistryIntegrationRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetContainerRegistryIntegrationRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetContainerRegistryIntegrationRespMultiError) AllErrors() []error { return m }
+
+// GetContainerRegistryIntegrationRespValidationError is the validation error
+// returned by GetContainerRegistryIntegrationResp.Validate if the designated
+// constraints aren't met.
+type GetContainerRegistryIntegrationRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetContainerRegistryIntegrationRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetContainerRegistryIntegrationRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetContainerRegistryIntegrationRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetContainerRegistryIntegrationRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetContainerRegistryIntegrationRespValidationError) ErrorName() string {
+	return "GetContainerRegistryIntegrationRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetContainerRegistryIntegrationRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetContainerRegistryIntegrationResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetContainerRegistryIntegrationRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetContainerRegistryIntegrationRespValidationError{}
 
 // Validate checks the field values on GetContainerRegistryImagesReq with the
 // rules defined in the proto definition for this message. If any rules are
@@ -7149,6 +7583,113 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateContainerRegistryIntegrationReq_PublicRegistryOptionsValidationError{}
+
+// Validate checks the field values on ContainerRegistryIntegration_ECRInfo
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *ContainerRegistryIntegration_ECRInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerRegistryIntegration_ECRInfo
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ContainerRegistryIntegration_ECRInfoMultiError, or nil if none found.
+func (m *ContainerRegistryIntegration_ECRInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerRegistryIntegration_ECRInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Region
+
+	if len(errors) > 0 {
+		return ContainerRegistryIntegration_ECRInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerRegistryIntegration_ECRInfoMultiError is an error wrapping multiple
+// validation errors returned by
+// ContainerRegistryIntegration_ECRInfo.ValidateAll() if the designated
+// constraints aren't met.
+type ContainerRegistryIntegration_ECRInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerRegistryIntegration_ECRInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerRegistryIntegration_ECRInfoMultiError) AllErrors() []error { return m }
+
+// ContainerRegistryIntegration_ECRInfoValidationError is the validation error
+// returned by ContainerRegistryIntegration_ECRInfo.Validate if the designated
+// constraints aren't met.
+type ContainerRegistryIntegration_ECRInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerRegistryIntegration_ECRInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerRegistryIntegration_ECRInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerRegistryIntegration_ECRInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerRegistryIntegration_ECRInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerRegistryIntegration_ECRInfoValidationError) ErrorName() string {
+	return "ContainerRegistryIntegration_ECRInfoValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerRegistryIntegration_ECRInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerRegistryIntegration_ECRInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerRegistryIntegration_ECRInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerRegistryIntegration_ECRInfoValidationError{}
 
 // Validate checks the field values on
 // ListContainerRegistryIntegrationsResp_ECRInfo with the rules defined in the
