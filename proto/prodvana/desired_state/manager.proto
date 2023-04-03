@@ -17,7 +17,7 @@ message ValidateDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
     // set if this is a rollback, which will generate a desired state with faster preconditions
     bool rollback = 2;
-    // optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateConfigureService followed by a ValidateDesiredState
+    // optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState
     repeated prodvana.service.CompiledServiceInstanceConfig service_instance_configs = 3;
 }
 

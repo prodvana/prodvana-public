@@ -170,22 +170,22 @@ var _ interface {
 	ErrorName() string
 } = ServiceConfigVersionReferenceValidationError{}
 
-// Validate checks the field values on ConfigureServiceReq with the rules
+// Validate checks the field values on ApplyParametersReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ConfigureServiceReq) Validate() error {
+func (m *ApplyParametersReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfigureServiceReq with the rules
+// ValidateAll checks the field values on ApplyParametersReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ConfigureServiceReqMultiError, or nil if none found.
-func (m *ConfigureServiceReq) ValidateAll() error {
+// ApplyParametersReqMultiError, or nil if none found.
+func (m *ApplyParametersReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfigureServiceReq) validate(all bool) error {
+func (m *ApplyParametersReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -196,7 +196,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 		_, _ = idx, item
 
 		if item == nil {
-			err := ConfigureServiceReqValidationError{
+			err := ApplyParametersReqValidationError{
 				field:  fmt.Sprintf("Parameters[%v]", idx),
 				reason: "value is required",
 			}
@@ -210,7 +210,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -218,7 +218,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -227,7 +227,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ConfigureServiceReqValidationError{
+				return ApplyParametersReqValidationError{
 					field:  fmt.Sprintf("Parameters[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -241,7 +241,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 		_, _ = idx, item
 
 		if item == nil {
-			err := ConfigureServiceReqValidationError{
+			err := ApplyParametersReqValidationError{
 				field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
 				reason: "value is required",
 			}
@@ -255,7 +255,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -263,7 +263,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -272,7 +272,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ConfigureServiceReqValidationError{
+				return ApplyParametersReqValidationError{
 					field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -292,7 +292,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 		switch v := interface{}(m.GetSourceMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ConfigureServiceReqValidationError{
+				errors = append(errors, ApplyParametersReqValidationError{
 					field:  "SourceMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -300,7 +300,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ConfigureServiceReqValidationError{
+				errors = append(errors, ApplyParametersReqValidationError{
 					field:  "SourceMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -309,7 +309,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ConfigureServiceReqValidationError{
+			return ApplyParametersReqValidationError{
 				field:  "SourceMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -319,9 +319,9 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 
 	oneofOneofPresent := false
 	switch v := m.Oneof.(type) {
-	case *ConfigureServiceReq_ServiceConfig:
+	case *ApplyParametersReq_ServiceConfig:
 		if v == nil {
-			err := ConfigureServiceReqValidationError{
+			err := ApplyParametersReqValidationError{
 				field:  "Oneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -336,7 +336,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			switch v := interface{}(m.GetServiceConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  "ServiceConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -344,7 +344,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  "ServiceConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -353,7 +353,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ConfigureServiceReqValidationError{
+				return ApplyParametersReqValidationError{
 					field:  "ServiceConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -361,9 +361,9 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		}
 
-	case *ConfigureServiceReq_ServiceConfigVersion:
+	case *ApplyParametersReq_ServiceConfigVersion:
 		if v == nil {
-			err := ConfigureServiceReqValidationError{
+			err := ApplyParametersReqValidationError{
 				field:  "Oneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -378,7 +378,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			switch v := interface{}(m.GetServiceConfigVersion()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  "ServiceConfigVersion",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -386,7 +386,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ConfigureServiceReqValidationError{
+					errors = append(errors, ApplyParametersReqValidationError{
 						field:  "ServiceConfigVersion",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -395,7 +395,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetServiceConfigVersion()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ConfigureServiceReqValidationError{
+				return ApplyParametersReqValidationError{
 					field:  "ServiceConfigVersion",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -407,7 +407,7 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 		_ = v // ensures v is used
 	}
 	if !oneofOneofPresent {
-		err := ConfigureServiceReqValidationError{
+		err := ApplyParametersReqValidationError{
 			field:  "Oneof",
 			reason: "value is required",
 		}
@@ -418,19 +418,19 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ConfigureServiceReqMultiError(errors)
+		return ApplyParametersReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfigureServiceReqMultiError is an error wrapping multiple validation
-// errors returned by ConfigureServiceReq.ValidateAll() if the designated
-// constraints aren't met.
-type ConfigureServiceReqMultiError []error
+// ApplyParametersReqMultiError is an error wrapping multiple validation errors
+// returned by ApplyParametersReq.ValidateAll() if the designated constraints
+// aren't met.
+type ApplyParametersReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfigureServiceReqMultiError) Error() string {
+func (m ApplyParametersReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -439,11 +439,11 @@ func (m ConfigureServiceReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfigureServiceReqMultiError) AllErrors() []error { return m }
+func (m ApplyParametersReqMultiError) AllErrors() []error { return m }
 
-// ConfigureServiceReqValidationError is the validation error returned by
-// ConfigureServiceReq.Validate if the designated constraints aren't met.
-type ConfigureServiceReqValidationError struct {
+// ApplyParametersReqValidationError is the validation error returned by
+// ApplyParametersReq.Validate if the designated constraints aren't met.
+type ApplyParametersReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -451,24 +451,24 @@ type ConfigureServiceReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfigureServiceReqValidationError) Field() string { return e.field }
+func (e ApplyParametersReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfigureServiceReqValidationError) Reason() string { return e.reason }
+func (e ApplyParametersReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfigureServiceReqValidationError) Cause() error { return e.cause }
+func (e ApplyParametersReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfigureServiceReqValidationError) Key() bool { return e.key }
+func (e ApplyParametersReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfigureServiceReqValidationError) ErrorName() string {
-	return "ConfigureServiceReqValidationError"
+func (e ApplyParametersReqValidationError) ErrorName() string {
+	return "ApplyParametersReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ConfigureServiceReqValidationError) Error() string {
+func (e ApplyParametersReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -480,14 +480,14 @@ func (e ConfigureServiceReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfigureServiceReq.%s: %s%s",
+		"invalid %sApplyParametersReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfigureServiceReqValidationError{}
+var _ error = ApplyParametersReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -495,24 +495,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfigureServiceReqValidationError{}
+} = ApplyParametersReqValidationError{}
 
-// Validate checks the field values on ConfigureServiceResp with the rules
+// Validate checks the field values on ApplyParametersResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ConfigureServiceResp) Validate() error {
+func (m *ApplyParametersResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfigureServiceResp with the rules
+// ValidateAll checks the field values on ApplyParametersResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ConfigureServiceRespMultiError, or nil if none found.
-func (m *ConfigureServiceResp) ValidateAll() error {
+// ApplyParametersRespMultiError, or nil if none found.
+func (m *ApplyParametersResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfigureServiceResp) validate(all bool) error {
+func (m *ApplyParametersResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -527,7 +527,7 @@ func (m *ConfigureServiceResp) validate(all bool) error {
 		switch v := interface{}(m.GetEfficiencyStat()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ConfigureServiceRespValidationError{
+				errors = append(errors, ApplyParametersRespValidationError{
 					field:  "EfficiencyStat",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -535,7 +535,7 @@ func (m *ConfigureServiceResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ConfigureServiceRespValidationError{
+				errors = append(errors, ApplyParametersRespValidationError{
 					field:  "EfficiencyStat",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -544,7 +544,7 @@ func (m *ConfigureServiceResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetEfficiencyStat()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ConfigureServiceRespValidationError{
+			return ApplyParametersRespValidationError{
 				field:  "EfficiencyStat",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -553,19 +553,19 @@ func (m *ConfigureServiceResp) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ConfigureServiceRespMultiError(errors)
+		return ApplyParametersRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfigureServiceRespMultiError is an error wrapping multiple validation
-// errors returned by ConfigureServiceResp.ValidateAll() if the designated
+// ApplyParametersRespMultiError is an error wrapping multiple validation
+// errors returned by ApplyParametersResp.ValidateAll() if the designated
 // constraints aren't met.
-type ConfigureServiceRespMultiError []error
+type ApplyParametersRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfigureServiceRespMultiError) Error() string {
+func (m ApplyParametersRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -574,11 +574,11 @@ func (m ConfigureServiceRespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfigureServiceRespMultiError) AllErrors() []error { return m }
+func (m ApplyParametersRespMultiError) AllErrors() []error { return m }
 
-// ConfigureServiceRespValidationError is the validation error returned by
-// ConfigureServiceResp.Validate if the designated constraints aren't met.
-type ConfigureServiceRespValidationError struct {
+// ApplyParametersRespValidationError is the validation error returned by
+// ApplyParametersResp.Validate if the designated constraints aren't met.
+type ApplyParametersRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -586,24 +586,24 @@ type ConfigureServiceRespValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfigureServiceRespValidationError) Field() string { return e.field }
+func (e ApplyParametersRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfigureServiceRespValidationError) Reason() string { return e.reason }
+func (e ApplyParametersRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfigureServiceRespValidationError) Cause() error { return e.cause }
+func (e ApplyParametersRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfigureServiceRespValidationError) Key() bool { return e.key }
+func (e ApplyParametersRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfigureServiceRespValidationError) ErrorName() string {
-	return "ConfigureServiceRespValidationError"
+func (e ApplyParametersRespValidationError) ErrorName() string {
+	return "ApplyParametersRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ConfigureServiceRespValidationError) Error() string {
+func (e ApplyParametersRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -615,14 +615,14 @@ func (e ConfigureServiceRespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfigureServiceResp.%s: %s%s",
+		"invalid %sApplyParametersResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfigureServiceRespValidationError{}
+var _ error = ApplyParametersRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -630,24 +630,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfigureServiceRespValidationError{}
+} = ApplyParametersRespValidationError{}
 
-// Validate checks the field values on ValidateConfigureServiceResp with the
+// Validate checks the field values on ValidateApplyParametersResp with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ValidateConfigureServiceResp) Validate() error {
+func (m *ValidateApplyParametersResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ValidateConfigureServiceResp with the
+// ValidateAll checks the field values on ValidateApplyParametersResp with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ValidateConfigureServiceRespMultiError, or nil if none found.
-func (m *ValidateConfigureServiceResp) ValidateAll() error {
+// ValidateApplyParametersRespMultiError, or nil if none found.
+func (m *ValidateApplyParametersResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ValidateConfigureServiceResp) validate(all bool) error {
+func (m *ValidateApplyParametersResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -658,7 +658,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 		switch v := interface{}(m.GetConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ValidateConfigureServiceRespValidationError{
+				errors = append(errors, ValidateApplyParametersRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -666,7 +666,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ValidateConfigureServiceRespValidationError{
+				errors = append(errors, ValidateApplyParametersRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -675,7 +675,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ValidateConfigureServiceRespValidationError{
+			return ValidateApplyParametersRespValidationError{
 				field:  "Config",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -687,7 +687,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 		switch v := interface{}(m.GetCompiledConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ValidateConfigureServiceRespValidationError{
+				errors = append(errors, ValidateApplyParametersRespValidationError{
 					field:  "CompiledConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -695,7 +695,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ValidateConfigureServiceRespValidationError{
+				errors = append(errors, ValidateApplyParametersRespValidationError{
 					field:  "CompiledConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -704,7 +704,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ValidateConfigureServiceRespValidationError{
+			return ValidateApplyParametersRespValidationError{
 				field:  "CompiledConfig",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -721,7 +721,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ValidateConfigureServiceRespValidationError{
+					errors = append(errors, ValidateApplyParametersRespValidationError{
 						field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -729,7 +729,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ValidateConfigureServiceRespValidationError{
+					errors = append(errors, ValidateApplyParametersRespValidationError{
 						field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -738,7 +738,7 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ValidateConfigureServiceRespValidationError{
+				return ValidateApplyParametersRespValidationError{
 					field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -749,19 +749,19 @@ func (m *ValidateConfigureServiceResp) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ValidateConfigureServiceRespMultiError(errors)
+		return ValidateApplyParametersRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// ValidateConfigureServiceRespMultiError is an error wrapping multiple
-// validation errors returned by ValidateConfigureServiceResp.ValidateAll() if
+// ValidateApplyParametersRespMultiError is an error wrapping multiple
+// validation errors returned by ValidateApplyParametersResp.ValidateAll() if
 // the designated constraints aren't met.
-type ValidateConfigureServiceRespMultiError []error
+type ValidateApplyParametersRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ValidateConfigureServiceRespMultiError) Error() string {
+func (m ValidateApplyParametersRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -770,12 +770,12 @@ func (m ValidateConfigureServiceRespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ValidateConfigureServiceRespMultiError) AllErrors() []error { return m }
+func (m ValidateApplyParametersRespMultiError) AllErrors() []error { return m }
 
-// ValidateConfigureServiceRespValidationError is the validation error returned
-// by ValidateConfigureServiceResp.Validate if the designated constraints
+// ValidateApplyParametersRespValidationError is the validation error returned
+// by ValidateApplyParametersResp.Validate if the designated constraints
 // aren't met.
-type ValidateConfigureServiceRespValidationError struct {
+type ValidateApplyParametersRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -783,24 +783,24 @@ type ValidateConfigureServiceRespValidationError struct {
 }
 
 // Field function returns field value.
-func (e ValidateConfigureServiceRespValidationError) Field() string { return e.field }
+func (e ValidateApplyParametersRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ValidateConfigureServiceRespValidationError) Reason() string { return e.reason }
+func (e ValidateApplyParametersRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ValidateConfigureServiceRespValidationError) Cause() error { return e.cause }
+func (e ValidateApplyParametersRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ValidateConfigureServiceRespValidationError) Key() bool { return e.key }
+func (e ValidateApplyParametersRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ValidateConfigureServiceRespValidationError) ErrorName() string {
-	return "ValidateConfigureServiceRespValidationError"
+func (e ValidateApplyParametersRespValidationError) ErrorName() string {
+	return "ValidateApplyParametersRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ValidateConfigureServiceRespValidationError) Error() string {
+func (e ValidateApplyParametersRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -812,14 +812,14 @@ func (e ValidateConfigureServiceRespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sValidateConfigureServiceResp.%s: %s%s",
+		"invalid %sValidateApplyParametersResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ValidateConfigureServiceRespValidationError{}
+var _ error = ValidateApplyParametersRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -827,24 +827,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ValidateConfigureServiceRespValidationError{}
+} = ValidateApplyParametersRespValidationError{}
 
-// Validate checks the field values on GetServiceConfigReq with the rules
+// Validate checks the field values on GetMaterializedConfigReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetServiceConfigReq) Validate() error {
+func (m *GetMaterializedConfigReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetServiceConfigReq with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on GetMaterializedConfigReq with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetServiceConfigReqMultiError, or nil if none found.
-func (m *GetServiceConfigReq) ValidateAll() error {
+// GetMaterializedConfigReqMultiError, or nil if none found.
+func (m *GetMaterializedConfigReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetServiceConfigReq) validate(all bool) error {
+func (m *GetMaterializedConfigReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -852,7 +852,7 @@ func (m *GetServiceConfigReq) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetService()) < 1 {
-		err := GetServiceConfigReqValidationError{
+		err := GetMaterializedConfigReqValidationError{
 			field:  "Service",
 			reason: "value length must be at least 1 runes",
 		}
@@ -867,19 +867,19 @@ func (m *GetServiceConfigReq) validate(all bool) error {
 	// no validation rules for Application
 
 	if len(errors) > 0 {
-		return GetServiceConfigReqMultiError(errors)
+		return GetMaterializedConfigReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetServiceConfigReqMultiError is an error wrapping multiple validation
-// errors returned by GetServiceConfigReq.ValidateAll() if the designated
+// GetMaterializedConfigReqMultiError is an error wrapping multiple validation
+// errors returned by GetMaterializedConfigReq.ValidateAll() if the designated
 // constraints aren't met.
-type GetServiceConfigReqMultiError []error
+type GetMaterializedConfigReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetServiceConfigReqMultiError) Error() string {
+func (m GetMaterializedConfigReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -888,11 +888,11 @@ func (m GetServiceConfigReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetServiceConfigReqMultiError) AllErrors() []error { return m }
+func (m GetMaterializedConfigReqMultiError) AllErrors() []error { return m }
 
-// GetServiceConfigReqValidationError is the validation error returned by
-// GetServiceConfigReq.Validate if the designated constraints aren't met.
-type GetServiceConfigReqValidationError struct {
+// GetMaterializedConfigReqValidationError is the validation error returned by
+// GetMaterializedConfigReq.Validate if the designated constraints aren't met.
+type GetMaterializedConfigReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -900,24 +900,24 @@ type GetServiceConfigReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetServiceConfigReqValidationError) Field() string { return e.field }
+func (e GetMaterializedConfigReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetServiceConfigReqValidationError) Reason() string { return e.reason }
+func (e GetMaterializedConfigReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetServiceConfigReqValidationError) Cause() error { return e.cause }
+func (e GetMaterializedConfigReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetServiceConfigReqValidationError) Key() bool { return e.key }
+func (e GetMaterializedConfigReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetServiceConfigReqValidationError) ErrorName() string {
-	return "GetServiceConfigReqValidationError"
+func (e GetMaterializedConfigReqValidationError) ErrorName() string {
+	return "GetMaterializedConfigReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetServiceConfigReqValidationError) Error() string {
+func (e GetMaterializedConfigReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -929,14 +929,14 @@ func (e GetServiceConfigReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetServiceConfigReq.%s: %s%s",
+		"invalid %sGetMaterializedConfigReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetServiceConfigReqValidationError{}
+var _ error = GetMaterializedConfigReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -944,24 +944,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetServiceConfigReqValidationError{}
+} = GetMaterializedConfigReqValidationError{}
 
-// Validate checks the field values on GetServiceConfigResp with the rules
+// Validate checks the field values on GetMaterializedConfigResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetServiceConfigResp) Validate() error {
+func (m *GetMaterializedConfigResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetServiceConfigResp with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on GetMaterializedConfigResp with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetServiceConfigRespMultiError, or nil if none found.
-func (m *GetServiceConfigResp) ValidateAll() error {
+// GetMaterializedConfigRespMultiError, or nil if none found.
+func (m *GetMaterializedConfigResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetServiceConfigResp) validate(all bool) error {
+func (m *GetMaterializedConfigResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -972,7 +972,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		switch v := interface{}(m.GetConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -980,7 +980,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -989,7 +989,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetServiceConfigRespValidationError{
+			return GetMaterializedConfigRespValidationError{
 				field:  "Config",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1003,7 +1003,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		switch v := interface{}(m.GetCompiledConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "CompiledConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1011,7 +1011,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "CompiledConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1020,7 +1020,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetServiceConfigRespValidationError{
+			return GetMaterializedConfigRespValidationError{
 				field:  "CompiledConfig",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1035,7 +1035,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GetServiceConfigRespValidationError{
+					errors = append(errors, GetMaterializedConfigRespValidationError{
 						field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1043,7 +1043,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GetServiceConfigRespValidationError{
+					errors = append(errors, GetMaterializedConfigRespValidationError{
 						field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1052,7 +1052,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GetServiceConfigRespValidationError{
+				return GetMaterializedConfigRespValidationError{
 					field:  fmt.Sprintf("CompiledServiceInstanceConfigs[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1066,7 +1066,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		switch v := interface{}(m.GetVersionMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "VersionMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1074,7 +1074,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetServiceConfigRespValidationError{
+				errors = append(errors, GetMaterializedConfigRespValidationError{
 					field:  "VersionMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1083,7 +1083,7 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetVersionMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetServiceConfigRespValidationError{
+			return GetMaterializedConfigRespValidationError{
 				field:  "VersionMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1092,19 +1092,19 @@ func (m *GetServiceConfigResp) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GetServiceConfigRespMultiError(errors)
+		return GetMaterializedConfigRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetServiceConfigRespMultiError is an error wrapping multiple validation
-// errors returned by GetServiceConfigResp.ValidateAll() if the designated
-// constraints aren't met.
-type GetServiceConfigRespMultiError []error
+// GetMaterializedConfigRespMultiError is an error wrapping multiple validation
+// errors returned by GetMaterializedConfigResp.ValidateAll() if the
+// designated constraints aren't met.
+type GetMaterializedConfigRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetServiceConfigRespMultiError) Error() string {
+func (m GetMaterializedConfigRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1113,11 +1113,11 @@ func (m GetServiceConfigRespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetServiceConfigRespMultiError) AllErrors() []error { return m }
+func (m GetMaterializedConfigRespMultiError) AllErrors() []error { return m }
 
-// GetServiceConfigRespValidationError is the validation error returned by
-// GetServiceConfigResp.Validate if the designated constraints aren't met.
-type GetServiceConfigRespValidationError struct {
+// GetMaterializedConfigRespValidationError is the validation error returned by
+// GetMaterializedConfigResp.Validate if the designated constraints aren't met.
+type GetMaterializedConfigRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1125,24 +1125,24 @@ type GetServiceConfigRespValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetServiceConfigRespValidationError) Field() string { return e.field }
+func (e GetMaterializedConfigRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetServiceConfigRespValidationError) Reason() string { return e.reason }
+func (e GetMaterializedConfigRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetServiceConfigRespValidationError) Cause() error { return e.cause }
+func (e GetMaterializedConfigRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetServiceConfigRespValidationError) Key() bool { return e.key }
+func (e GetMaterializedConfigRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetServiceConfigRespValidationError) ErrorName() string {
-	return "GetServiceConfigRespValidationError"
+func (e GetMaterializedConfigRespValidationError) ErrorName() string {
+	return "GetMaterializedConfigRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetServiceConfigRespValidationError) Error() string {
+func (e GetMaterializedConfigRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1154,14 +1154,14 @@ func (e GetServiceConfigRespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetServiceConfigResp.%s: %s%s",
+		"invalid %sGetMaterializedConfigResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetServiceConfigRespValidationError{}
+var _ error = GetMaterializedConfigRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -1169,7 +1169,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetServiceConfigRespValidationError{}
+} = GetMaterializedConfigRespValidationError{}
 
 // Validate checks the field values on DeleteServiceReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -4075,22 +4075,23 @@ var _ interface {
 	ErrorName() string
 } = SetServiceMetadataRespValidationError{}
 
-// Validate checks the field values on ListServiceVersionsReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListServiceVersionsReq) Validate() error {
+// Validate checks the field values on ListMaterializedConfigVersionsReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListMaterializedConfigVersionsReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListServiceVersionsReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ListServiceVersionsReqMultiError, or nil if none found.
-func (m *ListServiceVersionsReq) ValidateAll() error {
+// ValidateAll checks the field values on ListMaterializedConfigVersionsReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ListMaterializedConfigVersionsReqMultiError, or nil if none found.
+func (m *ListMaterializedConfigVersionsReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListServiceVersionsReq) validate(all bool) error {
+func (m *ListMaterializedConfigVersionsReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4098,7 +4099,7 @@ func (m *ListServiceVersionsReq) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetApplication()) < 1 {
-		err := ListServiceVersionsReqValidationError{
+		err := ListMaterializedConfigVersionsReqValidationError{
 			field:  "Application",
 			reason: "value length must be at least 1 runes",
 		}
@@ -4109,7 +4110,7 @@ func (m *ListServiceVersionsReq) validate(all bool) error {
 	}
 
 	if utf8.RuneCountInString(m.GetService()) < 1 {
-		err := ListServiceVersionsReqValidationError{
+		err := ListMaterializedConfigVersionsReqValidationError{
 			field:  "Service",
 			reason: "value length must be at least 1 runes",
 		}
@@ -4124,19 +4125,20 @@ func (m *ListServiceVersionsReq) validate(all bool) error {
 	// no validation rules for PageSize
 
 	if len(errors) > 0 {
-		return ListServiceVersionsReqMultiError(errors)
+		return ListMaterializedConfigVersionsReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListServiceVersionsReqMultiError is an error wrapping multiple validation
-// errors returned by ListServiceVersionsReq.ValidateAll() if the designated
+// ListMaterializedConfigVersionsReqMultiError is an error wrapping multiple
+// validation errors returned by
+// ListMaterializedConfigVersionsReq.ValidateAll() if the designated
 // constraints aren't met.
-type ListServiceVersionsReqMultiError []error
+type ListMaterializedConfigVersionsReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListServiceVersionsReqMultiError) Error() string {
+func (m ListMaterializedConfigVersionsReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4145,11 +4147,12 @@ func (m ListServiceVersionsReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListServiceVersionsReqMultiError) AllErrors() []error { return m }
+func (m ListMaterializedConfigVersionsReqMultiError) AllErrors() []error { return m }
 
-// ListServiceVersionsReqValidationError is the validation error returned by
-// ListServiceVersionsReq.Validate if the designated constraints aren't met.
-type ListServiceVersionsReqValidationError struct {
+// ListMaterializedConfigVersionsReqValidationError is the validation error
+// returned by ListMaterializedConfigVersionsReq.Validate if the designated
+// constraints aren't met.
+type ListMaterializedConfigVersionsReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4157,24 +4160,24 @@ type ListServiceVersionsReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListServiceVersionsReqValidationError) Field() string { return e.field }
+func (e ListMaterializedConfigVersionsReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListServiceVersionsReqValidationError) Reason() string { return e.reason }
+func (e ListMaterializedConfigVersionsReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListServiceVersionsReqValidationError) Cause() error { return e.cause }
+func (e ListMaterializedConfigVersionsReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListServiceVersionsReqValidationError) Key() bool { return e.key }
+func (e ListMaterializedConfigVersionsReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListServiceVersionsReqValidationError) ErrorName() string {
-	return "ListServiceVersionsReqValidationError"
+func (e ListMaterializedConfigVersionsReqValidationError) ErrorName() string {
+	return "ListMaterializedConfigVersionsReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListServiceVersionsReqValidationError) Error() string {
+func (e ListMaterializedConfigVersionsReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4186,14 +4189,14 @@ func (e ListServiceVersionsReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListServiceVersionsReq.%s: %s%s",
+		"invalid %sListMaterializedConfigVersionsReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListServiceVersionsReqValidationError{}
+var _ error = ListMaterializedConfigVersionsReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -4201,24 +4204,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListServiceVersionsReqValidationError{}
+} = ListMaterializedConfigVersionsReqValidationError{}
 
-// Validate checks the field values on ListServiceVersionsResp with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListServiceVersionsResp) Validate() error {
+// Validate checks the field values on ListMaterializedConfigVersionsResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListMaterializedConfigVersionsResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListServiceVersionsResp with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ListServiceVersionsRespMultiError, or nil if none found.
-func (m *ListServiceVersionsResp) ValidateAll() error {
+// ValidateAll checks the field values on ListMaterializedConfigVersionsResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ListMaterializedConfigVersionsRespMultiError, or nil if none found.
+func (m *ListMaterializedConfigVersionsResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListServiceVersionsResp) validate(all bool) error {
+func (m *ListMaterializedConfigVersionsResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4232,7 +4236,7 @@ func (m *ListServiceVersionsResp) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ListServiceVersionsRespValidationError{
+					errors = append(errors, ListMaterializedConfigVersionsRespValidationError{
 						field:  fmt.Sprintf("Versions[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -4240,7 +4244,7 @@ func (m *ListServiceVersionsResp) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ListServiceVersionsRespValidationError{
+					errors = append(errors, ListMaterializedConfigVersionsRespValidationError{
 						field:  fmt.Sprintf("Versions[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -4249,7 +4253,7 @@ func (m *ListServiceVersionsResp) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ListServiceVersionsRespValidationError{
+				return ListMaterializedConfigVersionsRespValidationError{
 					field:  fmt.Sprintf("Versions[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4262,19 +4266,20 @@ func (m *ListServiceVersionsResp) validate(all bool) error {
 	// no validation rules for NextPageToken
 
 	if len(errors) > 0 {
-		return ListServiceVersionsRespMultiError(errors)
+		return ListMaterializedConfigVersionsRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListServiceVersionsRespMultiError is an error wrapping multiple validation
-// errors returned by ListServiceVersionsResp.ValidateAll() if the designated
+// ListMaterializedConfigVersionsRespMultiError is an error wrapping multiple
+// validation errors returned by
+// ListMaterializedConfigVersionsResp.ValidateAll() if the designated
 // constraints aren't met.
-type ListServiceVersionsRespMultiError []error
+type ListMaterializedConfigVersionsRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListServiceVersionsRespMultiError) Error() string {
+func (m ListMaterializedConfigVersionsRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4283,11 +4288,12 @@ func (m ListServiceVersionsRespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListServiceVersionsRespMultiError) AllErrors() []error { return m }
+func (m ListMaterializedConfigVersionsRespMultiError) AllErrors() []error { return m }
 
-// ListServiceVersionsRespValidationError is the validation error returned by
-// ListServiceVersionsResp.Validate if the designated constraints aren't met.
-type ListServiceVersionsRespValidationError struct {
+// ListMaterializedConfigVersionsRespValidationError is the validation error
+// returned by ListMaterializedConfigVersionsResp.Validate if the designated
+// constraints aren't met.
+type ListMaterializedConfigVersionsRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4295,24 +4301,24 @@ type ListServiceVersionsRespValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListServiceVersionsRespValidationError) Field() string { return e.field }
+func (e ListMaterializedConfigVersionsRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListServiceVersionsRespValidationError) Reason() string { return e.reason }
+func (e ListMaterializedConfigVersionsRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListServiceVersionsRespValidationError) Cause() error { return e.cause }
+func (e ListMaterializedConfigVersionsRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListServiceVersionsRespValidationError) Key() bool { return e.key }
+func (e ListMaterializedConfigVersionsRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListServiceVersionsRespValidationError) ErrorName() string {
-	return "ListServiceVersionsRespValidationError"
+func (e ListMaterializedConfigVersionsRespValidationError) ErrorName() string {
+	return "ListMaterializedConfigVersionsRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListServiceVersionsRespValidationError) Error() string {
+func (e ListMaterializedConfigVersionsRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4324,14 +4330,14 @@ func (e ListServiceVersionsRespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListServiceVersionsResp.%s: %s%s",
+		"invalid %sListMaterializedConfigVersionsResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListServiceVersionsRespValidationError{}
+var _ error = ListMaterializedConfigVersionsRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -4339,7 +4345,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListServiceVersionsRespValidationError{}
+} = ListMaterializedConfigVersionsRespValidationError{}
 
 // Validate checks the field values on ConfigureService2Req with the rules
 // defined in the proto definition for this message. If any rules are
@@ -5187,23 +5193,23 @@ var _ interface {
 	ErrorName() string
 } = GetServiceConfig2RespValidationError{}
 
-// Validate checks the field values on ConfigureServiceReq_PerReleaseChannel
+// Validate checks the field values on ApplyParametersReq_PerReleaseChannel
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
 // there are no violations.
-func (m *ConfigureServiceReq_PerReleaseChannel) Validate() error {
+func (m *ApplyParametersReq_PerReleaseChannel) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfigureServiceReq_PerReleaseChannel
+// ValidateAll checks the field values on ApplyParametersReq_PerReleaseChannel
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the result is a list of violation errors wrapped in
-// ConfigureServiceReq_PerReleaseChannelMultiError, or nil if none found.
-func (m *ConfigureServiceReq_PerReleaseChannel) ValidateAll() error {
+// ApplyParametersReq_PerReleaseChannelMultiError, or nil if none found.
+func (m *ApplyParametersReq_PerReleaseChannel) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
+func (m *ApplyParametersReq_PerReleaseChannel) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -5211,7 +5217,7 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
-		err := ConfigureServiceReq_PerReleaseChannelValidationError{
+		err := ApplyParametersReq_PerReleaseChannelValidationError{
 			field:  "ReleaseChannel",
 			reason: "value length must be at least 1 runes",
 		}
@@ -5225,7 +5231,7 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 		_, _ = idx, item
 
 		if item == nil {
-			err := ConfigureServiceReq_PerReleaseChannelValidationError{
+			err := ApplyParametersReq_PerReleaseChannelValidationError{
 				field:  fmt.Sprintf("Parameters[%v]", idx),
 				reason: "value is required",
 			}
@@ -5239,7 +5245,7 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ConfigureServiceReq_PerReleaseChannelValidationError{
+					errors = append(errors, ApplyParametersReq_PerReleaseChannelValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -5247,7 +5253,7 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ConfigureServiceReq_PerReleaseChannelValidationError{
+					errors = append(errors, ApplyParametersReq_PerReleaseChannelValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -5256,7 +5262,7 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ConfigureServiceReq_PerReleaseChannelValidationError{
+				return ApplyParametersReq_PerReleaseChannelValidationError{
 					field:  fmt.Sprintf("Parameters[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5267,20 +5273,20 @@ func (m *ConfigureServiceReq_PerReleaseChannel) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ConfigureServiceReq_PerReleaseChannelMultiError(errors)
+		return ApplyParametersReq_PerReleaseChannelMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfigureServiceReq_PerReleaseChannelMultiError is an error wrapping
-// multiple validation errors returned by
-// ConfigureServiceReq_PerReleaseChannel.ValidateAll() if the designated
+// ApplyParametersReq_PerReleaseChannelMultiError is an error wrapping multiple
+// validation errors returned by
+// ApplyParametersReq_PerReleaseChannel.ValidateAll() if the designated
 // constraints aren't met.
-type ConfigureServiceReq_PerReleaseChannelMultiError []error
+type ApplyParametersReq_PerReleaseChannelMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfigureServiceReq_PerReleaseChannelMultiError) Error() string {
+func (m ApplyParametersReq_PerReleaseChannelMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -5289,12 +5295,12 @@ func (m ConfigureServiceReq_PerReleaseChannelMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfigureServiceReq_PerReleaseChannelMultiError) AllErrors() []error { return m }
+func (m ApplyParametersReq_PerReleaseChannelMultiError) AllErrors() []error { return m }
 
-// ConfigureServiceReq_PerReleaseChannelValidationError is the validation error
-// returned by ConfigureServiceReq_PerReleaseChannel.Validate if the
-// designated constraints aren't met.
-type ConfigureServiceReq_PerReleaseChannelValidationError struct {
+// ApplyParametersReq_PerReleaseChannelValidationError is the validation error
+// returned by ApplyParametersReq_PerReleaseChannel.Validate if the designated
+// constraints aren't met.
+type ApplyParametersReq_PerReleaseChannelValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -5302,24 +5308,24 @@ type ConfigureServiceReq_PerReleaseChannelValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) Field() string { return e.field }
+func (e ApplyParametersReq_PerReleaseChannelValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) Reason() string { return e.reason }
+func (e ApplyParametersReq_PerReleaseChannelValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) Cause() error { return e.cause }
+func (e ApplyParametersReq_PerReleaseChannelValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) Key() bool { return e.key }
+func (e ApplyParametersReq_PerReleaseChannelValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) ErrorName() string {
-	return "ConfigureServiceReq_PerReleaseChannelValidationError"
+func (e ApplyParametersReq_PerReleaseChannelValidationError) ErrorName() string {
+	return "ApplyParametersReq_PerReleaseChannelValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ConfigureServiceReq_PerReleaseChannelValidationError) Error() string {
+func (e ApplyParametersReq_PerReleaseChannelValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -5331,14 +5337,14 @@ func (e ConfigureServiceReq_PerReleaseChannelValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfigureServiceReq_PerReleaseChannel.%s: %s%s",
+		"invalid %sApplyParametersReq_PerReleaseChannel.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfigureServiceReq_PerReleaseChannelValidationError{}
+var _ error = ApplyParametersReq_PerReleaseChannelValidationError{}
 
 var _ interface {
 	Field() string
@@ -5346,26 +5352,27 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfigureServiceReq_PerReleaseChannelValidationError{}
+} = ApplyParametersReq_PerReleaseChannelValidationError{}
 
-// Validate checks the field values on ListServiceVersionsResp_VersionMetadata
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *ListServiceVersionsResp_VersionMetadata) Validate() error {
+// Validate checks the field values on
+// ListMaterializedConfigVersionsResp_VersionMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ListMaterializedConfigVersionsResp_VersionMetadata) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// ListServiceVersionsResp_VersionMetadata with the rules defined in the proto
-// definition for this message. If any rules are violated, the result is a
-// list of violation errors wrapped in
-// ListServiceVersionsResp_VersionMetadataMultiError, or nil if none found.
-func (m *ListServiceVersionsResp_VersionMetadata) ValidateAll() error {
+// ListMaterializedConfigVersionsResp_VersionMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// ListMaterializedConfigVersionsResp_VersionMetadataMultiError, or nil if
+// none found.
+func (m *ListMaterializedConfigVersionsResp_VersionMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
+func (m *ListMaterializedConfigVersionsResp_VersionMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -5378,7 +5385,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 		switch v := interface{}(m.GetCreationTimestamp()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+				errors = append(errors, ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 					field:  "CreationTimestamp",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5386,7 +5393,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+				errors = append(errors, ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 					field:  "CreationTimestamp",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5395,7 +5402,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ListServiceVersionsResp_VersionMetadataValidationError{
+			return ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 				field:  "CreationTimestamp",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -5409,7 +5416,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 		switch v := interface{}(m.GetParameters()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+				errors = append(errors, ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 					field:  "Parameters",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5417,7 +5424,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ListServiceVersionsResp_VersionMetadataValidationError{
+				errors = append(errors, ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 					field:  "Parameters",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5426,7 +5433,7 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetParameters()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ListServiceVersionsResp_VersionMetadataValidationError{
+			return ListMaterializedConfigVersionsResp_VersionMetadataValidationError{
 				field:  "Parameters",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -5435,20 +5442,20 @@ func (m *ListServiceVersionsResp_VersionMetadata) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ListServiceVersionsResp_VersionMetadataMultiError(errors)
+		return ListMaterializedConfigVersionsResp_VersionMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListServiceVersionsResp_VersionMetadataMultiError is an error wrapping
-// multiple validation errors returned by
-// ListServiceVersionsResp_VersionMetadata.ValidateAll() if the designated
-// constraints aren't met.
-type ListServiceVersionsResp_VersionMetadataMultiError []error
+// ListMaterializedConfigVersionsResp_VersionMetadataMultiError is an error
+// wrapping multiple validation errors returned by
+// ListMaterializedConfigVersionsResp_VersionMetadata.ValidateAll() if the
+// designated constraints aren't met.
+type ListMaterializedConfigVersionsResp_VersionMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListServiceVersionsResp_VersionMetadataMultiError) Error() string {
+func (m ListMaterializedConfigVersionsResp_VersionMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -5457,12 +5464,13 @@ func (m ListServiceVersionsResp_VersionMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListServiceVersionsResp_VersionMetadataMultiError) AllErrors() []error { return m }
+func (m ListMaterializedConfigVersionsResp_VersionMetadataMultiError) AllErrors() []error { return m }
 
-// ListServiceVersionsResp_VersionMetadataValidationError is the validation
-// error returned by ListServiceVersionsResp_VersionMetadata.Validate if the
+// ListMaterializedConfigVersionsResp_VersionMetadataValidationError is the
+// validation error returned by
+// ListMaterializedConfigVersionsResp_VersionMetadata.Validate if the
 // designated constraints aren't met.
-type ListServiceVersionsResp_VersionMetadataValidationError struct {
+type ListMaterializedConfigVersionsResp_VersionMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -5470,24 +5478,30 @@ type ListServiceVersionsResp_VersionMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListServiceVersionsResp_VersionMetadataValidationError) Field() string { return e.field }
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) Field() string {
+	return e.field
+}
 
 // Reason function returns reason value.
-func (e ListServiceVersionsResp_VersionMetadataValidationError) Reason() string { return e.reason }
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) Reason() string {
+	return e.reason
+}
 
 // Cause function returns cause value.
-func (e ListServiceVersionsResp_VersionMetadataValidationError) Cause() error { return e.cause }
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) Cause() error {
+	return e.cause
+}
 
 // Key function returns key value.
-func (e ListServiceVersionsResp_VersionMetadataValidationError) Key() bool { return e.key }
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListServiceVersionsResp_VersionMetadataValidationError) ErrorName() string {
-	return "ListServiceVersionsResp_VersionMetadataValidationError"
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) ErrorName() string {
+	return "ListMaterializedConfigVersionsResp_VersionMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListServiceVersionsResp_VersionMetadataValidationError) Error() string {
+func (e ListMaterializedConfigVersionsResp_VersionMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -5499,14 +5513,14 @@ func (e ListServiceVersionsResp_VersionMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListServiceVersionsResp_VersionMetadata.%s: %s%s",
+		"invalid %sListMaterializedConfigVersionsResp_VersionMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListServiceVersionsResp_VersionMetadataValidationError{}
+var _ error = ListMaterializedConfigVersionsResp_VersionMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -5514,7 +5528,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListServiceVersionsResp_VersionMetadataValidationError{}
+} = ListMaterializedConfigVersionsResp_VersionMetadataValidationError{}
 
 // Validate checks the field values on
 // ListServiceConfigVersionsResp_VersionMetadata with the rules defined in the

@@ -19,28 +19,28 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceManager_ConfigureService2_FullMethodName         = "/prodvana.service.ServiceManager/ConfigureService2"
-	ServiceManager_ListServiceConfigVersions_FullMethodName = "/prodvana.service.ServiceManager/ListServiceConfigVersions"
-	ServiceManager_GetServiceConfig2_FullMethodName         = "/prodvana.service.ServiceManager/GetServiceConfig2"
-	ServiceManager_ConfigureService_FullMethodName          = "/prodvana.service.ServiceManager/ConfigureService"
-	ServiceManager_ValidateConfigureService_FullMethodName  = "/prodvana.service.ServiceManager/ValidateConfigureService"
-	ServiceManager_GetServiceConfig_FullMethodName          = "/prodvana.service.ServiceManager/GetServiceConfig"
-	ServiceManager_ListServiceVersions_FullMethodName       = "/prodvana.service.ServiceManager/ListServiceVersions"
-	ServiceManager_DeleteService_FullMethodName             = "/prodvana.service.ServiceManager/DeleteService"
-	ServiceManager_ListServices_FullMethodName              = "/prodvana.service.ServiceManager/ListServices"
-	ServiceManager_ListServicesV2_FullMethodName            = "/prodvana.service.ServiceManager/ListServicesV2"
-	ServiceManager_ListCommits_FullMethodName               = "/prodvana.service.ServiceManager/ListCommits"
-	ServiceManager_GetService_FullMethodName                = "/prodvana.service.ServiceManager/GetService"
-	ServiceManager_GetServiceV2_FullMethodName              = "/prodvana.service.ServiceManager/GetServiceV2"
-	ServiceManager_ListServiceInstances_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceInstances"
-	ServiceManager_ListServiceInstancesV2_FullMethodName    = "/prodvana.service.ServiceManager/ListServiceInstancesV2"
-	ServiceManager_GetServiceInstance_FullMethodName        = "/prodvana.service.ServiceManager/GetServiceInstance"
-	ServiceManager_GetServiceInstanceV2_FullMethodName      = "/prodvana.service.ServiceManager/GetServiceInstanceV2"
-	ServiceManager_GetServiceMetrics_FullMethodName         = "/prodvana.service.ServiceManager/GetServiceMetrics"
-	ServiceManager_GetServiceInsights_FullMethodName        = "/prodvana.service.ServiceManager/GetServiceInsights"
-	ServiceManager_SnoozeServiceInsight_FullMethodName      = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
-	ServiceManager_GetServiceMetadata_FullMethodName        = "/prodvana.service.ServiceManager/GetServiceMetadata"
-	ServiceManager_SetServiceMetadata_FullMethodName        = "/prodvana.service.ServiceManager/SetServiceMetadata"
+	ServiceManager_ConfigureService2_FullMethodName              = "/prodvana.service.ServiceManager/ConfigureService2"
+	ServiceManager_ListServiceConfigVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceConfigVersions"
+	ServiceManager_GetServiceConfig2_FullMethodName              = "/prodvana.service.ServiceManager/GetServiceConfig2"
+	ServiceManager_ApplyParameters_FullMethodName                = "/prodvana.service.ServiceManager/ApplyParameters"
+	ServiceManager_ValidateApplyParameters_FullMethodName        = "/prodvana.service.ServiceManager/ValidateApplyParameters"
+	ServiceManager_GetMaterializedConfig_FullMethodName          = "/prodvana.service.ServiceManager/GetMaterializedConfig"
+	ServiceManager_ListMaterializedConfigVersions_FullMethodName = "/prodvana.service.ServiceManager/ListMaterializedConfigVersions"
+	ServiceManager_DeleteService_FullMethodName                  = "/prodvana.service.ServiceManager/DeleteService"
+	ServiceManager_ListServices_FullMethodName                   = "/prodvana.service.ServiceManager/ListServices"
+	ServiceManager_ListServicesV2_FullMethodName                 = "/prodvana.service.ServiceManager/ListServicesV2"
+	ServiceManager_ListCommits_FullMethodName                    = "/prodvana.service.ServiceManager/ListCommits"
+	ServiceManager_GetService_FullMethodName                     = "/prodvana.service.ServiceManager/GetService"
+	ServiceManager_GetServiceV2_FullMethodName                   = "/prodvana.service.ServiceManager/GetServiceV2"
+	ServiceManager_ListServiceInstances_FullMethodName           = "/prodvana.service.ServiceManager/ListServiceInstances"
+	ServiceManager_ListServiceInstancesV2_FullMethodName         = "/prodvana.service.ServiceManager/ListServiceInstancesV2"
+	ServiceManager_GetServiceInstance_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceInstance"
+	ServiceManager_GetServiceInstanceV2_FullMethodName           = "/prodvana.service.ServiceManager/GetServiceInstanceV2"
+	ServiceManager_GetServiceMetrics_FullMethodName              = "/prodvana.service.ServiceManager/GetServiceMetrics"
+	ServiceManager_GetServiceInsights_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceInsights"
+	ServiceManager_SnoozeServiceInsight_FullMethodName           = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
+	ServiceManager_GetServiceMetadata_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceMetadata"
+	ServiceManager_SetServiceMetadata_FullMethodName             = "/prodvana.service.ServiceManager/SetServiceMetadata"
 )
 
 // ServiceManagerClient is the client API for ServiceManager service.
@@ -50,13 +50,12 @@ type ServiceManagerClient interface {
 	// TODO(naphat) rename this to ConfigureService
 	ConfigureService2(ctx context.Context, in *ConfigureService2Req, opts ...grpc.CallOption) (*ConfigureService2Resp, error)
 	ListServiceConfigVersions(ctx context.Context, in *ListServiceConfigVersionsReq, opts ...grpc.CallOption) (*ListServiceConfigVersionsResp, error)
+	// unparametrized configs
 	GetServiceConfig2(ctx context.Context, in *GetServiceConfig2Req, opts ...grpc.CallOption) (*GetServiceConfig2Resp, error)
-	// TODO(naphat) rename this to ApplyParameters
-	ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error)
-	ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error)
-	// TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions
-	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
-	ListServiceVersions(ctx context.Context, in *ListServiceVersionsReq, opts ...grpc.CallOption) (*ListServiceVersionsResp, error)
+	ApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ApplyParametersResp, error)
+	ValidateApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ValidateApplyParametersResp, error)
+	GetMaterializedConfig(ctx context.Context, in *GetMaterializedConfigReq, opts ...grpc.CallOption) (*GetMaterializedConfigResp, error)
+	ListMaterializedConfigVersions(ctx context.Context, in *ListMaterializedConfigVersionsReq, opts ...grpc.CallOption) (*ListMaterializedConfigVersionsResp, error)
 	DeleteService(ctx context.Context, in *DeleteServiceReq, opts ...grpc.CallOption) (*DeleteServiceResp, error)
 	ListServices(ctx context.Context, in *ListServicesReq, opts ...grpc.CallOption) (*ListServicesResp, error)
 	// identical to ListServices, kept around for compatibility purposes
@@ -113,36 +112,36 @@ func (c *serviceManagerClient) GetServiceConfig2(ctx context.Context, in *GetSer
 	return out, nil
 }
 
-func (c *serviceManagerClient) ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error) {
-	out := new(ConfigureServiceResp)
-	err := c.cc.Invoke(ctx, ServiceManager_ConfigureService_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) ApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ApplyParametersResp, error) {
+	out := new(ApplyParametersResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ApplyParameters_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceManagerClient) ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error) {
-	out := new(ValidateConfigureServiceResp)
-	err := c.cc.Invoke(ctx, ServiceManager_ValidateConfigureService_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) ValidateApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ValidateApplyParametersResp, error) {
+	out := new(ValidateApplyParametersResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ValidateApplyParameters_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceManagerClient) GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error) {
-	out := new(GetServiceConfigResp)
-	err := c.cc.Invoke(ctx, ServiceManager_GetServiceConfig_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) GetMaterializedConfig(ctx context.Context, in *GetMaterializedConfigReq, opts ...grpc.CallOption) (*GetMaterializedConfigResp, error) {
+	out := new(GetMaterializedConfigResp)
+	err := c.cc.Invoke(ctx, ServiceManager_GetMaterializedConfig_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceManagerClient) ListServiceVersions(ctx context.Context, in *ListServiceVersionsReq, opts ...grpc.CallOption) (*ListServiceVersionsResp, error) {
-	out := new(ListServiceVersionsResp)
-	err := c.cc.Invoke(ctx, ServiceManager_ListServiceVersions_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) ListMaterializedConfigVersions(ctx context.Context, in *ListMaterializedConfigVersionsReq, opts ...grpc.CallOption) (*ListMaterializedConfigVersionsResp, error) {
+	out := new(ListMaterializedConfigVersionsResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ListMaterializedConfigVersions_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -291,13 +290,12 @@ type ServiceManagerServer interface {
 	// TODO(naphat) rename this to ConfigureService
 	ConfigureService2(context.Context, *ConfigureService2Req) (*ConfigureService2Resp, error)
 	ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error)
+	// unparametrized configs
 	GetServiceConfig2(context.Context, *GetServiceConfig2Req) (*GetServiceConfig2Resp, error)
-	// TODO(naphat) rename this to ApplyParameters
-	ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error)
-	ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error)
-	// TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions
-	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
-	ListServiceVersions(context.Context, *ListServiceVersionsReq) (*ListServiceVersionsResp, error)
+	ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error)
+	ValidateApplyParameters(context.Context, *ApplyParametersReq) (*ValidateApplyParametersResp, error)
+	GetMaterializedConfig(context.Context, *GetMaterializedConfigReq) (*GetMaterializedConfigResp, error)
+	ListMaterializedConfigVersions(context.Context, *ListMaterializedConfigVersionsReq) (*ListMaterializedConfigVersionsResp, error)
 	DeleteService(context.Context, *DeleteServiceReq) (*DeleteServiceResp, error)
 	ListServices(context.Context, *ListServicesReq) (*ListServicesResp, error)
 	// identical to ListServices, kept around for compatibility purposes
@@ -333,17 +331,17 @@ func (UnimplementedServiceManagerServer) ListServiceConfigVersions(context.Conte
 func (UnimplementedServiceManagerServer) GetServiceConfig2(context.Context, *GetServiceConfig2Req) (*GetServiceConfig2Resp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig2 not implemented")
 }
-func (UnimplementedServiceManagerServer) ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ConfigureService not implemented")
+func (UnimplementedServiceManagerServer) ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApplyParameters not implemented")
 }
-func (UnimplementedServiceManagerServer) ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ValidateConfigureService not implemented")
+func (UnimplementedServiceManagerServer) ValidateApplyParameters(context.Context, *ApplyParametersReq) (*ValidateApplyParametersResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateApplyParameters not implemented")
 }
-func (UnimplementedServiceManagerServer) GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig not implemented")
+func (UnimplementedServiceManagerServer) GetMaterializedConfig(context.Context, *GetMaterializedConfigReq) (*GetMaterializedConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMaterializedConfig not implemented")
 }
-func (UnimplementedServiceManagerServer) ListServiceVersions(context.Context, *ListServiceVersionsReq) (*ListServiceVersionsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListServiceVersions not implemented")
+func (UnimplementedServiceManagerServer) ListMaterializedConfigVersions(context.Context, *ListMaterializedConfigVersionsReq) (*ListMaterializedConfigVersionsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMaterializedConfigVersions not implemented")
 }
 func (UnimplementedServiceManagerServer) DeleteService(context.Context, *DeleteServiceReq) (*DeleteServiceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteService not implemented")
@@ -457,74 +455,74 @@ func _ServiceManager_GetServiceConfig2_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_ConfigureService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConfigureServiceReq)
+func _ServiceManager_ApplyParameters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApplyParametersReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).ConfigureService(ctx, in)
+		return srv.(ServiceManagerServer).ApplyParameters(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_ConfigureService_FullMethodName,
+		FullMethod: ServiceManager_ApplyParameters_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ConfigureService(ctx, req.(*ConfigureServiceReq))
+		return srv.(ServiceManagerServer).ApplyParameters(ctx, req.(*ApplyParametersReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_ValidateConfigureService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConfigureServiceReq)
+func _ServiceManager_ValidateApplyParameters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApplyParametersReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).ValidateConfigureService(ctx, in)
+		return srv.(ServiceManagerServer).ValidateApplyParameters(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_ValidateConfigureService_FullMethodName,
+		FullMethod: ServiceManager_ValidateApplyParameters_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ValidateConfigureService(ctx, req.(*ConfigureServiceReq))
+		return srv.(ServiceManagerServer).ValidateApplyParameters(ctx, req.(*ApplyParametersReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_GetServiceConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServiceConfigReq)
+func _ServiceManager_GetMaterializedConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMaterializedConfigReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).GetServiceConfig(ctx, in)
+		return srv.(ServiceManagerServer).GetMaterializedConfig(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_GetServiceConfig_FullMethodName,
+		FullMethod: ServiceManager_GetMaterializedConfig_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).GetServiceConfig(ctx, req.(*GetServiceConfigReq))
+		return srv.(ServiceManagerServer).GetMaterializedConfig(ctx, req.(*GetMaterializedConfigReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_ListServiceVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListServiceVersionsReq)
+func _ServiceManager_ListMaterializedConfigVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMaterializedConfigVersionsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).ListServiceVersions(ctx, in)
+		return srv.(ServiceManagerServer).ListMaterializedConfigVersions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_ListServiceVersions_FullMethodName,
+		FullMethod: ServiceManager_ListMaterializedConfigVersions_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ListServiceVersions(ctx, req.(*ListServiceVersionsReq))
+		return srv.(ServiceManagerServer).ListMaterializedConfigVersions(ctx, req.(*ListMaterializedConfigVersionsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -819,20 +817,20 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceManager_GetServiceConfig2_Handler,
 		},
 		{
-			MethodName: "ConfigureService",
-			Handler:    _ServiceManager_ConfigureService_Handler,
+			MethodName: "ApplyParameters",
+			Handler:    _ServiceManager_ApplyParameters_Handler,
 		},
 		{
-			MethodName: "ValidateConfigureService",
-			Handler:    _ServiceManager_ValidateConfigureService_Handler,
+			MethodName: "ValidateApplyParameters",
+			Handler:    _ServiceManager_ValidateApplyParameters_Handler,
 		},
 		{
-			MethodName: "GetServiceConfig",
-			Handler:    _ServiceManager_GetServiceConfig_Handler,
+			MethodName: "GetMaterializedConfig",
+			Handler:    _ServiceManager_GetMaterializedConfig_Handler,
 		},
 		{
-			MethodName: "ListServiceVersions",
-			Handler:    _ServiceManager_ListServiceVersions_Handler,
+			MethodName: "ListMaterializedConfigVersions",
+			Handler:    _ServiceManager_ListMaterializedConfigVersions_Handler,
 		},
 		{
 			MethodName: "DeleteService",

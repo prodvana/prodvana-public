@@ -89,7 +89,7 @@ type ValidateDesiredStateReq struct {
 	DesiredState *model.State `protobuf:"bytes,1,opt,name=desired_state,json=desiredState,proto3" json:"desired_state,omitempty"`
 	// set if this is a rollback, which will generate a desired state with faster preconditions
 	Rollback bool `protobuf:"varint,2,opt,name=rollback,proto3" json:"rollback,omitempty"`
-	// optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateConfigureService followed by a ValidateDesiredState
+	// optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState
 	ServiceInstanceConfigs []*service.CompiledServiceInstanceConfig `protobuf:"bytes,3,rep,name=service_instance_configs,json=serviceInstanceConfigs,proto3" json:"service_instance_configs,omitempty"`
 }
 

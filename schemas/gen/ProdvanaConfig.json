@@ -1,0 +1,4785 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ProdvanaConfig",
+    "definitions": {
+        "ProdvanaConfig": {
+            "properties": {
+                "application": {
+                    "$ref": "#/definitions/prodvana.application.ApplicationConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "service": {
+                    "$ref": "#/definitions/prodvana.service.ServiceConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "protection": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "runtime": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "applicationMetadata": {
+                    "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "serviceMetadata": {
+                    "$ref": "#/definitions/prodvana.service.ServiceUserMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Prodvana Config",
+            "description": "schema for config.pvn.yaml"
+        },
+        "prodvana.application.ApplicationConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "releaseChannels": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "notifications": {
+                    "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "alerts": {
+                    "$ref": "#/definitions/prodvana.workflow.AlertingConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "capabilities": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.capability.CapabilityConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "capabilities are dependencies that services in this applications can use"
+                },
+                "capabilityInstances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.capability.CapabilityInstanceConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "optional capability instances that can be referenced by `capabilities`, useful to deduplication. for example, you may choose to have two database capability instances, staging and prod, and use them across release channels staging, beta, and prod, where beta and prod use the prod db."
+                },
+                "serviceTemplates": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.template.ServiceTemplate"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "service templates are sets of service configurations that can be used as the base of a service. this is useful for setting default values that are kept in sync when the templates change."
+                },
+                "enableCustomTasksDynamicDelivery": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if set and use_dynamic_delivery is set, transform custom tasks to DD preconditions for all services. Only used for safely migrating prime capabilities to DD. UNUSED: Remove from proto once the flag has been removed from all persisted configs."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Application Config"
+        },
+        "prodvana.application.ApplicationUserMetadata": {
+            "properties": {
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "links": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Link"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "serviceLinks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Link"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Links that every service should get automatically"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Application User Metadata"
+        },
+        "prodvana.capability.CapabilityConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "perReleaseChannel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.capability.PerReleaseChannelCapabilityConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Capability Config"
+        },
+        "prodvana.capability.CapabilityInstanceConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "omit if inlined"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "env vars to inject"
+                },
+                "prePushTasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.pipelines.Task"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Tasks to inject in the pipeline, before the push of the service instance depending on this capability Custom tasks will automatically have env vars from `env` above injected. When multiple service instances reference the same capability instance, the tasks are deduped and injected before the push of the first service instance in the pipeline."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Capability Instance Config"
+        },
+        "prodvana.capability.CapabilityInstanceRef": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Capability Instance Ref"
+        },
+        "prodvana.capability.PerReleaseChannelCapabilityConfig": {
+            "properties": {
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "inlined": {
+                    "$ref": "#/definitions/prodvana.capability.CapabilityInstanceConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "either inline capability config definition, or reference a CapabilityInstanceDefinition on the top level application object"
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.capability.CapabilityInstanceRef",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Per Release Channel Capability Config"
+        },
+        "prodvana.common_config.CmdProbe": {
+            "properties": {
+                "command": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Cmd Probe"
+        },
+        "prodvana.common_config.DockerImageParameterDefinition": {
+            "properties": {
+                "defaultValue": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "empty not a valid value"
+                },
+                "imageRegistryInfo": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "changes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.DockerImageParameterDefinition.Changes"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Docker Image Parameter Definition"
+        },
+        "prodvana.common_config.DockerImageParameterDefinition.Changes": {
+            "properties": {
+                "program": {
+                    "$ref": "#/definitions/prodvana.common_config.ProgramChange",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Changes"
+        },
+        "prodvana.common_config.EnvValue": {
+            "properties": {
+                "value": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "rawSecret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value to be used for user-editable YAML and RPC calls."
+                },
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Externally stored secret."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Env Value"
+        },
+        "prodvana.common_config.FixedReplicaChange": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Fixed Replica Change"
+        },
+        "prodvana.common_config.HealthCheck": {
+            "properties": {
+                "http": {
+                    "$ref": "#/definitions/prodvana.common_config.HttpProbe",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "cmd": {
+                    "$ref": "#/definitions/prodvana.common_config.CmdProbe",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "tcp": {
+                    "$ref": "#/definitions/prodvana.common_config.TcpProbe",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "delay": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
+                "period": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Health Check"
+        },
+        "prodvana.common_config.HttpProbe": {
+            "properties": {
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "port": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                },
+                "tls": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Http Probe"
+        },
+        "prodvana.common_config.ImageRegistryInfo": {
+            "properties": {
+                "containerRegistryId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "both container_registry_id and container_registry are supported, but only set one not both"
+                },
+                "containerRegistry": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "imageRepository": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Not the URL, everything after: username/reponame leaving it as once field because the spec considers it 1 field in theory you can have no username, or nest the repo names"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Image Registry Info"
+        },
+        "prodvana.common_config.IntParameterDefinition": {
+            "properties": {
+                "defaultValue": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "changes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.IntParameterDefinition.Changes"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Int Parameter Definition"
+        },
+        "prodvana.common_config.IntParameterDefinition.Changes": {
+            "properties": {
+                "fixedReplica": {
+                    "$ref": "#/definitions/prodvana.common_config.FixedReplicaChange",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Changes"
+        },
+        "prodvana.common_config.Link": {
+            "properties": {
+                "url": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "displayName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Link"
+        },
+        "prodvana.common_config.Notification": {
+            "properties": {
+                "configOverride": {
+                    "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "will default to application's notification config"
+                },
+                "message": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Notification"
+        },
+        "prodvana.common_config.NotificationConfig": {
+            "properties": {
+                "slack": {
+                    "$ref": "#/definitions/prodvana.common_config.NotificationConfig.Slack",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Notification Config"
+        },
+        "prodvana.common_config.NotificationConfig.Slack": {
+            "properties": {
+                "channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Slack"
+        },
+        "prodvana.common_config.ParameterDefinition": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "parameter name, used in substitutions"
+                },
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional description for display purposes"
+                },
+                "string": {
+                    "$ref": "#/definitions/prodvana.common_config.StringParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "dockerImage": {
+                    "$ref": "#/definitions/prodvana.common_config.DockerImageParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "int": {
+                    "$ref": "#/definitions/prodvana.common_config.IntParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Parameter Definition"
+        },
+        "prodvana.common_config.ParameterValue": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "string": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "dockerImage": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "int": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Parameter Value"
+        },
+        "prodvana.common_config.PerReleaseChannelProgramConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "must match a program in top-level program config"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
+                },
+                "image": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "If present, overrides main program config. TODO: If users need to enforce that different RCs require different images, add requires_separate_images option to ProgramConfig. This will prevent accidentally undoing separate images via the UI or autopush."
+                },
+                "imageRegistryInfo": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Per Release Channel Program Config"
+        },
+        "prodvana.common_config.PortConfig": {
+            "properties": {
+                "port": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                },
+                "targetPort": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "optional, default to the same value as `port`"
+                },
+                "external": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if this port should be exposed to the public internet"
+                },
+                "protocol": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "HTTP",
+                        1,
+                        "HTTP2",
+                        2,
+                        "GRPC",
+                        3,
+                        "TCP",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Protocol"
+                },
+                "tls": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if the connection should use TLS"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Port Config"
+        },
+        "prodvana.common_config.ProgramChange": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Program Change"
+        },
+        "prodvana.common_config.ProgramConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "image": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "imageRegistryInfo": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+                },
+                "cmd": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "entrypoint": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
+                },
+                "resources": {
+                    "$ref": "#/definitions/prodvana.common_config.ResourceRequirements",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "healthCheck": {
+                    "$ref": "#/definitions/prodvana.common_config.HealthCheck",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "ports": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.PortConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "empty list is ok, default from docker image will be used"
+                },
+                "templateComplete": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Only set when this ServiceConfig represents a ServiceTemplate When set, this program will be added in whole to the target service's programs in full, and will not partially apply to a program with the same name in the target service's config."
+                },
+                "commit": {
+                    "$ref": "#/definitions/prodvana.repo.Commit",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Program Config",
+            "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks. The validations expressed here represent the lowest common denominator of the use cases."
+        },
+        "prodvana.common_config.ResourceList": {
+            "properties": {
+                "memory": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "cpu": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Resource List"
+        },
+        "prodvana.common_config.ResourceRequirements": {
+            "properties": {
+                "requests": {
+                    "$ref": "#/definitions/prodvana.common_config.ResourceList",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Resource Requirements"
+        },
+        "prodvana.common_config.RetryConfig": {
+            "properties": {
+                "maxRetryDuration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
+                "retryForever": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "firstFailureNotification": {
+                    "$ref": "#/definitions/prodvana.common_config.Notification",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Retry Config"
+        },
+        "prodvana.common_config.Secret": {
+            "properties": {
+                "key": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "version": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Secret"
+        },
+        "prodvana.common_config.ServiceTemplateRef": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Template Ref"
+        },
+        "prodvana.common_config.StringParameterDefinition": {
+            "properties": {
+                "defaultValue": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "String Parameter Definition"
+        },
+        "prodvana.common_config.TaskConfig": {
+            "properties": {
+                "program": {
+                    "$ref": "#/definitions/prodvana.common_config.ProgramConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "retryConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "If not set, the task will not be retried once it starts executing once."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task Config"
+        },
+        "prodvana.common_config.TcpProbe": {
+            "properties": {
+                "port": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                },
+                "host": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Tcp Probe"
+        },
+        "prodvana.delivery.CanaryProgress": {
+            "properties": {
+                "canaryWeight": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "weight to advance canary to, percentage 0-100"
+                },
+                "duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "duration to pause at this weight before advancing",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Canary Progress"
+        },
+        "prodvana.delivery.DeliveryConfig": {
+            "properties": {
+                "canaryProgress": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.delivery.CanaryProgress"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "progression of canary as delivery occurs"
+                },
+                "analysisTemplates": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Config"
+        },
+        "prodvana.environment.ClusterConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "disableFlagger": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "disableIstio": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "kubecost": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.Kubecost",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "datadog": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.Datadog",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "albIngress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.ALBIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "argoRollouts": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.ArgoRollouts",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "gkeIngress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "selfManagedGkeIngress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Self-Managed GKE Ingress - exposes configuration options for GKE Ingress but does not create an ingress object for you"
+                },
+                "cloudProvider": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "EKS",
+                        1,
+                        "GKE",
+                        2,
+                        "AKS",
+                        3,
+                        "ONPREM",
+                        4,
+                        "OTHER_CLOUD",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Cloud Provider"
+                },
+                "fake": {
+                    "$ref": "#/definitions/prodvana.environment.FakeClusterConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "only used for fake runtimes"
+                },
+                "genericDocker": {
+                    "$ref": "#/definitions/prodvana.environment.GenericDockerClusterConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Cluster Config"
+        },
+        "prodvana.environment.ClusterConfig.ALBIngress": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "ingressClass": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "defaultBalancerAttributes": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Attributes from https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html#load-balancer-attributes that are added to all Ingresses/LBs created in this runtime."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "ALB Ingress"
+        },
+        "prodvana.environment.ClusterConfig.ArgoRollouts": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "templates": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Argo Rollouts"
+        },
+        "prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "argMapping": {
+                    "additionalProperties": {
+                        "enum": [
+                            "UNKNOWN",
+                            0,
+                            "SERVICE",
+                            1,
+                            "RELEASE_CHANNEL",
+                            2
+                        ],
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Arg Value"
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "template argument name to prodvana value to inject"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Analysis Template"
+        },
+        "prodvana.environment.ClusterConfig.Datadog": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "managed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "datadogNamespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "apiKey": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "site": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Datadog"
+        },
+        "prodvana.environment.ClusterConfig.GKEIngress": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "containerNative": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Enables container native load balancing, allowing GCP LBs to target k8s pods directly. See: https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "GKE Ingress"
+        },
+        "prodvana.environment.ClusterConfig.Kubecost": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "managed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "kubecostNamespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Kubecost"
+        },
+        "prodvana.environment.FakeClusterConfig": {
+            "properties": {
+                "crashingPrograms": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.environment.FakeClusterConfig.CrashingProgramPatterns"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Fake Cluster Config"
+        },
+        "prodvana.environment.FakeClusterConfig.CrashingProgramPatterns": {
+            "properties": {
+                "imageRegex": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "cmdRegex": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "logOutput": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Crashing Program Patterns"
+        },
+        "prodvana.environment.GenericDockerClusterConfig": {
+            "properties": {
+                "apply": {
+                    "$ref": "#/definitions/prodvana.environment.GenericDockerCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "getCurrentState": {
+                    "$ref": "#/definitions/prodvana.environment.GenericDockerCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Generic Docker Cluster Config"
+        },
+        "prodvana.environment.GenericDockerCommand": {
+            "properties": {
+                "task": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Generic Docker Command"
+        },
+        "prodvana.object.ObjectMeta": {
+            "properties": {
+                "id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "version": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "configVersion": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "only set for objects who has configurations with parametrization support. At the time of this writing, only services."
+                },
+                "source": {
+                    "enum": [
+                        "UNKNOWN_SOURCE",
+                        0,
+                        "WEB",
+                        1,
+                        "INTERACTIVE_PVNCTL",
+                        2,
+                        "CONFIG_FILE",
+                        3,
+                        "REPO_FOLLOW",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Source"
+                },
+                "sourceMetadata": {
+                    "$ref": "#/definitions/prodvana.version.SourceMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Object Meta"
+        },
+        "prodvana.pipelines.CustomTask": {
+            "properties": {
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "description used for displaying this task"
+                },
+                "program": {
+                    "$ref": "#/definitions/prodvana.common_config.ProgramConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "retryConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "if not set, the custom task will not be retried once it starts executing once."
+                },
+                "application": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "TODO(naphat) is this the best interface, or do we just take runtime + namespace?"
+                },
+                "applicationId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "releaseChannelId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "finalCompiledProgram": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if set, treat the program as the final program, avoid any internal Prodvana compilation (e.g. setting default env from app config)"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Custom Task"
+        },
+        "prodvana.pipelines.ManualApprovalTask": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Manual Approval Task"
+        },
+        "prodvana.pipelines.ParallelTask": {
+            "properties": {
+                "tracks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.pipelines.ParallelTask.TaskTrack"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Parallel Task"
+        },
+        "prodvana.pipelines.ParallelTask.TaskTrack": {
+            "properties": {
+                "tasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.pipelines.Task"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task Track"
+        },
+        "prodvana.pipelines.PushTask": {
+            "properties": {
+                "serviceId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "when passing as input, only specify one of service or service_id, not both"
+                },
+                "service": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "releaseChannelId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "when passing as input, only specify one of release_channel or release_channel_id, not both"
+                },
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "rollback": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "deprecated, set at pipeline level instead of task level"
+                },
+                "applicationId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "application": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Push Task"
+        },
+        "prodvana.pipelines.Task": {
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/prodvana.pipelines.Task.Metadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "pushTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.PushTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "waitTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.WaitTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "parallelTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.ParallelTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "manualApprovalTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.ManualApprovalTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "customTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task"
+        },
+        "prodvana.pipelines.Task.Metadata": {
+            "properties": {
+                "id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Metadata",
+            "description": "Metadata contains information generic to all task types. Compilation of a task can be done entirely with its metadata and specific task-type config."
+        },
+        "prodvana.pipelines.WaitTask": {
+            "properties": {
+                "duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Wait Task"
+        },
+        "prodvana.protection.ProtectionConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "taskConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Inline task config with retry, template support."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Config"
+        },
+        "prodvana.protection.ProtectionReference": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Use latest config for this protection"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Reference"
+        },
+        "prodvana.release_channel.ContainerOrchestrationRuntime": {
+            "properties": {
+                "k8s": {
+                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime.K8s",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "ecs": {
+                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime.ECS",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Container Orchestration Runtime"
+        },
+        "prodvana.release_channel.ContainerOrchestrationRuntime.ECS": {
+            "properties": {
+                "prefix": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "ECS"
+        },
+        "prodvana.release_channel.ContainerOrchestrationRuntime.K8s": {
+            "properties": {
+                "namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optionally set a custom namespace. If not set, Prodvana will create and manage the namespace. If set, the namespace *must* already exist and Prodvana will not try to create or delete it."
+                },
+                "pvnManaged": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "do not set this, this is used internally by Prodvana to keep track of if a namespace is managed by Prodvana or externally."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "K 8 S"
+        },
+        "prodvana.release_channel.Policy": {
+            "properties": {
+                "defaultEnv": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Policy"
+        },
+        "prodvana.release_channel.Precondition": {
+            "properties": {
+                "releaseChannelStable": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.ReleaseChannelStable",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "manualApproval": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.ManualApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "customTask": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "protection": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Precondition"
+        },
+        "prodvana.release_channel.Precondition.CustomTask": {
+            "properties": {
+                "taskName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "customTask": {
+                    "$ref": "#/definitions/prodvana.pipelines.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Custom Task"
+        },
+        "prodvana.release_channel.Precondition.ManualApproval": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Manual Approval"
+        },
+        "prodvana.release_channel.Precondition.ReleaseChannelStable": {
+            "properties": {
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Channel Stable"
+        },
+        "prodvana.release_channel.ReleaseChannelConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"
+                },
+                "order": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "maturity": {
+                    "enum": [
+                        "FAST_ITERATION",
+                        0,
+                        "PRELAUNCH",
+                        1,
+                        "LIVE",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Maturity",
+                    "description": "TODO(naphat) maturity likely should not be hardcoded but be flexible per organization"
+                },
+                "policy": {
+                    "$ref": "#/definitions/prodvana.release_channel.Policy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "runtimes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelRuntimeConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "deployAnnotations": {
+                    "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "preconditions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.Precondition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Do not use without talking to Prodvana first"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Channel Config"
+        },
+        "prodvana.release_channel.ReleaseChannelRuntimeConfig": {
+            "properties": {
+                "runtime": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "connectionName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Optional identifier for this runtime connection within this release channel, useful if the same runtime is used multiple times in a single release channel. Defaults to runtime."
+                },
+                "containerOrchestration": {
+                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "connectionType": {
+                    "enum": [
+                        "UNKNOWN_CONNECTION",
+                        0,
+                        "LONG_LIVED_COMPUTE",
+                        1,
+                        "GENERIC",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Runtime Connection Type"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Channel Runtime Config"
+        },
+        "prodvana.repo.Commit": {
+            "properties": {
+                "commitId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "url": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "message": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "author": {
+                    "$ref": "#/definitions/prodvana.repo.User",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "TODO: Other fields, like author, timestamps etc"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Commit"
+        },
+        "prodvana.repo.User": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "email": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "User"
+        },
+        "prodvana.service.CapabilityReference": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Capability Reference"
+        },
+        "prodvana.service.Certificate": {
+            "properties": {
+                "tls": {
+                    "$ref": "#/definitions/prodvana.service.TLSCertificate",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsAcmCert": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Certificate"
+        },
+        "prodvana.service.ExternalConfig": {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "KUBERNETES",
+                        1,
+                        "KUSTOMIZE",
+                        2,
+                        "HELM",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.service.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "External Config"
+        },
+        "prodvana.service.FollowContainerRepositorySettings": {
+            "properties": {
+                "enabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Follow Container Repository Settings"
+        },
+        "prodvana.service.GenericRuntimeConfig": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Generic Runtime Config",
+            "description": "TODO(naphat) put parameters here"
+        },
+        "prodvana.service.LocalConfig": {
+            "properties": {
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Local Config"
+        },
+        "prodvana.service.MetricAnalysis": {
+            "properties": {
+                "successRate": {
+                    "$ref": "#/definitions/prodvana.service.MetricAnalysis.SuccessRateConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "latencyP95": {
+                    "$ref": "#/definitions/prodvana.service.MetricAnalysis.LatencyConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Metric Analysis"
+        },
+        "prodvana.service.MetricAnalysis.LatencyConfig": {
+            "properties": {
+                "maxLatency": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Latency Config"
+        },
+        "prodvana.service.MetricAnalysis.SuccessRateConfig": {
+            "properties": {
+                "minThresholdPercent": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Success Rate Config"
+        },
+        "prodvana.service.PerReleaseChannelConfig": {
+            "properties": {
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "customHostnames": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "programs": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.PerReleaseChannelProgramConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "cert": {
+                    "$ref": "#/definitions/prodvana.service.Certificate",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "deliveryConfig": {
+                    "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "volumes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.volumes.Volume"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "replicas": {
+                    "$ref": "#/definitions/prodvana.service.ReplicasConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "prePushTasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "runtimeSpecific": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionReference"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "genericRuntime": {
+                    "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.service.ExternalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Per Release Channel Config"
+        },
+        "prodvana.service.PerReleaseChannelParameterValues": {
+            "properties": {
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Per Release Channel Parameter Values"
+        },
+        "prodvana.service.ProgramReference": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Program Reference"
+        },
+        "prodvana.service.ReleaseStrategyConfig": {
+            "properties": {
+                "individualStageDeadline": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "deadline in each stage before the push is rolled back. Includes the time it takes for pods to be healthy. Defaults to 10 minutes.",
+                    "format": "regex"
+                },
+                "automatedTestingDuration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "duration of the automated testing phase, before manual approval. Defaults to 30m.",
+                    "format": "regex"
+                },
+                "metricsAnalysis": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.MetricAnalysis"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "manualApproval": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "checkInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "advanced settings that do not typically need to be set. Exposed mainly for testing purposes.  defaults to 30s",
+                    "format": "regex"
+                },
+                "failureThreshold": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "defaults to 5"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Strategy Config"
+        },
+        "prodvana.service.ReplicasConfig": {
+            "properties": {
+                "fixed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "no validations, server side has defaults"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Replicas Config"
+        },
+        "prodvana.service.RuntimeSpecificConfig": {
+            "properties": {
+                "k8s": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig.K8SConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Runtime Specific Config",
+            "description": "RuntimeSpecificConfig contains Service level configuration options that only make sense for a specific Runtime type. Configuration added here should only apply to a single Service; if the Runtime specific configuration relates to all services, it should be configured as at the Runtime cluster level (or as a runtime extension)."
+        },
+        "prodvana.service.RuntimeSpecificConfig.K8SConfig": {
+            "properties": {
+                "serviceAnnotations": {
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "Annotations to add to the Kubernetes Service object"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "K 8 S Config"
+        },
+        "prodvana.service.ServiceConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "application": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "programs": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ProgramConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "replicas": {
+                    "$ref": "#/definitions/prodvana.service.ReplicasConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "releaseStrategy": {
+                    "$ref": "#/definitions/prodvana.service.ReleaseStrategyConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "perReleaseChannel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.PerReleaseChannelConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "capabilities": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.CapabilityReference"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "deliveryConfig": {
+                    "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "volumes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.volumes.Volume"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "deployAnnotations": {
+                    "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "baseTemplate": {
+                    "$ref": "#/definitions/prodvana.common_config.ServiceTemplateRef",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "prePushTasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "runtimeSpecific": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionReference"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "parameterValues": {
+                    "$ref": "#/definitions/prodvana.service.ServiceParameterValues",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "only valid to set in compiled configs by Prodvana"
+                },
+                "genericRuntime": {
+                    "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.service.ExternalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "parametersAutogen": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "NONE",
+                        1,
+                        "IMAGE",
+                        2,
+                        "IMAGE_AND_REPLICAS",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Parameters Autogen"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Config"
+        },
+        "prodvana.service.ServiceParameterValues": {
+            "properties": {
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "perReleaseChannel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.PerReleaseChannelParameterValues"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Parameter Values"
+        },
+        "prodvana.service.ServiceUserMetadata": {
+            "properties": {
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "links": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Link"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "followRepository": {
+                    "$ref": "#/definitions/prodvana.service.FollowContainerRepositorySettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service User Metadata"
+        },
+        "prodvana.service.TLSCertificate": {
+            "properties": {
+                "tlsCert": {
+                    "$ref": "#/definitions/prodvana.service.TLSSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "tlsKey": {
+                    "$ref": "#/definitions/prodvana.service.TLSSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "TLS Certificate"
+        },
+        "prodvana.service.TLSSecret": {
+            "properties": {
+                "rawSecret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value to be used for user-editable YAML and RPC calls."
+                },
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Externally stored secret."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "TLS Secret"
+        },
+        "prodvana.service.TaskConfig": {
+            "properties": {
+                "program": {
+                    "$ref": "#/definitions/prodvana.common_config.ProgramConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "baseProgram": {
+                    "$ref": "#/definitions/prodvana.service.ProgramReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional base program to take configs from. If specified, `program` field will act like an override instead."
+                },
+                "retryConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "if not set, the task will not be retried once it starts executing once."
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.service.TaskReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Instead of defining a new task, reference an existing custom task and use that. This is meant to be used in conjunection with per_release_channel to allow multiple release channels to use a single custom task. If set, the program definition is ignored except for program name."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task Config"
+        },
+        "prodvana.service.TaskReference": {
+            "properties": {
+                "releaseChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task Reference"
+        },
+        "prodvana.template.ServiceTemplate": {
+            "properties": {
+                "meta": {
+                    "$ref": "#/definitions/prodvana.object.ObjectMeta",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "lastUpdateTimestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "serviceConfig": {
+                    "$ref": "#/definitions/prodvana.service.ServiceConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Template"
+        },
+        "prodvana.version.SourceMetadata": {
+            "properties": {
+                "repoUrl": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "full repo URL, like git@github.com:foo/bar.git or https://github.com/foo/bar"
+                },
+                "filePath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "commit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Source Metadata",
+            "description": "all of these fields are optional and only set if it makes sense for a given source."
+        },
+        "prodvana.volumes.Volume": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "source": {
+                    "$ref": "#/definitions/prodvana.volumes.VolumeSource",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "mount": {
+                    "$ref": "#/definitions/prodvana.volumes.VolumeMount",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Volume"
+        },
+        "prodvana.volumes.VolumeMount": {
+            "properties": {
+                "mountPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "readOnly": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Volume Mount"
+        },
+        "prodvana.volumes.VolumeSource": {
+            "properties": {
+                "secret": {
+                    "$ref": "#/definitions/prodvana.volumes.VolumeSource.SecretSource",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "ephemeral": {
+                    "$ref": "#/definitions/prodvana.volumes.VolumeSource.EphemeralSource",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Volume Source"
+        },
+        "prodvana.volumes.VolumeSource.EphemeralSource": {
+            "properties": {
+                "medium": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "DEFAULT",
+                        1,
+                        "MEMORY",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Medium"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Ephemeral Source"
+        },
+        "prodvana.volumes.VolumeSource.SecretSource": {
+            "properties": {
+                "secretName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Secret Source"
+        },
+        "prodvana.workflow.AlertingConfig": {
+            "properties": {
+                "pagerduty": {
+                    "$ref": "#/definitions/prodvana.workflow.AlertingConfig.PagerDuty",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Alerting Config"
+        },
+        "prodvana.workflow.AlertingConfig.PagerDuty": {
+            "properties": {
+                "service": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Pager Duty"
+        },
+        "prodvana.workflow.AnnotationsConfig": {
+            "properties": {
+                "honeycomb": {
+                    "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig.Honeycomb",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Annotations Config"
+        },
+        "prodvana.workflow.AnnotationsConfig.Honeycomb": {
+            "properties": {
+                "environment": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "dataset": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Honeycomb"
+        }
+    }
+}

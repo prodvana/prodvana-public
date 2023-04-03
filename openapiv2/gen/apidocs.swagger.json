@@ -3698,15 +3698,14 @@
         ]
       }
     },
-    "/v1/{application}/services/configure": {
+    "/v1/{application}/services/apply-parameters": {
       "post": {
-        "summary": "TODO(naphat) rename this to ApplyParameters",
-        "operationId": "ServiceManager_ConfigureService",
+        "operationId": "ServiceManager_ApplyParameters",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceConfigureServiceResp"
+              "$ref": "#/definitions/serviceApplyParametersResp"
             }
           },
           "default": {
@@ -3749,7 +3748,7 @@
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "$ref": "#/definitions/serviceConfigureServiceReqPerReleaseChannel"
+                    "$ref": "#/definitions/serviceApplyParametersReqPerReleaseChannel"
                   }
                 },
                 "testOnlySkipRegistryCheck": {
@@ -3771,14 +3770,14 @@
         ]
       }
     },
-    "/v1/{application}/services/configure/validate": {
+    "/v1/{application}/services/apply-parameters/validate": {
       "post": {
-        "operationId": "ServiceManager_ValidateConfigureService",
+        "operationId": "ServiceManager_ValidateApplyParameters",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceValidateConfigureServiceResp"
+              "$ref": "#/definitions/serviceValidateApplyParametersResp"
             }
           },
           "default": {
@@ -3821,7 +3820,7 @@
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "$ref": "#/definitions/serviceConfigureServiceReqPerReleaseChannel"
+                    "$ref": "#/definitions/serviceApplyParametersReqPerReleaseChannel"
                   }
                 },
                 "testOnlySkipRegistryCheck": {
@@ -3896,52 +3895,7 @@
     },
     "/v1/{application}/services/{service}/config": {
       "get": {
-        "summary": "TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions",
-        "operationId": "ServiceManager_GetServiceConfig",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/serviceGetServiceConfigResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "application",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "service",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "version",
-            "description": "omit to get latest version",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "prodvana.service.ServiceManager"
-        ]
-      }
-    },
-    "/v1/{application}/services/{service}/config2": {
-      "get": {
+        "summary": "unparametrized configs",
         "operationId": "ServiceManager_GetServiceConfig2",
         "responses": {
           "200": {
@@ -3985,7 +3939,7 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/config2/list": {
+    "/v1/{application}/services/{service}/config/versions": {
       "get": {
         "operationId": "ServiceManager_ListServiceConfigVersions",
         "responses": {
@@ -4074,14 +4028,59 @@
         ]
       }
     },
-    "/v1/{application}/services/{service}/versions": {
+    "/v1/{application}/services/{service}/materialized/config": {
       "get": {
-        "operationId": "ServiceManager_ListServiceVersions",
+        "operationId": "ServiceManager_GetMaterializedConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceListServiceVersionsResp"
+              "$ref": "#/definitions/serviceGetMaterializedConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
+    "/v1/{application}/services/{service}/materialized/config/versions": {
+      "get": {
+        "operationId": "ServiceManager_ListMaterializedConfigVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceListMaterializedConfigVersionsResp"
             }
           },
           "default": {
@@ -5941,7 +5940,7 @@
             "type": "object",
             "$ref": "#/definitions/serviceCompiledServiceInstanceConfig"
           },
-          "title": "optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateConfigureService followed by a ValidateDesiredState"
+          "title": "optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState"
         }
       }
     },
@@ -8014,6 +8013,37 @@
         }
       }
     },
+    "serviceApplyParametersReqPerReleaseChannel": {
+      "type": "object",
+      "properties": {
+        "releaseChannel": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          },
+          "title": "takes precedence over any parameters set at top level"
+        }
+      }
+    },
+    "serviceApplyParametersResp": {
+      "type": "object",
+      "properties": {
+        "serviceId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "efficiencyStat": {
+          "$ref": "#/definitions/statEfficiencyStat",
+          "title": "only set if compute_efficiency was set in request"
+        }
+      }
+    },
     "serviceCapabilityReference": {
       "type": "object",
       "properties": {
@@ -8155,37 +8185,6 @@
         }
       }
     },
-    "serviceConfigureServiceReqPerReleaseChannel": {
-      "type": "object",
-      "properties": {
-        "releaseChannel": {
-          "type": "string"
-        },
-        "parameters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common_configParameterValue"
-          },
-          "title": "takes precedence over any parameters set at top level"
-        }
-      }
-    },
-    "serviceConfigureServiceResp": {
-      "type": "object",
-      "properties": {
-        "serviceId": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
-        "efficiencyStat": {
-          "$ref": "#/definitions/statEfficiencyStat",
-          "title": "only set if compute_efficiency was set in request"
-        }
-      }
-    },
     "serviceDeleteServiceResp": {
       "type": "object"
     },
@@ -8248,22 +8247,7 @@
       "type": "object",
       "title": "TODO(naphat) put parameters here"
     },
-    "serviceGetServiceConfig2Resp": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "$ref": "#/definitions/serviceServiceConfig"
-        },
-        "configVersion": {
-          "type": "string",
-          "title": "deprecated, use config_version_metadata"
-        },
-        "configVersionMetadata": {
-          "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata"
-        }
-      }
-    },
-    "serviceGetServiceConfigResp": {
+    "serviceGetMaterializedConfigResp": {
       "type": "object",
       "properties": {
         "config": {
@@ -8286,7 +8270,22 @@
           "title": "compiled config per release channel, with per-release-channel overrides applied"
         },
         "versionMetadata": {
-          "$ref": "#/definitions/serviceListServiceVersionsRespVersionMetadata"
+          "$ref": "#/definitions/serviceListMaterializedConfigVersionsRespVersionMetadata"
+        }
+      }
+    },
+    "serviceGetServiceConfig2Resp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/serviceServiceConfig"
+        },
+        "configVersion": {
+          "type": "string",
+          "title": "deprecated, use config_version_metadata"
+        },
+        "configVersionMetadata": {
+          "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata"
         }
       }
     },
@@ -8353,6 +8352,39 @@
         }
       }
     },
+    "serviceListMaterializedConfigVersionsResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceListMaterializedConfigVersionsRespVersionMetadata"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceListMaterializedConfigVersionsRespVersionMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "configVersion": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/serviceServiceParameterValues"
+        }
+      }
+    },
     "serviceListServiceConfigVersionsResp": {
       "type": "object",
       "properties": {
@@ -8395,39 +8427,6 @@
             "type": "object",
             "$ref": "#/definitions/serviceServiceInstance"
           }
-        }
-      }
-    },
-    "serviceListServiceVersionsResp": {
-      "type": "object",
-      "properties": {
-        "versions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/serviceListServiceVersionsRespVersionMetadata"
-          }
-        },
-        "nextPageToken": {
-          "type": "string"
-        }
-      }
-    },
-    "serviceListServiceVersionsRespVersionMetadata": {
-      "type": "object",
-      "properties": {
-        "version": {
-          "type": "string"
-        },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "configVersion": {
-          "type": "string"
-        },
-        "parameters": {
-          "$ref": "#/definitions/serviceServiceParameterValues"
         }
       }
     },
@@ -8710,7 +8709,7 @@
       "properties": {
         "application": {
           "type": "string",
-          "title": "TODO(naphat) unify with ConfigureServiceReq below"
+          "title": "TODO(naphat) unify with ApplyParametersReq below"
         },
         "service": {
           "type": "string"
@@ -8810,7 +8809,7 @@
         }
       }
     },
-    "serviceValidateConfigureServiceResp": {
+    "serviceValidateApplyParametersResp": {
       "type": "object",
       "properties": {
         "config": {

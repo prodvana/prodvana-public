@@ -17,12 +17,12 @@ import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
 message ServiceConfigVersionReference {
-    string application = 1; // TODO(naphat) unify with ConfigureServiceReq below
+    string application = 1; // TODO(naphat) unify with ApplyParametersReq below
     string service = 2 [(validate.rules).string.min_len = 1];
     string service_config_version = 3 [(validate.rules).string.min_len = 1];
 }
 
-message ConfigureServiceReq {
+message ApplyParametersReq {
     message PerReleaseChannel {
         string release_channel = 1 [(validate.rules).string.min_len = 1];
         // takes precedence over any parameters set at top level
@@ -51,7 +51,7 @@ message ConfigureServiceReq {
     // next tag: 11
 }
 
-message ConfigureServiceResp {
+message ApplyParametersResp {
     string service_id = 1;
     string version = 2;
 
@@ -59,25 +59,25 @@ message ConfigureServiceResp {
     stat.EfficiencyStat efficiency_stat = 3;
 }
 
-message ValidateConfigureServiceResp {
+message ValidateApplyParametersResp {
     ServiceConfig config = 1;  // config as passed in by user
     ServiceConfig compiled_config = 2;  // config with defaults applied
     string app_version = 3; // the app version that is used for validation
     repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
 }
 
-message GetServiceConfigReq {
+message GetMaterializedConfigReq {
     string service = 1 [(validate.rules).string.min_len = 1];
     string version = 2; // omit to get latest version
     string application = 3;
 }
 
-message GetServiceConfigResp {
+message GetMaterializedConfigResp {
     ServiceConfig config = 1;  // config as passed in by user
     string version = 2;
     ServiceConfig compiled_config = 3;  // config with defaults applied
     repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
-    ListServiceVersionsResp.VersionMetadata version_metadata = 5;
+    ListMaterializedConfigVersionsResp.VersionMetadata version_metadata = 5;
 }
 
 message DeleteServiceReq {
@@ -193,14 +193,14 @@ message SetServiceMetadataReq {
 message SetServiceMetadataResp {
 }
 
-message ListServiceVersionsReq {
+message ListMaterializedConfigVersionsReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
     string page_token = 3;
     int32 page_size = 4;
 }
 
-message ListServiceVersionsResp {
+message ListMaterializedConfigVersionsResp {
     message VersionMetadata {
         string version = 1;
         google.protobuf.Timestamp creation_timestamp = 2;
@@ -264,36 +264,35 @@ service ServiceManager {
     }
     rpc ListServiceConfigVersions (ListServiceConfigVersionsReq) returns (ListServiceConfigVersionsResp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/config2/list"
+            get: "/v1/{application=*}/services/{service=*}/config/versions"
         };
     }
+    // unparametrized configs
     rpc GetServiceConfig2 (GetServiceConfig2Req) returns (GetServiceConfig2Resp) {
-        option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/config2"
-        };
-    }
-    // TODO(naphat) rename this to ApplyParameters
-    rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
-        option (google.api.http) = {
-            post: "/v1/{application=*}/services/configure"
-            body: "*"
-        };
-    }
-    rpc ValidateConfigureService (ConfigureServiceReq) returns (ValidateConfigureServiceResp) {
-        option (google.api.http) = {
-            post: "/v1/{application=*}/services/configure/validate"
-            body: "*"
-        };
-    }
-    // TODO(naphat) rename this to GetServiceVersion and make it specifically about materialized versions
-    rpc GetServiceConfig(GetServiceConfigReq) returns (GetServiceConfigResp) {
         option (google.api.http) = {
             get: "/v1/{application=*}/services/{service=*}/config"
         };
     }
-    rpc ListServiceVersions(ListServiceVersionsReq) returns (ListServiceVersionsResp) {
+    rpc ApplyParameters (ApplyParametersReq) returns (ApplyParametersResp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/versions"
+            post: "/v1/{application=*}/services/apply-parameters"
+            body: "*"
+        };
+    }
+    rpc ValidateApplyParameters (ApplyParametersReq) returns (ValidateApplyParametersResp) {
+        option (google.api.http) = {
+            post: "/v1/{application=*}/services/apply-parameters/validate"
+            body: "*"
+        };
+    }
+    rpc GetMaterializedConfig(GetMaterializedConfigReq) returns (GetMaterializedConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/materialized/config"
+        };
+    }
+    rpc ListMaterializedConfigVersions(ListMaterializedConfigVersionsReq) returns (ListMaterializedConfigVersionsResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/materialized/config/versions"
         };
     }
     rpc DeleteService(DeleteServiceReq) returns (DeleteServiceResp) {
