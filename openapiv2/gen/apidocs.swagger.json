@@ -8284,6 +8284,9 @@
             "$ref": "#/definitions/serviceCompiledServiceInstanceConfig"
           },
           "title": "compiled config per release channel, with per-release-channel overrides applied"
+        },
+        "versionMetadata": {
+          "$ref": "#/definitions/serviceListServiceVersionsRespVersionMetadata"
         }
       }
     },
