@@ -116,6 +116,7 @@ enum StatusReason {
 message StatusExplanation {
     Identifier subject = 1;  // the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself.
     StatusReason reason = 2;
+    string message = 3; // Optional freeform message to be shown to the user alongside reason.
 }
 
 message Version {
@@ -220,6 +221,7 @@ message RuntimeObject {
     DeliveryState delivery = 8;
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
     bytes state_hash = 11; // Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)
+    string message = 12; // Human readable message (typically for errors).
 
     reserved 9;
     reserved "unhealthy_pods";

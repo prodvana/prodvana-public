@@ -7237,6 +7237,10 @@
         },
         "reason": {
           "$ref": "#/definitions/modelStatusReason"
+        },
+        "message": {
+          "type": "string",
+          "description": "Optional freeform message to be shown to the user alongside reason."
         }
       }
     },

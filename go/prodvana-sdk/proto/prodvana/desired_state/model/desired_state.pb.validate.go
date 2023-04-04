@@ -620,6 +620,8 @@ func (m *StatusExplanation) validate(all bool) error {
 
 	// no validation rules for Reason
 
+	// no validation rules for Message
+
 	if len(errors) > 0 {
 		return StatusExplanationMultiError(errors)
 	}
@@ -1942,6 +1944,8 @@ func (m *RuntimeObject) validate(all bool) error {
 	// no validation rules for VersionAgnostic
 
 	// no validation rules for StateHash
+
+	// no validation rules for Message
 
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
