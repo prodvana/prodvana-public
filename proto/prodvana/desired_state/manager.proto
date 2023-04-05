@@ -34,6 +34,10 @@ message StatusExplanations {
     repeated prodvana.desired_state.model.StatusExplanation status_explanations = 1;
 }
 
+message DebugLogs {
+    repeated prodvana.desired_state.model.DebugLog debug_logs = 1;
+}
+
 message DesiredStateSummary {
     prodvana.desired_state.model.State starting_state = 1;
     prodvana.desired_state.model.State last_seen_state = 2;
@@ -48,6 +52,8 @@ message DesiredStateSummary {
     // Key format - "{desired_state_id}-{index}", e.g., "des-0752d6c76a6943abbfcf0515634584ba-0".
     map<string, prodvana.desired_state.model.ConditionState> precondition_statuses = 8;
     map<string, StatusExplanations> status_explanations = 9;
+    map<string, DebugLogs> debug_logs = 10;
+    map<string, prodvana.desired_state.model.ActionExplanation> action_explanations = 11;
 }
 
 message GetDesiredStateConvergenceReq {

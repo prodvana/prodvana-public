@@ -5783,6 +5783,18 @@
         }
       }
     },
+    "desired_stateDebugLogs": {
+      "type": "object",
+      "properties": {
+        "debugLogs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelDebugLog"
+          }
+        }
+      }
+    },
     "desired_stateDesiredStateSummary": {
       "type": "object",
       "properties": {
@@ -5826,6 +5838,18 @@
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/desired_stateStatusExplanations"
+          }
+        },
+        "debugLogs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/desired_stateDebugLogs"
+          }
+        },
+        "actionExplanations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/modelActionExplanation"
           }
         }
       }
@@ -7004,6 +7028,33 @@
         }
       }
     },
+    "modelActionExplanation": {
+      "type": "object",
+      "properties": {
+        "ts": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actionType": {
+          "$ref": "#/definitions/modelActionType"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "What action is DD taking now?"
+    },
+    "modelActionType": {
+      "type": "string",
+      "enum": [
+        "ACTION_TYPE_UNKNOWN",
+        "ACTION_TYPE_APPLYING",
+        "ACTION_TYPE_APPLIED",
+        "ACTION_TYPE_COMPLETE"
+      ],
+      "default": "ACTION_TYPE_UNKNOWN",
+      "description": " - ACTION_TYPE_APPLYING: DD is currently apply target state - if its doing this for too long, probably means apply is stuck.\n - ACTION_TYPE_APPLIED: DD has applied target state - waiting for object to converge.\n - ACTION_TYPE_COMPLETE: Reached terminal state - DD is doing nothing further."
+    },
     "modelCanaryProgressState": {
       "type": "object",
       "properties": {
@@ -7159,6 +7210,18 @@
       ],
       "default": "CUSTOM_TASK_TYPE_UNKNOWN",
       "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push."
+    },
+    "modelDebugLog": {
+      "type": "object",
+      "properties": {
+        "ts": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "log": {
+          "type": "string"
+        }
+      }
     },
     "modelDeliveryState": {
       "type": "object",

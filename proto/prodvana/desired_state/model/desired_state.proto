@@ -121,6 +121,23 @@ message StatusExplanation {
     string message = 3; // Optional freeform message to be shown to the user alongside reason.
 }
 
+enum ActionType {
+    ACTION_TYPE_UNKNOWN = 0;
+    // DD is currently apply target state - if its doing this for too long, probably means apply is stuck.
+    ACTION_TYPE_APPLYING = 1;
+    // DD has applied target state - waiting for object to converge.
+    ACTION_TYPE_APPLIED = 2;
+    // Reached terminal state - DD is doing nothing further.
+    ACTION_TYPE_COMPLETE = 3;
+}
+
+// What action is DD taking now?
+message ActionExplanation {
+    google.protobuf.Timestamp ts = 1;
+    ActionType action_type = 2;
+    string message = 3;
+}
+
 message Version {
     string service_version = 1;
     int32 replicas = 2;
@@ -253,6 +270,9 @@ message ControlState {
 
     // explanation for current status, will have more than one in the event multiple children have the same status
     repeated StatusExplanation status_explanations = 5;
+
+    // What is DD doing now?
+    ActionExplanation action_explanation = 6;
 }
 
 enum ManualApprovalStatus {

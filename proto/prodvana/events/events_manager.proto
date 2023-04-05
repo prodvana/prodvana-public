@@ -5,7 +5,6 @@ import "google/api/annotations.proto";
 import "validate/validate.proto";
 import "prodvana/events/events.proto";
 import "prodvana/events/types.proto";
-import "prodvana/desired_state/model/desired_state.proto";
 
 message ServiceLookup {
     string application = 1 [(validate.rules).string.min_len = 1];
