@@ -3364,6 +3364,136 @@ var _ interface {
 	ErrorName() string
 } = SignalValidationError{}
 
+// Validate checks the field values on DebugLog with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DebugLog) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DebugLog with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DebugLogMultiError, or nil
+// if none found.
+func (m *DebugLog) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DebugLog) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTs()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DebugLogValidationError{
+					field:  "Ts",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DebugLogValidationError{
+					field:  "Ts",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTs()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DebugLogValidationError{
+				field:  "Ts",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Log
+
+	if len(errors) > 0 {
+		return DebugLogMultiError(errors)
+	}
+
+	return nil
+}
+
+// DebugLogMultiError is an error wrapping multiple validation errors returned
+// by DebugLog.ValidateAll() if the designated constraints aren't met.
+type DebugLogMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DebugLogMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DebugLogMultiError) AllErrors() []error { return m }
+
+// DebugLogValidationError is the validation error returned by
+// DebugLog.Validate if the designated constraints aren't met.
+type DebugLogValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DebugLogValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DebugLogValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DebugLogValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DebugLogValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DebugLogValidationError) ErrorName() string { return "DebugLogValidationError" }
+
+// Error satisfies the builtin error interface
+func (e DebugLogValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDebugLog.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DebugLogValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DebugLogValidationError{}
+
 // Validate checks the field values on Condition_ReleaseChannelStableCondition
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if

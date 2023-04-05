@@ -111,6 +111,8 @@ enum StatusReason {
     // a precondition failed in an unrecoverable way
     PRECONDITIONS_FAILED = 7;
     MANUAL_APPROVAL_REJECTED = 8;
+    // Entity has not been updated in a long time
+    STUCK_ENTITY = 9;
 }
 
 message StatusExplanation {
@@ -331,4 +333,9 @@ message Signal {
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
     }
+}
+
+message DebugLog {
+    google.protobuf.Timestamp ts = 1;
+    string log = 2;
 }
