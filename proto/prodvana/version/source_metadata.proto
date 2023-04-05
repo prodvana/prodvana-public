@@ -16,4 +16,7 @@ message SourceMetadata {
     string repo_url = 1;
     string file_path = 2;
     string commit = 3;
+
+    // set internally, automatically, by Prodvana if the action was initiated by a user
+    string user_id = 4;
 }

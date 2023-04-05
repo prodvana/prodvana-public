@@ -206,6 +206,8 @@ message ListMaterializedConfigVersionsResp {
         google.protobuf.Timestamp creation_timestamp = 2;
         string config_version = 3;
         ServiceParameterValues parameters = 4;
+        prodvana.version.Source source = 5;
+        prodvana.version.SourceMetadata source_metadata = 6;
     }
     repeated VersionMetadata versions = 1;
     string next_page_token = 2;

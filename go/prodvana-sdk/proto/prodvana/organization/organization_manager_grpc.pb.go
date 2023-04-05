@@ -25,6 +25,7 @@ const (
 	OrganizationManager_SnoozeOrganizationInsight_FullMethodName = "/prodvana.organization.OrganizationManager/SnoozeOrganizationInsight"
 	OrganizationManager_GetOrganizationMetadata_FullMethodName   = "/prodvana.organization.OrganizationManager/GetOrganizationMetadata"
 	OrganizationManager_SetOrganizationMetadata_FullMethodName   = "/prodvana.organization.OrganizationManager/SetOrganizationMetadata"
+	OrganizationManager_GetUser_FullMethodName                   = "/prodvana.organization.OrganizationManager/GetUser"
 )
 
 // OrganizationManagerClient is the client API for OrganizationManager service.
@@ -38,6 +39,8 @@ type OrganizationManagerClient interface {
 	// Get org metadata, useful for constructing edit workflows for metadata
 	GetOrganizationMetadata(ctx context.Context, in *GetOrganizationMetadataReq, opts ...grpc.CallOption) (*GetOrganizationMetadataResp, error)
 	SetOrganizationMetadata(ctx context.Context, in *SetOrganizationMetadataReq, opts ...grpc.CallOption) (*SetOrganizationMetadataResp, error)
+	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
+	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
 }
 
 type organizationManagerClient struct {
@@ -102,6 +105,15 @@ func (c *organizationManagerClient) SetOrganizationMetadata(ctx context.Context,
 	return out, nil
 }
 
+func (c *organizationManagerClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
+	out := new(GetUserResp)
+	err := c.cc.Invoke(ctx, OrganizationManager_GetUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationManagerServer is the server API for OrganizationManager service.
 // All implementations must embed UnimplementedOrganizationManagerServer
 // for forward compatibility
@@ -113,6 +125,8 @@ type OrganizationManagerServer interface {
 	// Get org metadata, useful for constructing edit workflows for metadata
 	GetOrganizationMetadata(context.Context, *GetOrganizationMetadataReq) (*GetOrganizationMetadataResp, error)
 	SetOrganizationMetadata(context.Context, *SetOrganizationMetadataReq) (*SetOrganizationMetadataResp, error)
+	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
+	GetUser(context.Context, *GetUserReq) (*GetUserResp, error)
 	mustEmbedUnimplementedOrganizationManagerServer()
 }
 
@@ -137,6 +151,9 @@ func (UnimplementedOrganizationManagerServer) GetOrganizationMetadata(context.Co
 }
 func (UnimplementedOrganizationManagerServer) SetOrganizationMetadata(context.Context, *SetOrganizationMetadataReq) (*SetOrganizationMetadataResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetOrganizationMetadata not implemented")
+}
+func (UnimplementedOrganizationManagerServer) GetUser(context.Context, *GetUserReq) (*GetUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedOrganizationManagerServer) mustEmbedUnimplementedOrganizationManagerServer() {}
 
@@ -259,6 +276,24 @@ func _OrganizationManager_SetOrganizationMetadata_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationManager_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationManagerServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationManager_GetUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationManagerServer).GetUser(ctx, req.(*GetUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationManager_ServiceDesc is the grpc.ServiceDesc for OrganizationManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -289,6 +324,10 @@ var OrganizationManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetOrganizationMetadata",
 			Handler:    _OrganizationManager_SetOrganizationMetadata_Handler,
+		},
+		{
+			MethodName: "GetUser",
+			Handler:    _OrganizationManager_GetUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

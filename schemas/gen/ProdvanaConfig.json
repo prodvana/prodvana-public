@@ -4489,6 +4489,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "userId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "set internally, automatically, by Prodvana if the action was initiated by a user"
                 }
             },
             "additionalProperties": false,

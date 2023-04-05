@@ -63,6 +63,8 @@ func (m *SourceMetadata) validate(all bool) error {
 
 	// no validation rules for Commit
 
+	// no validation rules for UserId
+
 	if len(errors) > 0 {
 		return SourceMetadataMultiError(errors)
 	}

@@ -3151,6 +3151,38 @@
         ]
       }
     },
+    "/v1/organization/user/{userId}": {
+      "get": {
+        "summary": "Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization",
+        "operationId": "OrganizationManager_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/prodvanaorganizationGetUserResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.organization.OrganizationManager"
+        ]
+      }
+    },
     "/v1/protections": {
       "get": {
         "operationId": "ProtectionManager_ListProtections",
@@ -3604,7 +3636,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/organizationGetUserResp"
+              "$ref": "#/definitions/prodvanasettingsorganizationGetUserResp"
             }
           },
           "default": {
@@ -7344,14 +7376,6 @@
         }
       }
     },
-    "organizationGetUserResp": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/organizationSettingsUser"
-        }
-      }
-    },
     "organizationListRolesResp": {
       "type": "object",
       "properties": {
@@ -7586,6 +7610,14 @@
         }
       }
     },
+    "prodvanaorganizationGetUserResp": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/prodvanausersUser"
+        }
+      }
+    },
     "prodvanapipelinesCustomTask": {
       "type": "object",
       "properties": {
@@ -7674,6 +7706,14 @@
         "ref": {
           "$ref": "#/definitions/serviceTaskReference",
           "description": "Instead of defining a new task, reference an existing custom task and use that. This is meant\nto be used in conjunection with per_release_channel to allow multiple release channels to use\na single custom task. If set, the program definition is ignored except for program name."
+        }
+      }
+    },
+    "prodvanasettingsorganizationGetUserResp": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/organizationSettingsUser"
         }
       }
     },
@@ -8386,6 +8426,12 @@
         },
         "parameters": {
           "$ref": "#/definitions/serviceServiceParameterValues"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
@@ -8891,6 +8937,10 @@
         },
         "commit": {
           "type": "string"
+        },
+        "userId": {
+          "type": "string",
+          "title": "set internally, automatically, by Prodvana if the action was initiated by a user"
         }
       },
       "description": "all of these fields are optional and only set if it makes sense for a given source."

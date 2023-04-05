@@ -8,6 +8,7 @@ import "prodvana/config_writeback/writeback.proto";
 import "prodvana/insights/insights.proto";
 import "prodvana/metrics/metrics.proto";
 import "prodvana/organization/user_metadata.proto";
+import "prodvana/users/users.proto";
 import "validate/validate.proto";
 
 message OrganizationInfo {
@@ -66,6 +67,14 @@ message SetOrganizationMetadataReq {
 message SetOrganizationMetadataResp {
 }
 
+message GetUserReq {
+    string user_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetUserResp {
+    prodvana.users.User user = 1;
+}
+
 service OrganizationManager {
     rpc GetOrganization (GetOrganizationReq) returns (GetOrganizationResp) {
         option (google.api.http) = {
@@ -98,6 +107,13 @@ service OrganizationManager {
         option (google.api.http) = {
             post: "/v1/organization/metadata"
             body: "*"
+        };
+    }
+
+    // Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
+    rpc GetUser(GetUserReq) returns (GetUserResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/user/{user_id=*}"
         };
     }
 }
