@@ -272,9 +272,9 @@ func (m *DockerImageParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetDefaultValue()) < 1 {
+	if utf8.RuneCountInString(m.GetDefaultTag()) < 1 {
 		err := DockerImageParameterDefinitionValidationError{
-			field:  "DefaultValue",
+			field:  "DefaultTag",
 			reason: "value length must be at least 1 runes",
 		}
 		if !all {
@@ -1005,19 +1005,6 @@ func (m *ParameterValue) validate(all bool) error {
 		}
 		oneofValueOneofPresent = true
 		// no validation rules for String_
-	case *ParameterValue_DockerImage:
-		if v == nil {
-			err := ParameterValueValidationError{
-				field:  "ValueOneof",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-		oneofValueOneofPresent = true
-		// no validation rules for DockerImage
 	case *ParameterValue_Int:
 		if v == nil {
 			err := ParameterValueValidationError{
@@ -1031,6 +1018,19 @@ func (m *ParameterValue) validate(all bool) error {
 		}
 		oneofValueOneofPresent = true
 		// no validation rules for Int
+	case *ParameterValue_DockerImageTag:
+		if v == nil {
+			err := ParameterValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+		// no validation rules for DockerImageTag
 	default:
 		_ = v // ensures v is used
 	}

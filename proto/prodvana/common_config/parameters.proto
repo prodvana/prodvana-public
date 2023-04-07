@@ -20,7 +20,7 @@ message DockerImageParameterDefinition {
         }
     }
     // empty not a valid value
-    string default_value = 1 [(validate.rules).string.min_len = 1];
+    string default_tag = 1 [(validate.rules).string.min_len = 1];
     prodvana.common_config.ImageRegistryInfo image_registry_info = 2 [(validate.rules).message.required = true];
     repeated Changes changes = 3 [(validate.rules).repeated.items.message.required = true];
 }
@@ -59,9 +59,11 @@ message ParameterValue {
     oneof value_oneof {
         option (validate.required) = true;
         string string = 2;
-        string docker_image = 3;
         int64 int = 4;
+        string docker_image_tag = 5;
     }
+    reserved 3;
+    reserved "docker_image";
 }
 
 message ParametersConfig {

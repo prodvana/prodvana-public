@@ -92,6 +92,12 @@ message ImageRegistryInfo {
     string image_repository = 7 [(validate.rules).string.min_len = 1];
 }
 
+message ImageDetails {
+    ImageRegistryInfo registry_info = 1 [(validate.rules).message.required = true];
+    // image tag or digest
+    string identifier = 2 [(validate.rules).string.min_len = 1];
+}
+
 // This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.
 // The validations expressed here represent the lowest common denominator of the use cases.
 message ProgramConfig {
@@ -104,6 +110,7 @@ message ProgramConfig {
         }
     ];
     string image = 2;
+    string image_tag = 14;
     ImageRegistryInfo image_registry_info = 9;  // optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)
     repeated string cmd = 3;
     repeated string entrypoint = 4;
@@ -133,7 +140,7 @@ message ProgramConfig {
     bool template_complete = 10;
     prodvana.repo.Commit commit = 11;
 
-    // next tag: 12
+    // next tag: 15
 }
 
 message PerReleaseChannelProgramConfig {
@@ -159,4 +166,6 @@ message PerReleaseChannelProgramConfig {
     string image = 3;
 
     prodvana.common_config.ImageRegistryInfo image_registry_info = 4;  // optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)
+
+    string image_tag = 5;
 }

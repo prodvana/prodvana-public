@@ -448,7 +448,7 @@
         },
         "prodvana.common_config.DockerImageParameterDefinition": {
             "properties": {
-                "defaultValue": {
+                "defaultTag": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -988,16 +988,6 @@
                         }
                     ]
                 },
-                "dockerImage": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
                 "int": {
                     "oneOf": [
                         {
@@ -1005,6 +995,16 @@
                         },
                         {
                             "type": "null"
+                        }
+                    ]
+                },
+                "dockerImageTag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
                         }
                     ]
                 }
@@ -1074,6 +1074,16 @@
                         {}
                     ],
                     "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+                },
+                "imageTag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -1207,6 +1217,16 @@
                     ]
                 },
                 "image": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "imageTag": {
                     "oneOf": [
                         {
                             "type": "null"

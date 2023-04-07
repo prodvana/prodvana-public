@@ -5342,7 +5342,7 @@
     "common_configDockerImageParameterDefinition": {
       "type": "object",
       "properties": {
-        "defaultValue": {
+        "defaultTag": {
           "type": "string",
           "title": "empty not a valid value"
         },
@@ -5532,12 +5532,12 @@
         "string": {
           "type": "string"
         },
-        "dockerImage": {
-          "type": "string"
-        },
         "int": {
           "type": "string",
           "format": "int64"
+        },
+        "dockerImageTag": {
+          "type": "string"
         }
       }
     },
@@ -5561,6 +5561,9 @@
         "imageRegistryInfo": {
           "$ref": "#/definitions/common_configImageRegistryInfo",
           "title": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+        },
+        "imageTag": {
+          "type": "string"
         }
       }
     },
@@ -5604,6 +5607,9 @@
           "type": "string"
         },
         "image": {
+          "type": "string"
+        },
+        "imageTag": {
           "type": "string"
         },
         "imageRegistryInfo": {
