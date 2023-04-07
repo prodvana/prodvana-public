@@ -54,6 +54,10 @@ message DesiredStateSummary {
     map<string, StatusExplanations> status_explanations = 9;
     map<string, DebugLogs> debug_logs = 10;
     map<string, prodvana.desired_state.model.ActionExplanation> action_explanations = 11;
+    // last_update_timestamp, last_fetched_timestamp, and last_applied_timestamp are only returned for the latest desired state
+    map<string, google.protobuf.Timestamp> last_update_timestamps = 12;
+    map<string, google.protobuf.Timestamp> last_fetched_timestamps = 13;
+    map<string, google.protobuf.Timestamp> last_applied_timestamps = 14;
 }
 
 message GetDesiredStateConvergenceReq {

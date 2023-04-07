@@ -5851,6 +5851,28 @@
           "additionalProperties": {
             "$ref": "#/definitions/modelActionExplanation"
           }
+        },
+        "lastUpdateTimestamps": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": "last_update_timestamp, last_fetched_timestamp, and last_applied_timestamp are only returned for the latest desired state"
+        },
+        "lastFetchedTimestamps": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "lastAppliedTimestamps": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       }
     },

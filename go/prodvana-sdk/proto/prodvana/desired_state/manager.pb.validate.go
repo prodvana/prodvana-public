@@ -1240,6 +1240,144 @@ func (m *DesiredStateSummary) validate(all bool) error {
 		}
 	}
 
+	{
+		sorted_keys := make([]string, len(m.GetLastUpdateTimestamps()))
+		i := 0
+		for key := range m.GetLastUpdateTimestamps() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetLastUpdateTimestamps()[key]
+			_ = val
+
+			// no validation rules for LastUpdateTimestamps[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastUpdateTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastUpdateTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return DesiredStateSummaryValidationError{
+						field:  fmt.Sprintf("LastUpdateTimestamps[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
+	{
+		sorted_keys := make([]string, len(m.GetLastFetchedTimestamps()))
+		i := 0
+		for key := range m.GetLastFetchedTimestamps() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetLastFetchedTimestamps()[key]
+			_ = val
+
+			// no validation rules for LastFetchedTimestamps[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastFetchedTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastFetchedTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return DesiredStateSummaryValidationError{
+						field:  fmt.Sprintf("LastFetchedTimestamps[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
+	{
+		sorted_keys := make([]string, len(m.GetLastAppliedTimestamps()))
+		i := 0
+		for key := range m.GetLastAppliedTimestamps() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetLastAppliedTimestamps()[key]
+			_ = val
+
+			// no validation rules for LastAppliedTimestamps[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastAppliedTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, DesiredStateSummaryValidationError{
+							field:  fmt.Sprintf("LastAppliedTimestamps[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return DesiredStateSummaryValidationError{
+						field:  fmt.Sprintf("LastAppliedTimestamps[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
 	if len(errors) > 0 {
 		return DesiredStateSummaryMultiError(errors)
 	}
