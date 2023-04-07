@@ -4252,6 +4252,17 @@
         }
       }
     },
+    "ClusterAuthK8sAuth": {
+      "type": "object",
+      "properties": {
+        "agentEnv": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "ClusterConfigALBIngress": {
       "type": "object",
       "properties": {
@@ -6193,6 +6204,9 @@
         },
         "genericDocker": {
           "$ref": "#/definitions/ClusterAuthGenericDockerAuth"
+        },
+        "k8s": {
+          "$ref": "#/definitions/ClusterAuthK8sAuth"
         },
         "k8sAgentAuth": {
           "type": "boolean"

@@ -150,6 +150,47 @@ func (m *ClusterAuth) validate(all bool) error {
 			}
 		}
 
+	case *ClusterAuth_K8S:
+		if v == nil {
+			err := ClusterAuthValidationError{
+				field:  "AuthOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetK8S()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterAuthValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterAuthValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetK8S()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterAuthValidationError{
+					field:  "K8S",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -1436,6 +1477,110 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ClusterAuth_GenericDockerAuthValidationError{}
+
+// Validate checks the field values on ClusterAuth_K8SAuth with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ClusterAuth_K8SAuth) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ClusterAuth_K8SAuth with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ClusterAuth_K8SAuthMultiError, or nil if none found.
+func (m *ClusterAuth_K8SAuth) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ClusterAuth_K8SAuth) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AgentEnv
+
+	if len(errors) > 0 {
+		return ClusterAuth_K8SAuthMultiError(errors)
+	}
+
+	return nil
+}
+
+// ClusterAuth_K8SAuthMultiError is an error wrapping multiple validation
+// errors returned by ClusterAuth_K8SAuth.ValidateAll() if the designated
+// constraints aren't met.
+type ClusterAuth_K8SAuthMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ClusterAuth_K8SAuthMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ClusterAuth_K8SAuthMultiError) AllErrors() []error { return m }
+
+// ClusterAuth_K8SAuthValidationError is the validation error returned by
+// ClusterAuth_K8SAuth.Validate if the designated constraints aren't met.
+type ClusterAuth_K8SAuthValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ClusterAuth_K8SAuthValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ClusterAuth_K8SAuthValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ClusterAuth_K8SAuthValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ClusterAuth_K8SAuthValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ClusterAuth_K8SAuthValidationError) ErrorName() string {
+	return "ClusterAuth_K8SAuthValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ClusterAuth_K8SAuthValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sClusterAuth_K8SAuth.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ClusterAuth_K8SAuthValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ClusterAuth_K8SAuthValidationError{}
 
 // Validate checks the field values on
 // FakeClusterConfig_CrashingProgramPatterns with the rules defined in the

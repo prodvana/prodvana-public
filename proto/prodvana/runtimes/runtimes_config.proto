@@ -7,6 +7,8 @@ message K8SRuntimeInitializationConfig {
     string auth_token = 3;
     bool use_resource_default = 4;
     string interaction_server_address = 5;
+    map<string, string> env_vars = 6; // Env vars, mainly used to pass in proxy information. This is generally supplied by customers.
+
     reserved 2;
     reserved "apiserver_address";
 }

@@ -22,14 +22,18 @@ message ClusterAuth {
     message GenericDockerAuth {
         string proxy_runtime = 1;
     }
+    message K8sAuth {
+        map<string, string> agent_env = 1;
+    }
 
     oneof auth_oneof {
         ECSAuth ecs = 5;
         GenericDockerAuth generic_docker = 7;
+        K8sAuth k8s = 8;
     }
     bool k8s_agent_auth = 6;
 
-    // next tag: 8
+    // next tag: 9
 }
 
 enum ClusterType {

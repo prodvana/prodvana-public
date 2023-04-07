@@ -65,6 +65,8 @@ func (m *K8SRuntimeInitializationConfig) validate(all bool) error {
 
 	// no validation rules for InteractionServerAddress
 
+	// no validation rules for EnvVars
+
 	if len(errors) > 0 {
 		return K8SRuntimeInitializationConfigMultiError(errors)
 	}
