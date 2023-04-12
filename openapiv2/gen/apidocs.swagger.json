@@ -7418,6 +7418,10 @@
         "active": {
           "type": "boolean",
           "description": "A version is active if it is the version in which the underlying object is converging to.\nA runtime object will have exactly one active version, while a service instance may have one or more\ndepending on if it maps to more than one runtime object."
+        },
+        "targetReplicas": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

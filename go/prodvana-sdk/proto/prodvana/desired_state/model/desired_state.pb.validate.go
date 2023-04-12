@@ -895,6 +895,8 @@ func (m *Version) validate(all bool) error {
 
 	// no validation rules for Active
 
+	// no validation rules for TargetReplicas
+
 	if len(errors) > 0 {
 		return VersionMultiError(errors)
 	}

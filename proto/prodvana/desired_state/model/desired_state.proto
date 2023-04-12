@@ -147,6 +147,7 @@ message Version {
     // A runtime object will have exactly one active version, while a service instance may have one or more
     // depending on if it maps to more than one runtime object.
     bool active = 5;
+    int32 target_replicas = 6;
 }
 
 message ServiceInstanceState {
