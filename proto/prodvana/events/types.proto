@@ -22,6 +22,7 @@ enum EventType {
     DELIVERY_PROGRESS = 9;
     DELIVERY_MANUAL_PROMOTION = 10;
     DESIRED_STATE_STATUS_CHANGE = 11;
+    KEY_DELIVERY_DECISION = 12;
 
     reserved 5;
 }
@@ -71,8 +72,9 @@ message ApplyTargetStateEvent {
     // whether this is part of an automated rollback action
     bool is_auto_rollback = 4;
     ApplyResult result = 5;
+    string error = 8; // set if result = FAILED
 
-    // next tag: 8
+    // next tag: 9
 }
 
 message ProgramExitEvent {
@@ -143,6 +145,29 @@ message DesiredStateStatusChangeEvent {
     string root_desired_state_id = 3;
     prodvana.desired_state.model.Status old_status = 4;
     prodvana.desired_state.model.Status new_status = 5;
+    prodvana.desired_state.model.State desired = 6;
+    prodvana.desired_state.model.State target = 7;
+    prodvana.desired_state.model.State old_state = 8;
+    prodvana.desired_state.model.State new_state = 9;
+    repeated prodvana.desired_state.model.StatusExplanation status_explanations = 10;
+}
+
+message KeyDeliveryDecisionEvent {
+    enum Decision {
+        UNKNOWN = 0;
+        ROLLBACK_INITIATED = 1;
+        FAILED = 2;
+    }
+    prodvana.desired_state.model.Identifier id = 1;
+    string desired_state_id = 2;
+    string root_desired_state_id = 3;
+    Decision decision = 4;
+    string explanation = 5; // optional, may not always be set. when not set, the context should be obvious from status_explanations
+    prodvana.desired_state.model.Status status = 6;
+    prodvana.desired_state.model.State desired = 7;
+    prodvana.desired_state.model.State target = 8;
+    prodvana.desired_state.model.State current = 9;
+    repeated prodvana.desired_state.model.StatusExplanation status_explanations = 10;
 }
 
 message EventDetails {
@@ -157,6 +182,7 @@ message EventDetails {
         DeliveryProgressEvent delivery_progress = 9;
         DeliveryManualPromotionEvent delivery_promotion = 10;
         DesiredStateStatusChangeEvent desired_state_status_change = 11;
+        KeyDeliveryDecisionEvent key_delivery_decision = 12;
     }
     reserved 5;
 }

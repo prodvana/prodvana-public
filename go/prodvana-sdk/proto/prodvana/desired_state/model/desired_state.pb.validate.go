@@ -2778,6 +2778,129 @@ func (m *State) validate(all bool) error {
 			}
 		}
 
+	case *State_RuntimeObject:
+		if v == nil {
+			err := StateValidationError{
+				field:  "StateOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntimeObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "RuntimeObject",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "RuntimeObject",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntimeObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StateValidationError{
+					field:  "RuntimeObject",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *State_ManualApproval:
+		if v == nil {
+			err := StateValidationError{
+				field:  "StateOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetManualApproval()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "ManualApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "ManualApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetManualApproval()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StateValidationError{
+					field:  "ManualApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *State_CustomTask:
+		if v == nil {
+			err := StateValidationError{
+				field:  "StateOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetCustomTask()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "CustomTask",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "CustomTask",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCustomTask()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StateValidationError{
+					field:  "CustomTask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}

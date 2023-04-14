@@ -582,6 +582,8 @@ func (m *ApplyTargetStateEvent) validate(all bool) error {
 
 	// no validation rules for Result
 
+	// no validation rules for Error
+
 	if len(errors) > 0 {
 		return ApplyTargetStateEventMultiError(errors)
 	}
@@ -1561,6 +1563,156 @@ func (m *DesiredStateStatusChangeEvent) validate(all bool) error {
 
 	// no validation rules for NewStatus
 
+	if all {
+		switch v := interface{}(m.GetDesired()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDesired()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateStatusChangeEventValidationError{
+				field:  "Desired",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetTarget()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "Target",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "Target",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTarget()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateStatusChangeEventValidationError{
+				field:  "Target",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetOldState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "OldState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "OldState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOldState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateStatusChangeEventValidationError{
+				field:  "OldState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetNewState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "NewState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateStatusChangeEventValidationError{
+					field:  "NewState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNewState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateStatusChangeEventValidationError{
+				field:  "NewState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetStatusExplanations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DesiredStateStatusChangeEventValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DesiredStateStatusChangeEventValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DesiredStateStatusChangeEventValidationError{
+					field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return DesiredStateStatusChangeEventMultiError(errors)
 	}
@@ -1641,6 +1793,268 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DesiredStateStatusChangeEventValidationError{}
+
+// Validate checks the field values on KeyDeliveryDecisionEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *KeyDeliveryDecisionEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on KeyDeliveryDecisionEvent with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// KeyDeliveryDecisionEventMultiError, or nil if none found.
+func (m *KeyDeliveryDecisionEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *KeyDeliveryDecisionEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecisionEventValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for DesiredStateId
+
+	// no validation rules for RootDesiredStateId
+
+	// no validation rules for Decision
+
+	// no validation rules for Explanation
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetDesired()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDesired()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecisionEventValidationError{
+				field:  "Desired",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetTarget()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Target",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Target",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTarget()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecisionEventValidationError{
+				field:  "Target",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCurrent()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionEventValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCurrent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecisionEventValidationError{
+				field:  "Current",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetStatusExplanations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionEventValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionEventValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return KeyDeliveryDecisionEventValidationError{
+					field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return KeyDeliveryDecisionEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// KeyDeliveryDecisionEventMultiError is an error wrapping multiple validation
+// errors returned by KeyDeliveryDecisionEvent.ValidateAll() if the designated
+// constraints aren't met.
+type KeyDeliveryDecisionEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m KeyDeliveryDecisionEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m KeyDeliveryDecisionEventMultiError) AllErrors() []error { return m }
+
+// KeyDeliveryDecisionEventValidationError is the validation error returned by
+// KeyDeliveryDecisionEvent.Validate if the designated constraints aren't met.
+type KeyDeliveryDecisionEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e KeyDeliveryDecisionEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e KeyDeliveryDecisionEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e KeyDeliveryDecisionEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e KeyDeliveryDecisionEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e KeyDeliveryDecisionEventValidationError) ErrorName() string {
+	return "KeyDeliveryDecisionEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e KeyDeliveryDecisionEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sKeyDeliveryDecisionEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = KeyDeliveryDecisionEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = KeyDeliveryDecisionEventValidationError{}
 
 // Validate checks the field values on EventDetails with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2069,6 +2483,47 @@ func (m *EventDetails) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return EventDetailsValidationError{
 					field:  "DesiredStateStatusChange",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_KeyDeliveryDecision:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetKeyDeliveryDecision()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "KeyDeliveryDecision",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "KeyDeliveryDecision",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKeyDeliveryDecision()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "KeyDeliveryDecision",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -118,7 +118,10 @@ enum StatusReason {
 message StatusExplanation {
     Identifier subject = 1;  // the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself.
     StatusReason reason = 2;
-    string message = 3; // Optional freeform message to be shown to the user alongside reason.
+    // Optional freeform message to be shown to the user alongside reason.
+    // only one of the two will be set
+    string message = 3;
+    repeated string messages = 4;
 }
 
 enum ActionType {
@@ -142,12 +145,15 @@ message Version {
     string service_version = 1;
     int32 replicas = 2;
     bool unhealthy = 3;
+    repeated string unhealthy_reasons = 7; // if unhealthy is true, this will contain at least one message
     google.protobuf.Timestamp push_timestamp = 4;
     // A version is active if it is the version in which the underlying object is converging to.
     // A runtime object will have exactly one active version, while a service instance may have one or more
     // depending on if it maps to more than one runtime object.
     bool active = 5;
     int32 target_replicas = 6;
+
+    // next tag: 8
 }
 
 message ServiceInstanceState {
@@ -293,6 +299,9 @@ message State {
         ServiceState service = 1;
         ServiceInstanceState service_instance = 2;
         ServiceGroupState service_group = 3;
+        RuntimeObject runtime_object = 4;
+        ManualApprovalState manual_approval = 5;
+        CustomTaskState custom_task = 6;
     }
 }
 

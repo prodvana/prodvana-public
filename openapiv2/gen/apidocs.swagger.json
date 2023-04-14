@@ -4667,6 +4667,15 @@
         }
       }
     },
+    "KeyDeliveryDecisionEventDecision": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ROLLBACK_INITIATED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
     "ListClustersRespClusterInfo": {
       "type": "object",
       "properties": {
@@ -6078,6 +6087,52 @@
         }
       }
     },
+    "desired_statemodelRuntimeObject": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/desired_statemodelMetadata"
+        },
+        "objectType": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/modelRuntimeObjectStatus"
+        },
+        "rollbackVersion": {
+          "$ref": "#/definitions/modelVersion"
+        },
+        "delivery": {
+          "$ref": "#/definitions/modelDeliveryState"
+        },
+        "versionAgnostic": {
+          "type": "boolean",
+          "title": "This object just needs to exist - it doesn't change from version to version"
+        },
+        "stateHash": {
+          "type": "string",
+          "format": "byte",
+          "title": "Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human readable message (typically for errors)."
+        }
+      }
+    },
     "desired_statemodelServiceInstanceState": {
       "type": "object",
       "properties": {
@@ -6501,6 +6556,10 @@
         },
         "result": {
           "$ref": "#/definitions/ApplyTargetStateEventApplyResult"
+        },
+        "error": {
+          "type": "string",
+          "title": "set if result = FAILED"
         }
       }
     },
@@ -6560,6 +6619,25 @@
         },
         "newStatus": {
           "$ref": "#/definitions/desired_statemodelStatus"
+        },
+        "desired": {
+          "$ref": "#/definitions/modelState"
+        },
+        "target": {
+          "$ref": "#/definitions/modelState"
+        },
+        "oldState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "newState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
         }
       }
     },
@@ -6619,6 +6697,9 @@
         },
         "desiredStateStatusChange": {
           "$ref": "#/definitions/eventsDesiredStateStatusChangeEvent"
+        },
+        "keyDeliveryDecision": {
+          "$ref": "#/definitions/eventsKeyDeliveryDecisionEvent"
         }
       }
     },
@@ -6635,7 +6716,8 @@
         "RUNTIME_UPDATE",
         "DELIVERY_PROGRESS",
         "DELIVERY_MANUAL_PROMOTION",
-        "DESIRED_STATE_STATUS_CHANGE"
+        "DESIRED_STATE_STATUS_CHANGE",
+        "KEY_DELIVERY_DECISION"
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available."
@@ -6681,6 +6763,46 @@
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "eventsKeyDeliveryDecisionEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "rootDesiredStateId": {
+          "type": "string"
+        },
+        "decision": {
+          "$ref": "#/definitions/KeyDeliveryDecisionEventDecision"
+        },
+        "explanation": {
+          "type": "string",
+          "title": "optional, may not always be set. when not set, the context should be obvious from status_explanations"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        },
+        "desired": {
+          "$ref": "#/definitions/modelState"
+        },
+        "target": {
+          "$ref": "#/definitions/modelState"
+        },
+        "current": {
+          "$ref": "#/definitions/modelState"
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
         }
       }
     },
@@ -7319,12 +7441,35 @@
         }
       }
     },
+    "modelManualApprovalState": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/desired_statemodelMetadata"
+        },
+        "status": {
+          "$ref": "#/definitions/modelManualApprovalStatus"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
     "modelManualApprovalStatus": {
       "type": "string",
       "enum": [
         "PENDING",
         "APPROVED",
         "REJECTED"
+      ],
+      "default": "PENDING"
+    },
+    "modelRuntimeObjectStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
       ],
       "default": "PENDING"
     },
@@ -7362,6 +7507,15 @@
         },
         "serviceGroup": {
           "$ref": "#/definitions/modelServiceGroupState"
+        },
+        "runtimeObject": {
+          "$ref": "#/definitions/desired_statemodelRuntimeObject"
+        },
+        "manualApproval": {
+          "$ref": "#/definitions/modelManualApprovalState"
+        },
+        "customTask": {
+          "$ref": "#/definitions/modelCustomTaskState"
         }
       }
     },
@@ -7377,7 +7531,13 @@
         },
         "message": {
           "type": "string",
-          "description": "Optional freeform message to be shown to the user alongside reason."
+          "title": "Optional freeform message to be shown to the user alongside reason.\nonly one of the two will be set"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -7410,6 +7570,13 @@
         },
         "unhealthy": {
           "type": "boolean"
+        },
+        "unhealthyReasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "if unhealthy is true, this will contain at least one message"
         },
         "pushTimestamp": {
           "type": "string",
