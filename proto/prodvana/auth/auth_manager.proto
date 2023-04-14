@@ -1,6 +1,7 @@
 syntax = "proto3";
 package prodvana.auth;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/auth";
+import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 import "prodvana/auth/auth.proto";
 import "prodvana/users/users.proto";
@@ -92,9 +93,27 @@ service AuthSessionManager {
         };
     };
 }
+message CreateOrgApiTokenReq {
+    string name = 1;
+    string description = 2;
+    google.protobuf.Timestamp expires_timestamp = 3;
+}
 
 message CreateOrgApiTokenResp {
     string api_token = 1;
+	ApiTokenInfo info = 2;
+}
+
+message DeleteOrgApiTokenReq {
+    string name = 1;
+}
+
+message DeleteOrgApiTokenResp { }
+
+message ListOrgApiTokensReq { }
+
+message ListOrgApiTokensResp {
+    repeated ApiTokenInfo tokens = 1;
 }
 
 service ApiTokenManager {
@@ -105,6 +124,24 @@ service ApiTokenManager {
         option (google.api.http) = {
             post: "/v1/auth/api/create_org_token"
             body: "*"
+        };
+    }
+    rpc CreateOrgApiToken2(CreateOrgApiTokenReq) returns (CreateOrgApiTokenResp) {
+        option (google.api.http) = {
+            post: "/v1/auth/api/org_tokens/create"
+            body: "*"
+        };
+    }
+
+    rpc DeleteOrgApiToken(DeleteOrgApiTokenReq) returns (DeleteOrgApiTokenResp) {
+        option (google.api.http) = {
+            delete: "/v1/auth/api/org_tokens/{name=*}"
+        };
+    }
+
+    rpc ListOrgApiTokens(ListOrgApiTokensReq) returns (ListOrgApiTokensResp) {
+        option (google.api.http) = {
+            get: "/v1/auth/api/org_tokens"
         };
     }
 }

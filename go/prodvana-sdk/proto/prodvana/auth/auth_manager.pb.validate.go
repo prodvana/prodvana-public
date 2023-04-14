@@ -1031,6 +1031,141 @@ var _ interface {
 	ErrorName() string
 } = EmptyValidationError{}
 
+// Validate checks the field values on CreateOrgApiTokenReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateOrgApiTokenReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateOrgApiTokenReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateOrgApiTokenReqMultiError, or nil if none found.
+func (m *CreateOrgApiTokenReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateOrgApiTokenReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetExpiresTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOrgApiTokenReqValidationError{
+					field:  "ExpiresTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOrgApiTokenReqValidationError{
+					field:  "ExpiresTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetExpiresTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOrgApiTokenReqValidationError{
+				field:  "ExpiresTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateOrgApiTokenReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateOrgApiTokenReqMultiError is an error wrapping multiple validation
+// errors returned by CreateOrgApiTokenReq.ValidateAll() if the designated
+// constraints aren't met.
+type CreateOrgApiTokenReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateOrgApiTokenReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateOrgApiTokenReqMultiError) AllErrors() []error { return m }
+
+// CreateOrgApiTokenReqValidationError is the validation error returned by
+// CreateOrgApiTokenReq.Validate if the designated constraints aren't met.
+type CreateOrgApiTokenReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateOrgApiTokenReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateOrgApiTokenReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateOrgApiTokenReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateOrgApiTokenReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateOrgApiTokenReqValidationError) ErrorName() string {
+	return "CreateOrgApiTokenReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateOrgApiTokenReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateOrgApiTokenReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateOrgApiTokenReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateOrgApiTokenReqValidationError{}
+
 // Validate checks the field values on CreateOrgApiTokenResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1054,6 +1189,35 @@ func (m *CreateOrgApiTokenResp) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for ApiToken
+
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOrgApiTokenRespValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOrgApiTokenRespValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOrgApiTokenRespValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return CreateOrgApiTokenRespMultiError(errors)
@@ -1134,6 +1298,450 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateOrgApiTokenRespValidationError{}
+
+// Validate checks the field values on DeleteOrgApiTokenReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOrgApiTokenReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOrgApiTokenReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOrgApiTokenReqMultiError, or nil if none found.
+func (m *DeleteOrgApiTokenReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOrgApiTokenReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	if len(errors) > 0 {
+		return DeleteOrgApiTokenReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOrgApiTokenReqMultiError is an error wrapping multiple validation
+// errors returned by DeleteOrgApiTokenReq.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteOrgApiTokenReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOrgApiTokenReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOrgApiTokenReqMultiError) AllErrors() []error { return m }
+
+// DeleteOrgApiTokenReqValidationError is the validation error returned by
+// DeleteOrgApiTokenReq.Validate if the designated constraints aren't met.
+type DeleteOrgApiTokenReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOrgApiTokenReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOrgApiTokenReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOrgApiTokenReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOrgApiTokenReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOrgApiTokenReqValidationError) ErrorName() string {
+	return "DeleteOrgApiTokenReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOrgApiTokenReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOrgApiTokenReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOrgApiTokenReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOrgApiTokenReqValidationError{}
+
+// Validate checks the field values on DeleteOrgApiTokenResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOrgApiTokenResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOrgApiTokenResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOrgApiTokenRespMultiError, or nil if none found.
+func (m *DeleteOrgApiTokenResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOrgApiTokenResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteOrgApiTokenRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOrgApiTokenRespMultiError is an error wrapping multiple validation
+// errors returned by DeleteOrgApiTokenResp.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteOrgApiTokenRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOrgApiTokenRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOrgApiTokenRespMultiError) AllErrors() []error { return m }
+
+// DeleteOrgApiTokenRespValidationError is the validation error returned by
+// DeleteOrgApiTokenResp.Validate if the designated constraints aren't met.
+type DeleteOrgApiTokenRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOrgApiTokenRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOrgApiTokenRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOrgApiTokenRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOrgApiTokenRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOrgApiTokenRespValidationError) ErrorName() string {
+	return "DeleteOrgApiTokenRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOrgApiTokenRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOrgApiTokenResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOrgApiTokenRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOrgApiTokenRespValidationError{}
+
+// Validate checks the field values on ListOrgApiTokensReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOrgApiTokensReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOrgApiTokensReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOrgApiTokensReqMultiError, or nil if none found.
+func (m *ListOrgApiTokensReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOrgApiTokensReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ListOrgApiTokensReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOrgApiTokensReqMultiError is an error wrapping multiple validation
+// errors returned by ListOrgApiTokensReq.ValidateAll() if the designated
+// constraints aren't met.
+type ListOrgApiTokensReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOrgApiTokensReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOrgApiTokensReqMultiError) AllErrors() []error { return m }
+
+// ListOrgApiTokensReqValidationError is the validation error returned by
+// ListOrgApiTokensReq.Validate if the designated constraints aren't met.
+type ListOrgApiTokensReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOrgApiTokensReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOrgApiTokensReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOrgApiTokensReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOrgApiTokensReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOrgApiTokensReqValidationError) ErrorName() string {
+	return "ListOrgApiTokensReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOrgApiTokensReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOrgApiTokensReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOrgApiTokensReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOrgApiTokensReqValidationError{}
+
+// Validate checks the field values on ListOrgApiTokensResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOrgApiTokensResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOrgApiTokensResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOrgApiTokensRespMultiError, or nil if none found.
+func (m *ListOrgApiTokensResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOrgApiTokensResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTokens() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListOrgApiTokensRespValidationError{
+						field:  fmt.Sprintf("Tokens[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListOrgApiTokensRespValidationError{
+						field:  fmt.Sprintf("Tokens[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListOrgApiTokensRespValidationError{
+					field:  fmt.Sprintf("Tokens[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListOrgApiTokensRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOrgApiTokensRespMultiError is an error wrapping multiple validation
+// errors returned by ListOrgApiTokensResp.ValidateAll() if the designated
+// constraints aren't met.
+type ListOrgApiTokensRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOrgApiTokensRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOrgApiTokensRespMultiError) AllErrors() []error { return m }
+
+// ListOrgApiTokensRespValidationError is the validation error returned by
+// ListOrgApiTokensResp.Validate if the designated constraints aren't met.
+type ListOrgApiTokensRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOrgApiTokensRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOrgApiTokensRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOrgApiTokensRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOrgApiTokensRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOrgApiTokensRespValidationError) ErrorName() string {
+	return "ListOrgApiTokensRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOrgApiTokensRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOrgApiTokensResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOrgApiTokensRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOrgApiTokensRespValidationError{}
 
 // Validate checks the field values on CliAuthResp_UserPrompt with the rules
 // defined in the proto definition for this message. If any rules are

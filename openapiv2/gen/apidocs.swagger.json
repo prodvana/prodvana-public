@@ -1212,6 +1212,91 @@
         ]
       }
     },
+    "/v1/auth/api/org_tokens": {
+      "get": {
+        "operationId": "ApiTokenManager_ListOrgApiTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authListOrgApiTokensResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.auth.ApiTokenManager"
+        ]
+      }
+    },
+    "/v1/auth/api/org_tokens/create": {
+      "post": {
+        "operationId": "ApiTokenManager_CreateOrgApiToken2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authCreateOrgApiTokenResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authCreateOrgApiTokenReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.auth.ApiTokenManager"
+        ]
+      }
+    },
+    "/v1/auth/api/org_tokens/{name}": {
+      "delete": {
+        "operationId": "ApiTokenManager_DeleteOrgApiToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authDeleteOrgApiTokenResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.auth.ApiTokenManager"
+        ]
+      }
+    },
     "/v1/auth/get_auth_url": {
       "get": {
         "operationId": "AuthManager_GetAuthUrl",
@@ -5202,6 +5287,25 @@
         }
       }
     },
+    "authApiTokenInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expiresTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "authAuthToken": {
       "type": "object",
       "properties": {
@@ -5221,13 +5325,34 @@
         }
       }
     },
+    "authCreateOrgApiTokenReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expiresTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "authCreateOrgApiTokenResp": {
       "type": "object",
       "properties": {
         "apiToken": {
           "type": "string"
+        },
+        "info": {
+          "$ref": "#/definitions/authApiTokenInfo"
         }
       }
+    },
+    "authDeleteOrgApiTokenResp": {
+      "type": "object"
     },
     "authEmpty": {
       "type": "object"
@@ -5248,6 +5373,18 @@
       "properties": {
         "authUrl": {
           "type": "string"
+        }
+      }
+    },
+    "authListOrgApiTokensResp": {
+      "type": "object",
+      "properties": {
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/authApiTokenInfo"
+          }
         }
       }
     },

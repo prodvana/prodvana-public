@@ -136,6 +136,167 @@ var _ interface {
 	ErrorName() string
 } = AuthTokenValidationError{}
 
+// Validate checks the field values on ApiTokenInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApiTokenInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApiTokenInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ApiTokenInfoMultiError, or
+// nil if none found.
+func (m *ApiTokenInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApiTokenInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetExpiresTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApiTokenInfoValidationError{
+					field:  "ExpiresTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApiTokenInfoValidationError{
+					field:  "ExpiresTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetExpiresTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApiTokenInfoValidationError{
+				field:  "ExpiresTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApiTokenInfoValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApiTokenInfoValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApiTokenInfoValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ApiTokenInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApiTokenInfoMultiError is an error wrapping multiple validation errors
+// returned by ApiTokenInfo.ValidateAll() if the designated constraints aren't met.
+type ApiTokenInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApiTokenInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApiTokenInfoMultiError) AllErrors() []error { return m }
+
+// ApiTokenInfoValidationError is the validation error returned by
+// ApiTokenInfo.Validate if the designated constraints aren't met.
+type ApiTokenInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApiTokenInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApiTokenInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApiTokenInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApiTokenInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApiTokenInfoValidationError) ErrorName() string { return "ApiTokenInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApiTokenInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApiTokenInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApiTokenInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApiTokenInfoValidationError{}
+
 // Validate checks the field values on AuthContext with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

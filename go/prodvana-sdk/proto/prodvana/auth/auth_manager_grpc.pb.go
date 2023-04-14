@@ -352,7 +352,10 @@ var AuthSessionManager_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	ApiTokenManager_CreateOrgApiToken_FullMethodName = "/prodvana.auth.ApiTokenManager/CreateOrgApiToken"
+	ApiTokenManager_CreateOrgApiToken_FullMethodName  = "/prodvana.auth.ApiTokenManager/CreateOrgApiToken"
+	ApiTokenManager_CreateOrgApiToken2_FullMethodName = "/prodvana.auth.ApiTokenManager/CreateOrgApiToken2"
+	ApiTokenManager_DeleteOrgApiToken_FullMethodName  = "/prodvana.auth.ApiTokenManager/DeleteOrgApiToken"
+	ApiTokenManager_ListOrgApiTokens_FullMethodName   = "/prodvana.auth.ApiTokenManager/ListOrgApiTokens"
 )
 
 // ApiTokenManagerClient is the client API for ApiTokenManager service.
@@ -363,6 +366,9 @@ type ApiTokenManagerClient interface {
 	// e.g. if the user is deleted, the token will continue to have access to the organization.
 	// This token currently does not expire, so be very careful with storing them.
 	CreateOrgApiToken(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CreateOrgApiTokenResp, error)
+	CreateOrgApiToken2(ctx context.Context, in *CreateOrgApiTokenReq, opts ...grpc.CallOption) (*CreateOrgApiTokenResp, error)
+	DeleteOrgApiToken(ctx context.Context, in *DeleteOrgApiTokenReq, opts ...grpc.CallOption) (*DeleteOrgApiTokenResp, error)
+	ListOrgApiTokens(ctx context.Context, in *ListOrgApiTokensReq, opts ...grpc.CallOption) (*ListOrgApiTokensResp, error)
 }
 
 type apiTokenManagerClient struct {
@@ -382,6 +388,33 @@ func (c *apiTokenManagerClient) CreateOrgApiToken(ctx context.Context, in *Empty
 	return out, nil
 }
 
+func (c *apiTokenManagerClient) CreateOrgApiToken2(ctx context.Context, in *CreateOrgApiTokenReq, opts ...grpc.CallOption) (*CreateOrgApiTokenResp, error) {
+	out := new(CreateOrgApiTokenResp)
+	err := c.cc.Invoke(ctx, ApiTokenManager_CreateOrgApiToken2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiTokenManagerClient) DeleteOrgApiToken(ctx context.Context, in *DeleteOrgApiTokenReq, opts ...grpc.CallOption) (*DeleteOrgApiTokenResp, error) {
+	out := new(DeleteOrgApiTokenResp)
+	err := c.cc.Invoke(ctx, ApiTokenManager_DeleteOrgApiToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiTokenManagerClient) ListOrgApiTokens(ctx context.Context, in *ListOrgApiTokensReq, opts ...grpc.CallOption) (*ListOrgApiTokensResp, error) {
+	out := new(ListOrgApiTokensResp)
+	err := c.cc.Invoke(ctx, ApiTokenManager_ListOrgApiTokens_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ApiTokenManagerServer is the server API for ApiTokenManager service.
 // All implementations must embed UnimplementedApiTokenManagerServer
 // for forward compatibility
@@ -390,6 +423,9 @@ type ApiTokenManagerServer interface {
 	// e.g. if the user is deleted, the token will continue to have access to the organization.
 	// This token currently does not expire, so be very careful with storing them.
 	CreateOrgApiToken(context.Context, *Empty) (*CreateOrgApiTokenResp, error)
+	CreateOrgApiToken2(context.Context, *CreateOrgApiTokenReq) (*CreateOrgApiTokenResp, error)
+	DeleteOrgApiToken(context.Context, *DeleteOrgApiTokenReq) (*DeleteOrgApiTokenResp, error)
+	ListOrgApiTokens(context.Context, *ListOrgApiTokensReq) (*ListOrgApiTokensResp, error)
 	mustEmbedUnimplementedApiTokenManagerServer()
 }
 
@@ -399,6 +435,15 @@ type UnimplementedApiTokenManagerServer struct {
 
 func (UnimplementedApiTokenManagerServer) CreateOrgApiToken(context.Context, *Empty) (*CreateOrgApiTokenResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrgApiToken not implemented")
+}
+func (UnimplementedApiTokenManagerServer) CreateOrgApiToken2(context.Context, *CreateOrgApiTokenReq) (*CreateOrgApiTokenResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrgApiToken2 not implemented")
+}
+func (UnimplementedApiTokenManagerServer) DeleteOrgApiToken(context.Context, *DeleteOrgApiTokenReq) (*DeleteOrgApiTokenResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrgApiToken not implemented")
+}
+func (UnimplementedApiTokenManagerServer) ListOrgApiTokens(context.Context, *ListOrgApiTokensReq) (*ListOrgApiTokensResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrgApiTokens not implemented")
 }
 func (UnimplementedApiTokenManagerServer) mustEmbedUnimplementedApiTokenManagerServer() {}
 
@@ -431,6 +476,60 @@ func _ApiTokenManager_CreateOrgApiToken_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ApiTokenManager_CreateOrgApiToken2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrgApiTokenReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiTokenManagerServer).CreateOrgApiToken2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiTokenManager_CreateOrgApiToken2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiTokenManagerServer).CreateOrgApiToken2(ctx, req.(*CreateOrgApiTokenReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiTokenManager_DeleteOrgApiToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOrgApiTokenReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiTokenManagerServer).DeleteOrgApiToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiTokenManager_DeleteOrgApiToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiTokenManagerServer).DeleteOrgApiToken(ctx, req.(*DeleteOrgApiTokenReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiTokenManager_ListOrgApiTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrgApiTokensReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiTokenManagerServer).ListOrgApiTokens(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiTokenManager_ListOrgApiTokens_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiTokenManagerServer).ListOrgApiTokens(ctx, req.(*ListOrgApiTokensReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ApiTokenManager_ServiceDesc is the grpc.ServiceDesc for ApiTokenManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -441,6 +540,18 @@ var ApiTokenManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateOrgApiToken",
 			Handler:    _ApiTokenManager_CreateOrgApiToken_Handler,
+		},
+		{
+			MethodName: "CreateOrgApiToken2",
+			Handler:    _ApiTokenManager_CreateOrgApiToken2_Handler,
+		},
+		{
+			MethodName: "DeleteOrgApiToken",
+			Handler:    _ApiTokenManager_DeleteOrgApiToken_Handler,
+		},
+		{
+			MethodName: "ListOrgApiTokens",
+			Handler:    _ApiTokenManager_ListOrgApiTokens_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
