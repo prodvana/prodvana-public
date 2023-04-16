@@ -143,7 +143,8 @@ message ActionExplanation {
 
 message Version {
     string service_version = 1;
-    int32 replicas = 2;
+    int32 replicas = 2; // Created/running replicas, can be in any state
+    int32 available_replicas = 8; // Replicas which have passed healthchecks for required duration.
     bool unhealthy = 3;
     repeated string unhealthy_reasons = 7; // if unhealthy is true, this will contain at least one message
     google.protobuf.Timestamp push_timestamp = 4;
@@ -153,7 +154,7 @@ message Version {
     bool active = 5;
     int32 target_replicas = 6;
 
-    // next tag: 8
+    // next tag: 9
 }
 
 message ServiceInstanceState {
@@ -214,7 +215,7 @@ message DeliveryState {
         STATUS_HEALTHY = 3;
         STATUS_UNHEALTHY = 4;
     }
-	string desired_state_id = 12;
+    string desired_state_id = 12;
     // overall delivery status
     Status status = 8;
     // human readable message from the delivery controller

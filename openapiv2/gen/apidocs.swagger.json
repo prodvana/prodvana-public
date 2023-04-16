@@ -7703,7 +7703,13 @@
         },
         "replicas": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "Created/running replicas, can be in any state"
+        },
+        "availableReplicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Replicas which have passed healthchecks for required duration."
         },
         "unhealthy": {
           "type": "boolean"

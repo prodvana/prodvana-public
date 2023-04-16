@@ -862,6 +862,8 @@ func (m *Version) validate(all bool) error {
 
 	// no validation rules for Replicas
 
+	// no validation rules for AvailableReplicas
+
 	// no validation rules for Unhealthy
 
 	if all {
