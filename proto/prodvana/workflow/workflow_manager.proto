@@ -18,6 +18,7 @@ enum RegistryStatus {
   UNDEFINED = 0;
   CONNECTED = 1;
   FAILED = 2; // Augment/replace with UNAUTHENTICATED, UNAVAILABLE, ... in the future
+  RS_PENDING = 3;
 }
 
 enum IndexStatus {

@@ -9803,7 +9803,8 @@
       "enum": [
         "UNDEFINED",
         "CONNECTED",
-        "FAILED"
+        "FAILED",
+        "RS_PENDING"
       ],
       "default": "UNDEFINED",
       "title": "- FAILED: Augment/replace with UNAUTHENTICATED, UNAVAILABLE, ... in the future"
