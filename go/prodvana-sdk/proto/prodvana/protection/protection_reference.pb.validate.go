@@ -35,6 +35,139 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on AttachedProtection with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AttachedProtection) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AttachedProtection with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AttachedProtectionMultiError, or nil if none found.
+func (m *AttachedProtection) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AttachedProtection) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	if all {
+		switch v := interface{}(m.GetAttachment()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AttachedProtectionValidationError{
+					field:  "Attachment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AttachedProtectionValidationError{
+					field:  "Attachment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAttachment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AttachedProtectionValidationError{
+				field:  "Attachment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AttachedProtectionMultiError(errors)
+	}
+
+	return nil
+}
+
+// AttachedProtectionMultiError is an error wrapping multiple validation errors
+// returned by AttachedProtection.ValidateAll() if the designated constraints
+// aren't met.
+type AttachedProtectionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AttachedProtectionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AttachedProtectionMultiError) AllErrors() []error { return m }
+
+// AttachedProtectionValidationError is the validation error returned by
+// AttachedProtection.Validate if the designated constraints aren't met.
+type AttachedProtectionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AttachedProtectionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AttachedProtectionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AttachedProtectionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AttachedProtectionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AttachedProtectionValidationError) ErrorName() string {
+	return "AttachedProtectionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AttachedProtectionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAttachedProtection.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AttachedProtectionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AttachedProtectionValidationError{}
+
 // Validate checks the field values on ProtectionReference with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -72,6 +205,48 @@ func (m *ProtectionReference) validate(all bool) error {
 		}
 		oneofRefPresent = true
 		// no validation rules for Name
+	case *ProtectionReference_Attached:
+		if v == nil {
+			err := ProtectionReferenceValidationError{
+				field:  "Ref",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofRefPresent = true
+
+		if all {
+			switch v := interface{}(m.GetAttached()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionReferenceValidationError{
+						field:  "Attached",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionReferenceValidationError{
+						field:  "Attached",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAttached()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionReferenceValidationError{
+					field:  "Attached",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}

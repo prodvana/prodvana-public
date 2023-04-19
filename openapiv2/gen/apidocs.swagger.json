@@ -4942,6 +4942,32 @@
         }
       }
     },
+    "ProtectionMustNotFail": {
+      "type": "object",
+      "properties": {
+        "delayCheckDuration": {
+          "type": "string",
+          "description": "How long after the lifecycle begins should we start checking status?\ne.g, delay health checks X minutes after push (if push is noisy)."
+        },
+        "checkDuration": {
+          "type": "string",
+          "title": "How long after starting should we check for?"
+        },
+        "softFail": {
+          "type": "boolean",
+          "description": "If underlying protection returns failure, treat it as pending instead of failed (keep trying again)."
+        }
+      }
+    },
+    "ProtectionMustSucceedOnce": {
+      "type": "object",
+      "properties": {
+        "deadline": {
+          "type": "string",
+          "description": "Deadline after starting when we declare this protection failed/timed out."
+        }
+      }
+    },
     "RuntimeSpecificConfigK8SConfig": {
       "type": "object",
       "properties": {
@@ -6250,6 +6276,30 @@
         },
         "rootDesiredStateId": {
           "type": "string"
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelProtection"
+          }
+        }
+      }
+    },
+    "desired_statemodelProtection": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/protectionProtectionReference"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/modelCustomTaskType"
+        },
+        "mustNotFail": {
+          "$ref": "#/definitions/ProtectionMustNotFail"
+        },
+        "mustSucceedOnce": {
+          "$ref": "#/definitions/ProtectionMustSucceedOnce"
         }
       }
     },
@@ -7536,10 +7586,12 @@
         "CUSTOM_TASK_TYPE_UNKNOWN",
         "PRE_APPROVAL_TASK",
         "APPROVAL",
-        "POST_APPROVAL_TASK"
+        "POST_APPROVAL_TASK",
+        "PUSH_TASK",
+        "POST_PUSH_TASK"
       ],
       "default": "CUSTOM_TASK_TYPE_UNKNOWN",
-      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push."
+      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - PUSH_TASK: Runs as long as service push is in progress.\n - POST_PUSH_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
     },
     "modelDebugLog": {
       "type": "object",
@@ -8190,6 +8242,17 @@
         }
       }
     },
+    "protectionAttachedProtection": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "attachment": {
+          "$ref": "#/definitions/protectionProtectionAttachment"
+        }
+      }
+    },
     "protectionConfigureProtectionReq": {
       "type": "object",
       "properties": {
@@ -8249,6 +8312,14 @@
         }
       }
     },
+    "protectionProtectionAttachment": {
+      "type": "object",
+      "properties": {
+        "serviceInstance": {
+          "$ref": "#/definitions/protectionServiceInstanceAttachment"
+        }
+      }
+    },
     "protectionProtectionConfig": {
       "type": "object",
       "properties": {
@@ -8266,6 +8337,10 @@
       "properties": {
         "config": {
           "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "attachment": {
+          "$ref": "#/definitions/protectionProtectionAttachment",
+          "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
         }
       }
     },
@@ -8275,6 +8350,21 @@
         "name": {
           "type": "string",
           "title": "Use latest config for this protection"
+        },
+        "attached": {
+          "$ref": "#/definitions/protectionAttachedProtection"
+        }
+      }
+    },
+    "protectionServiceInstanceAttachment": {
+      "type": "object",
+      "properties": {
+        "serviceId": {
+          "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string",
+          "title": "version?"
         }
       }
     },

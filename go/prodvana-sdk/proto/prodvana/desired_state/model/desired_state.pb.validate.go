@@ -35,6 +35,236 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on Protection with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Protection) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Protection with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ProtectionMultiError, or
+// nil if none found.
+func (m *Protection) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Protection) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRef()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionValidationError{
+					field:  "Ref",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionValidationError{
+					field:  "Ref",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionValidationError{
+				field:  "Ref",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Lifecycle
+
+	oneofStrategyPresent := false
+	switch v := m.Strategy.(type) {
+	case *Protection_MustNotFail_:
+		if v == nil {
+			err := ProtectionValidationError{
+				field:  "Strategy",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofStrategyPresent = true
+
+		if all {
+			switch v := interface{}(m.GetMustNotFail()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionValidationError{
+						field:  "MustNotFail",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionValidationError{
+						field:  "MustNotFail",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMustNotFail()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionValidationError{
+					field:  "MustNotFail",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Protection_MustSucceedOnce_:
+		if v == nil {
+			err := ProtectionValidationError{
+				field:  "Strategy",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofStrategyPresent = true
+
+		if all {
+			switch v := interface{}(m.GetMustSucceedOnce()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionValidationError{
+						field:  "MustSucceedOnce",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionValidationError{
+						field:  "MustSucceedOnce",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMustSucceedOnce()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionValidationError{
+					field:  "MustSucceedOnce",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofStrategyPresent {
+		err := ProtectionValidationError{
+			field:  "Strategy",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ProtectionMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionMultiError is an error wrapping multiple validation errors
+// returned by Protection.ValidateAll() if the designated constraints aren't met.
+type ProtectionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionMultiError) AllErrors() []error { return m }
+
+// ProtectionValidationError is the validation error returned by
+// Protection.Validate if the designated constraints aren't met.
+type ProtectionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionValidationError) ErrorName() string { return "ProtectionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ProtectionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtection.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionValidationError{}
+
 // Validate checks the field values on Condition with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -489,6 +719,40 @@ func (m *Metadata) validate(all bool) error {
 	// no validation rules for DesiredStateId
 
 	// no validation rules for RootDesiredStateId
+
+	for idx, item := range m.GetProtections() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("Protections[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("Protections[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MetadataValidationError{
+					field:  fmt.Sprintf("Protections[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return MetadataMultiError(errors)
@@ -3784,6 +4048,299 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DebugLogValidationError{}
+
+// Validate checks the field values on Protection_MustNotFail with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *Protection_MustNotFail) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Protection_MustNotFail with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// Protection_MustNotFailMultiError, or nil if none found.
+func (m *Protection_MustNotFail) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Protection_MustNotFail) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDelayCheckDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, Protection_MustNotFailValidationError{
+					field:  "DelayCheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, Protection_MustNotFailValidationError{
+					field:  "DelayCheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDelayCheckDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Protection_MustNotFailValidationError{
+				field:  "DelayCheckDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCheckDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, Protection_MustNotFailValidationError{
+					field:  "CheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, Protection_MustNotFailValidationError{
+					field:  "CheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCheckDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Protection_MustNotFailValidationError{
+				field:  "CheckDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for SoftFail
+
+	if len(errors) > 0 {
+		return Protection_MustNotFailMultiError(errors)
+	}
+
+	return nil
+}
+
+// Protection_MustNotFailMultiError is an error wrapping multiple validation
+// errors returned by Protection_MustNotFail.ValidateAll() if the designated
+// constraints aren't met.
+type Protection_MustNotFailMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Protection_MustNotFailMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Protection_MustNotFailMultiError) AllErrors() []error { return m }
+
+// Protection_MustNotFailValidationError is the validation error returned by
+// Protection_MustNotFail.Validate if the designated constraints aren't met.
+type Protection_MustNotFailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Protection_MustNotFailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Protection_MustNotFailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Protection_MustNotFailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Protection_MustNotFailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Protection_MustNotFailValidationError) ErrorName() string {
+	return "Protection_MustNotFailValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Protection_MustNotFailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtection_MustNotFail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Protection_MustNotFailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Protection_MustNotFailValidationError{}
+
+// Validate checks the field values on Protection_MustSucceedOnce with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *Protection_MustSucceedOnce) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Protection_MustSucceedOnce with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// Protection_MustSucceedOnceMultiError, or nil if none found.
+func (m *Protection_MustSucceedOnce) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Protection_MustSucceedOnce) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDeadline()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, Protection_MustSucceedOnceValidationError{
+					field:  "Deadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, Protection_MustSucceedOnceValidationError{
+					field:  "Deadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDeadline()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Protection_MustSucceedOnceValidationError{
+				field:  "Deadline",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return Protection_MustSucceedOnceMultiError(errors)
+	}
+
+	return nil
+}
+
+// Protection_MustSucceedOnceMultiError is an error wrapping multiple
+// validation errors returned by Protection_MustSucceedOnce.ValidateAll() if
+// the designated constraints aren't met.
+type Protection_MustSucceedOnceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Protection_MustSucceedOnceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Protection_MustSucceedOnceMultiError) AllErrors() []error { return m }
+
+// Protection_MustSucceedOnceValidationError is the validation error returned
+// by Protection_MustSucceedOnce.Validate if the designated constraints aren't met.
+type Protection_MustSucceedOnceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Protection_MustSucceedOnceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Protection_MustSucceedOnceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Protection_MustSucceedOnceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Protection_MustSucceedOnceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Protection_MustSucceedOnceValidationError) ErrorName() string {
+	return "Protection_MustSucceedOnceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Protection_MustSucceedOnceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtection_MustSucceedOnce.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Protection_MustSucceedOnceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Protection_MustSucceedOnceValidationError{}
 
 // Validate checks the field values on Condition_ReleaseChannelStableCondition
 // with the rules defined in the proto definition for this message. If any

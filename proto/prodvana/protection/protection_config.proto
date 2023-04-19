@@ -41,9 +41,21 @@ message ProtectionConfig {
 message ProtectionInstanceConfig {
     ProtectionConfig config = 1;
 
+    // Protection source - where did this protection get attached from (service/app/org/...)?
+    ProtectionAttachment attachment = 2;
+
     // TODO: Context/parameter/input bindings.
+}
 
-    // TODO: Protection source - where did this protection get attached from (service/app/org/...)?
+message ServiceInstanceAttachment {
+    string service_id = 1;
+    string release_channel_id = 2;
+    // version?
+}
 
-    // TODO: When should this protection run? Pre-push? Is it an approval? Run post-push?
+message ProtectionAttachment {
+    oneof attachment {
+        option (validate.required) = true;
+        ServiceInstanceAttachment service_instance = 1;
+    }
 }

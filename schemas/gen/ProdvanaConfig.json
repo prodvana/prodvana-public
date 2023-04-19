@@ -2743,6 +2743,64 @@
             ],
             "title": "Wait Task"
         },
+        "prodvana.protection.AttachedProtection": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "attachment": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionAttachment",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Attached Protection"
+        },
+        "prodvana.protection.ProtectionAttachment": {
+            "properties": {
+                "serviceInstance": {
+                    "$ref": "#/definitions/prodvana.protection.ServiceInstanceAttachment",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Attachment"
+        },
         "prodvana.protection.ProtectionConfig": {
             "properties": {
                 "name": {
@@ -2790,6 +2848,16 @@
                         }
                     ],
                     "description": "Use latest config for this protection"
+                },
+                "attached": {
+                    "$ref": "#/definitions/prodvana.protection.AttachedProtection",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -2802,6 +2870,41 @@
                 }
             ],
             "title": "Protection Reference"
+        },
+        "prodvana.protection.ServiceInstanceAttachment": {
+            "properties": {
+                "serviceId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "releaseChannelId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "version?"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Instance Attachment"
         },
         "prodvana.release_channel.ContainerOrchestrationRuntime": {
             "properties": {

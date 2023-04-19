@@ -3,11 +3,20 @@ package prodvana.protection;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
 
 import "validate/validate.proto";
+import "prodvana/protection/protection_config.proto";
+
+message AttachedProtection {
+    string name = 1;
+    ProtectionAttachment attachment = 2;
+}
 
 message ProtectionReference {
     oneof ref {
         option (validate.required) = true;
+
         string name = 1; // Use latest config for this protection
+
+        AttachedProtection attached = 2;
 
         // TODO: Option to freeze a specific version.
     }

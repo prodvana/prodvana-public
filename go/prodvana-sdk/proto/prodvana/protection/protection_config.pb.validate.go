@@ -268,6 +268,35 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetAttachment()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionInstanceConfigValidationError{
+					field:  "Attachment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionInstanceConfigValidationError{
+					field:  "Attachment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAttachment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionInstanceConfigValidationError{
+				field:  "Attachment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return ProtectionInstanceConfigMultiError(errors)
 	}
@@ -347,3 +376,269 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ProtectionInstanceConfigValidationError{}
+
+// Validate checks the field values on ServiceInstanceAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ServiceInstanceAttachment) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ServiceInstanceAttachment with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ServiceInstanceAttachmentMultiError, or nil if none found.
+func (m *ServiceInstanceAttachment) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ServiceInstanceAttachment) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ServiceId
+
+	// no validation rules for ReleaseChannelId
+
+	if len(errors) > 0 {
+		return ServiceInstanceAttachmentMultiError(errors)
+	}
+
+	return nil
+}
+
+// ServiceInstanceAttachmentMultiError is an error wrapping multiple validation
+// errors returned by ServiceInstanceAttachment.ValidateAll() if the
+// designated constraints aren't met.
+type ServiceInstanceAttachmentMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ServiceInstanceAttachmentMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ServiceInstanceAttachmentMultiError) AllErrors() []error { return m }
+
+// ServiceInstanceAttachmentValidationError is the validation error returned by
+// ServiceInstanceAttachment.Validate if the designated constraints aren't met.
+type ServiceInstanceAttachmentValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceInstanceAttachmentValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceInstanceAttachmentValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceInstanceAttachmentValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceInstanceAttachmentValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceInstanceAttachmentValidationError) ErrorName() string {
+	return "ServiceInstanceAttachmentValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ServiceInstanceAttachmentValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceInstanceAttachment.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceInstanceAttachmentValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceInstanceAttachmentValidationError{}
+
+// Validate checks the field values on ProtectionAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionAttachment) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionAttachmentMultiError, or nil if none found.
+func (m *ProtectionAttachment) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionAttachment) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofAttachmentPresent := false
+	switch v := m.Attachment.(type) {
+	case *ProtectionAttachment_ServiceInstance:
+		if v == nil {
+			err := ProtectionAttachmentValidationError{
+				field:  "Attachment",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofAttachmentPresent = true
+
+		if all {
+			switch v := interface{}(m.GetServiceInstance()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionAttachmentValidationError{
+						field:  "ServiceInstance",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionAttachmentValidationError{
+						field:  "ServiceInstance",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetServiceInstance()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionAttachmentValidationError{
+					field:  "ServiceInstance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofAttachmentPresent {
+		err := ProtectionAttachmentValidationError{
+			field:  "Attachment",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ProtectionAttachmentMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionAttachmentMultiError is an error wrapping multiple validation
+// errors returned by ProtectionAttachment.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionAttachmentMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionAttachmentMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionAttachmentMultiError) AllErrors() []error { return m }
+
+// ProtectionAttachmentValidationError is the validation error returned by
+// ProtectionAttachment.Validate if the designated constraints aren't met.
+type ProtectionAttachmentValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionAttachmentValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionAttachmentValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionAttachmentValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionAttachmentValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionAttachmentValidationError) ErrorName() string {
+	return "ProtectionAttachmentValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionAttachmentValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionAttachment.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionAttachmentValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionAttachmentValidationError{}
