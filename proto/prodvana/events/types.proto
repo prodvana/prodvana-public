@@ -84,7 +84,7 @@ message ProgramExitEvent {
     int32 restart_count = 4;
     string reason = 5;  // reason why process exited
     string killed_reason = 9;  // if killed, this is the reason why it was killed (best effort)
-    int32 exit_code = 6;
+    int32 exit_code = 6;  // if 0, this is a successful exit.
     int32 signal = 7; // signal used to terminate this process, if any
     reserved 8;
     reserved "logs";

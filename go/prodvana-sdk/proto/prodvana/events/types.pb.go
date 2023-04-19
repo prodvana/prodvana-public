@@ -614,8 +614,8 @@ type ProgramExitEvent struct {
 	RestartCount int32  `protobuf:"varint,4,opt,name=restart_count,json=restartCount,proto3" json:"restart_count,omitempty"`
 	Reason       string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`                                 // reason why process exited
 	KilledReason string `protobuf:"bytes,9,opt,name=killed_reason,json=killedReason,proto3" json:"killed_reason,omitempty"` // if killed, this is the reason why it was killed (best effort)
-	ExitCode     int32  `protobuf:"varint,6,opt,name=exit_code,json=exitCode,proto3" json:"exit_code,omitempty"`
-	Signal       int32  `protobuf:"varint,7,opt,name=signal,proto3" json:"signal,omitempty"` // signal used to terminate this process, if any
+	ExitCode     int32  `protobuf:"varint,6,opt,name=exit_code,json=exitCode,proto3" json:"exit_code,omitempty"`            // if 0, this is a successful exit.
+	Signal       int32  `protobuf:"varint,7,opt,name=signal,proto3" json:"signal,omitempty"`                                // signal used to terminate this process, if any
 }
 
 func (x *ProgramExitEvent) Reset() {

@@ -7096,7 +7096,8 @@
         },
         "exitCode": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "if 0, this is a successful exit."
         },
         "signal": {
           "type": "integer",
