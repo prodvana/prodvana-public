@@ -663,6 +663,219 @@ var _ interface {
 	ErrorName() string
 } = CreateContainerRegistryIntegrationResValidationError{}
 
+// Validate checks the field values on DeleteContainerRegistryIntegrationReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *DeleteContainerRegistryIntegrationReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteContainerRegistryIntegrationReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// DeleteContainerRegistryIntegrationReqMultiError, or nil if none found.
+func (m *DeleteContainerRegistryIntegrationReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteContainerRegistryIntegrationReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for RegistryName
+
+	if len(errors) > 0 {
+		return DeleteContainerRegistryIntegrationReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteContainerRegistryIntegrationReqMultiError is an error wrapping
+// multiple validation errors returned by
+// DeleteContainerRegistryIntegrationReq.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteContainerRegistryIntegrationReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteContainerRegistryIntegrationReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteContainerRegistryIntegrationReqMultiError) AllErrors() []error { return m }
+
+// DeleteContainerRegistryIntegrationReqValidationError is the validation error
+// returned by DeleteContainerRegistryIntegrationReq.Validate if the
+// designated constraints aren't met.
+type DeleteContainerRegistryIntegrationReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteContainerRegistryIntegrationReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteContainerRegistryIntegrationReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteContainerRegistryIntegrationReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteContainerRegistryIntegrationReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteContainerRegistryIntegrationReqValidationError) ErrorName() string {
+	return "DeleteContainerRegistryIntegrationReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteContainerRegistryIntegrationReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteContainerRegistryIntegrationReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteContainerRegistryIntegrationReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteContainerRegistryIntegrationReqValidationError{}
+
+// Validate checks the field values on DeleteContainerRegistryIntegrationResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *DeleteContainerRegistryIntegrationResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// DeleteContainerRegistryIntegrationResp with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// DeleteContainerRegistryIntegrationRespMultiError, or nil if none found.
+func (m *DeleteContainerRegistryIntegrationResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteContainerRegistryIntegrationResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteContainerRegistryIntegrationRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteContainerRegistryIntegrationRespMultiError is an error wrapping
+// multiple validation errors returned by
+// DeleteContainerRegistryIntegrationResp.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteContainerRegistryIntegrationRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteContainerRegistryIntegrationRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteContainerRegistryIntegrationRespMultiError) AllErrors() []error { return m }
+
+// DeleteContainerRegistryIntegrationRespValidationError is the validation
+// error returned by DeleteContainerRegistryIntegrationResp.Validate if the
+// designated constraints aren't met.
+type DeleteContainerRegistryIntegrationRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteContainerRegistryIntegrationRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteContainerRegistryIntegrationRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteContainerRegistryIntegrationRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteContainerRegistryIntegrationRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteContainerRegistryIntegrationRespValidationError) ErrorName() string {
+	return "DeleteContainerRegistryIntegrationRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteContainerRegistryIntegrationRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteContainerRegistryIntegrationResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteContainerRegistryIntegrationRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteContainerRegistryIntegrationRespValidationError{}
+
 // Validate checks the field values on ListContainerRegistryIntegrationsReq
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if

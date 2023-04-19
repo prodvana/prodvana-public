@@ -2116,6 +2116,35 @@
         "tags": [
           "prodvana.workflow.WorkflowManager"
         ]
+      },
+      "delete": {
+        "operationId": "WorkflowManager_DeleteContainerRegistryIntegration",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowDeleteContainerRegistryIntegrationResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "registryName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
       }
     },
     "/v1/integrations/github/create": {
@@ -9517,6 +9546,9 @@
           "type": "string"
         }
       }
+    },
+    "workflowDeleteContainerRegistryIntegrationResp": {
+      "type": "object"
     },
     "workflowDeleteHoneycombEnvironmentResp": {
       "type": "object"

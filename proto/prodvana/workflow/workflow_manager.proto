@@ -79,6 +79,12 @@ message CreateContainerRegistryIntegrationRes {
   string integration_id = 1;
 }
 
+message DeleteContainerRegistryIntegrationReq {
+    string registry_name = 1;
+}
+
+message DeleteContainerRegistryIntegrationResp { }
+
 message ListContainerRegistryIntegrationsReq {
   // if true, verifies connection to registry
   bool fetch_status = 1;
@@ -411,6 +417,11 @@ service WorkflowManager {
         option (google.api.http) = {
             post: "/v1/integrations/container-registry/create",
             body: "*"
+        };
+    };
+    rpc DeleteContainerRegistryIntegration(DeleteContainerRegistryIntegrationReq) returns (DeleteContainerRegistryIntegrationResp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/container-registry/{registry_name=*}",
         };
     };
     rpc ListContainerRegistryIntegrations(ListContainerRegistryIntegrationsReq) returns (ListContainerRegistryIntegrationsResp) {
