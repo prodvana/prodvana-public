@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.protection;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
 
+import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/protection/protection_config.proto";
 
@@ -10,14 +11,84 @@ message AttachedProtection {
     ProtectionAttachment attachment = 2;
 }
 
+message ProtectionLifecycle {
+    message PreApproval {
+        // Ignore protection status after first success.
+        bool must_succeed_once = 1;
+    }
+
+    // message Approval {
+    // }
+
+    message PostApproval {
+        // Ignore protection status after first success.
+        bool must_succeed_once = 1;
+    }
+
+    message Push {
+    }
+
+    message PostPush {
+        // How long after the push completes should we start checking status?
+        // e.g, delay health checks X minutes after push (if push is noisy).
+        google.protobuf.Duration delay_check_duration = 1;
+
+        // How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state.
+        google.protobuf.Duration check_duration = 2;
+
+        // Ignore protection status after first success - permanent success.
+        bool must_succeed_once = 3;
+    }
+
+    oneof lifecycle {
+        option (validate.required) = true;
+
+        // NOTE: Type here must match CustomTaskType
+        PreApproval pre_approval = 1;
+        // Approval approval = 2;
+        PostApproval post_approval = 3;
+        Push push = 4;
+        PostPush post_push = 5;
+    }
+
+    // Examples:
+
+    // Alert check:
+    // - must succeed once before push
+    // - must never fail for at least X minutes after push completes
+    // becomes:
+    // - PreApproval
+    // - Approval
+    // - PostApproval
+    // - Push
+    // - PostPush(check_duration=check_duration)
+
+    // Migration/resources present:
+    // - must start after approval
+    // - must succeed once (within optional timeout?)
+    // becomes:
+    // - PostApproval(must_succeed_once=true)
+
+    // Healthy:
+    // - must start after push initiated
+    // - must succeed once within X minutes after push initiated
+    // - must never fail for at least X minutes after push initiated
+    // becomes:
+    // - PostPush(check_duration=readiness_deadline)
+
+    // Build before push:
+    // - must build once after approval
+    // becomes:
+    // - PostApproval(must_succeed_once=true)
+}
+
 message ProtectionReference {
     oneof ref {
         option (validate.required) = true;
-
         string name = 1; // Use latest config for this protection
-
         AttachedProtection attached = 2;
-
         // TODO: Option to freeze a specific version.
     }
+
+    repeated ProtectionLifecycle lifecycle = 3;
 }

@@ -4942,31 +4942,43 @@
         }
       }
     },
-    "ProtectionMustNotFail": {
+    "ProtectionLifecyclePostApproval": {
+      "type": "object",
+      "properties": {
+        "mustSucceedOnce": {
+          "type": "boolean",
+          "description": "Ignore protection status after first success."
+        }
+      }
+    },
+    "ProtectionLifecyclePostPush": {
       "type": "object",
       "properties": {
         "delayCheckDuration": {
           "type": "string",
-          "description": "How long after the lifecycle begins should we start checking status?\ne.g, delay health checks X minutes after push (if push is noisy)."
+          "description": "How long after the push completes should we start checking status?\ne.g, delay health checks X minutes after push (if push is noisy)."
         },
         "checkDuration": {
           "type": "string",
-          "title": "How long after starting should we check for?"
+          "description": "How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state."
         },
-        "softFail": {
+        "mustSucceedOnce": {
           "type": "boolean",
-          "description": "If underlying protection returns failure, treat it as pending instead of failed (keep trying again)."
+          "description": "Ignore protection status after first success - permanent success."
         }
       }
     },
-    "ProtectionMustSucceedOnce": {
+    "ProtectionLifecyclePreApproval": {
       "type": "object",
       "properties": {
-        "deadline": {
-          "type": "string",
-          "description": "Deadline after starting when we declare this protection failed/timed out."
+        "mustSucceedOnce": {
+          "type": "boolean",
+          "description": "Ignore protection status after first success."
         }
       }
+    },
+    "ProtectionLifecyclePush": {
+      "type": "object"
     },
     "RuntimeSpecificConfigK8SConfig": {
       "type": "object",
@@ -6281,7 +6293,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtection"
+            "$ref": "#/definitions/modelProtectionLink"
           }
         }
       }
@@ -6289,17 +6301,14 @@
     "desired_statemodelProtection": {
       "type": "object",
       "properties": {
-        "ref": {
-          "$ref": "#/definitions/protectionProtectionReference"
+        "meta": {
+          "$ref": "#/definitions/desired_statemodelMetadata"
         },
-        "lifecycle": {
-          "$ref": "#/definitions/modelCustomTaskType"
+        "config": {
+          "$ref": "#/definitions/protectionProtectionInstanceConfig"
         },
-        "mustNotFail": {
-          "$ref": "#/definitions/ProtectionMustNotFail"
-        },
-        "mustSucceedOnce": {
-          "$ref": "#/definitions/ProtectionMustSucceedOnce"
+        "state": {
+          "$ref": "#/definitions/modelProtectionState"
         }
       }
     },
@@ -6420,6 +6429,13 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service. Must be empty if part of service group."
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelProtection"
+          }
         }
       }
     },
@@ -6451,7 +6467,8 @@
         "SERVICE_GROUP",
         "RUNTIME_OBJECT",
         "MANUAL_APPROVAL",
-        "CUSTOM_TASK"
+        "CUSTOM_TASK",
+        "PROTECTION"
       ],
       "default": "UNKNOWN"
     },
@@ -7682,6 +7699,41 @@
       ],
       "default": "PENDING"
     },
+    "modelProtectionLink": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/protectionProtectionReference"
+        },
+        "type": {
+          "$ref": "#/definitions/modelCustomTaskType"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/protectionProtectionLifecycle"
+        }
+      }
+    },
+    "modelProtectionState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelProtectionStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "modelProtectionStatus": {
+      "type": "string",
+      "enum": [
+        "PROTECTION_PENDING",
+        "PROTECTION_SUCCESSFUL",
+        "PROTECTION_FAILED"
+      ],
+      "default": "PROTECTION_PENDING"
+    },
     "modelRuntimeObjectStatus": {
       "type": "string",
       "enum": [
@@ -7711,6 +7763,13 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service group."
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelProtection"
+          }
         }
       }
     },
@@ -7734,6 +7793,9 @@
         },
         "customTask": {
           "$ref": "#/definitions/modelCustomTaskState"
+        },
+        "protection": {
+          "$ref": "#/definitions/desired_statemodelProtection"
         }
       }
     },
@@ -8344,6 +8406,25 @@
         }
       }
     },
+    "protectionProtectionLifecycle": {
+      "type": "object",
+      "properties": {
+        "preApproval": {
+          "$ref": "#/definitions/ProtectionLifecyclePreApproval",
+          "title": "NOTE: Type here must match CustomTaskType"
+        },
+        "postApproval": {
+          "$ref": "#/definitions/ProtectionLifecyclePostApproval",
+          "title": "Approval approval = 2;"
+        },
+        "push": {
+          "$ref": "#/definitions/ProtectionLifecyclePush"
+        },
+        "postPush": {
+          "$ref": "#/definitions/ProtectionLifecyclePostPush"
+        }
+      }
+    },
     "protectionProtectionReference": {
       "type": "object",
       "properties": {
@@ -8352,7 +8433,15 @@
           "title": "Use latest config for this protection"
         },
         "attached": {
-          "$ref": "#/definitions/protectionAttachedProtection"
+          "$ref": "#/definitions/protectionAttachedProtection",
+          "description": "TODO: Option to freeze a specific version."
+        },
+        "lifecycle": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionLifecycle"
+          }
         }
       }
     },

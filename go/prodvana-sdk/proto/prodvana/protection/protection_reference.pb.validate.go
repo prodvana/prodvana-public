@@ -168,6 +168,292 @@ var _ interface {
 	ErrorName() string
 } = AttachedProtectionValidationError{}
 
+// Validate checks the field values on ProtectionLifecycle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionLifecycle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionLifecycle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycleMultiError, or nil if none found.
+func (m *ProtectionLifecycle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionLifecycle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofLifecyclePresent := false
+	switch v := m.Lifecycle.(type) {
+	case *ProtectionLifecycle_PreApproval_:
+		if v == nil {
+			err := ProtectionLifecycleValidationError{
+				field:  "Lifecycle",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLifecyclePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPreApproval()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PreApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PreApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPreApproval()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionLifecycleValidationError{
+					field:  "PreApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ProtectionLifecycle_PostApproval_:
+		if v == nil {
+			err := ProtectionLifecycleValidationError{
+				field:  "Lifecycle",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLifecyclePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPostApproval()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PostApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PostApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPostApproval()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionLifecycleValidationError{
+					field:  "PostApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ProtectionLifecycle_Push_:
+		if v == nil {
+			err := ProtectionLifecycleValidationError{
+				field:  "Lifecycle",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLifecyclePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPush()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "Push",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "Push",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPush()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionLifecycleValidationError{
+					field:  "Push",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ProtectionLifecycle_PostPush_:
+		if v == nil {
+			err := ProtectionLifecycleValidationError{
+				field:  "Lifecycle",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLifecyclePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPostPush()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PostPush",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionLifecycleValidationError{
+						field:  "PostPush",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPostPush()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionLifecycleValidationError{
+					field:  "PostPush",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofLifecyclePresent {
+		err := ProtectionLifecycleValidationError{
+			field:  "Lifecycle",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ProtectionLifecycleMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionLifecycleMultiError is an error wrapping multiple validation
+// errors returned by ProtectionLifecycle.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionLifecycleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionLifecycleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionLifecycleMultiError) AllErrors() []error { return m }
+
+// ProtectionLifecycleValidationError is the validation error returned by
+// ProtectionLifecycle.Validate if the designated constraints aren't met.
+type ProtectionLifecycleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionLifecycleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionLifecycleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionLifecycleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionLifecycleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionLifecycleValidationError) ErrorName() string {
+	return "ProtectionLifecycleValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionLifecycleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionLifecycle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionLifecycleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionLifecycleValidationError{}
+
 // Validate checks the field values on ProtectionReference with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -189,6 +475,40 @@ func (m *ProtectionReference) validate(all bool) error {
 	}
 
 	var errors []error
+
+	for idx, item := range m.GetLifecycle() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionReferenceValidationError{
+						field:  fmt.Sprintf("Lifecycle[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionReferenceValidationError{
+						field:  fmt.Sprintf("Lifecycle[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionReferenceValidationError{
+					field:  fmt.Sprintf("Lifecycle[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	oneofRefPresent := false
 	switch v := m.Ref.(type) {
@@ -340,3 +660,480 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ProtectionReferenceValidationError{}
+
+// Validate checks the field values on ProtectionLifecycle_PreApproval with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionLifecycle_PreApproval) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionLifecycle_PreApproval with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_PreApprovalMultiError, or nil if none found.
+func (m *ProtectionLifecycle_PreApproval) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionLifecycle_PreApproval) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for MustSucceedOnce
+
+	if len(errors) > 0 {
+		return ProtectionLifecycle_PreApprovalMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionLifecycle_PreApprovalMultiError is an error wrapping multiple
+// validation errors returned by ProtectionLifecycle_PreApproval.ValidateAll()
+// if the designated constraints aren't met.
+type ProtectionLifecycle_PreApprovalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionLifecycle_PreApprovalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionLifecycle_PreApprovalMultiError) AllErrors() []error { return m }
+
+// ProtectionLifecycle_PreApprovalValidationError is the validation error
+// returned by ProtectionLifecycle_PreApproval.Validate if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PreApprovalValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionLifecycle_PreApprovalValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionLifecycle_PreApprovalValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionLifecycle_PreApprovalValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionLifecycle_PreApprovalValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionLifecycle_PreApprovalValidationError) ErrorName() string {
+	return "ProtectionLifecycle_PreApprovalValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionLifecycle_PreApprovalValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionLifecycle_PreApproval.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionLifecycle_PreApprovalValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionLifecycle_PreApprovalValidationError{}
+
+// Validate checks the field values on ProtectionLifecycle_PostApproval with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ProtectionLifecycle_PostApproval) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionLifecycle_PostApproval with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_PostApprovalMultiError, or nil if none found.
+func (m *ProtectionLifecycle_PostApproval) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionLifecycle_PostApproval) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for MustSucceedOnce
+
+	if len(errors) > 0 {
+		return ProtectionLifecycle_PostApprovalMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionLifecycle_PostApprovalMultiError is an error wrapping multiple
+// validation errors returned by
+// ProtectionLifecycle_PostApproval.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PostApprovalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionLifecycle_PostApprovalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionLifecycle_PostApprovalMultiError) AllErrors() []error { return m }
+
+// ProtectionLifecycle_PostApprovalValidationError is the validation error
+// returned by ProtectionLifecycle_PostApproval.Validate if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PostApprovalValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionLifecycle_PostApprovalValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionLifecycle_PostApprovalValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionLifecycle_PostApprovalValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionLifecycle_PostApprovalValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionLifecycle_PostApprovalValidationError) ErrorName() string {
+	return "ProtectionLifecycle_PostApprovalValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionLifecycle_PostApprovalValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionLifecycle_PostApproval.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionLifecycle_PostApprovalValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionLifecycle_PostApprovalValidationError{}
+
+// Validate checks the field values on ProtectionLifecycle_Push with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionLifecycle_Push) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionLifecycle_Push with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_PushMultiError, or nil if none found.
+func (m *ProtectionLifecycle_Push) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionLifecycle_Push) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ProtectionLifecycle_PushMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionLifecycle_PushMultiError is an error wrapping multiple validation
+// errors returned by ProtectionLifecycle_Push.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PushMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionLifecycle_PushMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionLifecycle_PushMultiError) AllErrors() []error { return m }
+
+// ProtectionLifecycle_PushValidationError is the validation error returned by
+// ProtectionLifecycle_Push.Validate if the designated constraints aren't met.
+type ProtectionLifecycle_PushValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionLifecycle_PushValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionLifecycle_PushValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionLifecycle_PushValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionLifecycle_PushValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionLifecycle_PushValidationError) ErrorName() string {
+	return "ProtectionLifecycle_PushValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionLifecycle_PushValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionLifecycle_Push.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionLifecycle_PushValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionLifecycle_PushValidationError{}
+
+// Validate checks the field values on ProtectionLifecycle_PostPush with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionLifecycle_PostPush) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionLifecycle_PostPush with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_PostPushMultiError, or nil if none found.
+func (m *ProtectionLifecycle_PostPush) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDelayCheckDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+					field:  "DelayCheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+					field:  "DelayCheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDelayCheckDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionLifecycle_PostPushValidationError{
+				field:  "DelayCheckDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCheckDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+					field:  "CheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+					field:  "CheckDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCheckDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionLifecycle_PostPushValidationError{
+				field:  "CheckDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for MustSucceedOnce
+
+	if len(errors) > 0 {
+		return ProtectionLifecycle_PostPushMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionLifecycle_PostPushMultiError is an error wrapping multiple
+// validation errors returned by ProtectionLifecycle_PostPush.ValidateAll() if
+// the designated constraints aren't met.
+type ProtectionLifecycle_PostPushMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionLifecycle_PostPushMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionLifecycle_PostPushMultiError) AllErrors() []error { return m }
+
+// ProtectionLifecycle_PostPushValidationError is the validation error returned
+// by ProtectionLifecycle_PostPush.Validate if the designated constraints
+// aren't met.
+type ProtectionLifecycle_PostPushValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionLifecycle_PostPushValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionLifecycle_PostPushValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionLifecycle_PostPushValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionLifecycle_PostPushValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionLifecycle_PostPushValidationError) ErrorName() string {
+	return "ProtectionLifecycle_PostPushValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionLifecycle_PostPushValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionLifecycle_PostPush.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionLifecycle_PostPushValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionLifecycle_PostPushValidationError{}

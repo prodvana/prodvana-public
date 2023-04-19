@@ -2836,6 +2836,162 @@
             ],
             "title": "Protection Config"
         },
+        "prodvana.protection.ProtectionLifecycle": {
+            "properties": {
+                "preApproval": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PreApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "NOTE: Type here must match CustomTaskType"
+                },
+                "postApproval": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Approval approval = 2;"
+                },
+                "push": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.Push",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "postPush": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostPush",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Lifecycle"
+        },
+        "prodvana.protection.ProtectionLifecycle.PostApproval": {
+            "properties": {
+                "mustSucceedOnce": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Ignore protection status after first success."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "message Approval {\n }",
+            "description": "message Approval { }"
+        },
+        "prodvana.protection.ProtectionLifecycle.PostPush": {
+            "properties": {
+                "delayCheckDuration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after the push completes should we start checking status? e.g, delay health checks X minutes after push (if push is noisy).",
+                    "format": "regex"
+                },
+                "checkDuration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state.",
+                    "format": "regex"
+                },
+                "mustSucceedOnce": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Ignore protection status after first success - permanent success."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Post Push"
+        },
+        "prodvana.protection.ProtectionLifecycle.PreApproval": {
+            "properties": {
+                "mustSucceedOnce": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Ignore protection status after first success."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Pre Approval"
+        },
+        "prodvana.protection.ProtectionLifecycle.Push": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Push"
+        },
         "prodvana.protection.ProtectionReference": {
             "properties": {
                 "name": {
@@ -2857,6 +3013,21 @@
                             "type": "null"
                         },
                         {}
+                    ],
+                    "description": "TODO: Option to freeze a specific version."
+                },
+                "lifecycle": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
                     ]
                 }
             },

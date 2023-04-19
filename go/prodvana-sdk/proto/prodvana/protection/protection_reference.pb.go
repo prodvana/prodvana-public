@@ -10,6 +10,7 @@ import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -76,6 +77,117 @@ func (x *AttachedProtection) GetAttachment() *ProtectionAttachment {
 	return nil
 }
 
+type ProtectionLifecycle struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Lifecycle:
+	//
+	//	*ProtectionLifecycle_PreApproval_
+	//	*ProtectionLifecycle_PostApproval_
+	//	*ProtectionLifecycle_Push_
+	//	*ProtectionLifecycle_PostPush_
+	Lifecycle isProtectionLifecycle_Lifecycle `protobuf_oneof:"lifecycle"`
+}
+
+func (x *ProtectionLifecycle) Reset() {
+	*x = ProtectionLifecycle{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtectionLifecycle) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtectionLifecycle) ProtoMessage() {}
+
+func (x *ProtectionLifecycle) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtectionLifecycle.ProtoReflect.Descriptor instead.
+func (*ProtectionLifecycle) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1}
+}
+
+func (m *ProtectionLifecycle) GetLifecycle() isProtectionLifecycle_Lifecycle {
+	if m != nil {
+		return m.Lifecycle
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle) GetPreApproval() *ProtectionLifecycle_PreApproval {
+	if x, ok := x.GetLifecycle().(*ProtectionLifecycle_PreApproval_); ok {
+		return x.PreApproval
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle) GetPostApproval() *ProtectionLifecycle_PostApproval {
+	if x, ok := x.GetLifecycle().(*ProtectionLifecycle_PostApproval_); ok {
+		return x.PostApproval
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle) GetPush() *ProtectionLifecycle_Push {
+	if x, ok := x.GetLifecycle().(*ProtectionLifecycle_Push_); ok {
+		return x.Push
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle) GetPostPush() *ProtectionLifecycle_PostPush {
+	if x, ok := x.GetLifecycle().(*ProtectionLifecycle_PostPush_); ok {
+		return x.PostPush
+	}
+	return nil
+}
+
+type isProtectionLifecycle_Lifecycle interface {
+	isProtectionLifecycle_Lifecycle()
+}
+
+type ProtectionLifecycle_PreApproval_ struct {
+	// NOTE: Type here must match CustomTaskType
+	PreApproval *ProtectionLifecycle_PreApproval `protobuf:"bytes,1,opt,name=pre_approval,json=preApproval,proto3,oneof"`
+}
+
+type ProtectionLifecycle_PostApproval_ struct {
+	// Approval approval = 2;
+	PostApproval *ProtectionLifecycle_PostApproval `protobuf:"bytes,3,opt,name=post_approval,json=postApproval,proto3,oneof"`
+}
+
+type ProtectionLifecycle_Push_ struct {
+	Push *ProtectionLifecycle_Push `protobuf:"bytes,4,opt,name=push,proto3,oneof"`
+}
+
+type ProtectionLifecycle_PostPush_ struct {
+	PostPush *ProtectionLifecycle_PostPush `protobuf:"bytes,5,opt,name=post_push,json=postPush,proto3,oneof"`
+}
+
+func (*ProtectionLifecycle_PreApproval_) isProtectionLifecycle_Lifecycle() {}
+
+func (*ProtectionLifecycle_PostApproval_) isProtectionLifecycle_Lifecycle() {}
+
+func (*ProtectionLifecycle_Push_) isProtectionLifecycle_Lifecycle() {}
+
+func (*ProtectionLifecycle_PostPush_) isProtectionLifecycle_Lifecycle() {}
+
 type ProtectionReference struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -85,13 +197,14 @@ type ProtectionReference struct {
 	//
 	//	*ProtectionReference_Name
 	//	*ProtectionReference_Attached
-	Ref isProtectionReference_Ref `protobuf_oneof:"ref"`
+	Ref       isProtectionReference_Ref `protobuf_oneof:"ref"`
+	Lifecycle []*ProtectionLifecycle    `protobuf:"bytes,3,rep,name=lifecycle,proto3" json:"lifecycle,omitempty"`
 }
 
 func (x *ProtectionReference) Reset() {
 	*x = ProtectionReference{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[1]
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -104,7 +217,7 @@ func (x *ProtectionReference) String() string {
 func (*ProtectionReference) ProtoMessage() {}
 
 func (x *ProtectionReference) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[1]
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -117,7 +230,7 @@ func (x *ProtectionReference) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProtectionReference.ProtoReflect.Descriptor instead.
 func (*ProtectionReference) Descriptor() ([]byte, []int) {
-	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1}
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{2}
 }
 
 func (m *ProtectionReference) GetRef() isProtectionReference_Ref {
@@ -141,6 +254,13 @@ func (x *ProtectionReference) GetAttached() *AttachedProtection {
 	return nil
 }
 
+func (x *ProtectionReference) GetLifecycle() []*ProtectionLifecycle {
+	if x != nil {
+		return x.Lifecycle
+	}
+	return nil
+}
+
 type isProtectionReference_Ref interface {
 	isProtectionReference_Ref()
 }
@@ -150,12 +270,213 @@ type ProtectionReference_Name struct {
 }
 
 type ProtectionReference_Attached struct {
-	Attached *AttachedProtection `protobuf:"bytes,2,opt,name=attached,proto3,oneof"`
+	Attached *AttachedProtection `protobuf:"bytes,2,opt,name=attached,proto3,oneof"` // TODO: Option to freeze a specific version.
 }
 
 func (*ProtectionReference_Name) isProtectionReference_Ref() {}
 
 func (*ProtectionReference_Attached) isProtectionReference_Ref() {}
+
+type ProtectionLifecycle_PreApproval struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Ignore protection status after first success.
+	MustSucceedOnce bool `protobuf:"varint,1,opt,name=must_succeed_once,json=mustSucceedOnce,proto3" json:"must_succeed_once,omitempty"`
+}
+
+func (x *ProtectionLifecycle_PreApproval) Reset() {
+	*x = ProtectionLifecycle_PreApproval{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtectionLifecycle_PreApproval) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtectionLifecycle_PreApproval) ProtoMessage() {}
+
+func (x *ProtectionLifecycle_PreApproval) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtectionLifecycle_PreApproval.ProtoReflect.Descriptor instead.
+func (*ProtectionLifecycle_PreApproval) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1, 0}
+}
+
+func (x *ProtectionLifecycle_PreApproval) GetMustSucceedOnce() bool {
+	if x != nil {
+		return x.MustSucceedOnce
+	}
+	return false
+}
+
+type ProtectionLifecycle_PostApproval struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Ignore protection status after first success.
+	MustSucceedOnce bool `protobuf:"varint,1,opt,name=must_succeed_once,json=mustSucceedOnce,proto3" json:"must_succeed_once,omitempty"`
+}
+
+func (x *ProtectionLifecycle_PostApproval) Reset() {
+	*x = ProtectionLifecycle_PostApproval{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtectionLifecycle_PostApproval) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtectionLifecycle_PostApproval) ProtoMessage() {}
+
+func (x *ProtectionLifecycle_PostApproval) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtectionLifecycle_PostApproval.ProtoReflect.Descriptor instead.
+func (*ProtectionLifecycle_PostApproval) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1, 1}
+}
+
+func (x *ProtectionLifecycle_PostApproval) GetMustSucceedOnce() bool {
+	if x != nil {
+		return x.MustSucceedOnce
+	}
+	return false
+}
+
+type ProtectionLifecycle_Push struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ProtectionLifecycle_Push) Reset() {
+	*x = ProtectionLifecycle_Push{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtectionLifecycle_Push) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtectionLifecycle_Push) ProtoMessage() {}
+
+func (x *ProtectionLifecycle_Push) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtectionLifecycle_Push.ProtoReflect.Descriptor instead.
+func (*ProtectionLifecycle_Push) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1, 2}
+}
+
+type ProtectionLifecycle_PostPush struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// How long after the push completes should we start checking status?
+	// e.g, delay health checks X minutes after push (if push is noisy).
+	DelayCheckDuration *durationpb.Duration `protobuf:"bytes,1,opt,name=delay_check_duration,json=delayCheckDuration,proto3" json:"delay_check_duration,omitempty"`
+	// How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state.
+	CheckDuration *durationpb.Duration `protobuf:"bytes,2,opt,name=check_duration,json=checkDuration,proto3" json:"check_duration,omitempty"`
+	// Ignore protection status after first success - permanent success.
+	MustSucceedOnce bool `protobuf:"varint,3,opt,name=must_succeed_once,json=mustSucceedOnce,proto3" json:"must_succeed_once,omitempty"`
+}
+
+func (x *ProtectionLifecycle_PostPush) Reset() {
+	*x = ProtectionLifecycle_PostPush{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_reference_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtectionLifecycle_PostPush) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtectionLifecycle_PostPush) ProtoMessage() {}
+
+func (x *ProtectionLifecycle_PostPush) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_reference_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtectionLifecycle_PostPush.ProtoReflect.Descriptor instead.
+func (*ProtectionLifecycle_PostPush) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_reference_proto_rawDescGZIP(), []int{1, 3}
+}
+
+func (x *ProtectionLifecycle_PostPush) GetDelayCheckDuration() *durationpb.Duration {
+	if x != nil {
+		return x.DelayCheckDuration
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle_PostPush) GetCheckDuration() *durationpb.Duration {
+	if x != nil {
+		return x.CheckDuration
+	}
+	return nil
+}
+
+func (x *ProtectionLifecycle_PostPush) GetMustSucceedOnce() bool {
+	if x != nil {
+		return x.MustSucceedOnce
+	}
+	return false
+}
 
 var File_prodvana_protection_protection_reference_proto protoreflect.FileDescriptor
 
@@ -164,7 +485,9 @@ var file_prodvana_protection_protection_reference_proto_rawDesc = []byte{
 	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
 	0x5f, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x12, 0x13, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x17, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2f,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2f,
 	0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x2b,
 	0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74,
 	0x69, 0x6f, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x63,
@@ -176,20 +499,69 @@ var file_prodvana_protection_protection_reference_proto_rawDesc = []byte{
 	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
 	0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68,
 	0x6d, 0x65, 0x6e, 0x74, 0x52, 0x0a, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74,
-	0x22, 0x7e, 0x0a, 0x13, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x14, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x45, 0x0a,
-	0x08, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x27, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x65, 0x64, 0x50, 0x72,
-	0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x08, 0x61, 0x74, 0x74, 0x61,
-	0x63, 0x68, 0x65, 0x64, 0x42, 0x0a, 0x0a, 0x03, 0x72, 0x65, 0x66, 0x12, 0x03, 0xf8, 0x42, 0x01,
-	0x42, 0x4f, 0x5a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x70,
-	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61,
-	0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76,
-	0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x72,
-	0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0xbe, 0x05, 0x0a, 0x13, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x12, 0x59, 0x0a, 0x0c, 0x70, 0x72, 0x65, 0x5f,
+	0x61, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x34,
+	0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x50, 0x72, 0x65, 0x41, 0x70, 0x70, 0x72,
+	0x6f, 0x76, 0x61, 0x6c, 0x48, 0x00, 0x52, 0x0b, 0x70, 0x72, 0x65, 0x41, 0x70, 0x70, 0x72, 0x6f,
+	0x76, 0x61, 0x6c, 0x12, 0x5c, 0x0a, 0x0d, 0x70, 0x6f, 0x73, 0x74, 0x5f, 0x61, 0x70, 0x70, 0x72,
+	0x6f, 0x76, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x35, 0x2e, 0x70, 0x72, 0x6f,
+	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x66, 0x65, 0x63,
+	0x79, 0x63, 0x6c, 0x65, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61,
+	0x6c, 0x48, 0x00, 0x52, 0x0c, 0x70, 0x6f, 0x73, 0x74, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61,
+	0x6c, 0x12, 0x43, 0x0a, 0x04, 0x70, 0x75, 0x73, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x2d, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x50, 0x75, 0x73, 0x68, 0x48, 0x00,
+	0x52, 0x04, 0x70, 0x75, 0x73, 0x68, 0x12, 0x50, 0x0a, 0x09, 0x70, 0x6f, 0x73, 0x74, 0x5f, 0x70,
+	0x75, 0x73, 0x68, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x31, 0x2e, 0x70, 0x72, 0x6f, 0x64,
+	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79,
+	0x63, 0x6c, 0x65, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x50, 0x75, 0x73, 0x68, 0x48, 0x00, 0x52, 0x08,
+	0x70, 0x6f, 0x73, 0x74, 0x50, 0x75, 0x73, 0x68, 0x1a, 0x39, 0x0a, 0x0b, 0x50, 0x72, 0x65, 0x41,
+	0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x12, 0x2a, 0x0a, 0x11, 0x6d, 0x75, 0x73, 0x74, 0x5f,
+	0x73, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x5f, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x0f, 0x6d, 0x75, 0x73, 0x74, 0x53, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x4f,
+	0x6e, 0x63, 0x65, 0x1a, 0x3a, 0x0a, 0x0c, 0x50, 0x6f, 0x73, 0x74, 0x41, 0x70, 0x70, 0x72, 0x6f,
+	0x76, 0x61, 0x6c, 0x12, 0x2a, 0x0a, 0x11, 0x6d, 0x75, 0x73, 0x74, 0x5f, 0x73, 0x75, 0x63, 0x63,
+	0x65, 0x65, 0x64, 0x5f, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0f,
+	0x6d, 0x75, 0x73, 0x74, 0x53, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x4f, 0x6e, 0x63, 0x65, 0x1a,
+	0x06, 0x0a, 0x04, 0x50, 0x75, 0x73, 0x68, 0x1a, 0xc5, 0x01, 0x0a, 0x08, 0x50, 0x6f, 0x73, 0x74,
+	0x50, 0x75, 0x73, 0x68, 0x12, 0x4b, 0x0a, 0x14, 0x64, 0x65, 0x6c, 0x61, 0x79, 0x5f, 0x63, 0x68,
+	0x65, 0x63, 0x6b, 0x5f, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x12, 0x64,
+	0x65, 0x6c, 0x61, 0x79, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x40, 0x0a, 0x0e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x5f, 0x64, 0x75, 0x72, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x6f, 0x67,
+	0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75, 0x72, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0d, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x44, 0x75, 0x72, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x0a, 0x11, 0x6d, 0x75, 0x73, 0x74, 0x5f, 0x73, 0x75, 0x63, 0x63,
+	0x65, 0x65, 0x64, 0x5f, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0f,
+	0x6d, 0x75, 0x73, 0x74, 0x53, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x4f, 0x6e, 0x63, 0x65, 0x42,
+	0x10, 0x0a, 0x09, 0x6c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x12, 0x03, 0xf8, 0x42,
+	0x01, 0x22, 0xc6, 0x01, 0x0a, 0x13, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x14, 0x0a, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x45, 0x0a, 0x08, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x27, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x65, 0x64,
+	0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x08, 0x61, 0x74,
+	0x74, 0x61, 0x63, 0x68, 0x65, 0x64, 0x12, 0x46, 0x0a, 0x09, 0x6c, 0x69, 0x66, 0x65, 0x63, 0x79,
+	0x63, 0x6c, 0x65, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x70, 0x72, 0x6f, 0x64,
+	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79,
+	0x63, 0x6c, 0x65, 0x52, 0x09, 0x6c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x42, 0x0a,
+	0x0a, 0x03, 0x72, 0x65, 0x66, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x42, 0x4f, 0x5a, 0x4d, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e,
+	0x61, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69,
+	0x63, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64,
+	0x6b, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61,
+	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -204,20 +576,33 @@ func file_prodvana_protection_protection_reference_proto_rawDescGZIP() []byte {
 	return file_prodvana_protection_protection_reference_proto_rawDescData
 }
 
-var file_prodvana_protection_protection_reference_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_prodvana_protection_protection_reference_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_prodvana_protection_protection_reference_proto_goTypes = []interface{}{
-	(*AttachedProtection)(nil),   // 0: prodvana.protection.AttachedProtection
-	(*ProtectionReference)(nil),  // 1: prodvana.protection.ProtectionReference
-	(*ProtectionAttachment)(nil), // 2: prodvana.protection.ProtectionAttachment
+	(*AttachedProtection)(nil),               // 0: prodvana.protection.AttachedProtection
+	(*ProtectionLifecycle)(nil),              // 1: prodvana.protection.ProtectionLifecycle
+	(*ProtectionReference)(nil),              // 2: prodvana.protection.ProtectionReference
+	(*ProtectionLifecycle_PreApproval)(nil),  // 3: prodvana.protection.ProtectionLifecycle.PreApproval
+	(*ProtectionLifecycle_PostApproval)(nil), // 4: prodvana.protection.ProtectionLifecycle.PostApproval
+	(*ProtectionLifecycle_Push)(nil),         // 5: prodvana.protection.ProtectionLifecycle.Push
+	(*ProtectionLifecycle_PostPush)(nil),     // 6: prodvana.protection.ProtectionLifecycle.PostPush
+	(*ProtectionAttachment)(nil),             // 7: prodvana.protection.ProtectionAttachment
+	(*durationpb.Duration)(nil),              // 8: google.protobuf.Duration
 }
 var file_prodvana_protection_protection_reference_proto_depIdxs = []int32{
-	2, // 0: prodvana.protection.AttachedProtection.attachment:type_name -> prodvana.protection.ProtectionAttachment
-	0, // 1: prodvana.protection.ProtectionReference.attached:type_name -> prodvana.protection.AttachedProtection
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	7, // 0: prodvana.protection.AttachedProtection.attachment:type_name -> prodvana.protection.ProtectionAttachment
+	3, // 1: prodvana.protection.ProtectionLifecycle.pre_approval:type_name -> prodvana.protection.ProtectionLifecycle.PreApproval
+	4, // 2: prodvana.protection.ProtectionLifecycle.post_approval:type_name -> prodvana.protection.ProtectionLifecycle.PostApproval
+	5, // 3: prodvana.protection.ProtectionLifecycle.push:type_name -> prodvana.protection.ProtectionLifecycle.Push
+	6, // 4: prodvana.protection.ProtectionLifecycle.post_push:type_name -> prodvana.protection.ProtectionLifecycle.PostPush
+	0, // 5: prodvana.protection.ProtectionReference.attached:type_name -> prodvana.protection.AttachedProtection
+	1, // 6: prodvana.protection.ProtectionReference.lifecycle:type_name -> prodvana.protection.ProtectionLifecycle
+	8, // 7: prodvana.protection.ProtectionLifecycle.PostPush.delay_check_duration:type_name -> google.protobuf.Duration
+	8, // 8: prodvana.protection.ProtectionLifecycle.PostPush.check_duration:type_name -> google.protobuf.Duration
+	9, // [9:9] is the sub-list for method output_type
+	9, // [9:9] is the sub-list for method input_type
+	9, // [9:9] is the sub-list for extension type_name
+	9, // [9:9] is the sub-list for extension extendee
+	0, // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_protection_protection_reference_proto_init() }
@@ -240,7 +625,67 @@ func file_prodvana_protection_protection_reference_proto_init() {
 			}
 		}
 		file_prodvana_protection_protection_reference_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProtectionLifecycle); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_reference_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ProtectionReference); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_reference_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProtectionLifecycle_PreApproval); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_reference_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProtectionLifecycle_PostApproval); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_reference_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProtectionLifecycle_Push); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_reference_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProtectionLifecycle_PostPush); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -253,6 +698,12 @@ func file_prodvana_protection_protection_reference_proto_init() {
 		}
 	}
 	file_prodvana_protection_protection_reference_proto_msgTypes[1].OneofWrappers = []interface{}{
+		(*ProtectionLifecycle_PreApproval_)(nil),
+		(*ProtectionLifecycle_PostApproval_)(nil),
+		(*ProtectionLifecycle_Push_)(nil),
+		(*ProtectionLifecycle_PostPush_)(nil),
+	}
+	file_prodvana_protection_protection_reference_proto_msgTypes[2].OneofWrappers = []interface{}{
 		(*ProtectionReference_Name)(nil),
 		(*ProtectionReference_Attached)(nil),
 	}
@@ -262,7 +713,7 @@ func file_prodvana_protection_protection_reference_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_protection_protection_reference_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
