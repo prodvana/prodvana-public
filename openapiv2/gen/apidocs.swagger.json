@@ -7855,16 +7855,6 @@
           "format": "int32",
           "description": "Replicas which have passed healthchecks for required duration."
         },
-        "unhealthy": {
-          "type": "boolean"
-        },
-        "unhealthyReasons": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "if unhealthy is true, this will contain at least one message"
-        },
         "pushTimestamp": {
           "type": "string",
           "format": "date-time"
