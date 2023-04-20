@@ -3425,6 +3425,35 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetProgressDeadline()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ServiceConfigValidationError{
+					field:  "ProgressDeadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ServiceConfigValidationError{
+					field:  "ProgressDeadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProgressDeadline()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceConfigValidationError{
+				field:  "ProgressDeadline",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	// no validation rules for ParametersAutogen
 
 	switch v := m.ConfigOneof.(type) {
@@ -4103,6 +4132,35 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if all {
+		switch v := interface{}(m.GetProgressDeadline()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CompiledServiceInstanceConfigValidationError{
+					field:  "ProgressDeadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CompiledServiceInstanceConfigValidationError{
+					field:  "ProgressDeadline",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProgressDeadline()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CompiledServiceInstanceConfigValidationError{
+				field:  "ProgressDeadline",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	switch v := m.ConfigOneof.(type) {

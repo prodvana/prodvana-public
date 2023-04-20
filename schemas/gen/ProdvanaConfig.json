@@ -4416,6 +4416,12 @@
                     ],
                     "description": "only valid to set in compiled configs by Prodvana"
                 },
+                "progressDeadline": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "how long to wait before marking deployment as failed",
+                    "format": "regex"
+                },
                 "genericRuntime": {
                     "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
                     "additionalProperties": false,

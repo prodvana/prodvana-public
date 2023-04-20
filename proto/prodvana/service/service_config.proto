@@ -223,6 +223,9 @@ message ServiceConfig {
     // only valid to set in compiled configs by Prodvana
     ServiceParameterValues parameter_values = 22;
 
+    // how long to wait before marking deployment as failed
+    google.protobuf.Duration progress_deadline = 24;
+
     reserved 6, 7, 8;
     reserved "external", "image_repository", "container_registry_id";
 
@@ -244,7 +247,7 @@ message ServiceConfig {
     // How to autogenerate parameters, defaults to IMAGE
     ParametersAutogen parameters_autogen = 23;
 
-    // next tag: 24
+    // next tag: 25
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -277,6 +280,9 @@ message CompiledServiceInstanceConfig {
     repeated prodvana.common_config.ParameterDefinition parameters = 24;
     repeated prodvana.common_config.ParameterValue parameter_values = 25;
 
+    // how long to wait before marking deployment as failed
+    google.protobuf.Duration progress_deadline = 26;
+
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 22;
         ExternalConfig external_config = 23;
@@ -285,7 +291,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 26
+    // next tag: 27
 }
 
 message CompiledJobConfig {

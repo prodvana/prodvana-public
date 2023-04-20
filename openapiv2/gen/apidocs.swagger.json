@@ -8828,6 +8828,10 @@
             "$ref": "#/definitions/common_configParameterValue"
           }
         },
+        "progressDeadline": {
+          "type": "string",
+          "title": "how long to wait before marking deployment as failed"
+        },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
@@ -9360,6 +9364,10 @@
         "parameterValues": {
           "$ref": "#/definitions/serviceServiceParameterValues",
           "title": "only valid to set in compiled configs by Prodvana"
+        },
+        "progressDeadline": {
+          "type": "string",
+          "title": "how long to wait before marking deployment as failed"
         },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
