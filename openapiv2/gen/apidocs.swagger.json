@@ -6028,8 +6028,12 @@
     "desired_stateDesiredStateSummary": {
       "type": "object",
       "properties": {
+        "entityGraph": {
+          "$ref": "#/definitions/modelEntityGraph"
+        },
         "startingState": {
-          "$ref": "#/definitions/modelState"
+          "$ref": "#/definitions/modelState",
+          "title": "fields below are deprecated"
         },
         "lastSeenState": {
           "$ref": "#/definitions/modelState"
@@ -7453,6 +7457,29 @@
       "default": "ACTION_TYPE_UNKNOWN",
       "description": " - ACTION_TYPE_APPLYING: DD is currently apply target state - if its doing this for too long, probably means apply is stuck.\n - ACTION_TYPE_APPLIED: DD has applied target state - waiting for object to converge.\n - ACTION_TYPE_COMPLETE: Reached terminal state - DD is doing nothing further."
     },
+    "modelAnnotations": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelAnnotationsAnnotation"
+          }
+        }
+      }
+    },
+    "modelAnnotationsAnnotation": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "modelCanaryProgressState": {
       "type": "object",
       "properties": {
@@ -7664,6 +7691,96 @@
         "STATUS_UNHEALTHY"
       ],
       "default": "STATUS_UNKNOWN"
+    },
+    "modelEntity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "rootDesiredStateId": {
+          "type": "string"
+        },
+        "annotations": {
+          "$ref": "#/definitions/modelAnnotations"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        },
+        "startingState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "lastSeenState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "desiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "preconditionStatuses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConditionState"
+          }
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelDebugLog"
+          }
+        },
+        "actionExplanation": {
+          "$ref": "#/definitions/modelActionExplanation"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the entity state last changed"
+        },
+        "lastFetchedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when prodvana last fetched entity state, best effort"
+        },
+        "lastAppliedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when prodvana last applied state for this entity, best effort"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          }
+        }
+      }
+    },
+    "modelEntityGraph": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelEntity"
+          }
+        }
+      }
     },
     "modelIdentifier": {
       "type": "object",
