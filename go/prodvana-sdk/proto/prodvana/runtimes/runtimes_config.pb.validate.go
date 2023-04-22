@@ -296,3 +296,612 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RuntimeInitializationConfigValidationError{}
+
+// Validate checks the field values on ContainerOrchestrationRuntime with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ContainerOrchestrationRuntime) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerOrchestrationRuntime with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ContainerOrchestrationRuntimeMultiError, or nil if none found.
+func (m *ContainerOrchestrationRuntime) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerOrchestrationRuntime) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofBackendPresent := false
+	switch v := m.Backend.(type) {
+	case *ContainerOrchestrationRuntime_K8S_:
+		if v == nil {
+			err := ContainerOrchestrationRuntimeValidationError{
+				field:  "Backend",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBackendPresent = true
+
+		if all {
+			switch v := interface{}(m.GetK8S()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ContainerOrchestrationRuntimeValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ContainerOrchestrationRuntimeValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetK8S()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ContainerOrchestrationRuntimeValidationError{
+					field:  "K8S",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ContainerOrchestrationRuntime_Ecs:
+		if v == nil {
+			err := ContainerOrchestrationRuntimeValidationError{
+				field:  "Backend",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBackendPresent = true
+
+		if all {
+			switch v := interface{}(m.GetEcs()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ContainerOrchestrationRuntimeValidationError{
+						field:  "Ecs",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ContainerOrchestrationRuntimeValidationError{
+						field:  "Ecs",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEcs()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ContainerOrchestrationRuntimeValidationError{
+					field:  "Ecs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofBackendPresent {
+		err := ContainerOrchestrationRuntimeValidationError{
+			field:  "Backend",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ContainerOrchestrationRuntimeMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerOrchestrationRuntimeMultiError is an error wrapping multiple
+// validation errors returned by ContainerOrchestrationRuntime.ValidateAll()
+// if the designated constraints aren't met.
+type ContainerOrchestrationRuntimeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerOrchestrationRuntimeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerOrchestrationRuntimeMultiError) AllErrors() []error { return m }
+
+// ContainerOrchestrationRuntimeValidationError is the validation error
+// returned by ContainerOrchestrationRuntime.Validate if the designated
+// constraints aren't met.
+type ContainerOrchestrationRuntimeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerOrchestrationRuntimeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerOrchestrationRuntimeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerOrchestrationRuntimeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerOrchestrationRuntimeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerOrchestrationRuntimeValidationError) ErrorName() string {
+	return "ContainerOrchestrationRuntimeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerOrchestrationRuntimeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerOrchestrationRuntime.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerOrchestrationRuntimeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerOrchestrationRuntimeValidationError{}
+
+// Validate checks the field values on RuntimeExecutionConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExecutionConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExecutionConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RuntimeExecutionConfigMultiError, or nil if none found.
+func (m *RuntimeExecutionConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExecutionConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetRuntime()); l < 1 || l > 63 {
+		err := RuntimeExecutionConfigValidationError{
+			field:  "Runtime",
+			reason: "value length must be between 1 and 63 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_RuntimeExecutionConfig_Runtime_Pattern.MatchString(m.GetRuntime()) {
+		err := RuntimeExecutionConfigValidationError{
+			field:  "Runtime",
+			reason: "value does not match regex pattern \"^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	switch v := m.TypeOneof.(type) {
+	case *RuntimeExecutionConfig_ContainerOrchestration:
+		if v == nil {
+			err := RuntimeExecutionConfigValidationError{
+				field:  "TypeOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetContainerOrchestration()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RuntimeExecutionConfigValidationError{
+						field:  "ContainerOrchestration",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RuntimeExecutionConfigValidationError{
+						field:  "ContainerOrchestration",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetContainerOrchestration()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RuntimeExecutionConfigValidationError{
+					field:  "ContainerOrchestration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return RuntimeExecutionConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExecutionConfigMultiError is an error wrapping multiple validation
+// errors returned by RuntimeExecutionConfig.ValidateAll() if the designated
+// constraints aren't met.
+type RuntimeExecutionConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExecutionConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExecutionConfigMultiError) AllErrors() []error { return m }
+
+// RuntimeExecutionConfigValidationError is the validation error returned by
+// RuntimeExecutionConfig.Validate if the designated constraints aren't met.
+type RuntimeExecutionConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExecutionConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExecutionConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExecutionConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExecutionConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExecutionConfigValidationError) ErrorName() string {
+	return "RuntimeExecutionConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExecutionConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExecutionConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExecutionConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExecutionConfigValidationError{}
+
+var _RuntimeExecutionConfig_Runtime_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
+
+// Validate checks the field values on ContainerOrchestrationRuntime_K8S with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ContainerOrchestrationRuntime_K8S) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerOrchestrationRuntime_K8S
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ContainerOrchestrationRuntime_K8SMultiError, or nil if none found.
+func (m *ContainerOrchestrationRuntime_K8S) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerOrchestrationRuntime_K8S) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetNamespace()) < 1 {
+		err := ContainerOrchestrationRuntime_K8SValidationError{
+			field:  "Namespace",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PvnManaged
+
+	if len(errors) > 0 {
+		return ContainerOrchestrationRuntime_K8SMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerOrchestrationRuntime_K8SMultiError is an error wrapping multiple
+// validation errors returned by
+// ContainerOrchestrationRuntime_K8S.ValidateAll() if the designated
+// constraints aren't met.
+type ContainerOrchestrationRuntime_K8SMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerOrchestrationRuntime_K8SMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerOrchestrationRuntime_K8SMultiError) AllErrors() []error { return m }
+
+// ContainerOrchestrationRuntime_K8SValidationError is the validation error
+// returned by ContainerOrchestrationRuntime_K8S.Validate if the designated
+// constraints aren't met.
+type ContainerOrchestrationRuntime_K8SValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerOrchestrationRuntime_K8SValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerOrchestrationRuntime_K8SValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerOrchestrationRuntime_K8SValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerOrchestrationRuntime_K8SValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerOrchestrationRuntime_K8SValidationError) ErrorName() string {
+	return "ContainerOrchestrationRuntime_K8SValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerOrchestrationRuntime_K8SValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerOrchestrationRuntime_K8S.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerOrchestrationRuntime_K8SValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerOrchestrationRuntime_K8SValidationError{}
+
+// Validate checks the field values on ContainerOrchestrationRuntime_ECS with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ContainerOrchestrationRuntime_ECS) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerOrchestrationRuntime_ECS
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ContainerOrchestrationRuntime_ECSMultiError, or nil if none found.
+func (m *ContainerOrchestrationRuntime_ECS) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerOrchestrationRuntime_ECS) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPrefix()) < 1 {
+		err := ContainerOrchestrationRuntime_ECSValidationError{
+			field:  "Prefix",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ContainerOrchestrationRuntime_ECSMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerOrchestrationRuntime_ECSMultiError is an error wrapping multiple
+// validation errors returned by
+// ContainerOrchestrationRuntime_ECS.ValidateAll() if the designated
+// constraints aren't met.
+type ContainerOrchestrationRuntime_ECSMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerOrchestrationRuntime_ECSMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerOrchestrationRuntime_ECSMultiError) AllErrors() []error { return m }
+
+// ContainerOrchestrationRuntime_ECSValidationError is the validation error
+// returned by ContainerOrchestrationRuntime_ECS.Validate if the designated
+// constraints aren't met.
+type ContainerOrchestrationRuntime_ECSValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerOrchestrationRuntime_ECSValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerOrchestrationRuntime_ECSValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerOrchestrationRuntime_ECSValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerOrchestrationRuntime_ECSValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerOrchestrationRuntime_ECSValidationError) ErrorName() string {
+	return "ContainerOrchestrationRuntime_ECSValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerOrchestrationRuntime_ECSValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerOrchestrationRuntime_ECS.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerOrchestrationRuntime_ECSValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerOrchestrationRuntime_ECSValidationError{}

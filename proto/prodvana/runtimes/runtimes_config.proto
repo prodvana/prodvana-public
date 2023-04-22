@@ -1,6 +1,7 @@
 syntax = "proto3";
 package prodvana.runtimes;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes";
+import "validate/validate.proto";
 
 message K8SRuntimeInitializationConfig {
     string agent_image = 1;
@@ -16,5 +17,38 @@ message K8SRuntimeInitializationConfig {
 message RuntimeInitializationConfig {
     oneof runtime_specific {
         K8SRuntimeInitializationConfig k8s = 1;
+    }
+}
+
+message ContainerOrchestrationRuntime {
+    message K8s {
+        // optionally set a custom namespace. If not set, Prodvana will create and manage the namespace.
+        // If set, the namespace *must* already exist and Prodvana will not try to create or delete it.
+        string namespace = 1 [(validate.rules).string.min_len = 1];
+        // do not set this, this is used internally by Prodvana to keep track of if a namespace
+        // is managed by Prodvana or externally.
+        bool pvn_managed = 2;
+    }
+    message ECS {
+        string prefix = 1 [(validate.rules).string.min_len = 1];
+    }
+    oneof backend {
+        option (validate.required) = true;
+        K8s k8s = 1;
+        ECS ecs = 2;
+    }
+}
+
+message RuntimeExecutionConfig {
+    string runtime = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+
+    oneof type_oneof {
+        ContainerOrchestrationRuntime container_orchestration = 2;
     }
 }

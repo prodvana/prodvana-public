@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
+import "prodvana/runtimes/runtimes_config.proto";
 
 message ProtectionConfig {
     string name = 1 [
@@ -38,30 +39,32 @@ message ProtectionConfig {
     // }
 }
 
-message ProtectionInstanceConfig {
+message CompiledProtectionAttachmentConfig {
     ProtectionConfig config = 1;
 
     // Protection source - where did this protection get attached from (service/app/org/...)?
     ProtectionAttachment attachment = 2;
 
+    prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 3;
+
     // TODO: Context/parameter/input bindings.
 }
 
 message ServiceInstanceAttachment {
-    string service_id = 1;
-    string release_channel_id = 2;
-    // version?
+    string service = 1;
+    string release_channel = 2;
+    string application = 3;
 }
 
 message ReleaseChannelAttachment {
-    ProtectionConfig protection = 1;
+    string application = 1;
     string release_channel = 2;
-    // TODO(naphat) runtime information
 }
 
 message ProtectionAttachment {
     oneof attachment {
         option (validate.required) = true;
         ServiceInstanceAttachment service_instance = 1;
+        ReleaseChannelAttachment release_channel = 2;
     }
 }

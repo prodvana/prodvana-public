@@ -217,22 +217,23 @@ var _ interface {
 
 var _ProtectionConfig_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
 
-// Validate checks the field values on ProtectionInstanceConfig with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ProtectionInstanceConfig) Validate() error {
+// Validate checks the field values on CompiledProtectionAttachmentConfig with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CompiledProtectionAttachmentConfig) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ProtectionInstanceConfig with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ProtectionInstanceConfigMultiError, or nil if none found.
-func (m *ProtectionInstanceConfig) ValidateAll() error {
+// ValidateAll checks the field values on CompiledProtectionAttachmentConfig
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CompiledProtectionAttachmentConfigMultiError, or nil if none found.
+func (m *CompiledProtectionAttachmentConfig) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ProtectionInstanceConfig) validate(all bool) error {
+func (m *CompiledProtectionAttachmentConfig) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -243,7 +244,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		switch v := interface{}(m.GetConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionInstanceConfigValidationError{
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -251,7 +252,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionInstanceConfigValidationError{
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -260,7 +261,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionInstanceConfigValidationError{
+			return CompiledProtectionAttachmentConfigValidationError{
 				field:  "Config",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -272,7 +273,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		switch v := interface{}(m.GetAttachment()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionInstanceConfigValidationError{
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
 					field:  "Attachment",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -280,7 +281,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionInstanceConfigValidationError{
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
 					field:  "Attachment",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -289,7 +290,7 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetAttachment()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionInstanceConfigValidationError{
+			return CompiledProtectionAttachmentConfigValidationError{
 				field:  "Attachment",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -297,20 +298,50 @@ func (m *ProtectionInstanceConfig) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetRuntimeExecution()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRuntimeExecution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CompiledProtectionAttachmentConfigValidationError{
+				field:  "RuntimeExecution",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
-		return ProtectionInstanceConfigMultiError(errors)
+		return CompiledProtectionAttachmentConfigMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionInstanceConfigMultiError is an error wrapping multiple validation
-// errors returned by ProtectionInstanceConfig.ValidateAll() if the designated
+// CompiledProtectionAttachmentConfigMultiError is an error wrapping multiple
+// validation errors returned by
+// CompiledProtectionAttachmentConfig.ValidateAll() if the designated
 // constraints aren't met.
-type ProtectionInstanceConfigMultiError []error
+type CompiledProtectionAttachmentConfigMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionInstanceConfigMultiError) Error() string {
+func (m CompiledProtectionAttachmentConfigMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -319,11 +350,12 @@ func (m ProtectionInstanceConfigMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionInstanceConfigMultiError) AllErrors() []error { return m }
+func (m CompiledProtectionAttachmentConfigMultiError) AllErrors() []error { return m }
 
-// ProtectionInstanceConfigValidationError is the validation error returned by
-// ProtectionInstanceConfig.Validate if the designated constraints aren't met.
-type ProtectionInstanceConfigValidationError struct {
+// CompiledProtectionAttachmentConfigValidationError is the validation error
+// returned by CompiledProtectionAttachmentConfig.Validate if the designated
+// constraints aren't met.
+type CompiledProtectionAttachmentConfigValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -331,24 +363,24 @@ type ProtectionInstanceConfigValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionInstanceConfigValidationError) Field() string { return e.field }
+func (e CompiledProtectionAttachmentConfigValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionInstanceConfigValidationError) Reason() string { return e.reason }
+func (e CompiledProtectionAttachmentConfigValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionInstanceConfigValidationError) Cause() error { return e.cause }
+func (e CompiledProtectionAttachmentConfigValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionInstanceConfigValidationError) Key() bool { return e.key }
+func (e CompiledProtectionAttachmentConfigValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionInstanceConfigValidationError) ErrorName() string {
-	return "ProtectionInstanceConfigValidationError"
+func (e CompiledProtectionAttachmentConfigValidationError) ErrorName() string {
+	return "CompiledProtectionAttachmentConfigValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ProtectionInstanceConfigValidationError) Error() string {
+func (e CompiledProtectionAttachmentConfigValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -360,14 +392,14 @@ func (e ProtectionInstanceConfigValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtectionInstanceConfig.%s: %s%s",
+		"invalid %sCompiledProtectionAttachmentConfig.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionInstanceConfigValidationError{}
+var _ error = CompiledProtectionAttachmentConfigValidationError{}
 
 var _ interface {
 	Field() string
@@ -375,7 +407,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionInstanceConfigValidationError{}
+} = CompiledProtectionAttachmentConfigValidationError{}
 
 // Validate checks the field values on ServiceInstanceAttachment with the rules
 // defined in the proto definition for this message. If any rules are
@@ -399,9 +431,11 @@ func (m *ServiceInstanceAttachment) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceId
+	// no validation rules for Service
 
-	// no validation rules for ReleaseChannelId
+	// no validation rules for ReleaseChannel
+
+	// no validation rules for Application
 
 	if len(errors) > 0 {
 		return ServiceInstanceAttachmentMultiError(errors)
@@ -505,34 +539,7 @@ func (m *ReleaseChannelAttachment) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetProtection()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReleaseChannelAttachmentValidationError{
-					field:  "Protection",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ReleaseChannelAttachmentValidationError{
-					field:  "Protection",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ReleaseChannelAttachmentValidationError{
-				field:  "Protection",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Application
 
 	// no validation rules for ReleaseChannel
 
@@ -676,6 +683,48 @@ func (m *ProtectionAttachment) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ProtectionAttachmentValidationError{
 					field:  "ServiceInstance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ProtectionAttachment_ReleaseChannel:
+		if v == nil {
+			err := ProtectionAttachmentValidationError{
+				field:  "Attachment",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofAttachmentPresent = true
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionAttachmentValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionAttachmentValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionAttachmentValidationError{
+					field:  "ReleaseChannel",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -2984,100 +2984,6 @@
             ],
             "title": "Protection Reference"
         },
-        "prodvana.release_channel.ContainerOrchestrationRuntime": {
-            "properties": {
-                "k8s": {
-                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime.K8s",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "ecs": {
-                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime.ECS",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Container Orchestration Runtime"
-        },
-        "prodvana.release_channel.ContainerOrchestrationRuntime.ECS": {
-            "properties": {
-                "prefix": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "ECS"
-        },
-        "prodvana.release_channel.ContainerOrchestrationRuntime.K8s": {
-            "properties": {
-                "namespace": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "optionally set a custom namespace. If not set, Prodvana will create and manage the namespace. If set, the namespace *must* already exist and Prodvana will not try to create or delete it."
-                },
-                "pvnManaged": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "do not set this, this is used internally by Prodvana to keep track of if a namespace is managed by Prodvana or externally."
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "K 8 S"
-        },
         "prodvana.release_channel.Policy": {
             "properties": {
                 "defaultEnv": {
@@ -3372,7 +3278,7 @@
                     "description": "Optional identifier for this runtime connection within this release channel, useful if the same runtime is used multiple times in a single release channel. Defaults to runtime."
                 },
                 "containerOrchestration": {
-                    "$ref": "#/definitions/prodvana.release_channel.ContainerOrchestrationRuntime",
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3503,6 +3409,100 @@
                 }
             ],
             "title": "User"
+        },
+        "prodvana.runtimes.ContainerOrchestrationRuntime": {
+            "properties": {
+                "k8s": {
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime.K8s",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "ecs": {
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime.ECS",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Container Orchestration Runtime"
+        },
+        "prodvana.runtimes.ContainerOrchestrationRuntime.ECS": {
+            "properties": {
+                "prefix": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "ECS"
+        },
+        "prodvana.runtimes.ContainerOrchestrationRuntime.K8s": {
+            "properties": {
+                "namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optionally set a custom namespace. If not set, Prodvana will create and manage the namespace. If set, the namespace *must* already exist and Prodvana will not try to create or delete it."
+                },
+                "pvnManaged": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "do not set this, this is used internally by Prodvana to keep track of if a namespace is managed by Prodvana or externally."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "K 8 S"
         },
         "prodvana.service.CapabilityReference": {
             "properties": {

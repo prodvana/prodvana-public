@@ -3803,6 +3803,35 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetRuntimeExecution()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CompiledServiceInstanceConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CompiledServiceInstanceConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRuntimeExecution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CompiledServiceInstanceConfigValidationError{
+				field:  "RuntimeExecution",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	for idx, item := range m.GetCapabilities() {
 		_, _ = idx, item
 
@@ -4414,6 +4443,35 @@ func (m *CompiledJobConfig) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return CompiledJobConfigValidationError{
 				field:  "Runtime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRuntimeExecution()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CompiledJobConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CompiledJobConfigValidationError{
+					field:  "RuntimeExecution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRuntimeExecution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CompiledJobConfigValidationError{
+				field:  "RuntimeExecution",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

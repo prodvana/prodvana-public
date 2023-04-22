@@ -6309,7 +6309,7 @@
           "$ref": "#/definitions/desired_statemodelMetadata"
         },
         "config": {
-          "$ref": "#/definitions/protectionProtectionInstanceConfig"
+          "$ref": "#/definitions/protectionCompiledProtectionAttachmentConfig"
         },
         "state": {
           "$ref": "#/definitions/modelProtectionState"
@@ -8412,6 +8412,21 @@
         }
       }
     },
+    "protectionCompiledProtectionAttachmentConfig": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "attachment": {
+          "$ref": "#/definitions/protectionProtectionAttachment",
+          "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
+        },
+        "runtimeExecution": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        }
+      }
+    },
     "protectionConfigureProtectionReq": {
       "type": "object",
       "properties": {
@@ -8476,6 +8491,9 @@
       "properties": {
         "serviceInstance": {
           "$ref": "#/definitions/protectionServiceInstanceAttachment"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/protectionReleaseChannelAttachment"
         }
       }
     },
@@ -8488,18 +8506,6 @@
         "taskConfig": {
           "$ref": "#/definitions/prodvanacommon_configTaskConfig",
           "description": "Inline task config with retry, template support."
-        }
-      }
-    },
-    "protectionProtectionInstanceConfig": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "$ref": "#/definitions/protectionProtectionConfig"
-        },
-        "attachment": {
-          "$ref": "#/definitions/protectionProtectionAttachment",
-          "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
         }
       }
     },
@@ -8542,15 +8548,28 @@
         }
       }
     },
+    "protectionReleaseChannelAttachment": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        }
+      }
+    },
     "protectionServiceInstanceAttachment": {
       "type": "object",
       "properties": {
-        "serviceId": {
+        "service": {
           "type": "string"
         },
-        "releaseChannelId": {
-          "type": "string",
-          "title": "version?"
+        "releaseChannel": {
+          "type": "string"
+        },
+        "application": {
+          "type": "string"
         }
       }
     },
@@ -8587,17 +8606,6 @@
       "properties": {
         "version": {
           "type": "string"
-        }
-      }
-    },
-    "release_channelContainerOrchestrationRuntime": {
-      "type": "object",
-      "properties": {
-        "k8s": {
-          "$ref": "#/definitions/ContainerOrchestrationRuntimeK8s"
-        },
-        "ecs": {
-          "$ref": "#/definitions/ContainerOrchestrationRuntimeECS"
         }
       }
     },
@@ -8744,7 +8752,7 @@
           "description": "Optional identifier for this runtime connection within this release channel,\nuseful if the same runtime is used multiple times in a single release channel.\nDefaults to runtime."
         },
         "containerOrchestration": {
-          "$ref": "#/definitions/release_channelContainerOrchestrationRuntime"
+          "$ref": "#/definitions/runtimesContainerOrchestrationRuntime"
         },
         "connectionType": {
           "$ref": "#/definitions/release_channelRuntimeConnectionType"
@@ -8779,6 +8787,28 @@
         "author": {
           "$ref": "#/definitions/prodvanarepoUser",
           "title": "TODO: Other fields, like author, timestamps etc"
+        }
+      }
+    },
+    "runtimesContainerOrchestrationRuntime": {
+      "type": "object",
+      "properties": {
+        "k8s": {
+          "$ref": "#/definitions/ContainerOrchestrationRuntimeK8s"
+        },
+        "ecs": {
+          "$ref": "#/definitions/ContainerOrchestrationRuntimeECS"
+        }
+      }
+    },
+    "runtimesRuntimeExecutionConfig": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string"
+        },
+        "containerOrchestration": {
+          "$ref": "#/definitions/runtimesContainerOrchestrationRuntime"
         }
       }
     },
@@ -8880,6 +8910,9 @@
         "runtime": {
           "$ref": "#/definitions/release_channelReleaseChannelRuntimeConfig"
         },
+        "runtimeExecution": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
         "capabilities": {
           "type": "array",
           "items": {
@@ -8917,7 +8950,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/protectionProtectionInstanceConfig"
+            "$ref": "#/definitions/protectionCompiledProtectionAttachmentConfig"
           }
         },
         "parameters": {

@@ -366,7 +366,7 @@ message CustomTaskState {
 
 message Protection {
     Metadata meta = 1;
-    prodvana.protection.ProtectionInstanceConfig config = 2;
+    prodvana.protection.CompiledProtectionAttachmentConfig config = 2;
     ProtectionState state = 3;
 }
 

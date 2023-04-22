@@ -12,6 +12,7 @@ import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/release_channel/release_channel_config.proto";
+import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/workflow/integration_config.proto";
 import "prodvana/service/parameters.proto";
 import "prodvana/volumes/volumes.proto";
@@ -264,6 +265,7 @@ message CompiledServiceInstanceConfig {
     Certificate cert = 10;
 
     prodvana.release_channel.ReleaseChannelRuntimeConfig runtime = 11;
+    prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 27;
     repeated CompiledCapabilityConfig capabilities = 12;
     prodvana.delivery.DeliveryConfig delivery_config = 13;
     repeated prodvana.volumes.Volume volumes = 14 [(validate.rules).repeated.items.message.required = true];
@@ -275,7 +277,7 @@ message CompiledServiceInstanceConfig {
 
     RuntimeSpecificConfig runtime_specific = 19;
 
-    repeated prodvana.protection.ProtectionInstanceConfig protections = 20;
+    repeated prodvana.protection.CompiledProtectionAttachmentConfig protections = 20;
 
     repeated prodvana.common_config.ParameterDefinition parameters = 24;
     repeated prodvana.common_config.ParameterValue parameter_values = 25;
@@ -291,7 +293,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 27
+    // next tag: 28
 }
 
 message CompiledJobConfig {
@@ -299,4 +301,5 @@ message CompiledJobConfig {
     string release_channel = 2;
     repeated prodvana.common_config.ProgramConfig programs = 3;
     prodvana.release_channel.ReleaseChannelRuntimeConfig runtime = 4;
+    prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 5;
 }
