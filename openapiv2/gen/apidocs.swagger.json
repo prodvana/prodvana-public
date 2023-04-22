@@ -8412,17 +8412,6 @@
         }
       }
     },
-    "protectionAttachedProtection": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "attachment": {
-          "$ref": "#/definitions/protectionProtectionAttachment"
-        }
-      }
-    },
     "protectionConfigureProtectionReq": {
       "type": "object",
       "properties": {
@@ -8540,9 +8529,9 @@
           "type": "string",
           "title": "Use latest config for this protection"
         },
-        "attached": {
-          "$ref": "#/definitions/protectionAttachedProtection",
-          "description": "TODO: Option to freeze a specific version."
+        "attachmentName": {
+          "type": "string",
+          "title": "optional, default to name"
         },
         "lifecycle": {
           "type": "array",

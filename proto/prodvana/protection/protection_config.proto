@@ -53,6 +53,12 @@ message ServiceInstanceAttachment {
     // version?
 }
 
+message ReleaseChannelAttachment {
+    ProtectionConfig protection = 1;
+    string release_channel = 2;
+    // TODO(naphat) runtime information
+}
+
 message ProtectionAttachment {
     oneof attachment {
         option (validate.required) = true;

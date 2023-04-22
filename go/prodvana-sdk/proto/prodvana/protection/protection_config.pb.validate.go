@@ -483,6 +483,139 @@ var _ interface {
 	ErrorName() string
 } = ServiceInstanceAttachmentValidationError{}
 
+// Validate checks the field values on ReleaseChannelAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseChannelAttachment) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseChannelAttachment with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseChannelAttachmentMultiError, or nil if none found.
+func (m *ReleaseChannelAttachment) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseChannelAttachment) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtection()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseChannelAttachmentValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseChannelAttachmentValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseChannelAttachmentValidationError{
+				field:  "Protection",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ReleaseChannel
+
+	if len(errors) > 0 {
+		return ReleaseChannelAttachmentMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseChannelAttachmentMultiError is an error wrapping multiple validation
+// errors returned by ReleaseChannelAttachment.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseChannelAttachmentMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseChannelAttachmentMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseChannelAttachmentMultiError) AllErrors() []error { return m }
+
+// ReleaseChannelAttachmentValidationError is the validation error returned by
+// ReleaseChannelAttachment.Validate if the designated constraints aren't met.
+type ReleaseChannelAttachmentValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseChannelAttachmentValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseChannelAttachmentValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseChannelAttachmentValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseChannelAttachmentValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseChannelAttachmentValidationError) ErrorName() string {
+	return "ReleaseChannelAttachmentValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseChannelAttachmentValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseChannelAttachment.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseChannelAttachmentValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseChannelAttachmentValidationError{}
+
 // Validate checks the field values on ProtectionAttachment with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

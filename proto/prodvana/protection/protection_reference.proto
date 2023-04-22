@@ -4,12 +4,6 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "google/protobuf/duration.proto";
 import "validate/validate.proto";
-import "prodvana/protection/protection_config.proto";
-
-message AttachedProtection {
-    string name = 1;
-    ProtectionAttachment attachment = 2;
-}
 
 message ProtectionLifecycle {
     message PreApproval {
@@ -83,12 +77,10 @@ message ProtectionLifecycle {
 }
 
 message ProtectionReference {
-    oneof ref {
-        option (validate.required) = true;
-        string name = 1; // Use latest config for this protection
-        AttachedProtection attached = 2;
-        // TODO: Option to freeze a specific version.
-    }
+    string name = 1 [(validate.rules).string.min_len = 1]; // Use latest config for this protection
+    string attachment_name = 4; // optional, default to name
 
     repeated ProtectionLifecycle lifecycle = 3;
+    reserved 2;
+    reserved "attached";
 }
