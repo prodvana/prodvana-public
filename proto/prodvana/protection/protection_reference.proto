@@ -98,7 +98,8 @@ message ProtectionReference {
                 required: true,
             },
         },
-        min_items: 1,
+        // TODO(naphat) make lifecycle a required parameter
+        // min_items: 1,
     }];
     reserved 2;
     reserved "attached";
