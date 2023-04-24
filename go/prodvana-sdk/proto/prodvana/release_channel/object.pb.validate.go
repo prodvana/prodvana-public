@@ -35,6 +35,117 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on ReleaseChannelProtectionAttachment with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ReleaseChannelProtectionAttachment) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseChannelProtectionAttachment
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReleaseChannelProtectionAttachmentMultiError, or nil if none found.
+func (m *ReleaseChannelProtectionAttachment) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseChannelProtectionAttachment) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Protection
+
+	// no validation rules for Attachment
+
+	// no validation rules for DesiredStateId
+
+	if len(errors) > 0 {
+		return ReleaseChannelProtectionAttachmentMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseChannelProtectionAttachmentMultiError is an error wrapping multiple
+// validation errors returned by
+// ReleaseChannelProtectionAttachment.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseChannelProtectionAttachmentMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseChannelProtectionAttachmentMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseChannelProtectionAttachmentMultiError) AllErrors() []error { return m }
+
+// ReleaseChannelProtectionAttachmentValidationError is the validation error
+// returned by ReleaseChannelProtectionAttachment.Validate if the designated
+// constraints aren't met.
+type ReleaseChannelProtectionAttachmentValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseChannelProtectionAttachmentValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseChannelProtectionAttachmentValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseChannelProtectionAttachmentValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseChannelProtectionAttachmentValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseChannelProtectionAttachmentValidationError) ErrorName() string {
+	return "ReleaseChannelProtectionAttachmentValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseChannelProtectionAttachmentValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseChannelProtectionAttachment.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseChannelProtectionAttachmentValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseChannelProtectionAttachmentValidationError{}
+
 // Validate checks the field values on ReleaseChannelState with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -56,6 +167,40 @@ func (m *ReleaseChannelState) validate(all bool) error {
 	}
 
 	var errors []error
+
+	for idx, item := range m.GetProtectionAttachments() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReleaseChannelStateValidationError{
+						field:  fmt.Sprintf("ProtectionAttachments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReleaseChannelStateValidationError{
+						field:  fmt.Sprintf("ProtectionAttachments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReleaseChannelStateValidationError{
+					field:  fmt.Sprintf("ProtectionAttachments[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return ReleaseChannelStateMultiError(errors)

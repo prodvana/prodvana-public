@@ -5,8 +5,14 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/object/meta.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 
+message ReleaseChannelProtectionAttachment {
+    string protection = 1;
+    string attachment = 2;
+    string desired_state_id = 3;
+}
+
 message ReleaseChannelState {
-    // TODO(naphat) put stuff here
+    repeated ReleaseChannelProtectionAttachment protection_attachments = 1;
 }
 
 message ReleaseChannel {

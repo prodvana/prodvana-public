@@ -8783,6 +8783,20 @@
         }
       }
     },
+    "release_channelReleaseChannelProtectionAttachment": {
+      "type": "object",
+      "properties": {
+        "protection": {
+          "type": "string"
+        },
+        "attachment": {
+          "type": "string"
+        },
+        "desiredStateId": {
+          "type": "string"
+        }
+      }
+    },
     "release_channelReleaseChannelRuntimeConfig": {
       "type": "object",
       "properties": {
@@ -8803,7 +8817,15 @@
     },
     "release_channelReleaseChannelState": {
       "type": "object",
-      "title": "TODO(naphat) put stuff here"
+      "properties": {
+        "protectionAttachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/release_channelReleaseChannelProtectionAttachment"
+          }
+        }
+      }
     },
     "release_channelRuntimeConnectionType": {
       "type": "string",
