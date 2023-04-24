@@ -1,0 +1,23 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+import "validate/validate.proto";
+
+message LocalConfig {
+    string path = 1 [(validate.rules).string.min_len = 1];
+}
+
+message ExternalConfig {
+    enum Type {
+        UNKNOWN = 0;
+        KUBERNETES = 1;
+        KUSTOMIZE = 2;
+        HELM = 3;
+    }
+    Type type = 1;
+    oneof source_oneof {
+        option (validate.required) = true;
+        string inlined = 2 [(validate.rules).string.min_len = 1];
+        LocalConfig local = 3;
+    }
+}

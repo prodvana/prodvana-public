@@ -5,6 +5,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/env.proto";
+import "prodvana/common_config/external_config.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
@@ -100,7 +101,7 @@ message PerReleaseChannelConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 13;
-        ExternalConfig external_config = 14;
+        prodvana.common_config.ExternalConfig external_config = 14;
     }
 
     reserved 3, 4;
@@ -167,24 +168,6 @@ message GenericRuntimeConfig {
     // TODO(naphat) put parameters here
 }
 
-message LocalConfig {
-    string path = 1;
-}
-
-message ExternalConfig {
-    enum Type {
-        UNKNOWN = 0;
-        KUBERNETES = 1;
-        KUSTOMIZE = 2;
-        HELM = 3;
-    }
-    Type type = 1;
-    oneof source_oneof {
-        string inlined = 2;
-        LocalConfig local = 3;
-    }
-}
-
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -232,7 +215,7 @@ message ServiceConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 18;
-        ExternalConfig external_config = 19;
+        prodvana.common_config.ExternalConfig external_config = 19;
     }
 
     enum ParametersAutogen {
@@ -287,7 +270,7 @@ message CompiledServiceInstanceConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 22;
-        ExternalConfig external_config = 23;
+        prodvana.common_config.ExternalConfig external_config = 23;
     }
 
     reserved 8, 9, 21;

@@ -565,6 +565,64 @@
             ],
             "title": "Env Value"
         },
+        "prodvana.common_config.ExternalConfig": {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "KUBERNETES",
+                        1,
+                        "KUSTOMIZE",
+                        2,
+                        "HELM",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "External Config"
+        },
         "prodvana.common_config.FixedReplicaChange": {
             "additionalProperties": false,
             "oneOf": [
@@ -816,6 +874,30 @@
                 }
             ],
             "title": "Link"
+        },
+        "prodvana.common_config.LocalConfig": {
+            "properties": {
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Local Config"
         },
         "prodvana.common_config.Notification": {
             "properties": {
@@ -2765,6 +2847,16 @@
                         {}
                     ],
                     "description": "Inline task config with retry, template support."
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -3562,64 +3654,6 @@
             ],
             "title": "Certificate"
         },
-        "prodvana.service.ExternalConfig": {
-            "properties": {
-                "type": {
-                    "enum": [
-                        "UNKNOWN",
-                        0,
-                        "KUBERNETES",
-                        1,
-                        "KUSTOMIZE",
-                        2,
-                        "HELM",
-                        3
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Type"
-                },
-                "inlined": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "local": {
-                    "$ref": "#/definitions/prodvana.service.LocalConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "External Config"
-        },
         "prodvana.service.FollowContainerRepositorySettings": {
             "properties": {
                 "enabled": {
@@ -3656,30 +3690,6 @@
             ],
             "title": "Generic Runtime Config",
             "description": "TODO(naphat) put parameters here"
-        },
-        "prodvana.service.LocalConfig": {
-            "properties": {
-                "path": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Local Config"
         },
         "prodvana.service.MetricAnalysis": {
             "properties": {
@@ -3897,7 +3907,7 @@
                     ]
                 },
                 "externalConfig": {
-                    "$ref": "#/definitions/prodvana.service.ExternalConfig",
+                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4340,7 +4350,7 @@
                     ]
                 },
                 "externalConfig": {
-                    "$ref": "#/definitions/prodvana.service.ExternalConfig",
+                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

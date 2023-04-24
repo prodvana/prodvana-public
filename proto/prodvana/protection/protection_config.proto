@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
+import "prodvana/common_config/external_config.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
 enum AttachmentType {
@@ -26,6 +27,8 @@ message ProtectionConfig {
 
         // Inline task config with retry, template support.
         prodvana.common_config.TaskConfig task_config = 2;
+
+        prodvana.common_config.ExternalConfig external_config = 3;
 
         // Other options here:
         // - Ref to external repository of protection definitions.
