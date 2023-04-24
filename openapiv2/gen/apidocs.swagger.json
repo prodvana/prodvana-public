@@ -6302,17 +6302,23 @@
         }
       }
     },
-    "desired_statemodelProtection": {
+    "desired_statemodelProtectionAttachment": {
       "type": "object",
       "properties": {
         "meta": {
           "$ref": "#/definitions/desired_statemodelMetadata"
         },
-        "config": {
-          "$ref": "#/definitions/protectionCompiledProtectionAttachmentConfig"
+        "version": {
+          "type": "string"
+        },
+        "protectionId": {
+          "type": "string"
+        },
+        "attachmentId": {
+          "type": "string"
         },
         "state": {
-          "$ref": "#/definitions/modelProtectionState"
+          "$ref": "#/definitions/modelProtectionAttachmentState"
         }
       }
     },
@@ -6438,8 +6444,9 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtection"
-          }
+            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
+          },
+          "title": "TODO(anup) this should be link not protection attachment?"
         }
       }
     },
@@ -6472,7 +6479,7 @@
         "RUNTIME_OBJECT",
         "MANUAL_APPROVAL",
         "CUSTOM_TASK",
-        "PROTECTION"
+        "PROTECTION_ATTACHMENT"
       ],
       "default": "UNKNOWN"
     },
@@ -7817,6 +7824,18 @@
       ],
       "default": "PENDING"
     },
+    "modelProtectionAttachmentState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelProtectionStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "modelProtectionLink": {
       "type": "object",
       "properties": {
@@ -7828,18 +7847,6 @@
         },
         "lifecycle": {
           "$ref": "#/definitions/protectionProtectionLifecycle"
-        }
-      }
-    },
-    "modelProtectionState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/modelProtectionStatus"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
@@ -7886,7 +7893,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtection"
+            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
           }
         }
       }
@@ -7912,8 +7919,8 @@
         "customTask": {
           "$ref": "#/definitions/modelCustomTaskState"
         },
-        "protection": {
-          "$ref": "#/definitions/desired_statemodelProtection"
+        "protectionAttachment": {
+          "$ref": "#/definitions/desired_statemodelProtectionAttachment"
         }
       }
     },
@@ -8334,6 +8341,17 @@
         }
       }
     },
+    "prodvanaprotectionProtectionAttachment": {
+      "type": "object",
+      "properties": {
+        "serviceInstance": {
+          "$ref": "#/definitions/protectionServiceInstanceAttachment"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/protectionReleaseChannelAttachment"
+        }
+      }
+    },
     "prodvanarepoUser": {
       "type": "object",
       "properties": {
@@ -8419,7 +8437,7 @@
           "$ref": "#/definitions/protectionProtectionConfig"
         },
         "attachment": {
-          "$ref": "#/definitions/protectionProtectionAttachment",
+          "$ref": "#/definitions/prodvanaprotectionProtectionAttachment",
           "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
         },
         "runtimeExecution": {
@@ -8483,17 +8501,6 @@
         },
         "nextPageToken": {
           "type": "string"
-        }
-      }
-    },
-    "protectionProtectionAttachment": {
-      "type": "object",
-      "properties": {
-        "serviceInstance": {
-          "$ref": "#/definitions/protectionServiceInstanceAttachment"
-        },
-        "releaseChannel": {
-          "$ref": "#/definitions/protectionReleaseChannelAttachment"
         }
       }
     },

@@ -3163,7 +3163,7 @@ func (m *State) validate(all bool) error {
 			}
 		}
 
-	case *State_Protection:
+	case *State_ProtectionAttachment:
 		if v == nil {
 			err := StateValidationError{
 				field:  "StateOneof",
@@ -3176,11 +3176,11 @@ func (m *State) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetProtection()).(type) {
+			switch v := interface{}(m.GetProtectionAttachment()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, StateValidationError{
-						field:  "Protection",
+						field:  "ProtectionAttachment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -3188,16 +3188,16 @@ func (m *State) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, StateValidationError{
-						field:  "Protection",
+						field:  "ProtectionAttachment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetProtectionAttachment()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return StateValidationError{
-					field:  "Protection",
+					field:  "ProtectionAttachment",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -3810,22 +3810,22 @@ var _ interface {
 	ErrorName() string
 } = CustomTaskStateValidationError{}
 
-// Validate checks the field values on Protection with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *Protection) Validate() error {
+// Validate checks the field values on ProtectionAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionAttachment) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Protection with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in ProtectionMultiError, or
-// nil if none found.
-func (m *Protection) ValidateAll() error {
+// ValidateAll checks the field values on ProtectionAttachment with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionAttachmentMultiError, or nil if none found.
+func (m *ProtectionAttachment) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Protection) validate(all bool) error {
+func (m *ProtectionAttachment) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -3836,7 +3836,7 @@ func (m *Protection) validate(all bool) error {
 		switch v := interface{}(m.GetMeta()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionValidationError{
+				errors = append(errors, ProtectionAttachmentValidationError{
 					field:  "Meta",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3844,7 +3844,7 @@ func (m *Protection) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionValidationError{
+				errors = append(errors, ProtectionAttachmentValidationError{
 					field:  "Meta",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3853,7 +3853,7 @@ func (m *Protection) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionValidationError{
+			return ProtectionAttachmentValidationError{
 				field:  "Meta",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -3861,40 +3861,17 @@ func (m *Protection) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetConfig()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionValidationError{
-					field:  "Config",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionValidationError{
-					field:  "Config",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ProtectionValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Version
+
+	// no validation rules for ProtectionId
+
+	// no validation rules for AttachmentId
 
 	if all {
 		switch v := interface{}(m.GetState()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionValidationError{
+				errors = append(errors, ProtectionAttachmentValidationError{
 					field:  "State",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3902,7 +3879,7 @@ func (m *Protection) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionValidationError{
+				errors = append(errors, ProtectionAttachmentValidationError{
 					field:  "State",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3911,7 +3888,7 @@ func (m *Protection) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetState()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionValidationError{
+			return ProtectionAttachmentValidationError{
 				field:  "State",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -3920,18 +3897,19 @@ func (m *Protection) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ProtectionMultiError(errors)
+		return ProtectionAttachmentMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionMultiError is an error wrapping multiple validation errors
-// returned by Protection.ValidateAll() if the designated constraints aren't met.
-type ProtectionMultiError []error
+// ProtectionAttachmentMultiError is an error wrapping multiple validation
+// errors returned by ProtectionAttachment.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionAttachmentMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionMultiError) Error() string {
+func (m ProtectionAttachmentMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -3940,11 +3918,11 @@ func (m ProtectionMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionMultiError) AllErrors() []error { return m }
+func (m ProtectionAttachmentMultiError) AllErrors() []error { return m }
 
-// ProtectionValidationError is the validation error returned by
-// Protection.Validate if the designated constraints aren't met.
-type ProtectionValidationError struct {
+// ProtectionAttachmentValidationError is the validation error returned by
+// ProtectionAttachment.Validate if the designated constraints aren't met.
+type ProtectionAttachmentValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -3952,22 +3930,24 @@ type ProtectionValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionValidationError) Field() string { return e.field }
+func (e ProtectionAttachmentValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionValidationError) Reason() string { return e.reason }
+func (e ProtectionAttachmentValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionValidationError) Cause() error { return e.cause }
+func (e ProtectionAttachmentValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionValidationError) Key() bool { return e.key }
+func (e ProtectionAttachmentValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionValidationError) ErrorName() string { return "ProtectionValidationError" }
+func (e ProtectionAttachmentValidationError) ErrorName() string {
+	return "ProtectionAttachmentValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e ProtectionValidationError) Error() string {
+func (e ProtectionAttachmentValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -3979,14 +3959,14 @@ func (e ProtectionValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtection.%s: %s%s",
+		"invalid %sProtectionAttachment.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionValidationError{}
+var _ error = ProtectionAttachmentValidationError{}
 
 var _ interface {
 	Field() string
@@ -3994,24 +3974,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionValidationError{}
+} = ProtectionAttachmentValidationError{}
 
-// Validate checks the field values on ProtectionState with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *ProtectionState) Validate() error {
+// Validate checks the field values on ProtectionAttachmentState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionAttachmentState) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ProtectionState with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on ProtectionAttachmentState with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ProtectionStateMultiError, or nil if none found.
-func (m *ProtectionState) ValidateAll() error {
+// ProtectionAttachmentStateMultiError, or nil if none found.
+func (m *ProtectionAttachmentState) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ProtectionState) validate(all bool) error {
+func (m *ProtectionAttachmentState) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4024,7 +4004,7 @@ func (m *ProtectionState) validate(all bool) error {
 		switch v := interface{}(m.GetLastUpdateTimestamp()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionStateValidationError{
+				errors = append(errors, ProtectionAttachmentStateValidationError{
 					field:  "LastUpdateTimestamp",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4032,7 +4012,7 @@ func (m *ProtectionState) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionStateValidationError{
+				errors = append(errors, ProtectionAttachmentStateValidationError{
 					field:  "LastUpdateTimestamp",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4041,7 +4021,7 @@ func (m *ProtectionState) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetLastUpdateTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionStateValidationError{
+			return ProtectionAttachmentStateValidationError{
 				field:  "LastUpdateTimestamp",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -4050,19 +4030,19 @@ func (m *ProtectionState) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ProtectionStateMultiError(errors)
+		return ProtectionAttachmentStateMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionStateMultiError is an error wrapping multiple validation errors
-// returned by ProtectionState.ValidateAll() if the designated constraints
-// aren't met.
-type ProtectionStateMultiError []error
+// ProtectionAttachmentStateMultiError is an error wrapping multiple validation
+// errors returned by ProtectionAttachmentState.ValidateAll() if the
+// designated constraints aren't met.
+type ProtectionAttachmentStateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionStateMultiError) Error() string {
+func (m ProtectionAttachmentStateMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4071,11 +4051,11 @@ func (m ProtectionStateMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionStateMultiError) AllErrors() []error { return m }
+func (m ProtectionAttachmentStateMultiError) AllErrors() []error { return m }
 
-// ProtectionStateValidationError is the validation error returned by
-// ProtectionState.Validate if the designated constraints aren't met.
-type ProtectionStateValidationError struct {
+// ProtectionAttachmentStateValidationError is the validation error returned by
+// ProtectionAttachmentState.Validate if the designated constraints aren't met.
+type ProtectionAttachmentStateValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4083,22 +4063,24 @@ type ProtectionStateValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionStateValidationError) Field() string { return e.field }
+func (e ProtectionAttachmentStateValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionStateValidationError) Reason() string { return e.reason }
+func (e ProtectionAttachmentStateValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionStateValidationError) Cause() error { return e.cause }
+func (e ProtectionAttachmentStateValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionStateValidationError) Key() bool { return e.key }
+func (e ProtectionAttachmentStateValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionStateValidationError) ErrorName() string { return "ProtectionStateValidationError" }
+func (e ProtectionAttachmentStateValidationError) ErrorName() string {
+	return "ProtectionAttachmentStateValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e ProtectionStateValidationError) Error() string {
+func (e ProtectionAttachmentStateValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4110,14 +4092,14 @@ func (e ProtectionStateValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtectionState.%s: %s%s",
+		"invalid %sProtectionAttachmentState.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionStateValidationError{}
+var _ error = ProtectionAttachmentStateValidationError{}
 
 var _ interface {
 	Field() string
@@ -4125,7 +4107,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionStateValidationError{}
+} = ProtectionAttachmentStateValidationError{}
 
 // Validate checks the field values on Signal with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

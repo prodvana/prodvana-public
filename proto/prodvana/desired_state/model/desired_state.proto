@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
-import "prodvana/protection/protection_config.proto";
 import "prodvana/protection/protection_reference.proto";
 
 enum Type {
@@ -17,7 +16,7 @@ enum Type {
     RUNTIME_OBJECT = 4;
     MANUAL_APPROVAL = 5;
     CUSTOM_TASK = 6;
-    PROTECTION = 7;
+    PROTECTION_ATTACHMENT = 7;
 }
 
 enum CustomTaskType {
@@ -195,7 +194,8 @@ message ServiceState {
     repeated ServiceInstanceState release_channels = 6;
     // Definitions for custom tasks used by this service. Must be empty if part of service group.
     repeated CustomTaskState custom_tasks = 7;
-    repeated Protection protections = 8;
+    // TODO(anup) this should be link not protection attachment?
+    repeated ProtectionAttachment protections = 8;
     reserved 4;
     // next tag: 9
 }
@@ -205,7 +205,7 @@ message ServiceGroupState {
     repeated ServiceState services = 2;
     // Definitions for custom tasks used by this service group.
     repeated CustomTaskState custom_tasks = 3;
-    repeated Protection protections = 4;
+    repeated ProtectionAttachment protections = 4;
 }
 
 message CanaryProgressState {
@@ -320,7 +320,7 @@ message State {
         RuntimeObject runtime_object = 4;
         ManualApprovalState manual_approval = 5;
         CustomTaskState custom_task = 6;
-        Protection protection = 7;
+        ProtectionAttachment protection_attachment = 7;
     }
 }
 
@@ -364,10 +364,12 @@ message CustomTaskState {
     reserved 8, 10, 11;
 }
 
-message Protection {
+message ProtectionAttachment {
     Metadata meta = 1;
-    prodvana.protection.CompiledProtectionAttachmentConfig config = 2;
-    ProtectionState state = 3;
+    string version = 2;
+    string protection_id = 3;
+    string attachment_id = 4;
+    ProtectionAttachmentState state = 5;
 }
 
 enum ProtectionStatus {
@@ -376,7 +378,7 @@ enum ProtectionStatus {
     PROTECTION_FAILED = 2;
 }
 
-message ProtectionState {
+message ProtectionAttachmentState {
     ProtectionStatus status = 1;
     google.protobuf.Timestamp last_update_timestamp = 2;
 }
