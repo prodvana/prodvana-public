@@ -6,6 +6,12 @@ import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
+enum AttachmentType {
+    UNKNOWN = 0;
+    RELEASE_CHANNEL = 1;
+    SERVICE_INSTANCE = 2;
+}
+
 message ProtectionConfig {
     string name = 1 [
         (validate.rules).string = {
