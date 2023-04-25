@@ -107,6 +107,13 @@ enum Status {
     DELETED = 11;
 }
 
+enum SimpleStatus {
+    SS_UNKNOWN = 0;
+    SS_CONVERGING = 1;
+    SS_CONVERGED = 2;
+    SS_FAILED = 3;
+}
+
 enum StatusReason {
     REASON_UNKNOWN = 0;
     // Prodvana has not fetched the data it needs to act on the entity
@@ -119,7 +126,7 @@ enum StatusReason {
     UPDATING_PODS = 4;
     // no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band
     VERSION_MISMATCH = 5;
-    // after applying successfully, the object arrived at a a failed state
+    // after applying successfully, the object arrived at a failed state
     RUNTIME_OBJECT_FAILED = 6;
     // a precondition failed in an unrecoverable way
     PRECONDITIONS_FAILED = 7;

@@ -7997,7 +7997,7 @@
         "STUCK_ENTITY"
       ],
       "default": "REASON_UNKNOWN",
-      "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time"
+      "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time"
     },
     "modelVersion": {
       "type": "object",
