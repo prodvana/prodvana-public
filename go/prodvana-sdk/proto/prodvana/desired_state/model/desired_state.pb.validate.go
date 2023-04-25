@@ -58,37 +58,6 @@ func (m *ProtectionLink) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetRef()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionLinkValidationError{
-					field:  "Ref",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionLinkValidationError{
-					field:  "Ref",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ProtectionLinkValidationError{
-				field:  "Ref",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for Type
-
-	if all {
 		switch v := interface{}(m.GetLifecycle()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -116,6 +85,8 @@ func (m *ProtectionLink) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for AttachmentId
 
 	if len(errors) > 0 {
 		return ProtectionLinkMultiError(errors)
@@ -649,6 +620,40 @@ func (m *Metadata) validate(all bool) error {
 	// no validation rules for DesiredStateId
 
 	// no validation rules for RootDesiredStateId
+
+	for idx, item := range m.GetProtectionLinks() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ProtectionLinks[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ProtectionLinks[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MetadataValidationError{
+					field:  fmt.Sprintf("ProtectionLinks[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	for idx, item := range m.GetProtections() {
 		_, _ = idx, item
@@ -1528,40 +1533,6 @@ func (m *ServiceState) validate(all bool) error {
 
 	}
 
-	for idx, item := range m.GetProtections() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ServiceStateValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ServiceStateValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ServiceStateValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return ServiceStateMultiError(errors)
 	}
@@ -1750,40 +1721,6 @@ func (m *ServiceGroupState) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ServiceGroupStateValidationError{
 					field:  fmt.Sprintf("CustomTasks[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	for idx, item := range m.GetProtections() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ServiceGroupStateValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ServiceGroupStateValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ServiceGroupStateValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

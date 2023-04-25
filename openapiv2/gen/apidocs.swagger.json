@@ -6325,11 +6325,18 @@
         "rootDesiredStateId": {
           "type": "string"
         },
-        "protections": {
+        "protectionLinks": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/modelProtectionLink"
+          }
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
           }
         }
       }
@@ -6475,14 +6482,6 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service. Must be empty if part of service group."
-        },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
-          },
-          "title": "TODO(anup) this should be link not protection attachment?"
         }
       }
     },
@@ -7875,14 +7874,11 @@
     "modelProtectionLink": {
       "type": "object",
       "properties": {
-        "ref": {
-          "$ref": "#/definitions/protectionProtectionReference"
-        },
-        "type": {
-          "$ref": "#/definitions/modelCustomTaskType"
-        },
         "lifecycle": {
           "$ref": "#/definitions/protectionProtectionLifecycle"
+        },
+        "attachmentId": {
+          "type": "string"
         }
       }
     },
@@ -7924,13 +7920,6 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service group."
-        },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
-          }
         }
       }
     },

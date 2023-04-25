@@ -34,9 +34,11 @@ enum CustomTaskType {
 }
 
 message ProtectionLink {
-    prodvana.protection.ProtectionReference ref = 1;
-    CustomTaskType type = 2;
     prodvana.protection.ProtectionLifecycle lifecycle = 3;
+    string attachment_id = 4;
+
+    reserved 1, 2;
+    // next tag: 5
 }
 
 message Condition {
@@ -89,7 +91,8 @@ message Metadata {
     Identifier self = 3;
     string desired_state_id = 4;
     string root_desired_state_id = 5;
-    repeated ProtectionLink protections = 6;
+    repeated ProtectionLink protection_links = 6;
+    repeated ProtectionAttachment protections = 7;
 }
 
 enum Status {
@@ -201,9 +204,7 @@ message ServiceState {
     repeated ServiceInstanceState release_channels = 6;
     // Definitions for custom tasks used by this service. Must be empty if part of service group.
     repeated CustomTaskState custom_tasks = 7;
-    // TODO(anup) this should be link not protection attachment?
-    repeated ProtectionAttachment protections = 8;
-    reserved 4;
+    reserved 4, 8;
     // next tag: 9
 }
 
@@ -212,7 +213,8 @@ message ServiceGroupState {
     repeated ServiceState services = 2;
     // Definitions for custom tasks used by this service group.
     repeated CustomTaskState custom_tasks = 3;
-    repeated ProtectionAttachment protections = 4;
+    reserved 4;
+    // next tag: 5
 }
 
 message CanaryProgressState {
