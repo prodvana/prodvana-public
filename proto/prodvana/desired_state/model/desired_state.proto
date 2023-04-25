@@ -366,7 +366,7 @@ message CustomTaskState {
 
 message ProtectionAttachment {
     Metadata meta = 1;
-    string version = 2;
+    repeated Version versions = 2;
     string protection_id = 3;
     string attachment_id = 4;
     ProtectionAttachmentState state = 5;
