@@ -378,18 +378,6 @@ message ProtectionAttachment {
     repeated Version versions = 2;
     string protection_id = 3;
     string attachment_id = 4;
-    ProtectionAttachmentState state = 5;
-}
-
-enum ProtectionStatus {
-    PROTECTION_PENDING = 0;
-    PROTECTION_SUCCESSFUL = 1;
-    PROTECTION_FAILED = 2;
-}
-
-message ProtectionAttachmentState {
-    ProtectionStatus status = 1;
-    google.protobuf.Timestamp last_update_timestamp = 2;
 }
 
 enum SignalType {

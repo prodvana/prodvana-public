@@ -6359,9 +6359,6 @@
         },
         "attachmentId": {
           "type": "string"
-        },
-        "state": {
-          "$ref": "#/definitions/modelProtectionAttachmentState"
         }
       }
     },
@@ -7859,18 +7856,6 @@
       ],
       "default": "PENDING"
     },
-    "modelProtectionAttachmentState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/modelProtectionStatus"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "modelProtectionLink": {
       "type": "object",
       "properties": {
@@ -7881,15 +7866,6 @@
           "type": "string"
         }
       }
-    },
-    "modelProtectionStatus": {
-      "type": "string",
-      "enum": [
-        "PROTECTION_PENDING",
-        "PROTECTION_SUCCESSFUL",
-        "PROTECTION_FAILED"
-      ],
-      "default": "PROTECTION_PENDING"
     },
     "modelRuntimeObjectStatus": {
       "type": "string",
