@@ -64,6 +64,8 @@ func (m *ReleaseChannelProtectionAttachment) validate(all bool) error {
 
 	// no validation rules for DesiredStateId
 
+	// no validation rules for AttachmentId
+
 	if len(errors) > 0 {
 		return ReleaseChannelProtectionAttachmentMultiError(errors)
 	}

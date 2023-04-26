@@ -6511,7 +6511,8 @@
         "RUNTIME_OBJECT",
         "MANUAL_APPROVAL",
         "CUSTOM_TASK",
-        "PROTECTION_ATTACHMENT"
+        "PROTECTION_ATTACHMENT",
+        "PROTECTION_LINK"
       ],
       "default": "UNKNOWN"
     },
@@ -7867,6 +7868,17 @@
         }
       }
     },
+    "modelProtectionLinkState": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/desired_statemodelMetadata"
+        },
+        "status": {
+          "$ref": "#/definitions/modelConditionStatus"
+        }
+      }
+    },
     "modelRuntimeObjectStatus": {
       "type": "string",
       "enum": [
@@ -7922,6 +7934,9 @@
         },
         "protectionAttachment": {
           "$ref": "#/definitions/desired_statemodelProtectionAttachment"
+        },
+        "protectionLink": {
+          "$ref": "#/definitions/modelProtectionLinkState"
         }
       }
     },
@@ -8762,6 +8777,9 @@
           "type": "string"
         },
         "desiredStateId": {
+          "type": "string"
+        },
+        "attachmentId": {
           "type": "string"
         }
       }

@@ -9,6 +9,7 @@ message ReleaseChannelProtectionAttachment {
     string protection = 1;
     string attachment = 2;
     string desired_state_id = 3;
+    string attachment_id = 4;
 }
 
 message ReleaseChannelState {

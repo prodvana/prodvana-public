@@ -17,6 +17,7 @@ enum Type {
     MANUAL_APPROVAL = 5;
     CUSTOM_TASK = 6;
     PROTECTION_ATTACHMENT = 7;
+    PROTECTION_LINK = 8;
 }
 
 enum CustomTaskType {
@@ -330,6 +331,7 @@ message State {
         ManualApprovalState manual_approval = 5;
         CustomTaskState custom_task = 6;
         ProtectionAttachment protection_attachment = 7;
+        ProtectionLinkState protection_link = 8;
     }
 }
 
@@ -371,6 +373,11 @@ message CustomTaskState {
     repeated string service_ids = 14;
 
     reserved 8, 10, 11;
+}
+
+message ProtectionLinkState {
+    Metadata meta = 1;
+    ConditionStatus status = 2;
 }
 
 message ProtectionAttachment {
