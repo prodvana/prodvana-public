@@ -273,10 +273,22 @@ message CompiledServiceInstanceConfig {
         prodvana.common_config.ExternalConfig external_config = 23;
     }
 
+    // The compiled environment for this instance's context, e.g.  Release Channel.
+    // This is used to inject these values into external configs.
+    // Contains only non-secret EnvValues
+    map<string, prodvana.common_config.EnvValue> env = 28 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 28
+    // next tag: 29
 }
 
 message CompiledJobConfig {

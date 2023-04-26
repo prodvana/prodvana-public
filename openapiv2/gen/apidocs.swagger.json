@@ -9009,6 +9009,13 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/common_configExternalConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "The compiled environment for this instance's context, e.g.  Release Channel.\nThis is used to inject these values into external configs.\nContains only non-secret EnvValues"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
