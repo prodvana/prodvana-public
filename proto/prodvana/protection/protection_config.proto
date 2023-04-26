@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.protection;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
 
+import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/external_config.proto";
@@ -33,6 +34,9 @@ message ProtectionConfig {
         // Other options here:
         // - Ref to external repository of protection definitions.
     }
+
+    // customize poll interval instead of using Prodvana default
+    google.protobuf.Duration poll_interval = 4;
 
     // TODO: Allow Protections to declare context/parameters/inputs that need to be bound before execution.
     // E.g., instance name for DB/bucket to be polled, duration/thresholds for post-push validation.

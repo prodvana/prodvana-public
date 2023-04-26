@@ -8532,6 +8532,9 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/common_configExternalConfig"
+        },
+        "pollInterval": {
+          "type": "string"
         }
       }
     },
