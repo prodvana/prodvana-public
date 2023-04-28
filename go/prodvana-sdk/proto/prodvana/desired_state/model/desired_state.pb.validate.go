@@ -3841,6 +3841,95 @@ func (m *ProtectionLinkState) validate(all bool) error {
 
 	// no validation rules for Status
 
+	if all {
+		switch v := interface{}(m.GetLink()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "Link",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "Link",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionLinkStateValidationError{
+				field:  "Link",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionLinkStateValidationError{
+				field:  "StartedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetStoppedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "StoppedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionLinkStateValidationError{
+					field:  "StoppedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStoppedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionLinkStateValidationError{
+				field:  "StoppedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for StoppedReason
+
 	if len(errors) > 0 {
 		return ProtectionLinkStateMultiError(errors)
 	}

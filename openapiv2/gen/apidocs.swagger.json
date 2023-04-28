@@ -4980,6 +4980,16 @@
     "ProtectionLifecyclePush": {
       "type": "object"
     },
+    "ProtectionLinkStateStopReason": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "LIFECYCLE_COMPLETED",
+        "SUCCEEDED_ONCE",
+        "SUCCEEDED_FOR_DURATION"
+      ],
+      "default": "UNKNOWN"
+    },
     "RuntimeSpecificConfigK8SConfig": {
       "type": "object",
       "properties": {
@@ -7876,6 +7886,23 @@
         },
         "status": {
           "$ref": "#/definitions/modelConditionStatus"
+        },
+        "link": {
+          "$ref": "#/definitions/modelProtectionLink",
+          "description": "Copy of ProtectionLink description. Used in FetchState to know retries, durations etc."
+        },
+        "startedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When did we start polling this protection? If not set, this protection has not started polling."
+        },
+        "stoppedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When did we stop polling this protection? If set, this protection will no longer change status (except to be manually bypassed)."
+        },
+        "stoppedReason": {
+          "$ref": "#/definitions/ProtectionLinkStateStopReason"
         }
       }
     },
@@ -8534,7 +8561,8 @@
           "$ref": "#/definitions/common_configExternalConfig"
         },
         "pollInterval": {
-          "type": "string"
+          "type": "string",
+          "title": "customize poll interval instead of using Prodvana default"
         }
       }
     },

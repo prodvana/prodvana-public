@@ -83,8 +83,9 @@ type ProtectionConfig struct {
 	//
 	//	*ProtectionConfig_TaskConfig
 	//	*ProtectionConfig_ExternalConfig
-	ExecConfig   isProtectionConfig_ExecConfig `protobuf_oneof:"exec_config"`
-	PollInterval *durationpb.Duration          `protobuf:"bytes,4,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
+	ExecConfig isProtectionConfig_ExecConfig `protobuf_oneof:"exec_config"`
+	// customize poll interval instead of using Prodvana default
+	PollInterval *durationpb.Duration `protobuf:"bytes,4,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
 }
 
 func (x *ProtectionConfig) Reset() {

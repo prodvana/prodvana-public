@@ -378,6 +378,21 @@ message CustomTaskState {
 message ProtectionLinkState {
     Metadata meta = 1;
     ConditionStatus status = 2;
+    // Copy of ProtectionLink description. Used in FetchState to know retries, durations etc.
+    ProtectionLink link = 3;
+
+    // When did we start polling this protection? If not set, this protection has not started polling.
+    google.protobuf.Timestamp started_timestamp = 4;
+
+    // When did we stop polling this protection? If set, this protection will no longer change status (except to be manually bypassed).
+    google.protobuf.Timestamp stopped_timestamp = 5;
+    enum StopReason {
+        UNKNOWN = 0;
+        LIFECYCLE_COMPLETED = 1;
+        SUCCEEDED_ONCE = 2;
+        SUCCEEDED_FOR_DURATION = 3;
+    }
+    StopReason stopped_reason = 6;
 }
 
 message ProtectionAttachment {
