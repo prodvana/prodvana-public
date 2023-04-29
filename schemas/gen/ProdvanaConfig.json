@@ -3602,6 +3602,30 @@
             ],
             "title": "K 8 S"
         },
+        "prodvana.service.AutoRollbackConfig": {
+            "properties": {
+                "disabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Auto Rollback Config"
+        },
         "prodvana.service.CapabilityReference": {
             "properties": {
                 "name": {
@@ -4388,6 +4412,16 @@
                         }
                     ],
                     "title": "Parameters Autogen"
+                },
+                "autoRollback": {
+                    "$ref": "#/definitions/prodvana.service.AutoRollbackConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,

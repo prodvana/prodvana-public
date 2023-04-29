@@ -168,6 +168,10 @@ message GenericRuntimeConfig {
     // TODO(naphat) put parameters here
 }
 
+message AutoRollbackConfig {
+    bool disabled = 1;
+}
+
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -231,7 +235,9 @@ message ServiceConfig {
     // How to autogenerate parameters, defaults to IMAGE
     ParametersAutogen parameters_autogen = 23;
 
-    // next tag: 25
+    AutoRollbackConfig auto_rollback = 25;
+
+    // next tag: 26
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

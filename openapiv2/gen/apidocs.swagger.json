@@ -8931,6 +8931,14 @@
         }
       }
     },
+    "serviceAutoRollbackConfig": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
     "serviceCapabilityReference": {
       "type": "object",
       "properties": {
@@ -9580,6 +9588,9 @@
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",
           "title": "How to autogenerate parameters, defaults to IMAGE"
+        },
+        "autoRollback": {
+          "$ref": "#/definitions/serviceAutoRollbackConfig"
         }
       }
     },
