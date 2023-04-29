@@ -4986,7 +4986,8 @@
         "UNKNOWN",
         "LIFECYCLE_COMPLETED",
         "SUCCEEDED_ONCE",
-        "SUCCEEDED_FOR_DURATION"
+        "SUCCEEDED_FOR_DURATION",
+        "TIMED_OUT"
       ],
       "default": "UNKNOWN"
     },
@@ -7903,6 +7904,11 @@
         },
         "stoppedReason": {
           "$ref": "#/definitions/ProtectionLinkStateStopReason"
+        },
+        "firstSuccessTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Will be set the first time this attachment returned success.\nUseful for time-based protections (post-push - check X succeeds for N mins). We make the ProtectionLink return CONVERGING till time expires."
         }
       }
     },

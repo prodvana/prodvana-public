@@ -391,8 +391,13 @@ message ProtectionLinkState {
         LIFECYCLE_COMPLETED = 1;
         SUCCEEDED_ONCE = 2;
         SUCCEEDED_FOR_DURATION = 3;
+        TIMED_OUT = 4;
     }
     StopReason stopped_reason = 6;
+
+    // Will be set the first time this attachment returned success.
+    // Useful for time-based protections (post-push - check X succeeds for N mins). We make the ProtectionLink return CONVERGING till time expires.
+    google.protobuf.Timestamp first_success_timestamp = 7;
 }
 
 message ProtectionAttachment {
