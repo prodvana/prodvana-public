@@ -7761,6 +7761,9 @@
         "status": {
           "$ref": "#/definitions/desired_statemodelStatus"
         },
+        "simpleStatus": {
+          "$ref": "#/definitions/modelSimpleStatus"
+        },
         "startingState": {
           "$ref": "#/definitions/modelState"
         },
@@ -7814,7 +7817,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/modelIdentifier"
-          }
+          },
+          "title": "next tag: 18"
         }
       }
     },
@@ -7943,6 +7947,16 @@
           "description": "Definitions for custom tasks used by this service group."
         }
       }
+    },
+    "modelSimpleStatus": {
+      "type": "string",
+      "enum": [
+        "SS_UNKNOWN",
+        "SS_CONVERGING",
+        "SS_CONVERGED",
+        "SS_FAILED"
+      ],
+      "default": "SS_UNKNOWN"
     },
     "modelState": {
       "type": "object",

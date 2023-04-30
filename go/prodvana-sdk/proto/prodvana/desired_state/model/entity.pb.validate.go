@@ -120,6 +120,8 @@ func (m *Entity) validate(all bool) error {
 
 	// no validation rules for Status
 
+	// no validation rules for SimpleStatus
+
 	if all {
 		switch v := interface{}(m.GetStartingState()).(type) {
 		case interface{ ValidateAll() error }:
