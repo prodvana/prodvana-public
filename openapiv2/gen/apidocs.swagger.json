@@ -4987,7 +4987,8 @@
         "LIFECYCLE_COMPLETED",
         "SUCCEEDED_ONCE",
         "SUCCEEDED_FOR_DURATION",
-        "TIMED_OUT"
+        "TIMED_OUT",
+        "FAILED"
       ],
       "default": "UNKNOWN"
     },

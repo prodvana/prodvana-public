@@ -392,6 +392,7 @@ message ProtectionLinkState {
         SUCCEEDED_ONCE = 2;
         SUCCEEDED_FOR_DURATION = 3;
         TIMED_OUT = 4;
+        FAILED = 5;
     }
     StopReason stopped_reason = 6;
 
