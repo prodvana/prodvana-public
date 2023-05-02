@@ -365,73 +365,6 @@ func (m *ProtectionReference) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetAttachmentName()); l < 0 || l > 63 {
-		err := ProtectionReferenceValidationError{
-			field:  "AttachmentName",
-			reason: "value length must be between 0 and 63 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ProtectionReference_AttachmentName_Pattern.MatchString(m.GetAttachmentName()) {
-		err := ProtectionReferenceValidationError{
-			field:  "AttachmentName",
-			reason: "value does not match regex pattern \"^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	for idx, item := range m.GetLifecycle() {
-		_, _ = idx, item
-
-		if item == nil {
-			err := ProtectionReferenceValidationError{
-				field:  fmt.Sprintf("Lifecycle[%v]", idx),
-				reason: "value is required",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ProtectionReferenceValidationError{
-						field:  fmt.Sprintf("Lifecycle[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ProtectionReferenceValidationError{
-						field:  fmt.Sprintf("Lifecycle[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ProtectionReferenceValidationError{
-					field:  fmt.Sprintf("Lifecycle[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return ProtectionReferenceMultiError(errors)
 	}
@@ -513,8 +446,6 @@ var _ interface {
 } = ProtectionReferenceValidationError{}
 
 var _ProtectionReference_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
-
-var _ProtectionReference_AttachmentName_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
 
 // Validate checks the field values on ProtectionLifecycle_PreApproval with the
 // rules defined in the proto definition for this message. If any rules are

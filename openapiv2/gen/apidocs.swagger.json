@@ -8653,19 +8653,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string",
-          "title": "Use latest config for this protection"
-        },
-        "attachmentName": {
-          "type": "string",
-          "title": "optional, default to name"
-        },
-        "lifecycle": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionProtectionLifecycle"
-          }
+          "type": "string"
         }
       }
     },
@@ -8792,7 +8780,7 @@
           "$ref": "#/definitions/release_channelPreconditionCustomTask"
         },
         "protection": {
-          "$ref": "#/definitions/protectionProtectionReference"
+          "$ref": "#/definitions/release_channelProtectionReleaseChannelAttachment"
         }
       }
     },
@@ -8809,6 +8797,26 @@
     },
     "release_channelPreconditionManualApproval": {
       "type": "object"
+    },
+    "release_channelProtectionReleaseChannelAttachment": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "optional, default to protection name"
+        },
+        "ref": {
+          "$ref": "#/definitions/protectionProtectionReference"
+        },
+        "lifecycle": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionLifecycle"
+          },
+          "title": "if set, this protection is automatically used as part of service pushes in this release channel"
+        }
+      }
     },
     "release_channelReleaseChannel": {
       "type": "object",
@@ -8857,8 +8865,14 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/release_channelPrecondition"
-          },
-          "title": "Do not use without talking to Prodvana first"
+          }
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/release_channelProtectionReleaseChannelAttachment"
+          }
         }
       }
     },

@@ -3070,32 +3070,6 @@
                         {
                             "type": "string"
                         }
-                    ],
-                    "description": "Use latest config for this protection"
-                },
-                "attachmentName": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "optional, default to name"
-                },
-                "lifecycle": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
                     ]
                 }
             },
@@ -3177,7 +3151,7 @@
                     ]
                 },
                 "protection": {
-                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
+                    "$ref": "#/definitions/prodvana.release_channel.ProtectionReleaseChannelAttachment",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3273,6 +3247,56 @@
             ],
             "title": "Release Channel Stable"
         },
+        "prodvana.release_channel.ProtectionReleaseChannelAttachment": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, default to protection name"
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "lifecycle": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set, this protection is automatically used as part of service pushes in this release channel"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Release Channel Attachment"
+        },
         "prodvana.release_channel.ReleaseChannelConfig": {
             "properties": {
                 "name": {
@@ -3365,8 +3389,21 @@
                         {
                             "type": "array"
                         }
-                    ],
-                    "description": "Do not use without talking to Prodvana first"
+                    ]
+                },
+                "protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ProtectionReleaseChannelAttachment"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,

@@ -83,24 +83,8 @@ message ProtectionReference {
             max_len: 63,
             pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
         }
-    ]; // Use latest config for this protection
-    string attachment_name = 4 [
-        (validate.rules).string = {
-            min_len: 0,
-            max_len: 63,
-            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
-        }
-    ]; // optional, default to name
+    ];
 
-    repeated ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
-        items: {
-            message: {
-                required: true,
-            },
-        },
-        // TODO(naphat) make lifecycle a required parameter
-        // min_items: 1,
-    }];
     reserved 2;
     reserved "attached";
 }

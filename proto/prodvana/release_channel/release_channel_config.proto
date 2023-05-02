@@ -38,8 +38,29 @@ message ReleaseChannelConfig {
     repeated ReleaseChannelRuntimeConfig runtimes = 5;
     prodvana.workflow.AnnotationsConfig deploy_annotations = 6;
 
-    // Do not use without talking to Prodvana first
     repeated Precondition preconditions = 7;
+
+    repeated ProtectionReleaseChannelAttachment protections = 8;
+}
+
+message ProtectionReleaseChannelAttachment {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 0,
+            max_len: 63,
+            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ]; // optional, default to protection name
+    prodvana.protection.ProtectionReference ref = 2 [(validate.rules).message.required = true];
+
+    // if set, this protection is automatically used as part of service pushes in this release channel
+    repeated prodvana.protection.ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
+        items: {
+            message: {
+                required: true,
+            },
+        },
+    }];
 }
 
 message Precondition {
@@ -57,7 +78,7 @@ message Precondition {
         ReleaseChannelStable release_channel_stable = 1;
         ManualApproval manual_approval = 2;
         CustomTask custom_task = 3;
-        prodvana.protection.ProtectionReference protection = 4;
+        ProtectionReleaseChannelAttachment protection = 4;
     }
 }
 
