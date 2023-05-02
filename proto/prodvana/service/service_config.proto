@@ -281,7 +281,6 @@ message CompiledServiceInstanceConfig {
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
     // This is used to inject these values into external configs.
-    // Contains only non-secret EnvValues
     map<string, prodvana.common_config.EnvValue> env = 28 [(validate.rules).map = {
         keys: {
             string: {

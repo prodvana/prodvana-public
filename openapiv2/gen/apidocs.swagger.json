@@ -4720,6 +4720,16 @@
       "default": "UNKNOWN",
       "title": "- DEFAULT: for kubernetes, this the the node's default storage medium"
     },
+    "ExternalConfigEnvInjectionMode": {
+      "type": "string",
+      "enum": [
+        "ENV_INJECT_UNKNOWN",
+        "ENV_INJECT_DISABLED",
+        "ENV_INJECT_NON_SECRET_ENV"
+      ],
+      "default": "ENV_INJECT_UNKNOWN",
+      "title": "- ENV_INJECT_DISABLED: disables env injection entirely\n - ENV_INJECT_NON_SECRET_ENV: inject non-secret env values from the Release Channel"
+    },
     "FakeClusterConfigCrashingProgramPatterns": {
       "type": "object",
       "properties": {
@@ -5629,6 +5639,10 @@
         },
         "local": {
           "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "envInjectionMode": {
+          "$ref": "#/definitions/ExternalConfigEnvInjectionMode",
+          "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
         }
       }
     },

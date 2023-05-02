@@ -610,6 +610,28 @@
                         },
                         {}
                     ]
+                },
+                "envInjectionMode": {
+                    "enum": [
+                        "ENV_INJECT_UNKNOWN",
+                        0,
+                        "ENV_INJECT_DISABLED",
+                        1,
+                        "ENV_INJECT_NON_SECRET_ENV",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Env Injection Mode"
                 }
             },
             "additionalProperties": false,

@@ -20,4 +20,15 @@ message ExternalConfig {
         string inlined = 2 [(validate.rules).string.min_len = 1];
         LocalConfig local = 3;
     }
+
+    enum EnvInjectionMode {
+        ENV_INJECT_UNKNOWN = 0;
+        // disables env injection entirely
+        ENV_INJECT_DISABLED = 1;
+        // inject non-secret env values from the Release Channel
+        ENV_INJECT_NON_SECRET_ENV = 2;
+    }
+
+    // Defaults to ENV_INJECT_NON_SECRET_ENV
+    EnvInjectionMode env_injection_mode = 4;
 }

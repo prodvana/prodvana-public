@@ -169,6 +169,8 @@ func (m *ExternalConfig) validate(all bool) error {
 
 	// no validation rules for Type
 
+	// no validation rules for EnvInjectionMode
+
 	oneofSourceOneofPresent := false
 	switch v := m.SourceOneof.(type) {
 	case *ExternalConfig_Inlined:
