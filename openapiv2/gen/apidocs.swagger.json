@@ -6380,11 +6380,36 @@
             "$ref": "#/definitions/modelVersion"
           }
         },
+        "lastCompletedVersions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          }
+        },
+        "lastCompletedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastCompletedStatus": {
+          "$ref": "#/definitions/modelSimpleStatus"
+        },
+        "lastCompletedStatusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "lastCompletedAppliedVersion": {
+          "type": "string"
+        },
         "protectionId": {
           "type": "string"
         },
         "attachmentId": {
-          "type": "string"
+          "type": "string",
+          "title": "next tag: 9"
         }
       }
     },
@@ -8597,7 +8622,11 @@
         },
         "pollInterval": {
           "type": "string",
-          "title": "customize poll interval instead of using Prodvana default"
+          "title": "customize intervals instead of using Prodvana default\nhow often to run check even if it succeeds"
+        },
+        "timeout": {
+          "type": "string",
+          "title": "how long after a run has started to try another run if it has not completed yet"
         }
       }
     },
@@ -9107,7 +9136,7 @@
           "additionalProperties": {
             "$ref": "#/definitions/common_configEnvValue"
           },
-          "title": "The compiled environment for this instance's context, e.g.  Release Channel.\nThis is used to inject these values into external configs.\nContains only non-secret EnvValues"
+          "description": "The compiled environment for this instance's context, e.g.  Release Channel.\nThis is used to inject these values into external configs."
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"

@@ -1435,7 +1435,6 @@ type CompiledServiceInstanceConfig struct {
 	ConfigOneof isCompiledServiceInstanceConfig_ConfigOneof `protobuf_oneof:"config_oneof"`
 	// The compiled environment for this instance's context, e.g.  Release Channel.
 	// This is used to inject these values into external configs.
-	// Contains only non-secret EnvValues
 	Env map[string]*common_config.EnvValue `protobuf:"bytes,28,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 

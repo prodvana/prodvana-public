@@ -404,8 +404,14 @@ message ProtectionLinkState {
 message ProtectionAttachment {
     Metadata meta = 1;
     repeated Version versions = 2;
+    repeated Version last_completed_versions = 5;
+    google.protobuf.Timestamp last_completed_timestamp = 6;
+    SimpleStatus last_completed_status = 7;
+    repeated StatusExplanation last_completed_status_explanations = 8;
+    string last_completed_applied_version = 9;
     string protection_id = 3;
     string attachment_id = 4;
+    // next tag: 9
 }
 
 enum SignalType {

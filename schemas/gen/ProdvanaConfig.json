@@ -2883,7 +2883,13 @@
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "customize poll interval instead of using Prodvana default",
+                    "description": "customize intervals instead of using Prodvana default how often to run check even if it succeeds",
+                    "format": "regex"
+                },
+                "timeout": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "how long after a run has started to try another run if it has not completed yet",
                     "format": "regex"
                 }
             },

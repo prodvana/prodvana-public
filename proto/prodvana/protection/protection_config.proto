@@ -35,8 +35,11 @@ message ProtectionConfig {
         // - Ref to external repository of protection definitions.
     }
 
-    // customize poll interval instead of using Prodvana default
+    // customize intervals instead of using Prodvana default
+    // how often to run check even if it succeeds
     google.protobuf.Duration poll_interval = 4;
+    // how long after a run has started to try another run if it has not completed yet
+    google.protobuf.Duration timeout = 5;
 
     // TODO: Allow Protections to declare context/parameters/inputs that need to be bound before execution.
     // E.g., instance name for DB/bucket to be polled, duration/thresholds for post-push validation.
