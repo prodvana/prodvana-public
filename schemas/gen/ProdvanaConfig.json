@@ -711,6 +711,111 @@
             ],
             "title": "Health Check"
         },
+        "prodvana.common_config.HelmConfig": {
+            "properties": {
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteHelmChart",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "TODO(naphat) chart archive support, local charts"
+                },
+                "valuesOverrides": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.HelmValuesOverrides"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "releaseName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional release name, leave blank to have Prodvana generate one. Mainly useful for migrating an existing helm release into Prodvana."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Helm Config"
+        },
+        "prodvana.common_config.HelmValuesOverrides": {
+            "properties": {
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "map": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "treat this as part of the above oneof, even though proto does not allow us to"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Helm Values Overrides"
+        },
         "prodvana.common_config.HttpProbe": {
             "properties": {
                 "path": {
@@ -1479,6 +1584,51 @@
             ],
             "title": "Program Config",
             "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks. The validations expressed here represent the lowest common denominator of the use cases."
+        },
+        "prodvana.common_config.RemoteHelmChart": {
+            "properties": {
+                "repo": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "TODO(naphat) add integration support for private repositories"
+                },
+                "chart": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "chartVersion": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Remote Helm Chart"
         },
         "prodvana.common_config.ResourceList": {
             "properties": {
@@ -3973,6 +4123,16 @@
                         },
                         {}
                     ]
+                },
+                "helm": {
+                    "$ref": "#/definitions/prodvana.common_config.HelmConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -4409,6 +4569,16 @@
                 },
                 "externalConfig": {
                     "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "helm": {
+                    "$ref": "#/definitions/prodvana.common_config.HelmConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

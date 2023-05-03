@@ -5663,6 +5663,44 @@
         }
       }
     },
+    "common_configHelmConfig": {
+      "type": "object",
+      "properties": {
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteHelmChart",
+          "title": "TODO(naphat) chart archive support, local charts"
+        },
+        "valuesOverrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configHelmValuesOverrides"
+          }
+        },
+        "releaseName": {
+          "type": "string",
+          "description": "optional release name, leave blank to have Prodvana generate one.\nMainly useful for migrating an existing helm release into Prodvana."
+        }
+      }
+    },
+    "common_configHelmValuesOverrides": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "map": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "treat this as part of the above oneof, even though proto does not allow us to"
+        }
+      }
+    },
     "common_configHttpProbe": {
       "type": "object",
       "properties": {
@@ -5923,6 +5961,21 @@
         }
       },
       "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.\nThe validations expressed here represent the lowest common denominator of the use cases."
+    },
+    "common_configRemoteHelmChart": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string",
+          "title": "TODO(naphat) add integration support for private repositories"
+        },
+        "chart": {
+          "type": "string"
+        },
+        "chartVersion": {
+          "type": "string"
+        }
+      }
     },
     "common_configResourceList": {
       "type": "object",
@@ -9130,6 +9183,9 @@
         "externalConfig": {
           "$ref": "#/definitions/common_configExternalConfig"
         },
+        "helm": {
+          "$ref": "#/definitions/common_configHelmConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -9458,6 +9514,9 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/common_configExternalConfig"
+        },
+        "helm": {
+          "$ref": "#/definitions/common_configHelmConfig"
         }
       }
     },
@@ -9641,6 +9700,9 @@
         },
         "externalConfig": {
           "$ref": "#/definitions/common_configExternalConfig"
+        },
+        "helm": {
+          "$ref": "#/definitions/common_configHelmConfig"
         },
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",

@@ -6,6 +6,7 @@ import "google/protobuf/duration.proto";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/helm.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
@@ -102,11 +103,12 @@ message PerReleaseChannelConfig {
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 13;
         prodvana.common_config.ExternalConfig external_config = 14;
+        prodvana.common_config.HelmConfig helm = 15;
     }
 
     reserved 3, 4;
 
-    // next tag: 15
+    // next tag: 16
 }
 
 message CapabilityReference {
@@ -220,6 +222,7 @@ message ServiceConfig {
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 18;
         prodvana.common_config.ExternalConfig external_config = 19;
+        prodvana.common_config.HelmConfig helm = 26;
     }
 
     enum ParametersAutogen {
@@ -237,7 +240,7 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 26
+    // next tag: 27
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -277,6 +280,7 @@ message CompiledServiceInstanceConfig {
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 22;
         prodvana.common_config.ExternalConfig external_config = 23;
+        prodvana.common_config.HelmConfig helm = 29;
     }
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
@@ -293,7 +297,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 21;
     reserved "runtime_type";
 
-    // next tag: 29
+    // next tag: 30
 }
 
 message CompiledJobConfig {

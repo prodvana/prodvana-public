@@ -1,0 +1,39 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+import "validate/validate.proto";
+import "prodvana/common_config/env.proto";
+import "prodvana/common_config/external_config.proto";
+
+message RemoteHelmChart {
+    oneof repo_oneof {
+        option (validate.required) = true;
+        string repo = 1;
+        // TODO(naphat) add integration support for private repositories
+    }
+    string chart = 2 [(validate.rules).string.min_len = 1];
+    string chart_version = 3 [(validate.rules).string.min_len = 1];
+}
+
+message HelmValuesOverrides {
+    oneof override_oneof {
+        string inlined = 1 [(validate.rules).string.min_len = 1];
+        LocalConfig local = 2;
+    }
+    // treat this as part of the above oneof, even though proto does not allow us to
+    map<string, EnvValue> map = 3 [(validate.rules).map = {
+        no_sparse: true,
+    }];
+}
+
+message HelmConfig {
+    oneof chart_oneof {
+        option (validate.required) = true;
+        RemoteHelmChart remote = 1;
+        // TODO(naphat) chart archive support, local charts
+    }
+    repeated HelmValuesOverrides values_overrides = 2;
+    // optional release name, leave blank to have Prodvana generate one.
+    // Mainly useful for migrating an existing helm release into Prodvana.
+    string release_name = 3;
+}
