@@ -2961,19 +2961,6 @@
             "title": "Protection Lifecycle"
         },
         "prodvana.protection.ProtectionLifecycle.PostApproval": {
-            "properties": {
-                "mustSucceedOnce": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "Ignore protection status after first success."
-                }
-            },
             "additionalProperties": false,
             "oneOf": [
                 {
@@ -2997,19 +2984,8 @@
                 "checkDuration": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state.",
+                    "description": "How long after starting should we check for?",
                     "format": "regex"
-                },
-                "mustSucceedOnce": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "Ignore protection status after first success - permanent success."
                 }
             },
             "additionalProperties": false,
@@ -3024,19 +3000,6 @@
             "title": "Post Push"
         },
         "prodvana.protection.ProtectionLifecycle.PreApproval": {
-            "properties": {
-                "mustSucceedOnce": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "Ignore protection status after first success."
-                }
-            },
             "additionalProperties": false,
             "oneOf": [
                 {

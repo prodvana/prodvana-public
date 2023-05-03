@@ -4953,13 +4953,7 @@
       }
     },
     "ProtectionLifecyclePostApproval": {
-      "type": "object",
-      "properties": {
-        "mustSucceedOnce": {
-          "type": "boolean",
-          "description": "Ignore protection status after first success."
-        }
-      }
+      "type": "object"
     },
     "ProtectionLifecyclePostPush": {
       "type": "object",
@@ -4970,22 +4964,12 @@
         },
         "checkDuration": {
           "type": "string",
-          "description": "How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state."
-        },
-        "mustSucceedOnce": {
-          "type": "boolean",
-          "description": "Ignore protection status after first success - permanent success."
+          "title": "How long after starting should we check for?"
         }
       }
     },
     "ProtectionLifecyclePreApproval": {
-      "type": "object",
-      "properties": {
-        "mustSucceedOnce": {
-          "type": "boolean",
-          "description": "Ignore protection status after first success."
-        }
-      }
+      "type": "object"
     },
     "ProtectionLifecyclePush": {
       "type": "object"

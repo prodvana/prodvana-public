@@ -7,16 +7,12 @@ import "validate/validate.proto";
 
 message ProtectionLifecycle {
     message PreApproval {
-        // Ignore protection status after first success.
-        bool must_succeed_once = 1;
     }
 
     // message Approval {
     // }
 
     message PostApproval {
-        // Ignore protection status after first success.
-        bool must_succeed_once = 1;
     }
 
     message Push {
@@ -27,11 +23,11 @@ message ProtectionLifecycle {
         // e.g, delay health checks X minutes after push (if push is noisy).
         google.protobuf.Duration delay_check_duration = 1;
 
-        // How long after starting should we check for? If must_succeed_once is set, this is a deadline to reach success state.
-        google.protobuf.Duration check_duration = 2;
-
-        // Ignore protection status after first success - permanent success.
-        bool must_succeed_once = 3;
+        // How long after starting should we check for?
+        google.protobuf.Duration check_duration = 2 [(validate.rules).duration = {
+            required: true,
+            gt: {seconds: 0},
+        }];
     }
 
     oneof lifecycle {
@@ -48,7 +44,6 @@ message ProtectionLifecycle {
     // Examples:
 
     // Alert check:
-    // - must succeed once before push
     // - must never fail for at least X minutes after push completes
     // becomes:
     // - PreApproval
@@ -58,22 +53,16 @@ message ProtectionLifecycle {
     // - PostPush(check_duration=check_duration)
 
     // Migration/resources present:
+    // - must be true up to the push
     // - must start after approval
-    // - must succeed once (within optional timeout?)
     // becomes:
-    // - PostApproval(must_succeed_once=true)
+    // - PostApproval()
 
     // Healthy:
     // - must start after push initiated
-    // - must succeed once within X minutes after push initiated
     // - must never fail for at least X minutes after push initiated
     // becomes:
     // - PostPush(check_duration=readiness_deadline)
-
-    // Build before push:
-    // - must build once after approval
-    // becomes:
-    // - PostApproval(must_succeed_once=true)
 }
 
 message ProtectionReference {

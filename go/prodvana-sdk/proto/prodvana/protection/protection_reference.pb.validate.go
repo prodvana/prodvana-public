@@ -469,8 +469,6 @@ func (m *ProtectionLifecycle_PreApproval) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for MustSucceedOnce
-
 	if len(errors) > 0 {
 		return ProtectionLifecycle_PreApprovalMultiError(errors)
 	}
@@ -574,8 +572,6 @@ func (m *ProtectionLifecycle_PostApproval) validate(all bool) error {
 	}
 
 	var errors []error
-
-	// no validation rules for MustSucceedOnce
 
 	if len(errors) > 0 {
 		return ProtectionLifecycle_PostApprovalMultiError(errors)
@@ -812,36 +808,46 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetCheckDuration()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
-					field:  "CheckDuration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
-					field:  "CheckDuration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if m.GetCheckDuration() == nil {
+		err := ProtectionLifecycle_PostPushValidationError{
+			field:  "CheckDuration",
+			reason: "value is required",
 		}
-	} else if v, ok := interface{}(m.GetCheckDuration()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ProtectionLifecycle_PostPushValidationError{
-				field:  "CheckDuration",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
 	}
 
-	// no validation rules for MustSucceedOnce
+	if d := m.GetCheckDuration(); d != nil {
+		dur, err := d.AsDuration(), d.CheckValid()
+		if err != nil {
+			err = ProtectionLifecycle_PostPushValidationError{
+				field:  "CheckDuration",
+				reason: "value is not a valid duration",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			gt := time.Duration(0*time.Second + 0*time.Nanosecond)
+
+			if dur <= gt {
+				err := ProtectionLifecycle_PostPushValidationError{
+					field:  "CheckDuration",
+					reason: "value must be greater than 0s",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+	}
 
 	if len(errors) > 0 {
 		return ProtectionLifecycle_PostPushMultiError(errors)
