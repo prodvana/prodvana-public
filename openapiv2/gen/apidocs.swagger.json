@@ -6526,6 +6526,7 @@
         "FAILED",
         "ROLLING_BACK",
         "ROLLED_BACK",
+        "FAILED_ROLL_BACK",
         "PAUSED",
         "CHILD_PAUSED",
         "WAITING_PRECONDITIONS",
@@ -6534,7 +6535,7 @@
         "DELETED"
       ],
       "default": "UNKNOWN_STATUS",
-      "title": "- CHILD_PAUSED: entity itself not paused, but one of its children is paused, so it is not making any progress\n - WAITING_PRECONDITIONS: Waiting for non-manual approval preconditions\n - WAITING_MANUAL_APPROVAL: Waiting only for manual approval"
+      "title": "- CHILD_PAUSED: entity itself not paused, but one of its children is paused, so it is not making any progress\n - WAITING_PRECONDITIONS: Waiting for non-manual approval preconditions\n - WAITING_MANUAL_APPROVAL: Waiting only for manual approval\n - DELETED: next tag: 13"
     },
     "desired_statemodelType": {
       "type": "string",

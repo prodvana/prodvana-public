@@ -103,12 +103,14 @@ enum Status {
     FAILED = 3;
     ROLLING_BACK = 4;
     ROLLED_BACK = 5;
+    FAILED_ROLL_BACK = 12;
     PAUSED = 6;
     CHILD_PAUSED = 7; // entity itself not paused, but one of its children is paused, so it is not making any progress
     WAITING_PRECONDITIONS = 8; // Waiting for non-manual approval preconditions
     REPLACED = 9;
     WAITING_MANUAL_APPROVAL = 10; // Waiting only for manual approval
     DELETED = 11;
+    // next tag: 13
 }
 
 enum SimpleStatus {
