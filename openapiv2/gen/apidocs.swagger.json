@@ -5680,6 +5680,10 @@
         "releaseName": {
           "type": "string",
           "description": "optional release name, leave blank to have Prodvana generate one.\nMainly useful for migrating an existing helm release into Prodvana."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "used internally by Prodvana, do not set."
         }
       }
     },

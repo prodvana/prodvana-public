@@ -748,6 +748,17 @@
                         }
                     ],
                     "description": "optional release name, leave blank to have Prodvana generate one. Mainly useful for migrating an existing helm release into Prodvana."
+                },
+                "namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "used internally by Prodvana, do not set."
                 }
             },
             "additionalProperties": false,

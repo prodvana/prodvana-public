@@ -472,6 +472,17 @@ func (m *HelmConfig) validate(all bool) error {
 
 	// no validation rules for ReleaseName
 
+	if utf8.RuneCountInString(m.GetNamespace()) > 0 {
+		err := HelmConfigValidationError{
+			field:  "Namespace",
+			reason: "value length must be at most 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	oneofChartOneofPresent := false
 	switch v := m.ChartOneof.(type) {
 	case *HelmConfig_Remote:

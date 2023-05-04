@@ -36,4 +36,7 @@ message HelmConfig {
     // optional release name, leave blank to have Prodvana generate one.
     // Mainly useful for migrating an existing helm release into Prodvana.
     string release_name = 3;
+
+    // used internally by Prodvana, do not set.
+    string namespace = 4 [(validate.rules).string.max_len = 0];
 }
