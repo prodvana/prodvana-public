@@ -6583,7 +6583,7 @@
         "FAILED",
         "ROLLING_BACK",
         "ROLLED_BACK",
-        "FAILED_ROLL_BACK",
+        "FAILED_ROLLBACK",
         "PAUSED",
         "CHILD_PAUSED",
         "WAITING_PRECONDITIONS",
