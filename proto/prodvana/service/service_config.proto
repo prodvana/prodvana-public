@@ -19,8 +19,6 @@ import "prodvana/workflow/integration_config.proto";
 import "prodvana/service/parameters.proto";
 import "prodvana/volumes/volumes.proto";
 import "validate/validate.proto";
-import "prodvana/protection/protection_config.proto";
-import "prodvana/protection/protection_reference.proto";
 
 message ReplicasConfig {
     oneof config_oneof {
@@ -98,15 +96,14 @@ message PerReleaseChannelConfig {
 
     RuntimeSpecificConfig runtime_specific = 11;
 
-    repeated prodvana.protection.ProtectionReference protections = 12 [(validate.rules).repeated.items.message.required = true];
-
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 13;
         prodvana.common_config.ExternalConfig external_config = 14;
         prodvana.common_config.HelmConfig helm = 15;
     }
 
-    reserved 3, 4;
+    reserved 3, 4, 12;
+    reserved "protections";
 
     // next tag: 16
 }
@@ -208,7 +205,6 @@ message ServiceConfig {
 
     RuntimeSpecificConfig runtime_specific = 16;
 
-    repeated prodvana.protection.ProtectionReference protections = 17 [(validate.rules).repeated.items.message.required = true];
     repeated prodvana.common_config.ParameterDefinition parameters = 21 [(validate.rules).repeated.items.message.required = true];
     // only valid to set in compiled configs by Prodvana
     ServiceParameterValues parameter_values = 22;
@@ -216,8 +212,8 @@ message ServiceConfig {
     // how long to wait before marking deployment as failed
     google.protobuf.Duration progress_deadline = 24;
 
-    reserved 6, 7, 8;
-    reserved "external", "image_repository", "container_registry_id";
+    reserved 6, 7, 8, 17;
+    reserved "external", "image_repository", "container_registry_id", "protections";
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 18;
@@ -269,8 +265,6 @@ message CompiledServiceInstanceConfig {
 
     RuntimeSpecificConfig runtime_specific = 19;
 
-    repeated prodvana.protection.CompiledProtectionAttachmentConfig protections = 20;
-
     repeated prodvana.common_config.ParameterDefinition parameters = 24;
     repeated prodvana.common_config.ParameterValue parameter_values = 25;
 
@@ -294,8 +288,8 @@ message CompiledServiceInstanceConfig {
         no_sparse: true,
     }];
 
-    reserved 8, 9, 21;
-    reserved "runtime_type";
+    reserved 8, 9, 20, 21;
+    reserved "protections", "runtime_type";
 
     // next tag: 30
 }

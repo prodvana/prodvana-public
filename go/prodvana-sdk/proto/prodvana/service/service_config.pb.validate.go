@@ -1391,51 +1391,6 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 		}
 	}
 
-	for idx, item := range m.GetProtections() {
-		_, _ = idx, item
-
-		if item == nil {
-			err := PerReleaseChannelConfigValidationError{
-				field:  fmt.Sprintf("Protections[%v]", idx),
-				reason: "value is required",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, PerReleaseChannelConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, PerReleaseChannelConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return PerReleaseChannelConfigValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	switch v := m.ConfigOneof.(type) {
 	case *PerReleaseChannelConfig_GenericRuntime:
 		if v == nil {
@@ -3190,51 +3145,6 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 	}
 
-	for idx, item := range m.GetProtections() {
-		_, _ = idx, item
-
-		if item == nil {
-			err := ServiceConfigValidationError{
-				field:  fmt.Sprintf("Protections[%v]", idx),
-				reason: "value is required",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ServiceConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ServiceConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ServiceConfigValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	for idx, item := range m.GetParameters() {
 		_, _ = idx, item
 
@@ -4013,40 +3923,6 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	for idx, item := range m.GetProtections() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return CompiledServiceInstanceConfigValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	for idx, item := range m.GetParameters() {

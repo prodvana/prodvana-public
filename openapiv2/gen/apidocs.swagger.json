@@ -8486,17 +8486,6 @@
         }
       }
     },
-    "prodvanaprotectionProtectionAttachment": {
-      "type": "object",
-      "properties": {
-        "serviceInstance": {
-          "$ref": "#/definitions/protectionServiceInstanceAttachment"
-        },
-        "releaseChannel": {
-          "$ref": "#/definitions/protectionReleaseChannelAttachment"
-        }
-      }
-    },
     "prodvanarepoUser": {
       "type": "object",
       "properties": {
@@ -8572,21 +8561,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "protectionCompiledProtectionAttachmentConfig": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "$ref": "#/definitions/protectionProtectionConfig"
-        },
-        "attachment": {
-          "$ref": "#/definitions/prodvanaprotectionProtectionAttachment",
-          "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
-        },
-        "runtimeExecution": {
-          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
         }
       }
     },
@@ -8695,31 +8669,6 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
-        }
-      }
-    },
-    "protectionReleaseChannelAttachment": {
-      "type": "object",
-      "properties": {
-        "application": {
-          "type": "string"
-        },
-        "releaseChannel": {
-          "type": "string"
-        }
-      }
-    },
-    "protectionServiceInstanceAttachment": {
-      "type": "object",
-      "properties": {
-        "service": {
-          "type": "string"
-        },
-        "releaseChannel": {
-          "type": "string"
-        },
-        "application": {
           "type": "string"
         }
       }
@@ -9156,13 +9105,6 @@
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
         },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionCompiledProtectionAttachmentConfig"
-          }
-        },
         "parameters": {
           "type": "array",
           "items": {
@@ -9506,13 +9448,6 @@
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
         },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionProtectionReference"
-          }
-        },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
@@ -9676,13 +9611,6 @@
         },
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
-        },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionProtectionReference"
-          }
         },
         "parameters": {
           "type": "array",

@@ -4101,20 +4101,6 @@
                         {}
                     ]
                 },
-                "protections": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionReference"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                },
                 "genericRuntime": {
                     "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
                     "additionalProperties": false,
@@ -4521,20 +4507,6 @@
                             "type": "null"
                         },
                         {}
-                    ]
-                },
-                "protections": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionReference"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
                     ]
                 },
                 "parameters": {
