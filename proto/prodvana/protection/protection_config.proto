@@ -5,6 +5,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
+import "prodvana/common_config/env.proto";
 import "prodvana/common_config/external_config.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
@@ -62,6 +63,17 @@ message CompiledProtectionAttachmentConfig {
     ProtectionAttachment attachment = 2;
 
     prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 3;
+
+
+    // The compiled environment for this attachment's context, e.g.  Release Channel.
+    map<string, prodvana.common_config.EnvValue> env = 4 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
 
     // TODO: Context/parameter/input bindings.
 }
