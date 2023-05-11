@@ -7,6 +7,7 @@ import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
 enum AttachmentType {
@@ -42,18 +43,7 @@ message ProtectionConfig {
     // how long after a run has started to try another run if it has not completed yet
     google.protobuf.Duration timeout = 5;
 
-    // TODO: Allow Protections to declare context/parameters/inputs that need to be bound before execution.
-    // E.g., instance name for DB/bucket to be polled, duration/thresholds for post-push validation.
-    //
-    // repeated Parameter parameters = 3;
-    //
-    // message Parameter {
-    //     string key = 1; // Token used in config that needs to be replaced
-    //     string description = 2; // User-friendly description to be shown in the UI
-    //     // Type?
-    //     // Defaults?
-    //     // See https://circleci.com/docs/reusing-config/#parameter-syntax
-    // }
+    repeated prodvana.common_config.ParameterDefinition parameters = 6 [(validate.rules).repeated.items.message.required = true];
 }
 
 message CompiledProtectionAttachmentConfig {
@@ -63,7 +53,6 @@ message CompiledProtectionAttachmentConfig {
     ProtectionAttachment attachment = 2;
 
     prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 3;
-
 
     // The compiled environment for this attachment's context, e.g.  Release Channel.
     map<string, prodvana.common_config.EnvValue> env = 4 [(validate.rules).map = {
@@ -76,6 +65,9 @@ message CompiledProtectionAttachmentConfig {
     }];
 
     // TODO: Context/parameter/input bindings.
+
+    // compiled parameter values
+    repeated prodvana.common_config.ParameterValue parameter_values = 5;
 }
 
 message ServiceInstanceAttachment {

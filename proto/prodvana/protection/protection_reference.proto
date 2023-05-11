@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "google/protobuf/duration.proto";
 import "validate/validate.proto";
+import "prodvana/common_config/parameters.proto";
 
 message ProtectionLifecycle {
     message PreApproval {
@@ -73,6 +74,8 @@ message ProtectionReference {
             pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
         }
     ];
+
+    repeated prodvana.common_config.ParameterValue parameters = 3;
 
     reserved 2;
     reserved "attached";

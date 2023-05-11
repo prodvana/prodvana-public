@@ -137,6 +137,51 @@ func (m *ProtectionConfig) validate(all bool) error {
 		}
 	}
 
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := ProtectionConfigValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ProtectionConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ProtectionConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ProtectionConfigValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *ProtectionConfig_TaskConfig:
@@ -491,6 +536,40 @@ func (m *CompiledProtectionAttachmentConfig) validate(all bool) error {
 			}
 
 		}
+	}
+
+	for idx, item := range m.GetParameterValues() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
+						field:  fmt.Sprintf("ParameterValues[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledProtectionAttachmentConfigValidationError{
+						field:  fmt.Sprintf("ParameterValues[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledProtectionAttachmentConfigValidationError{
+					field:  fmt.Sprintf("ParameterValues[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {

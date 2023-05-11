@@ -3052,6 +3052,20 @@
                     "type": "string",
                     "description": "how long after a run has started to try another run if it has not completed yet",
                     "format": "regex"
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -3193,6 +3207,20 @@
                         },
                         {
                             "type": "string"
+                        }
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
                         }
                     ]
                 }

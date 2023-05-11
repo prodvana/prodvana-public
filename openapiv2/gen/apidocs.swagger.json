@@ -8643,6 +8643,13 @@
         "timeout": {
           "type": "string",
           "title": "how long after a run has started to try another run if it has not completed yet"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
         }
       }
     },
@@ -8670,6 +8677,13 @@
       "properties": {
         "name": {
           "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
         }
       }
     },
