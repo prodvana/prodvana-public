@@ -4982,7 +4982,8 @@
         "SUCCEEDED_ONCE",
         "SUCCEEDED_FOR_DURATION",
         "TIMED_OUT",
-        "FAILED"
+        "FAILED",
+        "DELETED"
       ],
       "default": "UNKNOWN"
     },
