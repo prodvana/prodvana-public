@@ -8784,9 +8784,6 @@
         },
         "customTask": {
           "$ref": "#/definitions/release_channelPreconditionCustomTask"
-        },
-        "protection": {
-          "$ref": "#/definitions/release_channelProtectionReleaseChannelAttachment"
         }
       }
     },

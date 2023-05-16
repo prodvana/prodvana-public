@@ -3301,16 +3301,6 @@
                         },
                         {}
                     ]
-                },
-                "protection": {
-                    "$ref": "#/definitions/prodvana.release_channel.ProtectionReleaseChannelAttachment",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
                 }
             },
             "additionalProperties": false,
