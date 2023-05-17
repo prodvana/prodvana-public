@@ -3079,6 +3079,56 @@
             ],
             "title": "Protection Config"
         },
+        "prodvana.protection.ProtectionConvergenceAttachment": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, default to protection name"
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "lifecycle": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Convergence Attachment",
+            "description": "Protections attached to convergence. The desired state ID of the convergence is passed to the protection and its lifecycle is tied to the convergence itself."
+        },
         "prodvana.protection.ProtectionLifecycle": {
             "properties": {
                 "preApproval": {
@@ -3536,6 +3586,20 @@
                 "protections": {
                     "items": {
                         "$ref": "#/definitions/prodvana.release_channel.ProtectionReleaseChannelAttachment"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergenceProtections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionConvergenceAttachment"
                     },
                     "additionalProperties": false,
                     "oneOf": [

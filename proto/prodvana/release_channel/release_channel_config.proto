@@ -6,6 +6,7 @@ import "google/protobuf/duration.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/pipelines/pipelines.proto";
+import "prodvana/protection/attachments.proto";
 import "prodvana/protection/protection_reference.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/workflow/integration_config.proto";
@@ -41,6 +42,7 @@ message ReleaseChannelConfig {
     repeated Precondition preconditions = 7;
 
     repeated ProtectionReleaseChannelAttachment protections = 8;
+    repeated prodvana.protection.ProtectionConvergenceAttachment convergence_protections = 9;
 }
 
 message ProtectionReleaseChannelAttachment {

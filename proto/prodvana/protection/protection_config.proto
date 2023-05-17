@@ -10,12 +10,6 @@ import "prodvana/common_config/external_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
-enum AttachmentType {
-    UNKNOWN = 0;
-    RELEASE_CHANNEL = 1;
-    SERVICE_INSTANCE = 2;
-}
-
 message ProtectionConfig {
     string name = 1 [
         (validate.rules).string = {

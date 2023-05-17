@@ -8487,6 +8487,26 @@
         }
       }
     },
+    "prodvanaprotectionProtectionConvergenceAttachment": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "optional, default to protection name"
+        },
+        "ref": {
+          "$ref": "#/definitions/protectionProtectionReference"
+        },
+        "lifecycle": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionLifecycle"
+          }
+        }
+      },
+      "description": "Protections attached to convergence. The desired state ID of the convergence is passed to the protection\nand its lifecycle is tied to the convergence itself."
+    },
     "prodvanarepoUser": {
       "type": "object",
       "properties": {
@@ -8875,6 +8895,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/release_channelProtectionReleaseChannelAttachment"
+          }
+        },
+        "convergenceProtections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaprotectionProtectionConvergenceAttachment"
           }
         }
       }

@@ -1,0 +1,35 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+
+import "prodvana/protection/protection_reference.proto";
+import "validate/validate.proto";
+
+enum AttachmentType {
+    UNKNOWN = 0;
+    RELEASE_CHANNEL = 1;
+    SERVICE_INSTANCE = 2;
+    CONVERGENCE = 3;
+}
+
+// Protections attached to convergence. The desired state ID of the convergence is passed to the protection
+// and its lifecycle is tied to the convergence itself.
+message ProtectionConvergenceAttachment {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 0,
+            max_len: 63,
+            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ]; // optional, default to protection name
+    ProtectionReference ref = 2 [(validate.rules).message.required = true];
+
+    repeated ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
+        min_items: 1,
+        items: {
+            message: {
+                required: true,
+            },
+        },
+    }];
+}
