@@ -1,0 +1,17 @@
+syntax = "proto3";
+package prodvana.delivery_module;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_module";
+
+import "prodvana/object/meta.proto";
+import "prodvana/delivery_module/config.proto";
+
+message DeliveryModule {
+    prodvana.object.ObjectMeta meta = 1;
+    DeliveryModuleConfig config = 2;
+    DeliveryModuleState state = 3;
+}
+
+
+message DeliveryModuleState {
+    // TODO(naphat) list custom task instances?
+}

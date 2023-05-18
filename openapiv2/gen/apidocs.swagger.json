@@ -21,6 +21,9 @@
       "name": "prodvana.blobs.BlobsManager"
     },
     {
+      "name": "prodvana.delivery_module.DeliveryModuleManager"
+    },
+    {
       "name": "prodvana.desired_state.DesiredStateManager"
     },
     {
@@ -1777,6 +1780,176 @@
         ],
         "tags": [
           "prodvana.environment.EnvironmentManager"
+        ]
+      }
+    },
+    "/v1/delivery_module/{deliveryModule}": {
+      "get": {
+        "operationId": "DeliveryModuleManager_GetDeliveryModule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleGetDeliveryModuleResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deliveryModule",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_module.DeliveryModuleManager"
+        ]
+      }
+    },
+    "/v1/delivery_module/{deliveryModule}/config": {
+      "get": {
+        "operationId": "DeliveryModuleManager_GetDeliveryModuleConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleGetDeliveryModuleConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deliveryModule",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_module.DeliveryModuleManager"
+        ]
+      }
+    },
+    "/v1/delivery_modules": {
+      "get": {
+        "operationId": "DeliveryModuleManager_ListDeliveryModules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleListDeliveryModulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_module.DeliveryModuleManager"
+        ]
+      }
+    },
+    "/v1/delivery_modules/configure": {
+      "post": {
+        "operationId": "DeliveryModuleManager_ConfigureDeliveryModule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_module.DeliveryModuleManager"
+        ]
+      }
+    },
+    "/v1/delivery_modules/configure/validate": {
+      "post": {
+        "operationId": "DeliveryModuleManager_ValidateConfigureDeliveryModule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleValidateConfigureDeliveryModuleResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_module.DeliveryModuleManager"
         ]
       }
     },
@@ -6112,6 +6285,107 @@
           }
         }
       }
+    },
+    "delivery_moduleConfigureDeliveryModuleReq": {
+      "type": "object",
+      "properties": {
+        "deliveryModuleConfig": {
+          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        }
+      }
+    },
+    "delivery_moduleConfigureDeliveryModuleResp": {
+      "type": "object",
+      "properties": {
+        "deliveryModuleId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "delivery_moduleDeliveryModule": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+        },
+        "state": {
+          "$ref": "#/definitions/delivery_moduleDeliveryModuleState"
+        }
+      }
+    },
+    "delivery_moduleDeliveryModuleConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "taskConfig": {
+          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "externalConfig": {
+          "$ref": "#/definitions/common_configExternalConfig"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
+        }
+      }
+    },
+    "delivery_moduleDeliveryModuleState": {
+      "type": "object",
+      "title": "TODO(naphat) list custom task instances?"
+    },
+    "delivery_moduleGetDeliveryModuleConfigResp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "delivery_moduleGetDeliveryModuleResp": {
+      "type": "object",
+      "properties": {
+        "deliveryModule": {
+          "$ref": "#/definitions/delivery_moduleDeliveryModule"
+        }
+      }
+    },
+    "delivery_moduleListDeliveryModulesResp": {
+      "type": "object",
+      "properties": {
+        "deliveryModules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/delivery_moduleDeliveryModule"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "delivery_moduleValidateConfigureDeliveryModuleResp": {
+      "type": "object"
     },
     "desired_stateDebugLogs": {
       "type": "object",

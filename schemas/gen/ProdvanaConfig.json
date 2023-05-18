@@ -44,6 +44,16 @@
                         {}
                     ]
                 },
+                "deliveryModule": {
+                    "$ref": "#/definitions/prodvana.delivery_module.DeliveryModuleConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "applicationMetadata": {
                     "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
                     "additionalProperties": false,
@@ -1968,6 +1978,64 @@
                 }
             ],
             "title": "Delivery Config"
+        },
+        "prodvana.delivery_module.DeliveryModuleConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "taskConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Module Config"
         },
         "prodvana.environment.ClusterConfig": {
             "properties": {

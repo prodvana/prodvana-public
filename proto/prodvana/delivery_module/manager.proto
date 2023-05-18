@@ -1,0 +1,81 @@
+syntax = "proto3";
+package prodvana.delivery_module;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_module";
+
+import "google/api/annotations.proto";
+import "prodvana/delivery_module/object.proto";
+import "prodvana/delivery_module/config.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ConfigureDeliveryModuleReq {
+    DeliveryModuleConfig delivery_module_config = 1 [(validate.rules).message.required = true];
+    prodvana.version.Source source = 2;
+    prodvana.version.SourceMetadata source_metadata = 3;
+}
+
+message ConfigureDeliveryModuleResp {
+    string delivery_module_id = 1;
+    string version = 2;
+}
+
+message ValidateConfigureDeliveryModuleResp {
+}
+
+message ListDeliveryModulesReq {
+    string page_token = 1;
+    int32 page_size = 2;
+}
+
+message ListDeliveryModulesResp {
+    repeated DeliveryModule delivery_modules = 1;
+    string next_page_token = 2;
+}
+
+message GetDeliveryModuleReq {
+    string delivery_module = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDeliveryModuleResp {
+    DeliveryModule delivery_module = 1;
+}
+
+message GetDeliveryModuleConfigReq {
+    string delivery_module = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetDeliveryModuleConfigResp {
+    DeliveryModuleConfig config = 1;
+    string version = 2;
+}
+
+service DeliveryModuleManager {
+    rpc ConfigureDeliveryModule (ConfigureDeliveryModuleReq) returns (ConfigureDeliveryModuleResp) {
+        option (google.api.http) = {
+            post: "/v1/delivery_modules/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureDeliveryModule (ConfigureDeliveryModuleReq) returns (ValidateConfigureDeliveryModuleResp) {
+        option (google.api.http) = {
+            post: "/v1/delivery_modules/configure/validate"
+            body: "*"
+        };
+    }
+    rpc ListDeliveryModules (ListDeliveryModulesReq) returns (ListDeliveryModulesResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_modules"
+        };
+    }
+    rpc GetDeliveryModule (GetDeliveryModuleReq) returns (GetDeliveryModuleResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_module/{delivery_module=*}"
+        };
+    }
+    rpc GetDeliveryModuleConfig (GetDeliveryModuleConfigReq) returns (GetDeliveryModuleConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_module/{delivery_module=*}/config"
+        };
+    }
+}

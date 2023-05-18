@@ -1,0 +1,64 @@
+syntax = "proto3";
+package prodvana.delivery_module;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_module";
+
+import "validate/validate.proto";
+import "prodvana/common_config/task.proto";
+import "prodvana/common_config/env.proto";
+import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/parameters.proto";
+import "prodvana/runtimes/runtimes_config.proto";
+
+message DeliveryModuleConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+
+    oneof exec_config {
+        option (validate.required) = true;
+
+        prodvana.common_config.TaskConfig task_config = 2;
+
+        prodvana.common_config.ExternalConfig external_config = 3;
+
+        // web hooks?
+    }
+
+    repeated prodvana.common_config.ParameterDefinition parameters = 4 [(validate.rules).repeated.items.message.required = true];
+}
+
+message DeliveryModuleInstanceConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+
+    repeated prodvana.common_config.ParameterValue parameters = 3;
+}
+
+message CompiledDeliveryModuleInstanceConfig {
+    DeliveryModuleConfig definition = 1;
+    prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 2;
+
+    // The compiled environment for this attachment's context, e.g.  Release Channel.
+    map<string, prodvana.common_config.EnvValue> env = 3 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
+    // TODO(naphat) custom task lifecycle
+
+    // compiled parameter values
+    repeated prodvana.common_config.ParameterValue parameter_values = 4;
+}

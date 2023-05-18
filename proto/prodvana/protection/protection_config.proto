@@ -58,8 +58,6 @@ message CompiledProtectionAttachmentConfig {
         no_sparse: true,
     }];
 
-    // TODO: Context/parameter/input bindings.
-
     // compiled parameter values
     repeated prodvana.common_config.ParameterValue parameter_values = 5;
 }
