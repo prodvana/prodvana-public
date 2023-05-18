@@ -461,6 +461,8 @@ func (m *Entity) validate(all bool) error {
 
 	}
 
+	// no validation rules for Lifecycle
+
 	if len(errors) > 0 {
 		return EntityMultiError(errors)
 	}

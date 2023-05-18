@@ -7900,8 +7900,11 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/modelIdentifier"
-          },
-          "title": "next tag: 18"
+          }
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/modelLifecycle",
+          "title": "next tag: 19"
         }
       }
     },
@@ -7931,6 +7934,18 @@
           "title": "globally unique identifier"
         }
       }
+    },
+    "modelLifecycle": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_LIFECYCLE",
+        "CONVERGENCE_START",
+        "PRE_APPROVAL",
+        "POST_APPROVAL",
+        "PUSH",
+        "POST_PUSH"
+      ],
+      "default": "UNKNOWN_LIFECYCLE"
     },
     "modelManualApprovalState": {
       "type": "object",

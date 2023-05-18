@@ -23,7 +23,8 @@ message Entity {
     google.protobuf.Timestamp last_applied_timestamp = 15;  // when prodvana last applied state for this entity, best effort
 
     repeated Identifier dependencies = 16;
-    // next tag: 18
+    Lifecycle lifecycle = 18;
+    // next tag: 19
 }
 
 message EntityGraph {

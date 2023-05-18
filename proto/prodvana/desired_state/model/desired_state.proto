@@ -20,6 +20,15 @@ enum Type {
     PROTECTION_LINK = 8;
 }
 
+enum Lifecycle {
+    UNKNOWN_LIFECYCLE = 0;
+    CONVERGENCE_START = 1;
+    PRE_APPROVAL = 2;
+    POST_APPROVAL = 3;
+    PUSH = 4;
+    POST_PUSH = 5;
+}
+
 enum CustomTaskType {
     CUSTOM_TASK_TYPE_UNKNOWN = 0;
     // Runs before everything else. May wait for any dependent RCs to be stable.
