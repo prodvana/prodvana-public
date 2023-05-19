@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 import grpc
 from grpc_interceptor import ClientCallDetails, ClientInterceptor
@@ -12,9 +12,8 @@ from prodvana.proto.prodvana.service import service_manager_pb2_grpc
 
 
 class AuthClientInterceptor(ClientInterceptor):
-    def __init__(self) -> None:
-        self.token = os.getenv("PVN_TOKEN")
-        assert self.token, "PVN_TOKEN not set"
+    def __init__(self, api_token: str) -> None:
+        self.token = api_token
         self.header_value = f"Bearer {self.token}"
 
     def intercept(
@@ -39,18 +38,39 @@ class AuthClientInterceptor(ClientInterceptor):
         return method(request_or_iterator, new_details)
 
 
-def make_channel() -> grpc.Channel:
-    apiserver_addr = os.getenv("PVN_APISERVER_ADDR")
-    assert apiserver_addr, "PVN_APISERVER_ADDR not set"
+def make_channel(
+    org: Optional[str] = None,
+    apiserver_addr: Optional[str] = None,
+    api_token: Optional[str] = None,
+) -> grpc.Channel:
+    """
+    Make a new connection to Prodvana API.
+
+    If `org` is provided, it is used to construct the api address automatically, i.e. api.<org>.prodvana.io.
+    If `apiserver_addr` is provided, it is used. It must include both host name and port.
+    Otherwise, env var PVN_APISERVER_ADDR is used.
+
+    if `api_token` is not passed, env var PVN_TOKEN will be used.
+    """
+    if org is not None:
+        apiserver_addr = f"api.{org}.prodvana.io:443"
+    elif apiserver_addr is None:
+        apiserver_addr = os.getenv("PVN_APISERVER_ADDR")
+    assert (
+        apiserver_addr
+    ), "Must pass either `org`, `apiserver_addr`, or set env variable PVN_APISERVER_ADDR"
+    if api_token is None:
+        api_token = os.getenv("PVN_TOKEN")
+    assert api_token, "Must pass either `api_token` or set env variabble PVN_TOKEN"
     server_name, _ = apiserver_addr.split(":")
-    if server_name == "localhost":
+    if server_name == "localhost":  # for testing only
         channel = grpc.insecure_channel(apiserver_addr)
     else:
         channel = grpc.secure_channel(apiserver_addr, grpc.ssl_channel_credentials())
     # use of an interceptor here instead of grpc.access_token_call_credentials is needed
     # because that function does not work with insecure_channel, see
     # https://groups.google.com/g/grpc-io/c/fFXbIXphudw
-    channel = grpc.intercept_channel(channel, AuthClientInterceptor())
+    channel = grpc.intercept_channel(channel, AuthClientInterceptor(api_token))
     return channel
 
 
