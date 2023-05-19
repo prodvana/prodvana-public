@@ -31,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_ServiceManager_ConfigureService2_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConfigureService2Req
+func request_ServiceManager_ConfigureService_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ConfigureServiceReq
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -60,13 +60,13 @@ func request_ServiceManager_ConfigureService2_0(ctx context.Context, marshaler r
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
 	}
 
-	msg, err := client.ConfigureService2(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ConfigureService(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceManager_ConfigureService2_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConfigureService2Req
+func local_request_ServiceManager_ConfigureService_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ConfigureServiceReq
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -94,7 +94,7 @@ func local_request_ServiceManager_ConfigureService2_0(ctx context.Context, marsh
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
 	}
 
-	msg, err := server.ConfigureService2(ctx, &protoReq)
+	msg, err := server.ConfigureService(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -190,11 +190,11 @@ func local_request_ServiceManager_ListServiceConfigVersions_0(ctx context.Contex
 }
 
 var (
-	filter_ServiceManager_GetServiceConfig2_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "service": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+	filter_ServiceManager_GetServiceConfig_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "service": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
-func request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetServiceConfig2Req
+func request_ServiceManager_GetServiceConfig_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetServiceConfigReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -227,17 +227,17 @@ func request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler r
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig2_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetServiceConfig2(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetServiceConfig(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetServiceConfig2Req
+func local_request_ServiceManager_GetServiceConfig_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetServiceConfigReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -270,11 +270,11 @@ func local_request_ServiceManager_GetServiceConfig2_0(ctx context.Context, marsh
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig2_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceManager_GetServiceConfig_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetServiceConfig2(ctx, &protoReq)
+	msg, err := server.GetServiceConfig(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1481,7 +1481,7 @@ func local_request_ServiceManager_SetServiceMetadata_0(ctx context.Context, mars
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterServiceManagerHandlerFromEndpoint instead.
 func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ServiceManagerServer) error {
 
-	mux.Handle("POST", pattern_ServiceManager_ConfigureService2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceManager_ConfigureService_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1489,12 +1489,12 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceManager_ConfigureService2_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceManager_ConfigureService_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1502,7 +1502,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_ServiceManager_ConfigureService2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ConfigureService_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1531,7 +1531,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 
 	})
 
-	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1539,12 +1539,12 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceManager_GetServiceConfig2_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceManager_GetServiceConfig_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1552,7 +1552,7 @@ func RegisterServiceManagerHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_ServiceManager_GetServiceConfig2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_GetServiceConfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1972,25 +1972,25 @@ func RegisterServiceManagerHandler(ctx context.Context, mux *runtime.ServeMux, c
 // "ServiceManagerClient" to call the correct interceptors.
 func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ServiceManagerClient) error {
 
-	mux.Handle("POST", pattern_ServiceManager_ConfigureService2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceManager_ConfigureService_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/ConfigureService", runtime.WithHTTPPathPattern("/v1/{application=*}/services/configure2"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceManager_ConfigureService2_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceManager_ConfigureService_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceManager_ConfigureService2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_ConfigureService_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2016,25 +2016,25 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
-	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig2_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ServiceManager_GetServiceConfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig2", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.service.ServiceManager/GetServiceConfig", runtime.WithHTTPPathPattern("/v1/{application=*}/services/{service=*}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceManager_GetServiceConfig2_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceManager_GetServiceConfig_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceManager_GetServiceConfig2_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceManager_GetServiceConfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2372,11 +2372,11 @@ func RegisterServiceManagerHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_ServiceManager_ConfigureService2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure2"}, ""))
+	pattern_ServiceManager_ConfigureService_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "configure2"}, ""))
 
 	pattern_ServiceManager_ListServiceConfigVersions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"v1", "application", "services", "service", "config", "versions"}, ""))
 
-	pattern_ServiceManager_GetServiceConfig2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "config"}, ""))
+	pattern_ServiceManager_GetServiceConfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "application", "services", "service", "config"}, ""))
 
 	pattern_ServiceManager_ApplyParameters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"v1", "application", "services", "apply-parameters"}, ""))
 
@@ -2410,11 +2410,11 @@ var (
 )
 
 var (
-	forward_ServiceManager_ConfigureService2_0 = runtime.ForwardResponseMessage
+	forward_ServiceManager_ConfigureService_0 = runtime.ForwardResponseMessage
 
 	forward_ServiceManager_ListServiceConfigVersions_0 = runtime.ForwardResponseMessage
 
-	forward_ServiceManager_GetServiceConfig2_0 = runtime.ForwardResponseMessage
+	forward_ServiceManager_GetServiceConfig_0 = runtime.ForwardResponseMessage
 
 	forward_ServiceManager_ApplyParameters_0 = runtime.ForwardResponseMessage
 

@@ -213,14 +213,14 @@ message ListMaterializedConfigVersionsResp {
     string next_page_token = 2;
 }
 
-message ConfigureService2Req {
+message ConfigureServiceReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     ServiceConfig service_config = 2 [(validate.rules).message.required = true];
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
 }
 
-message ConfigureService2Resp {
+message ConfigureServiceResp {
     string service_id = 1;
     string config_version = 2;
 }
@@ -243,22 +243,21 @@ message ListServiceConfigVersionsResp {
     string next_page_token = 2;
 }
 
-message GetServiceConfig2Req {
+message GetServiceConfigReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
     // omit to get latest
     string config_version = 3;
 }
 
-message GetServiceConfig2Resp {
+message GetServiceConfigResp {
     ServiceConfig config = 1;
     string config_version = 2; // deprecated, use config_version_metadata
     ListServiceConfigVersionsResp.VersionMetadata config_version_metadata = 3;
 }
 
 service ServiceManager {
-    // TODO(naphat) rename this to ConfigureService
-    rpc ConfigureService2 (ConfigureService2Req) returns (ConfigureService2Resp) {
+    rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
         option (google.api.http) = {
             post: "/v1/{application=*}/services/configure2"
             body: "*"
@@ -270,7 +269,7 @@ service ServiceManager {
         };
     }
     // unparametrized configs
-    rpc GetServiceConfig2 (GetServiceConfig2Req) returns (GetServiceConfig2Resp) {
+    rpc GetServiceConfig (GetServiceConfigReq) returns (GetServiceConfigResp) {
         option (google.api.http) = {
             get: "/v1/{application=*}/services/{service=*}/config"
         };
@@ -308,9 +307,6 @@ service ServiceManager {
             get: "/v1/applications/{application=*}/services"
         };
     }
-    // identical to ListServices, kept around for compatibility purposes
-    rpc ListServicesV2(ListServicesReq) returns (ListServicesResp) {
-    }
     rpc ListCommits(ListCommitsReq) returns (ListCommitsResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/commits"
@@ -321,24 +317,15 @@ service ServiceManager {
             get: "/v1/applications/{application=*}/services/{service=*}"
         };
     }
-    // identical to GetService, kept around for compatibility purposes
-    rpc GetServiceV2(GetServiceReq) returns (GetServiceResp) {
-    }
     rpc ListServiceInstances(ListServiceInstancesReq) returns (ListServiceInstancesResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/release-channels"
         };
     }
-    // identical to ListServiceInstances, kept around for compatibility purposes
-    rpc ListServiceInstancesV2(ListServiceInstancesReq) returns (ListServiceInstancesResp) {
-    }
     rpc GetServiceInstance(GetServiceInstanceReq) returns (GetServiceInstanceResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/release-channels/{release_channel=*}"
         };
-    }
-    // identical to GetServiceInstance, kept around for compatibility purposes
-    rpc GetServiceInstanceV2(GetServiceInstanceReq) returns (GetServiceInstanceResp) {
     }
     rpc GetServiceMetrics(GetServiceMetricsReq) returns (GetServiceMetricsResp) {
         option (google.api.http) = {

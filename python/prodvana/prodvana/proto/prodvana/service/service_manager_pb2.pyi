@@ -670,7 +670,7 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
 
 global___ListMaterializedConfigVersionsResp = ListMaterializedConfigVersionsResp
 
-class ConfigureService2Req(google.protobuf.message.Message):
+class ConfigureServiceReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     APPLICATION_FIELD_NUMBER: builtins.int
@@ -694,9 +694,9 @@ class ConfigureService2Req(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["service_config", b"service_config", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service_config", b"service_config", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
-global___ConfigureService2Req = ConfigureService2Req
+global___ConfigureServiceReq = ConfigureServiceReq
 
-class ConfigureService2Resp(google.protobuf.message.Message):
+class ConfigureServiceResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SERVICE_ID_FIELD_NUMBER: builtins.int
@@ -711,7 +711,7 @@ class ConfigureService2Resp(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "service_id", b"service_id"]) -> None: ...
 
-global___ConfigureService2Resp = ConfigureService2Resp
+global___ConfigureServiceResp = ConfigureServiceResp
 
 class ListServiceConfigVersionsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -778,7 +778,7 @@ class ListServiceConfigVersionsResp(google.protobuf.message.Message):
 
 global___ListServiceConfigVersionsResp = ListServiceConfigVersionsResp
 
-class GetServiceConfig2Req(google.protobuf.message.Message):
+class GetServiceConfigReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     APPLICATION_FIELD_NUMBER: builtins.int
@@ -797,9 +797,9 @@ class GetServiceConfig2Req(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "config_version", b"config_version", "service", b"service"]) -> None: ...
 
-global___GetServiceConfig2Req = GetServiceConfig2Req
+global___GetServiceConfigReq = GetServiceConfigReq
 
-class GetServiceConfig2Resp(google.protobuf.message.Message):
+class GetServiceConfigResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CONFIG_FIELD_NUMBER: builtins.int
@@ -821,4 +821,4 @@ class GetServiceConfig2Resp(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "config_version_metadata", b"config_version_metadata"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "config_version", b"config_version", "config_version_metadata", b"config_version_metadata"]) -> None: ...
 
-global___GetServiceConfig2Resp = GetServiceConfig2Resp
+global___GetServiceConfigResp = GetServiceConfigResp

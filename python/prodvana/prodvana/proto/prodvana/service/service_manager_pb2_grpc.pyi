@@ -8,18 +8,17 @@ import prodvana.proto.prodvana.service.service_manager_pb2
 
 class ServiceManagerStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    ConfigureService2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.ConfigureService2Req,
-        prodvana.proto.prodvana.service.service_manager_pb2.ConfigureService2Resp,
+    ConfigureService: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
+        prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceResp,
     ]
-    """TODO(naphat) rename this to ConfigureService"""
     ListServiceConfigVersions: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceConfigVersionsReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceConfigVersionsResp,
     ]
-    GetServiceConfig2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfig2Req,
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfig2Resp,
+    GetServiceConfig: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigReq,
+        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigResp,
     ]
     """unparametrized configs"""
     ApplyParameters: grpc.UnaryUnaryMultiCallable[
@@ -46,11 +45,6 @@ class ServiceManagerStub:
         prodvana.proto.prodvana.service.service_manager_pb2.ListServicesReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ListServicesResp,
     ]
-    ListServicesV2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.ListServicesReq,
-        prodvana.proto.prodvana.service.service_manager_pb2.ListServicesResp,
-    ]
-    """identical to ListServices, kept around for compatibility purposes"""
     ListCommits: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.ListCommitsReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ListCommitsResp,
@@ -59,29 +53,14 @@ class ServiceManagerStub:
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceReq,
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceResp,
     ]
-    GetServiceV2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceReq,
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceResp,
-    ]
-    """identical to GetService, kept around for compatibility purposes"""
     ListServiceInstances: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesResp,
     ]
-    ListServiceInstancesV2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesReq,
-        prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesResp,
-    ]
-    """identical to ListServiceInstances, kept around for compatibility purposes"""
     GetServiceInstance: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceReq,
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceResp,
     ]
-    GetServiceInstanceV2: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceReq,
-        prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceResp,
-    ]
-    """identical to GetServiceInstance, kept around for compatibility purposes"""
     GetServiceMetrics: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceMetricsReq,
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceMetricsResp,
@@ -105,12 +84,11 @@ class ServiceManagerStub:
 
 class ServiceManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def ConfigureService2(
+    def ConfigureService(
         self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.ConfigureService2Req,
+        request: prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.ConfigureService2Resp:
-        """TODO(naphat) rename this to ConfigureService"""
+    ) -> prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceResp: ...
     @abc.abstractmethod
     def ListServiceConfigVersions(
         self,
@@ -118,11 +96,11 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.ListServiceConfigVersionsResp: ...
     @abc.abstractmethod
-    def GetServiceConfig2(
+    def GetServiceConfig(
         self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfig2Req,
+        request: prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfig2Resp:
+    ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigResp:
         """unparametrized configs"""
     @abc.abstractmethod
     def ApplyParameters(
@@ -161,13 +139,6 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.ListServicesResp: ...
     @abc.abstractmethod
-    def ListServicesV2(
-        self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.ListServicesReq,
-        context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.ListServicesResp:
-        """identical to ListServices, kept around for compatibility purposes"""
-    @abc.abstractmethod
     def ListCommits(
         self,
         request: prodvana.proto.prodvana.service.service_manager_pb2.ListCommitsReq,
@@ -180,38 +151,17 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceResp: ...
     @abc.abstractmethod
-    def GetServiceV2(
-        self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.GetServiceReq,
-        context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceResp:
-        """identical to GetService, kept around for compatibility purposes"""
-    @abc.abstractmethod
     def ListServiceInstances(
         self,
         request: prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesResp: ...
     @abc.abstractmethod
-    def ListServiceInstancesV2(
-        self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesReq,
-        context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.ListServiceInstancesResp:
-        """identical to ListServiceInstances, kept around for compatibility purposes"""
-    @abc.abstractmethod
     def GetServiceInstance(
         self,
         request: prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceResp: ...
-    @abc.abstractmethod
-    def GetServiceInstanceV2(
-        self,
-        request: prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceReq,
-        context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceInstanceResp:
-        """identical to GetServiceInstance, kept around for compatibility purposes"""
     @abc.abstractmethod
     def GetServiceMetrics(
         self,

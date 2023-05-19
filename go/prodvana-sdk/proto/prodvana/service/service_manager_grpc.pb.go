@@ -19,23 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceManager_ConfigureService2_FullMethodName              = "/prodvana.service.ServiceManager/ConfigureService2"
+	ServiceManager_ConfigureService_FullMethodName               = "/prodvana.service.ServiceManager/ConfigureService"
 	ServiceManager_ListServiceConfigVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceConfigVersions"
-	ServiceManager_GetServiceConfig2_FullMethodName              = "/prodvana.service.ServiceManager/GetServiceConfig2"
+	ServiceManager_GetServiceConfig_FullMethodName               = "/prodvana.service.ServiceManager/GetServiceConfig"
 	ServiceManager_ApplyParameters_FullMethodName                = "/prodvana.service.ServiceManager/ApplyParameters"
 	ServiceManager_ValidateApplyParameters_FullMethodName        = "/prodvana.service.ServiceManager/ValidateApplyParameters"
 	ServiceManager_GetMaterializedConfig_FullMethodName          = "/prodvana.service.ServiceManager/GetMaterializedConfig"
 	ServiceManager_ListMaterializedConfigVersions_FullMethodName = "/prodvana.service.ServiceManager/ListMaterializedConfigVersions"
 	ServiceManager_DeleteService_FullMethodName                  = "/prodvana.service.ServiceManager/DeleteService"
 	ServiceManager_ListServices_FullMethodName                   = "/prodvana.service.ServiceManager/ListServices"
-	ServiceManager_ListServicesV2_FullMethodName                 = "/prodvana.service.ServiceManager/ListServicesV2"
 	ServiceManager_ListCommits_FullMethodName                    = "/prodvana.service.ServiceManager/ListCommits"
 	ServiceManager_GetService_FullMethodName                     = "/prodvana.service.ServiceManager/GetService"
-	ServiceManager_GetServiceV2_FullMethodName                   = "/prodvana.service.ServiceManager/GetServiceV2"
 	ServiceManager_ListServiceInstances_FullMethodName           = "/prodvana.service.ServiceManager/ListServiceInstances"
-	ServiceManager_ListServiceInstancesV2_FullMethodName         = "/prodvana.service.ServiceManager/ListServiceInstancesV2"
 	ServiceManager_GetServiceInstance_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceInstance"
-	ServiceManager_GetServiceInstanceV2_FullMethodName           = "/prodvana.service.ServiceManager/GetServiceInstanceV2"
 	ServiceManager_GetServiceMetrics_FullMethodName              = "/prodvana.service.ServiceManager/GetServiceMetrics"
 	ServiceManager_GetServiceInsights_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceInsights"
 	ServiceManager_SnoozeServiceInsight_FullMethodName           = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
@@ -47,29 +43,20 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceManagerClient interface {
-	// TODO(naphat) rename this to ConfigureService
-	ConfigureService2(ctx context.Context, in *ConfigureService2Req, opts ...grpc.CallOption) (*ConfigureService2Resp, error)
+	ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error)
 	ListServiceConfigVersions(ctx context.Context, in *ListServiceConfigVersionsReq, opts ...grpc.CallOption) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
-	GetServiceConfig2(ctx context.Context, in *GetServiceConfig2Req, opts ...grpc.CallOption) (*GetServiceConfig2Resp, error)
+	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
 	ApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ApplyParametersResp, error)
 	ValidateApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ValidateApplyParametersResp, error)
 	GetMaterializedConfig(ctx context.Context, in *GetMaterializedConfigReq, opts ...grpc.CallOption) (*GetMaterializedConfigResp, error)
 	ListMaterializedConfigVersions(ctx context.Context, in *ListMaterializedConfigVersionsReq, opts ...grpc.CallOption) (*ListMaterializedConfigVersionsResp, error)
 	DeleteService(ctx context.Context, in *DeleteServiceReq, opts ...grpc.CallOption) (*DeleteServiceResp, error)
 	ListServices(ctx context.Context, in *ListServicesReq, opts ...grpc.CallOption) (*ListServicesResp, error)
-	// identical to ListServices, kept around for compatibility purposes
-	ListServicesV2(ctx context.Context, in *ListServicesReq, opts ...grpc.CallOption) (*ListServicesResp, error)
 	ListCommits(ctx context.Context, in *ListCommitsReq, opts ...grpc.CallOption) (*ListCommitsResp, error)
 	GetService(ctx context.Context, in *GetServiceReq, opts ...grpc.CallOption) (*GetServiceResp, error)
-	// identical to GetService, kept around for compatibility purposes
-	GetServiceV2(ctx context.Context, in *GetServiceReq, opts ...grpc.CallOption) (*GetServiceResp, error)
 	ListServiceInstances(ctx context.Context, in *ListServiceInstancesReq, opts ...grpc.CallOption) (*ListServiceInstancesResp, error)
-	// identical to ListServiceInstances, kept around for compatibility purposes
-	ListServiceInstancesV2(ctx context.Context, in *ListServiceInstancesReq, opts ...grpc.CallOption) (*ListServiceInstancesResp, error)
 	GetServiceInstance(ctx context.Context, in *GetServiceInstanceReq, opts ...grpc.CallOption) (*GetServiceInstanceResp, error)
-	// identical to GetServiceInstance, kept around for compatibility purposes
-	GetServiceInstanceV2(ctx context.Context, in *GetServiceInstanceReq, opts ...grpc.CallOption) (*GetServiceInstanceResp, error)
 	GetServiceMetrics(ctx context.Context, in *GetServiceMetricsReq, opts ...grpc.CallOption) (*GetServiceMetricsResp, error)
 	GetServiceInsights(ctx context.Context, in *GetServiceInsightsReq, opts ...grpc.CallOption) (*GetServiceInsightsResp, error)
 	SnoozeServiceInsight(ctx context.Context, in *SnoozeServiceInsightReq, opts ...grpc.CallOption) (*SnoozeServiceInsightResp, error)
@@ -85,9 +72,9 @@ func NewServiceManagerClient(cc grpc.ClientConnInterface) ServiceManagerClient {
 	return &serviceManagerClient{cc}
 }
 
-func (c *serviceManagerClient) ConfigureService2(ctx context.Context, in *ConfigureService2Req, opts ...grpc.CallOption) (*ConfigureService2Resp, error) {
-	out := new(ConfigureService2Resp)
-	err := c.cc.Invoke(ctx, ServiceManager_ConfigureService2_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error) {
+	out := new(ConfigureServiceResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ConfigureService_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,9 +90,9 @@ func (c *serviceManagerClient) ListServiceConfigVersions(ctx context.Context, in
 	return out, nil
 }
 
-func (c *serviceManagerClient) GetServiceConfig2(ctx context.Context, in *GetServiceConfig2Req, opts ...grpc.CallOption) (*GetServiceConfig2Resp, error) {
-	out := new(GetServiceConfig2Resp)
-	err := c.cc.Invoke(ctx, ServiceManager_GetServiceConfig2_FullMethodName, in, out, opts...)
+func (c *serviceManagerClient) GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error) {
+	out := new(GetServiceConfigResp)
+	err := c.cc.Invoke(ctx, ServiceManager_GetServiceConfig_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -166,15 +153,6 @@ func (c *serviceManagerClient) ListServices(ctx context.Context, in *ListService
 	return out, nil
 }
 
-func (c *serviceManagerClient) ListServicesV2(ctx context.Context, in *ListServicesReq, opts ...grpc.CallOption) (*ListServicesResp, error) {
-	out := new(ListServicesResp)
-	err := c.cc.Invoke(ctx, ServiceManager_ListServicesV2_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceManagerClient) ListCommits(ctx context.Context, in *ListCommitsReq, opts ...grpc.CallOption) (*ListCommitsResp, error) {
 	out := new(ListCommitsResp)
 	err := c.cc.Invoke(ctx, ServiceManager_ListCommits_FullMethodName, in, out, opts...)
@@ -193,15 +171,6 @@ func (c *serviceManagerClient) GetService(ctx context.Context, in *GetServiceReq
 	return out, nil
 }
 
-func (c *serviceManagerClient) GetServiceV2(ctx context.Context, in *GetServiceReq, opts ...grpc.CallOption) (*GetServiceResp, error) {
-	out := new(GetServiceResp)
-	err := c.cc.Invoke(ctx, ServiceManager_GetServiceV2_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceManagerClient) ListServiceInstances(ctx context.Context, in *ListServiceInstancesReq, opts ...grpc.CallOption) (*ListServiceInstancesResp, error) {
 	out := new(ListServiceInstancesResp)
 	err := c.cc.Invoke(ctx, ServiceManager_ListServiceInstances_FullMethodName, in, out, opts...)
@@ -211,27 +180,9 @@ func (c *serviceManagerClient) ListServiceInstances(ctx context.Context, in *Lis
 	return out, nil
 }
 
-func (c *serviceManagerClient) ListServiceInstancesV2(ctx context.Context, in *ListServiceInstancesReq, opts ...grpc.CallOption) (*ListServiceInstancesResp, error) {
-	out := new(ListServiceInstancesResp)
-	err := c.cc.Invoke(ctx, ServiceManager_ListServiceInstancesV2_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceManagerClient) GetServiceInstance(ctx context.Context, in *GetServiceInstanceReq, opts ...grpc.CallOption) (*GetServiceInstanceResp, error) {
 	out := new(GetServiceInstanceResp)
 	err := c.cc.Invoke(ctx, ServiceManager_GetServiceInstance_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceManagerClient) GetServiceInstanceV2(ctx context.Context, in *GetServiceInstanceReq, opts ...grpc.CallOption) (*GetServiceInstanceResp, error) {
-	out := new(GetServiceInstanceResp)
-	err := c.cc.Invoke(ctx, ServiceManager_GetServiceInstanceV2_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -287,29 +238,20 @@ func (c *serviceManagerClient) SetServiceMetadata(ctx context.Context, in *SetSe
 // All implementations must embed UnimplementedServiceManagerServer
 // for forward compatibility
 type ServiceManagerServer interface {
-	// TODO(naphat) rename this to ConfigureService
-	ConfigureService2(context.Context, *ConfigureService2Req) (*ConfigureService2Resp, error)
+	ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error)
 	ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
-	GetServiceConfig2(context.Context, *GetServiceConfig2Req) (*GetServiceConfig2Resp, error)
+	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
 	ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error)
 	ValidateApplyParameters(context.Context, *ApplyParametersReq) (*ValidateApplyParametersResp, error)
 	GetMaterializedConfig(context.Context, *GetMaterializedConfigReq) (*GetMaterializedConfigResp, error)
 	ListMaterializedConfigVersions(context.Context, *ListMaterializedConfigVersionsReq) (*ListMaterializedConfigVersionsResp, error)
 	DeleteService(context.Context, *DeleteServiceReq) (*DeleteServiceResp, error)
 	ListServices(context.Context, *ListServicesReq) (*ListServicesResp, error)
-	// identical to ListServices, kept around for compatibility purposes
-	ListServicesV2(context.Context, *ListServicesReq) (*ListServicesResp, error)
 	ListCommits(context.Context, *ListCommitsReq) (*ListCommitsResp, error)
 	GetService(context.Context, *GetServiceReq) (*GetServiceResp, error)
-	// identical to GetService, kept around for compatibility purposes
-	GetServiceV2(context.Context, *GetServiceReq) (*GetServiceResp, error)
 	ListServiceInstances(context.Context, *ListServiceInstancesReq) (*ListServiceInstancesResp, error)
-	// identical to ListServiceInstances, kept around for compatibility purposes
-	ListServiceInstancesV2(context.Context, *ListServiceInstancesReq) (*ListServiceInstancesResp, error)
 	GetServiceInstance(context.Context, *GetServiceInstanceReq) (*GetServiceInstanceResp, error)
-	// identical to GetServiceInstance, kept around for compatibility purposes
-	GetServiceInstanceV2(context.Context, *GetServiceInstanceReq) (*GetServiceInstanceResp, error)
 	GetServiceMetrics(context.Context, *GetServiceMetricsReq) (*GetServiceMetricsResp, error)
 	GetServiceInsights(context.Context, *GetServiceInsightsReq) (*GetServiceInsightsResp, error)
 	SnoozeServiceInsight(context.Context, *SnoozeServiceInsightReq) (*SnoozeServiceInsightResp, error)
@@ -322,14 +264,14 @@ type ServiceManagerServer interface {
 type UnimplementedServiceManagerServer struct {
 }
 
-func (UnimplementedServiceManagerServer) ConfigureService2(context.Context, *ConfigureService2Req) (*ConfigureService2Resp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ConfigureService2 not implemented")
+func (UnimplementedServiceManagerServer) ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConfigureService not implemented")
 }
 func (UnimplementedServiceManagerServer) ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListServiceConfigVersions not implemented")
 }
-func (UnimplementedServiceManagerServer) GetServiceConfig2(context.Context, *GetServiceConfig2Req) (*GetServiceConfig2Resp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig2 not implemented")
+func (UnimplementedServiceManagerServer) GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig not implemented")
 }
 func (UnimplementedServiceManagerServer) ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyParameters not implemented")
@@ -349,29 +291,17 @@ func (UnimplementedServiceManagerServer) DeleteService(context.Context, *DeleteS
 func (UnimplementedServiceManagerServer) ListServices(context.Context, *ListServicesReq) (*ListServicesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListServices not implemented")
 }
-func (UnimplementedServiceManagerServer) ListServicesV2(context.Context, *ListServicesReq) (*ListServicesResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListServicesV2 not implemented")
-}
 func (UnimplementedServiceManagerServer) ListCommits(context.Context, *ListCommitsReq) (*ListCommitsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCommits not implemented")
 }
 func (UnimplementedServiceManagerServer) GetService(context.Context, *GetServiceReq) (*GetServiceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetService not implemented")
 }
-func (UnimplementedServiceManagerServer) GetServiceV2(context.Context, *GetServiceReq) (*GetServiceResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServiceV2 not implemented")
-}
 func (UnimplementedServiceManagerServer) ListServiceInstances(context.Context, *ListServiceInstancesReq) (*ListServiceInstancesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListServiceInstances not implemented")
 }
-func (UnimplementedServiceManagerServer) ListServiceInstancesV2(context.Context, *ListServiceInstancesReq) (*ListServiceInstancesResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListServiceInstancesV2 not implemented")
-}
 func (UnimplementedServiceManagerServer) GetServiceInstance(context.Context, *GetServiceInstanceReq) (*GetServiceInstanceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceInstance not implemented")
-}
-func (UnimplementedServiceManagerServer) GetServiceInstanceV2(context.Context, *GetServiceInstanceReq) (*GetServiceInstanceResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServiceInstanceV2 not implemented")
 }
 func (UnimplementedServiceManagerServer) GetServiceMetrics(context.Context, *GetServiceMetricsReq) (*GetServiceMetricsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceMetrics not implemented")
@@ -401,20 +331,20 @@ func RegisterServiceManagerServer(s grpc.ServiceRegistrar, srv ServiceManagerSer
 	s.RegisterService(&ServiceManager_ServiceDesc, srv)
 }
 
-func _ServiceManager_ConfigureService2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConfigureService2Req)
+func _ServiceManager_ConfigureService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfigureServiceReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).ConfigureService2(ctx, in)
+		return srv.(ServiceManagerServer).ConfigureService(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_ConfigureService2_FullMethodName,
+		FullMethod: ServiceManager_ConfigureService_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ConfigureService2(ctx, req.(*ConfigureService2Req))
+		return srv.(ServiceManagerServer).ConfigureService(ctx, req.(*ConfigureServiceReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -437,20 +367,20 @@ func _ServiceManager_ListServiceConfigVersions_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_GetServiceConfig2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServiceConfig2Req)
+func _ServiceManager_GetServiceConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceConfigReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceManagerServer).GetServiceConfig2(ctx, in)
+		return srv.(ServiceManagerServer).GetServiceConfig(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceManager_GetServiceConfig2_FullMethodName,
+		FullMethod: ServiceManager_GetServiceConfig_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).GetServiceConfig2(ctx, req.(*GetServiceConfig2Req))
+		return srv.(ServiceManagerServer).GetServiceConfig(ctx, req.(*GetServiceConfigReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -563,24 +493,6 @@ func _ServiceManager_ListServices_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_ListServicesV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListServicesReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).ListServicesV2(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_ListServicesV2_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ListServicesV2(ctx, req.(*ListServicesReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceManager_ListCommits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListCommitsReq)
 	if err := dec(in); err != nil {
@@ -617,24 +529,6 @@ func _ServiceManager_GetService_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_GetServiceV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServiceReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).GetServiceV2(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_GetServiceV2_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).GetServiceV2(ctx, req.(*GetServiceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceManager_ListServiceInstances_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListServiceInstancesReq)
 	if err := dec(in); err != nil {
@@ -653,24 +547,6 @@ func _ServiceManager_ListServiceInstances_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceManager_ListServiceInstancesV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListServiceInstancesReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).ListServiceInstancesV2(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_ListServiceInstancesV2_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).ListServiceInstancesV2(ctx, req.(*ListServiceInstancesReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceManager_GetServiceInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetServiceInstanceReq)
 	if err := dec(in); err != nil {
@@ -685,24 +561,6 @@ func _ServiceManager_GetServiceInstance_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceManagerServer).GetServiceInstance(ctx, req.(*GetServiceInstanceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceManager_GetServiceInstanceV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServiceInstanceReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceManagerServer).GetServiceInstanceV2(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceManager_GetServiceInstanceV2_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceManagerServer).GetServiceInstanceV2(ctx, req.(*GetServiceInstanceReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -805,16 +663,16 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ServiceManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ConfigureService2",
-			Handler:    _ServiceManager_ConfigureService2_Handler,
+			MethodName: "ConfigureService",
+			Handler:    _ServiceManager_ConfigureService_Handler,
 		},
 		{
 			MethodName: "ListServiceConfigVersions",
 			Handler:    _ServiceManager_ListServiceConfigVersions_Handler,
 		},
 		{
-			MethodName: "GetServiceConfig2",
-			Handler:    _ServiceManager_GetServiceConfig2_Handler,
+			MethodName: "GetServiceConfig",
+			Handler:    _ServiceManager_GetServiceConfig_Handler,
 		},
 		{
 			MethodName: "ApplyParameters",
@@ -841,10 +699,6 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceManager_ListServices_Handler,
 		},
 		{
-			MethodName: "ListServicesV2",
-			Handler:    _ServiceManager_ListServicesV2_Handler,
-		},
-		{
 			MethodName: "ListCommits",
 			Handler:    _ServiceManager_ListCommits_Handler,
 		},
@@ -853,24 +707,12 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceManager_GetService_Handler,
 		},
 		{
-			MethodName: "GetServiceV2",
-			Handler:    _ServiceManager_GetServiceV2_Handler,
-		},
-		{
 			MethodName: "ListServiceInstances",
 			Handler:    _ServiceManager_ListServiceInstances_Handler,
 		},
 		{
-			MethodName: "ListServiceInstancesV2",
-			Handler:    _ServiceManager_ListServiceInstancesV2_Handler,
-		},
-		{
 			MethodName: "GetServiceInstance",
 			Handler:    _ServiceManager_GetServiceInstance_Handler,
-		},
-		{
-			MethodName: "GetServiceInstanceV2",
-			Handler:    _ServiceManager_GetServiceInstanceV2_Handler,
 		},
 		{
 			MethodName: "GetServiceMetrics",

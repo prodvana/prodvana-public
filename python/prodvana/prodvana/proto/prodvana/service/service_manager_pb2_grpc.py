@@ -14,20 +14,20 @@ class ServiceManagerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ConfigureService2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/ConfigureService2',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Req.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Resp.FromString,
+        self.ConfigureService = channel.unary_unary(
+                '/prodvana.service.ServiceManager/ConfigureService',
+                request_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
+                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.FromString,
                 )
         self.ListServiceConfigVersions = channel.unary_unary(
                 '/prodvana.service.ServiceManager/ListServiceConfigVersions',
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsResp.FromString,
                 )
-        self.GetServiceConfig2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/GetServiceConfig2',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Req.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Resp.FromString,
+        self.GetServiceConfig = channel.unary_unary(
+                '/prodvana.service.ServiceManager/GetServiceConfig',
+                request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigReq.SerializeToString,
+                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigResp.FromString,
                 )
         self.ApplyParameters = channel.unary_unary(
                 '/prodvana.service.ServiceManager/ApplyParameters',
@@ -59,11 +59,6 @@ class ServiceManagerStub(object):
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesResp.FromString,
                 )
-        self.ListServicesV2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/ListServicesV2',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesReq.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesResp.FromString,
-                )
         self.ListCommits = channel.unary_unary(
                 '/prodvana.service.ServiceManager/ListCommits',
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListCommitsReq.SerializeToString,
@@ -74,28 +69,13 @@ class ServiceManagerStub(object):
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceResp.FromString,
                 )
-        self.GetServiceV2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/GetServiceV2',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceReq.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceResp.FromString,
-                )
         self.ListServiceInstances = channel.unary_unary(
                 '/prodvana.service.ServiceManager/ListServiceInstances',
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesResp.FromString,
                 )
-        self.ListServiceInstancesV2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/ListServiceInstancesV2',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesReq.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesResp.FromString,
-                )
         self.GetServiceInstance = channel.unary_unary(
                 '/prodvana.service.ServiceManager/GetServiceInstance',
-                request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.SerializeToString,
-                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.FromString,
-                )
-        self.GetServiceInstanceV2 = channel.unary_unary(
-                '/prodvana.service.ServiceManager/GetServiceInstanceV2',
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.FromString,
                 )
@@ -129,9 +109,8 @@ class ServiceManagerStub(object):
 class ServiceManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ConfigureService2(self, request, context):
-        """TODO(naphat) rename this to ConfigureService
-        """
+    def ConfigureService(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -142,7 +121,7 @@ class ServiceManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetServiceConfig2(self, request, context):
+    def GetServiceConfig(self, request, context):
         """unparametrized configs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -185,13 +164,6 @@ class ServiceManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListServicesV2(self, request, context):
-        """identical to ListServices, kept around for compatibility purposes
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ListCommits(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -204,35 +176,14 @@ class ServiceManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetServiceV2(self, request, context):
-        """identical to GetService, kept around for compatibility purposes
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ListServiceInstances(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListServiceInstancesV2(self, request, context):
-        """identical to ListServiceInstances, kept around for compatibility purposes
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def GetServiceInstance(self, request, context):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetServiceInstanceV2(self, request, context):
-        """identical to GetServiceInstance, kept around for compatibility purposes
-        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -270,20 +221,20 @@ class ServiceManagerServicer(object):
 
 def add_ServiceManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ConfigureService2': grpc.unary_unary_rpc_method_handler(
-                    servicer.ConfigureService2,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Req.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Resp.SerializeToString,
+            'ConfigureService': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConfigureService,
+                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.FromString,
+                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.SerializeToString,
             ),
             'ListServiceConfigVersions': grpc.unary_unary_rpc_method_handler(
                     servicer.ListServiceConfigVersions,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsResp.SerializeToString,
             ),
-            'GetServiceConfig2': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServiceConfig2,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Req.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Resp.SerializeToString,
+            'GetServiceConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceConfig,
+                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigReq.FromString,
+                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigResp.SerializeToString,
             ),
             'ApplyParameters': grpc.unary_unary_rpc_method_handler(
                     servicer.ApplyParameters,
@@ -315,11 +266,6 @@ def add_ServiceManagerServicer_to_server(servicer, server):
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesResp.SerializeToString,
             ),
-            'ListServicesV2': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListServicesV2,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesReq.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServicesResp.SerializeToString,
-            ),
             'ListCommits': grpc.unary_unary_rpc_method_handler(
                     servicer.ListCommits,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListCommitsReq.FromString,
@@ -330,28 +276,13 @@ def add_ServiceManagerServicer_to_server(servicer, server):
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceResp.SerializeToString,
             ),
-            'GetServiceV2': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServiceV2,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceReq.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceResp.SerializeToString,
-            ),
             'ListServiceInstances': grpc.unary_unary_rpc_method_handler(
                     servicer.ListServiceInstances,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesResp.SerializeToString,
             ),
-            'ListServiceInstancesV2': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListServiceInstancesV2,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesReq.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesResp.SerializeToString,
-            ),
             'GetServiceInstance': grpc.unary_unary_rpc_method_handler(
                     servicer.GetServiceInstance,
-                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.FromString,
-                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.SerializeToString,
-            ),
-            'GetServiceInstanceV2': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServiceInstanceV2,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.SerializeToString,
             ),
@@ -391,7 +322,7 @@ class ServiceManager(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ConfigureService2(request,
+    def ConfigureService(request,
             target,
             options=(),
             channel_credentials=None,
@@ -401,9 +332,9 @@ class ServiceManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ConfigureService2',
-            prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Req.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.ConfigureService2Resp.FromString,
+        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ConfigureService',
+            prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
+            prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -425,7 +356,7 @@ class ServiceManager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetServiceConfig2(request,
+    def GetServiceConfig(request,
             target,
             options=(),
             channel_credentials=None,
@@ -435,9 +366,9 @@ class ServiceManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/GetServiceConfig2',
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Req.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceConfig2Resp.FromString,
+        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/GetServiceConfig',
+            prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigReq.SerializeToString,
+            prodvana_dot_service_dot_service__manager__pb2.GetServiceConfigResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -544,23 +475,6 @@ class ServiceManager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListServicesV2(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ListServicesV2',
-            prodvana_dot_service_dot_service__manager__pb2.ListServicesReq.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.ListServicesResp.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def ListCommits(request,
             target,
             options=(),
@@ -595,23 +509,6 @@ class ServiceManager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetServiceV2(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/GetServiceV2',
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceReq.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceResp.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def ListServiceInstances(request,
             target,
             options=(),
@@ -629,23 +526,6 @@ class ServiceManager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListServiceInstancesV2(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ListServiceInstancesV2',
-            prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesReq.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.ListServiceInstancesResp.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def GetServiceInstance(request,
             target,
             options=(),
@@ -657,23 +537,6 @@ class ServiceManager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/GetServiceInstance',
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.SerializeToString,
-            prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetServiceInstanceV2(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/GetServiceInstanceV2',
             prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceReq.SerializeToString,
             prodvana_dot_service_dot_service__manager__pb2.GetServiceInstanceResp.FromString,
             options, channel_credentials,

@@ -4347,22 +4347,22 @@ var _ interface {
 	ErrorName() string
 } = ListMaterializedConfigVersionsRespValidationError{}
 
-// Validate checks the field values on ConfigureService2Req with the rules
+// Validate checks the field values on ConfigureServiceReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ConfigureService2Req) Validate() error {
+func (m *ConfigureServiceReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfigureService2Req with the rules
+// ValidateAll checks the field values on ConfigureServiceReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ConfigureService2ReqMultiError, or nil if none found.
-func (m *ConfigureService2Req) ValidateAll() error {
+// ConfigureServiceReqMultiError, or nil if none found.
+func (m *ConfigureServiceReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfigureService2Req) validate(all bool) error {
+func (m *ConfigureServiceReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4370,7 +4370,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetApplication()) < 1 {
-		err := ConfigureService2ReqValidationError{
+		err := ConfigureServiceReqValidationError{
 			field:  "Application",
 			reason: "value length must be at least 1 runes",
 		}
@@ -4381,7 +4381,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 	}
 
 	if m.GetServiceConfig() == nil {
-		err := ConfigureService2ReqValidationError{
+		err := ConfigureServiceReqValidationError{
 			field:  "ServiceConfig",
 			reason: "value is required",
 		}
@@ -4395,7 +4395,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 		switch v := interface{}(m.GetServiceConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ConfigureService2ReqValidationError{
+				errors = append(errors, ConfigureServiceReqValidationError{
 					field:  "ServiceConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4403,7 +4403,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ConfigureService2ReqValidationError{
+				errors = append(errors, ConfigureServiceReqValidationError{
 					field:  "ServiceConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4412,7 +4412,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ConfigureService2ReqValidationError{
+			return ConfigureServiceReqValidationError{
 				field:  "ServiceConfig",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -4426,7 +4426,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 		switch v := interface{}(m.GetSourceMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ConfigureService2ReqValidationError{
+				errors = append(errors, ConfigureServiceReqValidationError{
 					field:  "SourceMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4434,7 +4434,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ConfigureService2ReqValidationError{
+				errors = append(errors, ConfigureServiceReqValidationError{
 					field:  "SourceMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4443,7 +4443,7 @@ func (m *ConfigureService2Req) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ConfigureService2ReqValidationError{
+			return ConfigureServiceReqValidationError{
 				field:  "SourceMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -4452,19 +4452,19 @@ func (m *ConfigureService2Req) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ConfigureService2ReqMultiError(errors)
+		return ConfigureServiceReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfigureService2ReqMultiError is an error wrapping multiple validation
-// errors returned by ConfigureService2Req.ValidateAll() if the designated
+// ConfigureServiceReqMultiError is an error wrapping multiple validation
+// errors returned by ConfigureServiceReq.ValidateAll() if the designated
 // constraints aren't met.
-type ConfigureService2ReqMultiError []error
+type ConfigureServiceReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfigureService2ReqMultiError) Error() string {
+func (m ConfigureServiceReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4473,11 +4473,11 @@ func (m ConfigureService2ReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfigureService2ReqMultiError) AllErrors() []error { return m }
+func (m ConfigureServiceReqMultiError) AllErrors() []error { return m }
 
-// ConfigureService2ReqValidationError is the validation error returned by
-// ConfigureService2Req.Validate if the designated constraints aren't met.
-type ConfigureService2ReqValidationError struct {
+// ConfigureServiceReqValidationError is the validation error returned by
+// ConfigureServiceReq.Validate if the designated constraints aren't met.
+type ConfigureServiceReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4485,24 +4485,24 @@ type ConfigureService2ReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfigureService2ReqValidationError) Field() string { return e.field }
+func (e ConfigureServiceReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfigureService2ReqValidationError) Reason() string { return e.reason }
+func (e ConfigureServiceReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfigureService2ReqValidationError) Cause() error { return e.cause }
+func (e ConfigureServiceReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfigureService2ReqValidationError) Key() bool { return e.key }
+func (e ConfigureServiceReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfigureService2ReqValidationError) ErrorName() string {
-	return "ConfigureService2ReqValidationError"
+func (e ConfigureServiceReqValidationError) ErrorName() string {
+	return "ConfigureServiceReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ConfigureService2ReqValidationError) Error() string {
+func (e ConfigureServiceReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4514,14 +4514,14 @@ func (e ConfigureService2ReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfigureService2Req.%s: %s%s",
+		"invalid %sConfigureServiceReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfigureService2ReqValidationError{}
+var _ error = ConfigureServiceReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -4529,24 +4529,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfigureService2ReqValidationError{}
+} = ConfigureServiceReqValidationError{}
 
-// Validate checks the field values on ConfigureService2Resp with the rules
+// Validate checks the field values on ConfigureServiceResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ConfigureService2Resp) Validate() error {
+func (m *ConfigureServiceResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfigureService2Resp with the rules
+// ValidateAll checks the field values on ConfigureServiceResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ConfigureService2RespMultiError, or nil if none found.
-func (m *ConfigureService2Resp) ValidateAll() error {
+// ConfigureServiceRespMultiError, or nil if none found.
+func (m *ConfigureServiceResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfigureService2Resp) validate(all bool) error {
+func (m *ConfigureServiceResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4558,19 +4558,19 @@ func (m *ConfigureService2Resp) validate(all bool) error {
 	// no validation rules for ConfigVersion
 
 	if len(errors) > 0 {
-		return ConfigureService2RespMultiError(errors)
+		return ConfigureServiceRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfigureService2RespMultiError is an error wrapping multiple validation
-// errors returned by ConfigureService2Resp.ValidateAll() if the designated
+// ConfigureServiceRespMultiError is an error wrapping multiple validation
+// errors returned by ConfigureServiceResp.ValidateAll() if the designated
 // constraints aren't met.
-type ConfigureService2RespMultiError []error
+type ConfigureServiceRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfigureService2RespMultiError) Error() string {
+func (m ConfigureServiceRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4579,11 +4579,11 @@ func (m ConfigureService2RespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfigureService2RespMultiError) AllErrors() []error { return m }
+func (m ConfigureServiceRespMultiError) AllErrors() []error { return m }
 
-// ConfigureService2RespValidationError is the validation error returned by
-// ConfigureService2Resp.Validate if the designated constraints aren't met.
-type ConfigureService2RespValidationError struct {
+// ConfigureServiceRespValidationError is the validation error returned by
+// ConfigureServiceResp.Validate if the designated constraints aren't met.
+type ConfigureServiceRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4591,24 +4591,24 @@ type ConfigureService2RespValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfigureService2RespValidationError) Field() string { return e.field }
+func (e ConfigureServiceRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfigureService2RespValidationError) Reason() string { return e.reason }
+func (e ConfigureServiceRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfigureService2RespValidationError) Cause() error { return e.cause }
+func (e ConfigureServiceRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfigureService2RespValidationError) Key() bool { return e.key }
+func (e ConfigureServiceRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfigureService2RespValidationError) ErrorName() string {
-	return "ConfigureService2RespValidationError"
+func (e ConfigureServiceRespValidationError) ErrorName() string {
+	return "ConfigureServiceRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ConfigureService2RespValidationError) Error() string {
+func (e ConfigureServiceRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4620,14 +4620,14 @@ func (e ConfigureService2RespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfigureService2Resp.%s: %s%s",
+		"invalid %sConfigureServiceResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfigureService2RespValidationError{}
+var _ error = ConfigureServiceRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -4635,7 +4635,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfigureService2RespValidationError{}
+} = ConfigureServiceRespValidationError{}
 
 // Validate checks the field values on ListServiceConfigVersionsReq with the
 // rules defined in the proto definition for this message. If any rules are
@@ -4905,22 +4905,22 @@ var _ interface {
 	ErrorName() string
 } = ListServiceConfigVersionsRespValidationError{}
 
-// Validate checks the field values on GetServiceConfig2Req with the rules
+// Validate checks the field values on GetServiceConfigReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetServiceConfig2Req) Validate() error {
+func (m *GetServiceConfigReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetServiceConfig2Req with the rules
+// ValidateAll checks the field values on GetServiceConfigReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetServiceConfig2ReqMultiError, or nil if none found.
-func (m *GetServiceConfig2Req) ValidateAll() error {
+// GetServiceConfigReqMultiError, or nil if none found.
+func (m *GetServiceConfigReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetServiceConfig2Req) validate(all bool) error {
+func (m *GetServiceConfigReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4928,7 +4928,7 @@ func (m *GetServiceConfig2Req) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetApplication()) < 1 {
-		err := GetServiceConfig2ReqValidationError{
+		err := GetServiceConfigReqValidationError{
 			field:  "Application",
 			reason: "value length must be at least 1 runes",
 		}
@@ -4939,7 +4939,7 @@ func (m *GetServiceConfig2Req) validate(all bool) error {
 	}
 
 	if utf8.RuneCountInString(m.GetService()) < 1 {
-		err := GetServiceConfig2ReqValidationError{
+		err := GetServiceConfigReqValidationError{
 			field:  "Service",
 			reason: "value length must be at least 1 runes",
 		}
@@ -4952,19 +4952,19 @@ func (m *GetServiceConfig2Req) validate(all bool) error {
 	// no validation rules for ConfigVersion
 
 	if len(errors) > 0 {
-		return GetServiceConfig2ReqMultiError(errors)
+		return GetServiceConfigReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetServiceConfig2ReqMultiError is an error wrapping multiple validation
-// errors returned by GetServiceConfig2Req.ValidateAll() if the designated
+// GetServiceConfigReqMultiError is an error wrapping multiple validation
+// errors returned by GetServiceConfigReq.ValidateAll() if the designated
 // constraints aren't met.
-type GetServiceConfig2ReqMultiError []error
+type GetServiceConfigReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetServiceConfig2ReqMultiError) Error() string {
+func (m GetServiceConfigReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4973,11 +4973,11 @@ func (m GetServiceConfig2ReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetServiceConfig2ReqMultiError) AllErrors() []error { return m }
+func (m GetServiceConfigReqMultiError) AllErrors() []error { return m }
 
-// GetServiceConfig2ReqValidationError is the validation error returned by
-// GetServiceConfig2Req.Validate if the designated constraints aren't met.
-type GetServiceConfig2ReqValidationError struct {
+// GetServiceConfigReqValidationError is the validation error returned by
+// GetServiceConfigReq.Validate if the designated constraints aren't met.
+type GetServiceConfigReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4985,24 +4985,24 @@ type GetServiceConfig2ReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetServiceConfig2ReqValidationError) Field() string { return e.field }
+func (e GetServiceConfigReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetServiceConfig2ReqValidationError) Reason() string { return e.reason }
+func (e GetServiceConfigReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetServiceConfig2ReqValidationError) Cause() error { return e.cause }
+func (e GetServiceConfigReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetServiceConfig2ReqValidationError) Key() bool { return e.key }
+func (e GetServiceConfigReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetServiceConfig2ReqValidationError) ErrorName() string {
-	return "GetServiceConfig2ReqValidationError"
+func (e GetServiceConfigReqValidationError) ErrorName() string {
+	return "GetServiceConfigReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetServiceConfig2ReqValidationError) Error() string {
+func (e GetServiceConfigReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -5014,14 +5014,14 @@ func (e GetServiceConfig2ReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetServiceConfig2Req.%s: %s%s",
+		"invalid %sGetServiceConfigReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetServiceConfig2ReqValidationError{}
+var _ error = GetServiceConfigReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -5029,24 +5029,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetServiceConfig2ReqValidationError{}
+} = GetServiceConfigReqValidationError{}
 
-// Validate checks the field values on GetServiceConfig2Resp with the rules
+// Validate checks the field values on GetServiceConfigResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetServiceConfig2Resp) Validate() error {
+func (m *GetServiceConfigResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetServiceConfig2Resp with the rules
+// ValidateAll checks the field values on GetServiceConfigResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetServiceConfig2RespMultiError, or nil if none found.
-func (m *GetServiceConfig2Resp) ValidateAll() error {
+// GetServiceConfigRespMultiError, or nil if none found.
+func (m *GetServiceConfigResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetServiceConfig2Resp) validate(all bool) error {
+func (m *GetServiceConfigResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -5057,7 +5057,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 		switch v := interface{}(m.GetConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetServiceConfig2RespValidationError{
+				errors = append(errors, GetServiceConfigRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5065,7 +5065,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetServiceConfig2RespValidationError{
+				errors = append(errors, GetServiceConfigRespValidationError{
 					field:  "Config",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5074,7 +5074,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetServiceConfig2RespValidationError{
+			return GetServiceConfigRespValidationError{
 				field:  "Config",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -5088,7 +5088,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 		switch v := interface{}(m.GetConfigVersionMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetServiceConfig2RespValidationError{
+				errors = append(errors, GetServiceConfigRespValidationError{
 					field:  "ConfigVersionMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5096,7 +5096,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetServiceConfig2RespValidationError{
+				errors = append(errors, GetServiceConfigRespValidationError{
 					field:  "ConfigVersionMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -5105,7 +5105,7 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConfigVersionMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetServiceConfig2RespValidationError{
+			return GetServiceConfigRespValidationError{
 				field:  "ConfigVersionMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -5114,19 +5114,19 @@ func (m *GetServiceConfig2Resp) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GetServiceConfig2RespMultiError(errors)
+		return GetServiceConfigRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetServiceConfig2RespMultiError is an error wrapping multiple validation
-// errors returned by GetServiceConfig2Resp.ValidateAll() if the designated
+// GetServiceConfigRespMultiError is an error wrapping multiple validation
+// errors returned by GetServiceConfigResp.ValidateAll() if the designated
 // constraints aren't met.
-type GetServiceConfig2RespMultiError []error
+type GetServiceConfigRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetServiceConfig2RespMultiError) Error() string {
+func (m GetServiceConfigRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -5135,11 +5135,11 @@ func (m GetServiceConfig2RespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetServiceConfig2RespMultiError) AllErrors() []error { return m }
+func (m GetServiceConfigRespMultiError) AllErrors() []error { return m }
 
-// GetServiceConfig2RespValidationError is the validation error returned by
-// GetServiceConfig2Resp.Validate if the designated constraints aren't met.
-type GetServiceConfig2RespValidationError struct {
+// GetServiceConfigRespValidationError is the validation error returned by
+// GetServiceConfigResp.Validate if the designated constraints aren't met.
+type GetServiceConfigRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -5147,24 +5147,24 @@ type GetServiceConfig2RespValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetServiceConfig2RespValidationError) Field() string { return e.field }
+func (e GetServiceConfigRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetServiceConfig2RespValidationError) Reason() string { return e.reason }
+func (e GetServiceConfigRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetServiceConfig2RespValidationError) Cause() error { return e.cause }
+func (e GetServiceConfigRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetServiceConfig2RespValidationError) Key() bool { return e.key }
+func (e GetServiceConfigRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetServiceConfig2RespValidationError) ErrorName() string {
-	return "GetServiceConfig2RespValidationError"
+func (e GetServiceConfigRespValidationError) ErrorName() string {
+	return "GetServiceConfigRespValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetServiceConfig2RespValidationError) Error() string {
+func (e GetServiceConfigRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -5176,14 +5176,14 @@ func (e GetServiceConfig2RespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetServiceConfig2Resp.%s: %s%s",
+		"invalid %sGetServiceConfigResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetServiceConfig2RespValidationError{}
+var _ error = GetServiceConfigRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -5191,7 +5191,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetServiceConfig2RespValidationError{}
+} = GetServiceConfigRespValidationError{}
 
 // Validate checks the field values on ApplyParametersReq_PerReleaseChannel
 // with the rules defined in the proto definition for this message. If any

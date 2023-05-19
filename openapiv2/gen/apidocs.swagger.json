@@ -4163,13 +4163,12 @@
     },
     "/v1/{application}/services/configure2": {
       "post": {
-        "summary": "TODO(naphat) rename this to ConfigureService",
-        "operationId": "ServiceManager_ConfigureService2",
+        "operationId": "ServiceManager_ConfigureService",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceConfigureService2Resp"
+              "$ref": "#/definitions/serviceConfigureServiceResp"
             }
           },
           "default": {
@@ -4215,12 +4214,12 @@
     "/v1/{application}/services/{service}/config": {
       "get": {
         "summary": "unparametrized configs",
-        "operationId": "ServiceManager_GetServiceConfig2",
+        "operationId": "ServiceManager_GetServiceConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/serviceGetServiceConfig2Resp"
+              "$ref": "#/definitions/serviceGetServiceConfigResp"
             }
           },
           "default": {
@@ -9473,7 +9472,7 @@
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
     },
-    "serviceConfigureService2Resp": {
+    "serviceConfigureServiceResp": {
       "type": "object",
       "properties": {
         "serviceId": {
@@ -9549,7 +9548,7 @@
         }
       }
     },
-    "serviceGetServiceConfig2Resp": {
+    "serviceGetServiceConfigResp": {
       "type": "object",
       "properties": {
         "config": {
