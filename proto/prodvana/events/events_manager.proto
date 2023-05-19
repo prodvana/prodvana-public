@@ -43,6 +43,7 @@ message GetEventsReq {
     string page_token = 3;
     int32 page_size = 4;
     bool order_by_asc_timestamp = 6;
+    bool useOr = 7;
     reserved 5;
     reserved "order_by_desc_timestamp";
 }

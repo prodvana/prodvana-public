@@ -589,6 +589,8 @@ func (m *GetEventsReq) validate(all bool) error {
 
 	// no validation rules for OrderByAscTimestamp
 
+	// no validation rules for UseOr
+
 	if len(errors) > 0 {
 		return GetEventsReqMultiError(errors)
 	}

@@ -7393,6 +7393,9 @@
         },
         "orderByAscTimestamp": {
           "type": "boolean"
+        },
+        "useOr": {
+          "type": "boolean"
         }
       }
     },
