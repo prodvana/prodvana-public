@@ -177,7 +177,7 @@ message ActionExplanation {
 }
 
 message Version {
-    string service_version = 1;
+    string version = 1;
     int32 replicas = 2; // Created/running replicas, can be in any state
     int32 available_replicas = 8; // Replicas which have passed healthchecks for required duration.
     google.protobuf.Timestamp push_timestamp = 4;

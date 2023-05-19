@@ -1057,7 +1057,7 @@ func (m *Version) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceVersion
+	// no validation rules for Version
 
 	// no validation rules for Replicas
 

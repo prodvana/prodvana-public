@@ -558,13 +558,13 @@ global___ActionExplanation = ActionExplanation
 class Version(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    SERVICE_VERSION_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
     REPLICAS_FIELD_NUMBER: builtins.int
     AVAILABLE_REPLICAS_FIELD_NUMBER: builtins.int
     PUSH_TIMESTAMP_FIELD_NUMBER: builtins.int
     ACTIVE_FIELD_NUMBER: builtins.int
     TARGET_REPLICAS_FIELD_NUMBER: builtins.int
-    service_version: builtins.str
+    version: builtins.str
     replicas: builtins.int
     """Created/running replicas, can be in any state"""
     available_replicas: builtins.int
@@ -580,7 +580,7 @@ class Version(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        service_version: builtins.str = ...,
+        version: builtins.str = ...,
         replicas: builtins.int = ...,
         available_replicas: builtins.int = ...,
         push_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
@@ -588,7 +588,7 @@ class Version(google.protobuf.message.Message):
         target_replicas: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["push_timestamp", b"push_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "service_version", b"service_version", "target_replicas", b"target_replicas"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
 
 global___Version = Version
 

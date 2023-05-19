@@ -34,7 +34,7 @@ def get_target_images_for_desired_state(
                 ServiceVersion(
                     application=service.application,
                     service=service.service,
-                    version=rc.versions[0].service_version,
+                    version=rc.versions[0].version,
                 )
             )
 
@@ -46,7 +46,7 @@ def get_target_images_for_desired_state(
                     ServiceVersion(
                         application=service.application,
                         service=service.service,
-                        version=rc.versions[0].service_version,
+                        version=rc.versions[0].version,
                     )
                 )
 

@@ -47,7 +47,7 @@ def test_get_target_commits_with_image_urls() -> None:
                         desired_state_pb2.ServiceInstanceState(
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-1",
+                                    version="pvn-service-1",
                                 ),
                             ],
                         ),
@@ -68,7 +68,7 @@ def test_get_target_commits_with_image_urls() -> None:
                             release_channel="staging",
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-2",
+                                    version="pvn-service-2",
                                 ),
                             ],
                         ),
@@ -76,7 +76,7 @@ def test_get_target_commits_with_image_urls() -> None:
                             release_channel="production",
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-1",
+                                    version="pvn-service-1",
                                 ),
                             ],
                         ),
@@ -128,7 +128,7 @@ def test_get_target_commits_with_image_tag() -> None:
                         desired_state_pb2.ServiceInstanceState(
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-1",
+                                    version="pvn-service-1",
                                 ),
                             ],
                         ),
@@ -160,7 +160,7 @@ def test_get_target_commits_with_image_tag() -> None:
                             release_channel="staging",
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-2",
+                                    version="pvn-service-2",
                                 ),
                             ],
                         ),
@@ -168,7 +168,7 @@ def test_get_target_commits_with_image_tag() -> None:
                             release_channel="production",
                             versions=[
                                 desired_state_pb2.Version(
-                                    service_version="pvn-service-1",
+                                    version="pvn-service-1",
                                 ),
                             ],
                         ),

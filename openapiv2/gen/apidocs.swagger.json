@@ -8403,7 +8403,7 @@
     "modelVersion": {
       "type": "object",
       "properties": {
-        "serviceVersion": {
+        "version": {
           "type": "string"
         },
         "replicas": {
