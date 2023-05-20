@@ -5,7 +5,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/application/application_config.proto";
 import "prodvana/application/user_metadata.proto";
 import "prodvana/environment/clusters.proto";
-import "prodvana/delivery_module/config.proto";
+import "prodvana/delivery_extension/config.proto";
 import "prodvana/protection/protection_config.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
@@ -19,7 +19,7 @@ message ProdvanaConfig {
         prodvana.service.ServiceConfig service = 2;
         prodvana.protection.ProtectionConfig protection = 3;
         prodvana.environment.ClusterConfig runtime = 4;
-        prodvana.delivery_module.DeliveryModuleConfig delivery_module = 7;
+        prodvana.delivery_extension.DeliveryExtensionConfig delivery_extension = 7;
     }
 
     // TODO(naphat) unify metadata format?

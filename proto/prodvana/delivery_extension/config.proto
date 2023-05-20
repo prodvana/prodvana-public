@@ -1,6 +1,6 @@
 syntax = "proto3";
-package prodvana.delivery_module;
-option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_module";
+package prodvana.delivery_extension;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_extension";
 
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
@@ -9,7 +9,7 @@ import "prodvana/common_config/external_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
-message DeliveryModuleConfig {
+message DeliveryExtensionConfig {
     string name = 1 [
         (validate.rules).string = {
             min_len: 1,
@@ -31,7 +31,7 @@ message DeliveryModuleConfig {
     repeated prodvana.common_config.ParameterDefinition parameters = 4 [(validate.rules).repeated.items.message.required = true];
 }
 
-message DeliveryModuleInstanceConfig {
+message DeliveryExtensionInstanceConfig {
     string name = 1 [
         (validate.rules).string = {
             min_len: 1,
@@ -43,8 +43,8 @@ message DeliveryModuleInstanceConfig {
     repeated prodvana.common_config.ParameterValue parameters = 3;
 }
 
-message CompiledDeliveryModuleInstanceConfig {
-    DeliveryModuleConfig definition = 1;
+message CompiledDeliveryExtensionInstanceConfig {
+    DeliveryExtensionConfig definition = 1;
     prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 2;
 
     // The compiled environment for this attachment's context, e.g.  Release Channel.

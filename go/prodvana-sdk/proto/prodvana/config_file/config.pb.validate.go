@@ -227,7 +227,7 @@ func (m *ProdvanaConfig) validate(all bool) error {
 			}
 		}
 
-	case *ProdvanaConfig_DeliveryModule:
+	case *ProdvanaConfig_DeliveryExtension:
 		if v == nil {
 			err := ProdvanaConfigValidationError{
 				field:  "ConfigOneof",
@@ -241,11 +241,11 @@ func (m *ProdvanaConfig) validate(all bool) error {
 		oneofConfigOneofPresent = true
 
 		if all {
-			switch v := interface{}(m.GetDeliveryModule()).(type) {
+			switch v := interface{}(m.GetDeliveryExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ProdvanaConfigValidationError{
-						field:  "DeliveryModule",
+						field:  "DeliveryExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -253,16 +253,16 @@ func (m *ProdvanaConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ProdvanaConfigValidationError{
-						field:  "DeliveryModule",
+						field:  "DeliveryExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetDeliveryModule()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetDeliveryExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ProdvanaConfigValidationError{
-					field:  "DeliveryModule",
+					field:  "DeliveryExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

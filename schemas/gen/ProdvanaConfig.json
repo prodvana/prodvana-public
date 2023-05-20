@@ -44,8 +44,8 @@
                         {}
                     ]
                 },
-                "deliveryModule": {
-                    "$ref": "#/definitions/prodvana.delivery_module.DeliveryModuleConfig",
+                "deliveryExtension": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -1979,7 +1979,7 @@
             ],
             "title": "Delivery Config"
         },
-        "prodvana.delivery_module.DeliveryModuleConfig": {
+        "prodvana.delivery_extension.DeliveryExtensionConfig": {
             "properties": {
                 "name": {
                     "oneOf": [
@@ -2035,7 +2035,7 @@
                     "type": "object"
                 }
             ],
-            "title": "Delivery Module Config"
+            "title": "Delivery Extension Config"
         },
         "prodvana.environment.ClusterConfig": {
             "properties": {

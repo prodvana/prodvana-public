@@ -21,7 +21,7 @@
       "name": "prodvana.blobs.BlobsManager"
     },
     {
-      "name": "prodvana.delivery_module.DeliveryModuleManager"
+      "name": "prodvana.delivery_extension.DeliveryExtensionManager"
     },
     {
       "name": "prodvana.desired_state.DesiredStateManager"
@@ -1783,14 +1783,14 @@
         ]
       }
     },
-    "/v1/delivery_module/{deliveryModule}": {
+    "/v1/delivery_extension/{deliveryExtension}": {
       "get": {
-        "operationId": "DeliveryModuleManager_GetDeliveryModule",
+        "operationId": "DeliveryExtensionManager_GetDeliveryExtension",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/delivery_moduleGetDeliveryModuleResp"
+              "$ref": "#/definitions/delivery_extensionGetDeliveryExtensionResp"
             }
           },
           "default": {
@@ -1802,7 +1802,7 @@
         },
         "parameters": [
           {
-            "name": "deliveryModule",
+            "name": "deliveryExtension",
             "in": "path",
             "required": true,
             "type": "string",
@@ -1810,18 +1810,18 @@
           }
         ],
         "tags": [
-          "prodvana.delivery_module.DeliveryModuleManager"
+          "prodvana.delivery_extension.DeliveryExtensionManager"
         ]
       }
     },
-    "/v1/delivery_module/{deliveryModule}/config": {
+    "/v1/delivery_extension/{deliveryExtension}/config": {
       "get": {
-        "operationId": "DeliveryModuleManager_GetDeliveryModuleConfig",
+        "operationId": "DeliveryExtensionManager_GetDeliveryExtensionConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/delivery_moduleGetDeliveryModuleConfigResp"
+              "$ref": "#/definitions/delivery_extensionGetDeliveryExtensionConfigResp"
             }
           },
           "default": {
@@ -1833,7 +1833,7 @@
         },
         "parameters": [
           {
-            "name": "deliveryModule",
+            "name": "deliveryExtension",
             "in": "path",
             "required": true,
             "type": "string",
@@ -1848,18 +1848,18 @@
           }
         ],
         "tags": [
-          "prodvana.delivery_module.DeliveryModuleManager"
+          "prodvana.delivery_extension.DeliveryExtensionManager"
         ]
       }
     },
-    "/v1/delivery_modules": {
+    "/v1/delivery_extensions": {
       "get": {
-        "operationId": "DeliveryModuleManager_ListDeliveryModules",
+        "operationId": "DeliveryExtensionManager_ListDeliveryExtensions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/delivery_moduleListDeliveryModulesResp"
+              "$ref": "#/definitions/delivery_extensionListDeliveryExtensionsResp"
             }
           },
           "default": {
@@ -1885,18 +1885,18 @@
           }
         ],
         "tags": [
-          "prodvana.delivery_module.DeliveryModuleManager"
+          "prodvana.delivery_extension.DeliveryExtensionManager"
         ]
       }
     },
-    "/v1/delivery_modules/configure": {
+    "/v1/delivery_extensions/configure": {
       "post": {
-        "operationId": "DeliveryModuleManager_ConfigureDeliveryModule",
+        "operationId": "DeliveryExtensionManager_ConfigureDeliveryExtension",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleResp"
+              "$ref": "#/definitions/delivery_extensionConfigureDeliveryExtensionResp"
             }
           },
           "default": {
@@ -1912,23 +1912,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleReq"
+              "$ref": "#/definitions/delivery_extensionConfigureDeliveryExtensionReq"
             }
           }
         ],
         "tags": [
-          "prodvana.delivery_module.DeliveryModuleManager"
+          "prodvana.delivery_extension.DeliveryExtensionManager"
         ]
       }
     },
-    "/v1/delivery_modules/configure/validate": {
+    "/v1/delivery_extensions/configure/validate": {
       "post": {
-        "operationId": "DeliveryModuleManager_ValidateConfigureDeliveryModule",
+        "operationId": "DeliveryExtensionManager_ValidateConfigureDeliveryExtension",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/delivery_moduleValidateConfigureDeliveryModuleResp"
+              "$ref": "#/definitions/delivery_extensionValidateConfigureDeliveryExtensionResp"
             }
           },
           "default": {
@@ -1944,12 +1944,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/delivery_moduleConfigureDeliveryModuleReq"
+              "$ref": "#/definitions/delivery_extensionConfigureDeliveryExtensionReq"
             }
           }
         ],
         "tags": [
-          "prodvana.delivery_module.DeliveryModuleManager"
+          "prodvana.delivery_extension.DeliveryExtensionManager"
         ]
       }
     },
@@ -6285,11 +6285,11 @@
         }
       }
     },
-    "delivery_moduleConfigureDeliveryModuleReq": {
+    "delivery_extensionConfigureDeliveryExtensionReq": {
       "type": "object",
       "properties": {
-        "deliveryModuleConfig": {
-          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+        "deliveryExtensionConfig": {
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
         },
         "source": {
           "$ref": "#/definitions/versionSource"
@@ -6299,10 +6299,10 @@
         }
       }
     },
-    "delivery_moduleConfigureDeliveryModuleResp": {
+    "delivery_extensionConfigureDeliveryExtensionResp": {
       "type": "object",
       "properties": {
-        "deliveryModuleId": {
+        "deliveryExtensionId": {
           "type": "string"
         },
         "version": {
@@ -6310,21 +6310,21 @@
         }
       }
     },
-    "delivery_moduleDeliveryModule": {
+    "delivery_extensionDeliveryExtension": {
       "type": "object",
       "properties": {
         "meta": {
           "$ref": "#/definitions/objectObjectMeta"
         },
         "config": {
-          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
         },
         "state": {
-          "$ref": "#/definitions/delivery_moduleDeliveryModuleState"
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionState"
         }
       }
     },
-    "delivery_moduleDeliveryModuleConfig": {
+    "delivery_extensionDeliveryExtensionConfig": {
       "type": "object",
       "properties": {
         "name": {
@@ -6345,37 +6345,37 @@
         }
       }
     },
-    "delivery_moduleDeliveryModuleState": {
+    "delivery_extensionDeliveryExtensionState": {
       "type": "object",
       "title": "TODO(naphat) list custom task instances?"
     },
-    "delivery_moduleGetDeliveryModuleConfigResp": {
+    "delivery_extensionGetDeliveryExtensionConfigResp": {
       "type": "object",
       "properties": {
         "config": {
-          "$ref": "#/definitions/delivery_moduleDeliveryModuleConfig"
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
         },
         "version": {
           "type": "string"
         }
       }
     },
-    "delivery_moduleGetDeliveryModuleResp": {
+    "delivery_extensionGetDeliveryExtensionResp": {
       "type": "object",
       "properties": {
-        "deliveryModule": {
-          "$ref": "#/definitions/delivery_moduleDeliveryModule"
+        "deliveryExtension": {
+          "$ref": "#/definitions/delivery_extensionDeliveryExtension"
         }
       }
     },
-    "delivery_moduleListDeliveryModulesResp": {
+    "delivery_extensionListDeliveryExtensionsResp": {
       "type": "object",
       "properties": {
-        "deliveryModules": {
+        "deliveryExtensions": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/delivery_moduleDeliveryModule"
+            "$ref": "#/definitions/delivery_extensionDeliveryExtension"
           }
         },
         "nextPageToken": {
@@ -6383,7 +6383,7 @@
         }
       }
     },
-    "delivery_moduleValidateConfigureDeliveryModuleResp": {
+    "delivery_extensionValidateConfigureDeliveryExtensionResp": {
       "type": "object"
     },
     "desired_stateDebugLogs": {

@@ -21,7 +21,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class DeliveryModuleConfig(google.protobuf.message.Message):
+class DeliveryExtensionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -47,9 +47,9 @@ class DeliveryModuleConfig(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "external_config", b"external_config", "name", b"name", "parameters", b"parameters", "task_config", b"task_config"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "external_config"] | None: ...
 
-global___DeliveryModuleConfig = DeliveryModuleConfig
+global___DeliveryExtensionConfig = DeliveryExtensionConfig
 
-class DeliveryModuleInstanceConfig(google.protobuf.message.Message):
+class DeliveryExtensionInstanceConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -65,9 +65,9 @@ class DeliveryModuleInstanceConfig(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "parameters", b"parameters"]) -> None: ...
 
-global___DeliveryModuleInstanceConfig = DeliveryModuleInstanceConfig
+global___DeliveryExtensionInstanceConfig = DeliveryExtensionInstanceConfig
 
-class CompiledDeliveryModuleInstanceConfig(google.protobuf.message.Message):
+class CompiledDeliveryExtensionInstanceConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class EnvEntry(google.protobuf.message.Message):
@@ -92,7 +92,7 @@ class CompiledDeliveryModuleInstanceConfig(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     PARAMETER_VALUES_FIELD_NUMBER: builtins.int
     @property
-    def definition(self) -> global___DeliveryModuleConfig: ...
+    def definition(self) -> global___DeliveryExtensionConfig: ...
     @property
     def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -107,7 +107,7 @@ class CompiledDeliveryModuleInstanceConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        definition: global___DeliveryModuleConfig | None = ...,
+        definition: global___DeliveryExtensionConfig | None = ...,
         runtime_execution: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
@@ -115,4 +115,4 @@ class CompiledDeliveryModuleInstanceConfig(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "runtime_execution", b"runtime_execution"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "env", b"env", "parameter_values", b"parameter_values", "runtime_execution", b"runtime_execution"]) -> None: ...
 
-global___CompiledDeliveryModuleInstanceConfig = CompiledDeliveryModuleInstanceConfig
+global___CompiledDeliveryExtensionInstanceConfig = CompiledDeliveryExtensionInstanceConfig

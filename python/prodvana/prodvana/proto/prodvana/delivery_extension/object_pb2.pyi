@@ -5,7 +5,7 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import prodvana.proto.prodvana.delivery_module.config_pb2
+import prodvana.proto.prodvana.delivery_extension.config_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import sys
 
@@ -16,7 +16,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class DeliveryModule(google.protobuf.message.Message):
+class DeliveryExtension(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     META_FIELD_NUMBER: builtins.int
@@ -25,22 +25,22 @@ class DeliveryModule(google.protobuf.message.Message):
     @property
     def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     @property
-    def config(self) -> prodvana.proto.prodvana.delivery_module.config_pb2.DeliveryModuleConfig: ...
+    def config(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig: ...
     @property
-    def state(self) -> global___DeliveryModuleState: ...
+    def state(self) -> global___DeliveryExtensionState: ...
     def __init__(
         self,
         *,
         meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
-        config: prodvana.proto.prodvana.delivery_module.config_pb2.DeliveryModuleConfig | None = ...,
-        state: global___DeliveryModuleState | None = ...,
+        config: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
+        state: global___DeliveryExtensionState | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta", "state", b"state"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta", "state", b"state"]) -> None: ...
 
-global___DeliveryModule = DeliveryModule
+global___DeliveryExtension = DeliveryExtension
 
-class DeliveryModuleState(google.protobuf.message.Message):
+class DeliveryExtensionState(google.protobuf.message.Message):
     """TODO(naphat) list custom task instances?"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -49,4 +49,4 @@ class DeliveryModuleState(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___DeliveryModuleState = DeliveryModuleState
+global___DeliveryExtensionState = DeliveryExtensionState

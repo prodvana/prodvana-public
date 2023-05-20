@@ -7,7 +7,7 @@ import google.protobuf.descriptor
 import google.protobuf.message
 import prodvana.proto.prodvana.application.application_config_pb2
 import prodvana.proto.prodvana.application.user_metadata_pb2
-import prodvana.proto.prodvana.delivery_module.config_pb2
+import prodvana.proto.prodvana.delivery_extension.config_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_config_pb2
 import prodvana.proto.prodvana.service.service_config_pb2
@@ -31,7 +31,7 @@ class ProdvanaConfig(google.protobuf.message.Message):
     SERVICE_FIELD_NUMBER: builtins.int
     PROTECTION_FIELD_NUMBER: builtins.int
     RUNTIME_FIELD_NUMBER: builtins.int
-    DELIVERY_MODULE_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSION_FIELD_NUMBER: builtins.int
     APPLICATION_METADATA_FIELD_NUMBER: builtins.int
     SERVICE_METADATA_FIELD_NUMBER: builtins.int
     @property
@@ -43,7 +43,7 @@ class ProdvanaConfig(google.protobuf.message.Message):
     @property
     def runtime(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
     @property
-    def delivery_module(self) -> prodvana.proto.prodvana.delivery_module.config_pb2.DeliveryModuleConfig: ...
+    def delivery_extension(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig: ...
     @property
     def application_metadata(self) -> prodvana.proto.prodvana.application.user_metadata_pb2.ApplicationUserMetadata: ...
     @property
@@ -55,14 +55,14 @@ class ProdvanaConfig(google.protobuf.message.Message):
         service: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
         protection: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
         runtime: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
-        delivery_module: prodvana.proto.prodvana.delivery_module.config_pb2.DeliveryModuleConfig | None = ...,
+        delivery_extension: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
         application_metadata: prodvana.proto.prodvana.application.user_metadata_pb2.ApplicationUserMetadata | None = ...,
         service_metadata: prodvana.proto.prodvana.service.user_metadata_pb2.ServiceUserMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "application_metadata", b"application_metadata", "config_oneof", b"config_oneof", "delivery_module", b"delivery_module", "metadata_oneof", b"metadata_oneof", "protection", b"protection", "runtime", b"runtime", "service", b"service", "service_metadata", b"service_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_metadata", b"application_metadata", "config_oneof", b"config_oneof", "delivery_module", b"delivery_module", "metadata_oneof", b"metadata_oneof", "protection", b"protection", "runtime", b"runtime", "service", b"service", "service_metadata", b"service_metadata"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "application_metadata", b"application_metadata", "config_oneof", b"config_oneof", "delivery_extension", b"delivery_extension", "metadata_oneof", b"metadata_oneof", "protection", b"protection", "runtime", b"runtime", "service", b"service", "service_metadata", b"service_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_metadata", b"application_metadata", "config_oneof", b"config_oneof", "delivery_extension", b"delivery_extension", "metadata_oneof", b"metadata_oneof", "protection", b"protection", "runtime", b"runtime", "service", b"service", "service_metadata", b"service_metadata"]) -> None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["application", "service", "protection", "runtime", "delivery_module"] | None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["application", "service", "protection", "runtime", "delivery_extension"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["metadata_oneof", b"metadata_oneof"]) -> typing_extensions.Literal["application_metadata", "service_metadata"] | None: ...
 

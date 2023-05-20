@@ -1,0 +1,81 @@
+syntax = "proto3";
+package prodvana.delivery_extension;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_extension";
+
+import "google/api/annotations.proto";
+import "prodvana/delivery_extension/object.proto";
+import "prodvana/delivery_extension/config.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ConfigureDeliveryExtensionReq {
+    DeliveryExtensionConfig delivery_extension_config = 1 [(validate.rules).message.required = true];
+    prodvana.version.Source source = 2;
+    prodvana.version.SourceMetadata source_metadata = 3;
+}
+
+message ConfigureDeliveryExtensionResp {
+    string delivery_extension_id = 1;
+    string version = 2;
+}
+
+message ValidateConfigureDeliveryExtensionResp {
+}
+
+message ListDeliveryExtensionsReq {
+    string page_token = 1;
+    int32 page_size = 2;
+}
+
+message ListDeliveryExtensionsResp {
+    repeated DeliveryExtension delivery_extensions = 1;
+    string next_page_token = 2;
+}
+
+message GetDeliveryExtensionReq {
+    string delivery_extension = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDeliveryExtensionResp {
+    DeliveryExtension delivery_extension = 1;
+}
+
+message GetDeliveryExtensionConfigReq {
+    string delivery_extension = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetDeliveryExtensionConfigResp {
+    DeliveryExtensionConfig config = 1;
+    string version = 2;
+}
+
+service DeliveryExtensionManager {
+    rpc ConfigureDeliveryExtension (ConfigureDeliveryExtensionReq) returns (ConfigureDeliveryExtensionResp) {
+        option (google.api.http) = {
+            post: "/v1/delivery_extensions/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureDeliveryExtension (ConfigureDeliveryExtensionReq) returns (ValidateConfigureDeliveryExtensionResp) {
+        option (google.api.http) = {
+            post: "/v1/delivery_extensions/configure/validate"
+            body: "*"
+        };
+    }
+    rpc ListDeliveryExtensions (ListDeliveryExtensionsReq) returns (ListDeliveryExtensionsResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_extensions"
+        };
+    }
+    rpc GetDeliveryExtension (GetDeliveryExtensionReq) returns (GetDeliveryExtensionResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_extension/{delivery_extension=*}"
+        };
+    }
+    rpc GetDeliveryExtensionConfig (GetDeliveryExtensionConfigReq) returns (GetDeliveryExtensionConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_extension/{delivery_extension=*}/config"
+        };
+    }
+}
