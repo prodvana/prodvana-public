@@ -102,7 +102,9 @@ message Metadata {
     string desired_state_id = 4;
     string root_desired_state_id = 5;
     repeated ProtectionLink protection_links = 6;
-    repeated ProtectionAttachment protections = 7;
+
+    reserved 7;
+    reserved "protections";
 }
 
 enum Status {

@@ -471,7 +471,6 @@ class Metadata(google.protobuf.message.Message):
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     PROTECTION_LINKS_FIELD_NUMBER: builtins.int
-    PROTECTIONS_FIELD_NUMBER: builtins.int
     @property
     def preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Condition]: ...
     @property
@@ -482,8 +481,6 @@ class Metadata(google.protobuf.message.Message):
     root_desired_state_id: builtins.str
     @property
     def protection_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionLink]: ...
-    @property
-    def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionAttachment]: ...
     def __init__(
         # pyright: reportSelfClsParameterName=false
         self_,
@@ -494,10 +491,9 @@ class Metadata(google.protobuf.message.Message):
         desired_state_id: builtins.str = ...,
         root_desired_state_id: builtins.str = ...,
         protection_links: collections.abc.Iterable[global___ProtectionLink] | None = ...,
-        protections: collections.abc.Iterable[global___ProtectionAttachment] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "protections", b"protections", "root_desired_state_id", b"root_desired_state_id", "self", b"self"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "root_desired_state_id", b"root_desired_state_id", "self", b"self"]) -> None: ...
 
 global___Metadata = Metadata
 

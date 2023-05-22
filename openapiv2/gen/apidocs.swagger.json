@@ -6672,13 +6672,6 @@
             "type": "object",
             "$ref": "#/definitions/modelProtectionLink"
           }
-        },
-        "protections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/desired_statemodelProtectionAttachment"
-          }
         }
       }
     },
