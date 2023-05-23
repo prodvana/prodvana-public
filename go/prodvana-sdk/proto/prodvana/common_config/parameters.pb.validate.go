@@ -700,6 +700,108 @@ var _ interface {
 	ErrorName() string
 } = IntParameterDefinitionValidationError{}
 
+// Validate checks the field values on SecretParameterDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SecretParameterDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SecretParameterDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SecretParameterDefinitionMultiError, or nil if none found.
+func (m *SecretParameterDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SecretParameterDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SecretParameterDefinitionMultiError(errors)
+	}
+
+	return nil
+}
+
+// SecretParameterDefinitionMultiError is an error wrapping multiple validation
+// errors returned by SecretParameterDefinition.ValidateAll() if the
+// designated constraints aren't met.
+type SecretParameterDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SecretParameterDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SecretParameterDefinitionMultiError) AllErrors() []error { return m }
+
+// SecretParameterDefinitionValidationError is the validation error returned by
+// SecretParameterDefinition.Validate if the designated constraints aren't met.
+type SecretParameterDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecretParameterDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecretParameterDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecretParameterDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecretParameterDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecretParameterDefinitionValidationError) ErrorName() string {
+	return "SecretParameterDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SecretParameterDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecretParameterDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecretParameterDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecretParameterDefinitionValidationError{}
+
 // Validate checks the field values on ParameterDefinition with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -734,6 +836,8 @@ func (m *ParameterDefinition) validate(all bool) error {
 	}
 
 	// no validation rules for Description
+
+	// no validation rules for Required
 
 	oneofConfigOneofPresent := false
 	switch v := m.ConfigOneof.(type) {
@@ -863,6 +967,48 @@ func (m *ParameterDefinition) validate(all bool) error {
 			}
 		}
 
+	case *ParameterDefinition_Secret:
+		if v == nil {
+			err := ParameterDefinitionValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofConfigOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetSecret()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSecret()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ParameterDefinitionValidationError{
+					field:  "Secret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -957,6 +1103,179 @@ var _ interface {
 	ErrorName() string
 } = ParameterDefinitionValidationError{}
 
+// Validate checks the field values on SecretParameterValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SecretParameterValue) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SecretParameterValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SecretParameterValueMultiError, or nil if none found.
+func (m *SecretParameterValue) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SecretParameterValue) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofSecretOneofPresent := false
+	switch v := m.SecretOneof.(type) {
+	case *SecretParameterValue_RawSecret:
+		if v == nil {
+			err := SecretParameterValueValidationError{
+				field:  "SecretOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSecretOneofPresent = true
+		// no validation rules for RawSecret
+	case *SecretParameterValue_SecretRef:
+		if v == nil {
+			err := SecretParameterValueValidationError{
+				field:  "SecretOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSecretOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetSecretRef()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SecretParameterValueValidationError{
+						field:  "SecretRef",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SecretParameterValueValidationError{
+						field:  "SecretRef",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSecretRef()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SecretParameterValueValidationError{
+					field:  "SecretRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofSecretOneofPresent {
+		err := SecretParameterValueValidationError{
+			field:  "SecretOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SecretParameterValueMultiError(errors)
+	}
+
+	return nil
+}
+
+// SecretParameterValueMultiError is an error wrapping multiple validation
+// errors returned by SecretParameterValue.ValidateAll() if the designated
+// constraints aren't met.
+type SecretParameterValueMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SecretParameterValueMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SecretParameterValueMultiError) AllErrors() []error { return m }
+
+// SecretParameterValueValidationError is the validation error returned by
+// SecretParameterValue.Validate if the designated constraints aren't met.
+type SecretParameterValueValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecretParameterValueValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecretParameterValueValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecretParameterValueValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecretParameterValueValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecretParameterValueValidationError) ErrorName() string {
+	return "SecretParameterValueValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SecretParameterValueValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecretParameterValue.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecretParameterValueValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecretParameterValueValidationError{}
+
 // Validate checks the field values on ParameterValue with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1031,6 +1350,48 @@ func (m *ParameterValue) validate(all bool) error {
 		}
 		oneofValueOneofPresent = true
 		// no validation rules for DockerImageTag
+	case *ParameterValue_Secret:
+		if v == nil {
+			err := ParameterValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetSecret()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ParameterValueValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ParameterValueValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSecret()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ParameterValueValidationError{
+					field:  "Secret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}

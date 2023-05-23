@@ -7,6 +7,7 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import sys
 
@@ -126,6 +127,15 @@ class IntParameterDefinition(google.protobuf.message.Message):
 
 global___IntParameterDefinition = IntParameterDefinition
 
+class SecretParameterDefinition(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___SecretParameterDefinition = SecretParameterDefinition
+
 class ParameterDefinition(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -134,6 +144,8 @@ class ParameterDefinition(google.protobuf.message.Message):
     STRING_FIELD_NUMBER: builtins.int
     DOCKER_IMAGE_FIELD_NUMBER: builtins.int
     INT_FIELD_NUMBER: builtins.int
+    SECRET_FIELD_NUMBER: builtins.int
+    REQUIRED_FIELD_NUMBER: builtins.int
     name: builtins.str
     """parameter name, used in substitutions"""
     description: builtins.str
@@ -144,6 +156,10 @@ class ParameterDefinition(google.protobuf.message.Message):
     def docker_image(self) -> global___DockerImageParameterDefinition: ...
     @property
     def int(self) -> global___IntParameterDefinition: ...
+    @property
+    def secret(self) -> global___SecretParameterDefinition: ...
+    required: builtins.bool
+    """next: 8"""
     def __init__(
         self,
         *,
@@ -152,12 +168,36 @@ class ParameterDefinition(google.protobuf.message.Message):
         string: global___StringParameterDefinition | None = ...,
         docker_image: global___DockerImageParameterDefinition | None = ...,
         int: global___IntParameterDefinition | None = ...,
+        secret: global___SecretParameterDefinition | None = ...,
+        required: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "docker_image", b"docker_image", "int", b"int", "string", b"string"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "description", b"description", "docker_image", b"docker_image", "int", b"int", "name", b"name", "string", b"string"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["string", "docker_image", "int"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "docker_image", b"docker_image", "int", b"int", "secret", b"secret", "string", b"string"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "description", b"description", "docker_image", b"docker_image", "int", b"int", "name", b"name", "required", b"required", "secret", b"secret", "string", b"string"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["string", "docker_image", "int", "secret"] | None: ...
 
 global___ParameterDefinition = ParameterDefinition
+
+class SecretParameterValue(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RAW_SECRET_FIELD_NUMBER: builtins.int
+    SECRET_REF_FIELD_NUMBER: builtins.int
+    raw_secret: builtins.str
+    """Raw secret value"""
+    @property
+    def secret_ref(self) -> prodvana.proto.prodvana.common_config.env_pb2.Secret:
+        """Existing secret reference."""
+    def __init__(
+        self,
+        *,
+        raw_secret: builtins.str = ...,
+        secret_ref: prodvana.proto.prodvana.common_config.env_pb2.Secret | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["raw_secret", b"raw_secret", "secret_oneof", b"secret_oneof", "secret_ref", b"secret_ref"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["raw_secret", b"raw_secret", "secret_oneof", b"secret_oneof", "secret_ref", b"secret_ref"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["secret_oneof", b"secret_oneof"]) -> typing_extensions.Literal["raw_secret", "secret_ref"] | None: ...
+
+global___SecretParameterValue = SecretParameterValue
 
 class ParameterValue(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -166,10 +206,13 @@ class ParameterValue(google.protobuf.message.Message):
     STRING_FIELD_NUMBER: builtins.int
     INT_FIELD_NUMBER: builtins.int
     DOCKER_IMAGE_TAG_FIELD_NUMBER: builtins.int
+    SECRET_FIELD_NUMBER: builtins.int
     name: builtins.str
     string: builtins.str
     int: builtins.int
     docker_image_tag: builtins.str
+    @property
+    def secret(self) -> global___SecretParameterValue: ...
     def __init__(
         self,
         *,
@@ -177,10 +220,11 @@ class ParameterValue(google.protobuf.message.Message):
         string: builtins.str = ...,
         int: builtins.int = ...,
         docker_image_tag: builtins.str = ...,
+        secret: global___SecretParameterValue | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "string", b"string", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "name", b"name", "string", b"string", "value_oneof", b"value_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["string", "int", "docker_image_tag"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "name", b"name", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["string", "int", "docker_image_tag", "secret"] | None: ...
 
 global___ParameterValue = ParameterValue
 

@@ -1183,6 +1183,27 @@
                         },
                         {}
                     ]
+                },
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "required": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "next: 8"
                 }
             },
             "additionalProperties": false,
@@ -1236,6 +1257,16 @@
                         {
                             "type": "string"
                         }
+                    ]
+                },
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretParameterValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 }
             },
@@ -1781,6 +1812,54 @@
                 }
             ],
             "title": "Secret"
+        },
+        "prodvana.common_config.SecretParameterDefinition": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Secret Parameter Definition"
+        },
+        "prodvana.common_config.SecretParameterValue": {
+            "properties": {
+                "rawSecret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value"
+                },
+                "secretRef": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Existing secret reference."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Secret Parameter Value"
         },
         "prodvana.common_config.ServiceTemplateRef": {
             "properties": {

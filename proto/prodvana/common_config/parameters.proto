@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.common_config;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
 import "prodvana/common_config/program.proto";
+import "prodvana/common_config/env.proto";
 import "validate/validate.proto";
 
 message ProgramChange {
@@ -39,6 +40,8 @@ message IntParameterDefinition {
     repeated Changes changes = 2 [(validate.rules).repeated.items.message.required = true];
 }
 
+message SecretParameterDefinition { }
+
 message ParameterDefinition {
     // parameter name, used in substitutions
     string name = 1 [(validate.rules).string.min_len = 1];
@@ -51,6 +54,20 @@ message ParameterDefinition {
         StringParameterDefinition string = 3;
         DockerImageParameterDefinition docker_image = 4;
         IntParameterDefinition int = 5;
+        SecretParameterDefinition secret = 6;
+    }
+
+    bool required = 7;
+    // next: 8
+}
+
+message SecretParameterValue {
+    oneof secret_oneof {
+        option (validate.required) = true;
+        // Raw secret value
+        string raw_secret = 1;
+        // Existing secret reference.
+        prodvana.common_config.Secret secret_ref = 2;
     }
 }
 
@@ -61,6 +78,7 @@ message ParameterValue {
         string string = 2;
         int64 int = 4;
         string docker_image_tag = 5;
+        SecretParameterValue secret = 6;
     }
     reserved 3;
     reserved "docker_image";

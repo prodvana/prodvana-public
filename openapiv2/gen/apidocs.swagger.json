@@ -6001,6 +6001,13 @@
         },
         "int": {
           "$ref": "#/definitions/common_configIntParameterDefinition"
+        },
+        "secret": {
+          "$ref": "#/definitions/common_configSecretParameterDefinition"
+        },
+        "required": {
+          "type": "boolean",
+          "title": "next: 8"
         }
       }
     },
@@ -6019,6 +6026,9 @@
         },
         "dockerImageTag": {
           "type": "string"
+        },
+        "secret": {
+          "$ref": "#/definitions/common_configSecretParameterValue"
         }
       }
     },
@@ -6195,6 +6205,22 @@
         },
         "version": {
           "type": "string"
+        }
+      }
+    },
+    "common_configSecretParameterDefinition": {
+      "type": "object"
+    },
+    "common_configSecretParameterValue": {
+      "type": "object",
+      "properties": {
+        "rawSecret": {
+          "type": "string",
+          "title": "Raw secret value"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/common_configSecret",
+          "description": "Existing secret reference."
         }
       }
     },
