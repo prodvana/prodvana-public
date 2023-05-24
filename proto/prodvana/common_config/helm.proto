@@ -3,7 +3,7 @@ package prodvana.common_config;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
 import "validate/validate.proto";
 import "prodvana/common_config/env.proto";
-import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/kubernetes_config.proto";
 
 message RemoteHelmChart {
     oneof repo_oneof {

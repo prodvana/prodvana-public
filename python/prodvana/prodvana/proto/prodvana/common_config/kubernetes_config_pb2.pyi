@@ -30,65 +30,63 @@ class LocalConfig(google.protobuf.message.Message):
 
 global___LocalConfig = LocalConfig
 
-class ExternalConfig(google.protobuf.message.Message):
+class KubernetesConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _Type:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExternalConfig._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[KubernetesConfig._Type.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        UNKNOWN: ExternalConfig._Type.ValueType  # 0
-        KUBERNETES: ExternalConfig._Type.ValueType  # 1
-        KUSTOMIZE: ExternalConfig._Type.ValueType  # 2
-        HELM: ExternalConfig._Type.ValueType  # 3
+        UNKNOWN: KubernetesConfig._Type.ValueType  # 0
+        KUBERNETES: KubernetesConfig._Type.ValueType  # 1
+        KUSTOMIZE: KubernetesConfig._Type.ValueType  # 2
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
-    UNKNOWN: ExternalConfig.Type.ValueType  # 0
-    KUBERNETES: ExternalConfig.Type.ValueType  # 1
-    KUSTOMIZE: ExternalConfig.Type.ValueType  # 2
-    HELM: ExternalConfig.Type.ValueType  # 3
+    UNKNOWN: KubernetesConfig.Type.ValueType  # 0
+    KUBERNETES: KubernetesConfig.Type.ValueType  # 1
+    KUSTOMIZE: KubernetesConfig.Type.ValueType  # 2
 
     class _EnvInjectionMode:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EnvInjectionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExternalConfig._EnvInjectionMode.ValueType], builtins.type):  # noqa: F821
+    class _EnvInjectionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[KubernetesConfig._EnvInjectionMode.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        ENV_INJECT_UNKNOWN: ExternalConfig._EnvInjectionMode.ValueType  # 0
-        ENV_INJECT_DISABLED: ExternalConfig._EnvInjectionMode.ValueType  # 1
+        ENV_INJECT_UNKNOWN: KubernetesConfig._EnvInjectionMode.ValueType  # 0
+        ENV_INJECT_DISABLED: KubernetesConfig._EnvInjectionMode.ValueType  # 1
         """disables env injection entirely"""
-        ENV_INJECT_NON_SECRET_ENV: ExternalConfig._EnvInjectionMode.ValueType  # 2
+        ENV_INJECT_NON_SECRET_ENV: KubernetesConfig._EnvInjectionMode.ValueType  # 2
         """inject non-secret env values from the Release Channel"""
 
     class EnvInjectionMode(_EnvInjectionMode, metaclass=_EnvInjectionModeEnumTypeWrapper): ...
-    ENV_INJECT_UNKNOWN: ExternalConfig.EnvInjectionMode.ValueType  # 0
-    ENV_INJECT_DISABLED: ExternalConfig.EnvInjectionMode.ValueType  # 1
+    ENV_INJECT_UNKNOWN: KubernetesConfig.EnvInjectionMode.ValueType  # 0
+    ENV_INJECT_DISABLED: KubernetesConfig.EnvInjectionMode.ValueType  # 1
     """disables env injection entirely"""
-    ENV_INJECT_NON_SECRET_ENV: ExternalConfig.EnvInjectionMode.ValueType  # 2
+    ENV_INJECT_NON_SECRET_ENV: KubernetesConfig.EnvInjectionMode.ValueType  # 2
     """inject non-secret env values from the Release Channel"""
 
     TYPE_FIELD_NUMBER: builtins.int
     INLINED_FIELD_NUMBER: builtins.int
     LOCAL_FIELD_NUMBER: builtins.int
     ENV_INJECTION_MODE_FIELD_NUMBER: builtins.int
-    type: global___ExternalConfig.Type.ValueType
+    type: global___KubernetesConfig.Type.ValueType
     inlined: builtins.str
     @property
     def local(self) -> global___LocalConfig: ...
-    env_injection_mode: global___ExternalConfig.EnvInjectionMode.ValueType
+    env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType
     """Defaults to ENV_INJECT_NON_SECRET_ENV"""
     def __init__(
         self,
         *,
-        type: global___ExternalConfig.Type.ValueType = ...,
+        type: global___KubernetesConfig.Type.ValueType = ...,
         inlined: builtins.str = ...,
         local: global___LocalConfig | None = ...,
-        env_injection_mode: global___ExternalConfig.EnvInjectionMode.ValueType = ...,
+        env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "source_oneof", b"source_oneof"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["env_injection_mode", b"env_injection_mode", "inlined", b"inlined", "local", b"local", "source_oneof", b"source_oneof", "type", b"type"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["source_oneof", b"source_oneof"]) -> typing_extensions.Literal["inlined", "local"] | None: ...
 
-global___ExternalConfig = ExternalConfig
+global___KubernetesConfig = KubernetesConfig

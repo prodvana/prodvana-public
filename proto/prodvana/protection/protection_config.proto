@@ -6,7 +6,7 @@ import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/env.proto";
-import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
@@ -25,7 +25,7 @@ message ProtectionConfig {
         // Inline task config with retry, template support.
         prodvana.common_config.TaskConfig task_config = 2;
 
-        prodvana.common_config.ExternalConfig external_config = 3;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 3;
 
         // Other options here:
         // - Ref to external repository of protection definitions.

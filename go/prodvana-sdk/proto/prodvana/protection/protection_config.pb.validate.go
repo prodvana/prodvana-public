@@ -226,7 +226,7 @@ func (m *ProtectionConfig) validate(all bool) error {
 			}
 		}
 
-	case *ProtectionConfig_ExternalConfig:
+	case *ProtectionConfig_KubernetesConfig:
 		if v == nil {
 			err := ProtectionConfigValidationError{
 				field:  "ExecConfig",
@@ -240,11 +240,11 @@ func (m *ProtectionConfig) validate(all bool) error {
 		oneofExecConfigPresent = true
 
 		if all {
-			switch v := interface{}(m.GetExternalConfig()).(type) {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ProtectionConfigValidationError{
-						field:  "ExternalConfig",
+						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -252,16 +252,16 @@ func (m *ProtectionConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ProtectionConfigValidationError{
-						field:  "ExternalConfig",
+						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetExternalConfig()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ProtectionConfigValidationError{
-					field:  "ExternalConfig",
+					field:  "KubernetesConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -1433,6 +1433,47 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 			}
 		}
 
+	case *PerReleaseChannelConfig_KubernetesConfig:
+		if v == nil {
+			err := PerReleaseChannelConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PerReleaseChannelConfigValidationError{
+					field:  "KubernetesConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	case *PerReleaseChannelConfig_ExternalConfig:
 		if v == nil {
 			err := PerReleaseChannelConfigValidationError{
@@ -3544,6 +3585,47 @@ func (m *ServiceConfig) validate(all bool) error {
 			}
 		}
 
+	case *ServiceConfig_KubernetesConfig:
+		if v == nil {
+			err := ServiceConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceConfigValidationError{
+					field:  "KubernetesConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	case *ServiceConfig_ExternalConfig:
 		if v == nil {
 			err := ServiceConfigValidationError{
@@ -4353,7 +4435,7 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			}
 		}
 
-	case *CompiledServiceInstanceConfig_ExternalConfig:
+	case *CompiledServiceInstanceConfig_KubernetesConfig:
 		if v == nil {
 			err := CompiledServiceInstanceConfigValidationError{
 				field:  "ConfigOneof",
@@ -4366,11 +4448,11 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetExternalConfig()).(type) {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  "ExternalConfig",
+						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -4378,16 +4460,16 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  "ExternalConfig",
+						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetExternalConfig()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CompiledServiceInstanceConfigValidationError{
-					field:  "ExternalConfig",
+					field:  "KubernetesConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

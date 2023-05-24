@@ -8,7 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.env_pb2
-import prodvana.proto.prodvana.common_config.external_config_pb2
+import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
@@ -26,13 +26,13 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     TASK_CONFIG_FIELD_NUMBER: builtins.int
-    EXTERNAL_CONFIG_FIELD_NUMBER: builtins.int
+    KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
     @property
-    def external_config(self) -> prodvana.proto.prodvana.common_config.external_config_pb2.ExternalConfig: ...
+    def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     def __init__(
@@ -40,12 +40,12 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
-        external_config: prodvana.proto.prodvana.common_config.external_config_pb2.ExternalConfig | None = ...,
+        kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "external_config", b"external_config", "task_config", b"task_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "external_config", b"external_config", "name", b"name", "parameters", b"parameters", "task_config", b"task_config"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "external_config"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "task_config", b"task_config"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___DeliveryExtensionConfig = DeliveryExtensionConfig
 

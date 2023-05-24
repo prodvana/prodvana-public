@@ -5,7 +5,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/env.proto";
-import "prodvana/common_config/external_config.proto";
+import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/helm.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/common_config/parameters.proto";
@@ -99,14 +99,17 @@ message PerReleaseChannelConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 13;
-        prodvana.common_config.ExternalConfig external_config = 14;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 14;
+        // deprecated, pass this as kubernetes_config instead
+        prodvana.common_config.KubernetesConfig external_config = 16;
+
         prodvana.common_config.HelmConfig helm = 15;
     }
 
     reserved 3, 4, 12;
     reserved "protections";
 
-    // next tag: 16
+    // next tag: 17
 }
 
 message CapabilityReference {
@@ -238,7 +241,10 @@ message ServiceConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 18;
-        prodvana.common_config.ExternalConfig external_config = 19;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 19;
+        // deprecated, pass this as kubernetes_config instead
+        prodvana.common_config.KubernetesConfig external_config = 27;
+
         prodvana.common_config.HelmConfig helm = 26;
     }
 
@@ -257,7 +263,7 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 27
+    // next tag: 28
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -294,7 +300,7 @@ message CompiledServiceInstanceConfig {
 
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 22;
-        prodvana.common_config.ExternalConfig external_config = 23;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 23;
         prodvana.common_config.HelmConfig helm = 29;
     }
 

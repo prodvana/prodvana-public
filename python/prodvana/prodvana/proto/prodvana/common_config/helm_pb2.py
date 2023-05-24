@@ -14,10 +14,10 @@ _sym_db = _symbol_database.Default()
 
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 from prodvana.proto.prodvana.common_config import env_pb2 as prodvana_dot_common__config_dot_env__pb2
-from prodvana.proto.prodvana.common_config import external_config_pb2 as prodvana_dot_common__config_dot_external__config__pb2
+from prodvana.proto.prodvana.common_config import kubernetes_config_pb2 as prodvana_dot_common__config_dot_kubernetes__config__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!prodvana/common_config/helm.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\x1a prodvana/common_config/env.proto\x1a,prodvana/common_config/external_config.proto\"l\n\x0fRemoteHelmChart\x12\x0e\n\x04repo\x18\x01 \x01(\tH\x00\x12\x16\n\x05\x63hart\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x1e\n\rchart_version\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x42\x11\n\nrepo_oneof\x12\x03\xf8\x42\x01\"\x94\x02\n\x13HelmValuesOverrides\x12\x1a\n\x07inlined\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12\x34\n\x05local\x18\x02 \x01(\x0b\x32#.prodvana.common_config.LocalConfigH\x00\x12K\n\x03map\x18\x03 \x03(\x0b\x32\x34.prodvana.common_config.HelmValuesOverrides.MapEntryB\x08\xfa\x42\x05\x9a\x01\x02\x18\x01\x1aL\n\x08MapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\x42\x10\n\x0eoverride_oneof\"\xd4\x01\n\nHelmConfig\x12\x39\n\x06remote\x18\x01 \x01(\x0b\x32\'.prodvana.common_config.RemoteHelmChartH\x00\x12\x45\n\x10values_overrides\x18\x02 \x03(\x0b\x32+.prodvana.common_config.HelmValuesOverrides\x12\x14\n\x0crelease_name\x18\x03 \x01(\t\x12\x1a\n\tnamespace\x18\x04 \x01(\tB\x07\xfa\x42\x04r\x02\x18\x00\x42\x12\n\x0b\x63hart_oneof\x12\x03\xf8\x42\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!prodvana/common_config/helm.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\x1a prodvana/common_config/env.proto\x1a.prodvana/common_config/kubernetes_config.proto\"l\n\x0fRemoteHelmChart\x12\x0e\n\x04repo\x18\x01 \x01(\tH\x00\x12\x16\n\x05\x63hart\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x1e\n\rchart_version\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x42\x11\n\nrepo_oneof\x12\x03\xf8\x42\x01\"\x94\x02\n\x13HelmValuesOverrides\x12\x1a\n\x07inlined\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12\x34\n\x05local\x18\x02 \x01(\x0b\x32#.prodvana.common_config.LocalConfigH\x00\x12K\n\x03map\x18\x03 \x03(\x0b\x32\x34.prodvana.common_config.HelmValuesOverrides.MapEntryB\x08\xfa\x42\x05\x9a\x01\x02\x18\x01\x1aL\n\x08MapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\x42\x10\n\x0eoverride_oneof\"\xd4\x01\n\nHelmConfig\x12\x39\n\x06remote\x18\x01 \x01(\x0b\x32\'.prodvana.common_config.RemoteHelmChartH\x00\x12\x45\n\x10values_overrides\x18\x02 \x03(\x0b\x32+.prodvana.common_config.HelmValuesOverrides\x12\x14\n\x0crelease_name\x18\x03 \x01(\t\x12\x1a\n\tnamespace\x18\x04 \x01(\tB\x07\xfa\x42\x04r\x02\x18\x00\x42\x12\n\x0b\x63hart_oneof\x12\x03\xf8\x42\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 
 
@@ -74,12 +74,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _HELMCONFIG.oneofs_by_name['chart_oneof']._serialized_options = b'\370B\001'
   _HELMCONFIG.fields_by_name['namespace']._options = None
   _HELMCONFIG.fields_by_name['namespace']._serialized_options = b'\372B\004r\002\030\000'
-  _REMOTEHELMCHART._serialized_start=166
-  _REMOTEHELMCHART._serialized_end=274
-  _HELMVALUESOVERRIDES._serialized_start=277
-  _HELMVALUESOVERRIDES._serialized_end=553
-  _HELMVALUESOVERRIDES_MAPENTRY._serialized_start=459
-  _HELMVALUESOVERRIDES_MAPENTRY._serialized_end=535
-  _HELMCONFIG._serialized_start=556
-  _HELMCONFIG._serialized_end=768
+  _REMOTEHELMCHART._serialized_start=168
+  _REMOTEHELMCHART._serialized_end=276
+  _HELMVALUESOVERRIDES._serialized_start=279
+  _HELMVALUESOVERRIDES._serialized_end=555
+  _HELMVALUESOVERRIDES_MAPENTRY._serialized_start=461
+  _HELMVALUESOVERRIDES_MAPENTRY._serialized_end=537
+  _HELMCONFIG._serialized_start=558
+  _HELMCONFIG._serialized_end=770
 # @@protoc_insertion_point(module_scope)

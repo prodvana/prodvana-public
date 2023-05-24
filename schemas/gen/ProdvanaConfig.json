@@ -575,86 +575,6 @@
             ],
             "title": "Env Value"
         },
-        "prodvana.common_config.ExternalConfig": {
-            "properties": {
-                "type": {
-                    "enum": [
-                        "UNKNOWN",
-                        0,
-                        "KUBERNETES",
-                        1,
-                        "KUSTOMIZE",
-                        2,
-                        "HELM",
-                        3
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Type"
-                },
-                "inlined": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "local": {
-                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "envInjectionMode": {
-                    "enum": [
-                        "ENV_INJECT_UNKNOWN",
-                        0,
-                        "ENV_INJECT_DISABLED",
-                        1,
-                        "ENV_INJECT_NON_SECRET_ENV",
-                        2
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Env Injection Mode"
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "External Config"
-        },
         "prodvana.common_config.FixedReplicaChange": {
             "additionalProperties": false,
             "oneOf": [
@@ -988,6 +908,84 @@
                 }
             ],
             "title": "Changes"
+        },
+        "prodvana.common_config.KubernetesConfig": {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "KUBERNETES",
+                        1,
+                        "KUSTOMIZE",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "envInjectionMode": {
+                    "enum": [
+                        "ENV_INJECT_UNKNOWN",
+                        0,
+                        "ENV_INJECT_DISABLED",
+                        1,
+                        "ENV_INJECT_NON_SECRET_ENV",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Env Injection Mode"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Kubernetes Config"
         },
         "prodvana.common_config.Link": {
             "properties": {
@@ -2080,8 +2078,8 @@
                         {}
                     ]
                 },
-                "externalConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3178,8 +3176,8 @@
                     ],
                     "description": "Inline task config with retry, template support."
                 },
-                "externalConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4340,8 +4338,8 @@
                         {}
                     ]
                 },
-                "externalConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4349,6 +4347,17 @@
                         },
                         {}
                     ]
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, pass this as kubernetes_config instead"
                 },
                 "helm": {
                     "$ref": "#/definitions/prodvana.common_config.HelmConfig",
@@ -4779,8 +4788,8 @@
                         {}
                     ]
                 },
-                "externalConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.ExternalConfig",
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4788,6 +4797,17 @@
                         },
                         {}
                     ]
+                },
+                "externalConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, pass this as kubernetes_config instead"
                 },
                 "helm": {
                     "$ref": "#/definitions/prodvana.common_config.HelmConfig",

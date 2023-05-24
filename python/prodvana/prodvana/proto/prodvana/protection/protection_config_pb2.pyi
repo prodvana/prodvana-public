@@ -9,7 +9,7 @@ import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.env_pb2
-import prodvana.proto.prodvana.common_config.external_config_pb2
+import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
@@ -27,7 +27,7 @@ class ProtectionConfig(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     TASK_CONFIG_FIELD_NUMBER: builtins.int
-    EXTERNAL_CONFIG_FIELD_NUMBER: builtins.int
+    KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
@@ -36,7 +36,7 @@ class ProtectionConfig(google.protobuf.message.Message):
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig:
         """Inline task config with retry, template support."""
     @property
-    def external_config(self) -> prodvana.proto.prodvana.common_config.external_config_pb2.ExternalConfig: ...
+    def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
         """customize intervals instead of using Prodvana default
@@ -52,14 +52,14 @@ class ProtectionConfig(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
-        external_config: prodvana.proto.prodvana.common_config.external_config_pb2.ExternalConfig | None = ...,
+        kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "external_config", b"external_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "external_config", b"external_config", "name", b"name", "parameters", b"parameters", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "external_config"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ProtectionConfig = ProtectionConfig
 

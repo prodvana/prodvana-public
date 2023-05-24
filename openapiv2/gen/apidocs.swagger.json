@@ -4892,16 +4892,6 @@
       "default": "UNKNOWN",
       "title": "- DEFAULT: for kubernetes, this the the node's default storage medium"
     },
-    "ExternalConfigEnvInjectionMode": {
-      "type": "string",
-      "enum": [
-        "ENV_INJECT_UNKNOWN",
-        "ENV_INJECT_DISABLED",
-        "ENV_INJECT_NON_SECRET_ENV"
-      ],
-      "default": "ENV_INJECT_UNKNOWN",
-      "title": "- ENV_INJECT_DISABLED: disables env injection entirely\n - ENV_INJECT_NON_SECRET_ENV: inject non-secret env values from the Release Channel"
-    },
     "FakeClusterConfigCrashingProgramPatterns": {
       "type": "object",
       "properties": {
@@ -4971,6 +4961,16 @@
         "FAILED"
       ],
       "default": "UNKNOWN"
+    },
+    "KubernetesConfigEnvInjectionMode": {
+      "type": "string",
+      "enum": [
+        "ENV_INJECT_UNKNOWN",
+        "ENV_INJECT_DISABLED",
+        "ENV_INJECT_NON_SECRET_ENV"
+      ],
+      "default": "ENV_INJECT_UNKNOWN",
+      "title": "- ENV_INJECT_DISABLED: disables env injection entirely\n - ENV_INJECT_NON_SECRET_ENV: inject non-secret env values from the Release Channel"
     },
     "ListClustersRespClusterInfo": {
       "type": "object",
@@ -5785,34 +5785,6 @@
         }
       }
     },
-    "common_configExternalConfig": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/common_configExternalConfigType"
-        },
-        "inlined": {
-          "type": "string"
-        },
-        "local": {
-          "$ref": "#/definitions/common_configLocalConfig"
-        },
-        "envInjectionMode": {
-          "$ref": "#/definitions/ExternalConfigEnvInjectionMode",
-          "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
-        }
-      }
-    },
-    "common_configExternalConfigType": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "KUBERNETES",
-        "KUSTOMIZE",
-        "HELM"
-      ],
-      "default": "UNKNOWN"
-    },
     "common_configFixedReplicaChange": {
       "type": "object"
     },
@@ -5932,6 +5904,33 @@
           "$ref": "#/definitions/common_configFixedReplicaChange"
         }
       }
+    },
+    "common_configKubernetesConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/common_configKubernetesConfigType"
+        },
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "envInjectionMode": {
+          "$ref": "#/definitions/KubernetesConfigEnvInjectionMode",
+          "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
+        }
+      }
+    },
+    "common_configKubernetesConfigType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "KUBERNETES",
+        "KUSTOMIZE"
+      ],
+      "default": "UNKNOWN"
     },
     "common_configLink": {
       "type": "object",
@@ -6359,8 +6358,8 @@
         "taskConfig": {
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
-        "externalConfig": {
-          "$ref": "#/definitions/common_configExternalConfig"
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
         },
         "parameters": {
           "type": "array",
@@ -8964,8 +8963,8 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig",
           "description": "Inline task config with retry, template support."
         },
-        "externalConfig": {
-          "$ref": "#/definitions/common_configExternalConfig"
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
         },
         "pollInterval": {
           "type": "string",
@@ -9475,8 +9474,8 @@
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
-        "externalConfig": {
-          "$ref": "#/definitions/common_configExternalConfig"
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
@@ -9800,8 +9799,12 @@
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        },
         "externalConfig": {
-          "$ref": "#/definitions/common_configExternalConfig"
+          "$ref": "#/definitions/common_configKubernetesConfig",
+          "title": "deprecated, pass this as kubernetes_config instead"
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
@@ -9979,8 +9982,12 @@
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        },
         "externalConfig": {
-          "$ref": "#/definitions/common_configExternalConfig"
+          "$ref": "#/definitions/common_configKubernetesConfig",
+          "title": "deprecated, pass this as kubernetes_config instead"
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"

@@ -8,7 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.env_pb2
-import prodvana.proto.prodvana.common_config.external_config_pb2
+import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -66,7 +66,7 @@ class HelmValuesOverrides(google.protobuf.message.Message):
     MAP_FIELD_NUMBER: builtins.int
     inlined: builtins.str
     @property
-    def local(self) -> prodvana.proto.prodvana.common_config.external_config_pb2.LocalConfig: ...
+    def local(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig: ...
     @property
     def map(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """treat this as part of the above oneof, even though proto does not allow us to"""
@@ -74,7 +74,7 @@ class HelmValuesOverrides(google.protobuf.message.Message):
         self,
         *,
         inlined: builtins.str = ...,
-        local: prodvana.proto.prodvana.common_config.external_config_pb2.LocalConfig | None = ...,
+        local: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig | None = ...,
         map: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "override_oneof", b"override_oneof"]) -> builtins.bool: ...
