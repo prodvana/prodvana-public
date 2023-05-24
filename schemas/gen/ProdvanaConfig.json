@@ -2654,6 +2654,20 @@
                         },
                         {}
                     ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -2669,8 +2683,18 @@
         },
         "prodvana.environment.GenericDockerCommand": {
             "properties": {
-                "task": {
+                "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4125,6 +4149,32 @@
             "title": "Follow Container Repository Settings"
         },
         "prodvana.service.GenericRuntimeConfig": {
+            "properties": {
+                "runtimeConnection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "parameterValues": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
             "additionalProperties": false,
             "oneOf": [
                 {
@@ -4134,8 +4184,7 @@
                     "type": "object"
                 }
             ],
-            "title": "Generic Runtime Config",
-            "description": "TODO(naphat) put parameters here"
+            "title": "Generic Runtime Config"
         },
         "prodvana.service.MetricAnalysis": {
             "properties": {

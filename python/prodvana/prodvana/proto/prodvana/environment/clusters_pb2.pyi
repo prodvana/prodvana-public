@@ -9,6 +9,8 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
+import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import sys
 import typing
@@ -238,16 +240,21 @@ global___FakeClusterConfig = FakeClusterConfig
 class GenericDockerCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    TASK_FIELD_NUMBER: builtins.int
+    TASK_CONFIG_FIELD_NUMBER: builtins.int
+    KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
     @property
-    def task(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
+    def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
+    @property
+    def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
     def __init__(
         self,
         *,
-        task: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
+        task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
+        kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["task", b"task"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["task", b"task"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___GenericDockerCommand = GenericDockerCommand
 
@@ -256,18 +263,22 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
 
     APPLY_FIELD_NUMBER: builtins.int
     GET_CURRENT_STATE_FIELD_NUMBER: builtins.int
+    PARAMETERS_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___GenericDockerCommand: ...
     @property
     def get_current_state(self) -> global___GenericDockerCommand: ...
+    @property
+    def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     def __init__(
         self,
         *,
         apply: global___GenericDockerCommand | None = ...,
         get_current_state: global___GenericDockerCommand | None = ...,
+        parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "parameters", b"parameters"]) -> None: ...
 
 global___GenericDockerClusterConfig = GenericDockerClusterConfig
 

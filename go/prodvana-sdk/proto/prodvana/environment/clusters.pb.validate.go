@@ -623,33 +623,104 @@ func (m *GenericDockerCommand) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetTask()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
-					field:  "Task",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+	oneofExecConfigPresent := false
+	switch v := m.ExecConfig.(type) {
+	case *GenericDockerCommand_TaskConfig:
+		if v == nil {
+			err := GenericDockerCommandValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
 			}
-		case interface{ Validate() error }:
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetTaskConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GenericDockerCommandValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GenericDockerCommandValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetTaskConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
-					field:  "Task",
+				return GenericDockerCommandValidationError{
+					field:  "TaskConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
-				})
+				}
 			}
 		}
-	} else if v, ok := interface{}(m.GetTask()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GenericDockerCommandValidationError{
-				field:  "Task",
-				reason: "embedded message failed validation",
-				cause:  err,
+
+	case *GenericDockerCommand_KubernetesConfig:
+		if v == nil {
+			err := GenericDockerCommandValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GenericDockerCommandValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GenericDockerCommandValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GenericDockerCommandValidationError{
+					field:  "KubernetesConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofExecConfigPresent {
+		err := GenericDockerCommandValidationError{
+			field:  "ExecConfig",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -754,6 +825,17 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 
 	var errors []error
 
+	if m.GetApply() == nil {
+		err := GenericDockerClusterConfigValidationError{
+			field:  "Apply",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if all {
 		switch v := interface{}(m.GetApply()).(type) {
 		case interface{ ValidateAll() error }:
@@ -810,6 +892,51 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := GenericDockerClusterConfigValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GenericDockerClusterConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GenericDockerClusterConfigValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GenericDockerClusterConfigValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {

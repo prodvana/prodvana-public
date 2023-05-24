@@ -417,13 +417,20 @@ class RuntimeSpecificConfig(google.protobuf.message.Message):
 global___RuntimeSpecificConfig = RuntimeSpecificConfig
 
 class GenericRuntimeConfig(google.protobuf.message.Message):
-    """TODO(naphat) put parameters here"""
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    RUNTIME_CONNECTION_FIELD_NUMBER: builtins.int
+    PARAMETER_VALUES_FIELD_NUMBER: builtins.int
+    runtime_connection: builtins.str
+    @property
+    def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
     def __init__(
         self,
+        *,
+        runtime_connection: builtins.str = ...,
+        parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["parameter_values", b"parameter_values", "runtime_connection", b"runtime_connection"]) -> None: ...
 
 global___GenericRuntimeConfig = GenericRuntimeConfig
 

@@ -7038,14 +7038,24 @@
         },
         "getCurrentState": {
           "$ref": "#/definitions/environmentGenericDockerCommand"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
         }
       }
     },
     "environmentGenericDockerCommand": {
       "type": "object",
       "properties": {
-        "task": {
+        "taskConfig": {
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
         }
       }
     },
@@ -9537,7 +9547,18 @@
     },
     "serviceGenericRuntimeConfig": {
       "type": "object",
-      "title": "TODO(naphat) put parameters here"
+      "properties": {
+        "runtimeConnection": {
+          "type": "string"
+        },
+        "parameterValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
+        }
+      }
     },
     "serviceGetMaterializedConfigResp": {
       "type": "object",

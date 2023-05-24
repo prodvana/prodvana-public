@@ -168,7 +168,8 @@ message RuntimeSpecificConfig {
 }
 
 message GenericRuntimeConfig {
-    // TODO(naphat) put parameters here
+    string runtime_connection = 1 [(validate.rules).string.min_len = 1];
+    repeated prodvana.common_config.ParameterValue parameter_values = 2;
 }
 
 message AutoRollbackConfig {
