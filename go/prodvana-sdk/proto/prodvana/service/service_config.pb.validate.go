@@ -1391,6 +1391,8 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for RuntimeConnection
+
 	switch v := m.ConfigOneof.(type) {
 	case *PerReleaseChannelConfig_GenericRuntime:
 		if v == nil {
@@ -2568,17 +2570,6 @@ func (m *GenericRuntimeConfig) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetRuntimeConnection()) < 1 {
-		err := GenericRuntimeConfigValidationError{
-			field:  "RuntimeConnection",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	for idx, item := range m.GetParameterValues() {
 		_, _ = idx, item
 
@@ -3453,6 +3444,8 @@ func (m *ServiceConfig) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for RuntimeConnection
 
 	for idx, item := range m.GetParameters() {
 		_, _ = idx, item

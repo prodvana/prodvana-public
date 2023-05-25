@@ -97,6 +97,10 @@ message PerReleaseChannelConfig {
 
     RuntimeSpecificConfig runtime_specific = 11;
 
+    // which runtime connection to use in each release channel.
+    // optional if only one runtime makes sense for the service config.
+    string runtime_connection = 17;
+
     oneof config_oneof {
         GenericRuntimeConfig generic_runtime = 13;
         prodvana.common_config.KubernetesConfig kubernetes_config = 14;
@@ -109,7 +113,7 @@ message PerReleaseChannelConfig {
     reserved 3, 4, 12;
     reserved "protections";
 
-    // next tag: 17
+    // next tag: 18
 }
 
 message CapabilityReference {
@@ -168,8 +172,7 @@ message RuntimeSpecificConfig {
 }
 
 message GenericRuntimeConfig {
-    string runtime_connection = 1 [(validate.rules).string.min_len = 1];
-    repeated prodvana.common_config.ParameterValue parameter_values = 2;
+    repeated prodvana.common_config.ParameterValue parameter_values = 1;
 }
 
 message AutoRollbackConfig {
@@ -230,6 +233,10 @@ message ServiceConfig {
 
     RuntimeSpecificConfig runtime_specific = 16;
 
+    // which runtime connection to use in each release channel.
+    // optional if only one runtime makes sense for the service config.
+    string runtime_connection = 28;
+
     repeated prodvana.common_config.ParameterDefinition parameters = 21 [(validate.rules).repeated.items.message.required = true];
     // only valid to set in compiled configs by Prodvana
     ServiceParameterValues parameter_values = 22;
@@ -264,7 +271,7 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 28
+    // next tag: 29
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

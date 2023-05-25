@@ -4152,16 +4152,6 @@
         },
         "prodvana.service.GenericRuntimeConfig": {
             "properties": {
-                "runtimeConnection": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
                 "parameterValues": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.ParameterValue"
@@ -4378,6 +4368,17 @@
                         },
                         {}
                     ]
+                },
+                "runtimeConnection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
                 "genericRuntime": {
                     "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
@@ -4797,6 +4798,17 @@
                         },
                         {}
                     ]
+                },
+                "runtimeConnection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
                 "parameters": {
                     "items": {

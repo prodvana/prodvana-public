@@ -9551,9 +9551,6 @@
     "serviceGenericRuntimeConfig": {
       "type": "object",
       "properties": {
-        "runtimeConnection": {
-          "type": "string"
-        },
         "parameterValues": {
           "type": "array",
           "items": {
@@ -9820,6 +9817,10 @@
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
         },
+        "runtimeConnection": {
+          "type": "string",
+          "description": "which runtime connection to use in each release channel.\noptional if only one runtime makes sense for the service config."
+        },
         "genericRuntime": {
           "$ref": "#/definitions/serviceGenericRuntimeConfig"
         },
@@ -9987,6 +9988,10 @@
         },
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
+        },
+        "runtimeConnection": {
+          "type": "string",
+          "description": "which runtime connection to use in each release channel.\noptional if only one runtime makes sense for the service config."
         },
         "parameters": {
           "type": "array",
