@@ -2769,7 +2769,9 @@
                         "CONFIG_FILE",
                         3,
                         "REPO_FOLLOW",
-                        4
+                        4,
+                        "PRODVANA",
+                        5
                     ],
                     "oneOf": [
                         {

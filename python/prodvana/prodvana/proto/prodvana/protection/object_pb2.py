@@ -16,7 +16,7 @@ from prodvana.proto.prodvana.object import meta_pb2 as prodvana_dot_object_dot_m
 from prodvana.proto.prodvana.protection import protection_config_pb2 as prodvana_dot_protection_dot_protection__config__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n prodvana/protection/object.proto\x12\x13prodvana.protection\x1a\x1aprodvana/object/meta.proto\x1a+prodvana/protection/protection_config.proto\"n\n\nProtection\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x35\n\x06\x63onfig\x18\x02 \x01(\x0b\x32%.prodvana.protection.ProtectionConfigBOZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n prodvana/protection/object.proto\x12\x13prodvana.protection\x1a\x1aprodvana/object/meta.proto\x1a+prodvana/protection/protection_config.proto\"\x7f\n\nProtection\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x35\n\x06\x63onfig\x18\x02 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12\x0f\n\x07\x62uiltin\x18\x03 \x01(\x08\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
 
 
@@ -33,5 +33,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection'
   _PROTECTION._serialized_start=130
-  _PROTECTION._serialized_end=240
+  _PROTECTION._serialized_end=257
 # @@protoc_insertion_point(module_scope)

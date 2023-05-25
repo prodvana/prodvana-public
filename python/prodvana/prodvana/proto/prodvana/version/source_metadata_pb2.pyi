@@ -27,6 +27,10 @@ class _SourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     INTERACTIVE_PVNCTL: _Source.ValueType  # 2
     CONFIG_FILE: _Source.ValueType  # 3
     REPO_FOLLOW: _Source.ValueType  # 4
+    PRODVANA: _Source.ValueType  # 5
+    """this source indicates this version was provided by Prodvana
+    this is used for things like builtin Protections or other first party provided features
+    """
 
 class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
 
@@ -35,6 +39,10 @@ WEB: Source.ValueType  # 1
 INTERACTIVE_PVNCTL: Source.ValueType  # 2
 CONFIG_FILE: Source.ValueType  # 3
 REPO_FOLLOW: Source.ValueType  # 4
+PRODVANA: Source.ValueType  # 5
+"""this source indicates this version was provided by Prodvana
+this is used for things like builtin Protections or other first party provided features
+"""
 global___Source = Source
 
 class SourceMetadata(google.protobuf.message.Message):

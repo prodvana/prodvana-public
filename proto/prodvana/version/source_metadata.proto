@@ -8,6 +8,9 @@ enum Source {
     INTERACTIVE_PVNCTL = 2;
     CONFIG_FILE = 3;
     REPO_FOLLOW = 4;
+    // this source indicates this version was provided by Prodvana
+    // this is used for things like builtin Protections or other first party provided features
+    PRODVANA = 5; 
 }
 
 // all of these fields are optional and only set if it makes sense for a given source.

@@ -8801,8 +8801,11 @@
           "$ref": "#/definitions/objectObjectMeta"
         },
         "config": {
-          "$ref": "#/definitions/protectionProtectionConfig",
-          "title": "TODO: Add information about where this protection is currently used?"
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "builtin": {
+          "type": "boolean",
+          "description": "indicates this protection is provided by Prodvana by default."
         }
       }
     },
@@ -10189,9 +10192,11 @@
         "WEB",
         "INTERACTIVE_PVNCTL",
         "CONFIG_FILE",
-        "REPO_FOLLOW"
+        "REPO_FOLLOW",
+        "PRODVANA"
       ],
-      "default": "UNKNOWN_SOURCE"
+      "default": "UNKNOWN_SOURCE",
+      "title": "- PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features"
     },
     "versionSourceMetadata": {
       "type": "object",

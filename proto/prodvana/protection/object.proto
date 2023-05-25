@@ -8,5 +8,7 @@ import "prodvana/protection/protection_config.proto";
 message Protection {
     prodvana.object.ObjectMeta meta = 1;
     ProtectionConfig config = 2;
+    bool builtin = 3; // indicates this protection is provided by Prodvana by default.
+
     // TODO: Add information about where this protection is currently used?
 }

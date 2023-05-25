@@ -21,18 +21,21 @@ class Protection(google.protobuf.message.Message):
 
     META_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
+    BUILTIN_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     @property
-    def config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig:
-        """TODO: Add information about where this protection is currently used?"""
+    def config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
+    builtin: builtins.bool
+    """indicates this protection is provided by Prodvana by default."""
     def __init__(
         self,
         *,
         meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
         config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
+        builtin: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["builtin", b"builtin", "config", b"config", "meta", b"meta"]) -> None: ...
 
 global___Protection = Protection

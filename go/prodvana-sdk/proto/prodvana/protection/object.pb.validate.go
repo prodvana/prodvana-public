@@ -115,6 +115,8 @@ func (m *Protection) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Builtin
+
 	if len(errors) > 0 {
 		return ProtectionMultiError(errors)
 	}
