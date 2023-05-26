@@ -2,68 +2,16 @@ syntax = "proto3";
 package prodvana.pipelines;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pipelines";
 import "google/protobuf/timestamp.proto";
-import "prodvana/pipelines/pipelines.proto";
 import "prodvana/common_config/meta.proto";
-import "prodvana/common_config/version_push.proto";
-import "prodvana/object/meta.proto";
-
-message ServicePushParam {
-    string service = 1;
-    prodvana.common_config.VersionPushOption version_push = 2;
-    string application = 3;
-}
-
-message ServiceInstancePush {
-    prodvana.object.ObjectMeta application_meta = 1;
-    // service starting version stored in service_instance_meta
-    prodvana.common_config.ServiceInstanceObjectMeta service_instance_meta = 2;
-    string target_version = 3;
-    // TODO(naphat/rohit) store rollback target information here
-    // string rollback_target_version = 4;
-}
-
-message TaskStatus {
-    int32 id = 1;
-    string state = 2;
-    google.protobuf.Timestamp creation_timestamp = 3;
-    google.protobuf.Timestamp last_update_timestamp = 4;
-}
-
-message PipelineState {
-    // TODO(naphat) put stuff here
-}
-
-message Pipeline {
-    prodvana.object.ObjectMeta meta = 1;
-    PipelineConfig config = 2;
-    PipelineState state = 3;
-}
-
-message PipelineRunConfig {
-    PipelineConfig pipeline_config = 1;
-    repeated ServicePushParam service_push_params = 2;
-    bool skip_rollback_validation = 3;
-    repeated ServiceInstancePush service_instance_pushes = 4;
-    bool skip_alert_checks = 5;
-}
 
 message PipelineRunState {
     google.protobuf.Timestamp creation_timestamp = 1;
     google.protobuf.Timestamp last_update_timestamp = 2;
     string state = 3;
     bool terminal = 4;  // if pipeline run is in a terminal state
-
-    // This will only be set when querying specifically about this pipeline run
-    repeated TaskStatus task_statuses = 5;
-	string lastActor = 6;
-    string initiator = 7;
-    string reason = 8;
-    string message = 9;
-    string external_link = 10;
 }
 
 message PipelineRun {
     prodvana.common_config.PipelineRunObjectMeta meta = 1;
-    PipelineRunConfig config = 2;
     PipelineRunState state = 3;
 }
