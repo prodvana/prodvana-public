@@ -16,12 +16,12 @@ message ProtectionLifecycle {
     message PostApproval {
     }
 
-    message Push {
+    message Deployment {
     }
 
-    message PostPush {
-        // How long after the push completes should we start checking status?
-        // e.g, delay health checks X minutes after push (if push is noisy).
+    message PostDeployment {
+        // How long after the deployment completes should we start checking status?
+        // e.g, delay health checks X minutes after deployment (if deployment is noisy).
         google.protobuf.Duration delay_check_duration = 1;
 
         // How long after starting should we check for?
@@ -38,14 +38,14 @@ message ProtectionLifecycle {
         PreApproval pre_approval = 1;
         // Approval approval = 2;
         PostApproval post_approval = 3;
-        Push push = 4;
-        PostPush post_push = 5;
+        Deployment deployment = 4;
+        PostDeployment post_deployment = 5;
     }
 
     // Examples:
 
     // Alert check:
-    // - must never fail for at least X minutes after push completes
+    // - must never fail for at least X minutes after deployment completes
     // becomes:
     // - PreApproval
     // - Approval
@@ -54,14 +54,14 @@ message ProtectionLifecycle {
     // - PostPush(check_duration=check_duration)
 
     // Migration/resources present:
-    // - must be true up to the push
+    // - must be true up to the deployment
     // - must start after approval
     // becomes:
     // - PostApproval()
 
     // Healthy:
-    // - must start after push initiated
-    // - must never fail for at least X minutes after push initiated
+    // - must start after deployment initiated
+    // - must never fail for at least X minutes after deployment initiated
     // becomes:
     // - PostPush(check_duration=readiness_deadline)
 }

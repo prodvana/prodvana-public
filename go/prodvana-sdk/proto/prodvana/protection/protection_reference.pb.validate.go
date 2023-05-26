@@ -143,7 +143,7 @@ func (m *ProtectionLifecycle) validate(all bool) error {
 			}
 		}
 
-	case *ProtectionLifecycle_Push_:
+	case *ProtectionLifecycle_Deployment_:
 		if v == nil {
 			err := ProtectionLifecycleValidationError{
 				field:  "Lifecycle",
@@ -157,11 +157,11 @@ func (m *ProtectionLifecycle) validate(all bool) error {
 		oneofLifecyclePresent = true
 
 		if all {
-			switch v := interface{}(m.GetPush()).(type) {
+			switch v := interface{}(m.GetDeployment()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ProtectionLifecycleValidationError{
-						field:  "Push",
+						field:  "Deployment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -169,23 +169,23 @@ func (m *ProtectionLifecycle) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ProtectionLifecycleValidationError{
-						field:  "Push",
+						field:  "Deployment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetPush()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetDeployment()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ProtectionLifecycleValidationError{
-					field:  "Push",
+					field:  "Deployment",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *ProtectionLifecycle_PostPush_:
+	case *ProtectionLifecycle_PostDeployment_:
 		if v == nil {
 			err := ProtectionLifecycleValidationError{
 				field:  "Lifecycle",
@@ -199,11 +199,11 @@ func (m *ProtectionLifecycle) validate(all bool) error {
 		oneofLifecyclePresent = true
 
 		if all {
-			switch v := interface{}(m.GetPostPush()).(type) {
+			switch v := interface{}(m.GetPostDeployment()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ProtectionLifecycleValidationError{
-						field:  "PostPush",
+						field:  "PostDeployment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -211,16 +211,16 @@ func (m *ProtectionLifecycle) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ProtectionLifecycleValidationError{
-						field:  "PostPush",
+						field:  "PostDeployment",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetPostPush()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetPostDeployment()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ProtectionLifecycleValidationError{
-					field:  "PostPush",
+					field:  "PostDeployment",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -689,22 +689,22 @@ var _ interface {
 	ErrorName() string
 } = ProtectionLifecycle_PostApprovalValidationError{}
 
-// Validate checks the field values on ProtectionLifecycle_Push with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ProtectionLifecycle_Deployment with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ProtectionLifecycle_Push) Validate() error {
+func (m *ProtectionLifecycle_Deployment) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ProtectionLifecycle_Push with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ProtectionLifecycle_PushMultiError, or nil if none found.
-func (m *ProtectionLifecycle_Push) ValidateAll() error {
+// ValidateAll checks the field values on ProtectionLifecycle_Deployment with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_DeploymentMultiError, or nil if none found.
+func (m *ProtectionLifecycle_Deployment) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ProtectionLifecycle_Push) validate(all bool) error {
+func (m *ProtectionLifecycle_Deployment) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -712,19 +712,19 @@ func (m *ProtectionLifecycle_Push) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return ProtectionLifecycle_PushMultiError(errors)
+		return ProtectionLifecycle_DeploymentMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionLifecycle_PushMultiError is an error wrapping multiple validation
-// errors returned by ProtectionLifecycle_Push.ValidateAll() if the designated
-// constraints aren't met.
-type ProtectionLifecycle_PushMultiError []error
+// ProtectionLifecycle_DeploymentMultiError is an error wrapping multiple
+// validation errors returned by ProtectionLifecycle_Deployment.ValidateAll()
+// if the designated constraints aren't met.
+type ProtectionLifecycle_DeploymentMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionLifecycle_PushMultiError) Error() string {
+func (m ProtectionLifecycle_DeploymentMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -733,11 +733,12 @@ func (m ProtectionLifecycle_PushMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionLifecycle_PushMultiError) AllErrors() []error { return m }
+func (m ProtectionLifecycle_DeploymentMultiError) AllErrors() []error { return m }
 
-// ProtectionLifecycle_PushValidationError is the validation error returned by
-// ProtectionLifecycle_Push.Validate if the designated constraints aren't met.
-type ProtectionLifecycle_PushValidationError struct {
+// ProtectionLifecycle_DeploymentValidationError is the validation error
+// returned by ProtectionLifecycle_Deployment.Validate if the designated
+// constraints aren't met.
+type ProtectionLifecycle_DeploymentValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -745,24 +746,24 @@ type ProtectionLifecycle_PushValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionLifecycle_PushValidationError) Field() string { return e.field }
+func (e ProtectionLifecycle_DeploymentValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionLifecycle_PushValidationError) Reason() string { return e.reason }
+func (e ProtectionLifecycle_DeploymentValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionLifecycle_PushValidationError) Cause() error { return e.cause }
+func (e ProtectionLifecycle_DeploymentValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionLifecycle_PushValidationError) Key() bool { return e.key }
+func (e ProtectionLifecycle_DeploymentValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionLifecycle_PushValidationError) ErrorName() string {
-	return "ProtectionLifecycle_PushValidationError"
+func (e ProtectionLifecycle_DeploymentValidationError) ErrorName() string {
+	return "ProtectionLifecycle_DeploymentValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ProtectionLifecycle_PushValidationError) Error() string {
+func (e ProtectionLifecycle_DeploymentValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -774,14 +775,14 @@ func (e ProtectionLifecycle_PushValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtectionLifecycle_Push.%s: %s%s",
+		"invalid %sProtectionLifecycle_Deployment.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionLifecycle_PushValidationError{}
+var _ error = ProtectionLifecycle_DeploymentValidationError{}
 
 var _ interface {
 	Field() string
@@ -789,24 +790,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionLifecycle_PushValidationError{}
+} = ProtectionLifecycle_DeploymentValidationError{}
 
-// Validate checks the field values on ProtectionLifecycle_PostPush with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ProtectionLifecycle_PostPush) Validate() error {
+// Validate checks the field values on ProtectionLifecycle_PostDeployment with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ProtectionLifecycle_PostDeployment) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ProtectionLifecycle_PostPush with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ProtectionLifecycle_PostPushMultiError, or nil if none found.
-func (m *ProtectionLifecycle_PostPush) ValidateAll() error {
+// ValidateAll checks the field values on ProtectionLifecycle_PostDeployment
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ProtectionLifecycle_PostDeploymentMultiError, or nil if none found.
+func (m *ProtectionLifecycle_PostDeployment) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
+func (m *ProtectionLifecycle_PostDeployment) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -817,7 +819,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 		switch v := interface{}(m.GetDelayCheckDuration()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+				errors = append(errors, ProtectionLifecycle_PostDeploymentValidationError{
 					field:  "DelayCheckDuration",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -825,7 +827,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionLifecycle_PostPushValidationError{
+				errors = append(errors, ProtectionLifecycle_PostDeploymentValidationError{
 					field:  "DelayCheckDuration",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -834,7 +836,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetDelayCheckDuration()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionLifecycle_PostPushValidationError{
+			return ProtectionLifecycle_PostDeploymentValidationError{
 				field:  "DelayCheckDuration",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -843,7 +845,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 	}
 
 	if m.GetCheckDuration() == nil {
-		err := ProtectionLifecycle_PostPushValidationError{
+		err := ProtectionLifecycle_PostDeploymentValidationError{
 			field:  "CheckDuration",
 			reason: "value is required",
 		}
@@ -856,7 +858,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 	if d := m.GetCheckDuration(); d != nil {
 		dur, err := d.AsDuration(), d.CheckValid()
 		if err != nil {
-			err = ProtectionLifecycle_PostPushValidationError{
+			err = ProtectionLifecycle_PostDeploymentValidationError{
 				field:  "CheckDuration",
 				reason: "value is not a valid duration",
 				cause:  err,
@@ -870,7 +872,7 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 			gt := time.Duration(0*time.Second + 0*time.Nanosecond)
 
 			if dur <= gt {
-				err := ProtectionLifecycle_PostPushValidationError{
+				err := ProtectionLifecycle_PostDeploymentValidationError{
 					field:  "CheckDuration",
 					reason: "value must be greater than 0s",
 				}
@@ -884,19 +886,20 @@ func (m *ProtectionLifecycle_PostPush) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ProtectionLifecycle_PostPushMultiError(errors)
+		return ProtectionLifecycle_PostDeploymentMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionLifecycle_PostPushMultiError is an error wrapping multiple
-// validation errors returned by ProtectionLifecycle_PostPush.ValidateAll() if
-// the designated constraints aren't met.
-type ProtectionLifecycle_PostPushMultiError []error
+// ProtectionLifecycle_PostDeploymentMultiError is an error wrapping multiple
+// validation errors returned by
+// ProtectionLifecycle_PostDeployment.ValidateAll() if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PostDeploymentMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionLifecycle_PostPushMultiError) Error() string {
+func (m ProtectionLifecycle_PostDeploymentMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -905,12 +908,12 @@ func (m ProtectionLifecycle_PostPushMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionLifecycle_PostPushMultiError) AllErrors() []error { return m }
+func (m ProtectionLifecycle_PostDeploymentMultiError) AllErrors() []error { return m }
 
-// ProtectionLifecycle_PostPushValidationError is the validation error returned
-// by ProtectionLifecycle_PostPush.Validate if the designated constraints
-// aren't met.
-type ProtectionLifecycle_PostPushValidationError struct {
+// ProtectionLifecycle_PostDeploymentValidationError is the validation error
+// returned by ProtectionLifecycle_PostDeployment.Validate if the designated
+// constraints aren't met.
+type ProtectionLifecycle_PostDeploymentValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -918,24 +921,24 @@ type ProtectionLifecycle_PostPushValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionLifecycle_PostPushValidationError) Field() string { return e.field }
+func (e ProtectionLifecycle_PostDeploymentValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionLifecycle_PostPushValidationError) Reason() string { return e.reason }
+func (e ProtectionLifecycle_PostDeploymentValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionLifecycle_PostPushValidationError) Cause() error { return e.cause }
+func (e ProtectionLifecycle_PostDeploymentValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionLifecycle_PostPushValidationError) Key() bool { return e.key }
+func (e ProtectionLifecycle_PostDeploymentValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionLifecycle_PostPushValidationError) ErrorName() string {
-	return "ProtectionLifecycle_PostPushValidationError"
+func (e ProtectionLifecycle_PostDeploymentValidationError) ErrorName() string {
+	return "ProtectionLifecycle_PostDeploymentValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ProtectionLifecycle_PostPushValidationError) Error() string {
+func (e ProtectionLifecycle_PostDeploymentValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -947,14 +950,14 @@ func (e ProtectionLifecycle_PostPushValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtectionLifecycle_PostPush.%s: %s%s",
+		"invalid %sProtectionLifecycle_PostDeployment.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionLifecycle_PostPushValidationError{}
+var _ error = ProtectionLifecycle_PostDeploymentValidationError{}
 
 var _ interface {
 	Field() string
@@ -962,4 +965,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionLifecycle_PostPushValidationError{}
+} = ProtectionLifecycle_PostDeploymentValidationError{}

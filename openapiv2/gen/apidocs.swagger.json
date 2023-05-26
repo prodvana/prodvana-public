@@ -5124,15 +5124,18 @@
         }
       }
     },
+    "ProtectionLifecycleDeployment": {
+      "type": "object"
+    },
     "ProtectionLifecyclePostApproval": {
       "type": "object"
     },
-    "ProtectionLifecyclePostPush": {
+    "ProtectionLifecyclePostDeployment": {
       "type": "object",
       "properties": {
         "delayCheckDuration": {
           "type": "string",
-          "description": "How long after the push completes should we start checking status?\ne.g, delay health checks X minutes after push (if push is noisy)."
+          "description": "How long after the deployment completes should we start checking status?\ne.g, delay health checks X minutes after deployment (if deployment is noisy)."
         },
         "checkDuration": {
           "type": "string",
@@ -5141,9 +5144,6 @@
       }
     },
     "ProtectionLifecyclePreApproval": {
-      "type": "object"
-    },
-    "ProtectionLifecyclePush": {
       "type": "object"
     },
     "ProtectionLinkStateStopReason": {
@@ -8070,11 +8070,11 @@
         "PRE_APPROVAL_TASK",
         "APPROVAL",
         "POST_APPROVAL_TASK",
-        "PUSH_TASK",
-        "POST_PUSH_TASK"
+        "DEPLOYMENT_TASK",
+        "POST_DEPLOYMENT_TASK"
       ],
       "default": "CUSTOM_TASK_TYPE_UNKNOWN",
-      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - PUSH_TASK: Runs as long as service push is in progress.\n - POST_PUSH_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
+      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - DEPLOYMENT_TASK: Runs as long as service push is in progress.\n - POST_DEPLOYMENT_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
     },
     "modelDebugLog": {
       "type": "object",
@@ -8246,8 +8246,8 @@
         "CONVERGENCE_START",
         "PRE_APPROVAL",
         "POST_APPROVAL",
-        "PUSH",
-        "POST_PUSH"
+        "DEPLOYMENT",
+        "POST_DEPLOYMENT"
       ],
       "default": "UNKNOWN_LIFECYCLE"
     },
@@ -9007,11 +9007,11 @@
           "$ref": "#/definitions/ProtectionLifecyclePostApproval",
           "title": "Approval approval = 2;"
         },
-        "push": {
-          "$ref": "#/definitions/ProtectionLifecyclePush"
+        "deployment": {
+          "$ref": "#/definitions/ProtectionLifecycleDeployment"
         },
-        "postPush": {
-          "$ref": "#/definitions/ProtectionLifecyclePostPush"
+        "postDeployment": {
+          "$ref": "#/definitions/ProtectionLifecyclePostDeployment"
         }
       }
     },

@@ -39,22 +39,22 @@ class ProtectionLifecycle(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    class Push(google.protobuf.message.Message):
+    class Deployment(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         def __init__(
             self,
         ) -> None: ...
 
-    class PostPush(google.protobuf.message.Message):
+    class PostDeployment(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         DELAY_CHECK_DURATION_FIELD_NUMBER: builtins.int
         CHECK_DURATION_FIELD_NUMBER: builtins.int
         @property
         def delay_check_duration(self) -> google.protobuf.duration_pb2.Duration:
-            """How long after the push completes should we start checking status?
-            e.g, delay health checks X minutes after push (if push is noisy).
+            """How long after the deployment completes should we start checking status?
+            e.g, delay health checks X minutes after deployment (if deployment is noisy).
             """
         @property
         def check_duration(self) -> google.protobuf.duration_pb2.Duration:
@@ -70,8 +70,8 @@ class ProtectionLifecycle(google.protobuf.message.Message):
 
     PRE_APPROVAL_FIELD_NUMBER: builtins.int
     POST_APPROVAL_FIELD_NUMBER: builtins.int
-    PUSH_FIELD_NUMBER: builtins.int
-    POST_PUSH_FIELD_NUMBER: builtins.int
+    DEPLOYMENT_FIELD_NUMBER: builtins.int
+    POST_DEPLOYMENT_FIELD_NUMBER: builtins.int
     @property
     def pre_approval(self) -> global___ProtectionLifecycle.PreApproval:
         """NOTE: Type here must match CustomTaskType"""
@@ -79,20 +79,20 @@ class ProtectionLifecycle(google.protobuf.message.Message):
     def post_approval(self) -> global___ProtectionLifecycle.PostApproval:
         """Approval approval = 2;"""
     @property
-    def push(self) -> global___ProtectionLifecycle.Push: ...
+    def deployment(self) -> global___ProtectionLifecycle.Deployment: ...
     @property
-    def post_push(self) -> global___ProtectionLifecycle.PostPush: ...
+    def post_deployment(self) -> global___ProtectionLifecycle.PostDeployment: ...
     def __init__(
         self,
         *,
         pre_approval: global___ProtectionLifecycle.PreApproval | None = ...,
         post_approval: global___ProtectionLifecycle.PostApproval | None = ...,
-        push: global___ProtectionLifecycle.Push | None = ...,
-        post_push: global___ProtectionLifecycle.PostPush | None = ...,
+        deployment: global___ProtectionLifecycle.Deployment | None = ...,
+        post_deployment: global___ProtectionLifecycle.PostDeployment | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle", "post_approval", b"post_approval", "post_push", b"post_push", "pre_approval", b"pre_approval", "push", b"push"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle", "post_approval", b"post_approval", "post_push", b"post_push", "pre_approval", b"pre_approval", "push", b"push"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["lifecycle", b"lifecycle"]) -> typing_extensions.Literal["pre_approval", "post_approval", "push", "post_push"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["deployment", b"deployment", "lifecycle", b"lifecycle", "post_approval", b"post_approval", "post_deployment", b"post_deployment", "pre_approval", b"pre_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["deployment", b"deployment", "lifecycle", b"lifecycle", "post_approval", b"post_approval", "post_deployment", b"post_deployment", "pre_approval", b"pre_approval"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["lifecycle", b"lifecycle"]) -> typing_extensions.Literal["pre_approval", "post_approval", "deployment", "post_deployment"] | None: ...
 
 global___ProtectionLifecycle = ProtectionLifecycle
 

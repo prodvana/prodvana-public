@@ -62,8 +62,8 @@ class _LifecycleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     CONVERGENCE_START: _Lifecycle.ValueType  # 1
     PRE_APPROVAL: _Lifecycle.ValueType  # 2
     POST_APPROVAL: _Lifecycle.ValueType  # 3
-    PUSH: _Lifecycle.ValueType  # 4
-    POST_PUSH: _Lifecycle.ValueType  # 5
+    DEPLOYMENT: _Lifecycle.ValueType  # 4
+    POST_DEPLOYMENT: _Lifecycle.ValueType  # 5
 
 class Lifecycle(_Lifecycle, metaclass=_LifecycleEnumTypeWrapper): ...
 
@@ -71,8 +71,8 @@ UNKNOWN_LIFECYCLE: Lifecycle.ValueType  # 0
 CONVERGENCE_START: Lifecycle.ValueType  # 1
 PRE_APPROVAL: Lifecycle.ValueType  # 2
 POST_APPROVAL: Lifecycle.ValueType  # 3
-PUSH: Lifecycle.ValueType  # 4
-POST_PUSH: Lifecycle.ValueType  # 5
+DEPLOYMENT: Lifecycle.ValueType  # 4
+POST_DEPLOYMENT: Lifecycle.ValueType  # 5
 global___Lifecycle = Lifecycle
 
 class _CustomTaskType:
@@ -88,9 +88,9 @@ class _CustomTaskTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper.
     """Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
     POST_APPROVAL_TASK: _CustomTaskType.ValueType  # 3
     """Runs after approval, just before service push."""
-    PUSH_TASK: _CustomTaskType.ValueType  # 4
+    DEPLOYMENT_TASK: _CustomTaskType.ValueType  # 4
     """Runs as long as service push is in progress."""
-    POST_PUSH_TASK: _CustomTaskType.ValueType  # 5
+    POST_DEPLOYMENT_TASK: _CustomTaskType.ValueType  # 5
     """Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
 
 class CustomTaskType(_CustomTaskType, metaclass=_CustomTaskTypeEnumTypeWrapper): ...
@@ -102,9 +102,9 @@ APPROVAL: CustomTaskType.ValueType  # 2
 """Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
 POST_APPROVAL_TASK: CustomTaskType.ValueType  # 3
 """Runs after approval, just before service push."""
-PUSH_TASK: CustomTaskType.ValueType  # 4
+DEPLOYMENT_TASK: CustomTaskType.ValueType  # 4
 """Runs as long as service push is in progress."""
-POST_PUSH_TASK: CustomTaskType.ValueType  # 5
+POST_DEPLOYMENT_TASK: CustomTaskType.ValueType  # 5
 """Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
 global___CustomTaskType = CustomTaskType
 

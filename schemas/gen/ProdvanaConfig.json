@@ -3324,8 +3324,8 @@
                     ],
                     "description": "Approval approval = 2;"
                 },
-                "push": {
-                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.Push",
+                "deployment": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.Deployment",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3334,8 +3334,8 @@
                         {}
                     ]
                 },
-                "postPush": {
-                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostPush",
+                "postDeployment": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostDeployment",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3356,6 +3356,18 @@
             ],
             "title": "Protection Lifecycle"
         },
+        "prodvana.protection.ProtectionLifecycle.Deployment": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Deployment"
+        },
         "prodvana.protection.ProtectionLifecycle.PostApproval": {
             "additionalProperties": false,
             "oneOf": [
@@ -3369,12 +3381,12 @@
             "title": "message Approval {\n }",
             "description": "message Approval { }"
         },
-        "prodvana.protection.ProtectionLifecycle.PostPush": {
+        "prodvana.protection.ProtectionLifecycle.PostDeployment": {
             "properties": {
                 "delayCheckDuration": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "How long after the push completes should we start checking status? e.g, delay health checks X minutes after push (if push is noisy).",
+                    "description": "How long after the deployment completes should we start checking status? e.g, delay health checks X minutes after deployment (if deployment is noisy).",
                     "format": "regex"
                 },
                 "checkDuration": {
@@ -3393,7 +3405,7 @@
                     "type": "object"
                 }
             ],
-            "title": "Post Push"
+            "title": "Post Deployment"
         },
         "prodvana.protection.ProtectionLifecycle.PreApproval": {
             "additionalProperties": false,
@@ -3406,18 +3418,6 @@
                 }
             ],
             "title": "Pre Approval"
-        },
-        "prodvana.protection.ProtectionLifecycle.Push": {
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Push"
         },
         "prodvana.protection.ProtectionReference": {
             "properties": {

@@ -17,15 +17,15 @@ from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 from prodvana.proto.prodvana.common_config import parameters_pb2 as prodvana_dot_common__config_dot_parameters__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/protection/protection_reference.proto\x12\x13prodvana.protection\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\x1a\'prodvana/common_config/parameters.proto\"\xf8\x03\n\x13ProtectionLifecycle\x12L\n\x0cpre_approval\x18\x01 \x01(\x0b\x32\x34.prodvana.protection.ProtectionLifecycle.PreApprovalH\x00\x12N\n\rpost_approval\x18\x03 \x01(\x0b\x32\x35.prodvana.protection.ProtectionLifecycle.PostApprovalH\x00\x12=\n\x04push\x18\x04 \x01(\x0b\x32-.prodvana.protection.ProtectionLifecycle.PushH\x00\x12\x46\n\tpost_push\x18\x05 \x01(\x0b\x32\x31.prodvana.protection.ProtectionLifecycle.PostPushH\x00\x1a\r\n\x0bPreApproval\x1a\x0e\n\x0cPostApproval\x1a\x06\n\x04Push\x1a\x82\x01\n\x08PostPush\x12\x37\n\x14\x64\x65lay_check_duration\x18\x01 \x01(\x0b\x32\x19.google.protobuf.Duration\x12=\n\x0e\x63heck_duration\x18\x02 \x01(\x0b\x32\x19.google.protobuf.DurationB\n\xfa\x42\x07\xaa\x01\x04\x08\x01*\x00\x42\x10\n\tlifecycle\x12\x03\xf8\x42\x01\"\x9c\x01\n\x13ProtectionReference\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12:\n\nparameters\x18\x03 \x03(\x0b\x32&.prodvana.common_config.ParameterValueJ\x04\x08\x02\x10\x03R\x08\x61ttachedBOZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/protection/protection_reference.proto\x12\x13prodvana.protection\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\x1a\'prodvana/common_config/parameters.proto\"\x9c\x04\n\x13ProtectionLifecycle\x12L\n\x0cpre_approval\x18\x01 \x01(\x0b\x32\x34.prodvana.protection.ProtectionLifecycle.PreApprovalH\x00\x12N\n\rpost_approval\x18\x03 \x01(\x0b\x32\x35.prodvana.protection.ProtectionLifecycle.PostApprovalH\x00\x12I\n\ndeployment\x18\x04 \x01(\x0b\x32\x33.prodvana.protection.ProtectionLifecycle.DeploymentH\x00\x12R\n\x0fpost_deployment\x18\x05 \x01(\x0b\x32\x37.prodvana.protection.ProtectionLifecycle.PostDeploymentH\x00\x1a\r\n\x0bPreApproval\x1a\x0e\n\x0cPostApproval\x1a\x0c\n\nDeployment\x1a\x88\x01\n\x0ePostDeployment\x12\x37\n\x14\x64\x65lay_check_duration\x18\x01 \x01(\x0b\x32\x19.google.protobuf.Duration\x12=\n\x0e\x63heck_duration\x18\x02 \x01(\x0b\x32\x19.google.protobuf.DurationB\n\xfa\x42\x07\xaa\x01\x04\x08\x01*\x00\x42\x10\n\tlifecycle\x12\x03\xf8\x42\x01\"\x9c\x01\n\x13ProtectionReference\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12:\n\nparameters\x18\x03 \x03(\x0b\x32&.prodvana.common_config.ParameterValueJ\x04\x08\x02\x10\x03R\x08\x61ttachedBOZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
 
 
 _PROTECTIONLIFECYCLE = DESCRIPTOR.message_types_by_name['ProtectionLifecycle']
 _PROTECTIONLIFECYCLE_PREAPPROVAL = _PROTECTIONLIFECYCLE.nested_types_by_name['PreApproval']
 _PROTECTIONLIFECYCLE_POSTAPPROVAL = _PROTECTIONLIFECYCLE.nested_types_by_name['PostApproval']
-_PROTECTIONLIFECYCLE_PUSH = _PROTECTIONLIFECYCLE.nested_types_by_name['Push']
-_PROTECTIONLIFECYCLE_POSTPUSH = _PROTECTIONLIFECYCLE.nested_types_by_name['PostPush']
+_PROTECTIONLIFECYCLE_DEPLOYMENT = _PROTECTIONLIFECYCLE.nested_types_by_name['Deployment']
+_PROTECTIONLIFECYCLE_POSTDEPLOYMENT = _PROTECTIONLIFECYCLE.nested_types_by_name['PostDeployment']
 _PROTECTIONREFERENCE = DESCRIPTOR.message_types_by_name['ProtectionReference']
 ProtectionLifecycle = _reflection.GeneratedProtocolMessageType('ProtectionLifecycle', (_message.Message,), {
 
@@ -43,17 +43,17 @@ ProtectionLifecycle = _reflection.GeneratedProtocolMessageType('ProtectionLifecy
     })
   ,
 
-  'Push' : _reflection.GeneratedProtocolMessageType('Push', (_message.Message,), {
-    'DESCRIPTOR' : _PROTECTIONLIFECYCLE_PUSH,
+  'Deployment' : _reflection.GeneratedProtocolMessageType('Deployment', (_message.Message,), {
+    'DESCRIPTOR' : _PROTECTIONLIFECYCLE_DEPLOYMENT,
     '__module__' : 'prodvana.protection.protection_reference_pb2'
-    # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionLifecycle.Push)
+    # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionLifecycle.Deployment)
     })
   ,
 
-  'PostPush' : _reflection.GeneratedProtocolMessageType('PostPush', (_message.Message,), {
-    'DESCRIPTOR' : _PROTECTIONLIFECYCLE_POSTPUSH,
+  'PostDeployment' : _reflection.GeneratedProtocolMessageType('PostDeployment', (_message.Message,), {
+    'DESCRIPTOR' : _PROTECTIONLIFECYCLE_POSTDEPLOYMENT,
     '__module__' : 'prodvana.protection.protection_reference_pb2'
-    # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionLifecycle.PostPush)
+    # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionLifecycle.PostDeployment)
     })
   ,
   'DESCRIPTOR' : _PROTECTIONLIFECYCLE,
@@ -63,8 +63,8 @@ ProtectionLifecycle = _reflection.GeneratedProtocolMessageType('ProtectionLifecy
 _sym_db.RegisterMessage(ProtectionLifecycle)
 _sym_db.RegisterMessage(ProtectionLifecycle.PreApproval)
 _sym_db.RegisterMessage(ProtectionLifecycle.PostApproval)
-_sym_db.RegisterMessage(ProtectionLifecycle.Push)
-_sym_db.RegisterMessage(ProtectionLifecycle.PostPush)
+_sym_db.RegisterMessage(ProtectionLifecycle.Deployment)
+_sym_db.RegisterMessage(ProtectionLifecycle.PostDeployment)
 
 ProtectionReference = _reflection.GeneratedProtocolMessageType('ProtectionReference', (_message.Message,), {
   'DESCRIPTOR' : _PROTECTIONREFERENCE,
@@ -77,22 +77,22 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection'
-  _PROTECTIONLIFECYCLE_POSTPUSH.fields_by_name['check_duration']._options = None
-  _PROTECTIONLIFECYCLE_POSTPUSH.fields_by_name['check_duration']._serialized_options = b'\372B\007\252\001\004\010\001*\000'
+  _PROTECTIONLIFECYCLE_POSTDEPLOYMENT.fields_by_name['check_duration']._options = None
+  _PROTECTIONLIFECYCLE_POSTDEPLOYMENT.fields_by_name['check_duration']._serialized_options = b'\372B\007\252\001\004\010\001*\000'
   _PROTECTIONLIFECYCLE.oneofs_by_name['lifecycle']._options = None
   _PROTECTIONLIFECYCLE.oneofs_by_name['lifecycle']._serialized_options = b'\370B\001'
   _PROTECTIONREFERENCE.fields_by_name['name']._options = None
   _PROTECTIONREFERENCE.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$'
   _PROTECTIONLIFECYCLE._serialized_start=170
-  _PROTECTIONLIFECYCLE._serialized_end=674
-  _PROTECTIONLIFECYCLE_PREAPPROVAL._serialized_start=486
-  _PROTECTIONLIFECYCLE_PREAPPROVAL._serialized_end=499
-  _PROTECTIONLIFECYCLE_POSTAPPROVAL._serialized_start=501
-  _PROTECTIONLIFECYCLE_POSTAPPROVAL._serialized_end=515
-  _PROTECTIONLIFECYCLE_PUSH._serialized_start=517
-  _PROTECTIONLIFECYCLE_PUSH._serialized_end=523
-  _PROTECTIONLIFECYCLE_POSTPUSH._serialized_start=526
-  _PROTECTIONLIFECYCLE_POSTPUSH._serialized_end=656
-  _PROTECTIONREFERENCE._serialized_start=677
-  _PROTECTIONREFERENCE._serialized_end=833
+  _PROTECTIONLIFECYCLE._serialized_end=710
+  _PROTECTIONLIFECYCLE_PREAPPROVAL._serialized_start=510
+  _PROTECTIONLIFECYCLE_PREAPPROVAL._serialized_end=523
+  _PROTECTIONLIFECYCLE_POSTAPPROVAL._serialized_start=525
+  _PROTECTIONLIFECYCLE_POSTAPPROVAL._serialized_end=539
+  _PROTECTIONLIFECYCLE_DEPLOYMENT._serialized_start=541
+  _PROTECTIONLIFECYCLE_DEPLOYMENT._serialized_end=553
+  _PROTECTIONLIFECYCLE_POSTDEPLOYMENT._serialized_start=556
+  _PROTECTIONLIFECYCLE_POSTDEPLOYMENT._serialized_end=692
+  _PROTECTIONREFERENCE._serialized_start=713
+  _PROTECTIONREFERENCE._serialized_end=869
 # @@protoc_insertion_point(module_scope)
