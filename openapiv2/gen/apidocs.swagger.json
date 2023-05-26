@@ -6345,7 +6345,7 @@
           "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
         },
         "state": {
-          "$ref": "#/definitions/delivery_extensionDeliveryExtensionState"
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionState"
         }
       }
     },
@@ -6369,10 +6369,6 @@
           }
         }
       }
-    },
-    "delivery_extensionDeliveryExtensionState": {
-      "type": "object",
-      "title": "TODO(naphat) list custom task instances?"
     },
     "delivery_extensionGetDeliveryExtensionConfigResp": {
       "type": "object",
@@ -6665,6 +6661,47 @@
         }
       }
     },
+    "desired_statemodelDeliveryExtensionState": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/desired_statemodelMetadata"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          }
+        },
+        "extensionId": {
+          "type": "string"
+        },
+        "program": {
+          "$ref": "#/definitions/common_configProgramConfig"
+        },
+        "retryConfig": {
+          "$ref": "#/definitions/common_configRetryConfig"
+        },
+        "lastCompletedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastCompletedStatus": {
+          "$ref": "#/definitions/modelSimpleStatus"
+        },
+        "lastCompletedStatusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "lastCompletedAppliedVersion": {
+          "type": "string"
+        }
+      }
+    },
     "desired_statemodelMetadata": {
       "type": "object",
       "properties": {
@@ -6897,7 +6934,8 @@
         "MANUAL_APPROVAL",
         "CUSTOM_TASK",
         "PROTECTION_ATTACHMENT",
-        "PROTECTION_LINK"
+        "PROTECTION_LINK",
+        "DELIVERY_EXTENSION"
       ],
       "default": "UNKNOWN"
     },
@@ -8386,6 +8424,9 @@
         },
         "protectionLink": {
           "$ref": "#/definitions/modelProtectionLinkState"
+        },
+        "deliveryExtension": {
+          "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
         }
       }
     },
@@ -8732,6 +8773,10 @@
           "description": "If not set, the task will not be retried once it starts executing once."
         }
       }
+    },
+    "prodvanadelivery_extensionDeliveryExtensionState": {
+      "type": "object",
+      "title": "TODO(naphat) list custom task instances?"
     },
     "prodvanaeventsRuntimeObject": {
       "type": "object",

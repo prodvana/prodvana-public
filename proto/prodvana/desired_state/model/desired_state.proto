@@ -18,6 +18,7 @@ enum Type {
     CUSTOM_TASK = 6;
     PROTECTION_ATTACHMENT = 7;
     PROTECTION_LINK = 8;
+    DELIVERY_EXTENSION = 9;
 }
 
 enum Lifecycle {
@@ -345,6 +346,7 @@ message State {
         CustomTaskState custom_task = 6;
         ProtectionAttachment protection_attachment = 7;
         ProtectionLinkState protection_link = 8;
+        DeliveryExtensionState delivery_extension = 9;
     }
 }
 
@@ -426,6 +428,19 @@ message ProtectionAttachment {
     string protection_id = 3;
     string attachment_id = 4;
     // next tag: 9
+}
+
+message DeliveryExtensionState {
+    Metadata meta = 1;
+    repeated Version versions = 2;
+    string extension_id = 3;
+    prodvana.common_config.ProgramConfig program = 4 [(validate.rules).message.required = true];
+    prodvana.common_config.RetryConfig retry_config = 5;
+
+    google.protobuf.Timestamp last_completed_timestamp = 6;
+    SimpleStatus last_completed_status = 7;
+    repeated StatusExplanation last_completed_status_explanations = 8;
+    string last_completed_applied_version = 9;
 }
 
 enum SignalType {

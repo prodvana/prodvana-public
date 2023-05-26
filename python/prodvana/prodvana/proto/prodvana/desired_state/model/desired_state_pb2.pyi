@@ -38,6 +38,7 @@ class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     CUSTOM_TASK: _Type.ValueType  # 6
     PROTECTION_ATTACHMENT: _Type.ValueType  # 7
     PROTECTION_LINK: _Type.ValueType  # 8
+    DELIVERY_EXTENSION: _Type.ValueType  # 9
 
 class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
 
@@ -50,6 +51,7 @@ MANUAL_APPROVAL: Type.ValueType  # 5
 CUSTOM_TASK: Type.ValueType  # 6
 PROTECTION_ATTACHMENT: Type.ValueType  # 7
 PROTECTION_LINK: Type.ValueType  # 8
+DELIVERY_EXTENSION: Type.ValueType  # 9
 global___Type = Type
 
 class _Lifecycle:
@@ -952,6 +954,7 @@ class State(google.protobuf.message.Message):
     CUSTOM_TASK_FIELD_NUMBER: builtins.int
     PROTECTION_ATTACHMENT_FIELD_NUMBER: builtins.int
     PROTECTION_LINK_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSION_FIELD_NUMBER: builtins.int
     @property
     def service(self) -> global___ServiceState: ...
     @property
@@ -968,6 +971,8 @@ class State(google.protobuf.message.Message):
     def protection_attachment(self) -> global___ProtectionAttachment: ...
     @property
     def protection_link(self) -> global___ProtectionLinkState: ...
+    @property
+    def delivery_extension(self) -> global___DeliveryExtensionState: ...
     def __init__(
         self,
         *,
@@ -979,10 +984,11 @@ class State(google.protobuf.message.Message):
         custom_task: global___CustomTaskState | None = ...,
         protection_attachment: global___ProtectionAttachment | None = ...,
         protection_link: global___ProtectionLinkState | None = ...,
+        delivery_extension: global___DeliveryExtensionState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "service_group", "runtime_object", "manual_approval", "custom_task", "protection_attachment", "protection_link"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "service_group", "runtime_object", "manual_approval", "custom_task", "protection_attachment", "protection_link", "delivery_extension"] | None: ...
 
 global___State = State
 
@@ -1200,6 +1206,51 @@ class ProtectionAttachment(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "last_completed_versions", b"last_completed_versions", "meta", b"meta", "protection_id", b"protection_id", "versions", b"versions"]) -> None: ...
 
 global___ProtectionAttachment = ProtectionAttachment
+
+class DeliveryExtensionState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    META_FIELD_NUMBER: builtins.int
+    VERSIONS_FIELD_NUMBER: builtins.int
+    EXTENSION_ID_FIELD_NUMBER: builtins.int
+    PROGRAM_FIELD_NUMBER: builtins.int
+    RETRY_CONFIG_FIELD_NUMBER: builtins.int
+    LAST_COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    LAST_COMPLETED_STATUS_FIELD_NUMBER: builtins.int
+    LAST_COMPLETED_STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
+    LAST_COMPLETED_APPLIED_VERSION_FIELD_NUMBER: builtins.int
+    @property
+    def meta(self) -> global___Metadata: ...
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    extension_id: builtins.str
+    @property
+    def program(self) -> prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig: ...
+    @property
+    def retry_config(self) -> prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig: ...
+    @property
+    def last_completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    last_completed_status: global___SimpleStatus.ValueType
+    @property
+    def last_completed_status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
+    last_completed_applied_version: builtins.str
+    def __init__(
+        self,
+        *,
+        meta: global___Metadata | None = ...,
+        versions: collections.abc.Iterable[global___Version] | None = ...,
+        extension_id: builtins.str = ...,
+        program: prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig | None = ...,
+        retry_config: prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig | None = ...,
+        last_completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        last_completed_status: global___SimpleStatus.ValueType = ...,
+        last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
+        last_completed_applied_version: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta", "program", b"program", "retry_config", b"retry_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta", "program", b"program", "retry_config", b"retry_config", "versions", b"versions"]) -> None: ...
+
+global___DeliveryExtensionState = DeliveryExtensionState
 
 class Signal(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

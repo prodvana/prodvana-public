@@ -3148,6 +3148,47 @@ func (m *State) validate(all bool) error {
 			}
 		}
 
+	case *State_DeliveryExtension:
+		if v == nil {
+			err := StateValidationError{
+				field:  "StateOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetDeliveryExtension()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "DeliveryExtension",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StateValidationError{
+						field:  "DeliveryExtension",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetDeliveryExtension()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StateValidationError{
+					field:  "DeliveryExtension",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -4274,6 +4315,309 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ProtectionAttachmentValidationError{}
+
+// Validate checks the field values on DeliveryExtensionState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeliveryExtensionState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeliveryExtensionState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeliveryExtensionStateMultiError, or nil if none found.
+func (m *DeliveryExtensionState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeliveryExtensionState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetMeta()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "Meta",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "Meta",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeliveryExtensionStateValidationError{
+				field:  "Meta",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionStateValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionStateValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionStateValidationError{
+					field:  fmt.Sprintf("Versions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for ExtensionId
+
+	if m.GetProgram() == nil {
+		err := DeliveryExtensionStateValidationError{
+			field:  "Program",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetProgram()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "Program",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "Program",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProgram()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeliveryExtensionStateValidationError{
+				field:  "Program",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRetryConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "RetryConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "RetryConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRetryConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeliveryExtensionStateValidationError{
+				field:  "RetryConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetLastCompletedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "LastCompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeliveryExtensionStateValidationError{
+					field:  "LastCompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastCompletedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeliveryExtensionStateValidationError{
+				field:  "LastCompletedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for LastCompletedStatus
+
+	for idx, item := range m.GetLastCompletedStatusExplanations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionStateValidationError{
+						field:  fmt.Sprintf("LastCompletedStatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionStateValidationError{
+						field:  fmt.Sprintf("LastCompletedStatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionStateValidationError{
+					field:  fmt.Sprintf("LastCompletedStatusExplanations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for LastCompletedAppliedVersion
+
+	if len(errors) > 0 {
+		return DeliveryExtensionStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeliveryExtensionStateMultiError is an error wrapping multiple validation
+// errors returned by DeliveryExtensionState.ValidateAll() if the designated
+// constraints aren't met.
+type DeliveryExtensionStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeliveryExtensionStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeliveryExtensionStateMultiError) AllErrors() []error { return m }
+
+// DeliveryExtensionStateValidationError is the validation error returned by
+// DeliveryExtensionState.Validate if the designated constraints aren't met.
+type DeliveryExtensionStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeliveryExtensionStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeliveryExtensionStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeliveryExtensionStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeliveryExtensionStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeliveryExtensionStateValidationError) ErrorName() string {
+	return "DeliveryExtensionStateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeliveryExtensionStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeliveryExtensionState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeliveryExtensionStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeliveryExtensionStateValidationError{}
 
 // Validate checks the field values on Signal with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
