@@ -12,6 +12,7 @@ import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
+import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
 import sys
 import typing
 
@@ -73,14 +74,9 @@ class ClusterAuth(google.protobuf.message.Message):
     class GenericDockerAuth(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        PROXY_RUNTIME_FIELD_NUMBER: builtins.int
-        proxy_runtime: builtins.str
         def __init__(
             self,
-            *,
-            proxy_runtime: builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> None: ...
 
     class K8sAuth(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -264,21 +260,25 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
     APPLY_FIELD_NUMBER: builtins.int
     GET_CURRENT_STATE_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
+    PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___GenericDockerCommand: ...
     @property
     def get_current_state(self) -> global___GenericDockerCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
+    @property
+    def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     def __init__(
         self,
         *,
         apply: global___GenericDockerCommand | None = ...,
         get_current_state: global___GenericDockerCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
+        proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "parameters", b"parameters"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
 
 global___GenericDockerClusterConfig = GenericDockerClusterConfig
 

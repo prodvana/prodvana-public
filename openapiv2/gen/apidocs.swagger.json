@@ -4531,12 +4531,7 @@
       }
     },
     "ClusterAuthGenericDockerAuth": {
-      "type": "object",
-      "properties": {
-        "proxyRuntime": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "ClusterAuthK8sAuth": {
       "type": "object",
@@ -7083,6 +7078,9 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterDefinition"
           }
+        },
+        "proxyRuntime": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
         }
       }
     },

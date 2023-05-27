@@ -2668,6 +2668,16 @@
                             "type": "array"
                         }
                     ]
+                },
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -4043,6 +4053,40 @@
                 }
             ],
             "title": "K 8 S"
+        },
+        "prodvana.runtimes.RuntimeExecutionConfig": {
+            "properties": {
+                "runtime": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "containerOrchestration": {
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Runtime Execution Config"
         },
         "prodvana.service.AutoRollbackConfig": {
             "properties": {

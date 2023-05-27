@@ -7,6 +7,7 @@ import "validate/validate.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/runtimes/runtimes_config.proto";
 
 message ClusterAuth {
     string endpoint = 1;
@@ -22,7 +23,6 @@ message ClusterAuth {
         string cluster_arn = 5;
     }
     message GenericDockerAuth {
-        string proxy_runtime = 1;
     }
     message K8sAuth {
         map<string, string> agent_env = 1;
@@ -83,6 +83,7 @@ message GenericDockerClusterConfig {
     GenericDockerCommand apply = 1 [(validate.rules).message.required = true];
     GenericDockerCommand get_current_state = 2;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
+    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
 }
 
 message ClusterConfig {
