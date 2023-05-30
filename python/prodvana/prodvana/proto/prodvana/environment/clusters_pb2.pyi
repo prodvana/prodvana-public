@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
@@ -281,6 +282,50 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
 
 global___GenericDockerClusterConfig = GenericDockerClusterConfig
+
+class CompiledGenericDockerCommand(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class EnvEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> prodvana.proto.prodvana.common_config.env_pb2.EnvValue: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: prodvana.proto.prodvana.common_config.env_pb2.EnvValue | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    NAME_PREFIX_FIELD_NUMBER: builtins.int
+    COMMAND_FIELD_NUMBER: builtins.int
+    RUNTIME_EXECUTION_FIELD_NUMBER: builtins.int
+    ENV_FIELD_NUMBER: builtins.int
+    name_prefix: builtins.str
+    @property
+    def command(self) -> global___GenericDockerCommand: ...
+    @property
+    def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
+    @property
+    def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]: ...
+    def __init__(
+        self,
+        *,
+        name_prefix: builtins.str = ...,
+        command: global___GenericDockerCommand | None = ...,
+        runtime_execution: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
+        env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["command", b"command", "runtime_execution", b"runtime_execution"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["command", b"command", "env", b"env", "name_prefix", b"name_prefix", "runtime_execution", b"runtime_execution"]) -> None: ...
+
+global___CompiledGenericDockerCommand = CompiledGenericDockerCommand
 
 class ClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

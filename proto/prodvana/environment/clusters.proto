@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "prodvana/common_config/env.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
@@ -84,6 +85,13 @@ message GenericDockerClusterConfig {
     GenericDockerCommand get_current_state = 2;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
+}
+
+message CompiledGenericDockerCommand {
+    string name_prefix = 1;
+    GenericDockerCommand command = 2;
+    prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 3;
+    map<string, prodvana.common_config.EnvValue> env = 4;
 }
 
 message ClusterConfig {
