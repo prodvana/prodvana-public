@@ -5154,6 +5154,17 @@
       ],
       "default": "UNKNOWN"
     },
+    "RuntimeObjectGenericRuntime": {
+      "type": "object",
+      "properties": {
+        "getCurrentState": {
+          "$ref": "#/definitions/environmentCompiledGenericDockerCommand"
+        },
+        "serviceId": {
+          "type": "string"
+        }
+      }
+    },
     "RuntimeSpecificConfigK8SConfig": {
       "type": "object",
       "properties": {
@@ -6813,14 +6824,20 @@
           "type": "boolean",
           "title": "This object just needs to exist - it doesn't change from version to version"
         },
-        "stateHash": {
-          "type": "string",
-          "format": "byte",
-          "title": "Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)"
-        },
         "message": {
           "type": "string",
           "description": "Human readable message (typically for errors)."
+        },
+        "genericRuntime": {
+          "$ref": "#/definitions/RuntimeObjectGenericRuntime",
+          "title": "additional config if this runtime object belongs to a generic runtime"
+        },
+        "outputBlobIds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "if output is saved, this is the ID of the blob to retrieve it, by container name"
         }
       }
     },
@@ -7016,6 +7033,26 @@
         "GENERIC_DOCKER"
       ],
       "default": "UNKNOWN"
+    },
+    "environmentCompiledGenericDockerCommand": {
+      "type": "object",
+      "properties": {
+        "namePrefix": {
+          "type": "string"
+        },
+        "command": {
+          "$ref": "#/definitions/environmentGenericDockerCommand"
+        },
+        "runtimeExecution": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          }
+        }
+      }
     },
     "environmentConfigureClusterReq": {
       "type": "object",

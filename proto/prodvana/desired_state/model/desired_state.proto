@@ -6,6 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
+import "prodvana/environment/clusters.proto";
 import "prodvana/protection/protection_reference.proto";
 
 enum Type {
@@ -274,6 +275,10 @@ message DeliveryState {
 }
 
 message RuntimeObject {
+    message GenericRuntime {
+        prodvana.environment.CompiledGenericDockerCommand get_current_state = 1;
+        string service_id = 2;
+    }
     Metadata meta = 1;
     string object_type = 2;
     string namespace = 3;
@@ -288,11 +293,12 @@ message RuntimeObject {
     Version rollback_version = 7;
     DeliveryState delivery = 8;
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
-    bytes state_hash = 11; // Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)
     string message = 12; // Human readable message (typically for errors).
+    GenericRuntime generic_runtime = 13; // additional config if this runtime object belongs to a generic runtime
+    map<string, string> output_blob_ids = 14; // if output is saved, this is the ID of the blob to retrieve it, by container name
 
-    reserved 9;
-    reserved "unhealthy_pods";
+    reserved 9, 11;
+    reserved "unhealthy_pods", "state_hash";
 }
 
 enum ConditionStatus {

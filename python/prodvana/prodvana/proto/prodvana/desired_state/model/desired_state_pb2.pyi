@@ -12,6 +12,7 @@ import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
+import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
 import sys
 import typing
@@ -817,6 +818,38 @@ class RuntimeObject(google.protobuf.message.Message):
     SUCCEEDED: RuntimeObject.Status.ValueType  # 1
     FAILED: RuntimeObject.Status.ValueType  # 2
 
+    class GenericRuntime(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        GET_CURRENT_STATE_FIELD_NUMBER: builtins.int
+        SERVICE_ID_FIELD_NUMBER: builtins.int
+        @property
+        def get_current_state(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledGenericDockerCommand: ...
+        service_id: builtins.str
+        def __init__(
+            self,
+            *,
+            get_current_state: prodvana.proto.prodvana.environment.clusters_pb2.CompiledGenericDockerCommand | None = ...,
+            service_id: builtins.str = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["get_current_state", b"get_current_state"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["get_current_state", b"get_current_state", "service_id", b"service_id"]) -> None: ...
+
+    class OutputBlobIdsEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.str
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
@@ -826,8 +859,9 @@ class RuntimeObject(google.protobuf.message.Message):
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
     VERSION_AGNOSTIC_FIELD_NUMBER: builtins.int
-    STATE_HASH_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
+    GENERIC_RUNTIME_FIELD_NUMBER: builtins.int
+    OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -842,10 +876,14 @@ class RuntimeObject(google.protobuf.message.Message):
     def delivery(self) -> global___DeliveryState: ...
     version_agnostic: builtins.bool
     """This object just needs to exist - it doesn't change from version to version"""
-    state_hash: builtins.bytes
-    """Some deterministic summary which can be used to detect if state has changed (to determine if LogDebugInfo should be called)"""
     message: builtins.str
     """Human readable message (typically for errors)."""
+    @property
+    def generic_runtime(self) -> global___RuntimeObject.GenericRuntime:
+        """additional config if this runtime object belongs to a generic runtime"""
+    @property
+    def output_blob_ids(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+        """if output is saved, this is the ID of the blob to retrieve it, by container name"""
     def __init__(
         self,
         *,
@@ -858,11 +896,12 @@ class RuntimeObject(google.protobuf.message.Message):
         rollback_version: global___Version | None = ...,
         delivery: global___DeliveryState | None = ...,
         version_agnostic: builtins.bool = ...,
-        state_hash: builtins.bytes = ...,
         message: builtins.str = ...,
+        generic_runtime: global___RuntimeObject.GenericRuntime | None = ...,
+        output_blob_ids: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "rollback_version", b"rollback_version", "state_hash", b"state_hash", "status", b"status", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "status", b"status", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
