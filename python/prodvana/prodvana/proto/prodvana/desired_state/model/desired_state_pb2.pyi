@@ -800,6 +800,21 @@ class DeliveryState(google.protobuf.message.Message):
 
 global___DeliveryState = DeliveryState
 
+class GenericRuntimeFetchOutput(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VERSIONS_FIELD_NUMBER: builtins.int
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    def __init__(
+        self,
+        *,
+        versions: collections.abc.Iterable[global___Version] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["versions", b"versions"]) -> None: ...
+
+global___GenericRuntimeFetchOutput = GenericRuntimeFetchOutput
+
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -862,6 +877,8 @@ class RuntimeObject(google.protobuf.message.Message):
     MESSAGE_FIELD_NUMBER: builtins.int
     GENERIC_RUNTIME_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
+    INTERVAL_FIELD_NUMBER: builtins.int
+    TIMEOUT_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -884,6 +901,12 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def output_blob_ids(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """if output is saved, this is the ID of the blob to retrieve it, by container name"""
+    @property
+    def interval(self) -> google.protobuf.duration_pb2.Duration:
+        """if set, runtime object is continuously applied instead of being done once when there is a version mismatch"""
+    @property
+    def timeout(self) -> google.protobuf.duration_pb2.Duration:
+        """if set, runtime object is recreated when this timeout is hit if it has not converged by then."""
     def __init__(
         self,
         *,
@@ -899,9 +922,11 @@ class RuntimeObject(google.protobuf.message.Message):
         message: builtins.str = ...,
         generic_runtime: global___RuntimeObject.GenericRuntime | None = ...,
         output_blob_ids: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        interval: google.protobuf.duration_pb2.Duration | None = ...,
+        timeout: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "status", b"status", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

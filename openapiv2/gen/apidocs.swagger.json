@@ -6838,6 +6838,14 @@
             "type": "string"
           },
           "title": "if output is saved, this is the ID of the blob to retrieve it, by container name"
+        },
+        "interval": {
+          "type": "string",
+          "title": "if set, runtime object is continuously applied instead of being done once when there is a version mismatch"
+        },
+        "timeout": {
+          "type": "string",
+          "description": "if set, runtime object is recreated when this timeout is hit if it has not converged by then."
         }
       }
     },
@@ -7129,6 +7137,14 @@
         },
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"
+        },
+        "pollInterval": {
+          "type": "string",
+          "title": "customize intervals instead of using Prodvana default\nonly used for get_current_state\nhow often to run command after it succeeds"
+        },
+        "timeout": {
+          "type": "string",
+          "title": "how long after a run has started to try another run if it has not completed yet"
         }
       }
     },
