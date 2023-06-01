@@ -249,7 +249,7 @@ class GenericDockerCommand(google.protobuf.message.Message):
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
         """customize intervals instead of using Prodvana default
-        only used for get_current_state
+        only used for fetch
         how often to run command after it succeeds
         """
     @property
@@ -273,13 +273,13 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     APPLY_FIELD_NUMBER: builtins.int
-    GET_CURRENT_STATE_FIELD_NUMBER: builtins.int
+    FETCH_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___GenericDockerCommand: ...
     @property
-    def get_current_state(self) -> global___GenericDockerCommand: ...
+    def fetch(self) -> global___GenericDockerCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
@@ -288,12 +288,12 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
         self,
         *,
         apply: global___GenericDockerCommand | None = ...,
-        get_current_state: global___GenericDockerCommand | None = ...,
+        fetch: global___GenericDockerCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "get_current_state", b"get_current_state", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
 
 global___GenericDockerClusterConfig = GenericDockerClusterConfig
 

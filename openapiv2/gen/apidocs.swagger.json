@@ -7114,7 +7114,7 @@
         "apply": {
           "$ref": "#/definitions/environmentGenericDockerCommand"
         },
-        "getCurrentState": {
+        "fetch": {
           "$ref": "#/definitions/environmentGenericDockerCommand"
         },
         "parameters": {
@@ -7140,7 +7140,7 @@
         },
         "pollInterval": {
           "type": "string",
-          "title": "customize intervals instead of using Prodvana default\nonly used for get_current_state\nhow often to run command after it succeeds"
+          "title": "customize intervals instead of using Prodvana default\nonly used for fetch\nhow often to run command after it succeeds"
         },
         "timeout": {
           "type": "string",

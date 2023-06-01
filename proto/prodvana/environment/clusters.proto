@@ -80,7 +80,7 @@ message GenericDockerCommand {
         prodvana.common_config.KubernetesConfig kubernetes_config = 2;
     }
     // customize intervals instead of using Prodvana default
-    // only used for get_current_state
+    // only used for fetch
     // how often to run command after it succeeds
     google.protobuf.Duration poll_interval = 3;
     // how long after a run has started to try another run if it has not completed yet
@@ -89,7 +89,7 @@ message GenericDockerCommand {
 
 message GenericDockerClusterConfig {
     GenericDockerCommand apply = 1 [(validate.rules).message.required = true];
-    GenericDockerCommand get_current_state = 2;
+    GenericDockerCommand fetch = 2;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
 }

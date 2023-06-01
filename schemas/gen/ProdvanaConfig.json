@@ -2645,7 +2645,7 @@
                         {}
                     ]
                 },
-                "getCurrentState": {
+                "fetch": {
                     "$ref": "#/definitions/prodvana.environment.GenericDockerCommand",
                     "additionalProperties": false,
                     "oneOf": [
@@ -2716,7 +2716,7 @@
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "customize intervals instead of using Prodvana default only used for get_current_state how often to run command after it succeeds",
+                    "description": "customize intervals instead of using Prodvana default only used for fetch how often to run command after it succeeds",
                     "format": "regex"
                 },
                 "timeout": {
