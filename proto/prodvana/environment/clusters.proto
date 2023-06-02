@@ -24,19 +24,18 @@ message ClusterAuth {
         string assume_role_arn = 4;
         string cluster_arn = 5;
     }
-    message ExtensionAuth {
-    }
     message K8sAuth {
         map<string, string> agent_env = 1;
     }
 
     oneof auth_oneof {
         ECSAuth ecs = 5;
-        ExtensionAuth extension = 7;
         K8sAuth k8s = 8;
     }
     bool k8s_agent_auth = 6;
 
+    reserved 7;
+    reserved "extension";
     // next tag: 9
 }
 

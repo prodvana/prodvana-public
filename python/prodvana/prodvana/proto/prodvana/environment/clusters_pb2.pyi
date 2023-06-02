@@ -73,13 +73,6 @@ class ClusterAuth(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "assume_role_arn", b"assume_role_arn", "cluster_arn", b"cluster_arn", "region", b"region", "secret_key", b"secret_key"]) -> None: ...
 
-    class ExtensionAuth(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        def __init__(
-            self,
-        ) -> None: ...
-
     class K8sAuth(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -113,7 +106,6 @@ class ClusterAuth(google.protobuf.message.Message):
     TOKEN_FIELD_NUMBER: builtins.int
     SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
     ECS_FIELD_NUMBER: builtins.int
-    EXTENSION_FIELD_NUMBER: builtins.int
     K8S_FIELD_NUMBER: builtins.int
     K8S_AGENT_AUTH_FIELD_NUMBER: builtins.int
     endpoint: builtins.str
@@ -122,8 +114,6 @@ class ClusterAuth(google.protobuf.message.Message):
     service_account: builtins.str
     @property
     def ecs(self) -> global___ClusterAuth.ECSAuth: ...
-    @property
-    def extension(self) -> global___ClusterAuth.ExtensionAuth: ...
     @property
     def k8s(self) -> global___ClusterAuth.K8sAuth: ...
     k8s_agent_auth: builtins.bool
@@ -135,13 +125,12 @@ class ClusterAuth(google.protobuf.message.Message):
         token: builtins.str = ...,
         service_account: builtins.str = ...,
         ecs: global___ClusterAuth.ECSAuth | None = ...,
-        extension: global___ClusterAuth.ExtensionAuth | None = ...,
         k8s: global___ClusterAuth.K8sAuth | None = ...,
         k8s_agent_auth: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "extension", b"extension", "k8s", b"k8s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ca_cert", b"ca_cert", "ecs", b"ecs", "endpoint", b"endpoint", "extension", b"extension", "k8s", b"k8s", "k8s_agent_auth", b"k8s_agent_auth", "service_account", b"service_account", "token", b"token"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["auth_oneof", b"auth_oneof"]) -> typing_extensions.Literal["ecs", "extension", "k8s"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "k8s", b"k8s"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ca_cert", b"ca_cert", "ecs", b"ecs", "endpoint", b"endpoint", "k8s", b"k8s", "k8s_agent_auth", b"k8s_agent_auth", "service_account", b"service_account", "token", b"token"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["auth_oneof", b"auth_oneof"]) -> typing_extensions.Literal["ecs", "k8s"] | None: ...
 
 global___ClusterAuth = ClusterAuth
 

@@ -4562,9 +4562,6 @@
         }
       }
     },
-    "ClusterAuthExtensionAuth": {
-      "type": "object"
-    },
     "ClusterAuthK8sAuth": {
       "type": "object",
       "properties": {
@@ -7023,9 +7020,6 @@
         },
         "ecs": {
           "$ref": "#/definitions/ClusterAuthECSAuth"
-        },
-        "extension": {
-          "$ref": "#/definitions/ClusterAuthExtensionAuth"
         },
         "k8s": {
           "$ref": "#/definitions/ClusterAuthK8sAuth"
