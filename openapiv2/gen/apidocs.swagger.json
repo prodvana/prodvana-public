@@ -4562,7 +4562,7 @@
         }
       }
     },
-    "ClusterAuthGenericDockerAuth": {
+    "ClusterAuthExtensionAuth": {
       "type": "object"
     },
     "ClusterAuthK8sAuth": {
@@ -5187,11 +5187,11 @@
       ],
       "default": "UNKNOWN"
     },
-    "RuntimeObjectGenericRuntime": {
+    "RuntimeObjectRuntimeExtension": {
       "type": "object",
       "properties": {
-        "getCurrentState": {
-          "$ref": "#/definitions/environmentCompiledGenericDockerCommand"
+        "fetch": {
+          "$ref": "#/definitions/environmentCompiledExtensionCommand"
         },
         "serviceId": {
           "type": "string"
@@ -6875,9 +6875,9 @@
           "type": "string",
           "description": "Human readable message (typically for errors)."
         },
-        "genericRuntime": {
-          "$ref": "#/definitions/RuntimeObjectGenericRuntime",
-          "title": "additional config if this runtime object belongs to a generic runtime"
+        "runtimeExtension": {
+          "$ref": "#/definitions/RuntimeObjectRuntimeExtension",
+          "title": "additional config if this runtime object belongs to a runtime extension"
         },
         "outputBlobIds": {
           "type": "object",
@@ -7024,8 +7024,8 @@
         "ecs": {
           "$ref": "#/definitions/ClusterAuthECSAuth"
         },
-        "genericDocker": {
-          "$ref": "#/definitions/ClusterAuthGenericDockerAuth"
+        "extension": {
+          "$ref": "#/definitions/ClusterAuthExtensionAuth"
         },
         "k8s": {
           "$ref": "#/definitions/ClusterAuthK8sAuth"
@@ -7073,8 +7073,8 @@
           "$ref": "#/definitions/environmentFakeClusterConfig",
           "title": "only used for fake runtimes"
         },
-        "genericDocker": {
-          "$ref": "#/definitions/environmentGenericDockerClusterConfig"
+        "extension": {
+          "$ref": "#/definitions/environmentExtensionClusterConfig"
         }
       }
     },
@@ -7085,18 +7085,18 @@
         "K8S",
         "ECS",
         "FAKE",
-        "GENERIC_DOCKER"
+        "EXTENSION"
       ],
       "default": "UNKNOWN"
     },
-    "environmentCompiledGenericDockerCommand": {
+    "environmentCompiledExtensionCommand": {
       "type": "object",
       "properties": {
         "namePrefix": {
           "type": "string"
         },
         "command": {
-          "$ref": "#/definitions/environmentGenericDockerCommand"
+          "$ref": "#/definitions/environmentExtensionCommand"
         },
         "runtimeExecution": {
           "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
@@ -7143,26 +7143,14 @@
         }
       }
     },
-    "environmentFakeClusterConfig": {
-      "type": "object",
-      "properties": {
-        "crashingPrograms": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/FakeClusterConfigCrashingProgramPatterns"
-          }
-        }
-      }
-    },
-    "environmentGenericDockerClusterConfig": {
+    "environmentExtensionClusterConfig": {
       "type": "object",
       "properties": {
         "apply": {
-          "$ref": "#/definitions/environmentGenericDockerCommand"
+          "$ref": "#/definitions/environmentExtensionCommand"
         },
         "fetch": {
-          "$ref": "#/definitions/environmentGenericDockerCommand"
+          "$ref": "#/definitions/environmentExtensionCommand"
         },
         "parameters": {
           "type": "array",
@@ -7176,7 +7164,7 @@
         }
       }
     },
-    "environmentGenericDockerCommand": {
+    "environmentExtensionCommand": {
       "type": "object",
       "properties": {
         "taskConfig": {
@@ -7192,6 +7180,18 @@
         "timeout": {
           "type": "string",
           "title": "how long after a run has started to try another run if it has not completed yet"
+        }
+      }
+    },
+    "environmentFakeClusterConfig": {
+      "type": "object",
+      "properties": {
+        "crashingPrograms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/FakeClusterConfigCrashingProgramPatterns"
+          }
         }
       }
     },
@@ -9423,7 +9423,7 @@
       "enum": [
         "UNKNOWN_CONNECTION",
         "LONG_LIVED_COMPUTE",
-        "GENERIC"
+        "EXTENSION"
       ],
       "default": "UNKNOWN_CONNECTION"
     },
@@ -9627,8 +9627,8 @@
           "type": "string",
           "title": "how long to wait before marking deployment as failed"
         },
-        "genericRuntime": {
-          "$ref": "#/definitions/serviceGenericRuntimeConfig"
+        "runtimeExtension": {
+          "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"
@@ -9688,18 +9688,6 @@
       "properties": {
         "enabled": {
           "type": "boolean"
-        }
-      }
-    },
-    "serviceGenericRuntimeConfig": {
-      "type": "object",
-      "properties": {
-        "parameterValues": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common_configParameterValue"
-          }
         }
       }
     },
@@ -9964,8 +9952,8 @@
           "type": "string",
           "description": "which runtime connection to use in each release channel.\noptional if only one runtime makes sense for the service config."
         },
-        "genericRuntime": {
-          "$ref": "#/definitions/serviceGenericRuntimeConfig"
+        "runtimeExtension": {
+          "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"
@@ -10041,6 +10029,18 @@
           "type": "integer",
           "format": "int32",
           "title": "no validations, server side has defaults"
+        }
+      }
+    },
+    "serviceRuntimeExtensionConfig": {
+      "type": "object",
+      "properties": {
+        "parameterValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
         }
       }
     },
@@ -10151,8 +10151,8 @@
           "type": "string",
           "title": "how long to wait before marking deployment as failed"
         },
-        "genericRuntime": {
-          "$ref": "#/definitions/serviceGenericRuntimeConfig"
+        "runtimeExtension": {
+          "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"

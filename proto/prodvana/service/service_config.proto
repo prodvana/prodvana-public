@@ -102,7 +102,7 @@ message PerReleaseChannelConfig {
     string runtime_connection = 17;
 
     oneof config_oneof {
-        GenericRuntimeConfig generic_runtime = 13;
+        RuntimeExtensionConfig runtime_extension = 13;
         prodvana.common_config.KubernetesConfig kubernetes_config = 14;
         // deprecated, pass this as kubernetes_config instead
         prodvana.common_config.KubernetesConfig external_config = 16;
@@ -171,7 +171,7 @@ message RuntimeSpecificConfig {
     }
 }
 
-message GenericRuntimeConfig {
+message RuntimeExtensionConfig {
     repeated prodvana.common_config.ParameterValue parameter_values = 1;
 }
 
@@ -248,7 +248,7 @@ message ServiceConfig {
     reserved "external", "image_repository", "container_registry_id", "protections";
 
     oneof config_oneof {
-        GenericRuntimeConfig generic_runtime = 18;
+        RuntimeExtensionConfig runtime_extension = 18;
         prodvana.common_config.KubernetesConfig kubernetes_config = 19;
         // deprecated, pass this as kubernetes_config instead
         prodvana.common_config.KubernetesConfig external_config = 27;
@@ -307,7 +307,7 @@ message CompiledServiceInstanceConfig {
     google.protobuf.Duration progress_deadline = 26;
 
     oneof config_oneof {
-        GenericRuntimeConfig generic_runtime = 22;
+        RuntimeExtensionConfig runtime_extension = 22;
         prodvana.common_config.KubernetesConfig kubernetes_config = 23;
         prodvana.common_config.HelmConfig helm = 29;
     }

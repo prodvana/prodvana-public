@@ -2092,22 +2092,22 @@ var _ interface {
 	ErrorName() string
 } = DeliveryStateValidationError{}
 
-// Validate checks the field values on GenericRuntimeFetchOutput with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RuntimeExtensionFetchOutput with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GenericRuntimeFetchOutput) Validate() error {
+func (m *RuntimeExtensionFetchOutput) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GenericRuntimeFetchOutput with the
+// ValidateAll checks the field values on RuntimeExtensionFetchOutput with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GenericRuntimeFetchOutputMultiError, or nil if none found.
-func (m *GenericRuntimeFetchOutput) ValidateAll() error {
+// RuntimeExtensionFetchOutputMultiError, or nil if none found.
+func (m *RuntimeExtensionFetchOutput) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GenericRuntimeFetchOutput) validate(all bool) error {
+func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -2121,7 +2121,7 @@ func (m *GenericRuntimeFetchOutput) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GenericRuntimeFetchOutputValidationError{
+					errors = append(errors, RuntimeExtensionFetchOutputValidationError{
 						field:  fmt.Sprintf("Versions[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2129,7 +2129,7 @@ func (m *GenericRuntimeFetchOutput) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GenericRuntimeFetchOutputValidationError{
+					errors = append(errors, RuntimeExtensionFetchOutputValidationError{
 						field:  fmt.Sprintf("Versions[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2138,7 +2138,7 @@ func (m *GenericRuntimeFetchOutput) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GenericRuntimeFetchOutputValidationError{
+				return RuntimeExtensionFetchOutputValidationError{
 					field:  fmt.Sprintf("Versions[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2149,19 +2149,19 @@ func (m *GenericRuntimeFetchOutput) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GenericRuntimeFetchOutputMultiError(errors)
+		return RuntimeExtensionFetchOutputMultiError(errors)
 	}
 
 	return nil
 }
 
-// GenericRuntimeFetchOutputMultiError is an error wrapping multiple validation
-// errors returned by GenericRuntimeFetchOutput.ValidateAll() if the
-// designated constraints aren't met.
-type GenericRuntimeFetchOutputMultiError []error
+// RuntimeExtensionFetchOutputMultiError is an error wrapping multiple
+// validation errors returned by RuntimeExtensionFetchOutput.ValidateAll() if
+// the designated constraints aren't met.
+type RuntimeExtensionFetchOutputMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GenericRuntimeFetchOutputMultiError) Error() string {
+func (m RuntimeExtensionFetchOutputMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2170,11 +2170,12 @@ func (m GenericRuntimeFetchOutputMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GenericRuntimeFetchOutputMultiError) AllErrors() []error { return m }
+func (m RuntimeExtensionFetchOutputMultiError) AllErrors() []error { return m }
 
-// GenericRuntimeFetchOutputValidationError is the validation error returned by
-// GenericRuntimeFetchOutput.Validate if the designated constraints aren't met.
-type GenericRuntimeFetchOutputValidationError struct {
+// RuntimeExtensionFetchOutputValidationError is the validation error returned
+// by RuntimeExtensionFetchOutput.Validate if the designated constraints
+// aren't met.
+type RuntimeExtensionFetchOutputValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2182,24 +2183,24 @@ type GenericRuntimeFetchOutputValidationError struct {
 }
 
 // Field function returns field value.
-func (e GenericRuntimeFetchOutputValidationError) Field() string { return e.field }
+func (e RuntimeExtensionFetchOutputValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GenericRuntimeFetchOutputValidationError) Reason() string { return e.reason }
+func (e RuntimeExtensionFetchOutputValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GenericRuntimeFetchOutputValidationError) Cause() error { return e.cause }
+func (e RuntimeExtensionFetchOutputValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GenericRuntimeFetchOutputValidationError) Key() bool { return e.key }
+func (e RuntimeExtensionFetchOutputValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GenericRuntimeFetchOutputValidationError) ErrorName() string {
-	return "GenericRuntimeFetchOutputValidationError"
+func (e RuntimeExtensionFetchOutputValidationError) ErrorName() string {
+	return "RuntimeExtensionFetchOutputValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GenericRuntimeFetchOutputValidationError) Error() string {
+func (e RuntimeExtensionFetchOutputValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2211,14 +2212,14 @@ func (e GenericRuntimeFetchOutputValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGenericRuntimeFetchOutput.%s: %s%s",
+		"invalid %sRuntimeExtensionFetchOutput.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GenericRuntimeFetchOutputValidationError{}
+var _ error = RuntimeExtensionFetchOutputValidationError{}
 
 var _ interface {
 	Field() string
@@ -2226,7 +2227,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GenericRuntimeFetchOutputValidationError{}
+} = RuntimeExtensionFetchOutputValidationError{}
 
 // Validate checks the field values on RuntimeObject with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2384,11 +2385,11 @@ func (m *RuntimeObject) validate(all bool) error {
 	// no validation rules for Message
 
 	if all {
-		switch v := interface{}(m.GetGenericRuntime()).(type) {
+		switch v := interface{}(m.GetRuntimeExtension()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, RuntimeObjectValidationError{
-					field:  "GenericRuntime",
+					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -2396,16 +2397,16 @@ func (m *RuntimeObject) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, RuntimeObjectValidationError{
-					field:  "GenericRuntime",
+					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RuntimeObjectValidationError{
-				field:  "GenericRuntime",
+				field:  "RuntimeExtension",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -5653,22 +5654,22 @@ var _ interface {
 	ErrorName() string
 } = Condition_CustomTaskSuccessfulCondition_ProtectionValidationError{}
 
-// Validate checks the field values on RuntimeObject_GenericRuntime with the
+// Validate checks the field values on RuntimeObject_RuntimeExtension with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RuntimeObject_GenericRuntime) Validate() error {
+func (m *RuntimeObject_RuntimeExtension) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RuntimeObject_GenericRuntime with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// RuntimeObject_GenericRuntimeMultiError, or nil if none found.
-func (m *RuntimeObject_GenericRuntime) ValidateAll() error {
+// ValidateAll checks the field values on RuntimeObject_RuntimeExtension with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RuntimeObject_RuntimeExtensionMultiError, or nil if none found.
+func (m *RuntimeObject_RuntimeExtension) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RuntimeObject_GenericRuntime) validate(all bool) error {
+func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -5676,28 +5677,28 @@ func (m *RuntimeObject_GenericRuntime) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetGetCurrentState()).(type) {
+		switch v := interface{}(m.GetFetch()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RuntimeObject_GenericRuntimeValidationError{
-					field:  "GetCurrentState",
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Fetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, RuntimeObject_GenericRuntimeValidationError{
-					field:  "GetCurrentState",
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Fetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetGetCurrentState()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetFetch()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RuntimeObject_GenericRuntimeValidationError{
-				field:  "GetCurrentState",
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "Fetch",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -5707,19 +5708,19 @@ func (m *RuntimeObject_GenericRuntime) validate(all bool) error {
 	// no validation rules for ServiceId
 
 	if len(errors) > 0 {
-		return RuntimeObject_GenericRuntimeMultiError(errors)
+		return RuntimeObject_RuntimeExtensionMultiError(errors)
 	}
 
 	return nil
 }
 
-// RuntimeObject_GenericRuntimeMultiError is an error wrapping multiple
-// validation errors returned by RuntimeObject_GenericRuntime.ValidateAll() if
-// the designated constraints aren't met.
-type RuntimeObject_GenericRuntimeMultiError []error
+// RuntimeObject_RuntimeExtensionMultiError is an error wrapping multiple
+// validation errors returned by RuntimeObject_RuntimeExtension.ValidateAll()
+// if the designated constraints aren't met.
+type RuntimeObject_RuntimeExtensionMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RuntimeObject_GenericRuntimeMultiError) Error() string {
+func (m RuntimeObject_RuntimeExtensionMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -5728,12 +5729,12 @@ func (m RuntimeObject_GenericRuntimeMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RuntimeObject_GenericRuntimeMultiError) AllErrors() []error { return m }
+func (m RuntimeObject_RuntimeExtensionMultiError) AllErrors() []error { return m }
 
-// RuntimeObject_GenericRuntimeValidationError is the validation error returned
-// by RuntimeObject_GenericRuntime.Validate if the designated constraints
-// aren't met.
-type RuntimeObject_GenericRuntimeValidationError struct {
+// RuntimeObject_RuntimeExtensionValidationError is the validation error
+// returned by RuntimeObject_RuntimeExtension.Validate if the designated
+// constraints aren't met.
+type RuntimeObject_RuntimeExtensionValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -5741,24 +5742,24 @@ type RuntimeObject_GenericRuntimeValidationError struct {
 }
 
 // Field function returns field value.
-func (e RuntimeObject_GenericRuntimeValidationError) Field() string { return e.field }
+func (e RuntimeObject_RuntimeExtensionValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RuntimeObject_GenericRuntimeValidationError) Reason() string { return e.reason }
+func (e RuntimeObject_RuntimeExtensionValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RuntimeObject_GenericRuntimeValidationError) Cause() error { return e.cause }
+func (e RuntimeObject_RuntimeExtensionValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RuntimeObject_GenericRuntimeValidationError) Key() bool { return e.key }
+func (e RuntimeObject_RuntimeExtensionValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RuntimeObject_GenericRuntimeValidationError) ErrorName() string {
-	return "RuntimeObject_GenericRuntimeValidationError"
+func (e RuntimeObject_RuntimeExtensionValidationError) ErrorName() string {
+	return "RuntimeObject_RuntimeExtensionValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RuntimeObject_GenericRuntimeValidationError) Error() string {
+func (e RuntimeObject_RuntimeExtensionValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -5770,14 +5771,14 @@ func (e RuntimeObject_GenericRuntimeValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRuntimeObject_GenericRuntime.%s: %s%s",
+		"invalid %sRuntimeObject_RuntimeExtension.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RuntimeObject_GenericRuntimeValidationError{}
+var _ error = RuntimeObject_RuntimeExtensionValidationError{}
 
 var _ interface {
 	Field() string
@@ -5785,7 +5786,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RuntimeObject_GenericRuntimeValidationError{}
+} = RuntimeObject_RuntimeExtensionValidationError{}
 
 // Validate checks the field values on Annotations_Annotation with the rules
 // defined in the proto definition for this message. If any rules are

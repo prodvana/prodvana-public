@@ -1394,7 +1394,7 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 	// no validation rules for RuntimeConnection
 
 	switch v := m.ConfigOneof.(type) {
-	case *PerReleaseChannelConfig_GenericRuntime:
+	case *PerReleaseChannelConfig_RuntimeExtension:
 		if v == nil {
 			err := PerReleaseChannelConfigValidationError{
 				field:  "ConfigOneof",
@@ -1407,11 +1407,11 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGenericRuntime()).(type) {
+			switch v := interface{}(m.GetRuntimeExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, PerReleaseChannelConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1419,16 +1419,16 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, PerReleaseChannelConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return PerReleaseChannelConfigValidationError{
-					field:  "GenericRuntime",
+					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -2548,22 +2548,22 @@ var _ interface {
 	ErrorName() string
 } = RuntimeSpecificConfigValidationError{}
 
-// Validate checks the field values on GenericRuntimeConfig with the rules
+// Validate checks the field values on RuntimeExtensionConfig with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GenericRuntimeConfig) Validate() error {
+func (m *RuntimeExtensionConfig) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GenericRuntimeConfig with the rules
+// ValidateAll checks the field values on RuntimeExtensionConfig with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GenericRuntimeConfigMultiError, or nil if none found.
-func (m *GenericRuntimeConfig) ValidateAll() error {
+// RuntimeExtensionConfigMultiError, or nil if none found.
+func (m *RuntimeExtensionConfig) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GenericRuntimeConfig) validate(all bool) error {
+func (m *RuntimeExtensionConfig) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -2577,7 +2577,7 @@ func (m *GenericRuntimeConfig) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GenericRuntimeConfigValidationError{
+					errors = append(errors, RuntimeExtensionConfigValidationError{
 						field:  fmt.Sprintf("ParameterValues[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2585,7 +2585,7 @@ func (m *GenericRuntimeConfig) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GenericRuntimeConfigValidationError{
+					errors = append(errors, RuntimeExtensionConfigValidationError{
 						field:  fmt.Sprintf("ParameterValues[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2594,7 +2594,7 @@ func (m *GenericRuntimeConfig) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GenericRuntimeConfigValidationError{
+				return RuntimeExtensionConfigValidationError{
 					field:  fmt.Sprintf("ParameterValues[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2605,19 +2605,19 @@ func (m *GenericRuntimeConfig) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GenericRuntimeConfigMultiError(errors)
+		return RuntimeExtensionConfigMultiError(errors)
 	}
 
 	return nil
 }
 
-// GenericRuntimeConfigMultiError is an error wrapping multiple validation
-// errors returned by GenericRuntimeConfig.ValidateAll() if the designated
+// RuntimeExtensionConfigMultiError is an error wrapping multiple validation
+// errors returned by RuntimeExtensionConfig.ValidateAll() if the designated
 // constraints aren't met.
-type GenericRuntimeConfigMultiError []error
+type RuntimeExtensionConfigMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GenericRuntimeConfigMultiError) Error() string {
+func (m RuntimeExtensionConfigMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2626,11 +2626,11 @@ func (m GenericRuntimeConfigMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GenericRuntimeConfigMultiError) AllErrors() []error { return m }
+func (m RuntimeExtensionConfigMultiError) AllErrors() []error { return m }
 
-// GenericRuntimeConfigValidationError is the validation error returned by
-// GenericRuntimeConfig.Validate if the designated constraints aren't met.
-type GenericRuntimeConfigValidationError struct {
+// RuntimeExtensionConfigValidationError is the validation error returned by
+// RuntimeExtensionConfig.Validate if the designated constraints aren't met.
+type RuntimeExtensionConfigValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2638,24 +2638,24 @@ type GenericRuntimeConfigValidationError struct {
 }
 
 // Field function returns field value.
-func (e GenericRuntimeConfigValidationError) Field() string { return e.field }
+func (e RuntimeExtensionConfigValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GenericRuntimeConfigValidationError) Reason() string { return e.reason }
+func (e RuntimeExtensionConfigValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GenericRuntimeConfigValidationError) Cause() error { return e.cause }
+func (e RuntimeExtensionConfigValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GenericRuntimeConfigValidationError) Key() bool { return e.key }
+func (e RuntimeExtensionConfigValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GenericRuntimeConfigValidationError) ErrorName() string {
-	return "GenericRuntimeConfigValidationError"
+func (e RuntimeExtensionConfigValidationError) ErrorName() string {
+	return "RuntimeExtensionConfigValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GenericRuntimeConfigValidationError) Error() string {
+func (e RuntimeExtensionConfigValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2667,14 +2667,14 @@ func (e GenericRuntimeConfigValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGenericRuntimeConfig.%s: %s%s",
+		"invalid %sRuntimeExtensionConfig.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GenericRuntimeConfigValidationError{}
+var _ error = RuntimeExtensionConfigValidationError{}
 
 var _ interface {
 	Field() string
@@ -2682,7 +2682,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GenericRuntimeConfigValidationError{}
+} = RuntimeExtensionConfigValidationError{}
 
 // Validate checks the field values on AutoRollbackConfig with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3582,7 +3582,7 @@ func (m *ServiceConfig) validate(all bool) error {
 	}
 
 	switch v := m.ConfigOneof.(type) {
-	case *ServiceConfig_GenericRuntime:
+	case *ServiceConfig_RuntimeExtension:
 		if v == nil {
 			err := ServiceConfigValidationError{
 				field:  "ConfigOneof",
@@ -3595,11 +3595,11 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGenericRuntime()).(type) {
+			switch v := interface{}(m.GetRuntimeExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ServiceConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -3607,16 +3607,16 @@ func (m *ServiceConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ServiceConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ServiceConfigValidationError{
-					field:  "GenericRuntime",
+					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -4432,7 +4432,7 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 	}
 
 	switch v := m.ConfigOneof.(type) {
-	case *CompiledServiceInstanceConfig_GenericRuntime:
+	case *CompiledServiceInstanceConfig_RuntimeExtension:
 		if v == nil {
 			err := CompiledServiceInstanceConfigValidationError{
 				field:  "ConfigOneof",
@@ -4445,11 +4445,11 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGenericRuntime()).(type) {
+			switch v := interface{}(m.GetRuntimeExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -4457,16 +4457,16 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, CompiledServiceInstanceConfigValidationError{
-						field:  "GenericRuntime",
+						field:  "RuntimeExtension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGenericRuntime()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CompiledServiceInstanceConfigValidationError{
-					field:  "GenericRuntime",
+					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

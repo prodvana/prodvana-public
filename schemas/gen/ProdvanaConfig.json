@@ -2246,8 +2246,8 @@
                     ],
                     "description": "only used for fake runtimes"
                 },
-                "genericDocker": {
-                    "$ref": "#/definitions/prodvana.environment.GenericDockerClusterConfig",
+                "extension": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionClusterConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2561,6 +2561,110 @@
             ],
             "title": "Kubecost"
         },
+        "prodvana.environment.ExtensionClusterConfig": {
+            "properties": {
+                "apply": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "fetch": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Extension Cluster Config"
+        },
+        "prodvana.environment.ExtensionCommand": {
+            "properties": {
+                "taskConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "pollInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "customize intervals instead of using Prodvana default only used for fetch how often to run command after it succeeds",
+                    "format": "regex"
+                },
+                "timeout": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "how long after a run has started to try another run if it has not completed yet",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Extension Command"
+        },
         "prodvana.environment.FakeClusterConfig": {
             "properties": {
                 "crashingPrograms": {
@@ -2632,110 +2736,6 @@
                 }
             ],
             "title": "Crashing Program Patterns"
-        },
-        "prodvana.environment.GenericDockerClusterConfig": {
-            "properties": {
-                "apply": {
-                    "$ref": "#/definitions/prodvana.environment.GenericDockerCommand",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "fetch": {
-                    "$ref": "#/definitions/prodvana.environment.GenericDockerCommand",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "parameters": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                },
-                "proxyRuntime": {
-                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Generic Docker Cluster Config"
-        },
-        "prodvana.environment.GenericDockerCommand": {
-            "properties": {
-                "taskConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "kubernetesConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "pollInterval": {
-                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
-                    "type": "string",
-                    "description": "customize intervals instead of using Prodvana default only used for fetch how often to run command after it succeeds",
-                    "format": "regex"
-                },
-                "timeout": {
-                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
-                    "type": "string",
-                    "description": "how long after a run has started to try another run if it has not completed yet",
-                    "format": "regex"
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Generic Docker Command"
         },
         "prodvana.object.ObjectMeta": {
             "properties": {
@@ -3855,7 +3855,7 @@
                         0,
                         "LONG_LIVED_COMPUTE",
                         1,
-                        "GENERIC",
+                        "EXTENSION",
                         2
                     ],
                     "oneOf": [
@@ -4206,34 +4206,6 @@
             ],
             "title": "Follow Container Repository Settings"
         },
-        "prodvana.service.GenericRuntimeConfig": {
-            "properties": {
-                "parameterValues": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Generic Runtime Config"
-        },
         "prodvana.service.MetricAnalysis": {
             "properties": {
                 "successRate": {
@@ -4436,8 +4408,8 @@
                     ],
                     "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
-                "genericRuntime": {
-                    "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
+                "runtimeExtension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4642,6 +4614,34 @@
                 }
             ],
             "title": "Replicas Config"
+        },
+        "prodvana.service.RuntimeExtensionConfig": {
+            "properties": {
+                "parameterValues": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Runtime Extension Config"
         },
         "prodvana.service.RuntimeSpecificConfig": {
             "properties": {
@@ -4897,8 +4897,8 @@
                     "description": "how long to wait before marking deployment as failed",
                     "format": "regex"
                 },
-                "genericRuntime": {
-                    "$ref": "#/definitions/prodvana.service.GenericRuntimeConfig",
+                "runtimeExtension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

@@ -88,7 +88,7 @@ message Precondition {
 enum RuntimeConnectionType {
     UNKNOWN_CONNECTION = 0;
     LONG_LIVED_COMPUTE = 1;
-    GENERIC = 2;
+    EXTENSION = 2;
 }
 
 message ReleaseChannelRuntimeConfig {

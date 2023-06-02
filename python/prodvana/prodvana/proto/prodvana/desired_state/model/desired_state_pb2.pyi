@@ -802,7 +802,7 @@ class DeliveryState(google.protobuf.message.Message):
 
 global___DeliveryState = DeliveryState
 
-class GenericRuntimeFetchOutput(google.protobuf.message.Message):
+class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VERSIONS_FIELD_NUMBER: builtins.int
@@ -815,7 +815,7 @@ class GenericRuntimeFetchOutput(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["versions", b"versions"]) -> None: ...
 
-global___GenericRuntimeFetchOutput = GenericRuntimeFetchOutput
+global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -835,22 +835,22 @@ class RuntimeObject(google.protobuf.message.Message):
     SUCCEEDED: RuntimeObject.Status.ValueType  # 1
     FAILED: RuntimeObject.Status.ValueType  # 2
 
-    class GenericRuntime(google.protobuf.message.Message):
+    class RuntimeExtension(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        GET_CURRENT_STATE_FIELD_NUMBER: builtins.int
+        FETCH_FIELD_NUMBER: builtins.int
         SERVICE_ID_FIELD_NUMBER: builtins.int
         @property
-        def get_current_state(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledGenericDockerCommand: ...
+        def fetch(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand: ...
         service_id: builtins.str
         def __init__(
             self,
             *,
-            get_current_state: prodvana.proto.prodvana.environment.clusters_pb2.CompiledGenericDockerCommand | None = ...,
+            fetch: prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand | None = ...,
             service_id: builtins.str = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["get_current_state", b"get_current_state"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["get_current_state", b"get_current_state", "service_id", b"service_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["fetch", b"fetch"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["fetch", b"fetch", "service_id", b"service_id"]) -> None: ...
 
     class OutputBlobIdsEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -877,7 +877,7 @@ class RuntimeObject(google.protobuf.message.Message):
     DELIVERY_FIELD_NUMBER: builtins.int
     VERSION_AGNOSTIC_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
-    GENERIC_RUNTIME_FIELD_NUMBER: builtins.int
+    RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
@@ -898,8 +898,8 @@ class RuntimeObject(google.protobuf.message.Message):
     message: builtins.str
     """Human readable message (typically for errors)."""
     @property
-    def generic_runtime(self) -> global___RuntimeObject.GenericRuntime:
-        """additional config if this runtime object belongs to a generic runtime"""
+    def runtime_extension(self) -> global___RuntimeObject.RuntimeExtension:
+        """additional config if this runtime object belongs to a runtime extension"""
     @property
     def output_blob_ids(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """if output is saved, this is the ID of the blob to retrieve it, by container name"""
@@ -922,13 +922,13 @@ class RuntimeObject(google.protobuf.message.Message):
         delivery: global___DeliveryState | None = ...,
         version_agnostic: builtins.bool = ...,
         message: builtins.str = ...,
-        generic_runtime: global___RuntimeObject.GenericRuntime | None = ...,
+        runtime_extension: global___RuntimeObject.RuntimeExtension | None = ...,
         output_blob_ids: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
         interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "generic_runtime", b"generic_runtime", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

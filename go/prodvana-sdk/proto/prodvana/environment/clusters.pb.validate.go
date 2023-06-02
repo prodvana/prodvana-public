@@ -109,7 +109,7 @@ func (m *ClusterAuth) validate(all bool) error {
 			}
 		}
 
-	case *ClusterAuth_GenericDocker:
+	case *ClusterAuth_Extension:
 		if v == nil {
 			err := ClusterAuthValidationError{
 				field:  "AuthOneof",
@@ -122,11 +122,11 @@ func (m *ClusterAuth) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGenericDocker()).(type) {
+			switch v := interface{}(m.GetExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ClusterAuthValidationError{
-						field:  "GenericDocker",
+						field:  "Extension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -134,16 +134,16 @@ func (m *ClusterAuth) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ClusterAuthValidationError{
-						field:  "GenericDocker",
+						field:  "Extension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGenericDocker()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ClusterAuthValidationError{
-					field:  "GenericDocker",
+					field:  "Extension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -601,22 +601,22 @@ var _ interface {
 	ErrorName() string
 } = FakeClusterConfigValidationError{}
 
-// Validate checks the field values on GenericDockerCommand with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GenericDockerCommand) Validate() error {
+// Validate checks the field values on ExtensionCommand with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ExtensionCommand) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GenericDockerCommand with the rules
+// ValidateAll checks the field values on ExtensionCommand with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GenericDockerCommandMultiError, or nil if none found.
-func (m *GenericDockerCommand) ValidateAll() error {
+// ExtensionCommandMultiError, or nil if none found.
+func (m *ExtensionCommand) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GenericDockerCommand) validate(all bool) error {
+func (m *ExtensionCommand) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -627,7 +627,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 		switch v := interface{}(m.GetPollInterval()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
+				errors = append(errors, ExtensionCommandValidationError{
 					field:  "PollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -635,7 +635,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
+				errors = append(errors, ExtensionCommandValidationError{
 					field:  "PollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -644,7 +644,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetPollInterval()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GenericDockerCommandValidationError{
+			return ExtensionCommandValidationError{
 				field:  "PollInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -656,7 +656,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 		switch v := interface{}(m.GetTimeout()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
+				errors = append(errors, ExtensionCommandValidationError{
 					field:  "Timeout",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -664,7 +664,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerCommandValidationError{
+				errors = append(errors, ExtensionCommandValidationError{
 					field:  "Timeout",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -673,7 +673,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetTimeout()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GenericDockerCommandValidationError{
+			return ExtensionCommandValidationError{
 				field:  "Timeout",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -683,9 +683,9 @@ func (m *GenericDockerCommand) validate(all bool) error {
 
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
-	case *GenericDockerCommand_TaskConfig:
+	case *ExtensionCommand_TaskConfig:
 		if v == nil {
-			err := GenericDockerCommandValidationError{
+			err := ExtensionCommandValidationError{
 				field:  "ExecConfig",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -700,7 +700,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			switch v := interface{}(m.GetTaskConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GenericDockerCommandValidationError{
+					errors = append(errors, ExtensionCommandValidationError{
 						field:  "TaskConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -708,7 +708,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GenericDockerCommandValidationError{
+					errors = append(errors, ExtensionCommandValidationError{
 						field:  "TaskConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -717,7 +717,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetTaskConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GenericDockerCommandValidationError{
+				return ExtensionCommandValidationError{
 					field:  "TaskConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -725,9 +725,9 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			}
 		}
 
-	case *GenericDockerCommand_KubernetesConfig:
+	case *ExtensionCommand_KubernetesConfig:
 		if v == nil {
-			err := GenericDockerCommandValidationError{
+			err := ExtensionCommandValidationError{
 				field:  "ExecConfig",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -742,7 +742,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			switch v := interface{}(m.GetKubernetesConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GenericDockerCommandValidationError{
+					errors = append(errors, ExtensionCommandValidationError{
 						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -750,7 +750,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GenericDockerCommandValidationError{
+					errors = append(errors, ExtensionCommandValidationError{
 						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -759,7 +759,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GenericDockerCommandValidationError{
+				return ExtensionCommandValidationError{
 					field:  "KubernetesConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -771,7 +771,7 @@ func (m *GenericDockerCommand) validate(all bool) error {
 		_ = v // ensures v is used
 	}
 	if !oneofExecConfigPresent {
-		err := GenericDockerCommandValidationError{
+		err := ExtensionCommandValidationError{
 			field:  "ExecConfig",
 			reason: "value is required",
 		}
@@ -782,19 +782,19 @@ func (m *GenericDockerCommand) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GenericDockerCommandMultiError(errors)
+		return ExtensionCommandMultiError(errors)
 	}
 
 	return nil
 }
 
-// GenericDockerCommandMultiError is an error wrapping multiple validation
-// errors returned by GenericDockerCommand.ValidateAll() if the designated
-// constraints aren't met.
-type GenericDockerCommandMultiError []error
+// ExtensionCommandMultiError is an error wrapping multiple validation errors
+// returned by ExtensionCommand.ValidateAll() if the designated constraints
+// aren't met.
+type ExtensionCommandMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GenericDockerCommandMultiError) Error() string {
+func (m ExtensionCommandMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -803,11 +803,11 @@ func (m GenericDockerCommandMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GenericDockerCommandMultiError) AllErrors() []error { return m }
+func (m ExtensionCommandMultiError) AllErrors() []error { return m }
 
-// GenericDockerCommandValidationError is the validation error returned by
-// GenericDockerCommand.Validate if the designated constraints aren't met.
-type GenericDockerCommandValidationError struct {
+// ExtensionCommandValidationError is the validation error returned by
+// ExtensionCommand.Validate if the designated constraints aren't met.
+type ExtensionCommandValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -815,24 +815,22 @@ type GenericDockerCommandValidationError struct {
 }
 
 // Field function returns field value.
-func (e GenericDockerCommandValidationError) Field() string { return e.field }
+func (e ExtensionCommandValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GenericDockerCommandValidationError) Reason() string { return e.reason }
+func (e ExtensionCommandValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GenericDockerCommandValidationError) Cause() error { return e.cause }
+func (e ExtensionCommandValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GenericDockerCommandValidationError) Key() bool { return e.key }
+func (e ExtensionCommandValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GenericDockerCommandValidationError) ErrorName() string {
-	return "GenericDockerCommandValidationError"
-}
+func (e ExtensionCommandValidationError) ErrorName() string { return "ExtensionCommandValidationError" }
 
 // Error satisfies the builtin error interface
-func (e GenericDockerCommandValidationError) Error() string {
+func (e ExtensionCommandValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -844,14 +842,14 @@ func (e GenericDockerCommandValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGenericDockerCommand.%s: %s%s",
+		"invalid %sExtensionCommand.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GenericDockerCommandValidationError{}
+var _ error = ExtensionCommandValidationError{}
 
 var _ interface {
 	Field() string
@@ -859,24 +857,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GenericDockerCommandValidationError{}
+} = ExtensionCommandValidationError{}
 
-// Validate checks the field values on GenericDockerClusterConfig with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ExtensionClusterConfig with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GenericDockerClusterConfig) Validate() error {
+func (m *ExtensionClusterConfig) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GenericDockerClusterConfig with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on ExtensionClusterConfig with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GenericDockerClusterConfigMultiError, or nil if none found.
-func (m *GenericDockerClusterConfig) ValidateAll() error {
+// ExtensionClusterConfigMultiError, or nil if none found.
+func (m *ExtensionClusterConfig) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GenericDockerClusterConfig) validate(all bool) error {
+func (m *ExtensionClusterConfig) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -884,7 +882,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 	var errors []error
 
 	if m.GetApply() == nil {
-		err := GenericDockerClusterConfigValidationError{
+		err := ExtensionClusterConfigValidationError{
 			field:  "Apply",
 			reason: "value is required",
 		}
@@ -898,7 +896,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		switch v := interface{}(m.GetApply()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "Apply",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -906,7 +904,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "Apply",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -915,7 +913,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetApply()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GenericDockerClusterConfigValidationError{
+			return ExtensionClusterConfigValidationError{
 				field:  "Apply",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -927,7 +925,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		switch v := interface{}(m.GetFetch()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "Fetch",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -935,7 +933,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "Fetch",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -944,7 +942,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetFetch()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GenericDockerClusterConfigValidationError{
+			return ExtensionClusterConfigValidationError{
 				field:  "Fetch",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -956,7 +954,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		_, _ = idx, item
 
 		if item == nil {
-			err := GenericDockerClusterConfigValidationError{
+			err := ExtensionClusterConfigValidationError{
 				field:  fmt.Sprintf("Parameters[%v]", idx),
 				reason: "value is required",
 			}
@@ -970,7 +968,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GenericDockerClusterConfigValidationError{
+					errors = append(errors, ExtensionClusterConfigValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -978,7 +976,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GenericDockerClusterConfigValidationError{
+					errors = append(errors, ExtensionClusterConfigValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -987,7 +985,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GenericDockerClusterConfigValidationError{
+				return ExtensionClusterConfigValidationError{
 					field:  fmt.Sprintf("Parameters[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -998,7 +996,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 	}
 
 	if m.GetProxyRuntime() == nil {
-		err := GenericDockerClusterConfigValidationError{
+		err := ExtensionClusterConfigValidationError{
 			field:  "ProxyRuntime",
 			reason: "value is required",
 		}
@@ -1012,7 +1010,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		switch v := interface{}(m.GetProxyRuntime()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "ProxyRuntime",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1020,7 +1018,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GenericDockerClusterConfigValidationError{
+				errors = append(errors, ExtensionClusterConfigValidationError{
 					field:  "ProxyRuntime",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1029,7 +1027,7 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetProxyRuntime()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GenericDockerClusterConfigValidationError{
+			return ExtensionClusterConfigValidationError{
 				field:  "ProxyRuntime",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1038,19 +1036,19 @@ func (m *GenericDockerClusterConfig) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GenericDockerClusterConfigMultiError(errors)
+		return ExtensionClusterConfigMultiError(errors)
 	}
 
 	return nil
 }
 
-// GenericDockerClusterConfigMultiError is an error wrapping multiple
-// validation errors returned by GenericDockerClusterConfig.ValidateAll() if
-// the designated constraints aren't met.
-type GenericDockerClusterConfigMultiError []error
+// ExtensionClusterConfigMultiError is an error wrapping multiple validation
+// errors returned by ExtensionClusterConfig.ValidateAll() if the designated
+// constraints aren't met.
+type ExtensionClusterConfigMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GenericDockerClusterConfigMultiError) Error() string {
+func (m ExtensionClusterConfigMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1059,11 +1057,11 @@ func (m GenericDockerClusterConfigMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GenericDockerClusterConfigMultiError) AllErrors() []error { return m }
+func (m ExtensionClusterConfigMultiError) AllErrors() []error { return m }
 
-// GenericDockerClusterConfigValidationError is the validation error returned
-// by GenericDockerClusterConfig.Validate if the designated constraints aren't met.
-type GenericDockerClusterConfigValidationError struct {
+// ExtensionClusterConfigValidationError is the validation error returned by
+// ExtensionClusterConfig.Validate if the designated constraints aren't met.
+type ExtensionClusterConfigValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1071,24 +1069,24 @@ type GenericDockerClusterConfigValidationError struct {
 }
 
 // Field function returns field value.
-func (e GenericDockerClusterConfigValidationError) Field() string { return e.field }
+func (e ExtensionClusterConfigValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GenericDockerClusterConfigValidationError) Reason() string { return e.reason }
+func (e ExtensionClusterConfigValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GenericDockerClusterConfigValidationError) Cause() error { return e.cause }
+func (e ExtensionClusterConfigValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GenericDockerClusterConfigValidationError) Key() bool { return e.key }
+func (e ExtensionClusterConfigValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GenericDockerClusterConfigValidationError) ErrorName() string {
-	return "GenericDockerClusterConfigValidationError"
+func (e ExtensionClusterConfigValidationError) ErrorName() string {
+	return "ExtensionClusterConfigValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GenericDockerClusterConfigValidationError) Error() string {
+func (e ExtensionClusterConfigValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1100,14 +1098,14 @@ func (e GenericDockerClusterConfigValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGenericDockerClusterConfig.%s: %s%s",
+		"invalid %sExtensionClusterConfig.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GenericDockerClusterConfigValidationError{}
+var _ error = ExtensionClusterConfigValidationError{}
 
 var _ interface {
 	Field() string
@@ -1115,24 +1113,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GenericDockerClusterConfigValidationError{}
+} = ExtensionClusterConfigValidationError{}
 
-// Validate checks the field values on CompiledGenericDockerCommand with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on CompiledExtensionCommand with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CompiledGenericDockerCommand) Validate() error {
+func (m *CompiledExtensionCommand) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CompiledGenericDockerCommand with the
+// ValidateAll checks the field values on CompiledExtensionCommand with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CompiledGenericDockerCommandMultiError, or nil if none found.
-func (m *CompiledGenericDockerCommand) ValidateAll() error {
+// CompiledExtensionCommandMultiError, or nil if none found.
+func (m *CompiledExtensionCommand) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CompiledGenericDockerCommand) validate(all bool) error {
+func (m *CompiledExtensionCommand) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1145,7 +1143,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 		switch v := interface{}(m.GetCommand()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CompiledGenericDockerCommandValidationError{
+				errors = append(errors, CompiledExtensionCommandValidationError{
 					field:  "Command",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1153,7 +1151,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CompiledGenericDockerCommandValidationError{
+				errors = append(errors, CompiledExtensionCommandValidationError{
 					field:  "Command",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1162,7 +1160,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCommand()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CompiledGenericDockerCommandValidationError{
+			return CompiledExtensionCommandValidationError{
 				field:  "Command",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1174,7 +1172,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 		switch v := interface{}(m.GetRuntimeExecution()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CompiledGenericDockerCommandValidationError{
+				errors = append(errors, CompiledExtensionCommandValidationError{
 					field:  "RuntimeExecution",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1182,7 +1180,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CompiledGenericDockerCommandValidationError{
+				errors = append(errors, CompiledExtensionCommandValidationError{
 					field:  "RuntimeExecution",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1191,7 +1189,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRuntimeExecution()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CompiledGenericDockerCommandValidationError{
+			return CompiledExtensionCommandValidationError{
 				field:  "RuntimeExecution",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1217,7 +1215,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 				switch v := interface{}(val).(type) {
 				case interface{ ValidateAll() error }:
 					if err := v.ValidateAll(); err != nil {
-						errors = append(errors, CompiledGenericDockerCommandValidationError{
+						errors = append(errors, CompiledExtensionCommandValidationError{
 							field:  fmt.Sprintf("Env[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
@@ -1225,7 +1223,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 					}
 				case interface{ Validate() error }:
 					if err := v.Validate(); err != nil {
-						errors = append(errors, CompiledGenericDockerCommandValidationError{
+						errors = append(errors, CompiledExtensionCommandValidationError{
 							field:  fmt.Sprintf("Env[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
@@ -1234,7 +1232,7 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 				}
 			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 				if err := v.Validate(); err != nil {
-					return CompiledGenericDockerCommandValidationError{
+					return CompiledExtensionCommandValidationError{
 						field:  fmt.Sprintf("Env[%v]", key),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1246,19 +1244,19 @@ func (m *CompiledGenericDockerCommand) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return CompiledGenericDockerCommandMultiError(errors)
+		return CompiledExtensionCommandMultiError(errors)
 	}
 
 	return nil
 }
 
-// CompiledGenericDockerCommandMultiError is an error wrapping multiple
-// validation errors returned by CompiledGenericDockerCommand.ValidateAll() if
-// the designated constraints aren't met.
-type CompiledGenericDockerCommandMultiError []error
+// CompiledExtensionCommandMultiError is an error wrapping multiple validation
+// errors returned by CompiledExtensionCommand.ValidateAll() if the designated
+// constraints aren't met.
+type CompiledExtensionCommandMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CompiledGenericDockerCommandMultiError) Error() string {
+func (m CompiledExtensionCommandMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1267,12 +1265,11 @@ func (m CompiledGenericDockerCommandMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CompiledGenericDockerCommandMultiError) AllErrors() []error { return m }
+func (m CompiledExtensionCommandMultiError) AllErrors() []error { return m }
 
-// CompiledGenericDockerCommandValidationError is the validation error returned
-// by CompiledGenericDockerCommand.Validate if the designated constraints
-// aren't met.
-type CompiledGenericDockerCommandValidationError struct {
+// CompiledExtensionCommandValidationError is the validation error returned by
+// CompiledExtensionCommand.Validate if the designated constraints aren't met.
+type CompiledExtensionCommandValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1280,24 +1277,24 @@ type CompiledGenericDockerCommandValidationError struct {
 }
 
 // Field function returns field value.
-func (e CompiledGenericDockerCommandValidationError) Field() string { return e.field }
+func (e CompiledExtensionCommandValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CompiledGenericDockerCommandValidationError) Reason() string { return e.reason }
+func (e CompiledExtensionCommandValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CompiledGenericDockerCommandValidationError) Cause() error { return e.cause }
+func (e CompiledExtensionCommandValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CompiledGenericDockerCommandValidationError) Key() bool { return e.key }
+func (e CompiledExtensionCommandValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CompiledGenericDockerCommandValidationError) ErrorName() string {
-	return "CompiledGenericDockerCommandValidationError"
+func (e CompiledExtensionCommandValidationError) ErrorName() string {
+	return "CompiledExtensionCommandValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CompiledGenericDockerCommandValidationError) Error() string {
+func (e CompiledExtensionCommandValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1309,14 +1306,14 @@ func (e CompiledGenericDockerCommandValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCompiledGenericDockerCommand.%s: %s%s",
+		"invalid %sCompiledExtensionCommand.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CompiledGenericDockerCommandValidationError{}
+var _ error = CompiledExtensionCommandValidationError{}
 
 var _ interface {
 	Field() string
@@ -1324,7 +1321,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CompiledGenericDockerCommandValidationError{}
+} = CompiledExtensionCommandValidationError{}
 
 // Validate checks the field values on ClusterConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -1572,7 +1569,7 @@ func (m *ClusterConfig) validate(all bool) error {
 			}
 		}
 
-	case *ClusterConfig_GenericDocker:
+	case *ClusterConfig_Extension:
 		if v == nil {
 			err := ClusterConfigValidationError{
 				field:  "ClusterOneof",
@@ -1585,11 +1582,11 @@ func (m *ClusterConfig) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGenericDocker()).(type) {
+			switch v := interface{}(m.GetExtension()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ClusterConfigValidationError{
-						field:  "GenericDocker",
+						field:  "Extension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1597,16 +1594,16 @@ func (m *ClusterConfig) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ClusterConfigValidationError{
-						field:  "GenericDocker",
+						field:  "Extension",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGenericDocker()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetExtension()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ClusterConfigValidationError{
-					field:  "GenericDocker",
+					field:  "Extension",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1807,22 +1804,22 @@ var _ interface {
 	ErrorName() string
 } = ClusterAuth_ECSAuthValidationError{}
 
-// Validate checks the field values on ClusterAuth_GenericDockerAuth with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ClusterAuth_ExtensionAuth with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ClusterAuth_GenericDockerAuth) Validate() error {
+func (m *ClusterAuth_ExtensionAuth) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ClusterAuth_GenericDockerAuth with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ClusterAuth_GenericDockerAuthMultiError, or nil if none found.
-func (m *ClusterAuth_GenericDockerAuth) ValidateAll() error {
+// ValidateAll checks the field values on ClusterAuth_ExtensionAuth with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ClusterAuth_ExtensionAuthMultiError, or nil if none found.
+func (m *ClusterAuth_ExtensionAuth) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ClusterAuth_GenericDockerAuth) validate(all bool) error {
+func (m *ClusterAuth_ExtensionAuth) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1830,19 +1827,19 @@ func (m *ClusterAuth_GenericDockerAuth) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return ClusterAuth_GenericDockerAuthMultiError(errors)
+		return ClusterAuth_ExtensionAuthMultiError(errors)
 	}
 
 	return nil
 }
 
-// ClusterAuth_GenericDockerAuthMultiError is an error wrapping multiple
-// validation errors returned by ClusterAuth_GenericDockerAuth.ValidateAll()
-// if the designated constraints aren't met.
-type ClusterAuth_GenericDockerAuthMultiError []error
+// ClusterAuth_ExtensionAuthMultiError is an error wrapping multiple validation
+// errors returned by ClusterAuth_ExtensionAuth.ValidateAll() if the
+// designated constraints aren't met.
+type ClusterAuth_ExtensionAuthMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ClusterAuth_GenericDockerAuthMultiError) Error() string {
+func (m ClusterAuth_ExtensionAuthMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1851,12 +1848,11 @@ func (m ClusterAuth_GenericDockerAuthMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ClusterAuth_GenericDockerAuthMultiError) AllErrors() []error { return m }
+func (m ClusterAuth_ExtensionAuthMultiError) AllErrors() []error { return m }
 
-// ClusterAuth_GenericDockerAuthValidationError is the validation error
-// returned by ClusterAuth_GenericDockerAuth.Validate if the designated
-// constraints aren't met.
-type ClusterAuth_GenericDockerAuthValidationError struct {
+// ClusterAuth_ExtensionAuthValidationError is the validation error returned by
+// ClusterAuth_ExtensionAuth.Validate if the designated constraints aren't met.
+type ClusterAuth_ExtensionAuthValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1864,24 +1860,24 @@ type ClusterAuth_GenericDockerAuthValidationError struct {
 }
 
 // Field function returns field value.
-func (e ClusterAuth_GenericDockerAuthValidationError) Field() string { return e.field }
+func (e ClusterAuth_ExtensionAuthValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ClusterAuth_GenericDockerAuthValidationError) Reason() string { return e.reason }
+func (e ClusterAuth_ExtensionAuthValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ClusterAuth_GenericDockerAuthValidationError) Cause() error { return e.cause }
+func (e ClusterAuth_ExtensionAuthValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ClusterAuth_GenericDockerAuthValidationError) Key() bool { return e.key }
+func (e ClusterAuth_ExtensionAuthValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ClusterAuth_GenericDockerAuthValidationError) ErrorName() string {
-	return "ClusterAuth_GenericDockerAuthValidationError"
+func (e ClusterAuth_ExtensionAuthValidationError) ErrorName() string {
+	return "ClusterAuth_ExtensionAuthValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ClusterAuth_GenericDockerAuthValidationError) Error() string {
+func (e ClusterAuth_ExtensionAuthValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1893,14 +1889,14 @@ func (e ClusterAuth_GenericDockerAuthValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sClusterAuth_GenericDockerAuth.%s: %s%s",
+		"invalid %sClusterAuth_ExtensionAuth.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ClusterAuth_GenericDockerAuthValidationError{}
+var _ error = ClusterAuth_ExtensionAuthValidationError{}
 
 var _ interface {
 	Field() string
@@ -1908,7 +1904,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ClusterAuth_GenericDockerAuthValidationError{}
+} = ClusterAuth_ExtensionAuthValidationError{}
 
 // Validate checks the field values on ClusterAuth_K8SAuth with the rules
 // defined in the proto definition for this message. If any rules are

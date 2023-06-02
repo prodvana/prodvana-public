@@ -275,13 +275,13 @@ message DeliveryState {
 }
 
 
-message GenericRuntimeFetchOutput {
+message RuntimeExtensionFetchOutput {
     repeated Version versions = 1;
 }
 
 message RuntimeObject {
-    message GenericRuntime {
-        prodvana.environment.CompiledGenericDockerCommand get_current_state = 1;
+    message RuntimeExtension {
+        prodvana.environment.CompiledExtensionCommand fetch = 1;
         string service_id = 2;
     }
     Metadata meta = 1;
@@ -299,7 +299,7 @@ message RuntimeObject {
     DeliveryState delivery = 8;
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
     string message = 12; // Human readable message (typically for errors).
-    GenericRuntime generic_runtime = 13; // additional config if this runtime object belongs to a generic runtime
+    RuntimeExtension runtime_extension = 13; // additional config if this runtime object belongs to a runtime extension
     map<string, string> output_blob_ids = 14; // if output is saved, this is the ID of the blob to retrieve it, by container name
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
     google.protobuf.Duration timeout = 16; // if set, runtime object is recreated when this timeout is hit if it has not converged by then.

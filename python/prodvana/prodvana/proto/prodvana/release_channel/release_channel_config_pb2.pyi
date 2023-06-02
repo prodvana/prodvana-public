@@ -34,13 +34,13 @@ class _RuntimeConnectionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_w
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     UNKNOWN_CONNECTION: _RuntimeConnectionType.ValueType  # 0
     LONG_LIVED_COMPUTE: _RuntimeConnectionType.ValueType  # 1
-    GENERIC: _RuntimeConnectionType.ValueType  # 2
+    EXTENSION: _RuntimeConnectionType.ValueType  # 2
 
 class RuntimeConnectionType(_RuntimeConnectionType, metaclass=_RuntimeConnectionTypeEnumTypeWrapper): ...
 
 UNKNOWN_CONNECTION: RuntimeConnectionType.ValueType  # 0
 LONG_LIVED_COMPUTE: RuntimeConnectionType.ValueType  # 1
-GENERIC: RuntimeConnectionType.ValueType  # 2
+EXTENSION: RuntimeConnectionType.ValueType  # 2
 global___RuntimeConnectionType = RuntimeConnectionType
 
 class Policy(google.protobuf.message.Message):

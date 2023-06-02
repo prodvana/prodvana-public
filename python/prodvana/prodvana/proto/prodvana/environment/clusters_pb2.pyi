@@ -35,7 +35,7 @@ class _ClusterTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
     K8S: _ClusterType.ValueType  # 1
     ECS: _ClusterType.ValueType  # 2
     FAKE: _ClusterType.ValueType  # 3
-    GENERIC_DOCKER: _ClusterType.ValueType  # 4
+    EXTENSION: _ClusterType.ValueType  # 4
 
 class ClusterType(_ClusterType, metaclass=_ClusterTypeEnumTypeWrapper): ...
 
@@ -43,7 +43,7 @@ UNKNOWN: ClusterType.ValueType  # 0
 K8S: ClusterType.ValueType  # 1
 ECS: ClusterType.ValueType  # 2
 FAKE: ClusterType.ValueType  # 3
-GENERIC_DOCKER: ClusterType.ValueType  # 4
+EXTENSION: ClusterType.ValueType  # 4
 global___ClusterType = ClusterType
 
 class ClusterAuth(google.protobuf.message.Message):
@@ -73,7 +73,7 @@ class ClusterAuth(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "assume_role_arn", b"assume_role_arn", "cluster_arn", b"cluster_arn", "region", b"region", "secret_key", b"secret_key"]) -> None: ...
 
-    class GenericDockerAuth(google.protobuf.message.Message):
+    class ExtensionAuth(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         def __init__(
@@ -113,7 +113,7 @@ class ClusterAuth(google.protobuf.message.Message):
     TOKEN_FIELD_NUMBER: builtins.int
     SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
     ECS_FIELD_NUMBER: builtins.int
-    GENERIC_DOCKER_FIELD_NUMBER: builtins.int
+    EXTENSION_FIELD_NUMBER: builtins.int
     K8S_FIELD_NUMBER: builtins.int
     K8S_AGENT_AUTH_FIELD_NUMBER: builtins.int
     endpoint: builtins.str
@@ -123,7 +123,7 @@ class ClusterAuth(google.protobuf.message.Message):
     @property
     def ecs(self) -> global___ClusterAuth.ECSAuth: ...
     @property
-    def generic_docker(self) -> global___ClusterAuth.GenericDockerAuth: ...
+    def extension(self) -> global___ClusterAuth.ExtensionAuth: ...
     @property
     def k8s(self) -> global___ClusterAuth.K8sAuth: ...
     k8s_agent_auth: builtins.bool
@@ -135,13 +135,13 @@ class ClusterAuth(google.protobuf.message.Message):
         token: builtins.str = ...,
         service_account: builtins.str = ...,
         ecs: global___ClusterAuth.ECSAuth | None = ...,
-        generic_docker: global___ClusterAuth.GenericDockerAuth | None = ...,
+        extension: global___ClusterAuth.ExtensionAuth | None = ...,
         k8s: global___ClusterAuth.K8sAuth | None = ...,
         k8s_agent_auth: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "generic_docker", b"generic_docker", "k8s", b"k8s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ca_cert", b"ca_cert", "ecs", b"ecs", "endpoint", b"endpoint", "generic_docker", b"generic_docker", "k8s", b"k8s", "k8s_agent_auth", b"k8s_agent_auth", "service_account", b"service_account", "token", b"token"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["auth_oneof", b"auth_oneof"]) -> typing_extensions.Literal["ecs", "generic_docker", "k8s"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "extension", b"extension", "k8s", b"k8s"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ca_cert", b"ca_cert", "ecs", b"ecs", "endpoint", b"endpoint", "extension", b"extension", "k8s", b"k8s", "k8s_agent_auth", b"k8s_agent_auth", "service_account", b"service_account", "token", b"token"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["auth_oneof", b"auth_oneof"]) -> typing_extensions.Literal["ecs", "extension", "k8s"] | None: ...
 
 global___ClusterAuth = ClusterAuth
 
@@ -235,7 +235,7 @@ class FakeClusterConfig(google.protobuf.message.Message):
 
 global___FakeClusterConfig = FakeClusterConfig
 
-class GenericDockerCommand(google.protobuf.message.Message):
+class ExtensionCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     TASK_CONFIG_FIELD_NUMBER: builtins.int
@@ -267,9 +267,9 @@ class GenericDockerCommand(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
-global___GenericDockerCommand = GenericDockerCommand
+global___ExtensionCommand = ExtensionCommand
 
-class GenericDockerClusterConfig(google.protobuf.message.Message):
+class ExtensionClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     APPLY_FIELD_NUMBER: builtins.int
@@ -277,9 +277,9 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     @property
-    def apply(self) -> global___GenericDockerCommand: ...
+    def apply(self) -> global___ExtensionCommand: ...
     @property
-    def fetch(self) -> global___GenericDockerCommand: ...
+    def fetch(self) -> global___ExtensionCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
@@ -287,17 +287,17 @@ class GenericDockerClusterConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        apply: global___GenericDockerCommand | None = ...,
-        fetch: global___GenericDockerCommand | None = ...,
+        apply: global___ExtensionCommand | None = ...,
+        fetch: global___ExtensionCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
 
-global___GenericDockerClusterConfig = GenericDockerClusterConfig
+global___ExtensionClusterConfig = ExtensionClusterConfig
 
-class CompiledGenericDockerCommand(google.protobuf.message.Message):
+class CompiledExtensionCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class EnvEntry(google.protobuf.message.Message):
@@ -323,7 +323,7 @@ class CompiledGenericDockerCommand(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     name_prefix: builtins.str
     @property
-    def command(self) -> global___GenericDockerCommand: ...
+    def command(self) -> global___ExtensionCommand: ...
     @property
     def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -332,14 +332,14 @@ class CompiledGenericDockerCommand(google.protobuf.message.Message):
         self,
         *,
         name_prefix: builtins.str = ...,
-        command: global___GenericDockerCommand | None = ...,
+        command: global___ExtensionCommand | None = ...,
         runtime_execution: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["command", b"command", "runtime_execution", b"runtime_execution"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["command", b"command", "env", b"env", "name_prefix", b"name_prefix", "runtime_execution", b"runtime_execution"]) -> None: ...
 
-global___CompiledGenericDockerCommand = CompiledGenericDockerCommand
+global___CompiledExtensionCommand = CompiledExtensionCommand
 
 class ClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -521,7 +521,7 @@ class ClusterConfig(google.protobuf.message.Message):
     SELF_MANAGED_GKE_INGRESS_FIELD_NUMBER: builtins.int
     CLOUD_PROVIDER_FIELD_NUMBER: builtins.int
     FAKE_FIELD_NUMBER: builtins.int
-    GENERIC_DOCKER_FIELD_NUMBER: builtins.int
+    EXTENSION_FIELD_NUMBER: builtins.int
     name: builtins.str
     disable_flagger: builtins.bool
     disable_istio: builtins.bool
@@ -545,7 +545,7 @@ class ClusterConfig(google.protobuf.message.Message):
     def fake(self) -> global___FakeClusterConfig:
         """only used for fake runtimes"""
     @property
-    def generic_docker(self) -> global___GenericDockerClusterConfig: ...
+    def extension(self) -> global___ExtensionClusterConfig: ...
     def __init__(
         self,
         *,
@@ -560,10 +560,10 @@ class ClusterConfig(google.protobuf.message.Message):
         self_managed_gke_ingress: global___ClusterConfig.GKEIngress | None = ...,
         cloud_provider: global___ClusterConfig.CloudProvider.ValueType = ...,
         fake: global___FakeClusterConfig | None = ...,
-        generic_docker: global___GenericDockerClusterConfig | None = ...,
+        extension: global___ExtensionClusterConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "fake", b"fake", "generic_docker", b"generic_docker", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "fake", b"fake", "generic_docker", b"generic_docker", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "name", b"name", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "generic_docker"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "name", b"name", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension"] | None: ...
 
 global___ClusterConfig = ClusterConfig

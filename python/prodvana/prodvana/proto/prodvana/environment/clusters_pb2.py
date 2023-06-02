@@ -23,7 +23,7 @@ from prodvana.proto.prodvana.common_config import parameters_pb2 as prodvana_dot
 from prodvana.proto.prodvana.runtimes import runtimes_config_pb2 as prodvana_dot_runtimes_dot_runtimes__config__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#prodvana/environment/clusters.proto\x12\x14prodvana.environment\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a prodvana/common_config/env.proto\x1a!prodvana/common_config/task.proto\x1a.prodvana/common_config/kubernetes_config.proto\x1a\'prodvana/common_config/parameters.proto\x1a\'prodvana/runtimes/runtimes_config.proto\"\xd0\x04\n\x0b\x43lusterAuth\x12\x10\n\x08\x65ndpoint\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61_cert\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\t\x12\x17\n\x0fservice_account\x18\x04 \x01(\t\x12\x38\n\x03\x65\x63s\x18\x05 \x01(\x0b\x32).prodvana.environment.ClusterAuth.ECSAuthH\x00\x12M\n\x0egeneric_docker\x18\x07 \x01(\x0b\x32\x33.prodvana.environment.ClusterAuth.GenericDockerAuthH\x00\x12\x38\n\x03k8s\x18\x08 \x01(\x0b\x32).prodvana.environment.ClusterAuth.K8sAuthH\x00\x12\x16\n\x0ek8s_agent_auth\x18\x06 \x01(\x08\x1ao\n\x07\x45\x43SAuth\x12\x12\n\naccess_key\x18\x01 \x01(\t\x12\x12\n\nsecret_key\x18\x02 \x01(\t\x12\x0e\n\x06region\x18\x03 \x01(\t\x12\x17\n\x0f\x61ssume_role_arn\x18\x04 \x01(\t\x12\x13\n\x0b\x63luster_arn\x18\x05 \x01(\t\x1a\x13\n\x11GenericDockerAuth\x1a\x86\x01\n\x07K8sAuth\x12J\n\tagent_env\x18\x01 \x03(\x0b\x32\x37.prodvana.environment.ClusterAuth.K8sAuth.AgentEnvEntry\x1a/\n\rAgentEnvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\nauth_oneof\"\xe9\x02\n\x07\x43luster\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x12\n\ncluster_id\x18\x02 \x01(\t\x12\x34\n\x06origin\x18\x03 \x01(\x0e\x32$.prodvana.environment.Cluster.Origin\x12/\n\x04\x61uth\x18\x04 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\x12/\n\x04type\x18\x05 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12\x33\n\x06\x63onfig\x18\x06 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\x12<\n\x18last_heartbeat_timestamp\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"1\n\x06Origin\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0c\n\x08PRODVANA\x10\x01\x12\x0c\n\x08\x45XTERNAL\x10\x02\"\xc6\x01\n\x11\x46\x61keClusterConfig\x12Z\n\x11\x63rashing_programs\x18\x01 \x03(\x0b\x32?.prodvana.environment.FakeClusterConfig.CrashingProgramPatterns\x1aU\n\x17\x43rashingProgramPatterns\x12\x13\n\x0bimage_regex\x18\x01 \x01(\t\x12\x11\n\tcmd_regex\x18\x02 \x01(\t\x12\x12\n\nlog_output\x18\x03 \x01(\t\"\x8a\x02\n\x14GenericDockerCommand\x12\x39\n\x0btask_config\x18\x01 \x01(\x0b\x32\".prodvana.common_config.TaskConfigH\x00\x12\x45\n\x11kubernetes_config\x18\x02 \x01(\x0b\x32(.prodvana.common_config.KubernetesConfigH\x00\x12\x30\n\rpoll_interval\x18\x03 \x01(\x0b\x32\x19.google.protobuf.Duration\x12*\n\x07timeout\x18\x04 \x01(\x0b\x32\x19.google.protobuf.DurationB\x12\n\x0b\x65xec_config\x12\x03\xf8\x42\x01\"\xb8\x02\n\x1aGenericDockerClusterConfig\x12\x43\n\x05\x61pply\x18\x01 \x01(\x0b\x32*.prodvana.environment.GenericDockerCommandB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x39\n\x05\x66\x65tch\x18\x02 \x01(\x0b\x32*.prodvana.environment.GenericDockerCommand\x12N\n\nparameters\x18\x03 \x03(\x0b\x32+.prodvana.common_config.ParameterDefinitionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12J\n\rproxy_runtime\x18\x04 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xce\x02\n\x1c\x43ompiledGenericDockerCommand\x12\x13\n\x0bname_prefix\x18\x01 \x01(\t\x12;\n\x07\x63ommand\x18\x02 \x01(\x0b\x32*.prodvana.environment.GenericDockerCommand\x12\x44\n\x11runtime_execution\x18\x03 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfig\x12H\n\x03\x65nv\x18\x04 \x03(\x0b\x32;.prodvana.environment.CompiledGenericDockerCommand.EnvEntry\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\"\xc9\x0c\n\rClusterConfig\x12\x0c\n\x04name\x18\x0e \x01(\t\x12\x17\n\x0f\x64isable_flagger\x18\x01 \x01(\x08\x12\x15\n\rdisable_istio\x18\x02 \x01(\x08\x12>\n\x08kubecost\x18\x03 \x01(\x0b\x32,.prodvana.environment.ClusterConfig.Kubecost\x12<\n\x07\x64\x61tadog\x18\x04 \x01(\x0b\x32+.prodvana.environment.ClusterConfig.Datadog\x12\x43\n\x0b\x61lb_ingress\x18\x06 \x01(\x0b\x32..prodvana.environment.ClusterConfig.ALBIngress\x12G\n\rargo_rollouts\x18\x07 \x01(\x0b\x32\x30.prodvana.environment.ClusterConfig.ArgoRollouts\x12\x43\n\x0bgke_ingress\x18\x08 \x01(\x0b\x32..prodvana.environment.ClusterConfig.GKEIngress\x12P\n\x18self_managed_gke_ingress\x18\x0b \x01(\x0b\x32..prodvana.environment.ClusterConfig.GKEIngress\x12I\n\x0e\x63loud_provider\x18\t \x01(\x0e\x32\x31.prodvana.environment.ClusterConfig.CloudProvider\x12\x37\n\x04\x66\x61ke\x18\n \x01(\x0b\x32\'.prodvana.environment.FakeClusterConfigH\x00\x12J\n\x0egeneric_docker\x18\x0c \x01(\x0b\x32\x30.prodvana.environment.GenericDockerClusterConfigH\x00\x1aH\n\x08Kubecost\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x0f\n\x07managed\x18\x02 \x01(\x08\x12\x1a\n\x12kubecost_namespace\x18\x03 \x01(\t\x1a\x65\n\x07\x44\x61tadog\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x0f\n\x07managed\x18\x02 \x01(\x08\x12\x19\n\x11\x64\x61tadog_namespace\x18\x03 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x04 \x01(\t\x12\x0c\n\x04site\x18\x05 \x01(\t\x1a\x62\n\nALBIngress\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x1e\n\ringress_class\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12#\n\x1b\x64\x65\x66\x61ult_balancer_attributes\x18\x03 \x03(\t\x1a\xba\x03\n\x0c\x41rgoRollouts\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12T\n\ttemplates\x18\x02 \x03(\x0b\x32\x41.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate\x1a\xc2\x02\n\x10\x41nalysisTemplate\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x66\n\x0b\x61rg_mapping\x18\x02 \x03(\x0b\x32Q.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry\x1a}\n\x0f\x41rgMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12Y\n\x05value\x18\x02 \x01(\x0e\x32J.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgValue:\x02\x38\x01\"9\n\x08\x41rgValue\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SERVICE\x10\x01\x12\x13\n\x0fRELEASE_CHANNEL\x10\x02\x1a\x37\n\nGKEIngress\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x18\n\x10\x63ontainer_native\x18\x02 \x01(\x08\"T\n\rCloudProvider\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03\x45KS\x10\x01\x12\x07\n\x03GKE\x10\x02\x12\x07\n\x03\x41KS\x10\x03\x12\n\n\x06ONPREM\x10\x04\x12\x0f\n\x0bOTHER_CLOUD\x10\x05\x42\x0f\n\rcluster_oneofJ\x04\x08\x05\x10\x06R\x0f\x61ws_alb_ingress*J\n\x0b\x43lusterType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03K8S\x10\x01\x12\x07\n\x03\x45\x43S\x10\x02\x12\x08\n\x04\x46\x41KE\x10\x03\x12\x12\n\x0eGENERIC_DOCKER\x10\x04\x42PZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environmentb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#prodvana/environment/clusters.proto\x12\x14prodvana.environment\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a prodvana/common_config/env.proto\x1a!prodvana/common_config/task.proto\x1a.prodvana/common_config/kubernetes_config.proto\x1a\'prodvana/common_config/parameters.proto\x1a\'prodvana/runtimes/runtimes_config.proto\"\xc3\x04\n\x0b\x43lusterAuth\x12\x10\n\x08\x65ndpoint\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61_cert\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\t\x12\x17\n\x0fservice_account\x18\x04 \x01(\t\x12\x38\n\x03\x65\x63s\x18\x05 \x01(\x0b\x32).prodvana.environment.ClusterAuth.ECSAuthH\x00\x12\x44\n\textension\x18\x07 \x01(\x0b\x32/.prodvana.environment.ClusterAuth.ExtensionAuthH\x00\x12\x38\n\x03k8s\x18\x08 \x01(\x0b\x32).prodvana.environment.ClusterAuth.K8sAuthH\x00\x12\x16\n\x0ek8s_agent_auth\x18\x06 \x01(\x08\x1ao\n\x07\x45\x43SAuth\x12\x12\n\naccess_key\x18\x01 \x01(\t\x12\x12\n\nsecret_key\x18\x02 \x01(\t\x12\x0e\n\x06region\x18\x03 \x01(\t\x12\x17\n\x0f\x61ssume_role_arn\x18\x04 \x01(\t\x12\x13\n\x0b\x63luster_arn\x18\x05 \x01(\t\x1a\x0f\n\rExtensionAuth\x1a\x86\x01\n\x07K8sAuth\x12J\n\tagent_env\x18\x01 \x03(\x0b\x32\x37.prodvana.environment.ClusterAuth.K8sAuth.AgentEnvEntry\x1a/\n\rAgentEnvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\nauth_oneof\"\xe9\x02\n\x07\x43luster\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x12\n\ncluster_id\x18\x02 \x01(\t\x12\x34\n\x06origin\x18\x03 \x01(\x0e\x32$.prodvana.environment.Cluster.Origin\x12/\n\x04\x61uth\x18\x04 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\x12/\n\x04type\x18\x05 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12\x33\n\x06\x63onfig\x18\x06 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\x12<\n\x18last_heartbeat_timestamp\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"1\n\x06Origin\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0c\n\x08PRODVANA\x10\x01\x12\x0c\n\x08\x45XTERNAL\x10\x02\"\xc6\x01\n\x11\x46\x61keClusterConfig\x12Z\n\x11\x63rashing_programs\x18\x01 \x03(\x0b\x32?.prodvana.environment.FakeClusterConfig.CrashingProgramPatterns\x1aU\n\x17\x43rashingProgramPatterns\x12\x13\n\x0bimage_regex\x18\x01 \x01(\t\x12\x11\n\tcmd_regex\x18\x02 \x01(\t\x12\x12\n\nlog_output\x18\x03 \x01(\t\"\x86\x02\n\x10\x45xtensionCommand\x12\x39\n\x0btask_config\x18\x01 \x01(\x0b\x32\".prodvana.common_config.TaskConfigH\x00\x12\x45\n\x11kubernetes_config\x18\x02 \x01(\x0b\x32(.prodvana.common_config.KubernetesConfigH\x00\x12\x30\n\rpoll_interval\x18\x03 \x01(\x0b\x32\x19.google.protobuf.Duration\x12*\n\x07timeout\x18\x04 \x01(\x0b\x32\x19.google.protobuf.DurationB\x12\n\x0b\x65xec_config\x12\x03\xf8\x42\x01\"\xac\x02\n\x16\x45xtensionClusterConfig\x12?\n\x05\x61pply\x18\x01 \x01(\x0b\x32&.prodvana.environment.ExtensionCommandB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x35\n\x05\x66\x65tch\x18\x02 \x01(\x0b\x32&.prodvana.environment.ExtensionCommand\x12N\n\nparameters\x18\x03 \x03(\x0b\x32+.prodvana.common_config.ParameterDefinitionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12J\n\rproxy_runtime\x18\x04 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xc2\x02\n\x18\x43ompiledExtensionCommand\x12\x13\n\x0bname_prefix\x18\x01 \x01(\t\x12\x37\n\x07\x63ommand\x18\x02 \x01(\x0b\x32&.prodvana.environment.ExtensionCommand\x12\x44\n\x11runtime_execution\x18\x03 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfig\x12\x44\n\x03\x65nv\x18\x04 \x03(\x0b\x32\x37.prodvana.environment.CompiledExtensionCommand.EnvEntry\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\"\xc0\x0c\n\rClusterConfig\x12\x0c\n\x04name\x18\x0e \x01(\t\x12\x17\n\x0f\x64isable_flagger\x18\x01 \x01(\x08\x12\x15\n\rdisable_istio\x18\x02 \x01(\x08\x12>\n\x08kubecost\x18\x03 \x01(\x0b\x32,.prodvana.environment.ClusterConfig.Kubecost\x12<\n\x07\x64\x61tadog\x18\x04 \x01(\x0b\x32+.prodvana.environment.ClusterConfig.Datadog\x12\x43\n\x0b\x61lb_ingress\x18\x06 \x01(\x0b\x32..prodvana.environment.ClusterConfig.ALBIngress\x12G\n\rargo_rollouts\x18\x07 \x01(\x0b\x32\x30.prodvana.environment.ClusterConfig.ArgoRollouts\x12\x43\n\x0bgke_ingress\x18\x08 \x01(\x0b\x32..prodvana.environment.ClusterConfig.GKEIngress\x12P\n\x18self_managed_gke_ingress\x18\x0b \x01(\x0b\x32..prodvana.environment.ClusterConfig.GKEIngress\x12I\n\x0e\x63loud_provider\x18\t \x01(\x0e\x32\x31.prodvana.environment.ClusterConfig.CloudProvider\x12\x37\n\x04\x66\x61ke\x18\n \x01(\x0b\x32\'.prodvana.environment.FakeClusterConfigH\x00\x12\x41\n\textension\x18\x0c \x01(\x0b\x32,.prodvana.environment.ExtensionClusterConfigH\x00\x1aH\n\x08Kubecost\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x0f\n\x07managed\x18\x02 \x01(\x08\x12\x1a\n\x12kubecost_namespace\x18\x03 \x01(\t\x1a\x65\n\x07\x44\x61tadog\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x0f\n\x07managed\x18\x02 \x01(\x08\x12\x19\n\x11\x64\x61tadog_namespace\x18\x03 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x04 \x01(\t\x12\x0c\n\x04site\x18\x05 \x01(\t\x1a\x62\n\nALBIngress\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x1e\n\ringress_class\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12#\n\x1b\x64\x65\x66\x61ult_balancer_attributes\x18\x03 \x03(\t\x1a\xba\x03\n\x0c\x41rgoRollouts\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12T\n\ttemplates\x18\x02 \x03(\x0b\x32\x41.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate\x1a\xc2\x02\n\x10\x41nalysisTemplate\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x66\n\x0b\x61rg_mapping\x18\x02 \x03(\x0b\x32Q.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry\x1a}\n\x0f\x41rgMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12Y\n\x05value\x18\x02 \x01(\x0e\x32J.prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgValue:\x02\x38\x01\"9\n\x08\x41rgValue\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SERVICE\x10\x01\x12\x13\n\x0fRELEASE_CHANNEL\x10\x02\x1a\x37\n\nGKEIngress\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\x12\x18\n\x10\x63ontainer_native\x18\x02 \x01(\x08\"T\n\rCloudProvider\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03\x45KS\x10\x01\x12\x07\n\x03GKE\x10\x02\x12\x07\n\x03\x41KS\x10\x03\x12\n\n\x06ONPREM\x10\x04\x12\x0f\n\x0bOTHER_CLOUD\x10\x05\x42\x0f\n\rcluster_oneofJ\x04\x08\x05\x10\x06R\x0f\x61ws_alb_ingress*E\n\x0b\x43lusterType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03K8S\x10\x01\x12\x07\n\x03\x45\x43S\x10\x02\x12\x08\n\x04\x46\x41KE\x10\x03\x12\r\n\tEXTENSION\x10\x04\x42PZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environmentb\x06proto3')
 
 _CLUSTERTYPE = DESCRIPTOR.enum_types_by_name['ClusterType']
 ClusterType = enum_type_wrapper.EnumTypeWrapper(_CLUSTERTYPE)
@@ -31,21 +31,21 @@ UNKNOWN = 0
 K8S = 1
 ECS = 2
 FAKE = 3
-GENERIC_DOCKER = 4
+EXTENSION = 4
 
 
 _CLUSTERAUTH = DESCRIPTOR.message_types_by_name['ClusterAuth']
 _CLUSTERAUTH_ECSAUTH = _CLUSTERAUTH.nested_types_by_name['ECSAuth']
-_CLUSTERAUTH_GENERICDOCKERAUTH = _CLUSTERAUTH.nested_types_by_name['GenericDockerAuth']
+_CLUSTERAUTH_EXTENSIONAUTH = _CLUSTERAUTH.nested_types_by_name['ExtensionAuth']
 _CLUSTERAUTH_K8SAUTH = _CLUSTERAUTH.nested_types_by_name['K8sAuth']
 _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY = _CLUSTERAUTH_K8SAUTH.nested_types_by_name['AgentEnvEntry']
 _CLUSTER = DESCRIPTOR.message_types_by_name['Cluster']
 _FAKECLUSTERCONFIG = DESCRIPTOR.message_types_by_name['FakeClusterConfig']
 _FAKECLUSTERCONFIG_CRASHINGPROGRAMPATTERNS = _FAKECLUSTERCONFIG.nested_types_by_name['CrashingProgramPatterns']
-_GENERICDOCKERCOMMAND = DESCRIPTOR.message_types_by_name['GenericDockerCommand']
-_GENERICDOCKERCLUSTERCONFIG = DESCRIPTOR.message_types_by_name['GenericDockerClusterConfig']
-_COMPILEDGENERICDOCKERCOMMAND = DESCRIPTOR.message_types_by_name['CompiledGenericDockerCommand']
-_COMPILEDGENERICDOCKERCOMMAND_ENVENTRY = _COMPILEDGENERICDOCKERCOMMAND.nested_types_by_name['EnvEntry']
+_EXTENSIONCOMMAND = DESCRIPTOR.message_types_by_name['ExtensionCommand']
+_EXTENSIONCLUSTERCONFIG = DESCRIPTOR.message_types_by_name['ExtensionClusterConfig']
+_COMPILEDEXTENSIONCOMMAND = DESCRIPTOR.message_types_by_name['CompiledExtensionCommand']
+_COMPILEDEXTENSIONCOMMAND_ENVENTRY = _COMPILEDEXTENSIONCOMMAND.nested_types_by_name['EnvEntry']
 _CLUSTERCONFIG = DESCRIPTOR.message_types_by_name['ClusterConfig']
 _CLUSTERCONFIG_KUBECOST = _CLUSTERCONFIG.nested_types_by_name['Kubecost']
 _CLUSTERCONFIG_DATADOG = _CLUSTERCONFIG.nested_types_by_name['Datadog']
@@ -66,10 +66,10 @@ ClusterAuth = _reflection.GeneratedProtocolMessageType('ClusterAuth', (_message.
     })
   ,
 
-  'GenericDockerAuth' : _reflection.GeneratedProtocolMessageType('GenericDockerAuth', (_message.Message,), {
-    'DESCRIPTOR' : _CLUSTERAUTH_GENERICDOCKERAUTH,
+  'ExtensionAuth' : _reflection.GeneratedProtocolMessageType('ExtensionAuth', (_message.Message,), {
+    'DESCRIPTOR' : _CLUSTERAUTH_EXTENSIONAUTH,
     '__module__' : 'prodvana.environment.clusters_pb2'
-    # @@protoc_insertion_point(class_scope:prodvana.environment.ClusterAuth.GenericDockerAuth)
+    # @@protoc_insertion_point(class_scope:prodvana.environment.ClusterAuth.ExtensionAuth)
     })
   ,
 
@@ -92,7 +92,7 @@ ClusterAuth = _reflection.GeneratedProtocolMessageType('ClusterAuth', (_message.
   })
 _sym_db.RegisterMessage(ClusterAuth)
 _sym_db.RegisterMessage(ClusterAuth.ECSAuth)
-_sym_db.RegisterMessage(ClusterAuth.GenericDockerAuth)
+_sym_db.RegisterMessage(ClusterAuth.ExtensionAuth)
 _sym_db.RegisterMessage(ClusterAuth.K8sAuth)
 _sym_db.RegisterMessage(ClusterAuth.K8sAuth.AgentEnvEntry)
 
@@ -118,34 +118,34 @@ FakeClusterConfig = _reflection.GeneratedProtocolMessageType('FakeClusterConfig'
 _sym_db.RegisterMessage(FakeClusterConfig)
 _sym_db.RegisterMessage(FakeClusterConfig.CrashingProgramPatterns)
 
-GenericDockerCommand = _reflection.GeneratedProtocolMessageType('GenericDockerCommand', (_message.Message,), {
-  'DESCRIPTOR' : _GENERICDOCKERCOMMAND,
+ExtensionCommand = _reflection.GeneratedProtocolMessageType('ExtensionCommand', (_message.Message,), {
+  'DESCRIPTOR' : _EXTENSIONCOMMAND,
   '__module__' : 'prodvana.environment.clusters_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.GenericDockerCommand)
+  # @@protoc_insertion_point(class_scope:prodvana.environment.ExtensionCommand)
   })
-_sym_db.RegisterMessage(GenericDockerCommand)
+_sym_db.RegisterMessage(ExtensionCommand)
 
-GenericDockerClusterConfig = _reflection.GeneratedProtocolMessageType('GenericDockerClusterConfig', (_message.Message,), {
-  'DESCRIPTOR' : _GENERICDOCKERCLUSTERCONFIG,
+ExtensionClusterConfig = _reflection.GeneratedProtocolMessageType('ExtensionClusterConfig', (_message.Message,), {
+  'DESCRIPTOR' : _EXTENSIONCLUSTERCONFIG,
   '__module__' : 'prodvana.environment.clusters_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.GenericDockerClusterConfig)
+  # @@protoc_insertion_point(class_scope:prodvana.environment.ExtensionClusterConfig)
   })
-_sym_db.RegisterMessage(GenericDockerClusterConfig)
+_sym_db.RegisterMessage(ExtensionClusterConfig)
 
-CompiledGenericDockerCommand = _reflection.GeneratedProtocolMessageType('CompiledGenericDockerCommand', (_message.Message,), {
+CompiledExtensionCommand = _reflection.GeneratedProtocolMessageType('CompiledExtensionCommand', (_message.Message,), {
 
   'EnvEntry' : _reflection.GeneratedProtocolMessageType('EnvEntry', (_message.Message,), {
-    'DESCRIPTOR' : _COMPILEDGENERICDOCKERCOMMAND_ENVENTRY,
+    'DESCRIPTOR' : _COMPILEDEXTENSIONCOMMAND_ENVENTRY,
     '__module__' : 'prodvana.environment.clusters_pb2'
-    # @@protoc_insertion_point(class_scope:prodvana.environment.CompiledGenericDockerCommand.EnvEntry)
+    # @@protoc_insertion_point(class_scope:prodvana.environment.CompiledExtensionCommand.EnvEntry)
     })
   ,
-  'DESCRIPTOR' : _COMPILEDGENERICDOCKERCOMMAND,
+  'DESCRIPTOR' : _COMPILEDEXTENSIONCOMMAND,
   '__module__' : 'prodvana.environment.clusters_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.CompiledGenericDockerCommand)
+  # @@protoc_insertion_point(class_scope:prodvana.environment.CompiledExtensionCommand)
   })
-_sym_db.RegisterMessage(CompiledGenericDockerCommand)
-_sym_db.RegisterMessage(CompiledGenericDockerCommand.EnvEntry)
+_sym_db.RegisterMessage(CompiledExtensionCommand)
+_sym_db.RegisterMessage(CompiledExtensionCommand.EnvEntry)
 
 ClusterConfig = _reflection.GeneratedProtocolMessageType('ClusterConfig', (_message.Message,), {
 
@@ -216,66 +216,66 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'ZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment'
   _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._options = None
   _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._serialized_options = b'8\001'
-  _GENERICDOCKERCOMMAND.oneofs_by_name['exec_config']._options = None
-  _GENERICDOCKERCOMMAND.oneofs_by_name['exec_config']._serialized_options = b'\370B\001'
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['apply']._options = None
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['apply']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['parameters']._options = None
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['parameters']._serialized_options = b'\372B\n\222\001\007\"\005\212\001\002\020\001'
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['proxy_runtime']._options = None
-  _GENERICDOCKERCLUSTERCONFIG.fields_by_name['proxy_runtime']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _COMPILEDGENERICDOCKERCOMMAND_ENVENTRY._options = None
-  _COMPILEDGENERICDOCKERCOMMAND_ENVENTRY._serialized_options = b'8\001'
+  _EXTENSIONCOMMAND.oneofs_by_name['exec_config']._options = None
+  _EXTENSIONCOMMAND.oneofs_by_name['exec_config']._serialized_options = b'\370B\001'
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['apply']._options = None
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['apply']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['parameters']._options = None
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['parameters']._serialized_options = b'\372B\n\222\001\007\"\005\212\001\002\020\001'
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['proxy_runtime']._options = None
+  _EXTENSIONCLUSTERCONFIG.fields_by_name['proxy_runtime']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _COMPILEDEXTENSIONCOMMAND_ENVENTRY._options = None
+  _COMPILEDEXTENSIONCOMMAND_ENVENTRY._serialized_options = b'8\001'
   _CLUSTERCONFIG_ALBINGRESS.fields_by_name['ingress_class']._options = None
   _CLUSTERCONFIG_ALBINGRESS.fields_by_name['ingress_class']._serialized_options = b'\372B\004r\002\020\001'
   _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._options = None
   _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._serialized_options = b'8\001'
-  _CLUSTERTYPE._serialized_start=4043
-  _CLUSTERTYPE._serialized_end=4117
+  _CLUSTERTYPE._serialized_start=3993
+  _CLUSTERTYPE._serialized_end=4062
   _CLUSTERAUTH._serialized_start=351
-  _CLUSTERAUTH._serialized_end=943
-  _CLUSTERAUTH_ECSAUTH._serialized_start=660
-  _CLUSTERAUTH_ECSAUTH._serialized_end=771
-  _CLUSTERAUTH_GENERICDOCKERAUTH._serialized_start=773
-  _CLUSTERAUTH_GENERICDOCKERAUTH._serialized_end=792
-  _CLUSTERAUTH_K8SAUTH._serialized_start=795
-  _CLUSTERAUTH_K8SAUTH._serialized_end=929
-  _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._serialized_start=882
-  _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._serialized_end=929
-  _CLUSTER._serialized_start=946
-  _CLUSTER._serialized_end=1307
-  _CLUSTER_ORIGIN._serialized_start=1258
-  _CLUSTER_ORIGIN._serialized_end=1307
-  _FAKECLUSTERCONFIG._serialized_start=1310
-  _FAKECLUSTERCONFIG._serialized_end=1508
-  _FAKECLUSTERCONFIG_CRASHINGPROGRAMPATTERNS._serialized_start=1423
-  _FAKECLUSTERCONFIG_CRASHINGPROGRAMPATTERNS._serialized_end=1508
-  _GENERICDOCKERCOMMAND._serialized_start=1511
-  _GENERICDOCKERCOMMAND._serialized_end=1777
-  _GENERICDOCKERCLUSTERCONFIG._serialized_start=1780
-  _GENERICDOCKERCLUSTERCONFIG._serialized_end=2092
-  _COMPILEDGENERICDOCKERCOMMAND._serialized_start=2095
-  _COMPILEDGENERICDOCKERCOMMAND._serialized_end=2429
-  _COMPILEDGENERICDOCKERCOMMAND_ENVENTRY._serialized_start=2353
-  _COMPILEDGENERICDOCKERCOMMAND_ENVENTRY._serialized_end=2429
-  _CLUSTERCONFIG._serialized_start=2432
-  _CLUSTERCONFIG._serialized_end=4041
-  _CLUSTERCONFIG_KUBECOST._serialized_start=3138
-  _CLUSTERCONFIG_KUBECOST._serialized_end=3210
-  _CLUSTERCONFIG_DATADOG._serialized_start=3212
-  _CLUSTERCONFIG_DATADOG._serialized_end=3313
-  _CLUSTERCONFIG_ALBINGRESS._serialized_start=3315
-  _CLUSTERCONFIG_ALBINGRESS._serialized_end=3413
-  _CLUSTERCONFIG_ARGOROLLOUTS._serialized_start=3416
-  _CLUSTERCONFIG_ARGOROLLOUTS._serialized_end=3858
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE._serialized_start=3536
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE._serialized_end=3858
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._serialized_start=3674
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._serialized_end=3799
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGVALUE._serialized_start=3801
-  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGVALUE._serialized_end=3858
-  _CLUSTERCONFIG_GKEINGRESS._serialized_start=3860
-  _CLUSTERCONFIG_GKEINGRESS._serialized_end=3915
-  _CLUSTERCONFIG_CLOUDPROVIDER._serialized_start=3917
-  _CLUSTERCONFIG_CLOUDPROVIDER._serialized_end=4001
+  _CLUSTERAUTH._serialized_end=930
+  _CLUSTERAUTH_ECSAUTH._serialized_start=651
+  _CLUSTERAUTH_ECSAUTH._serialized_end=762
+  _CLUSTERAUTH_EXTENSIONAUTH._serialized_start=764
+  _CLUSTERAUTH_EXTENSIONAUTH._serialized_end=779
+  _CLUSTERAUTH_K8SAUTH._serialized_start=782
+  _CLUSTERAUTH_K8SAUTH._serialized_end=916
+  _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._serialized_start=869
+  _CLUSTERAUTH_K8SAUTH_AGENTENVENTRY._serialized_end=916
+  _CLUSTER._serialized_start=933
+  _CLUSTER._serialized_end=1294
+  _CLUSTER_ORIGIN._serialized_start=1245
+  _CLUSTER_ORIGIN._serialized_end=1294
+  _FAKECLUSTERCONFIG._serialized_start=1297
+  _FAKECLUSTERCONFIG._serialized_end=1495
+  _FAKECLUSTERCONFIG_CRASHINGPROGRAMPATTERNS._serialized_start=1410
+  _FAKECLUSTERCONFIG_CRASHINGPROGRAMPATTERNS._serialized_end=1495
+  _EXTENSIONCOMMAND._serialized_start=1498
+  _EXTENSIONCOMMAND._serialized_end=1760
+  _EXTENSIONCLUSTERCONFIG._serialized_start=1763
+  _EXTENSIONCLUSTERCONFIG._serialized_end=2063
+  _COMPILEDEXTENSIONCOMMAND._serialized_start=2066
+  _COMPILEDEXTENSIONCOMMAND._serialized_end=2388
+  _COMPILEDEXTENSIONCOMMAND_ENVENTRY._serialized_start=2312
+  _COMPILEDEXTENSIONCOMMAND_ENVENTRY._serialized_end=2388
+  _CLUSTERCONFIG._serialized_start=2391
+  _CLUSTERCONFIG._serialized_end=3991
+  _CLUSTERCONFIG_KUBECOST._serialized_start=3088
+  _CLUSTERCONFIG_KUBECOST._serialized_end=3160
+  _CLUSTERCONFIG_DATADOG._serialized_start=3162
+  _CLUSTERCONFIG_DATADOG._serialized_end=3263
+  _CLUSTERCONFIG_ALBINGRESS._serialized_start=3265
+  _CLUSTERCONFIG_ALBINGRESS._serialized_end=3363
+  _CLUSTERCONFIG_ARGOROLLOUTS._serialized_start=3366
+  _CLUSTERCONFIG_ARGOROLLOUTS._serialized_end=3808
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE._serialized_start=3486
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE._serialized_end=3808
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._serialized_start=3624
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGMAPPINGENTRY._serialized_end=3749
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGVALUE._serialized_start=3751
+  _CLUSTERCONFIG_ARGOROLLOUTS_ANALYSISTEMPLATE_ARGVALUE._serialized_end=3808
+  _CLUSTERCONFIG_GKEINGRESS._serialized_start=3810
+  _CLUSTERCONFIG_GKEINGRESS._serialized_end=3865
+  _CLUSTERCONFIG_CLOUDPROVIDER._serialized_start=3867
+  _CLUSTERCONFIG_CLOUDPROVIDER._serialized_end=3951
 # @@protoc_insertion_point(module_scope)
