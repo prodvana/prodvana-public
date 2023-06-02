@@ -2,7 +2,7 @@ syntax = "proto3";
 package prodvana.runtimes;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes";
 
-enum ExtensionType {
+enum FeatureType {
     UNKNOWN = 0;
     EXPOSED_SERVICE = 1;
     TLS_SERVICE = 2;
