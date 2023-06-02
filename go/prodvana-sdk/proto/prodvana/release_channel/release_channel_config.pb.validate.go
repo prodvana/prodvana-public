@@ -1014,9 +1014,9 @@ func (m *ReleaseChannelRuntimeConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetConnectionName()); l < 0 || l > 63 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 0 || l > 63 {
 		err := ReleaseChannelRuntimeConfigValidationError{
-			field:  "ConnectionName",
+			field:  "Name",
 			reason: "value length must be between 0 and 63 runes, inclusive",
 		}
 		if !all {
@@ -1025,9 +1025,9 @@ func (m *ReleaseChannelRuntimeConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_ReleaseChannelRuntimeConfig_ConnectionName_Pattern.MatchString(m.GetConnectionName()) {
+	if !_ReleaseChannelRuntimeConfig_Name_Pattern.MatchString(m.GetName()) {
 		err := ReleaseChannelRuntimeConfigValidationError{
-			field:  "ConnectionName",
+			field:  "Name",
 			reason: "value does not match regex pattern \"^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\"",
 		}
 		if !all {
@@ -1036,7 +1036,7 @@ func (m *ReleaseChannelRuntimeConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for ConnectionType
+	// no validation rules for Type
 
 	switch v := m.Capability.(type) {
 	case *ReleaseChannelRuntimeConfig_ContainerOrchestration:
@@ -1167,7 +1167,7 @@ var _ interface {
 
 var _ReleaseChannelRuntimeConfig_Runtime_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
 
-var _ReleaseChannelRuntimeConfig_ConnectionName_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
+var _ReleaseChannelRuntimeConfig_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
 
 // Validate checks the field values on Precondition_ReleaseChannelStable with
 // the rules defined in the proto definition for this message. If any rules

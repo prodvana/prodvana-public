@@ -3828,7 +3828,7 @@
                         }
                     ]
                 },
-                "connectionName": {
+                "name": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -3837,7 +3837,7 @@
                             "type": "string"
                         }
                     ],
-                    "description": "Optional identifier for this runtime connection within this release channel, useful if the same runtime is used multiple times in a single release channel. Defaults to runtime."
+                    "description": "Optional identifier for this runtime connection within this release channel, useful if the release channel has multiple runtimes of the same type. Defaults to the value of `runtime``."
                 },
                 "containerOrchestration": {
                     "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
@@ -3849,7 +3849,7 @@
                         {}
                     ]
                 },
-                "connectionType": {
+                "type": {
                     "enum": [
                         "UNKNOWN_CONNECTION",
                         0,

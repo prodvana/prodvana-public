@@ -217,28 +217,28 @@ class ReleaseChannelRuntimeConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RUNTIME_FIELD_NUMBER: builtins.int
-    CONNECTION_NAME_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
     CONTAINER_ORCHESTRATION_FIELD_NUMBER: builtins.int
-    CONNECTION_TYPE_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
     runtime: builtins.str
-    connection_name: builtins.str
+    name: builtins.str
     """Optional identifier for this runtime connection within this release channel,
-    useful if the same runtime is used multiple times in a single release channel.
-    Defaults to runtime.
+    useful if the release channel has multiple runtimes of the same type.
+    Defaults to the value of `runtime``.
     """
     @property
     def container_orchestration(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.ContainerOrchestrationRuntime: ...
-    connection_type: global___RuntimeConnectionType.ValueType
+    type: global___RuntimeConnectionType.ValueType
     def __init__(
         self,
         *,
         runtime: builtins.str = ...,
-        connection_name: builtins.str = ...,
+        name: builtins.str = ...,
         container_orchestration: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.ContainerOrchestrationRuntime | None = ...,
-        connection_type: global___RuntimeConnectionType.ValueType = ...,
+        type: global___RuntimeConnectionType.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["capability", b"capability", "container_orchestration", b"container_orchestration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["capability", b"capability", "connection_name", b"connection_name", "connection_type", b"connection_type", "container_orchestration", b"container_orchestration", "runtime", b"runtime"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["capability", b"capability", "container_orchestration", b"container_orchestration", "name", b"name", "runtime", b"runtime", "type", b"type"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["capability", b"capability"]) -> typing_extensions.Literal["container_orchestration"] | None: ...
 
 global___ReleaseChannelRuntimeConfig = ReleaseChannelRuntimeConfig

@@ -85,7 +85,7 @@ message Precondition {
     reserved "protection";
 }
 
-enum RuntimeConnectionType {
+enum RuntimeType {
     UNKNOWN_CONNECTION = 0;
     LONG_LIVED_COMPUTE = 1;
     EXTENSION = 2;
@@ -100,9 +100,9 @@ message ReleaseChannelRuntimeConfig {
         }
     ];
     // Optional identifier for this runtime connection within this release channel,
-    // useful if the same runtime is used multiple times in a single release channel.
-    // Defaults to runtime.
-    string connection_name = 3 [
+    // useful if the release channel has multiple runtimes of the same type.
+    // Defaults to the value of `runtime``.
+    string name = 3 [
         (validate.rules).string = {
             min_len: 0,
             max_len: 63,
@@ -113,7 +113,7 @@ message ReleaseChannelRuntimeConfig {
         prodvana.runtimes.ContainerOrchestrationRuntime container_orchestration = 1;
     }
 
-    RuntimeConnectionType connection_type = 4;
+    RuntimeType type = 4;
 
     // next tag: 5
 }
