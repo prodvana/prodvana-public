@@ -3297,3 +3297,229 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PromoteDeliveryRespValidationError{}
+
+// Validate checks the field values on BypassProtectionReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassProtectionReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassProtectionReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassProtectionReqMultiError, or nil if none found.
+func (m *BypassProtectionReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassProtectionReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
+		err := BypassProtectionReqValidationError{
+			field:  "DesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetSource()) < 1 {
+		err := BypassProtectionReqValidationError{
+			field:  "Source",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return BypassProtectionReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassProtectionReqMultiError is an error wrapping multiple validation
+// errors returned by BypassProtectionReq.ValidateAll() if the designated
+// constraints aren't met.
+type BypassProtectionReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassProtectionReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassProtectionReqMultiError) AllErrors() []error { return m }
+
+// BypassProtectionReqValidationError is the validation error returned by
+// BypassProtectionReq.Validate if the designated constraints aren't met.
+type BypassProtectionReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassProtectionReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassProtectionReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassProtectionReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassProtectionReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassProtectionReqValidationError) ErrorName() string {
+	return "BypassProtectionReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassProtectionReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassProtectionReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassProtectionReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassProtectionReqValidationError{}
+
+// Validate checks the field values on BypassProtectionResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassProtectionResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassProtectionResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassProtectionRespMultiError, or nil if none found.
+func (m *BypassProtectionResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassProtectionResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return BypassProtectionRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassProtectionRespMultiError is an error wrapping multiple validation
+// errors returned by BypassProtectionResp.ValidateAll() if the designated
+// constraints aren't met.
+type BypassProtectionRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassProtectionRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassProtectionRespMultiError) AllErrors() []error { return m }
+
+// BypassProtectionRespValidationError is the validation error returned by
+// BypassProtectionResp.Validate if the designated constraints aren't met.
+type BypassProtectionRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassProtectionRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassProtectionRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassProtectionRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassProtectionRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassProtectionRespValidationError) ErrorName() string {
+	return "BypassProtectionRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassProtectionRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassProtectionResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassProtectionRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassProtectionRespValidationError{}

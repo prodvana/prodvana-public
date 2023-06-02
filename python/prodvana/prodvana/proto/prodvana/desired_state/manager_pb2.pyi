@@ -577,3 +577,29 @@ class PromoteDeliveryResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___PromoteDeliveryResp = PromoteDeliveryResp
+
+class BypassProtectionReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    source: builtins.str
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        source: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "source", b"source"]) -> None: ...
+
+global___BypassProtectionReq = BypassProtectionReq
+
+class BypassProtectionResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___BypassProtectionResp = BypassProtectionResp

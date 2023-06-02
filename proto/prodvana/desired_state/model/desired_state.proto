@@ -422,6 +422,7 @@ message ProtectionLinkState {
         TIMED_OUT = 4;
         FAILED = 5;
         DELETED = 6;
+        MANUALLY_BYPASSED = 7;
     }
     StopReason stopped_reason = 6;
 
@@ -459,6 +460,7 @@ message DeliveryExtensionState {
 enum SignalType {
     SIGNAL_UNKNOWN = 0;
     DELIVERY_PROMOTION = 1;
+	PROTECTION_BYPASS = 2;
 }
 
 message Signal {
@@ -471,8 +473,12 @@ message Signal {
         bool full = 2;
     }
 
+	message ProtectionBypass {
+	}
+
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
+		ProtectionBypass protection_bypass = 3;
     }
 }
 

@@ -312,11 +312,13 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     SIGNAL_UNKNOWN: _SignalType.ValueType  # 0
     DELIVERY_PROMOTION: _SignalType.ValueType  # 1
+    PROTECTION_BYPASS: _SignalType.ValueType  # 2
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
 SIGNAL_UNKNOWN: SignalType.ValueType  # 0
 DELIVERY_PROMOTION: SignalType.ValueType  # 1
+PROTECTION_BYPASS: SignalType.ValueType  # 2
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -1175,6 +1177,7 @@ class ProtectionLinkState(google.protobuf.message.Message):
         TIMED_OUT: ProtectionLinkState._StopReason.ValueType  # 4
         FAILED: ProtectionLinkState._StopReason.ValueType  # 5
         DELETED: ProtectionLinkState._StopReason.ValueType  # 6
+        MANUALLY_BYPASSED: ProtectionLinkState._StopReason.ValueType  # 7
 
     class StopReason(_StopReason, metaclass=_StopReasonEnumTypeWrapper): ...
     UNKNOWN: ProtectionLinkState.StopReason.ValueType  # 0
@@ -1184,6 +1187,7 @@ class ProtectionLinkState(google.protobuf.message.Message):
     TIMED_OUT: ProtectionLinkState.StopReason.ValueType  # 4
     FAILED: ProtectionLinkState.StopReason.ValueType  # 5
     DELETED: ProtectionLinkState.StopReason.ValueType  # 6
+    MANUALLY_BYPASSED: ProtectionLinkState.StopReason.ValueType  # 7
 
     META_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
@@ -1336,20 +1340,31 @@ class Signal(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["full", b"full", "stage", b"stage"]) -> None: ...
 
+    class ProtectionBypass(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        def __init__(
+            self,
+        ) -> None: ...
+
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
+    PROTECTION_BYPASS_FIELD_NUMBER: builtins.int
     type: global___SignalType.ValueType
     @property
     def delivery_promotion(self) -> global___Signal.DeliveryPromotionConfig: ...
+    @property
+    def protection_bypass(self) -> global___Signal.ProtectionBypass: ...
     def __init__(
         self,
         *,
         type: global___SignalType.ValueType = ...,
         delivery_promotion: global___Signal.DeliveryPromotionConfig | None = ...,
+        protection_bypass: global___Signal.ProtectionBypass | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass"] | None: ...
 
 global___Signal = Signal
 

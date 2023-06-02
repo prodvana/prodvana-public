@@ -2017,6 +2017,38 @@
         ]
       }
     },
+    "/v1/desired_states/bypass_protection": {
+      "post": {
+        "operationId": "DesiredStateManager_BypassProtection",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassProtectionResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassProtectionReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/promote_delivery": {
       "post": {
         "operationId": "DesiredStateManager_PromoteDelivery",
@@ -5150,7 +5182,8 @@
         "SUCCEEDED_FOR_DURATION",
         "TIMED_OUT",
         "FAILED",
-        "DELETED"
+        "DELETED",
+        "MANUALLY_BYPASSED"
       ],
       "default": "UNKNOWN"
     },
@@ -6411,6 +6444,20 @@
       }
     },
     "delivery_extensionValidateConfigureDeliveryExtensionResp": {
+      "type": "object"
+    },
+    "desired_stateBypassProtectionReq": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "desired_stateBypassProtectionResp": {
       "type": "object"
     },
     "desired_stateDebugLogs": {

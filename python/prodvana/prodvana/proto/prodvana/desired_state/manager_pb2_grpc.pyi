@@ -44,6 +44,10 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.PromoteDeliveryReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.PromoteDeliveryResp,
     ]
+    BypassProtection: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp,
+    ]
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -100,5 +104,11 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.PromoteDeliveryReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.PromoteDeliveryResp: ...
+    @abc.abstractmethod
+    def BypassProtection(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp: ...
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

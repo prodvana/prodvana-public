@@ -28,6 +28,7 @@ const (
 	DesiredStateManager_ValidateDesiredState_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/ValidateDesiredState"
 	DesiredStateManager_SetManualApproval_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/SetManualApproval"
 	DesiredStateManager_PromoteDelivery_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/PromoteDelivery"
+	DesiredStateManager_BypassProtection_FullMethodName                         = "/prodvana.desired_state.DesiredStateManager/BypassProtection"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -43,6 +44,7 @@ type DesiredStateManagerClient interface {
 	ValidateDesiredState(ctx context.Context, in *ValidateDesiredStateReq, opts ...grpc.CallOption) (*ValidateDesiredStateResp, error)
 	SetManualApproval(ctx context.Context, in *SetManualApprovalReq, opts ...grpc.CallOption) (*SetManualApprovalResp, error)
 	PromoteDelivery(ctx context.Context, in *PromoteDeliveryReq, opts ...grpc.CallOption) (*PromoteDeliveryResp, error)
+	BypassProtection(ctx context.Context, in *BypassProtectionReq, opts ...grpc.CallOption) (*BypassProtectionResp, error)
 }
 
 type desiredStateManagerClient struct {
@@ -134,6 +136,15 @@ func (c *desiredStateManagerClient) PromoteDelivery(ctx context.Context, in *Pro
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) BypassProtection(ctx context.Context, in *BypassProtectionReq, opts ...grpc.CallOption) (*BypassProtectionResp, error) {
+	out := new(BypassProtectionResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_BypassProtection_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -147,6 +158,7 @@ type DesiredStateManagerServer interface {
 	ValidateDesiredState(context.Context, *ValidateDesiredStateReq) (*ValidateDesiredStateResp, error)
 	SetManualApproval(context.Context, *SetManualApprovalReq) (*SetManualApprovalResp, error)
 	PromoteDelivery(context.Context, *PromoteDeliveryReq) (*PromoteDeliveryResp, error)
+	BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -180,6 +192,9 @@ func (UnimplementedDesiredStateManagerServer) SetManualApproval(context.Context,
 }
 func (UnimplementedDesiredStateManagerServer) PromoteDelivery(context.Context, *PromoteDeliveryReq) (*PromoteDeliveryResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PromoteDelivery not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BypassProtection not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -356,6 +371,24 @@ func _DesiredStateManager_PromoteDelivery_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_BypassProtection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BypassProtectionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).BypassProtection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_BypassProtection_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).BypassProtection(ctx, req.(*BypassProtectionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -398,6 +431,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PromoteDelivery",
 			Handler:    _DesiredStateManager_PromoteDelivery_Handler,
+		},
+		{
+			MethodName: "BypassProtection",
+			Handler:    _DesiredStateManager_BypassProtection_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

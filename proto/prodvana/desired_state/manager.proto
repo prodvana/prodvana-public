@@ -135,6 +135,14 @@ message PromoteDeliveryReq {
 message PromoteDeliveryResp {
 }
 
+message BypassProtectionReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    string source = 2 [(validate.rules).string.min_len = 1];
+}
+
+message BypassProtectionResp {
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -182,6 +190,12 @@ service DesiredStateManager {
     rpc PromoteDelivery(PromoteDeliveryReq) returns (PromoteDeliveryResp) {
         option (google.api.http) = {
             post: "/v1/desired_states/promote_delivery"
+            body: "*"
+        };
+    }
+    rpc BypassProtection(BypassProtectionReq) returns (BypassProtectionResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/bypass_protection"
             body: "*"
         };
     }
