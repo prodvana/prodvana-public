@@ -6727,6 +6727,12 @@
         "extensionId": {
           "type": "string"
         },
+        "extensionInstanceId": {
+          "type": "string"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/modelLifecycle"
+        },
         "program": {
           "$ref": "#/definitions/common_configProgramConfig"
         },

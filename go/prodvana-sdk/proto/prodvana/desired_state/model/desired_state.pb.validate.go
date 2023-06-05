@@ -4627,6 +4627,10 @@ func (m *DeliveryExtensionState) validate(all bool) error {
 
 	// no validation rules for ExtensionId
 
+	// no validation rules for ExtensionInstanceId
+
+	// no validation rules for Lifecycle
+
 	if m.GetProgram() == nil {
 		err := DeliveryExtensionStateValidationError{
 			field:  "Program",

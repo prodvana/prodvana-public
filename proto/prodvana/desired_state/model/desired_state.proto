@@ -448,6 +448,8 @@ message DeliveryExtensionState {
     Metadata meta = 1;
     repeated Version versions = 2;
     string extension_id = 3;
+    string extension_instance_id = 10;
+    Lifecycle lifecycle = 11;
     prodvana.common_config.ProgramConfig program = 4 [(validate.rules).message.required = true];
     prodvana.common_config.RetryConfig retry_config = 5;
 
@@ -455,6 +457,8 @@ message DeliveryExtensionState {
     SimpleStatus last_completed_status = 7;
     repeated StatusExplanation last_completed_status_explanations = 8;
     string last_completed_applied_version = 9;
+
+    // next tag: 12
 }
 
 enum SignalType {
