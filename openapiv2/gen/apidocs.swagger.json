@@ -9396,7 +9396,7 @@
           "$ref": "#/definitions/runtimesContainerOrchestrationRuntime"
         },
         "type": {
-          "$ref": "#/definitions/release_channelRuntimeType"
+          "$ref": "#/definitions/release_channelRuntimeConnectionType"
         }
       }
     },
@@ -9412,7 +9412,7 @@
         }
       }
     },
-    "release_channelRuntimeType": {
+    "release_channelRuntimeConnectionType": {
       "type": "string",
       "enum": [
         "UNKNOWN_CONNECTION",

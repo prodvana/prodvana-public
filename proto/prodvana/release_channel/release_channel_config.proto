@@ -85,7 +85,7 @@ message Precondition {
     reserved "protection";
 }
 
-enum RuntimeType {
+enum RuntimeConnectionType {
     UNKNOWN_CONNECTION = 0;
     LONG_LIVED_COMPUTE = 1;
     EXTENSION = 2;
@@ -113,7 +113,7 @@ message ReleaseChannelRuntimeConfig {
         prodvana.runtimes.ContainerOrchestrationRuntime container_orchestration = 1;
     }
 
-    RuntimeType type = 4;
+    RuntimeConnectionType type = 4;
 
     // next tag: 5
 }
