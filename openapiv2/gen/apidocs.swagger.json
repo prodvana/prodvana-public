@@ -6685,9 +6685,12 @@
         "lifecycle": {
           "$ref": "#/definitions/modelLifecycle"
         },
-        "releaseChannelId": {
-          "type": "string",
-          "description": "Used to determine which release channel this delivery extension is used for."
+        "releaseChannelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Used to determine which release channels this delivery extension is used for."
         }
       }
     },
@@ -6730,8 +6733,11 @@
         "lastCompletedAppliedVersion": {
           "type": "string"
         },
-        "releaseChannelId": {
-          "type": "string",
+        "releaseChannelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": "Used to determine which release channel this delivery extension is used for."
         }
       }

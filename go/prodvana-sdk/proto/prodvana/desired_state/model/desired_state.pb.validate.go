@@ -421,8 +421,6 @@ func (m *DeliveryExtension) validate(all bool) error {
 
 	// no validation rules for Lifecycle
 
-	// no validation rules for ReleaseChannelId
-
 	if len(errors) > 0 {
 		return DeliveryExtensionMultiError(errors)
 	}
@@ -4907,8 +4905,6 @@ func (m *DeliveryExtensionState) validate(all bool) error {
 	}
 
 	// no validation rules for LastCompletedAppliedVersion
-
-	// no validation rules for ReleaseChannelId
 
 	if len(errors) > 0 {
 		return DeliveryExtensionStateMultiError(errors)
