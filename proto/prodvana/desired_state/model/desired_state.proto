@@ -93,6 +93,8 @@ message Condition {
 
 message DeliveryExtension {
     string instance_id = 1;
+    Lifecycle lifecycle = 2;
+    string release_channel_id = 3; // Used to determine which release channel this delivery extension is used for.
 }
 
 message Identifier {
@@ -463,7 +465,8 @@ message DeliveryExtensionState {
     repeated StatusExplanation last_completed_status_explanations = 8;
     string last_completed_applied_version = 9;
 
-    // next tag: 12
+    string release_channel_id = 12; // Used to determine which release channel this delivery extension is used for.
+    // next tag: 13
 }
 
 enum SignalType {
