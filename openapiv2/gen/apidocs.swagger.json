@@ -6679,13 +6679,7 @@
     "desired_statemodelDeliveryExtension": {
       "type": "object",
       "properties": {
-        "taskType": {
-          "$ref": "#/definitions/modelCustomTaskType"
-        },
-        "deliveryExtensionInstanceId": {
-          "type": "string"
-        },
-        "deliveryExtensionInstanceVersion": {
+        "instanceId": {
           "type": "string"
         }
       }
@@ -6711,12 +6705,6 @@
         },
         "lifecycle": {
           "$ref": "#/definitions/modelLifecycle"
-        },
-        "program": {
-          "$ref": "#/definitions/common_configProgramConfig"
-        },
-        "retryConfig": {
-          "$ref": "#/definitions/common_configRetryConfig"
         },
         "lastCompletedTimestamp": {
           "type": "string",
@@ -6967,6 +6955,13 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service. Must be empty if part of service group."
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
+          }
         }
       }
     },
@@ -8469,6 +8464,13 @@
             "$ref": "#/definitions/modelCustomTaskState"
           },
           "description": "Definitions for custom tasks used by this service group."
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
+          }
         }
       }
     },

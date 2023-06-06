@@ -452,20 +452,14 @@ global___Condition = Condition
 class DeliveryExtension(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    TASK_TYPE_FIELD_NUMBER: builtins.int
-    DELIVERY_EXTENSION_INSTANCE_ID_FIELD_NUMBER: builtins.int
-    DELIVERY_EXTENSION_INSTANCE_VERSION_FIELD_NUMBER: builtins.int
-    task_type: global___CustomTaskType.ValueType
-    delivery_extension_instance_id: builtins.str
-    delivery_extension_instance_version: builtins.str
+    INSTANCE_ID_FIELD_NUMBER: builtins.int
+    instance_id: builtins.str
     def __init__(
         self,
         *,
-        task_type: global___CustomTaskType.ValueType = ...,
-        delivery_extension_instance_id: builtins.str = ...,
-        delivery_extension_instance_version: builtins.str = ...,
+        instance_id: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery_extension_instance_id", b"delivery_extension_instance_id", "delivery_extension_instance_version", b"delivery_extension_instance_version", "task_type", b"task_type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["instance_id", b"instance_id"]) -> None: ...
 
 global___DeliveryExtension = DeliveryExtension
 
@@ -674,6 +668,7 @@ class ServiceState(google.protobuf.message.Message):
     SERVICE_ID_FIELD_NUMBER: builtins.int
     RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
     CUSTOM_TASKS_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     application: builtins.str
@@ -685,6 +680,8 @@ class ServiceState(google.protobuf.message.Message):
     @property
     def custom_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomTaskState]:
         """Definitions for custom tasks used by this service. Must be empty if part of service group."""
+    @property
+    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionState]: ...
     def __init__(
         self,
         *,
@@ -694,9 +691,10 @@ class ServiceState(google.protobuf.message.Message):
         service_id: builtins.str = ...,
         release_channels: collections.abc.Iterable[global___ServiceInstanceState] | None = ...,
         custom_tasks: collections.abc.Iterable[global___CustomTaskState] | None = ...,
+        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionState] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "custom_tasks", b"custom_tasks", "meta", b"meta", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
 
 global___ServiceState = ServiceState
 
@@ -706,6 +704,7 @@ class ServiceGroupState(google.protobuf.message.Message):
     META_FIELD_NUMBER: builtins.int
     SERVICES_FIELD_NUMBER: builtins.int
     CUSTOM_TASKS_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     @property
@@ -713,15 +712,18 @@ class ServiceGroupState(google.protobuf.message.Message):
     @property
     def custom_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomTaskState]:
         """Definitions for custom tasks used by this service group."""
+    @property
+    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionState]: ...
     def __init__(
         self,
         *,
         meta: global___Metadata | None = ...,
         services: collections.abc.Iterable[global___ServiceState] | None = ...,
         custom_tasks: collections.abc.Iterable[global___CustomTaskState] | None = ...,
+        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionState] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_tasks", b"custom_tasks", "meta", b"meta", "services", b"services"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "services", b"services"]) -> None: ...
 
 global___ServiceGroupState = ServiceGroupState
 
@@ -1307,8 +1309,6 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     EXTENSION_ID_FIELD_NUMBER: builtins.int
     EXTENSION_INSTANCE_ID_FIELD_NUMBER: builtins.int
     LIFECYCLE_FIELD_NUMBER: builtins.int
-    PROGRAM_FIELD_NUMBER: builtins.int
-    RETRY_CONFIG_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
@@ -1320,10 +1320,6 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     extension_id: builtins.str
     extension_instance_id: builtins.str
     lifecycle: global___Lifecycle.ValueType
-    @property
-    def program(self) -> prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig: ...
-    @property
-    def retry_config(self) -> prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig: ...
     @property
     def last_completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     last_completed_status: global___SimpleStatus.ValueType
@@ -1338,15 +1334,13 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         extension_id: builtins.str = ...,
         extension_instance_id: builtins.str = ...,
         lifecycle: global___Lifecycle.ValueType = ...,
-        program: prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig | None = ...,
-        retry_config: prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig | None = ...,
         last_completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_completed_status: global___SimpleStatus.ValueType = ...,
         last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         last_completed_applied_version: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta", "program", b"program", "retry_config", b"retry_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "program", b"program", "retry_config", b"retry_config", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "versions", b"versions"]) -> None: ...
 
 global___DeliveryExtensionState = DeliveryExtensionState
 

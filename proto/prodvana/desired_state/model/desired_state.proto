@@ -92,9 +92,7 @@ message Condition {
 }
 
 message DeliveryExtension {
-    CustomTaskType task_type = 1;
-    string delivery_extension_instance_id = 2;
-    string delivery_extension_instance_version = 3;
+    string instance_id = 1;
 }
 
 message Identifier {
@@ -227,8 +225,9 @@ message ServiceState {
     repeated ServiceInstanceState release_channels = 6;
     // Definitions for custom tasks used by this service. Must be empty if part of service group.
     repeated CustomTaskState custom_tasks = 7;
+    repeated DeliveryExtensionState delivery_extensions = 9;
     reserved 4, 8;
-    // next tag: 9
+    // next tag: 10
 }
 
 message ServiceGroupState {
@@ -236,8 +235,9 @@ message ServiceGroupState {
     repeated ServiceState services = 2;
     // Definitions for custom tasks used by this service group.
     repeated CustomTaskState custom_tasks = 3;
+    repeated DeliveryExtensionState delivery_extensions = 5;
     reserved 4;
-    // next tag: 5
+    // next tag: 6
 }
 
 message CanaryProgressState {
@@ -457,8 +457,6 @@ message DeliveryExtensionState {
     string extension_id = 3;
     string extension_instance_id = 10;
     Lifecycle lifecycle = 11;
-    prodvana.common_config.ProgramConfig program = 4 [(validate.rules).message.required = true];
-    prodvana.common_config.RetryConfig retry_config = 5;
 
     google.protobuf.Timestamp last_completed_timestamp = 6;
     SimpleStatus last_completed_status = 7;

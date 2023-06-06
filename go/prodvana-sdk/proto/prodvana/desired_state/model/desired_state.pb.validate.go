@@ -417,11 +417,7 @@ func (m *DeliveryExtension) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TaskType
-
-	// no validation rules for DeliveryExtensionInstanceId
-
-	// no validation rules for DeliveryExtensionInstanceVersion
+	// no validation rules for InstanceId
 
 	if len(errors) > 0 {
 		return DeliveryExtensionMultiError(errors)
@@ -1641,6 +1637,40 @@ func (m *ServiceState) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetDeliveryExtensions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceStateValidationError{
+						field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceStateValidationError{
+						field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceStateValidationError{
+					field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return ServiceStateMultiError(errors)
 	}
@@ -1829,6 +1859,40 @@ func (m *ServiceGroupState) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ServiceGroupStateValidationError{
 					field:  fmt.Sprintf("CustomTasks[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetDeliveryExtensions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceGroupStateValidationError{
+						field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceGroupStateValidationError{
+						field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceGroupStateValidationError{
+					field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -4772,75 +4836,6 @@ func (m *DeliveryExtensionState) validate(all bool) error {
 	// no validation rules for ExtensionInstanceId
 
 	// no validation rules for Lifecycle
-
-	if m.GetProgram() == nil {
-		err := DeliveryExtensionStateValidationError{
-			field:  "Program",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetProgram()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeliveryExtensionStateValidationError{
-					field:  "Program",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, DeliveryExtensionStateValidationError{
-					field:  "Program",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetProgram()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DeliveryExtensionStateValidationError{
-				field:  "Program",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetRetryConfig()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeliveryExtensionStateValidationError{
-					field:  "RetryConfig",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, DeliveryExtensionStateValidationError{
-					field:  "RetryConfig",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetRetryConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DeliveryExtensionStateValidationError{
-				field:  "RetryConfig",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	if all {
 		switch v := interface{}(m.GetLastCompletedTimestamp()).(type) {
