@@ -6739,6 +6739,10 @@
             "type": "string"
           },
           "description": "Used to determine which release channel this delivery extension is used for."
+        },
+        "status": {
+          "$ref": "#/definitions/modelConditionStatus",
+          "title": "next tag: 14"
         }
       }
     },

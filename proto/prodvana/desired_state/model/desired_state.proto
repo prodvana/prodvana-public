@@ -466,7 +466,9 @@ message DeliveryExtensionState {
     string last_completed_applied_version = 9;
 
     repeated string release_channel_ids = 12; // Used to determine which release channel this delivery extension is used for.
-    // next tag: 13
+
+    ConditionStatus status = 13;
+    // next tag: 14
 }
 
 enum SignalType {
