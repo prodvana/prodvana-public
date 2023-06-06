@@ -57,10 +57,10 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 0 || l > 63 {
 		err := DeliveryExtensionConfigValidationError{
 			field:  "Name",
-			reason: "value length must be between 1 and 63 runes, inclusive",
+			reason: "value length must be between 0 and 63 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -71,7 +71,7 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 	if !_DeliveryExtensionConfig_Name_Pattern.MatchString(m.GetName()) {
 		err := DeliveryExtensionConfigValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\"",
+			reason: "value does not match regex pattern \"^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\"",
 		}
 		if !all {
 			return err
@@ -304,7 +304,7 @@ var _ interface {
 	ErrorName() string
 } = DeliveryExtensionConfigValidationError{}
 
-var _DeliveryExtensionConfig_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
+var _DeliveryExtensionConfig_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
 
 // Validate checks the field values on DeliveryExtensionInstanceConfig with the
 // rules defined in the proto definition for this message. If any rules are

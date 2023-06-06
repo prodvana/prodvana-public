@@ -13,6 +13,7 @@ import "prodvana/common_config/program.proto";
 import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/delivery/delivery_config.proto";
+import "prodvana/delivery_extension/config.proto";
 import "prodvana/protection/protection_reference.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/runtimes/runtimes_config.proto";
@@ -91,9 +92,12 @@ message PerReleaseChannelConfig {
     repeated prodvana.volumes.Volume volumes = 8 [(validate.rules).repeated.items.message.required = true];
     ReplicasConfig replicas = 9;
 
+    // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 10 [
         (validate.rules).repeated.items.message.required = true
     ];
+
+    repeated DeliveryExtensionConfig delivery_extensions = 18 [(validate.rules).repeated.items.message.required = true];
 
     RuntimeSpecificConfig runtime_specific = 11;
 
@@ -113,7 +117,7 @@ message PerReleaseChannelConfig {
     reserved 3, 4, 12;
     reserved "protections";
 
-    // next tag: 18
+    // next tag: 19
 }
 
 message CapabilityReference {
@@ -153,6 +157,36 @@ message TaskConfig {
     // to be used in conjunection with per_release_channel to allow multiple release channels to use
     // a single custom task. If set, the program definition is ignored except for program name.
     TaskReference ref = 4;
+}
+
+enum TaskLifecycle {
+    TASK_LIFECYCLE_UNKNOWN = 0;
+    // Runs before everything else. May wait for any dependent RCs to be stable.
+    PRE_APPROVAL_TASK = 1;
+    // Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.
+    APPROVAL = 2;
+    // Runs after approval, just before service push.
+    POST_APPROVAL_TASK = 3;
+    // Runs as long as service push is in progress.
+    DEPLOYMENT_TASK = 4;
+    // Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED.
+    POST_DEPLOYMENT_TASK = 5;
+}
+
+message ProtectionLink {
+    prodvana.protection.ProtectionLifecycle lifecycle = 3;
+    string attachment_id = 4;
+
+    reserved 1, 2;
+    // next tag: 5
+}
+
+message DeliveryExtensionConfig {
+    oneof definition {
+        option (validate.required) = true;
+        prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
+    }
+    TaskLifecycle lifecycle = 2;
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a
@@ -229,7 +263,9 @@ message ServiceConfig {
 
     prodvana.common_config.ServiceTemplateRef base_template = 14;
 
+    // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 15;
+    repeated DeliveryExtensionConfig delivery_extensions = 29;
 
     RuntimeSpecificConfig runtime_specific = 16;
 
@@ -271,7 +307,7 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 29
+    // next tag: 30
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -296,7 +332,9 @@ message CompiledServiceInstanceConfig {
 
     prodvana.common_config.ServiceTemplateRef base_template = 16;
 
+    // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 17;
+    repeated DeliveryExtensionConfig delivery_extensions = 30;
 
     RuntimeSpecificConfig runtime_specific = 19;
 
@@ -326,7 +364,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 20, 21;
     reserved "protections", "runtime_type";
 
-    // next tag: 30
+    // next tag: 31
 }
 
 message CompiledJobConfig {

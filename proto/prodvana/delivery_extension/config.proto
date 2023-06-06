@@ -9,12 +9,19 @@ import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 
+enum Type {
+    UNKNOWN_TYPE = 0;
+    GLOBAL_USER_CREATED = 1;
+    // one-off delivery extensions inlined into other configs
+    EPHEMERAL = 2;
+}
+
 message DeliveryExtensionConfig {
     string name = 1 [
         (validate.rules).string = {
-            min_len: 1,
+            min_len: 0,  // name not requried when inlined
             max_len: 63,
-            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
         }
     ];
 
@@ -29,6 +36,8 @@ message DeliveryExtensionConfig {
     }
 
     repeated prodvana.common_config.ParameterDefinition parameters = 4 [(validate.rules).repeated.items.message.required = true];
+
+    // next tag: 5
 }
 
 message DeliveryExtensionInstanceConfig {

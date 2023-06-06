@@ -6350,7 +6350,7 @@
       "type": "object",
       "properties": {
         "deliveryExtensionConfig": {
-          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
         },
         "source": {
           "$ref": "#/definitions/versionSource"
@@ -6371,46 +6371,11 @@
         }
       }
     },
-    "delivery_extensionDeliveryExtension": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "config": {
-          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
-        },
-        "state": {
-          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionState"
-        }
-      }
-    },
-    "delivery_extensionDeliveryExtensionConfig": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "taskConfig": {
-          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
-        },
-        "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
-        },
-        "parameters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common_configParameterDefinition"
-          }
-        }
-      }
-    },
     "delivery_extensionGetDeliveryExtensionConfigResp": {
       "type": "object",
       "properties": {
         "config": {
-          "$ref": "#/definitions/delivery_extensionDeliveryExtensionConfig"
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
         },
         "version": {
           "type": "string"
@@ -6421,7 +6386,7 @@
       "type": "object",
       "properties": {
         "deliveryExtension": {
-          "$ref": "#/definitions/delivery_extensionDeliveryExtension"
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtension"
         }
       }
     },
@@ -6432,7 +6397,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/delivery_extensionDeliveryExtension"
+            "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtension"
           }
         },
         "nextPageToken": {
@@ -6711,6 +6676,20 @@
         }
       }
     },
+    "desired_statemodelDeliveryExtension": {
+      "type": "object",
+      "properties": {
+        "taskType": {
+          "$ref": "#/definitions/modelCustomTaskType"
+        },
+        "deliveryExtensionInstanceId": {
+          "type": "string"
+        },
+        "deliveryExtensionInstanceVersion": {
+          "type": "string"
+        }
+      }
+    },
     "desired_statemodelDeliveryExtensionState": {
       "type": "object",
       "properties": {
@@ -6788,7 +6767,14 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/modelProtectionLink"
+            "$ref": "#/definitions/desired_statemodelProtectionLink"
+          }
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/desired_statemodelDeliveryExtension"
           }
         }
       }
@@ -6836,6 +6822,17 @@
         "attachmentId": {
           "type": "string",
           "title": "next tag: 9"
+        }
+      }
+    },
+    "desired_statemodelProtectionLink": {
+      "type": "object",
+      "properties": {
+        "lifecycle": {
+          "$ref": "#/definitions/protectionProtectionLifecycle"
+        },
+        "attachmentId": {
+          "type": "string"
         }
       }
     },
@@ -8410,17 +8407,6 @@
       ],
       "default": "PENDING"
     },
-    "modelProtectionLink": {
-      "type": "object",
-      "properties": {
-        "lifecycle": {
-          "$ref": "#/definitions/protectionProtectionLifecycle"
-        },
-        "attachmentId": {
-          "type": "string"
-        }
-      }
-    },
     "modelProtectionLinkState": {
       "type": "object",
       "properties": {
@@ -8431,7 +8417,7 @@
           "$ref": "#/definitions/modelConditionStatus"
         },
         "link": {
-          "$ref": "#/definitions/modelProtectionLink",
+          "$ref": "#/definitions/desired_statemodelProtectionLink",
           "description": "Copy of ProtectionLink description. Used in FetchState to know retries, durations etc."
         },
         "startedTimestamp": {
@@ -8872,6 +8858,41 @@
         }
       }
     },
+    "prodvanadelivery_extensionDeliveryExtension": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "state": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionState"
+        }
+      }
+    },
+    "prodvanadelivery_extensionDeliveryExtensionConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "taskConfig": {
+          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
+        }
+      }
+    },
     "prodvanadelivery_extensionDeliveryExtensionState": {
       "type": "object",
       "title": "TODO(naphat) list custom task instances?"
@@ -8980,6 +9001,17 @@
         },
         "email": {
           "type": "string"
+        }
+      }
+    },
+    "prodvanaserviceDeliveryExtensionConfig": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/serviceTaskLifecycle"
         }
       }
     },
@@ -9604,6 +9636,14 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
+          },
+          "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
           }
         },
         "runtimeSpecific": {
@@ -9943,6 +9983,14 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
+          },
+          "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
           }
         },
         "runtimeSpecific": {
@@ -10127,6 +10175,14 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
+          },
+          "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+        },
+        "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
           }
         },
         "runtimeSpecific": {
@@ -10269,6 +10325,19 @@
           "description": "Externally stored secret."
         }
       }
+    },
+    "serviceTaskLifecycle": {
+      "type": "string",
+      "enum": [
+        "TASK_LIFECYCLE_UNKNOWN",
+        "PRE_APPROVAL_TASK",
+        "APPROVAL",
+        "POST_APPROVAL_TASK",
+        "DEPLOYMENT_TASK",
+        "POST_DEPLOYMENT_TASK"
+      ],
+      "default": "TASK_LIFECYCLE_UNKNOWN",
+      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - DEPLOYMENT_TASK: Runs as long as service push is in progress.\n - POST_DEPLOYMENT_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
     },
     "serviceTaskReference": {
       "type": "object",

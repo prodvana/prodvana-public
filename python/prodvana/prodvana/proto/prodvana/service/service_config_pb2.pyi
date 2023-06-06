@@ -19,6 +19,7 @@ import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.ref_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
 import prodvana.proto.prodvana.delivery.delivery_config_pb2
+import prodvana.proto.prodvana.delivery_extension.config_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
 import prodvana.proto.prodvana.release_channel.release_channel_config_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
@@ -34,6 +35,39 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _TaskLifecycle:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TaskLifecycleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TaskLifecycle.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TASK_LIFECYCLE_UNKNOWN: _TaskLifecycle.ValueType  # 0
+    PRE_APPROVAL_TASK: _TaskLifecycle.ValueType  # 1
+    """Runs before everything else. May wait for any dependent RCs to be stable."""
+    APPROVAL: _TaskLifecycle.ValueType  # 2
+    """Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
+    POST_APPROVAL_TASK: _TaskLifecycle.ValueType  # 3
+    """Runs after approval, just before service push."""
+    DEPLOYMENT_TASK: _TaskLifecycle.ValueType  # 4
+    """Runs as long as service push is in progress."""
+    POST_DEPLOYMENT_TASK: _TaskLifecycle.ValueType  # 5
+    """Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
+
+class TaskLifecycle(_TaskLifecycle, metaclass=_TaskLifecycleEnumTypeWrapper): ...
+
+TASK_LIFECYCLE_UNKNOWN: TaskLifecycle.ValueType  # 0
+PRE_APPROVAL_TASK: TaskLifecycle.ValueType  # 1
+"""Runs before everything else. May wait for any dependent RCs to be stable."""
+APPROVAL: TaskLifecycle.ValueType  # 2
+"""Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
+POST_APPROVAL_TASK: TaskLifecycle.ValueType  # 3
+"""Runs after approval, just before service push."""
+DEPLOYMENT_TASK: TaskLifecycle.ValueType  # 4
+"""Runs as long as service push is in progress."""
+POST_DEPLOYMENT_TASK: TaskLifecycle.ValueType  # 5
+"""Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
+global___TaskLifecycle = TaskLifecycle
 
 class ReplicasConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -212,6 +246,7 @@ class PerReleaseChannelConfig(google.protobuf.message.Message):
     VOLUMES_FIELD_NUMBER: builtins.int
     REPLICAS_FIELD_NUMBER: builtins.int
     PRE_PUSH_TASKS_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     RUNTIME_SPECIFIC_FIELD_NUMBER: builtins.int
     RUNTIME_CONNECTION_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
@@ -232,7 +267,10 @@ class PerReleaseChannelConfig(google.protobuf.message.Message):
     @property
     def replicas(self) -> global___ReplicasConfig: ...
     @property
-    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]: ...
+    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]:
+        """DEPRECATED: Replace with delivery_extensions once its implemented."""
+    @property
+    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
     def runtime_specific(self) -> global___RuntimeSpecificConfig: ...
     runtime_connection: builtins.str
@@ -259,6 +297,7 @@ class PerReleaseChannelConfig(google.protobuf.message.Message):
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         replicas: global___ReplicasConfig | None = ...,
         pre_push_tasks: collections.abc.Iterable[global___TaskConfig] | None = ...,
+        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
         runtime_specific: global___RuntimeSpecificConfig | None = ...,
         runtime_connection: builtins.str = ...,
         runtime_extension: global___RuntimeExtensionConfig | None = ...,
@@ -267,7 +306,7 @@ class PerReleaseChannelConfig(google.protobuf.message.Message):
         helm: prodvana.proto.prodvana.common_config.helm_pb2.HelmConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["cert", b"cert", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "replicas", b"replicas", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cert", b"cert", "config_oneof", b"config_oneof", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "release_channel", b"release_channel", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cert", b"cert", "config_oneof", b"config_oneof", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "delivery_extensions", b"delivery_extensions", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "release_channel", b"release_channel", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["runtime_extension", "kubernetes_config", "external_config", "helm"] | None: ...
 
 global___PerReleaseChannelConfig = PerReleaseChannelConfig
@@ -369,6 +408,45 @@ class TaskConfig(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["base_program", b"base_program", "program", b"program", "ref", b"ref", "retry_config", b"retry_config"]) -> None: ...
 
 global___TaskConfig = TaskConfig
+
+class ProtectionLink(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LIFECYCLE_FIELD_NUMBER: builtins.int
+    ATTACHMENT_ID_FIELD_NUMBER: builtins.int
+    @property
+    def lifecycle(self) -> prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle: ...
+    attachment_id: builtins.str
+    def __init__(
+        self,
+        *,
+        lifecycle: prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle | None = ...,
+        attachment_id: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "lifecycle", b"lifecycle"]) -> None: ...
+
+global___ProtectionLink = ProtectionLink
+
+class DeliveryExtensionConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INLINED_FIELD_NUMBER: builtins.int
+    LIFECYCLE_FIELD_NUMBER: builtins.int
+    @property
+    def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig: ...
+    lifecycle: global___TaskLifecycle.ValueType
+    def __init__(
+        self,
+        *,
+        inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
+        lifecycle: global___TaskLifecycle.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "lifecycle", b"lifecycle"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["definition", b"definition"]) -> typing_extensions.Literal["inlined"] | None: ...
+
+global___DeliveryExtensionConfig = DeliveryExtensionConfig
 
 class RuntimeSpecificConfig(google.protobuf.message.Message):
     """RuntimeSpecificConfig contains Service level configuration options that only make sense for a
@@ -513,6 +591,7 @@ class ServiceConfig(google.protobuf.message.Message):
     DEPLOY_ANNOTATIONS_FIELD_NUMBER: builtins.int
     BASE_TEMPLATE_FIELD_NUMBER: builtins.int
     PRE_PUSH_TASKS_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     RUNTIME_SPECIFIC_FIELD_NUMBER: builtins.int
     RUNTIME_CONNECTION_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
@@ -545,7 +624,10 @@ class ServiceConfig(google.protobuf.message.Message):
     @property
     def base_template(self) -> prodvana.proto.prodvana.common_config.ref_pb2.ServiceTemplateRef: ...
     @property
-    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]: ...
+    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]:
+        """DEPRECATED: Replace with delivery_extensions once its implemented."""
+    @property
+    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
     def runtime_specific(self) -> global___RuntimeSpecificConfig: ...
     runtime_connection: builtins.str
@@ -588,6 +670,7 @@ class ServiceConfig(google.protobuf.message.Message):
         deploy_annotations: prodvana.proto.prodvana.workflow.integration_config_pb2.AnnotationsConfig | None = ...,
         base_template: prodvana.proto.prodvana.common_config.ref_pb2.ServiceTemplateRef | None = ...,
         pre_push_tasks: collections.abc.Iterable[global___TaskConfig] | None = ...,
+        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
         runtime_specific: global___RuntimeSpecificConfig | None = ...,
         runtime_connection: builtins.str = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
@@ -601,7 +684,7 @@ class ServiceConfig(google.protobuf.message.Message):
         auto_rollback: global___AutoRollbackConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auto_rollback", b"auto_rollback", "base_template", b"base_template", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "parameter_values", b"parameter_values", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "auto_rollback", b"auto_rollback", "base_template", b"base_template", "capabilities", b"capabilities", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameter_values", b"parameter_values", "parameters", b"parameters", "parameters_autogen", b"parameters_autogen", "per_release_channel", b"per_release_channel", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "auto_rollback", b"auto_rollback", "base_template", b"base_template", "capabilities", b"capabilities", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "external_config", b"external_config", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameter_values", b"parameter_values", "parameters", b"parameters", "parameters_autogen", b"parameters_autogen", "per_release_channel", b"per_release_channel", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["runtime_extension", "kubernetes_config", "external_config", "helm"] | None: ...
 
 global___ServiceConfig = ServiceConfig
@@ -645,6 +728,7 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
     DEPLOY_ANNOTATIONS_FIELD_NUMBER: builtins.int
     BASE_TEMPLATE_FIELD_NUMBER: builtins.int
     PRE_PUSH_TASKS_FIELD_NUMBER: builtins.int
+    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     RUNTIME_SPECIFIC_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     PARAMETER_VALUES_FIELD_NUMBER: builtins.int
@@ -682,7 +766,10 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
     @property
     def base_template(self) -> prodvana.proto.prodvana.common_config.ref_pb2.ServiceTemplateRef: ...
     @property
-    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]: ...
+    def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]:
+        """DEPRECATED: Replace with delivery_extensions once its implemented."""
+    @property
+    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
     def runtime_specific(self) -> global___RuntimeSpecificConfig: ...
     @property
@@ -723,6 +810,7 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
         deploy_annotations: prodvana.proto.prodvana.workflow.integration_config_pb2.AnnotationsConfig | None = ...,
         base_template: prodvana.proto.prodvana.common_config.ref_pb2.ServiceTemplateRef | None = ...,
         pre_push_tasks: collections.abc.Iterable[global___TaskConfig] | None = ...,
+        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
         runtime_specific: global___RuntimeSpecificConfig | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
@@ -733,7 +821,7 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["base_template", b"base_template", "cert", b"cert", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "base_template", b"base_template", "capabilities", b"capabilities", "cert", b"cert", "config_oneof", b"config_oneof", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "env", b"env", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "maturity", b"maturity", "parameter_values", b"parameter_values", "parameters", b"parameters", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_channel", b"release_channel", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "service", b"service", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "base_template", b"base_template", "capabilities", b"capabilities", "cert", b"cert", "config_oneof", b"config_oneof", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "env", b"env", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "maturity", b"maturity", "parameter_values", b"parameter_values", "parameters", b"parameters", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_channel", b"release_channel", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "service", b"service", "volumes", b"volumes"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["runtime_extension", "kubernetes_config", "helm"] | None: ...
 
 global___CompiledServiceInstanceConfig = CompiledServiceInstanceConfig

@@ -91,6 +91,12 @@ message Condition {
     string desired_state_id = 4;
 }
 
+message DeliveryExtension {
+    CustomTaskType task_type = 1;
+    string delivery_extension_instance_id = 2;
+    string delivery_extension_instance_version = 3;
+}
+
 message Identifier {
     Type type = 1;
     // globally unique identifier
@@ -104,6 +110,7 @@ message Metadata {
     string desired_state_id = 4;
     string root_desired_state_id = 5;
     repeated ProtectionLink protection_links = 6;
+    repeated DeliveryExtension delivery_extensions = 8;
 
     reserved 7;
     reserved "protections";

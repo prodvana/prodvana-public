@@ -6,6 +6,7 @@ import builtins
 import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
@@ -13,13 +14,33 @@ import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
 import sys
+import typing
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _Type:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Type.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    UNKNOWN_TYPE: _Type.ValueType  # 0
+    GLOBAL_USER_CREATED: _Type.ValueType  # 1
+    EPHEMERAL: _Type.ValueType  # 2
+    """one-off delivery extensions inlined into other configs"""
+
+class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
+
+UNKNOWN_TYPE: Type.ValueType  # 0
+GLOBAL_USER_CREATED: Type.ValueType  # 1
+EPHEMERAL: Type.ValueType  # 2
+"""one-off delivery extensions inlined into other configs"""
+global___Type = Type
 
 class DeliveryExtensionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

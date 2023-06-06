@@ -4182,6 +4182,58 @@
             ],
             "title": "Certificate"
         },
+        "prodvana.service.DeliveryExtensionConfig": {
+            "properties": {
+                "inlined": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "lifecycle": {
+                    "enum": [
+                        "TASK_LIFECYCLE_UNKNOWN",
+                        0,
+                        "PRE_APPROVAL_TASK",
+                        1,
+                        "APPROVAL",
+                        2,
+                        "POST_APPROVAL_TASK",
+                        3,
+                        "DEPLOYMENT_TASK",
+                        4,
+                        "POST_DEPLOYMENT_TASK",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Task Lifecycle"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Extension Config"
+        },
         "prodvana.service.FollowContainerRepositorySettings": {
             "properties": {
                 "enabled": {
@@ -4376,6 +4428,21 @@
                 "prePushTasks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                },
+                "deliveryExtensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -4834,6 +4901,21 @@
                 "prePushTasks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                },
+                "deliveryExtensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
                     },
                     "additionalProperties": false,
                     "oneOf": [
