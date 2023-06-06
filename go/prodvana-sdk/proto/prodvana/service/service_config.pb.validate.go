@@ -2598,7 +2598,16 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Lifecycle
+	if _, ok := _DeliveryExtensionConfig_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
+		err := DeliveryExtensionConfigValidationError{
+			field:  "Lifecycle",
+			reason: "value must not be in list [0]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	oneofDefinitionPresent := false
 	switch v := m.Definition.(type) {
@@ -2737,6 +2746,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeliveryExtensionConfigValidationError{}
+
+var _DeliveryExtensionConfig_Lifecycle_NotInLookup = map[TaskLifecycle]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on RuntimeSpecificConfig with the rules
 // defined in the proto definition for this message. If any rules are

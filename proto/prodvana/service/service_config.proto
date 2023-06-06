@@ -186,7 +186,7 @@ message DeliveryExtensionConfig {
         option (validate.required) = true;
         prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
     }
-    TaskLifecycle lifecycle = 2;
+    TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0]}];
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a
