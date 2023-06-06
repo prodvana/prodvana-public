@@ -454,20 +454,19 @@ class DeliveryExtension(google.protobuf.message.Message):
 
     INSTANCE_ID_FIELD_NUMBER: builtins.int
     LIFECYCLE_FIELD_NUMBER: builtins.int
-    RELEASE_CHANNEL_IDS_FIELD_NUMBER: builtins.int
+    REFERENCES_FIELD_NUMBER: builtins.int
     instance_id: builtins.str
     lifecycle: global___Lifecycle.ValueType
     @property
-    def release_channel_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Used to determine which release channels this delivery extension is used for."""
+    def references(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]: ...
     def __init__(
         self,
         *,
         instance_id: builtins.str = ...,
         lifecycle: global___Lifecycle.ValueType = ...,
-        release_channel_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        references: collections.abc.Iterable[global___Identifier] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["instance_id", b"instance_id", "lifecycle", b"lifecycle", "release_channel_ids", b"release_channel_ids"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["instance_id", b"instance_id", "lifecycle", b"lifecycle", "references", b"references"]) -> None: ...
 
 global___DeliveryExtension = DeliveryExtension
 
@@ -1321,7 +1320,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     LAST_COMPLETED_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_APPLIED_VERSION_FIELD_NUMBER: builtins.int
-    RELEASE_CHANNEL_IDS_FIELD_NUMBER: builtins.int
+    REFERENCES_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
@@ -1337,8 +1336,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     def last_completed_status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
     last_completed_applied_version: builtins.str
     @property
-    def release_channel_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Used to determine which release channel this delivery extension is used for."""
+    def references(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]: ...
     status: global___ConditionStatus.ValueType
     """next tag: 14"""
     def __init__(
@@ -1353,11 +1351,11 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         last_completed_status: global___SimpleStatus.ValueType = ...,
         last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         last_completed_applied_version: builtins.str = ...,
-        release_channel_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        references: collections.abc.Iterable[global___Identifier] | None = ...,
         status: global___ConditionStatus.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "release_channel_ids", b"release_channel_ids", "status", b"status", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "references", b"references", "status", b"status", "versions", b"versions"]) -> None: ...
 
 global___DeliveryExtensionState = DeliveryExtensionState
 

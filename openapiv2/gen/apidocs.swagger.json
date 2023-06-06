@@ -6685,12 +6685,12 @@
         "lifecycle": {
           "$ref": "#/definitions/modelLifecycle"
         },
-        "releaseChannelIds": {
+        "references": {
           "type": "array",
           "items": {
-            "type": "string"
-          },
-          "description": "Used to determine which release channels this delivery extension is used for."
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          }
         }
       }
     },
@@ -6733,12 +6733,12 @@
         "lastCompletedAppliedVersion": {
           "type": "string"
         },
-        "releaseChannelIds": {
+        "references": {
           "type": "array",
           "items": {
-            "type": "string"
-          },
-          "description": "Used to determine which release channel this delivery extension is used for."
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          }
         },
         "status": {
           "$ref": "#/definitions/modelConditionStatus",

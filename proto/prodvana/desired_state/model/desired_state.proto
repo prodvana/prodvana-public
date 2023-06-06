@@ -94,7 +94,7 @@ message Condition {
 message DeliveryExtension {
     string instance_id = 1;
     Lifecycle lifecycle = 2;
-    repeated string release_channel_ids = 3; // Used to determine which release channels this delivery extension is used for.
+    repeated Identifier references = 3;
 }
 
 message Identifier {
@@ -465,7 +465,7 @@ message DeliveryExtensionState {
     repeated StatusExplanation last_completed_status_explanations = 8;
     string last_completed_applied_version = 9;
 
-    repeated string release_channel_ids = 12; // Used to determine which release channel this delivery extension is used for.
+    repeated Identifier references = 12;
 
     ConditionStatus status = 13;
     // next tag: 14
