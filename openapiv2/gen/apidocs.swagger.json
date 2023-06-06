@@ -6288,6 +6288,20 @@
         }
       }
     },
+    "common_configTaskLifecycle": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_TASK_LIFECYCLE",
+        "CONVERGENCE_START",
+        "PRE_APPROVAL",
+        "APPROVAL",
+        "POST_APPROVAL",
+        "DEPLOYMENT",
+        "POST_DEPLOYMENT"
+      ],
+      "default": "UNKNOWN_TASK_LIFECYCLE",
+      "description": " - PRE_APPROVAL: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL: Runs after approval, just before service push.\n - DEPLOYMENT: Runs as long as service push is in progress.\n - POST_DEPLOYMENT: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
+    },
     "common_configTcpProbe": {
       "type": "object",
       "properties": {
@@ -6683,7 +6697,7 @@
           "type": "string"
         },
         "lifecycle": {
-          "$ref": "#/definitions/modelLifecycle"
+          "$ref": "#/definitions/common_configTaskLifecycle"
         },
         "references": {
           "type": "array",
@@ -6714,7 +6728,7 @@
           "type": "string"
         },
         "lifecycle": {
-          "$ref": "#/definitions/modelLifecycle"
+          "$ref": "#/definitions/common_configTaskLifecycle"
         },
         "lastCompletedTimestamp": {
           "type": "string",
@@ -8356,7 +8370,7 @@
           }
         },
         "lifecycle": {
-          "$ref": "#/definitions/modelLifecycle",
+          "$ref": "#/definitions/common_configTaskLifecycle",
           "title": "next tag: 19"
         }
       }
@@ -8387,18 +8401,6 @@
           "title": "globally unique identifier"
         }
       }
-    },
-    "modelLifecycle": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN_LIFECYCLE",
-        "CONVERGENCE_START",
-        "PRE_APPROVAL",
-        "POST_APPROVAL",
-        "DEPLOYMENT",
-        "POST_DEPLOYMENT"
-      ],
-      "default": "UNKNOWN_LIFECYCLE"
     },
     "modelManualApprovalState": {
       "type": "object",
@@ -9034,7 +9036,7 @@
           "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
         },
         "lifecycle": {
-          "$ref": "#/definitions/serviceTaskLifecycle"
+          "$ref": "#/definitions/common_configTaskLifecycle"
         }
       }
     },
@@ -10348,19 +10350,6 @@
           "description": "Externally stored secret."
         }
       }
-    },
-    "serviceTaskLifecycle": {
-      "type": "string",
-      "enum": [
-        "TASK_LIFECYCLE_UNKNOWN",
-        "PRE_APPROVAL_TASK",
-        "APPROVAL",
-        "POST_APPROVAL_TASK",
-        "DEPLOYMENT_TASK",
-        "POST_DEPLOYMENT_TASK"
-      ],
-      "default": "TASK_LIFECYCLE_UNKNOWN",
-      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - DEPLOYMENT_TASK: Runs as long as service push is in progress.\n - POST_DEPLOYMENT_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
     },
     "serviceTaskReference": {
       "type": "object",

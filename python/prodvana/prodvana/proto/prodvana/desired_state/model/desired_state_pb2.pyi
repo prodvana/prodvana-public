@@ -12,6 +12,7 @@ import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
+import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
 import sys
@@ -54,29 +55,6 @@ PROTECTION_ATTACHMENT: Type.ValueType  # 7
 PROTECTION_LINK: Type.ValueType  # 8
 DELIVERY_EXTENSION: Type.ValueType  # 9
 global___Type = Type
-
-class _Lifecycle:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
-
-class _LifecycleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Lifecycle.ValueType], builtins.type):  # noqa: F821
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    UNKNOWN_LIFECYCLE: _Lifecycle.ValueType  # 0
-    CONVERGENCE_START: _Lifecycle.ValueType  # 1
-    PRE_APPROVAL: _Lifecycle.ValueType  # 2
-    POST_APPROVAL: _Lifecycle.ValueType  # 3
-    DEPLOYMENT: _Lifecycle.ValueType  # 4
-    POST_DEPLOYMENT: _Lifecycle.ValueType  # 5
-
-class Lifecycle(_Lifecycle, metaclass=_LifecycleEnumTypeWrapper): ...
-
-UNKNOWN_LIFECYCLE: Lifecycle.ValueType  # 0
-CONVERGENCE_START: Lifecycle.ValueType  # 1
-PRE_APPROVAL: Lifecycle.ValueType  # 2
-POST_APPROVAL: Lifecycle.ValueType  # 3
-DEPLOYMENT: Lifecycle.ValueType  # 4
-POST_DEPLOYMENT: Lifecycle.ValueType  # 5
-global___Lifecycle = Lifecycle
 
 class _CustomTaskType:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -456,14 +434,14 @@ class DeliveryExtension(google.protobuf.message.Message):
     LIFECYCLE_FIELD_NUMBER: builtins.int
     REFERENCES_FIELD_NUMBER: builtins.int
     instance_id: builtins.str
-    lifecycle: global___Lifecycle.ValueType
+    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     @property
     def references(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]: ...
     def __init__(
         self,
         *,
         instance_id: builtins.str = ...,
-        lifecycle: global___Lifecycle.ValueType = ...,
+        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
         references: collections.abc.Iterable[global___Identifier] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["instance_id", b"instance_id", "lifecycle", b"lifecycle", "references", b"references"]) -> None: ...
@@ -1328,7 +1306,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
     extension_id: builtins.str
     extension_instance_id: builtins.str
-    lifecycle: global___Lifecycle.ValueType
+    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     @property
     def last_completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     last_completed_status: global___SimpleStatus.ValueType
@@ -1346,7 +1324,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         versions: collections.abc.Iterable[global___Version] | None = ...,
         extension_id: builtins.str = ...,
         extension_instance_id: builtins.str = ...,
-        lifecycle: global___Lifecycle.ValueType = ...,
+        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
         last_completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_completed_status: global___SimpleStatus.ValueType = ...,
         last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,

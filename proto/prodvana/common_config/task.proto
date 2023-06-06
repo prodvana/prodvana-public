@@ -12,3 +12,18 @@ message TaskConfig {
     // If not set, the task will not be retried once it starts executing once.
     RetryConfig retry_config = 2;
 }
+
+enum TaskLifecycle {
+    UNKNOWN_TASK_LIFECYCLE = 0;
+    CONVERGENCE_START = 1;
+    // Runs before everything else. May wait for any dependent RCs to be stable.
+    PRE_APPROVAL = 2;
+    // Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.
+    APPROVAL = 3;
+    // Runs after approval, just before service push.
+    POST_APPROVAL = 4;
+    // Runs as long as service push is in progress.
+    DEPLOYMENT = 5;
+    // Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED.
+    POST_DEPLOYMENT = 6;
+}

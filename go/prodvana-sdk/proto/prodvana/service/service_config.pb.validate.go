@@ -2747,7 +2747,7 @@ var _ interface {
 	ErrorName() string
 } = DeliveryExtensionConfigValidationError{}
 
-var _DeliveryExtensionConfig_Lifecycle_NotInLookup = map[TaskLifecycle]struct{}{
+var _DeliveryExtensionConfig_Lifecycle_NotInLookup = map[common_config.TaskLifecycle]struct{}{
 	0: {},
 }
 

@@ -1,6 +1,7 @@
 syntax = "proto3";
 package prodvana.desired_state.model;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model";
+import "prodvana/common_config/task.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -23,7 +24,7 @@ message Entity {
     google.protobuf.Timestamp last_applied_timestamp = 15;  // when prodvana last applied state for this entity, best effort
 
     repeated Identifier dependencies = 16;
-    Lifecycle lifecycle = 18;
+    prodvana.common_config.TaskLifecycle lifecycle = 18;
     // next tag: 19
 }
 

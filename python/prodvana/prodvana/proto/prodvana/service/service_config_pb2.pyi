@@ -18,6 +18,7 @@ import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.ref_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
+import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.delivery.delivery_config_pb2
 import prodvana.proto.prodvana.delivery_extension.config_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
@@ -35,39 +36,6 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
-
-class _TaskLifecycle:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
-
-class _TaskLifecycleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TaskLifecycle.ValueType], builtins.type):  # noqa: F821
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    TASK_LIFECYCLE_UNKNOWN: _TaskLifecycle.ValueType  # 0
-    PRE_APPROVAL_TASK: _TaskLifecycle.ValueType  # 1
-    """Runs before everything else. May wait for any dependent RCs to be stable."""
-    APPROVAL: _TaskLifecycle.ValueType  # 2
-    """Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
-    POST_APPROVAL_TASK: _TaskLifecycle.ValueType  # 3
-    """Runs after approval, just before service push."""
-    DEPLOYMENT_TASK: _TaskLifecycle.ValueType  # 4
-    """Runs as long as service push is in progress."""
-    POST_DEPLOYMENT_TASK: _TaskLifecycle.ValueType  # 5
-    """Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
-
-class TaskLifecycle(_TaskLifecycle, metaclass=_TaskLifecycleEnumTypeWrapper): ...
-
-TASK_LIFECYCLE_UNKNOWN: TaskLifecycle.ValueType  # 0
-PRE_APPROVAL_TASK: TaskLifecycle.ValueType  # 1
-"""Runs before everything else. May wait for any dependent RCs to be stable."""
-APPROVAL: TaskLifecycle.ValueType  # 2
-"""Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
-POST_APPROVAL_TASK: TaskLifecycle.ValueType  # 3
-"""Runs after approval, just before service push."""
-DEPLOYMENT_TASK: TaskLifecycle.ValueType  # 4
-"""Runs as long as service push is in progress."""
-POST_DEPLOYMENT_TASK: TaskLifecycle.ValueType  # 5
-"""Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
-global___TaskLifecycle = TaskLifecycle
 
 class ReplicasConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -435,12 +403,12 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
     LIFECYCLE_FIELD_NUMBER: builtins.int
     @property
     def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig: ...
-    lifecycle: global___TaskLifecycle.ValueType
+    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     def __init__(
         self,
         *,
         inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
-        lifecycle: global___TaskLifecycle.ValueType = ...,
+        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "lifecycle", b"lifecycle"]) -> None: ...

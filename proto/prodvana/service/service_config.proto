@@ -12,6 +12,7 @@ import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
+import "prodvana/common_config/task.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/delivery_extension/config.proto";
 import "prodvana/protection/protection_reference.proto";
@@ -159,20 +160,6 @@ message TaskConfig {
     TaskReference ref = 4;
 }
 
-enum TaskLifecycle {
-    TASK_LIFECYCLE_UNKNOWN = 0;
-    // Runs before everything else. May wait for any dependent RCs to be stable.
-    PRE_APPROVAL_TASK = 1;
-    // Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.
-    APPROVAL = 2;
-    // Runs after approval, just before service push.
-    POST_APPROVAL_TASK = 3;
-    // Runs as long as service push is in progress.
-    DEPLOYMENT_TASK = 4;
-    // Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED.
-    POST_DEPLOYMENT_TASK = 5;
-}
-
 message ProtectionLink {
     prodvana.protection.ProtectionLifecycle lifecycle = 3;
     string attachment_id = 4;
@@ -186,7 +173,7 @@ message DeliveryExtensionConfig {
         option (validate.required) = true;
         prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
     }
-    TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0]}];
+    prodvana.common_config.TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0, 1]}];
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a

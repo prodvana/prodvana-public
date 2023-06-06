@@ -4196,18 +4196,20 @@
                 },
                 "lifecycle": {
                     "enum": [
-                        "TASK_LIFECYCLE_UNKNOWN",
+                        "UNKNOWN_TASK_LIFECYCLE",
                         0,
-                        "PRE_APPROVAL_TASK",
+                        "CONVERGENCE_START",
                         1,
-                        "APPROVAL",
+                        "PRE_APPROVAL",
                         2,
-                        "POST_APPROVAL_TASK",
+                        "APPROVAL",
                         3,
-                        "DEPLOYMENT_TASK",
+                        "POST_APPROVAL",
                         4,
-                        "POST_DEPLOYMENT_TASK",
-                        5
+                        "DEPLOYMENT",
+                        5,
+                        "POST_DEPLOYMENT",
+                        6
                     ],
                     "oneOf": [
                         {

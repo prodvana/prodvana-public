@@ -6,6 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
+import "prodvana/common_config/task.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/protection/protection_reference.proto";
 
@@ -20,15 +21,6 @@ enum Type {
     PROTECTION_ATTACHMENT = 7;
     PROTECTION_LINK = 8;
     DELIVERY_EXTENSION = 9;
-}
-
-enum Lifecycle {
-    UNKNOWN_LIFECYCLE = 0;
-    CONVERGENCE_START = 1;
-    PRE_APPROVAL = 2;
-    POST_APPROVAL = 3;
-    DEPLOYMENT = 4;
-    POST_DEPLOYMENT = 5;
 }
 
 enum CustomTaskType {
@@ -93,7 +85,7 @@ message Condition {
 
 message DeliveryExtension {
     string instance_id = 1;
-    Lifecycle lifecycle = 2;
+    prodvana.common_config.TaskLifecycle lifecycle = 2;
     repeated Identifier references = 3;
 }
 
@@ -458,7 +450,7 @@ message DeliveryExtensionState {
     repeated Version versions = 2;
     string extension_id = 3;
     string extension_instance_id = 10;
-    Lifecycle lifecycle = 11;
+    prodvana.common_config.TaskLifecycle lifecycle = 11;
 
     google.protobuf.Timestamp last_completed_timestamp = 6;
     SimpleStatus last_completed_status = 7;

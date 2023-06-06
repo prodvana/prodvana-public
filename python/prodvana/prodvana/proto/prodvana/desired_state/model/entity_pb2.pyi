@@ -8,6 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
 import sys
 
@@ -72,7 +73,7 @@ class Entity(google.protobuf.message.Message):
         """when prodvana last applied state for this entity, best effort"""
     @property
     def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier]: ...
-    lifecycle: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Lifecycle.ValueType
+    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     """next tag: 19"""
     def __init__(
         self,
@@ -94,7 +95,7 @@ class Entity(google.protobuf.message.Message):
         last_fetched_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         dependencies: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier] | None = ...,
-        lifecycle: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Lifecycle.ValueType = ...,
+        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "desired_state", b"desired_state", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "starting_state", b"starting_state"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "dependencies", b"dependencies", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "precondition_statuses", b"precondition_statuses", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations"]) -> None: ...
