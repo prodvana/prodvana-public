@@ -167,7 +167,16 @@ func (m *KubernetesConfig) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Type
+	if _, ok := _KubernetesConfig_Type_NotInLookup[m.GetType()]; ok {
+		err := KubernetesConfigValidationError{
+			field:  "Type",
+			reason: "value must not be in list [0]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for EnvInjectionMode
 
@@ -330,3 +339,7 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = KubernetesConfigValidationError{}
+
+var _KubernetesConfig_Type_NotInLookup = map[KubernetesConfig_Type]struct{}{
+	0: {},
+}

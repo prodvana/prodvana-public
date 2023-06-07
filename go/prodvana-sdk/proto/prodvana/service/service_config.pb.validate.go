@@ -2601,7 +2601,7 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 	if _, ok := _DeliveryExtensionConfig_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
 		err := DeliveryExtensionConfigValidationError{
 			field:  "Lifecycle",
-			reason: "value must not be in list [0]",
+			reason: "value must not be in list [0 1]",
 		}
 		if !all {
 			return err
@@ -2749,6 +2749,7 @@ var _ interface {
 
 var _DeliveryExtensionConfig_Lifecycle_NotInLookup = map[common_config.TaskLifecycle]struct{}{
 	0: {},
+	1: {},
 }
 
 // Validate checks the field values on RuntimeSpecificConfig with the rules

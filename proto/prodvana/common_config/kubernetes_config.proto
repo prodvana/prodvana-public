@@ -13,7 +13,7 @@ message KubernetesConfig {
         KUBERNETES = 1;
         KUSTOMIZE = 2;
     }
-    Type type = 1;
+    Type type = 1 [(validate.rules).enum = {not_in: [0]}];
     oneof source_oneof {
         option (validate.required) = true;
         string inlined = 2 [(validate.rules).string.min_len = 1];
