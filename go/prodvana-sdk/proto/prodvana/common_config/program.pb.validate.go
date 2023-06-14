@@ -1535,35 +1535,6 @@ func (m *ProgramConfig) validate(all bool) error {
 
 	// no validation rules for TemplateComplete
 
-	if all {
-		switch v := interface{}(m.GetCommit()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProgramConfigValidationError{
-					field:  "Commit",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ProgramConfigValidationError{
-					field:  "Commit",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetCommit()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ProgramConfigValidationError{
-				field:  "Commit",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if len(errors) > 0 {
 		return ProgramConfigMultiError(errors)
 	}

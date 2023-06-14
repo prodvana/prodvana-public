@@ -1611,16 +1611,6 @@
                         }
                     ],
                     "description": "Only set when this ServiceConfig represents a ServiceTemplate When set, this program will be added in whole to the target service's programs in full, and will not partially apply to a program with the same name in the target service's config."
-                },
-                "commit": {
-                    "$ref": "#/definitions/prodvana.repo.Commit",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
                 }
             },
             "additionalProperties": false,
@@ -3882,95 +3872,6 @@
                 }
             ],
             "title": "Release Channel Runtime Config"
-        },
-        "prodvana.repo.Commit": {
-            "properties": {
-                "commitId": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "url": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "message": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "author": {
-                    "$ref": "#/definitions/prodvana.repo.User",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "TODO: Other fields, like author, timestamps etc"
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Commit"
-        },
-        "prodvana.repo.User": {
-            "properties": {
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "email": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "User"
         },
         "prodvana.runtimes.ContainerOrchestrationRuntime": {
             "properties": {

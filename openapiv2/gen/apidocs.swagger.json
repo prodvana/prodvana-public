@@ -6226,9 +6226,6 @@
         "templateComplete": {
           "type": "boolean",
           "description": "Only set when this ServiceConfig represents a ServiceTemplate\nWhen set, this program will be added in whole to the target service's\nprograms in full, and will not partially apply to a program with the\nsame name in the target service's config."
-        },
-        "commit": {
-          "$ref": "#/definitions/repoCommit"
         }
       },
       "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.\nThe validations expressed here represent the lowest common denominator of the use cases."
