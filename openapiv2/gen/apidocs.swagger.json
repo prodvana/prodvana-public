@@ -2864,6 +2864,55 @@
         ]
       }
     },
+    "/v1/integrations/{integrationId}/image-commit-info": {
+      "get": {
+        "operationId": "WorkflowManager_GetImageCommitInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowGetImageCommitInfoResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "integrationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/integrations/{integrationId}/images": {
       "get": {
         "operationId": "WorkflowManager_GetContainerRegistryImages",
@@ -10641,6 +10690,15 @@
         },
         "url": {
           "type": "string"
+        }
+      }
+    },
+    "workflowGetImageCommitInfoResp": {
+      "type": "object",
+      "properties": {
+        "commit": {
+          "$ref": "#/definitions/repoCommit",
+          "title": "will be null if the image does not have any commit attached, or commit integration is not configured"
         }
       }
     },

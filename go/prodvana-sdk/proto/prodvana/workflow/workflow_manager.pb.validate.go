@@ -2707,6 +2707,272 @@ var _ interface {
 	ErrorName() string
 } = StopTrackingImageRepositoryRespValidationError{}
 
+// Validate checks the field values on GetImageCommitInfoReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetImageCommitInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetImageCommitInfoReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetImageCommitInfoReqMultiError, or nil if none found.
+func (m *GetImageCommitInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetImageCommitInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	// no validation rules for Repository
+
+	switch v := m.ImageIdOneof.(type) {
+	case *GetImageCommitInfoReq_Tag:
+		if v == nil {
+			err := GetImageCommitInfoReqValidationError{
+				field:  "ImageIdOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for Tag
+	case *GetImageCommitInfoReq_Image:
+		if v == nil {
+			err := GetImageCommitInfoReqValidationError{
+				field:  "ImageIdOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for Image
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return GetImageCommitInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetImageCommitInfoReqMultiError is an error wrapping multiple validation
+// errors returned by GetImageCommitInfoReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetImageCommitInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetImageCommitInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetImageCommitInfoReqMultiError) AllErrors() []error { return m }
+
+// GetImageCommitInfoReqValidationError is the validation error returned by
+// GetImageCommitInfoReq.Validate if the designated constraints aren't met.
+type GetImageCommitInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetImageCommitInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetImageCommitInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetImageCommitInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetImageCommitInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetImageCommitInfoReqValidationError) ErrorName() string {
+	return "GetImageCommitInfoReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetImageCommitInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetImageCommitInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetImageCommitInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetImageCommitInfoReqValidationError{}
+
+// Validate checks the field values on GetImageCommitInfoResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetImageCommitInfoResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetImageCommitInfoResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetImageCommitInfoRespMultiError, or nil if none found.
+func (m *GetImageCommitInfoResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetImageCommitInfoResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCommit()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetImageCommitInfoRespValidationError{
+					field:  "Commit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetImageCommitInfoRespValidationError{
+					field:  "Commit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCommit()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetImageCommitInfoRespValidationError{
+				field:  "Commit",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetImageCommitInfoRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetImageCommitInfoRespMultiError is an error wrapping multiple validation
+// errors returned by GetImageCommitInfoResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetImageCommitInfoRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetImageCommitInfoRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetImageCommitInfoRespMultiError) AllErrors() []error { return m }
+
+// GetImageCommitInfoRespValidationError is the validation error returned by
+// GetImageCommitInfoResp.Validate if the designated constraints aren't met.
+type GetImageCommitInfoRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetImageCommitInfoRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetImageCommitInfoRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetImageCommitInfoRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetImageCommitInfoRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetImageCommitInfoRespValidationError) ErrorName() string {
+	return "GetImageCommitInfoRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetImageCommitInfoRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetImageCommitInfoResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetImageCommitInfoRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetImageCommitInfoRespValidationError{}
+
 // Validate checks the field values on GetProgramDefaultsReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

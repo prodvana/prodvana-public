@@ -32,6 +32,7 @@ const (
 	WorkflowManager_TrackImageRepositories_FullMethodName             = "/prodvana.workflow.WorkflowManager/TrackImageRepositories"
 	WorkflowManager_StopTrackingImageRepository_FullMethodName        = "/prodvana.workflow.WorkflowManager/StopTrackingImageRepository"
 	WorkflowManager_GetProgramDefaults_FullMethodName                 = "/prodvana.workflow.WorkflowManager/GetProgramDefaults"
+	WorkflowManager_GetImageCommitInfo_FullMethodName                 = "/prodvana.workflow.WorkflowManager/GetImageCommitInfo"
 	WorkflowManager_InstallSlack_FullMethodName                       = "/prodvana.workflow.WorkflowManager/InstallSlack"
 	WorkflowManager_UninstallSlack_FullMethodName                     = "/prodvana.workflow.WorkflowManager/UninstallSlack"
 	WorkflowManager_GetInstallSlackUrl_FullMethodName                 = "/prodvana.workflow.WorkflowManager/GetInstallSlackUrl"
@@ -67,6 +68,7 @@ type WorkflowManagerClient interface {
 	TrackImageRepositories(ctx context.Context, in *TrackImageRepositoriesReq, opts ...grpc.CallOption) (*TrackImageRepositoriesResp, error)
 	StopTrackingImageRepository(ctx context.Context, in *StopTrackingImageRepositoryReq, opts ...grpc.CallOption) (*StopTrackingImageRepositoryResp, error)
 	GetProgramDefaults(ctx context.Context, in *GetProgramDefaultsReq, opts ...grpc.CallOption) (*GetProgramDefaultsResp, error)
+	GetImageCommitInfo(ctx context.Context, in *GetImageCommitInfoReq, opts ...grpc.CallOption) (*GetImageCommitInfoResp, error)
 	InstallSlack(ctx context.Context, in *InstallSlackReq, opts ...grpc.CallOption) (*InstallSlackResp, error)
 	UninstallSlack(ctx context.Context, in *UninstallSlackReq, opts ...grpc.CallOption) (*UninstallSlackResp, error)
 	GetInstallSlackUrl(ctx context.Context, in *GetInstallSlackUrlReq, opts ...grpc.CallOption) (*GetInstallSlackUrlResp, error)
@@ -204,6 +206,15 @@ func (c *workflowManagerClient) StopTrackingImageRepository(ctx context.Context,
 func (c *workflowManagerClient) GetProgramDefaults(ctx context.Context, in *GetProgramDefaultsReq, opts ...grpc.CallOption) (*GetProgramDefaultsResp, error) {
 	out := new(GetProgramDefaultsResp)
 	err := c.cc.Invoke(ctx, WorkflowManager_GetProgramDefaults_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) GetImageCommitInfo(ctx context.Context, in *GetImageCommitInfoReq, opts ...grpc.CallOption) (*GetImageCommitInfoResp, error) {
+	out := new(GetImageCommitInfoResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetImageCommitInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -371,6 +382,7 @@ type WorkflowManagerServer interface {
 	TrackImageRepositories(context.Context, *TrackImageRepositoriesReq) (*TrackImageRepositoriesResp, error)
 	StopTrackingImageRepository(context.Context, *StopTrackingImageRepositoryReq) (*StopTrackingImageRepositoryResp, error)
 	GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error)
+	GetImageCommitInfo(context.Context, *GetImageCommitInfoReq) (*GetImageCommitInfoResp, error)
 	InstallSlack(context.Context, *InstallSlackReq) (*InstallSlackResp, error)
 	UninstallSlack(context.Context, *UninstallSlackReq) (*UninstallSlackResp, error)
 	GetInstallSlackUrl(context.Context, *GetInstallSlackUrlReq) (*GetInstallSlackUrlResp, error)
@@ -432,6 +444,9 @@ func (UnimplementedWorkflowManagerServer) StopTrackingImageRepository(context.Co
 }
 func (UnimplementedWorkflowManagerServer) GetProgramDefaults(context.Context, *GetProgramDefaultsReq) (*GetProgramDefaultsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProgramDefaults not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetImageCommitInfo(context.Context, *GetImageCommitInfoReq) (*GetImageCommitInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetImageCommitInfo not implemented")
 }
 func (UnimplementedWorkflowManagerServer) InstallSlack(context.Context, *InstallSlackReq) (*InstallSlackResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InstallSlack not implemented")
@@ -724,6 +739,24 @@ func _WorkflowManager_GetProgramDefaults_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkflowManagerServer).GetProgramDefaults(ctx, req.(*GetProgramDefaultsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_GetImageCommitInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetImageCommitInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetImageCommitInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetImageCommitInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetImageCommitInfo(ctx, req.(*GetImageCommitInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1074,6 +1107,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProgramDefaults",
 			Handler:    _WorkflowManager_GetProgramDefaults_Handler,
+		},
+		{
+			MethodName: "GetImageCommitInfo",
+			Handler:    _WorkflowManager_GetImageCommitInfo_Handler,
 		},
 		{
 			MethodName: "InstallSlack",

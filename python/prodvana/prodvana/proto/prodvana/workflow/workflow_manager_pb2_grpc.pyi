@@ -60,6 +60,10 @@ class WorkflowManagerStub:
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetProgramDefaultsReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetProgramDefaultsResp,
     ]
+    GetImageCommitInfo: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetImageCommitInfoReq,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetImageCommitInfoResp,
+    ]
     InstallSlack: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallSlackReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallSlackResp,
@@ -204,6 +208,12 @@ class WorkflowManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetProgramDefaultsReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetProgramDefaultsResp: ...
+    @abc.abstractmethod
+    def GetImageCommitInfo(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetImageCommitInfoReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetImageCommitInfoResp: ...
     @abc.abstractmethod
     def InstallSlack(
         self,

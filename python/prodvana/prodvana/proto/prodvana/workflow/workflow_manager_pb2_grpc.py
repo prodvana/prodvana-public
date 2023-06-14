@@ -79,6 +79,11 @@ class WorkflowManagerStub(object):
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsReq.SerializeToString,
                 response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsResp.FromString,
                 )
+        self.GetImageCommitInfo = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/GetImageCommitInfo',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoReq.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoResp.FromString,
+                )
         self.InstallSlack = channel.unary_unary(
                 '/prodvana.workflow.WorkflowManager/InstallSlack',
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallSlackReq.SerializeToString,
@@ -237,6 +242,12 @@ class WorkflowManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetProgramDefaults(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetImageCommitInfo(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -405,6 +416,11 @@ def add_WorkflowManagerServicer_to_server(servicer, server):
                     servicer.GetProgramDefaults,
                     request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsReq.FromString,
                     response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsResp.SerializeToString,
+            ),
+            'GetImageCommitInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetImageCommitInfo,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoReq.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoResp.SerializeToString,
             ),
             'InstallSlack': grpc.unary_unary_rpc_method_handler(
                     servicer.InstallSlack,
@@ -714,6 +730,23 @@ class WorkflowManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/GetProgramDefaults',
             prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsReq.SerializeToString,
             prodvana_dot_workflow_dot_workflow__manager__pb2.GetProgramDefaultsResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetImageCommitInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/GetImageCommitInfo',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoReq.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetImageCommitInfoResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -185,6 +185,21 @@ message StopTrackingImageRepositoryReq {
 
 message StopTrackingImageRepositoryResp {}
 
+message GetImageCommitInfoReq {
+  string integration_id = 1;
+  string repository = 2;
+
+  oneof image_id_oneof {
+    string tag = 3;
+    string image = 4;
+  };
+}
+
+message GetImageCommitInfoResp {
+  // will be null if the image does not have any commit attached, or commit integration is not configured
+  prodvana.repo.Commit commit = 1;
+}
+
 message GetProgramDefaultsReq {
   string integration_id = 1;
   string repository = 2;
@@ -470,6 +485,11 @@ service WorkflowManager {
             get: "/v1/integrations/{integration_id=*}/program-defaults"
         };
     };
+    rpc GetImageCommitInfo(GetImageCommitInfoReq) returns (GetImageCommitInfoResp) {
+      option (google.api.http) = {
+          get: "/v1/integrations/{integration_id=*}/image-commit-info"
+      };
+  };
     rpc InstallSlack (InstallSlackReq) returns (InstallSlackResp) {
         option (google.api.http) = {
             get: "/v1/integrations/slack/install" // TODO(rohit): This should be a POST request

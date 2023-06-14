@@ -547,6 +547,48 @@ class StopTrackingImageRepositoryResp(google.protobuf.message.Message):
 
 global___StopTrackingImageRepositoryResp = StopTrackingImageRepositoryResp
 
+class GetImageCommitInfoReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTEGRATION_ID_FIELD_NUMBER: builtins.int
+    REPOSITORY_FIELD_NUMBER: builtins.int
+    TAG_FIELD_NUMBER: builtins.int
+    IMAGE_FIELD_NUMBER: builtins.int
+    integration_id: builtins.str
+    repository: builtins.str
+    tag: builtins.str
+    image: builtins.str
+    def __init__(
+        self,
+        *,
+        integration_id: builtins.str = ...,
+        repository: builtins.str = ...,
+        tag: builtins.str = ...,
+        image: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["image", b"image", "image_id_oneof", b"image_id_oneof", "tag", b"tag"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["image", b"image", "image_id_oneof", b"image_id_oneof", "integration_id", b"integration_id", "repository", b"repository", "tag", b"tag"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["image_id_oneof", b"image_id_oneof"]) -> typing_extensions.Literal["tag", "image"] | None: ...
+
+global___GetImageCommitInfoReq = GetImageCommitInfoReq
+
+class GetImageCommitInfoResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COMMIT_FIELD_NUMBER: builtins.int
+    @property
+    def commit(self) -> prodvana.proto.prodvana.repo.repo_pb2.Commit:
+        """will be null if the image does not have any commit attached, or commit integration is not configured"""
+    def __init__(
+        self,
+        *,
+        commit: prodvana.proto.prodvana.repo.repo_pb2.Commit | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> None: ...
+
+global___GetImageCommitInfoResp = GetImageCommitInfoResp
+
 class GetProgramDefaultsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
