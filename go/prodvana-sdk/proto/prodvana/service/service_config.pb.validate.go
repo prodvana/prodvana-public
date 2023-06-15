@@ -2653,6 +2653,30 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 			}
 		}
 
+	case *DeliveryExtensionConfig_Ref:
+		if v == nil {
+			err := DeliveryExtensionConfigValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if utf8.RuneCountInString(m.GetRef()) < 1 {
+			err := DeliveryExtensionConfigValidationError{
+				field:  "Ref",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -2751,6 +2775,148 @@ var _DeliveryExtensionConfig_Lifecycle_NotInLookup = map[common_config.TaskLifec
 	0: {},
 	1: {},
 }
+
+// Validate checks the field values on DeliveryExtensionInstance with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeliveryExtensionInstance) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeliveryExtensionInstance with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeliveryExtensionInstanceMultiError, or nil if none found.
+func (m *DeliveryExtensionInstance) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeliveryExtensionInstance) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeliveryExtensionInstanceValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeliveryExtensionInstanceValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeliveryExtensionInstanceValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := DeliveryExtensionInstanceValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeliveryExtensionInstanceMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeliveryExtensionInstanceMultiError is an error wrapping multiple validation
+// errors returned by DeliveryExtensionInstance.ValidateAll() if the
+// designated constraints aren't met.
+type DeliveryExtensionInstanceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeliveryExtensionInstanceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeliveryExtensionInstanceMultiError) AllErrors() []error { return m }
+
+// DeliveryExtensionInstanceValidationError is the validation error returned by
+// DeliveryExtensionInstance.Validate if the designated constraints aren't met.
+type DeliveryExtensionInstanceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeliveryExtensionInstanceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeliveryExtensionInstanceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeliveryExtensionInstanceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeliveryExtensionInstanceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeliveryExtensionInstanceValidationError) ErrorName() string {
+	return "DeliveryExtensionInstanceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeliveryExtensionInstanceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeliveryExtensionInstance.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeliveryExtensionInstanceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeliveryExtensionInstanceValidationError{}
 
 // Validate checks the field values on RuntimeSpecificConfig with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3802,6 +3968,40 @@ func (m *ServiceConfig) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetDeliveryExtensionInstances() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceConfigValidationError{
+					field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if all {
 		switch v := interface{}(m.GetRuntimeSpecific()).(type) {
 		case interface{ ValidateAll() error }:
@@ -4651,6 +4851,40 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return CompiledServiceInstanceConfigValidationError{
 					field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetDeliveryExtensionInstances() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledServiceInstanceConfigValidationError{
+					field:  fmt.Sprintf("DeliveryExtensionInstances[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

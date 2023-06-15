@@ -172,8 +172,14 @@ message DeliveryExtensionConfig {
     oneof definition {
         option (validate.required) = true;
         prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
+        string ref = 3 [(validate.rules).string.min_len = 1];
     }
     prodvana.common_config.TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0, 1]}];
+}
+
+message DeliveryExtensionInstance {
+    prodvana.delivery_extension.DeliveryExtensionConfig config = 1;
+    string name = 2 [(validate.rules).string.min_len = 1];
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a
@@ -253,6 +259,7 @@ message ServiceConfig {
     // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 15;
     repeated DeliveryExtensionConfig delivery_extensions = 29;
+    repeated DeliveryExtensionInstance delivery_extension_instances = 30;
 
     RuntimeSpecificConfig runtime_specific = 16;
 
@@ -294,7 +301,7 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 30
+    // next tag: 31
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -322,6 +329,7 @@ message CompiledServiceInstanceConfig {
     // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 17;
     repeated DeliveryExtensionConfig delivery_extensions = 30;
+    repeated DeliveryExtensionInstance delivery_extension_instances = 31;
 
     RuntimeSpecificConfig runtime_specific = 19;
 
@@ -351,7 +359,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 20, 21;
     reserved "protections", "runtime_type";
 
-    // next tag: 31
+    // next tag: 32
 }
 
 message CompiledJobConfig {

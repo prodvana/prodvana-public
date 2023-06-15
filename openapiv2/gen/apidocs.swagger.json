@@ -9081,6 +9081,9 @@
         "inlined": {
           "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
         },
+        "ref": {
+          "type": "string"
+        },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
         }
@@ -9717,6 +9720,13 @@
             "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
           }
         },
+        "deliveryExtensionInstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceDeliveryExtensionInstance"
+          }
+        },
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"
         },
@@ -9770,6 +9780,17 @@
     },
     "serviceDeleteServiceResp": {
       "type": "object"
+    },
+    "serviceDeliveryExtensionInstance": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "serviceExternalAddr": {
       "type": "object",
@@ -10254,6 +10275,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+          }
+        },
+        "deliveryExtensionInstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceDeliveryExtensionInstance"
           }
         },
         "runtimeSpecific": {

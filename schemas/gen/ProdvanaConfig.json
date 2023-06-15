@@ -4095,6 +4095,16 @@
                         {}
                     ]
                 },
+                "ref": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "lifecycle": {
                     "enum": [
                         "UNKNOWN_TASK_LIFECYCLE",
@@ -4136,6 +4146,40 @@
                 }
             ],
             "title": "Delivery Extension Config"
+        },
+        "prodvana.service.DeliveryExtensionInstance": {
+            "properties": {
+                "config": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Extension Instance"
         },
         "prodvana.service.FollowContainerRepositorySettings": {
             "properties": {
@@ -4819,6 +4863,20 @@
                 "deliveryExtensions": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "deliveryExtensionInstances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionInstance"
                     },
                     "additionalProperties": false,
                     "oneOf": [
