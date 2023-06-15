@@ -26,7 +26,7 @@ from prodvana.proto.prodvana.version import source_metadata_pb2 as prodvana_dot_
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/application/application_manager.proto\x12\x14prodvana.application\x1a\x1cgoogle/api/annotations.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-prodvana/application/application_config.proto\x1a!prodvana/application/object.proto\x1a(prodvana/application/user_metadata.proto\x1a-prodvana/common_config/dangerous_action.proto\x1a\x1eprodvana/metrics/metrics.proto\x1a prodvana/insights/insights.proto\x1a\x1aprodvana/object/meta.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\'\n\x13ListApplicationsReq\x12\x10\n\x08\x64\x65tailed\x18\x01 \x01(\x08\"O\n\x14ListApplicationsResp\x12\x37\n\x0c\x61pplications\x18\x01 \x03(\x0b\x32!.prodvana.application.Application\"1\n\x11GetApplicationReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"L\n\x12GetApplicationResp\x12\x36\n\x0b\x61pplication\x18\x01 \x01(\x0b\x32!.prodvana.application.Application\"\xf4\x01\n\x17\x43onfigureApplicationReq\x12M\n\x12\x61pplication_config\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12%\n\x1d\x61pproved_dangerous_action_ids\x18\x02 \x03(\t\x12(\n\x06source\x18\x03 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x04 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"E\n\x18\x43onfigureApplicationResp\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\"\xe1\x01\n ValidateConfigureApplicationResp\x12\x37\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12@\n\x0f\x63ompiled_config\x18\x02 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12\x42\n\x11\x64\x61ngerous_actions\x18\x03 \x03(\x0b\x32\'.prodvana.common_config.DangerousAction\"H\n\x17GetApplicationConfigReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"\xa6\x01\n\x18GetApplicationConfigResp\x12\x37\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\x12@\n\x0f\x63ompiled_config\x18\x03 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\"4\n\x14\x44\x65leteApplicationReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x17\n\x15\x44\x65leteApplicationResp\"\xa0\x01\n\x18GetApplicationMetricsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x33\n\x0fstart_timestamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rend_timestamp\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\\\n\x19GetApplicationMetricsResp\x12?\n\x12\x64\x65ployment_metrics\x18\x01 \x01(\x0b\x32#.prodvana.metrics.DeploymentMetrics\"9\n\x19GetApplicationInsightsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"J\n\x1aGetApplicationInsightsResp\x12,\n\x08insights\x18\x01 \x03(\x0b\x32\x1a.prodvana.insights.Insight\"\xa7\x01\n\x1bSnoozeApplicationInsightReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x31\n\x05\x63lass\x18\x02 \x01(\x0e\x32\x18.prodvana.insights.ClassB\x08\xfa\x42\x05\x82\x01\x02\x10\x01\x12\x37\n\x08\x64uration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\n\xfa\x42\x07\xaa\x01\x04\x08\x01*\x00\"\x1e\n\x1cSnoozeApplicationInsightResp\"9\n\x19GetApplicationMetadataReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"]\n\x1aGetApplicationMetadataResp\x12?\n\x08metadata\x18\x01 \x01(\x0b\x32-.prodvana.application.ApplicationUserMetadata\"\x84\x01\n\x19SetApplicationMetadataReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12I\n\x08metadata\x18\x02 \x01(\x0b\x32-.prodvana.application.ApplicationUserMetadataB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x1c\n\x1aSetApplicationMetadataResp2\xbe\x0e\n\x12\x41pplicationManager\x12\x9c\x01\n\x14\x43onfigureApplication\x12-.prodvana.application.ConfigureApplicationReq\x1a..prodvana.application.ConfigureApplicationResp\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/applications/configure:\x01*\x12\xb5\x01\n\x1cValidateConfigureApplication\x12-.prodvana.application.ConfigureApplicationReq\x1a\x36.prodvana.application.ValidateConfigureApplicationResp\".\x82\xd3\xe4\x93\x02(\"#/v1/applications/configure/validate:\x01*\x12\x83\x01\n\x10ListApplications\x12).prodvana.application.ListApplicationsReq\x1a*.prodvana.application.ListApplicationsResp\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/applications\x12\xa6\x01\n\x14GetApplicationConfig\x12-.prodvana.application.GetApplicationConfigReq\x1a..prodvana.application.GetApplicationConfigResp\"/\x82\xd3\xe4\x93\x02)\x12\'/v1/applications/{application=*}/config\x12\x8d\x01\n\x0eGetApplication\x12\'.prodvana.application.GetApplicationReq\x1a(.prodvana.application.GetApplicationResp\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/applications/{application=*}\x12\x90\x01\n\x11\x44\x65leteApplication\x12*.prodvana.application.DeleteApplicationReq\x1a+.prodvana.application.DeleteApplicationResp\"\"\x82\xd3\xe4\x93\x02\x1c*\x1a/v1/{application=*}/delete\x12\xaa\x01\n\x15GetApplicationMetrics\x12..prodvana.application.GetApplicationMetricsReq\x1a/.prodvana.application.GetApplicationMetricsResp\"0\x82\xd3\xe4\x93\x02*\x12(/v1/applications/{application=*}/metrics\x12\xae\x01\n\x16GetApplicationInsights\x12/.prodvana.application.GetApplicationInsightsReq\x1a\x30.prodvana.application.GetApplicationInsightsResp\"1\x82\xd3\xe4\x93\x02+\x12)/v1/applications/{application=*}/insights\x12\xbb\x01\n\x18SnoozeApplicationInsight\x12\x31.prodvana.application.SnoozeApplicationInsightReq\x1a\x32.prodvana.application.SnoozeApplicationInsightResp\"8\x82\xd3\xe4\x93\x02\x32\x1a\x30/v1/applications/{application=*}/insights/snooze\x12\xae\x01\n\x16GetApplicationMetadata\x12/.prodvana.application.GetApplicationMetadataReq\x1a\x30.prodvana.application.GetApplicationMetadataResp\"1\x82\xd3\xe4\x93\x02+\x12)/v1/applications/{application=*}/metadata\x12\xb1\x01\n\x16SetApplicationMetadata\x12/.prodvana.application.SetApplicationMetadataReq\x1a\x30.prodvana.application.SetApplicationMetadataResp\"4\x82\xd3\xe4\x93\x02.\")/v1/applications/{application=*}/metadata:\x01*BPZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/applicationb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/application/application_manager.proto\x12\x14prodvana.application\x1a\x1cgoogle/api/annotations.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-prodvana/application/application_config.proto\x1a!prodvana/application/object.proto\x1a(prodvana/application/user_metadata.proto\x1a-prodvana/common_config/dangerous_action.proto\x1a\x1eprodvana/metrics/metrics.proto\x1a prodvana/insights/insights.proto\x1a\x1aprodvana/object/meta.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\'\n\x13ListApplicationsReq\x12\x10\n\x08\x64\x65tailed\x18\x01 \x01(\x08\"O\n\x14ListApplicationsResp\x12\x37\n\x0c\x61pplications\x18\x01 \x03(\x0b\x32!.prodvana.application.Application\"1\n\x11GetApplicationReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"L\n\x12GetApplicationResp\x12\x36\n\x0b\x61pplication\x18\x01 \x01(\x0b\x32!.prodvana.application.Application\"\x8a\x02\n\x17\x43onfigureApplicationReq\x12M\n\x12\x61pplication_config\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12%\n\x1d\x61pproved_dangerous_action_ids\x18\x02 \x03(\t\x12(\n\x06source\x18\x03 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x04 \x01(\x0b\x32 .prodvana.version.SourceMetadata\x12\x14\n\x0c\x62\x61se_version\x18\x05 \x01(\t\"E\n\x18\x43onfigureApplicationResp\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\"\xe1\x01\n ValidateConfigureApplicationResp\x12\x37\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12@\n\x0f\x63ompiled_config\x18\x02 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12\x42\n\x11\x64\x61ngerous_actions\x18\x03 \x03(\x0b\x32\'.prodvana.common_config.DangerousAction\"H\n\x17GetApplicationConfigReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"\xa6\x01\n\x18GetApplicationConfigResp\x12\x37\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\x12@\n\x0f\x63ompiled_config\x18\x03 \x01(\x0b\x32\'.prodvana.application.ApplicationConfig\"4\n\x14\x44\x65leteApplicationReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x17\n\x15\x44\x65leteApplicationResp\"\xa0\x01\n\x18GetApplicationMetricsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x33\n\x0fstart_timestamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rend_timestamp\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\\\n\x19GetApplicationMetricsResp\x12?\n\x12\x64\x65ployment_metrics\x18\x01 \x01(\x0b\x32#.prodvana.metrics.DeploymentMetrics\"9\n\x19GetApplicationInsightsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"J\n\x1aGetApplicationInsightsResp\x12,\n\x08insights\x18\x01 \x03(\x0b\x32\x1a.prodvana.insights.Insight\"\xa7\x01\n\x1bSnoozeApplicationInsightReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x31\n\x05\x63lass\x18\x02 \x01(\x0e\x32\x18.prodvana.insights.ClassB\x08\xfa\x42\x05\x82\x01\x02\x10\x01\x12\x37\n\x08\x64uration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\n\xfa\x42\x07\xaa\x01\x04\x08\x01*\x00\"\x1e\n\x1cSnoozeApplicationInsightResp\"9\n\x19GetApplicationMetadataReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"]\n\x1aGetApplicationMetadataResp\x12?\n\x08metadata\x18\x01 \x01(\x0b\x32-.prodvana.application.ApplicationUserMetadata\"\x84\x01\n\x19SetApplicationMetadataReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12I\n\x08metadata\x18\x02 \x01(\x0b\x32-.prodvana.application.ApplicationUserMetadataB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x1c\n\x1aSetApplicationMetadataResp2\xbe\x0e\n\x12\x41pplicationManager\x12\x9c\x01\n\x14\x43onfigureApplication\x12-.prodvana.application.ConfigureApplicationReq\x1a..prodvana.application.ConfigureApplicationResp\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/applications/configure:\x01*\x12\xb5\x01\n\x1cValidateConfigureApplication\x12-.prodvana.application.ConfigureApplicationReq\x1a\x36.prodvana.application.ValidateConfigureApplicationResp\".\x82\xd3\xe4\x93\x02(\"#/v1/applications/configure/validate:\x01*\x12\x83\x01\n\x10ListApplications\x12).prodvana.application.ListApplicationsReq\x1a*.prodvana.application.ListApplicationsResp\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/applications\x12\xa6\x01\n\x14GetApplicationConfig\x12-.prodvana.application.GetApplicationConfigReq\x1a..prodvana.application.GetApplicationConfigResp\"/\x82\xd3\xe4\x93\x02)\x12\'/v1/applications/{application=*}/config\x12\x8d\x01\n\x0eGetApplication\x12\'.prodvana.application.GetApplicationReq\x1a(.prodvana.application.GetApplicationResp\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/applications/{application=*}\x12\x90\x01\n\x11\x44\x65leteApplication\x12*.prodvana.application.DeleteApplicationReq\x1a+.prodvana.application.DeleteApplicationResp\"\"\x82\xd3\xe4\x93\x02\x1c*\x1a/v1/{application=*}/delete\x12\xaa\x01\n\x15GetApplicationMetrics\x12..prodvana.application.GetApplicationMetricsReq\x1a/.prodvana.application.GetApplicationMetricsResp\"0\x82\xd3\xe4\x93\x02*\x12(/v1/applications/{application=*}/metrics\x12\xae\x01\n\x16GetApplicationInsights\x12/.prodvana.application.GetApplicationInsightsReq\x1a\x30.prodvana.application.GetApplicationInsightsResp\"1\x82\xd3\xe4\x93\x02+\x12)/v1/applications/{application=*}/insights\x12\xbb\x01\n\x18SnoozeApplicationInsight\x12\x31.prodvana.application.SnoozeApplicationInsightReq\x1a\x32.prodvana.application.SnoozeApplicationInsightResp\"8\x82\xd3\xe4\x93\x02\x32\x1a\x30/v1/applications/{application=*}/insights/snooze\x12\xae\x01\n\x16GetApplicationMetadata\x12/.prodvana.application.GetApplicationMetadataReq\x1a\x30.prodvana.application.GetApplicationMetadataResp\"1\x82\xd3\xe4\x93\x02+\x12)/v1/applications/{application=*}/metadata\x12\xb1\x01\n\x16SetApplicationMetadata\x12/.prodvana.application.SetApplicationMetadataReq\x1a\x30.prodvana.application.SetApplicationMetadataResp\"4\x82\xd3\xe4\x93\x02.\")/v1/applications/{application=*}/metadata:\x01*BPZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/applicationb\x06proto3')
 
 
 
@@ -258,39 +258,39 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETAPPLICATIONRESP._serialized_start=670
   _GETAPPLICATIONRESP._serialized_end=746
   _CONFIGUREAPPLICATIONREQ._serialized_start=749
-  _CONFIGUREAPPLICATIONREQ._serialized_end=993
-  _CONFIGUREAPPLICATIONRESP._serialized_start=995
-  _CONFIGUREAPPLICATIONRESP._serialized_end=1064
-  _VALIDATECONFIGUREAPPLICATIONRESP._serialized_start=1067
-  _VALIDATECONFIGUREAPPLICATIONRESP._serialized_end=1292
-  _GETAPPLICATIONCONFIGREQ._serialized_start=1294
-  _GETAPPLICATIONCONFIGREQ._serialized_end=1366
-  _GETAPPLICATIONCONFIGRESP._serialized_start=1369
-  _GETAPPLICATIONCONFIGRESP._serialized_end=1535
-  _DELETEAPPLICATIONREQ._serialized_start=1537
-  _DELETEAPPLICATIONREQ._serialized_end=1589
-  _DELETEAPPLICATIONRESP._serialized_start=1591
-  _DELETEAPPLICATIONRESP._serialized_end=1614
-  _GETAPPLICATIONMETRICSREQ._serialized_start=1617
-  _GETAPPLICATIONMETRICSREQ._serialized_end=1777
-  _GETAPPLICATIONMETRICSRESP._serialized_start=1779
-  _GETAPPLICATIONMETRICSRESP._serialized_end=1871
-  _GETAPPLICATIONINSIGHTSREQ._serialized_start=1873
-  _GETAPPLICATIONINSIGHTSREQ._serialized_end=1930
-  _GETAPPLICATIONINSIGHTSRESP._serialized_start=1932
-  _GETAPPLICATIONINSIGHTSRESP._serialized_end=2006
-  _SNOOZEAPPLICATIONINSIGHTREQ._serialized_start=2009
-  _SNOOZEAPPLICATIONINSIGHTREQ._serialized_end=2176
-  _SNOOZEAPPLICATIONINSIGHTRESP._serialized_start=2178
-  _SNOOZEAPPLICATIONINSIGHTRESP._serialized_end=2208
-  _GETAPPLICATIONMETADATAREQ._serialized_start=2210
-  _GETAPPLICATIONMETADATAREQ._serialized_end=2267
-  _GETAPPLICATIONMETADATARESP._serialized_start=2269
-  _GETAPPLICATIONMETADATARESP._serialized_end=2362
-  _SETAPPLICATIONMETADATAREQ._serialized_start=2365
-  _SETAPPLICATIONMETADATAREQ._serialized_end=2497
-  _SETAPPLICATIONMETADATARESP._serialized_start=2499
-  _SETAPPLICATIONMETADATARESP._serialized_end=2527
-  _APPLICATIONMANAGER._serialized_start=2530
-  _APPLICATIONMANAGER._serialized_end=4384
+  _CONFIGUREAPPLICATIONREQ._serialized_end=1015
+  _CONFIGUREAPPLICATIONRESP._serialized_start=1017
+  _CONFIGUREAPPLICATIONRESP._serialized_end=1086
+  _VALIDATECONFIGUREAPPLICATIONRESP._serialized_start=1089
+  _VALIDATECONFIGUREAPPLICATIONRESP._serialized_end=1314
+  _GETAPPLICATIONCONFIGREQ._serialized_start=1316
+  _GETAPPLICATIONCONFIGREQ._serialized_end=1388
+  _GETAPPLICATIONCONFIGRESP._serialized_start=1391
+  _GETAPPLICATIONCONFIGRESP._serialized_end=1557
+  _DELETEAPPLICATIONREQ._serialized_start=1559
+  _DELETEAPPLICATIONREQ._serialized_end=1611
+  _DELETEAPPLICATIONRESP._serialized_start=1613
+  _DELETEAPPLICATIONRESP._serialized_end=1636
+  _GETAPPLICATIONMETRICSREQ._serialized_start=1639
+  _GETAPPLICATIONMETRICSREQ._serialized_end=1799
+  _GETAPPLICATIONMETRICSRESP._serialized_start=1801
+  _GETAPPLICATIONMETRICSRESP._serialized_end=1893
+  _GETAPPLICATIONINSIGHTSREQ._serialized_start=1895
+  _GETAPPLICATIONINSIGHTSREQ._serialized_end=1952
+  _GETAPPLICATIONINSIGHTSRESP._serialized_start=1954
+  _GETAPPLICATIONINSIGHTSRESP._serialized_end=2028
+  _SNOOZEAPPLICATIONINSIGHTREQ._serialized_start=2031
+  _SNOOZEAPPLICATIONINSIGHTREQ._serialized_end=2198
+  _SNOOZEAPPLICATIONINSIGHTRESP._serialized_start=2200
+  _SNOOZEAPPLICATIONINSIGHTRESP._serialized_end=2230
+  _GETAPPLICATIONMETADATAREQ._serialized_start=2232
+  _GETAPPLICATIONMETADATAREQ._serialized_end=2289
+  _GETAPPLICATIONMETADATARESP._serialized_start=2291
+  _GETAPPLICATIONMETADATARESP._serialized_end=2384
+  _SETAPPLICATIONMETADATAREQ._serialized_start=2387
+  _SETAPPLICATIONMETADATAREQ._serialized_end=2519
+  _SETAPPLICATIONMETADATARESP._serialized_start=2521
+  _SETAPPLICATIONMETADATARESP._serialized_end=2549
+  _APPLICATIONMANAGER._serialized_start=2552
+  _APPLICATIONMANAGER._serialized_end=4406
 # @@protoc_insertion_point(module_scope)

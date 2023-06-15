@@ -43,6 +43,23 @@ func request_ReleaseChannelManager_ConfigureReleaseChannel_0(ctx context.Context
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["application"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
+	}
+
+	protoReq.Application, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
+	}
+
 	msg, err := client.ConfigureReleaseChannel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -58,6 +75,23 @@ func local_request_ReleaseChannelManager_ConfigureReleaseChannel_0(ctx context.C
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["application"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
+	}
+
+	protoReq.Application, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
 	}
 
 	msg, err := server.ConfigureReleaseChannel(ctx, &protoReq)
@@ -242,6 +276,96 @@ func local_request_ReleaseChannelManager_GetReleaseChannel_0(ctx context.Context
 }
 
 var (
+	filter_ReleaseChannelManager_GetReleaseChannelConfig_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "release_channel": 1, "releaseChannel": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+)
+
+func request_ReleaseChannelManager_GetReleaseChannelConfig_0(ctx context.Context, marshaler runtime.Marshaler, client ReleaseChannelManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetReleaseChannelConfigReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["application"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
+	}
+
+	protoReq.Application, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
+	}
+
+	val, ok = pathParams["release_channel"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "release_channel")
+	}
+
+	protoReq.ReleaseChannel, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "release_channel", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ReleaseChannelManager_GetReleaseChannelConfig_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetReleaseChannelConfig(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ReleaseChannelManager_GetReleaseChannelConfig_0(ctx context.Context, marshaler runtime.Marshaler, server ReleaseChannelManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetReleaseChannelConfigReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["application"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "application")
+	}
+
+	protoReq.Application, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "application", err)
+	}
+
+	val, ok = pathParams["release_channel"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "release_channel")
+	}
+
+	protoReq.ReleaseChannel, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "release_channel", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ReleaseChannelManager_GetReleaseChannelConfig_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetReleaseChannelConfig(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
 	filter_ReleaseChannelManager_GetReleaseChannelEvents_0 = &utilities.DoubleArray{Encoding: map[string]int{"application": 0, "release_channel": 1, "releaseChannel": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
 )
 
@@ -345,7 +469,7 @@ func RegisterReleaseChannelManagerHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/ConfigureReleaseChannel", runtime.WithHTTPPathPattern("/v1/release-channels/configure"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/ConfigureReleaseChannel", runtime.WithHTTPPathPattern("/v1/applications/{application=*}/release-channels/configure"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -437,6 +561,31 @@ func RegisterReleaseChannelManagerHandlerServer(ctx context.Context, mux *runtim
 
 	})
 
+	mux.Handle("GET", pattern_ReleaseChannelManager_GetReleaseChannelConfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelConfig", runtime.WithHTTPPathPattern("/v1/applications/{application=*}/release-channels/{release_channel=*}/config"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ReleaseChannelManager_GetReleaseChannelConfig_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ReleaseChannelManager_GetReleaseChannelConfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_ReleaseChannelManager_GetReleaseChannelEvents_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -509,7 +658,7 @@ func RegisterReleaseChannelManagerHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/ConfigureReleaseChannel", runtime.WithHTTPPathPattern("/v1/release-channels/configure"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/ConfigureReleaseChannel", runtime.WithHTTPPathPattern("/v1/applications/{application=*}/release-channels/configure"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -591,6 +740,28 @@ func RegisterReleaseChannelManagerHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
+	mux.Handle("GET", pattern_ReleaseChannelManager_GetReleaseChannelConfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelConfig", runtime.WithHTTPPathPattern("/v1/applications/{application=*}/release-channels/{release_channel=*}/config"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ReleaseChannelManager_GetReleaseChannelConfig_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ReleaseChannelManager_GetReleaseChannelConfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_ReleaseChannelManager_GetReleaseChannelEvents_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -617,13 +788,15 @@ func RegisterReleaseChannelManagerHandlerClient(ctx context.Context, mux *runtim
 }
 
 var (
-	pattern_ReleaseChannelManager_ConfigureReleaseChannel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "release-channels", "configure"}, ""))
+	pattern_ReleaseChannelManager_ConfigureReleaseChannel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "applications", "application", "release-channels", "configure"}, ""))
 
 	pattern_ReleaseChannelManager_ListReleaseChannels_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "applications", "application", "release-channels"}, ""))
 
 	pattern_ReleaseChannelManager_DeleteReleaseChannel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "release-channels", "release_channel", "delete"}, ""))
 
 	pattern_ReleaseChannelManager_GetReleaseChannel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "applications", "application", "release-channels", "release_channel"}, ""))
+
+	pattern_ReleaseChannelManager_GetReleaseChannelConfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "applications", "application", "release-channels", "release_channel", "config"}, ""))
 
 	pattern_ReleaseChannelManager_GetReleaseChannelEvents_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "applications", "application", "release-channels", "release_channel", "events"}, ""))
 )
@@ -636,6 +809,8 @@ var (
 	forward_ReleaseChannelManager_DeleteReleaseChannel_0 = runtime.ForwardResponseMessage
 
 	forward_ReleaseChannelManager_GetReleaseChannel_0 = runtime.ForwardResponseMessage
+
+	forward_ReleaseChannelManager_GetReleaseChannelConfig_0 = runtime.ForwardResponseMessage
 
 	forward_ReleaseChannelManager_GetReleaseChannelEvents_0 = runtime.ForwardResponseMessage
 )

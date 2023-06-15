@@ -5,17 +5,23 @@ import "google/api/annotations.proto";
 import "prodvana/events/events.proto";
 import "prodvana/release_channel/object.proto";
 import "prodvana/release_channel/release_channel_config.proto";
+import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
 message ConfigureReleaseChannelReq {
+    string application = 4 [(validate.rules).string.min_len = 1];
     ReleaseChannelConfig release_channel = 1;
-    // optional if there is only one cluster. If set, cluster_name should be empty.
-    string cluster_id = 2;
-    // optional if there is only one cluster. If set, cluster_id should be empty.
-    string cluster_name = 3;
+    prodvana.version.Source source = 5;
+    prodvana.version.SourceMetadata source_metadata = 6;
+
+    reserved 2, 3;
+    reserved "cluster_id", "cluster_name";
+
+    // next tag: 7
 }
 
 message ConfigureReleaseChannelResp {
+	// application version
     string version = 1;
 }
 
@@ -43,6 +49,18 @@ message GetReleaseChannelResp {
     ReleaseChannel release_channel = 1;
 }
 
+message GetReleaseChannelConfigReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string release_channel = 2;
+    string version = 3; // omit to get latest version
+}
+
+message GetReleaseChannelConfigResp {
+    ReleaseChannelConfig config = 1;  // config as passed in by user
+    string version = 2;
+    ReleaseChannelConfig compiled_config = 3;  // config with defaults applied
+}
+
 message GetReleaseChannelEventsReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string release_channel = 2 [(validate.rules).string.min_len = 1];
@@ -59,7 +77,7 @@ message GetReleaseChannelEventsResp {
 service ReleaseChannelManager {
     rpc ConfigureReleaseChannel (ConfigureReleaseChannelReq) returns (ConfigureReleaseChannelResp) {
         option (google.api.http) = {
-            post: "/v1/release-channels/configure"
+            post: "/v1/applications/{application=*}/release-channels/configure"
             body: "*"
         };
     }
@@ -81,6 +99,12 @@ service ReleaseChannelManager {
     rpc GetReleaseChannel (GetReleaseChannelReq) returns (GetReleaseChannelResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/release-channels/{release_channel=*}"
+        };
+    }
+
+    rpc GetReleaseChannelConfig (GetReleaseChannelConfigReq) returns (GetReleaseChannelConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/release-channels/{release_channel=*}/config"
         };
     }
 

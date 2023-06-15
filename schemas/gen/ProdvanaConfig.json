@@ -54,6 +54,16 @@
                         {}
                     ]
                 },
+                "releaseChannel": {
+                    "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "applicationMetadata": {
                     "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
                     "additionalProperties": false,

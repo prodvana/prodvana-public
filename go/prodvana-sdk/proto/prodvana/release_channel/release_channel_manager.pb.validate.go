@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	version "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = version.Source(0)
 )
 
 // Validate checks the field values on ConfigureReleaseChannelReq with the
@@ -56,6 +60,17 @@ func (m *ConfigureReleaseChannelReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ConfigureReleaseChannelReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetReleaseChannel()).(type) {
@@ -86,9 +101,36 @@ func (m *ConfigureReleaseChannelReq) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ClusterId
+	// no validation rules for Source
 
-	// no validation rules for ClusterName
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ConfigureReleaseChannelReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ConfigureReleaseChannelReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ConfigureReleaseChannelReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return ConfigureReleaseChannelReqMultiError(errors)
@@ -957,6 +999,286 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetReleaseChannelRespValidationError{}
+
+// Validate checks the field values on GetReleaseChannelConfigReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReleaseChannelConfigReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReleaseChannelConfigReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReleaseChannelConfigReqMultiError, or nil if none found.
+func (m *GetReleaseChannelConfigReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReleaseChannelConfigReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GetReleaseChannelConfigReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ReleaseChannel
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return GetReleaseChannelConfigReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReleaseChannelConfigReqMultiError is an error wrapping multiple
+// validation errors returned by GetReleaseChannelConfigReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetReleaseChannelConfigReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReleaseChannelConfigReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReleaseChannelConfigReqMultiError) AllErrors() []error { return m }
+
+// GetReleaseChannelConfigReqValidationError is the validation error returned
+// by GetReleaseChannelConfigReq.Validate if the designated constraints aren't met.
+type GetReleaseChannelConfigReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReleaseChannelConfigReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReleaseChannelConfigReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReleaseChannelConfigReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReleaseChannelConfigReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReleaseChannelConfigReqValidationError) ErrorName() string {
+	return "GetReleaseChannelConfigReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReleaseChannelConfigReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReleaseChannelConfigReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReleaseChannelConfigReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReleaseChannelConfigReqValidationError{}
+
+// Validate checks the field values on GetReleaseChannelConfigResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReleaseChannelConfigResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReleaseChannelConfigResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReleaseChannelConfigRespMultiError, or nil if none found.
+func (m *GetReleaseChannelConfigResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReleaseChannelConfigResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetReleaseChannelConfigRespValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetReleaseChannelConfigRespValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetReleaseChannelConfigRespValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Version
+
+	if all {
+		switch v := interface{}(m.GetCompiledConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetReleaseChannelConfigRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetReleaseChannelConfigRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetReleaseChannelConfigRespValidationError{
+				field:  "CompiledConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetReleaseChannelConfigRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReleaseChannelConfigRespMultiError is an error wrapping multiple
+// validation errors returned by GetReleaseChannelConfigResp.ValidateAll() if
+// the designated constraints aren't met.
+type GetReleaseChannelConfigRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReleaseChannelConfigRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReleaseChannelConfigRespMultiError) AllErrors() []error { return m }
+
+// GetReleaseChannelConfigRespValidationError is the validation error returned
+// by GetReleaseChannelConfigResp.Validate if the designated constraints
+// aren't met.
+type GetReleaseChannelConfigRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReleaseChannelConfigRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReleaseChannelConfigRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReleaseChannelConfigRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReleaseChannelConfigRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReleaseChannelConfigRespValidationError) ErrorName() string {
+	return "GetReleaseChannelConfigRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReleaseChannelConfigRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReleaseChannelConfigResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReleaseChannelConfigRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReleaseChannelConfigRespValidationError{}
 
 // Validate checks the field values on GetReleaseChannelEventsReq with the
 // rules defined in the proto definition for this message. If any rules are

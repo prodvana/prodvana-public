@@ -460,6 +460,56 @@
         ]
       }
     },
+    "/v1/applications/{application}/release-channels/configure": {
+      "post": {
+        "operationId": "ReleaseChannelManager_ConfigureReleaseChannel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/release_channelConfigureReleaseChannelResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "releaseChannel": {
+                  "$ref": "#/definitions/release_channelReleaseChannelConfig"
+                },
+                "source": {
+                  "$ref": "#/definitions/versionSource"
+                },
+                "sourceMetadata": {
+                  "$ref": "#/definitions/versionSourceMetadata"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.release_channel.ReleaseChannelManager"
+        ]
+      }
+    },
     "/v1/applications/{application}/release-channels/{releaseChannel}": {
       "get": {
         "operationId": "ReleaseChannelManager_GetReleaseChannel",
@@ -491,6 +541,51 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.release_channel.ReleaseChannelManager"
+        ]
+      }
+    },
+    "/v1/applications/{application}/release-channels/{releaseChannel}/config": {
+      "get": {
+        "operationId": "ReleaseChannelManager_GetReleaseChannelConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/release_channelGetReleaseChannelConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "releaseChannel",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -3721,38 +3816,6 @@
         ]
       }
     },
-    "/v1/release-channels/configure": {
-      "post": {
-        "operationId": "ReleaseChannelManager_ConfigureReleaseChannel",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/release_channelConfigureReleaseChannelResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/release_channelConfigureReleaseChannelReq"
-            }
-          }
-        ],
-        "tags": [
-          "prodvana.release_channel.ReleaseChannelManager"
-        ]
-      }
-    },
     "/v1/release-channels/{releaseChannel}/delete": {
       "delete": {
         "operationId": "ReleaseChannelManager_DeleteReleaseChannel",
@@ -5513,6 +5576,10 @@
         },
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "baseVersion": {
+          "type": "string",
+          "title": "optional, if this is not a new application, this is the existing version of \nthis application config that this configuration was based on.\nthis can be used to avoid concurrent updates overwriting each other.\nNOTE: this will eventually be required for updates"
         }
       }
     },
@@ -9291,32 +9358,33 @@
       },
       "additionalProperties": {}
     },
-    "release_channelConfigureReleaseChannelReq": {
-      "type": "object",
-      "properties": {
-        "releaseChannel": {
-          "$ref": "#/definitions/release_channelReleaseChannelConfig"
-        },
-        "clusterId": {
-          "type": "string",
-          "description": "optional if there is only one cluster. If set, cluster_name should be empty."
-        },
-        "clusterName": {
-          "type": "string",
-          "description": "optional if there is only one cluster. If set, cluster_id should be empty."
-        }
-      }
-    },
     "release_channelConfigureReleaseChannelResp": {
       "type": "object",
       "properties": {
         "version": {
-          "type": "string"
+          "type": "string",
+          "title": "application version"
         }
       }
     },
     "release_channelDeleteReleaseChannelResp": {
       "type": "object"
+    },
+    "release_channelGetReleaseChannelConfigResp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/release_channelReleaseChannelConfig",
+          "title": "config as passed in by user"
+        },
+        "version": {
+          "type": "string"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/release_channelReleaseChannelConfig",
+          "title": "config with defaults applied"
+        }
+      }
     },
     "release_channelGetReleaseChannelEventsResp": {
       "type": "object",

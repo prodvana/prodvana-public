@@ -29,6 +29,10 @@ class ReleaseChannelManagerStub:
         prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelReq,
         prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelResp,
     ]
+    GetReleaseChannelConfig: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelConfigReq,
+        prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelConfigResp,
+    ]
     GetReleaseChannelEvents: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelEventsReq,
         prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelEventsResp,
@@ -66,6 +70,12 @@ class ReleaseChannelManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelResp: ...
+    @abc.abstractmethod
+    def GetReleaseChannelConfig(
+        self,
+        request: prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelConfigReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.release_channel.release_channel_manager_pb2.GetReleaseChannelConfigResp: ...
     @abc.abstractmethod
     def GetReleaseChannelEvents(
         self,

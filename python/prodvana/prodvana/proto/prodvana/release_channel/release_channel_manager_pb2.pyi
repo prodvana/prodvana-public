@@ -10,6 +10,7 @@ import google.protobuf.message
 import prodvana.proto.prodvana.events.events_pb2
 import prodvana.proto.prodvana.release_channel.object_pb2
 import prodvana.proto.prodvana.release_channel.release_channel_config_pb2
+import prodvana.proto.prodvana.version.source_metadata_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -22,24 +23,26 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 class ConfigureReleaseChannelReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    APPLICATION_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
-    CLUSTER_ID_FIELD_NUMBER: builtins.int
-    CLUSTER_NAME_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    application: builtins.str
     @property
     def release_channel(self) -> prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig: ...
-    cluster_id: builtins.str
-    """optional if there is only one cluster. If set, cluster_name should be empty."""
-    cluster_name: builtins.str
-    """optional if there is only one cluster. If set, cluster_id should be empty."""
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
+        application: builtins.str = ...,
         release_channel: prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig | None = ...,
-        cluster_id: builtins.str = ...,
-        cluster_name: builtins.str = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cluster_id", b"cluster_id", "cluster_name", b"cluster_name", "release_channel", b"release_channel"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___ConfigureReleaseChannelReq = ConfigureReleaseChannelReq
 
@@ -48,6 +51,7 @@ class ConfigureReleaseChannelResp(google.protobuf.message.Message):
 
     VERSION_FIELD_NUMBER: builtins.int
     version: builtins.str
+    """application version"""
     def __init__(
         self,
         *,
@@ -141,6 +145,52 @@ class GetReleaseChannelResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel"]) -> None: ...
 
 global___GetReleaseChannelResp = GetReleaseChannelResp
+
+class GetReleaseChannelConfigReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    release_channel: builtins.str
+    version: builtins.str
+    """omit to get latest version"""
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        release_channel: builtins.str = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "version", b"version"]) -> None: ...
+
+global___GetReleaseChannelConfigReq = GetReleaseChannelConfigReq
+
+class GetReleaseChannelConfigResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def config(self) -> prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig:
+        """config as passed in by user"""
+    version: builtins.str
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig:
+        """config with defaults applied"""
+    def __init__(
+        self,
+        *,
+        config: prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig | None = ...,
+        version: builtins.str = ...,
+        compiled_config: prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "config", b"config", "version", b"version"]) -> None: ...
+
+global___GetReleaseChannelConfigResp = GetReleaseChannelConfigResp
 
 class GetReleaseChannelEventsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

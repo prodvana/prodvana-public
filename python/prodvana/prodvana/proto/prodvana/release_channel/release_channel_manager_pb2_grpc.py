@@ -39,6 +39,11 @@ class ReleaseChannelManagerStub(object):
                 request_serializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelReq.SerializeToString,
                 response_deserializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelResp.FromString,
                 )
+        self.GetReleaseChannelConfig = channel.unary_unary(
+                '/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelConfig',
+                request_serializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigReq.SerializeToString,
+                response_deserializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigResp.FromString,
+                )
         self.GetReleaseChannelEvents = channel.unary_unary(
                 '/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelEvents',
                 request_serializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelEventsReq.SerializeToString,
@@ -80,6 +85,12 @@ class ReleaseChannelManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetReleaseChannelConfig(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetReleaseChannelEvents(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -113,6 +124,11 @@ def add_ReleaseChannelManagerServicer_to_server(servicer, server):
                     servicer.GetReleaseChannel,
                     request_deserializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelReq.FromString,
                     response_serializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelResp.SerializeToString,
+            ),
+            'GetReleaseChannelConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReleaseChannelConfig,
+                    request_deserializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigReq.FromString,
+                    response_serializer=prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigResp.SerializeToString,
             ),
             'GetReleaseChannelEvents': grpc.unary_unary_rpc_method_handler(
                     servicer.GetReleaseChannelEvents,
@@ -211,6 +227,23 @@ class ReleaseChannelManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannel',
             prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelReq.SerializeToString,
             prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetReleaseChannelConfig(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.release_channel.ReleaseChannelManager/GetReleaseChannelConfig',
+            prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigReq.SerializeToString,
+            prodvana_dot_release__channel_dot_release__channel__manager__pb2.GetReleaseChannelConfigResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
