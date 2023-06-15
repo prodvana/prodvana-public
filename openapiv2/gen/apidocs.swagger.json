@@ -3840,6 +3840,54 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "application",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "description": " - PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN_SOURCE",
+              "WEB",
+              "INTERACTIVE_PVNCTL",
+              "CONFIG_FILE",
+              "REPO_FOLLOW",
+              "PRODVANA"
+            ],
+            "default": "UNKNOWN_SOURCE"
+          },
+          {
+            "name": "sourceMetadata.repoUrl",
+            "description": "full repo URL, like git@github.com:foo/bar.git or https://github.com/foo/bar",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sourceMetadata.filePath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sourceMetadata.commit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sourceMetadata.userId",
+            "description": "set internally, automatically, by Prodvana if the action was initiated by a user",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -9368,7 +9416,13 @@
       }
     },
     "release_channelDeleteReleaseChannelResp": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "title": "application version"
+        }
+      }
     },
     "release_channelGetReleaseChannelConfigResp": {
       "type": "object",

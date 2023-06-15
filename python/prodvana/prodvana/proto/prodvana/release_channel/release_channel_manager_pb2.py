@@ -20,7 +20,7 @@ from prodvana.proto.prodvana.version import source_metadata_pb2 as prodvana_dot_
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n6prodvana/release_channel/release_channel_manager.proto\x12\x18prodvana.release_channel\x1a\x1cgoogle/api/annotations.proto\x1a\x1cprodvana/events/events.proto\x1a%prodvana/release_channel/object.proto\x1a\x35prodvana/release_channel/release_channel_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\x8e\x02\n\x1a\x43onfigureReleaseChannelReq\x12\x1c\n\x0b\x61pplication\x18\x04 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12G\n\x0frelease_channel\x18\x01 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\x12(\n\x06source\x18\x05 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x06 \x01(\x0b\x32 .prodvana.version.SourceMetadataJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04R\ncluster_idR\x0c\x63luster_name\".\n\x1b\x43onfigureReleaseChannelResp\x12\x0f\n\x07version\x18\x01 \x01(\t\"2\n\x17\x44\x65leteReleaseChannelReq\x12\x17\n\x0frelease_channel\x18\x01 \x01(\t\"\x1a\n\x18\x44\x65leteReleaseChannelResp\"-\n\x16ListReleaseChannelsReq\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\"]\n\x17ListReleaseChannelsResp\x12\x42\n\x10release_channels\x18\x01 \x03(\x0b\x32(.prodvana.release_channel.ReleaseChannel\"D\n\x14GetReleaseChannelReq\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\"Z\n\x15GetReleaseChannelResp\x12\x41\n\x0frelease_channel\x18\x01 \x01(\x0b\x32(.prodvana.release_channel.ReleaseChannel\"d\n\x1aGetReleaseChannelConfigReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\"\xb7\x01\n\x1bGetReleaseChannelConfigResp\x12>\n\x06\x63onfig\x18\x01 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\x12G\n\x0f\x63ompiled_config\x18\x03 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\"\xa4\x01\n\x1aGetReleaseChannelEventsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12 \n\x0frelease_channel\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x12\n\npage_token\x18\x03 \x01(\t\x12\x11\n\tpage_size\x18\x04 \x01(\x05\x12\x1f\n\x17order_by_desc_timestamp\x18\x05 \x01(\x08\"^\n\x1bGetReleaseChannelEventsResp\x12&\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x16.prodvana.events.Event\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2\xdd\n\n\x15ReleaseChannelManager\x12\xce\x01\n\x17\x43onfigureReleaseChannel\x12\x34.prodvana.release_channel.ConfigureReleaseChannelReq\x1a\x35.prodvana.release_channel.ConfigureReleaseChannelResp\"F\x82\xd3\xe4\x93\x02@\";/v1/applications/{application=*}/release-channels/configure:\x01*\x12\xb5\x01\n\x13ListReleaseChannels\x12\x30.prodvana.release_channel.ListReleaseChannelsReq\x1a\x31.prodvana.release_channel.ListReleaseChannelsResp\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/v1/applications/{application=*}/release-channels\x12\xb6\x01\n\x14\x44\x65leteReleaseChannel\x12\x31.prodvana.release_channel.DeleteReleaseChannelReq\x1a\x32.prodvana.release_channel.DeleteReleaseChannelResp\"7\x82\xd3\xe4\x93\x02\x31*//v1/release-channels/{release_channel=*}/delete\x12~\n\x15ListReleaseChannelsV2\x12\x30.prodvana.release_channel.ListReleaseChannelsReq\x1a\x31.prodvana.release_channel.ListReleaseChannelsResp\"\x00\x12\xc3\x01\n\x11GetReleaseChannel\x12..prodvana.release_channel.GetReleaseChannelReq\x1a/.prodvana.release_channel.GetReleaseChannelResp\"M\x82\xd3\xe4\x93\x02G\x12\x45/v1/applications/{application=*}/release-channels/{release_channel=*}\x12\xdc\x01\n\x17GetReleaseChannelConfig\x12\x34.prodvana.release_channel.GetReleaseChannelConfigReq\x1a\x35.prodvana.release_channel.GetReleaseChannelConfigResp\"T\x82\xd3\xe4\x93\x02N\x12L/v1/applications/{application=*}/release-channels/{release_channel=*}/config\x12\xdc\x01\n\x17GetReleaseChannelEvents\x12\x34.prodvana.release_channel.GetReleaseChannelEventsReq\x1a\x35.prodvana.release_channel.GetReleaseChannelEventsResp\"T\x82\xd3\xe4\x93\x02N\x12L/v1/applications/{application=*}/release-channels/{release_channel=*}/eventsBTZRgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n6prodvana/release_channel/release_channel_manager.proto\x12\x18prodvana.release_channel\x1a\x1cgoogle/api/annotations.proto\x1a\x1cprodvana/events/events.proto\x1a%prodvana/release_channel/object.proto\x1a\x35prodvana/release_channel/release_channel_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\x8e\x02\n\x1a\x43onfigureReleaseChannelReq\x12\x1c\n\x0b\x61pplication\x18\x04 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12G\n\x0frelease_channel\x18\x01 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\x12(\n\x06source\x18\x05 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x06 \x01(\x0b\x32 .prodvana.version.SourceMetadataJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04R\ncluster_idR\x0c\x63luster_name\".\n\x1b\x43onfigureReleaseChannelResp\x12\x0f\n\x07version\x18\x01 \x01(\t\"\xb5\x01\n\x17\x44\x65leteReleaseChannelReq\x12\x17\n\x0frelease_channel\x18\x01 \x01(\t\x12\x1c\n\x0b\x61pplication\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12(\n\x06source\x18\x03 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x04 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"+\n\x18\x44\x65leteReleaseChannelResp\x12\x0f\n\x07version\x18\x01 \x01(\t\"-\n\x16ListReleaseChannelsReq\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\"]\n\x17ListReleaseChannelsResp\x12\x42\n\x10release_channels\x18\x01 \x03(\x0b\x32(.prodvana.release_channel.ReleaseChannel\"D\n\x14GetReleaseChannelReq\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\"Z\n\x15GetReleaseChannelResp\x12\x41\n\x0frelease_channel\x18\x01 \x01(\x0b\x32(.prodvana.release_channel.ReleaseChannel\"d\n\x1aGetReleaseChannelConfigReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\"\xb7\x01\n\x1bGetReleaseChannelConfigResp\x12>\n\x06\x63onfig\x18\x01 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\x12G\n\x0f\x63ompiled_config\x18\x03 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\"\xa4\x01\n\x1aGetReleaseChannelEventsReq\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12 \n\x0frelease_channel\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x12\n\npage_token\x18\x03 \x01(\t\x12\x11\n\tpage_size\x18\x04 \x01(\x05\x12\x1f\n\x17order_by_desc_timestamp\x18\x05 \x01(\x08\"^\n\x1bGetReleaseChannelEventsResp\x12&\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x16.prodvana.events.Event\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2\xdd\n\n\x15ReleaseChannelManager\x12\xce\x01\n\x17\x43onfigureReleaseChannel\x12\x34.prodvana.release_channel.ConfigureReleaseChannelReq\x1a\x35.prodvana.release_channel.ConfigureReleaseChannelResp\"F\x82\xd3\xe4\x93\x02@\";/v1/applications/{application=*}/release-channels/configure:\x01*\x12\xb5\x01\n\x13ListReleaseChannels\x12\x30.prodvana.release_channel.ListReleaseChannelsReq\x1a\x31.prodvana.release_channel.ListReleaseChannelsResp\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/v1/applications/{application=*}/release-channels\x12\xb6\x01\n\x14\x44\x65leteReleaseChannel\x12\x31.prodvana.release_channel.DeleteReleaseChannelReq\x1a\x32.prodvana.release_channel.DeleteReleaseChannelResp\"7\x82\xd3\xe4\x93\x02\x31*//v1/release-channels/{release_channel=*}/delete\x12~\n\x15ListReleaseChannelsV2\x12\x30.prodvana.release_channel.ListReleaseChannelsReq\x1a\x31.prodvana.release_channel.ListReleaseChannelsResp\"\x00\x12\xc3\x01\n\x11GetReleaseChannel\x12..prodvana.release_channel.GetReleaseChannelReq\x1a/.prodvana.release_channel.GetReleaseChannelResp\"M\x82\xd3\xe4\x93\x02G\x12\x45/v1/applications/{application=*}/release-channels/{release_channel=*}\x12\xdc\x01\n\x17GetReleaseChannelConfig\x12\x34.prodvana.release_channel.GetReleaseChannelConfigReq\x1a\x35.prodvana.release_channel.GetReleaseChannelConfigResp\"T\x82\xd3\xe4\x93\x02N\x12L/v1/applications/{application=*}/release-channels/{release_channel=*}/config\x12\xdc\x01\n\x17GetReleaseChannelEvents\x12\x34.prodvana.release_channel.GetReleaseChannelEventsReq\x1a\x35.prodvana.release_channel.GetReleaseChannelEventsResp\"T\x82\xd3\xe4\x93\x02N\x12L/v1/applications/{application=*}/release-channels/{release_channel=*}/eventsBTZRgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channelb\x06proto3')
 
 
 
@@ -127,6 +127,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'ZRgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel'
   _CONFIGURERELEASECHANNELREQ.fields_by_name['application']._options = None
   _CONFIGURERELEASECHANNELREQ.fields_by_name['application']._serialized_options = b'\372B\004r\002\020\001'
+  _DELETERELEASECHANNELREQ.fields_by_name['application']._options = None
+  _DELETERELEASECHANNELREQ.fields_by_name['application']._serialized_options = b'\372B\004r\002\020\001'
   _GETRELEASECHANNELCONFIGREQ.fields_by_name['application']._options = None
   _GETRELEASECHANNELCONFIGREQ.fields_by_name['application']._serialized_options = b'\372B\004r\002\020\001'
   _GETRELEASECHANNELEVENTSREQ.fields_by_name['application']._options = None
@@ -149,26 +151,26 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CONFIGURERELEASECHANNELREQ._serialized_end=574
   _CONFIGURERELEASECHANNELRESP._serialized_start=576
   _CONFIGURERELEASECHANNELRESP._serialized_end=622
-  _DELETERELEASECHANNELREQ._serialized_start=624
-  _DELETERELEASECHANNELREQ._serialized_end=674
-  _DELETERELEASECHANNELRESP._serialized_start=676
-  _DELETERELEASECHANNELRESP._serialized_end=702
-  _LISTRELEASECHANNELSREQ._serialized_start=704
-  _LISTRELEASECHANNELSREQ._serialized_end=749
-  _LISTRELEASECHANNELSRESP._serialized_start=751
-  _LISTRELEASECHANNELSRESP._serialized_end=844
-  _GETRELEASECHANNELREQ._serialized_start=846
-  _GETRELEASECHANNELREQ._serialized_end=914
-  _GETRELEASECHANNELRESP._serialized_start=916
-  _GETRELEASECHANNELRESP._serialized_end=1006
-  _GETRELEASECHANNELCONFIGREQ._serialized_start=1008
-  _GETRELEASECHANNELCONFIGREQ._serialized_end=1108
-  _GETRELEASECHANNELCONFIGRESP._serialized_start=1111
-  _GETRELEASECHANNELCONFIGRESP._serialized_end=1294
-  _GETRELEASECHANNELEVENTSREQ._serialized_start=1297
-  _GETRELEASECHANNELEVENTSREQ._serialized_end=1461
-  _GETRELEASECHANNELEVENTSRESP._serialized_start=1463
-  _GETRELEASECHANNELEVENTSRESP._serialized_end=1557
-  _RELEASECHANNELMANAGER._serialized_start=1560
-  _RELEASECHANNELMANAGER._serialized_end=2933
+  _DELETERELEASECHANNELREQ._serialized_start=625
+  _DELETERELEASECHANNELREQ._serialized_end=806
+  _DELETERELEASECHANNELRESP._serialized_start=808
+  _DELETERELEASECHANNELRESP._serialized_end=851
+  _LISTRELEASECHANNELSREQ._serialized_start=853
+  _LISTRELEASECHANNELSREQ._serialized_end=898
+  _LISTRELEASECHANNELSRESP._serialized_start=900
+  _LISTRELEASECHANNELSRESP._serialized_end=993
+  _GETRELEASECHANNELREQ._serialized_start=995
+  _GETRELEASECHANNELREQ._serialized_end=1063
+  _GETRELEASECHANNELRESP._serialized_start=1065
+  _GETRELEASECHANNELRESP._serialized_end=1155
+  _GETRELEASECHANNELCONFIGREQ._serialized_start=1157
+  _GETRELEASECHANNELCONFIGREQ._serialized_end=1257
+  _GETRELEASECHANNELCONFIGRESP._serialized_start=1260
+  _GETRELEASECHANNELCONFIGRESP._serialized_end=1443
+  _GETRELEASECHANNELEVENTSREQ._serialized_start=1446
+  _GETRELEASECHANNELEVENTSREQ._serialized_end=1610
+  _GETRELEASECHANNELEVENTSRESP._serialized_start=1612
+  _GETRELEASECHANNELEVENTSRESP._serialized_end=1706
+  _RELEASECHANNELMANAGER._serialized_start=1709
+  _RELEASECHANNELMANAGER._serialized_end=3082
 # @@protoc_insertion_point(module_scope)

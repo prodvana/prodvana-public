@@ -27,9 +27,14 @@ message ConfigureReleaseChannelResp {
 
 message DeleteReleaseChannelReq {
     string release_channel = 1;
+    string application = 2 [(validate.rules).string.min_len = 1];
+    prodvana.version.Source source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
 }
 
 message DeleteReleaseChannelResp {
+	// application version
+    string version = 1;
 }
 
 message ListReleaseChannelsReq {

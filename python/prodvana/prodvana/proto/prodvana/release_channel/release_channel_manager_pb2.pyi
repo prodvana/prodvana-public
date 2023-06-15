@@ -65,22 +65,39 @@ class DeleteReleaseChannelReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     release_channel: builtins.str
+    application: builtins.str
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
         release_channel: builtins.str = ...,
+        application: builtins.str = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___DeleteReleaseChannelReq = DeleteReleaseChannelReq
 
 class DeleteReleaseChannelResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    VERSION_FIELD_NUMBER: builtins.int
+    version: builtins.str
+    """application version"""
     def __init__(
         self,
+        *,
+        version: builtins.str = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["version", b"version"]) -> None: ...
 
 global___DeleteReleaseChannelResp = DeleteReleaseChannelResp
 

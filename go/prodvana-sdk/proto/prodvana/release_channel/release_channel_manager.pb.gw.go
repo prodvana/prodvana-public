@@ -151,6 +151,10 @@ func local_request_ReleaseChannelManager_ListReleaseChannels_0(ctx context.Conte
 
 }
 
+var (
+	filter_ReleaseChannelManager_DeleteReleaseChannel_0 = &utilities.DoubleArray{Encoding: map[string]int{"release_channel": 0, "releaseChannel": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
 func request_ReleaseChannelManager_DeleteReleaseChannel_0(ctx context.Context, marshaler runtime.Marshaler, client ReleaseChannelManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteReleaseChannelReq
 	var metadata runtime.ServerMetadata
@@ -170,6 +174,13 @@ func request_ReleaseChannelManager_DeleteReleaseChannel_0(ctx context.Context, m
 	protoReq.ReleaseChannel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "release_channel", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ReleaseChannelManager_DeleteReleaseChannel_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteReleaseChannel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -196,6 +207,13 @@ func local_request_ReleaseChannelManager_DeleteReleaseChannel_0(ctx context.Cont
 	protoReq.ReleaseChannel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "release_channel", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ReleaseChannelManager_DeleteReleaseChannel_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.DeleteReleaseChannel(ctx, &protoReq)
