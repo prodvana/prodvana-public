@@ -177,6 +177,8 @@ class _StatusReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     MANUAL_APPROVAL_REJECTED: _StatusReason.ValueType  # 8
     STUCK_ENTITY: _StatusReason.ValueType  # 9
     """Entity has not been updated in a long time"""
+    VERSION_DIRTY: _StatusReason.ValueType  # 10
+    """the active version is explicitly marked as dirty"""
 
 class StatusReason(_StatusReason, metaclass=_StatusReasonEnumTypeWrapper): ...
 
@@ -198,6 +200,8 @@ PRECONDITIONS_FAILED: StatusReason.ValueType  # 7
 MANUAL_APPROVAL_REJECTED: StatusReason.ValueType  # 8
 STUCK_ENTITY: StatusReason.ValueType  # 9
 """Entity has not been updated in a long time"""
+VERSION_DIRTY: StatusReason.ValueType  # 10
+"""the active version is explicitly marked as dirty"""
 global___StatusReason = StatusReason
 
 class _ActionType:
@@ -568,6 +572,7 @@ class Version(google.protobuf.message.Message):
     PUSH_TIMESTAMP_FIELD_NUMBER: builtins.int
     ACTIVE_FIELD_NUMBER: builtins.int
     TARGET_REPLICAS_FIELD_NUMBER: builtins.int
+    DIRTY_FIELD_NUMBER: builtins.int
     version: builtins.str
     replicas: builtins.int
     """Created/running replicas, can be in any state"""
@@ -581,6 +586,11 @@ class Version(google.protobuf.message.Message):
     depending on if it maps to more than one runtime object.
     """
     target_replicas: builtins.int
+    dirty: builtins.bool
+    """A version is dirty if its state no longer matches desired state and must be fixed by a redeploy.
+    For example, a terraform version is dirty if its plan output returns differences.
+    DD will only take action on dirty if the version is also active.
+    """
     def __init__(
         self,
         *,
@@ -590,9 +600,10 @@ class Version(google.protobuf.message.Message):
         push_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         active: builtins.bool = ...,
         target_replicas: builtins.int = ...,
+        dirty: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["push_timestamp", b"push_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "dirty", b"dirty", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
 
 global___Version = Version
 

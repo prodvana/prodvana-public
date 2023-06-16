@@ -8734,10 +8734,11 @@
         "RUNTIME_OBJECT_FAILED",
         "PRECONDITIONS_FAILED",
         "MANUAL_APPROVAL_REJECTED",
-        "STUCK_ENTITY"
+        "STUCK_ENTITY",
+        "VERSION_DIRTY"
       ],
       "default": "REASON_UNKNOWN",
-      "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time"
+      "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time\n - VERSION_DIRTY: the active version is explicitly marked as dirty"
     },
     "modelVersion": {
       "type": "object",
@@ -8766,6 +8767,10 @@
         "targetReplicas": {
           "type": "integer",
           "format": "int32"
+        },
+        "dirty": {
+          "type": "boolean",
+          "description": "A version is dirty if its state no longer matches desired state and must be fixed by a redeploy.\nFor example, a terraform version is dirty if its plan output returns differences.\nDD will only take action on dirty if the version is also active."
         }
       }
     },
