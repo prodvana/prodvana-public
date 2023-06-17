@@ -7077,6 +7077,14 @@
         "timeout": {
           "type": "string",
           "description": "if set, runtime object is recreated when this timeout is hit if it has not converged by then."
+        },
+        "exitCodes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": "exit code by container name, only for run-to-completion objects like jobs"
         }
       }
     },

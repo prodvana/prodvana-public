@@ -827,15 +827,17 @@ global___DeliveryState = DeliveryState
 class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    VERSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    DIRTY_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    dirty: builtins.bool
+    message: builtins.str
     def __init__(
         self,
         *,
-        versions: collections.abc.Iterable[global___Version] | None = ...,
+        dirty: builtins.bool = ...,
+        message: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dirty", b"dirty", "message", b"message"]) -> None: ...
 
 global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 
@@ -889,6 +891,21 @@ class RuntimeObject(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
+    class ExitCodesEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.int
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.int = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
@@ -903,6 +920,7 @@ class RuntimeObject(google.protobuf.message.Message):
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
+    EXIT_CODES_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -931,6 +949,9 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def timeout(self) -> google.protobuf.duration_pb2.Duration:
         """if set, runtime object is recreated when this timeout is hit if it has not converged by then."""
+    @property
+    def exit_codes(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
+        """exit code by container name, only for run-to-completion objects like jobs"""
     def __init__(
         self,
         *,
@@ -948,9 +969,10 @@ class RuntimeObject(google.protobuf.message.Message):
         output_blob_ids: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
         interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
+        exit_codes: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

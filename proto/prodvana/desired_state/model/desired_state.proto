@@ -283,7 +283,8 @@ message DeliveryState {
 
 
 message RuntimeExtensionFetchOutput {
-    repeated Version versions = 1;
+    bool dirty = 1;
+    string message = 2;
 }
 
 message RuntimeObject {
@@ -310,9 +311,11 @@ message RuntimeObject {
     map<string, string> output_blob_ids = 14; // if output is saved, this is the ID of the blob to retrieve it, by container name
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
     google.protobuf.Duration timeout = 16; // if set, runtime object is recreated when this timeout is hit if it has not converged by then.
+    map<string, int32> exit_codes = 17; // exit code by container name, only for run-to-completion objects like jobs
 
     reserved 9, 11;
     reserved "unhealthy_pods", "state_hash";
+    // next tag: 18
 }
 
 enum ConditionStatus {
