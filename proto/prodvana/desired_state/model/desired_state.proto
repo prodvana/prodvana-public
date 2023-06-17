@@ -308,14 +308,16 @@ message RuntimeObject {
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
     string message = 12; // Human readable message (typically for errors).
     RuntimeExtension runtime_extension = 13; // additional config if this runtime object belongs to a runtime extension
-    map<string, string> output_blob_ids = 14; // if output is saved, this is the ID of the blob to retrieve it, by container name
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
     google.protobuf.Duration timeout = 16; // if set, runtime object is recreated when this timeout is hit if it has not converged by then.
-    map<string, int32> exit_codes = 17; // exit code by container name, only for run-to-completion objects like jobs
 
-    reserved 9, 11;
+    // output_blob_ids and exit_codes are in the same order, assuming output is saved
+    repeated string output_blob_ids = 18; // if output is saved, this is the ID of the blob to retrieve it, only for run-to-completion objects.
+    repeated int32 exit_codes = 19; // exit codes, only for run-to-completion objects like jobs
+
+    reserved 9, 11, 14, 17;
     reserved "unhealthy_pods", "state_hash";
-    // next tag: 18
+    // next tag: 20
 }
 
 enum ConditionStatus {

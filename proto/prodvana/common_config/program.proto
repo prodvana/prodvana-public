@@ -5,7 +5,6 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/common_config/env.proto";
 import "google/protobuf/duration.proto";
 import "validate/validate.proto";
-import "prodvana/repo/repo.proto";
 
 message PortConfig {
     enum Protocol {

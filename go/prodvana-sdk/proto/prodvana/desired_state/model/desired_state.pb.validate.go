@@ -2631,8 +2631,6 @@ func (m *RuntimeObject) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for OutputBlobIds
-
 	if all {
 		switch v := interface{}(m.GetInterval()).(type) {
 		case interface{ ValidateAll() error }:
@@ -2690,8 +2688,6 @@ func (m *RuntimeObject) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for ExitCodes
 
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)

@@ -876,36 +876,6 @@ class RuntimeObject(google.protobuf.message.Message):
         def HasField(self, field_name: typing_extensions.Literal["fetch", b"fetch"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["fetch", b"fetch", "service_id", b"service_id"]) -> None: ...
 
-    class OutputBlobIdsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(
-            self,
-            *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
-        ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
-
-    class ExitCodesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.int
-        def __init__(
-            self,
-            *,
-            key: builtins.str = ...,
-            value: builtins.int = ...,
-        ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
-
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
@@ -917,9 +887,9 @@ class RuntimeObject(google.protobuf.message.Message):
     VERSION_AGNOSTIC_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
-    OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
+    OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
@@ -941,17 +911,19 @@ class RuntimeObject(google.protobuf.message.Message):
     def runtime_extension(self) -> global___RuntimeObject.RuntimeExtension:
         """additional config if this runtime object belongs to a runtime extension"""
     @property
-    def output_blob_ids(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """if output is saved, this is the ID of the blob to retrieve it, by container name"""
-    @property
     def interval(self) -> google.protobuf.duration_pb2.Duration:
         """if set, runtime object is continuously applied instead of being done once when there is a version mismatch"""
     @property
     def timeout(self) -> google.protobuf.duration_pb2.Duration:
         """if set, runtime object is recreated when this timeout is hit if it has not converged by then."""
     @property
-    def exit_codes(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
-        """exit code by container name, only for run-to-completion objects like jobs"""
+    def output_blob_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """output_blob_ids and exit_codes are in the same order, assuming output is saved
+        if output is saved, this is the ID of the blob to retrieve it, only for run-to-completion objects.
+        """
+    @property
+    def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """exit codes, only for run-to-completion objects like jobs"""
     def __init__(
         self,
         *,
@@ -966,10 +938,10 @@ class RuntimeObject(google.protobuf.message.Message):
         version_agnostic: builtins.bool = ...,
         message: builtins.str = ...,
         runtime_extension: global___RuntimeObject.RuntimeExtension | None = ...,
-        output_blob_ids: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
         interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
-        exit_codes: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
+        output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...

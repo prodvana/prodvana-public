@@ -7063,13 +7063,6 @@
           "$ref": "#/definitions/RuntimeObjectRuntimeExtension",
           "title": "additional config if this runtime object belongs to a runtime extension"
         },
-        "outputBlobIds": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "title": "if output is saved, this is the ID of the blob to retrieve it, by container name"
-        },
         "interval": {
           "type": "string",
           "title": "if set, runtime object is continuously applied instead of being done once when there is a version mismatch"
@@ -7078,13 +7071,21 @@
           "type": "string",
           "description": "if set, runtime object is recreated when this timeout is hit if it has not converged by then."
         },
+        "outputBlobIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "if output is saved, this is the ID of the blob to retrieve it, only for run-to-completion objects.",
+          "title": "output_blob_ids and exit_codes are in the same order, assuming output is saved"
+        },
         "exitCodes": {
-          "type": "object",
-          "additionalProperties": {
+          "type": "array",
+          "items": {
             "type": "integer",
             "format": "int32"
           },
-          "title": "exit code by container name, only for run-to-completion objects like jobs"
+          "title": "exit codes, only for run-to-completion objects like jobs"
         }
       }
     },
