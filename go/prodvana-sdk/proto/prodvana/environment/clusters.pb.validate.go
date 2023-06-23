@@ -1787,6 +1787,8 @@ func (m *ClusterAuth_K8SAuth) validate(all bool) error {
 
 	// no validation rules for AgentEnv
 
+	// no validation rules for AgentExternallyManaged
+
 	if len(errors) > 0 {
 		return ClusterAuth_K8SAuthMultiError(errors)
 	}

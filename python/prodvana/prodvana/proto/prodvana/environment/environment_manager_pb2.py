@@ -17,12 +17,15 @@ from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__
 from prodvana.proto.prodvana.environment import clusters_pb2 as prodvana_dot_environment_dot_clusters__pb2
 from prodvana.proto.prodvana.config_writeback import writeback_pb2 as prodvana_dot_config__writeback_dot_writeback__pb2
 from prodvana.proto.prodvana.version import source_metadata_pb2 as prodvana_dot_version_dot_source__metadata__pb2
+from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/environment/environment_manager.proto\x12\x14prodvana.environment\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a#prodvana/environment/clusters.proto\x1a)prodvana/config_writeback/writeback.proto\x1a&prodvana/version/source_metadata.proto\"\xaf\x02\n\x0eLinkClusterReq\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\x04\x61uth\x18\x02 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\x12\x18\n\x10prodvana_managed\x18\x03 \x01(\x08\x12\x15\n\rdisable_istio\x18\x04 \x01(\x08\x12\x17\n\x0f\x64isable_flagger\x18\x05 \x01(\x08\x12/\n\x04type\x18\x06 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12(\n\x06source\x18\x07 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x08 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"Z\n\x0fLinkClusterResp\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x12\n\ncluster_id\x18\x03 \x01(\t\x12\x15\n\rk8s_agent_url\x18\x04 \x01(\t\" \n\x10RemoveClusterReq\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x13\n\x11RemoveClusterResp\"\'\n\x11GetClusterAuthReq\x12\x12\n\ncluster_id\x18\x01 \x01(\t\"E\n\x12GetClusterAuthResp\x12/\n\x04\x61uth\x18\x01 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\"\x11\n\x0fListClustersReq\"\x9f\x04\n\x10ListClustersResp\x12\x44\n\x08\x63lusters\x18\x01 \x03(\x0b\x32\x32.prodvana.environment.ListClustersResp.ClusterInfo\x1a\xc4\x03\n\x0b\x43lusterInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x34\n\x06origin\x18\x03 \x01(\x0e\x32$.prodvana.environment.Cluster.Origin\x12\x10\n\x08\x65ndpoint\x18\x04 \x01(\t\x12\x17\n\x0fservice_account\x18\x05 \x01(\t\x12H\n\x10writeback_config\x18\x06 \x01(\x0b\x32..prodvana.config_writeback.ConfigWritebackPath\x12/\n\x04type\x18\x07 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12I\n\x03\x65\x63s\x18\x08 \x01(\x0b\x32:.prodvana.environment.ListClustersResp.ClusterInfo.EcsInfoH\x00\x12<\n\x18last_heartbeat_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x1a.\n\x07\x45\x63sInfo\x12\x0e\n\x06region\x18\x01 \x01(\t\x12\x13\n\x0b\x63luster_arn\x18\x02 \x01(\tB\x06\n\x04info\"\xc5\x01\n\x13\x43onfigureClusterReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\x12(\n\x06source\x18\x03 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x04 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"\x16\n\x14\x43onfigureClusterResp\"\x1e\n\x1cValidateConfigureClusterResp\"+\n\x13GetClusterConfigReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\"K\n\x14GetClusterConfigResp\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\".\n\x16\x44\x65tectClusterConfigReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\"N\n\x17\x44\x65tectClusterConfigResp\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\")\n\x13GetClusterStatusReq\x12\x12\n\ncluster_id\x18\x01 \x01(\t\"T\n\x14GetClusterStatusResp\x12<\n\x18last_heartbeat_timestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x9e\n\n\x12\x45nvironmentManager\x12x\n\x0bLinkCluster\x12$.prodvana.environment.LinkClusterReq\x1a%.prodvana.environment.LinkClusterResp\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/clusters/link:\x01*\x12x\n\x0cListClusters\x12%.prodvana.environment.ListClustersReq\x1a&.prodvana.environment.ListClustersResp\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/clusters/list\x12\x80\x01\n\rRemoveCluster\x12&.prodvana.environment.RemoveClusterReq\x1a\'.prodvana.environment.RemoveClusterResp\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/clusters/remove:\x01*\x12\x82\x01\n\x0eGetClusterAuth\x12\'.prodvana.environment.GetClusterAuthReq\x1a(.prodvana.environment.GetClusterAuthResp\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/clusters/get_auth\x12\x9a\x01\n\x10GetClusterConfig\x12).prodvana.environment.GetClusterConfigReq\x1a*.prodvana.environment.GetClusterConfigResp\"/\x82\xd3\xe4\x93\x02)\"$/v1/clusters/{runtime_name=*}/config:\x01*\x12\xaa\x01\n\x13\x44\x65tectClusterConfig\x12,.prodvana.environment.DetectClusterConfigReq\x1a-.prodvana.environment.DetectClusterConfigResp\"6\x82\xd3\xe4\x93\x02\x30\"+/v1/clusters/{runtime_name=*}/detect-config:\x01*\x12\x8c\x01\n\x10\x43onfigureCluster\x12).prodvana.environment.ConfigureClusterReq\x1a*.prodvana.environment.ConfigureClusterResp\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/clusters/configure:\x01*\x12\xa5\x01\n\x18ValidateConfigureCluster\x12).prodvana.environment.ConfigureClusterReq\x1a\x32.prodvana.environment.ValidateConfigureClusterResp\"*\x82\xd3\xe4\x93\x02$\"\x1f/v1/clusters/configure/validate:\x01*\x12\x8a\x01\n\x10GetClusterStatus\x12).prodvana.environment.GetClusterStatusReq\x1a*.prodvana.environment.GetClusterStatusResp\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/v1/clusters/get_statusBPZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environmentb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/environment/environment_manager.proto\x12\x14prodvana.environment\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a#prodvana/environment/clusters.proto\x1a)prodvana/config_writeback/writeback.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"3\n\x1aGetClusterAgentApiTokenReq\x12\x15\n\x04name\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"0\n\x1bGetClusterAgentApiTokenResp\x12\x11\n\tapi_token\x18\x01 \x01(\t\"\xaf\x02\n\x0eLinkClusterReq\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\x04\x61uth\x18\x02 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\x12\x18\n\x10prodvana_managed\x18\x03 \x01(\x08\x12\x15\n\rdisable_istio\x18\x04 \x01(\x08\x12\x17\n\x0f\x64isable_flagger\x18\x05 \x01(\x08\x12/\n\x04type\x18\x06 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12(\n\x06source\x18\x07 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x08 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"\xa8\x01\n\x0fLinkClusterResp\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x12\n\ncluster_id\x18\x03 \x01(\t\x12\x15\n\rk8s_agent_url\x18\x04 \x01(\t\x12\x17\n\x0fk8s_agent_image\x18\x05 \x01(\t\x12\x16\n\x0ek8s_agent_args\x18\x06 \x03(\t\x12\x1b\n\x13k8s_agent_api_token\x18\x07 \x01(\t\" \n\x10RemoveClusterReq\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x13\n\x11RemoveClusterResp\"\'\n\x11GetClusterAuthReq\x12\x12\n\ncluster_id\x18\x01 \x01(\t\"E\n\x12GetClusterAuthResp\x12/\n\x04\x61uth\x18\x01 \x01(\x0b\x32!.prodvana.environment.ClusterAuth\"\x11\n\x0fListClustersReq\"\x9f\x04\n\x10ListClustersResp\x12\x44\n\x08\x63lusters\x18\x01 \x03(\x0b\x32\x32.prodvana.environment.ListClustersResp.ClusterInfo\x1a\xc4\x03\n\x0b\x43lusterInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x34\n\x06origin\x18\x03 \x01(\x0e\x32$.prodvana.environment.Cluster.Origin\x12\x10\n\x08\x65ndpoint\x18\x04 \x01(\t\x12\x17\n\x0fservice_account\x18\x05 \x01(\t\x12H\n\x10writeback_config\x18\x06 \x01(\x0b\x32..prodvana.config_writeback.ConfigWritebackPath\x12/\n\x04type\x18\x07 \x01(\x0e\x32!.prodvana.environment.ClusterType\x12I\n\x03\x65\x63s\x18\x08 \x01(\x0b\x32:.prodvana.environment.ListClustersResp.ClusterInfo.EcsInfoH\x00\x12<\n\x18last_heartbeat_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x1a.\n\x07\x45\x63sInfo\x12\x0e\n\x06region\x18\x01 \x01(\t\x12\x13\n\x0b\x63luster_arn\x18\x02 \x01(\tB\x06\n\x04info\"\xc5\x01\n\x13\x43onfigureClusterReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\x12(\n\x06source\x18\x03 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x04 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"\x16\n\x14\x43onfigureClusterResp\"\x1e\n\x1cValidateConfigureClusterResp\"+\n\x13GetClusterConfigReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\"K\n\x14GetClusterConfigResp\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\".\n\x16\x44\x65tectClusterConfigReq\x12\x14\n\x0cruntime_name\x18\x01 \x01(\t\"N\n\x17\x44\x65tectClusterConfigResp\x12\x33\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.prodvana.environment.ClusterConfig\")\n\x13GetClusterStatusReq\x12\x12\n\ncluster_id\x18\x01 \x01(\t\"T\n\x14GetClusterStatusResp\x12<\n\x18last_heartbeat_timestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xc4\x0b\n\x12\x45nvironmentManager\x12\xa3\x01\n\x17GetClusterAgentApiToken\x12\x30.prodvana.environment.GetClusterAgentApiTokenReq\x1a\x31.prodvana.environment.GetClusterAgentApiTokenResp\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/clusters/{name=*}/token\x12x\n\x0bLinkCluster\x12$.prodvana.environment.LinkClusterReq\x1a%.prodvana.environment.LinkClusterResp\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/clusters/link:\x01*\x12x\n\x0cListClusters\x12%.prodvana.environment.ListClustersReq\x1a&.prodvana.environment.ListClustersResp\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/clusters/list\x12\x80\x01\n\rRemoveCluster\x12&.prodvana.environment.RemoveClusterReq\x1a\'.prodvana.environment.RemoveClusterResp\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/clusters/remove:\x01*\x12\x82\x01\n\x0eGetClusterAuth\x12\'.prodvana.environment.GetClusterAuthReq\x1a(.prodvana.environment.GetClusterAuthResp\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/clusters/get_auth\x12\x9a\x01\n\x10GetClusterConfig\x12).prodvana.environment.GetClusterConfigReq\x1a*.prodvana.environment.GetClusterConfigResp\"/\x82\xd3\xe4\x93\x02)\"$/v1/clusters/{runtime_name=*}/config:\x01*\x12\xaa\x01\n\x13\x44\x65tectClusterConfig\x12,.prodvana.environment.DetectClusterConfigReq\x1a-.prodvana.environment.DetectClusterConfigResp\"6\x82\xd3\xe4\x93\x02\x30\"+/v1/clusters/{runtime_name=*}/detect-config:\x01*\x12\x8c\x01\n\x10\x43onfigureCluster\x12).prodvana.environment.ConfigureClusterReq\x1a*.prodvana.environment.ConfigureClusterResp\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/clusters/configure:\x01*\x12\xa5\x01\n\x18ValidateConfigureCluster\x12).prodvana.environment.ConfigureClusterReq\x1a\x32.prodvana.environment.ValidateConfigureClusterResp\"*\x82\xd3\xe4\x93\x02$\"\x1f/v1/clusters/configure/validate:\x01*\x12\x8a\x01\n\x10GetClusterStatus\x12).prodvana.environment.GetClusterStatusReq\x1a*.prodvana.environment.GetClusterStatusResp\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/v1/clusters/get_statusBPZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environmentb\x06proto3')
 
 
 
+_GETCLUSTERAGENTAPITOKENREQ = DESCRIPTOR.message_types_by_name['GetClusterAgentApiTokenReq']
+_GETCLUSTERAGENTAPITOKENRESP = DESCRIPTOR.message_types_by_name['GetClusterAgentApiTokenResp']
 _LINKCLUSTERREQ = DESCRIPTOR.message_types_by_name['LinkClusterReq']
 _LINKCLUSTERRESP = DESCRIPTOR.message_types_by_name['LinkClusterResp']
 _REMOVECLUSTERREQ = DESCRIPTOR.message_types_by_name['RemoveClusterReq']
@@ -42,6 +45,20 @@ _DETECTCLUSTERCONFIGREQ = DESCRIPTOR.message_types_by_name['DetectClusterConfigR
 _DETECTCLUSTERCONFIGRESP = DESCRIPTOR.message_types_by_name['DetectClusterConfigResp']
 _GETCLUSTERSTATUSREQ = DESCRIPTOR.message_types_by_name['GetClusterStatusReq']
 _GETCLUSTERSTATUSRESP = DESCRIPTOR.message_types_by_name['GetClusterStatusResp']
+GetClusterAgentApiTokenReq = _reflection.GeneratedProtocolMessageType('GetClusterAgentApiTokenReq', (_message.Message,), {
+  'DESCRIPTOR' : _GETCLUSTERAGENTAPITOKENREQ,
+  '__module__' : 'prodvana.environment.environment_manager_pb2'
+  # @@protoc_insertion_point(class_scope:prodvana.environment.GetClusterAgentApiTokenReq)
+  })
+_sym_db.RegisterMessage(GetClusterAgentApiTokenReq)
+
+GetClusterAgentApiTokenResp = _reflection.GeneratedProtocolMessageType('GetClusterAgentApiTokenResp', (_message.Message,), {
+  'DESCRIPTOR' : _GETCLUSTERAGENTAPITOKENRESP,
+  '__module__' : 'prodvana.environment.environment_manager_pb2'
+  # @@protoc_insertion_point(class_scope:prodvana.environment.GetClusterAgentApiTokenResp)
+  })
+_sym_db.RegisterMessage(GetClusterAgentApiTokenResp)
+
 LinkClusterReq = _reflection.GeneratedProtocolMessageType('LinkClusterReq', (_message.Message,), {
   'DESCRIPTOR' : _LINKCLUSTERREQ,
   '__module__' : 'prodvana.environment.environment_manager_pb2'
@@ -182,6 +199,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZNgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment'
+  _GETCLUSTERAGENTAPITOKENREQ.fields_by_name['name']._options = None
+  _GETCLUSTERAGENTAPITOKENREQ.fields_by_name['name']._serialized_options = b'\372B\004r\002\020\001'
+  _ENVIRONMENTMANAGER.methods_by_name['GetClusterAgentApiToken']._options = None
+  _ENVIRONMENTMANAGER.methods_by_name['GetClusterAgentApiToken']._serialized_options = b'\202\323\344\223\002\035\022\033/v1/clusters/{name=*}/token'
   _ENVIRONMENTMANAGER.methods_by_name['LinkCluster']._options = None
   _ENVIRONMENTMANAGER.methods_by_name['LinkCluster']._serialized_options = b'\202\323\344\223\002\026\"\021/v1/clusters/link:\001*'
   _ENVIRONMENTMANAGER.methods_by_name['ListClusters']._options = None
@@ -200,44 +221,48 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _ENVIRONMENTMANAGER.methods_by_name['ValidateConfigureCluster']._serialized_options = b'\202\323\344\223\002$\"\037/v1/clusters/configure/validate:\001*'
   _ENVIRONMENTMANAGER.methods_by_name['GetClusterStatus']._options = None
   _ENVIRONMENTMANAGER.methods_by_name['GetClusterStatus']._serialized_options = b'\202\323\344\223\002\031\022\027/v1/clusters/get_status'
-  _LINKCLUSTERREQ._serialized_start=256
-  _LINKCLUSTERREQ._serialized_end=559
-  _LINKCLUSTERRESP._serialized_start=561
-  _LINKCLUSTERRESP._serialized_end=651
-  _REMOVECLUSTERREQ._serialized_start=653
-  _REMOVECLUSTERREQ._serialized_end=685
-  _REMOVECLUSTERRESP._serialized_start=687
-  _REMOVECLUSTERRESP._serialized_end=706
-  _GETCLUSTERAUTHREQ._serialized_start=708
-  _GETCLUSTERAUTHREQ._serialized_end=747
-  _GETCLUSTERAUTHRESP._serialized_start=749
-  _GETCLUSTERAUTHRESP._serialized_end=818
-  _LISTCLUSTERSREQ._serialized_start=820
-  _LISTCLUSTERSREQ._serialized_end=837
-  _LISTCLUSTERSRESP._serialized_start=840
-  _LISTCLUSTERSRESP._serialized_end=1383
-  _LISTCLUSTERSRESP_CLUSTERINFO._serialized_start=931
-  _LISTCLUSTERSRESP_CLUSTERINFO._serialized_end=1383
-  _LISTCLUSTERSRESP_CLUSTERINFO_ECSINFO._serialized_start=1329
-  _LISTCLUSTERSRESP_CLUSTERINFO_ECSINFO._serialized_end=1375
-  _CONFIGURECLUSTERREQ._serialized_start=1386
-  _CONFIGURECLUSTERREQ._serialized_end=1583
-  _CONFIGURECLUSTERRESP._serialized_start=1585
-  _CONFIGURECLUSTERRESP._serialized_end=1607
-  _VALIDATECONFIGURECLUSTERRESP._serialized_start=1609
-  _VALIDATECONFIGURECLUSTERRESP._serialized_end=1639
-  _GETCLUSTERCONFIGREQ._serialized_start=1641
-  _GETCLUSTERCONFIGREQ._serialized_end=1684
-  _GETCLUSTERCONFIGRESP._serialized_start=1686
-  _GETCLUSTERCONFIGRESP._serialized_end=1761
-  _DETECTCLUSTERCONFIGREQ._serialized_start=1763
-  _DETECTCLUSTERCONFIGREQ._serialized_end=1809
-  _DETECTCLUSTERCONFIGRESP._serialized_start=1811
-  _DETECTCLUSTERCONFIGRESP._serialized_end=1889
-  _GETCLUSTERSTATUSREQ._serialized_start=1891
-  _GETCLUSTERSTATUSREQ._serialized_end=1932
-  _GETCLUSTERSTATUSRESP._serialized_start=1934
-  _GETCLUSTERSTATUSRESP._serialized_end=2018
-  _ENVIRONMENTMANAGER._serialized_start=2021
-  _ENVIRONMENTMANAGER._serialized_end=3331
+  _GETCLUSTERAGENTAPITOKENREQ._serialized_start=280
+  _GETCLUSTERAGENTAPITOKENREQ._serialized_end=331
+  _GETCLUSTERAGENTAPITOKENRESP._serialized_start=333
+  _GETCLUSTERAGENTAPITOKENRESP._serialized_end=381
+  _LINKCLUSTERREQ._serialized_start=384
+  _LINKCLUSTERREQ._serialized_end=687
+  _LINKCLUSTERRESP._serialized_start=690
+  _LINKCLUSTERRESP._serialized_end=858
+  _REMOVECLUSTERREQ._serialized_start=860
+  _REMOVECLUSTERREQ._serialized_end=892
+  _REMOVECLUSTERRESP._serialized_start=894
+  _REMOVECLUSTERRESP._serialized_end=913
+  _GETCLUSTERAUTHREQ._serialized_start=915
+  _GETCLUSTERAUTHREQ._serialized_end=954
+  _GETCLUSTERAUTHRESP._serialized_start=956
+  _GETCLUSTERAUTHRESP._serialized_end=1025
+  _LISTCLUSTERSREQ._serialized_start=1027
+  _LISTCLUSTERSREQ._serialized_end=1044
+  _LISTCLUSTERSRESP._serialized_start=1047
+  _LISTCLUSTERSRESP._serialized_end=1590
+  _LISTCLUSTERSRESP_CLUSTERINFO._serialized_start=1138
+  _LISTCLUSTERSRESP_CLUSTERINFO._serialized_end=1590
+  _LISTCLUSTERSRESP_CLUSTERINFO_ECSINFO._serialized_start=1536
+  _LISTCLUSTERSRESP_CLUSTERINFO_ECSINFO._serialized_end=1582
+  _CONFIGURECLUSTERREQ._serialized_start=1593
+  _CONFIGURECLUSTERREQ._serialized_end=1790
+  _CONFIGURECLUSTERRESP._serialized_start=1792
+  _CONFIGURECLUSTERRESP._serialized_end=1814
+  _VALIDATECONFIGURECLUSTERRESP._serialized_start=1816
+  _VALIDATECONFIGURECLUSTERRESP._serialized_end=1846
+  _GETCLUSTERCONFIGREQ._serialized_start=1848
+  _GETCLUSTERCONFIGREQ._serialized_end=1891
+  _GETCLUSTERCONFIGRESP._serialized_start=1893
+  _GETCLUSTERCONFIGRESP._serialized_end=1968
+  _DETECTCLUSTERCONFIGREQ._serialized_start=1970
+  _DETECTCLUSTERCONFIGREQ._serialized_end=2016
+  _DETECTCLUSTERCONFIGRESP._serialized_start=2018
+  _DETECTCLUSTERCONFIGRESP._serialized_end=2096
+  _GETCLUSTERSTATUSREQ._serialized_start=2098
+  _GETCLUSTERSTATUSREQ._serialized_end=2139
+  _GETCLUSTERSTATUSRESP._serialized_start=2141
+  _GETCLUSTERSTATUSRESP._serialized_end=2225
+  _ENVIRONMENTMANAGER._serialized_start=2228
+  _ENVIRONMENTMANAGER._serialized_end=3704
 # @@protoc_insertion_point(module_scope)

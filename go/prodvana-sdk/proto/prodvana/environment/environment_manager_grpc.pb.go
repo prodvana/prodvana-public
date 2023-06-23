@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	EnvironmentManager_GetClusterAgentApiToken_FullMethodName  = "/prodvana.environment.EnvironmentManager/GetClusterAgentApiToken"
 	EnvironmentManager_LinkCluster_FullMethodName              = "/prodvana.environment.EnvironmentManager/LinkCluster"
 	EnvironmentManager_ListClusters_FullMethodName             = "/prodvana.environment.EnvironmentManager/ListClusters"
 	EnvironmentManager_RemoveCluster_FullMethodName            = "/prodvana.environment.EnvironmentManager/RemoveCluster"
@@ -34,6 +35,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EnvironmentManagerClient interface {
+	GetClusterAgentApiToken(ctx context.Context, in *GetClusterAgentApiTokenReq, opts ...grpc.CallOption) (*GetClusterAgentApiTokenResp, error)
 	LinkCluster(ctx context.Context, in *LinkClusterReq, opts ...grpc.CallOption) (*LinkClusterResp, error)
 	ListClusters(ctx context.Context, in *ListClustersReq, opts ...grpc.CallOption) (*ListClustersResp, error)
 	RemoveCluster(ctx context.Context, in *RemoveClusterReq, opts ...grpc.CallOption) (*RemoveClusterResp, error)
@@ -51,6 +53,15 @@ type environmentManagerClient struct {
 
 func NewEnvironmentManagerClient(cc grpc.ClientConnInterface) EnvironmentManagerClient {
 	return &environmentManagerClient{cc}
+}
+
+func (c *environmentManagerClient) GetClusterAgentApiToken(ctx context.Context, in *GetClusterAgentApiTokenReq, opts ...grpc.CallOption) (*GetClusterAgentApiTokenResp, error) {
+	out := new(GetClusterAgentApiTokenResp)
+	err := c.cc.Invoke(ctx, EnvironmentManager_GetClusterAgentApiToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *environmentManagerClient) LinkCluster(ctx context.Context, in *LinkClusterReq, opts ...grpc.CallOption) (*LinkClusterResp, error) {
@@ -138,6 +149,7 @@ func (c *environmentManagerClient) GetClusterStatus(ctx context.Context, in *Get
 // All implementations must embed UnimplementedEnvironmentManagerServer
 // for forward compatibility
 type EnvironmentManagerServer interface {
+	GetClusterAgentApiToken(context.Context, *GetClusterAgentApiTokenReq) (*GetClusterAgentApiTokenResp, error)
 	LinkCluster(context.Context, *LinkClusterReq) (*LinkClusterResp, error)
 	ListClusters(context.Context, *ListClustersReq) (*ListClustersResp, error)
 	RemoveCluster(context.Context, *RemoveClusterReq) (*RemoveClusterResp, error)
@@ -154,6 +166,9 @@ type EnvironmentManagerServer interface {
 type UnimplementedEnvironmentManagerServer struct {
 }
 
+func (UnimplementedEnvironmentManagerServer) GetClusterAgentApiToken(context.Context, *GetClusterAgentApiTokenReq) (*GetClusterAgentApiTokenResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetClusterAgentApiToken not implemented")
+}
 func (UnimplementedEnvironmentManagerServer) LinkCluster(context.Context, *LinkClusterReq) (*LinkClusterResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LinkCluster not implemented")
 }
@@ -192,6 +207,24 @@ type UnsafeEnvironmentManagerServer interface {
 
 func RegisterEnvironmentManagerServer(s grpc.ServiceRegistrar, srv EnvironmentManagerServer) {
 	s.RegisterService(&EnvironmentManager_ServiceDesc, srv)
+}
+
+func _EnvironmentManager_GetClusterAgentApiToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetClusterAgentApiTokenReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnvironmentManagerServer).GetClusterAgentApiToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EnvironmentManager_GetClusterAgentApiToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnvironmentManagerServer).GetClusterAgentApiToken(ctx, req.(*GetClusterAgentApiTokenReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _EnvironmentManager_LinkCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -363,6 +396,10 @@ var EnvironmentManager_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "prodvana.environment.EnvironmentManager",
 	HandlerType: (*EnvironmentManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetClusterAgentApiToken",
+			Handler:    _EnvironmentManager_GetClusterAgentApiToken_Handler,
+		},
 		{
 			MethodName: "LinkCluster",
 			Handler:    _EnvironmentManager_LinkCluster_Handler,

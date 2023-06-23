@@ -31,6 +31,8 @@ class _SourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """this source indicates this version was provided by Prodvana
     this is used for things like builtin Protections or other first party provided features
     """
+    IAC: _Source.ValueType  # 6
+    """Infra as Code sources like Terraform and Pulumi"""
 
 class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
 
@@ -43,6 +45,8 @@ PRODVANA: Source.ValueType  # 5
 """this source indicates this version was provided by Prodvana
 this is used for things like builtin Protections or other first party provided features
 """
+IAC: Source.ValueType  # 6
+"""Infra as Code sources like Terraform and Pulumi"""
 global___Source = Source
 
 class SourceMetadata(google.protobuf.message.Message):

@@ -39,6 +39,7 @@ class K8SRuntimeInitializationConfig(google.protobuf.message.Message):
     USE_RESOURCE_DEFAULT_FIELD_NUMBER: builtins.int
     INTERACTION_SERVER_ADDRESS_FIELD_NUMBER: builtins.int
     ENV_VARS_FIELD_NUMBER: builtins.int
+    AGENT_EXTERNALLY_MANAGED_FIELD_NUMBER: builtins.int
     agent_image: builtins.str
     auth_token: builtins.str
     use_resource_default: builtins.bool
@@ -46,6 +47,8 @@ class K8SRuntimeInitializationConfig(google.protobuf.message.Message):
     @property
     def env_vars(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """Env vars, mainly used to pass in proxy information. This is generally supplied by customers."""
+    agent_externally_managed: builtins.bool
+    """The Prodvana agent lifecycle is handled by the user -- Prodvana will not install or update the agent."""
     def __init__(
         self,
         *,
@@ -54,8 +57,9 @@ class K8SRuntimeInitializationConfig(google.protobuf.message.Message):
         use_resource_default: builtins.bool = ...,
         interaction_server_address: builtins.str = ...,
         env_vars: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        agent_externally_managed: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["agent_image", b"agent_image", "auth_token", b"auth_token", "env_vars", b"env_vars", "interaction_server_address", b"interaction_server_address", "use_resource_default", b"use_resource_default"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["agent_externally_managed", b"agent_externally_managed", "agent_image", b"agent_image", "auth_token", b"auth_token", "env_vars", b"env_vars", "interaction_server_address", b"interaction_server_address", "use_resource_default", b"use_resource_default"]) -> None: ...
 
 global___K8SRuntimeInitializationConfig = K8SRuntimeInitializationConfig
 

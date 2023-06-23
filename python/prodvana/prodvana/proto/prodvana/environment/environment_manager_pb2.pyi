@@ -20,6 +20,34 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class GetClusterAgentApiTokenReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+
+global___GetClusterAgentApiTokenReq = GetClusterAgentApiTokenReq
+
+class GetClusterAgentApiTokenResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    API_TOKEN_FIELD_NUMBER: builtins.int
+    api_token: builtins.str
+    def __init__(
+        self,
+        *,
+        api_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["api_token", b"api_token"]) -> None: ...
+
+global___GetClusterAgentApiTokenResp = GetClusterAgentApiTokenResp
+
 class LinkClusterReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -66,6 +94,9 @@ class LinkClusterResp(google.protobuf.message.Message):
     MSG_FIELD_NUMBER: builtins.int
     CLUSTER_ID_FIELD_NUMBER: builtins.int
     K8S_AGENT_URL_FIELD_NUMBER: builtins.int
+    K8S_AGENT_IMAGE_FIELD_NUMBER: builtins.int
+    K8S_AGENT_ARGS_FIELD_NUMBER: builtins.int
+    K8S_AGENT_API_TOKEN_FIELD_NUMBER: builtins.int
     success: builtins.bool
     """LinkCluster will attempt to talk to the cluster to validate the
     credentials. If it fails, want to communicate back what the failure was.
@@ -74,6 +105,11 @@ class LinkClusterResp(google.protobuf.message.Message):
     cluster_id: builtins.str
     k8s_agent_url: builtins.str
     """Magic URL to install agent"""
+    k8s_agent_image: builtins.str
+    """agent details broken out for externally constructing the agent configuration"""
+    @property
+    def k8s_agent_args(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    k8s_agent_api_token: builtins.str
     def __init__(
         self,
         *,
@@ -81,8 +117,11 @@ class LinkClusterResp(google.protobuf.message.Message):
         msg: builtins.str = ...,
         cluster_id: builtins.str = ...,
         k8s_agent_url: builtins.str = ...,
+        k8s_agent_image: builtins.str = ...,
+        k8s_agent_args: collections.abc.Iterable[builtins.str] | None = ...,
+        k8s_agent_api_token: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cluster_id", b"cluster_id", "k8s_agent_url", b"k8s_agent_url", "msg", b"msg", "success", b"success"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cluster_id", b"cluster_id", "k8s_agent_api_token", b"k8s_agent_api_token", "k8s_agent_args", b"k8s_agent_args", "k8s_agent_image", b"k8s_agent_image", "k8s_agent_url", b"k8s_agent_url", "msg", b"msg", "success", b"success"]) -> None: ...
 
 global___LinkClusterResp = LinkClusterResp
 

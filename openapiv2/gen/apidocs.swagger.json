@@ -1800,6 +1800,37 @@
         ]
       }
     },
+    "/v1/clusters/{name}/token": {
+      "get": {
+        "operationId": "EnvironmentManager_GetClusterAgentApiToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentGetClusterAgentApiTokenResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.environment.EnvironmentManager"
+        ]
+      }
+    },
     "/v1/clusters/{runtimeName}/config": {
       "post": {
         "operationId": "EnvironmentManager_GetClusterConfig",
@@ -3849,7 +3880,7 @@
           },
           {
             "name": "source",
-            "description": " - PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features",
+            "description": " - PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features\n - IAC: Infra as Code sources like Terraform and Pulumi",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3859,7 +3890,8 @@
               "INTERACTIVE_PVNCTL",
               "CONFIG_FILE",
               "REPO_FOLLOW",
-              "PRODVANA"
+              "PRODVANA",
+              "IAC"
             ],
             "default": "UNKNOWN_SOURCE"
           },
@@ -4730,6 +4762,10 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "agentExternallyManaged": {
+          "type": "boolean",
+          "description": "The Prodvana agent lifecycle is handled by the user -- Prodvana will not install or update the agent."
         }
       }
     },
@@ -7392,6 +7428,14 @@
         }
       }
     },
+    "environmentGetClusterAgentApiTokenResp": {
+      "type": "object",
+      "properties": {
+        "apiToken": {
+          "type": "string"
+        }
+      }
+    },
     "environmentGetClusterAuthResp": {
       "type": "object",
       "properties": {
@@ -7463,6 +7507,19 @@
         "k8sAgentUrl": {
           "type": "string",
           "title": "Magic URL to install agent"
+        },
+        "k8sAgentImage": {
+          "type": "string",
+          "title": "agent details broken out for externally constructing the agent configuration"
+        },
+        "k8sAgentArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "k8sAgentApiToken": {
+          "type": "string"
         }
       }
     },
@@ -10632,10 +10689,11 @@
         "INTERACTIVE_PVNCTL",
         "CONFIG_FILE",
         "REPO_FOLLOW",
-        "PRODVANA"
+        "PRODVANA",
+        "IAC"
       ],
       "default": "UNKNOWN_SOURCE",
-      "title": "- PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features"
+      "title": "- PRODVANA: this source indicates this version was provided by Prodvana\nthis is used for things like builtin Protections or other first party provided features\n - IAC: Infra as Code sources like Terraform and Pulumi"
     },
     "versionSourceMetadata": {
       "type": "object",

@@ -14,6 +14,11 @@ class EnvironmentManagerStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetClusterAgentApiToken = channel.unary_unary(
+                '/prodvana.environment.EnvironmentManager/GetClusterAgentApiToken',
+                request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenReq.SerializeToString,
+                response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenResp.FromString,
+                )
         self.LinkCluster = channel.unary_unary(
                 '/prodvana.environment.EnvironmentManager/LinkCluster',
                 request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.LinkClusterReq.SerializeToString,
@@ -63,6 +68,12 @@ class EnvironmentManagerStub(object):
 
 class EnvironmentManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def GetClusterAgentApiToken(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def LinkCluster(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -121,6 +132,11 @@ class EnvironmentManagerServicer(object):
 
 def add_EnvironmentManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetClusterAgentApiToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetClusterAgentApiToken,
+                    request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenReq.FromString,
+                    response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenResp.SerializeToString,
+            ),
             'LinkCluster': grpc.unary_unary_rpc_method_handler(
                     servicer.LinkCluster,
                     request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.LinkClusterReq.FromString,
@@ -175,6 +191,23 @@ def add_EnvironmentManagerServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class EnvironmentManager(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetClusterAgentApiToken(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/GetClusterAgentApiToken',
+            prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenReq.SerializeToString,
+            prodvana_dot_environment_dot_environment__manager__pb2.GetClusterAgentApiTokenResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def LinkCluster(request,

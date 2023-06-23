@@ -10,6 +10,9 @@ message K8SRuntimeInitializationConfig {
     string interaction_server_address = 5;
     map<string, string> env_vars = 6; // Env vars, mainly used to pass in proxy information. This is generally supplied by customers.
 
+    // The Prodvana agent lifecycle is handled by the user -- Prodvana will not install or update the agent.
+    bool agent_externally_managed = 7;
+
     reserved 2;
     reserved "apiserver_address";
 }

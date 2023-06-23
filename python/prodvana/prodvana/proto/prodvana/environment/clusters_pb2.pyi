@@ -92,14 +92,18 @@ class ClusterAuth(google.protobuf.message.Message):
             def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
         AGENT_ENV_FIELD_NUMBER: builtins.int
+        AGENT_EXTERNALLY_MANAGED_FIELD_NUMBER: builtins.int
         @property
         def agent_env(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]: ...
+        agent_externally_managed: builtins.bool
+        """The Prodvana agent lifecycle is handled by the user -- Prodvana will not install or update the agent."""
         def __init__(
             self,
             *,
             agent_env: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+            agent_externally_managed: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["agent_env", b"agent_env"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["agent_env", b"agent_env", "agent_externally_managed", b"agent_externally_managed"]) -> None: ...
 
     ENDPOINT_FIELD_NUMBER: builtins.int
     CA_CERT_FIELD_NUMBER: builtins.int

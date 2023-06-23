@@ -2793,7 +2793,9 @@
                         "REPO_FOLLOW",
                         4,
                         "PRODVANA",
-                        5
+                        5,
+                        "IAC",
+                        6
                     ],
                     "oneOf": [
                         {

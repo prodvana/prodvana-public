@@ -39,6 +39,224 @@ var (
 	_ = version.Source(0)
 )
 
+// Validate checks the field values on GetClusterAgentApiTokenReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetClusterAgentApiTokenReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetClusterAgentApiTokenReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetClusterAgentApiTokenReqMultiError, or nil if none found.
+func (m *GetClusterAgentApiTokenReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetClusterAgentApiTokenReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := GetClusterAgentApiTokenReqValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetClusterAgentApiTokenReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetClusterAgentApiTokenReqMultiError is an error wrapping multiple
+// validation errors returned by GetClusterAgentApiTokenReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetClusterAgentApiTokenReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetClusterAgentApiTokenReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetClusterAgentApiTokenReqMultiError) AllErrors() []error { return m }
+
+// GetClusterAgentApiTokenReqValidationError is the validation error returned
+// by GetClusterAgentApiTokenReq.Validate if the designated constraints aren't met.
+type GetClusterAgentApiTokenReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetClusterAgentApiTokenReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetClusterAgentApiTokenReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetClusterAgentApiTokenReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetClusterAgentApiTokenReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetClusterAgentApiTokenReqValidationError) ErrorName() string {
+	return "GetClusterAgentApiTokenReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetClusterAgentApiTokenReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetClusterAgentApiTokenReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetClusterAgentApiTokenReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetClusterAgentApiTokenReqValidationError{}
+
+// Validate checks the field values on GetClusterAgentApiTokenResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetClusterAgentApiTokenResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetClusterAgentApiTokenResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetClusterAgentApiTokenRespMultiError, or nil if none found.
+func (m *GetClusterAgentApiTokenResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetClusterAgentApiTokenResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApiToken
+
+	if len(errors) > 0 {
+		return GetClusterAgentApiTokenRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetClusterAgentApiTokenRespMultiError is an error wrapping multiple
+// validation errors returned by GetClusterAgentApiTokenResp.ValidateAll() if
+// the designated constraints aren't met.
+type GetClusterAgentApiTokenRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetClusterAgentApiTokenRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetClusterAgentApiTokenRespMultiError) AllErrors() []error { return m }
+
+// GetClusterAgentApiTokenRespValidationError is the validation error returned
+// by GetClusterAgentApiTokenResp.Validate if the designated constraints
+// aren't met.
+type GetClusterAgentApiTokenRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetClusterAgentApiTokenRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetClusterAgentApiTokenRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetClusterAgentApiTokenRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetClusterAgentApiTokenRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetClusterAgentApiTokenRespValidationError) ErrorName() string {
+	return "GetClusterAgentApiTokenRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetClusterAgentApiTokenRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetClusterAgentApiTokenResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetClusterAgentApiTokenRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetClusterAgentApiTokenRespValidationError{}
+
 // Validate checks the field values on LinkClusterReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -238,6 +456,10 @@ func (m *LinkClusterResp) validate(all bool) error {
 	// no validation rules for ClusterId
 
 	// no validation rules for K8SAgentUrl
+
+	// no validation rules for K8SAgentImage
+
+	// no validation rules for K8SAgentApiToken
 
 	if len(errors) > 0 {
 		return LinkClusterRespMultiError(errors)

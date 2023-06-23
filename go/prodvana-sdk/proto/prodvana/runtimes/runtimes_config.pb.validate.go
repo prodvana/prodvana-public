@@ -67,6 +67,8 @@ func (m *K8SRuntimeInitializationConfig) validate(all bool) error {
 
 	// no validation rules for EnvVars
 
+	// no validation rules for AgentExternallyManaged
+
 	if len(errors) > 0 {
 		return K8SRuntimeInitializationConfigMultiError(errors)
 	}

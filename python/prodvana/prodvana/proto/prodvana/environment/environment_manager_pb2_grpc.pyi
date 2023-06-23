@@ -8,6 +8,10 @@ import prodvana.proto.prodvana.environment.environment_manager_pb2
 
 class EnvironmentManagerStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
+    GetClusterAgentApiToken: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAgentApiTokenReq,
+        prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAgentApiTokenResp,
+    ]
     LinkCluster: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.environment.environment_manager_pb2.LinkClusterReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.LinkClusterResp,
@@ -46,6 +50,12 @@ class EnvironmentManagerStub:
     ]
 
 class EnvironmentManagerServicer(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def GetClusterAgentApiToken(
+        self,
+        request: prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAgentApiTokenReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAgentApiTokenResp: ...
     @abc.abstractmethod
     def LinkCluster(
         self,

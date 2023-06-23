@@ -6,6 +6,15 @@ import "google/protobuf/timestamp.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/config_writeback/writeback.proto";
 import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message GetClusterAgentApiTokenReq {
+    string name = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetClusterAgentApiTokenResp {
+    string api_token = 1;
+}
 
 message LinkClusterReq {
     string name = 1;
@@ -30,6 +39,11 @@ message LinkClusterResp {
 
     // Magic URL to install agent
     string k8s_agent_url = 4;
+
+    // agent details broken out for externally constructing the agent configuration
+    string k8s_agent_image = 5;
+    repeated string k8s_agent_args = 6;
+    string k8s_agent_api_token = 7;
 }
 
 message RemoveClusterReq {
@@ -112,6 +126,11 @@ message GetClusterStatusResp{
 }
 
 service EnvironmentManager {
+    rpc GetClusterAgentApiToken (GetClusterAgentApiTokenReq) returns (GetClusterAgentApiTokenResp) {
+        option (google.api.http) = {
+            get: "/v1/clusters/{name=*}/token"
+        };
+    }
     rpc LinkCluster (LinkClusterReq) returns (LinkClusterResp) {
         option (google.api.http) = {
             post: "/v1/clusters/link"

@@ -26,6 +26,8 @@ message ClusterAuth {
     }
     message K8sAuth {
         map<string, string> agent_env = 1;
+        // The Prodvana agent lifecycle is handled by the user -- Prodvana will not install or update the agent.
+        bool agent_externally_managed = 2;
     }
 
     oneof auth_oneof {
