@@ -291,8 +291,14 @@ message RuntimeExtensionFetchOutput {
 
 message RuntimeObject {
     message RuntimeExtension {
+        // aggregate object will have all commands set. Fetcher will only have fetch set.
+        prodvana.environment.CompiledExtensionCommand apply = 3;
         prodvana.environment.CompiledExtensionCommand fetch = 1;
+        google.protobuf.Duration fetch_interval = 4;
+        google.protobuf.Duration fetch_timeout = 5;
         string service_id = 2;
+        string release_channel_id = 6;
+        // next tag: 7
     }
     Metadata meta = 1;
     string object_type = 2;

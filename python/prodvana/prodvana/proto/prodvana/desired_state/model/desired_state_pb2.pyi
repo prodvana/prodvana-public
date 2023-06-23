@@ -866,19 +866,36 @@ class RuntimeObject(google.protobuf.message.Message):
     class RuntimeExtension(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        APPLY_FIELD_NUMBER: builtins.int
         FETCH_FIELD_NUMBER: builtins.int
+        FETCH_INTERVAL_FIELD_NUMBER: builtins.int
+        FETCH_TIMEOUT_FIELD_NUMBER: builtins.int
         SERVICE_ID_FIELD_NUMBER: builtins.int
+        RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+        @property
+        def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
+            """aggregate object will have all commands set. Fetcher will only have fetch set."""
         @property
         def fetch(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand: ...
+        @property
+        def fetch_interval(self) -> google.protobuf.duration_pb2.Duration: ...
+        @property
+        def fetch_timeout(self) -> google.protobuf.duration_pb2.Duration: ...
         service_id: builtins.str
+        release_channel_id: builtins.str
+        """next tag: 7"""
         def __init__(
             self,
             *,
+            apply: prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand | None = ...,
             fetch: prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand | None = ...,
+            fetch_interval: google.protobuf.duration_pb2.Duration | None = ...,
+            fetch_timeout: google.protobuf.duration_pb2.Duration | None = ...,
             service_id: builtins.str = ...,
+            release_channel_id: builtins.str = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["fetch", b"fetch"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["fetch", b"fetch", "service_id", b"service_id"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout", "release_channel_id", b"release_channel_id", "service_id", b"service_id"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int

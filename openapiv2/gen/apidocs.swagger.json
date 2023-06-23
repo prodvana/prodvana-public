@@ -5383,11 +5383,25 @@
     "RuntimeObjectRuntimeExtension": {
       "type": "object",
       "properties": {
+        "apply": {
+          "$ref": "#/definitions/environmentCompiledExtensionCommand",
+          "description": "aggregate object will have all commands set. Fetcher will only have fetch set."
+        },
         "fetch": {
           "$ref": "#/definitions/environmentCompiledExtensionCommand"
         },
+        "fetchInterval": {
+          "type": "string"
+        },
+        "fetchTimeout": {
+          "type": "string"
+        },
         "serviceId": {
           "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string",
+          "title": "next tag: 7"
         }
       }
     },

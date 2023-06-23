@@ -5866,6 +5866,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 	var errors []error
 
 	if all {
+		switch v := interface{}(m.GetApply()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Apply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Apply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApply()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "Apply",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetFetch()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -5894,7 +5923,67 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetFetchInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "FetchInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFetchTimeout()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchTimeout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchTimeout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchTimeout()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "FetchTimeout",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	// no validation rules for ServiceId
+
+	// no validation rules for ReleaseChannelId
 
 	if len(errors) > 0 {
 		return RuntimeObject_RuntimeExtensionMultiError(errors)
