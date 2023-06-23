@@ -833,6 +833,8 @@ func (m *Metadata) validate(all bool) error {
 
 	}
 
+	// no validation rules for TargetStateSetByParent
+
 	if len(errors) > 0 {
 		return MetadataMultiError(errors)
 	}

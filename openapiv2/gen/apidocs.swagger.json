@@ -6996,6 +6996,10 @@
             "type": "object",
             "$ref": "#/definitions/desired_statemodelDeliveryExtension"
           }
+        },
+        "targetStateSetByParent": {
+          "type": "boolean",
+          "description": "if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."
         }
       }
     },

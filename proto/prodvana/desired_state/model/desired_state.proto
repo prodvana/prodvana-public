@@ -103,6 +103,8 @@ message Metadata {
     string root_desired_state_id = 5;
     repeated ProtectionLink protection_links = 6;
     repeated DeliveryExtension delivery_extensions = 8;
+    // if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state.
+    bool target_state_set_by_parent = 9;
 
     reserved 7;
     reserved "protections";
