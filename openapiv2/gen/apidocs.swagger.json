@@ -7109,6 +7109,10 @@
           "type": "boolean",
           "title": "This object just needs to exist - it doesn't change from version to version"
         },
+        "desiredVersionDirtyOnly": {
+          "type": "boolean",
+          "description": "when checking for whether or not to apply, only use the desired version and check if it's active and not dirty. that is, active \u0026\u0026 at desired version \u0026\u0026 dirty = hasWork, no work otherwise."
+        },
         "message": {
           "type": "string",
           "description": "Human readable message (typically for errors)."

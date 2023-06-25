@@ -2602,6 +2602,8 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for VersionAgnostic
 
+	// no validation rules for DesiredVersionDirtyOnly
+
 	// no validation rules for Message
 
 	if all {
