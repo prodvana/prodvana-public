@@ -138,10 +138,13 @@ message ProgramConfig {
     // same name in the target service's config.
     bool template_complete = 10;
 
+    // working directory, defaults to runtime's implementation (usually the default working directory in the docker image)
+    string working_directory = 15;
+
     reserved 11;
     reserved "commit";
 
-    // next tag: 15
+    // next tag: 16
 }
 
 message PerReleaseChannelProgramConfig {

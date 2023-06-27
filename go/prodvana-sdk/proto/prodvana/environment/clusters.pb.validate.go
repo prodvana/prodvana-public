@@ -1282,6 +1282,194 @@ var _ interface {
 	ErrorName() string
 } = CompiledExtensionCommandValidationError{}
 
+// Validate checks the field values on TerraformRunnerConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TerraformRunnerConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TerraformRunnerConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TerraformRunnerConfigMultiError, or nil if none found.
+func (m *TerraformRunnerConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TerraformRunnerConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetProxyRuntime() == nil {
+		err := TerraformRunnerConfigValidationError{
+			field:  "ProxyRuntime",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetProxyRuntime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProxyRuntime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TerraformRunnerConfigValidationError{
+				field:  "ProxyRuntime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	{
+		sorted_keys := make([]string, len(m.GetEnv()))
+		i := 0
+		for key := range m.GetEnv() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetEnv()[key]
+			_ = val
+
+			// no validation rules for Env[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, TerraformRunnerConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, TerraformRunnerConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return TerraformRunnerConfigValidationError{
+						field:  fmt.Sprintf("Env[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
+	if len(errors) > 0 {
+		return TerraformRunnerConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// TerraformRunnerConfigMultiError is an error wrapping multiple validation
+// errors returned by TerraformRunnerConfig.ValidateAll() if the designated
+// constraints aren't met.
+type TerraformRunnerConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TerraformRunnerConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TerraformRunnerConfigMultiError) AllErrors() []error { return m }
+
+// TerraformRunnerConfigValidationError is the validation error returned by
+// TerraformRunnerConfig.Validate if the designated constraints aren't met.
+type TerraformRunnerConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TerraformRunnerConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TerraformRunnerConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TerraformRunnerConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TerraformRunnerConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TerraformRunnerConfigValidationError) ErrorName() string {
+	return "TerraformRunnerConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TerraformRunnerConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTerraformRunnerConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TerraformRunnerConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TerraformRunnerConfigValidationError{}
+
 // Validate checks the field values on ClusterConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1563,6 +1751,47 @@ func (m *ClusterConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ClusterConfigValidationError{
 					field:  "Extension",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ClusterConfig_TerraformRunner:
+		if v == nil {
+			err := ClusterConfigValidationError{
+				field:  "ClusterOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetTerraformRunner()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "TerraformRunner",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "TerraformRunner",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetTerraformRunner()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterConfigValidationError{
+					field:  "TerraformRunner",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -1621,6 +1621,17 @@
                         }
                     ],
                     "description": "Only set when this ServiceConfig represents a ServiceTemplate When set, this program will be added in whole to the target service's programs in full, and will not partially apply to a program with the same name in the target service's config."
+                },
+                "workingDirectory": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "working directory, defaults to runtime's implementation (usually the default working directory in the docker image)"
                 }
             },
             "additionalProperties": false,
@@ -2255,6 +2266,17 @@
                         },
                         {}
                     ]
+                },
+                "terraformRunner": {
+                    "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "terraform runner is a runtime that runs terraform via k8s jobs"
                 }
             },
             "additionalProperties": false,
@@ -2736,6 +2758,51 @@
                 }
             ],
             "title": "Crashing Program Patterns"
+        },
+        "prodvana.environment.TerraformRunnerConfig": {
+            "properties": {
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to pass to terraform commands, can be useful for passing secrets"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Terraform Runner Config"
         },
         "prodvana.object.ObjectMeta": {
             "properties": {

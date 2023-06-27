@@ -6391,6 +6391,10 @@
         "templateComplete": {
           "type": "boolean",
           "description": "Only set when this ServiceConfig represents a ServiceTemplate\nWhen set, this program will be added in whole to the target service's\nprograms in full, and will not partially apply to a program with the\nsame name in the target service's config."
+        },
+        "workingDirectory": {
+          "type": "string",
+          "title": "working directory, defaults to runtime's implementation (usually the default working directory in the docker image)"
         }
       },
       "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.\nThe validations expressed here represent the lowest common denominator of the use cases."
@@ -7330,6 +7334,10 @@
         },
         "extension": {
           "$ref": "#/definitions/environmentExtensionClusterConfig"
+        },
+        "terraformRunner": {
+          "$ref": "#/definitions/environmentTerraformRunnerConfig",
+          "title": "terraform runner is a runtime that runs terraform via k8s jobs"
         }
       }
     },
@@ -7340,7 +7348,8 @@
         "K8S",
         "ECS",
         "FAKE",
-        "EXTENSION"
+        "EXTENSION",
+        "TERRAFORM_RUNNER"
       ],
       "default": "UNKNOWN"
     },
@@ -7608,6 +7617,21 @@
       "properties": {
         "version": {
           "type": "string"
+        }
+      }
+    },
+    "environmentTerraformRunnerConfig": {
+      "type": "object",
+      "properties": {
+        "proxyRuntime": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to pass to terraform commands, can be useful for passing secrets"
         }
       }
     },

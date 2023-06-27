@@ -36,6 +36,7 @@ class _ClusterTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
     ECS: _ClusterType.ValueType  # 2
     FAKE: _ClusterType.ValueType  # 3
     EXTENSION: _ClusterType.ValueType  # 4
+    TERRAFORM_RUNNER: _ClusterType.ValueType  # 5
 
 class ClusterType(_ClusterType, metaclass=_ClusterTypeEnumTypeWrapper): ...
 
@@ -44,6 +45,7 @@ K8S: ClusterType.ValueType  # 1
 ECS: ClusterType.ValueType  # 2
 FAKE: ClusterType.ValueType  # 3
 EXTENSION: ClusterType.ValueType  # 4
+TERRAFORM_RUNNER: ClusterType.ValueType  # 5
 global___ClusterType = ClusterType
 
 class ClusterAuth(google.protobuf.message.Message):
@@ -334,6 +336,44 @@ class CompiledExtensionCommand(google.protobuf.message.Message):
 
 global___CompiledExtensionCommand = CompiledExtensionCommand
 
+class TerraformRunnerConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class EnvEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> prodvana.proto.prodvana.common_config.env_pb2.EnvValue: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: prodvana.proto.prodvana.common_config.env_pb2.EnvValue | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    PROXY_RUNTIME_FIELD_NUMBER: builtins.int
+    ENV_FIELD_NUMBER: builtins.int
+    @property
+    def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
+    @property
+    def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
+        """optional env variables to pass to terraform commands, can be useful for passing secrets"""
+    def __init__(
+        self,
+        *,
+        proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
+        env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "proxy_runtime", b"proxy_runtime"]) -> None: ...
+
+global___TerraformRunnerConfig = TerraformRunnerConfig
+
 class ClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -515,6 +555,7 @@ class ClusterConfig(google.protobuf.message.Message):
     CLOUD_PROVIDER_FIELD_NUMBER: builtins.int
     FAKE_FIELD_NUMBER: builtins.int
     EXTENSION_FIELD_NUMBER: builtins.int
+    TERRAFORM_RUNNER_FIELD_NUMBER: builtins.int
     name: builtins.str
     disable_flagger: builtins.bool
     disable_istio: builtins.bool
@@ -539,6 +580,9 @@ class ClusterConfig(google.protobuf.message.Message):
         """only used for fake runtimes"""
     @property
     def extension(self) -> global___ExtensionClusterConfig: ...
+    @property
+    def terraform_runner(self) -> global___TerraformRunnerConfig:
+        """terraform runner is a runtime that runs terraform via k8s jobs"""
     def __init__(
         self,
         *,
@@ -554,9 +598,10 @@ class ClusterConfig(google.protobuf.message.Message):
         cloud_provider: global___ClusterConfig.CloudProvider.ValueType = ...,
         fake: global___FakeClusterConfig | None = ...,
         extension: global___ExtensionClusterConfig | None = ...,
+        terraform_runner: global___TerraformRunnerConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "name", b"name", "self_managed_gke_ingress", b"self_managed_gke_ingress"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "name", b"name", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension", "terraform_runner"] | None: ...
 
 global___ClusterConfig = ClusterConfig

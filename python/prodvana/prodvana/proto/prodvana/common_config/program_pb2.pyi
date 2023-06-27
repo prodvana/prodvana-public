@@ -266,6 +266,7 @@ class ProgramConfig(google.protobuf.message.Message):
     HEALTH_CHECK_FIELD_NUMBER: builtins.int
     PORTS_FIELD_NUMBER: builtins.int
     TEMPLATE_COMPLETE_FIELD_NUMBER: builtins.int
+    WORKING_DIRECTORY_FIELD_NUMBER: builtins.int
     name: builtins.str
     image: builtins.str
     image_tag: builtins.str
@@ -291,6 +292,8 @@ class ProgramConfig(google.protobuf.message.Message):
     programs in full, and will not partially apply to a program with the
     same name in the target service's config.
     """
+    working_directory: builtins.str
+    """working directory, defaults to runtime's implementation (usually the default working directory in the docker image)"""
     def __init__(
         self,
         *,
@@ -305,9 +308,10 @@ class ProgramConfig(google.protobuf.message.Message):
         health_check: global___HealthCheck | None = ...,
         ports: collections.abc.Iterable[global___PortConfig] | None = ...,
         template_complete: builtins.bool = ...,
+        working_directory: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["health_check", b"health_check", "image_registry_info", b"image_registry_info", "resources", b"resources"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cmd", b"cmd", "entrypoint", b"entrypoint", "env", b"env", "health_check", b"health_check", "image", b"image", "image_registry_info", b"image_registry_info", "image_tag", b"image_tag", "name", b"name", "ports", b"ports", "resources", b"resources", "template_complete", b"template_complete"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cmd", b"cmd", "entrypoint", b"entrypoint", "env", b"env", "health_check", b"health_check", "image", b"image", "image_registry_info", b"image_registry_info", "image_tag", b"image_tag", "name", b"name", "ports", b"ports", "resources", b"resources", "template_complete", b"template_complete", "working_directory", b"working_directory"]) -> None: ...
 
 global___ProgramConfig = ProgramConfig
 

@@ -1535,6 +1535,8 @@ func (m *ProgramConfig) validate(all bool) error {
 
 	// no validation rules for TemplateComplete
 
+	// no validation rules for WorkingDirectory
+
 	if len(errors) > 0 {
 		return ProgramConfigMultiError(errors)
 	}
