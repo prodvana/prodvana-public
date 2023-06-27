@@ -5026,6 +5026,17 @@
                         },
                         {}
                     ]
+                },
+                "noCleanupOnDelete": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if set, do not attempt to delete the underlying runtime objects when deleting a service"
                 }
             },
             "additionalProperties": false,

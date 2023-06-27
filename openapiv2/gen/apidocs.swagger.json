@@ -9978,6 +9978,9 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "description": "The compiled environment for this instance's context, e.g.  Release Channel.\nThis is used to inject these values into external configs."
+        },
+        "noCleanupOnDelete": {
+          "type": "boolean"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
@@ -10540,6 +10543,10 @@
         },
         "autoRollback": {
           "$ref": "#/definitions/serviceAutoRollbackConfig"
+        },
+        "noCleanupOnDelete": {
+          "type": "boolean",
+          "title": "if set, do not attempt to delete the underlying runtime objects when deleting a service"
         }
       }
     },

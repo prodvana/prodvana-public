@@ -301,7 +301,10 @@ message ServiceConfig {
 
     AutoRollbackConfig auto_rollback = 25;
 
-    // next tag: 31
+    // if set, do not attempt to delete the underlying runtime objects when deleting a service
+    bool no_cleanup_on_delete = 31;
+
+    // next tag: 32
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -356,10 +359,12 @@ message CompiledServiceInstanceConfig {
         no_sparse: true,
     }];
 
+    bool no_cleanup_on_delete = 32;
+
     reserved 8, 9, 20, 21;
     reserved "protections", "runtime_type";
 
-    // next tag: 32
+    // next tag: 33
 }
 
 message CompiledJobConfig {
