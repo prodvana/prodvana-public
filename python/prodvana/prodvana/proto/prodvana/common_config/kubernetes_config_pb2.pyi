@@ -3,7 +3,9 @@
 isort:skip_file
 """
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import sys
@@ -20,13 +22,19 @@ class LocalConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PATH_FIELD_NUMBER: builtins.int
+    PATHS_FIELD_NUMBER: builtins.int
     path: builtins.str
+    """Specify a path to a local file or directory"""
+    @property
+    def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Specify multiple paths. They will get concatenated."""
     def __init__(
         self,
         *,
         path: builtins.str = ...,
+        paths: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["path", b"path"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "paths", b"paths"]) -> None: ...
 
 global___LocalConfig = LocalConfig
 

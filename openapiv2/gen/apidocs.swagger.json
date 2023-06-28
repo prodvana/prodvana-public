@@ -6197,7 +6197,15 @@
       "type": "object",
       "properties": {
         "path": {
-          "type": "string"
+          "type": "string",
+          "title": "Specify a path to a local file or directory"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specify multiple paths. They will get concatenated."
         }
       }
     },

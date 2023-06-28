@@ -4,7 +4,10 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "validate/validate.proto";
 
 message LocalConfig {
-    string path = 1 [(validate.rules).string.min_len = 1];
+    // Specify a path to a local file or directory
+    string path = 1;
+    // Specify multiple paths. They will get concatenated.
+    repeated string paths = 2;
 }
 
 message KubernetesConfig {

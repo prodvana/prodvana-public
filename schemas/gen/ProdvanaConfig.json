@@ -1041,7 +1041,29 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "Specify a path to a local file or directory"
+                },
+                "paths": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Specify multiple paths. They will get concatenated."
                 }
             },
             "additionalProperties": false,
