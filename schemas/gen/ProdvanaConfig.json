@@ -2299,6 +2299,17 @@
                         {}
                     ],
                     "description": "terraform runner is a runtime that runs terraform via k8s jobs"
+                },
+                "pulumiRunner": {
+                    "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "pulumi runner is a runtime that runs pulumi via k8s jobs"
                 }
             },
             "additionalProperties": false,

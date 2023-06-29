@@ -48,6 +48,7 @@ enum ClusterType {
     FAKE = 3;
     EXTENSION = 4;
     TERRAFORM_RUNNER = 5;
+    PULUMI_RUNNER = 6;
 }
 
 message Cluster {
@@ -106,6 +107,12 @@ message CompiledExtensionCommand {
 message TerraformRunnerConfig {
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
     // optional env variables to pass to terraform commands, can be useful for passing secrets
+    map<string, prodvana.common_config.EnvValue> env = 2;
+}
+
+message PulumiRunnerConfig {
+    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
+    // optional env variables to pass to pulumi commands, can be useful for passing secrets
     map<string, prodvana.common_config.EnvValue> env = 2;
 }
 
@@ -183,10 +190,12 @@ message ClusterConfig {
         ExtensionClusterConfig extension = 12;
         // terraform runner is a runtime that runs terraform via k8s jobs
         TerraformRunnerConfig terraform_runner = 15;
+        // pulumi runner is a runtime that runs pulumi via k8s jobs
+        TerraformRunnerConfig pulumi_runner = 16;
     }
 
     reserved 5;
     reserved "aws_alb_ingress";
 
-    // next tag: 16
+    // next tag: 17
 }

@@ -7346,6 +7346,10 @@
         "terraformRunner": {
           "$ref": "#/definitions/environmentTerraformRunnerConfig",
           "title": "terraform runner is a runtime that runs terraform via k8s jobs"
+        },
+        "pulumiRunner": {
+          "$ref": "#/definitions/environmentTerraformRunnerConfig",
+          "title": "pulumi runner is a runtime that runs pulumi via k8s jobs"
         }
       }
     },
@@ -7357,7 +7361,8 @@
         "ECS",
         "FAKE",
         "EXTENSION",
-        "TERRAFORM_RUNNER"
+        "TERRAFORM_RUNNER",
+        "PULUMI_RUNNER"
       ],
       "default": "UNKNOWN"
     },
