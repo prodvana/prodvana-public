@@ -29,6 +29,11 @@ class EnvironmentManagerStub(object):
                 request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.ListClustersReq.SerializeToString,
                 response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.ListClustersResp.FromString,
                 )
+        self.GetCluster = channel.unary_unary(
+                '/prodvana.environment.EnvironmentManager/GetCluster',
+                request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterReq.SerializeToString,
+                response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterResp.FromString,
+                )
         self.RemoveCluster = channel.unary_unary(
                 '/prodvana.environment.EnvironmentManager/RemoveCluster',
                 request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.RemoveClusterReq.SerializeToString,
@@ -82,6 +87,12 @@ class EnvironmentManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListClusters(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCluster(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -146,6 +157,11 @@ def add_EnvironmentManagerServicer_to_server(servicer, server):
                     servicer.ListClusters,
                     request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.ListClustersReq.FromString,
                     response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.ListClustersResp.SerializeToString,
+            ),
+            'GetCluster': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCluster,
+                    request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterReq.FromString,
+                    response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterResp.SerializeToString,
             ),
             'RemoveCluster': grpc.unary_unary_rpc_method_handler(
                     servicer.RemoveCluster,
@@ -240,6 +256,23 @@ class EnvironmentManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/ListClusters',
             prodvana_dot_environment_dot_environment__manager__pb2.ListClustersReq.SerializeToString,
             prodvana_dot_environment_dot_environment__manager__pb2.ListClustersResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCluster(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/GetCluster',
+            prodvana_dot_environment_dot_environment__manager__pb2.GetClusterReq.SerializeToString,
+            prodvana_dot_environment_dot_environment__manager__pb2.GetClusterResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -22,6 +22,7 @@ const (
 	EnvironmentManager_GetClusterAgentApiToken_FullMethodName  = "/prodvana.environment.EnvironmentManager/GetClusterAgentApiToken"
 	EnvironmentManager_LinkCluster_FullMethodName              = "/prodvana.environment.EnvironmentManager/LinkCluster"
 	EnvironmentManager_ListClusters_FullMethodName             = "/prodvana.environment.EnvironmentManager/ListClusters"
+	EnvironmentManager_GetCluster_FullMethodName               = "/prodvana.environment.EnvironmentManager/GetCluster"
 	EnvironmentManager_RemoveCluster_FullMethodName            = "/prodvana.environment.EnvironmentManager/RemoveCluster"
 	EnvironmentManager_GetClusterAuth_FullMethodName           = "/prodvana.environment.EnvironmentManager/GetClusterAuth"
 	EnvironmentManager_GetClusterConfig_FullMethodName         = "/prodvana.environment.EnvironmentManager/GetClusterConfig"
@@ -38,6 +39,7 @@ type EnvironmentManagerClient interface {
 	GetClusterAgentApiToken(ctx context.Context, in *GetClusterAgentApiTokenReq, opts ...grpc.CallOption) (*GetClusterAgentApiTokenResp, error)
 	LinkCluster(ctx context.Context, in *LinkClusterReq, opts ...grpc.CallOption) (*LinkClusterResp, error)
 	ListClusters(ctx context.Context, in *ListClustersReq, opts ...grpc.CallOption) (*ListClustersResp, error)
+	GetCluster(ctx context.Context, in *GetClusterReq, opts ...grpc.CallOption) (*GetClusterResp, error)
 	RemoveCluster(ctx context.Context, in *RemoveClusterReq, opts ...grpc.CallOption) (*RemoveClusterResp, error)
 	GetClusterAuth(ctx context.Context, in *GetClusterAuthReq, opts ...grpc.CallOption) (*GetClusterAuthResp, error)
 	GetClusterConfig(ctx context.Context, in *GetClusterConfigReq, opts ...grpc.CallOption) (*GetClusterConfigResp, error)
@@ -76,6 +78,15 @@ func (c *environmentManagerClient) LinkCluster(ctx context.Context, in *LinkClus
 func (c *environmentManagerClient) ListClusters(ctx context.Context, in *ListClustersReq, opts ...grpc.CallOption) (*ListClustersResp, error) {
 	out := new(ListClustersResp)
 	err := c.cc.Invoke(ctx, EnvironmentManager_ListClusters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagerClient) GetCluster(ctx context.Context, in *GetClusterReq, opts ...grpc.CallOption) (*GetClusterResp, error) {
+	out := new(GetClusterResp)
+	err := c.cc.Invoke(ctx, EnvironmentManager_GetCluster_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -152,6 +163,7 @@ type EnvironmentManagerServer interface {
 	GetClusterAgentApiToken(context.Context, *GetClusterAgentApiTokenReq) (*GetClusterAgentApiTokenResp, error)
 	LinkCluster(context.Context, *LinkClusterReq) (*LinkClusterResp, error)
 	ListClusters(context.Context, *ListClustersReq) (*ListClustersResp, error)
+	GetCluster(context.Context, *GetClusterReq) (*GetClusterResp, error)
 	RemoveCluster(context.Context, *RemoveClusterReq) (*RemoveClusterResp, error)
 	GetClusterAuth(context.Context, *GetClusterAuthReq) (*GetClusterAuthResp, error)
 	GetClusterConfig(context.Context, *GetClusterConfigReq) (*GetClusterConfigResp, error)
@@ -174,6 +186,9 @@ func (UnimplementedEnvironmentManagerServer) LinkCluster(context.Context, *LinkC
 }
 func (UnimplementedEnvironmentManagerServer) ListClusters(context.Context, *ListClustersReq) (*ListClustersResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListClusters not implemented")
+}
+func (UnimplementedEnvironmentManagerServer) GetCluster(context.Context, *GetClusterReq) (*GetClusterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCluster not implemented")
 }
 func (UnimplementedEnvironmentManagerServer) RemoveCluster(context.Context, *RemoveClusterReq) (*RemoveClusterResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveCluster not implemented")
@@ -259,6 +274,24 @@ func _EnvironmentManager_ListClusters_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EnvironmentManagerServer).ListClusters(ctx, req.(*ListClustersReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EnvironmentManager_GetCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetClusterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnvironmentManagerServer).GetCluster(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EnvironmentManager_GetCluster_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnvironmentManagerServer).GetCluster(ctx, req.(*GetClusterReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -407,6 +440,10 @@ var EnvironmentManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListClusters",
 			Handler:    _EnvironmentManager_ListClusters_Handler,
+		},
+		{
+			MethodName: "GetCluster",
+			Handler:    _EnvironmentManager_GetCluster_Handler,
 		},
 		{
 			MethodName: "RemoveCluster",

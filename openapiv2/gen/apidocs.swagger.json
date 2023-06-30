@@ -1909,6 +1909,38 @@
         ]
       }
     },
+    "/v1/clusters/{runtime}/get": {
+      "get": {
+        "operationId": "EnvironmentManager_GetCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentGetClusterResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "runtime",
+            "description": "name or id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.environment.EnvironmentManager"
+        ]
+      }
+    },
     "/v1/delivery_extension/{deliveryExtension}": {
       "get": {
         "operationId": "DeliveryExtensionManager_GetDeliveryExtension",
@@ -5222,6 +5254,9 @@
         "lastHeartbeatTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "config": {
+          "$ref": "#/definitions/environmentClusterConfig"
         }
       }
     },
@@ -7507,6 +7542,14 @@
       "properties": {
         "config": {
           "$ref": "#/definitions/environmentClusterConfig"
+        }
+      }
+    },
+    "environmentGetClusterResp": {
+      "type": "object",
+      "properties": {
+        "cluster": {
+          "$ref": "#/definitions/ListClustersRespClusterInfo"
         }
       }
     },

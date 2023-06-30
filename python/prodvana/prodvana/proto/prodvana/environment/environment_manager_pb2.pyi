@@ -218,6 +218,7 @@ class ListClustersResp(google.protobuf.message.Message):
         TYPE_FIELD_NUMBER: builtins.int
         ECS_FIELD_NUMBER: builtins.int
         LAST_HEARTBEAT_TIMESTAMP_FIELD_NUMBER: builtins.int
+        CONFIG_FIELD_NUMBER: builtins.int
         name: builtins.str
         id: builtins.str
         origin: prodvana.proto.prodvana.environment.clusters_pb2.Cluster.Origin.ValueType
@@ -230,6 +231,8 @@ class ListClustersResp(google.protobuf.message.Message):
         def ecs(self) -> global___ListClustersResp.ClusterInfo.EcsInfo: ...
         @property
         def last_heartbeat_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+        @property
+        def config(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
         def __init__(
             self,
             *,
@@ -242,9 +245,10 @@ class ListClustersResp(google.protobuf.message.Message):
             type: prodvana.proto.prodvana.environment.clusters_pb2.ClusterType.ValueType = ...,
             ecs: global___ListClustersResp.ClusterInfo.EcsInfo | None = ...,
             last_heartbeat_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+            config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "service_account", b"service_account", "type", b"type", "writeback_config", b"writeback_config"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["config", b"config", "ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "service_account", b"service_account", "type", b"type", "writeback_config", b"writeback_config"]) -> None: ...
         def WhichOneof(self, oneof_group: typing_extensions.Literal["info", b"info"]) -> typing_extensions.Literal["ecs"] | None: ...
 
     CLUSTERS_FIELD_NUMBER: builtins.int
@@ -258,6 +262,37 @@ class ListClustersResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["clusters", b"clusters"]) -> None: ...
 
 global___ListClustersResp = ListClustersResp
+
+class GetClusterReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RUNTIME_FIELD_NUMBER: builtins.int
+    runtime: builtins.str
+    """name or id"""
+    def __init__(
+        self,
+        *,
+        runtime: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["runtime", b"runtime"]) -> None: ...
+
+global___GetClusterReq = GetClusterReq
+
+class GetClusterResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CLUSTER_FIELD_NUMBER: builtins.int
+    @property
+    def cluster(self) -> global___ListClustersResp.ClusterInfo: ...
+    def __init__(
+        self,
+        *,
+        cluster: global___ListClustersResp.ClusterInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["cluster", b"cluster"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cluster", b"cluster"]) -> None: ...
+
+global___GetClusterResp = GetClusterResp
 
 class ConfigureClusterReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

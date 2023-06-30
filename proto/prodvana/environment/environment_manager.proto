@@ -84,8 +84,17 @@ message ListClustersResp{
         }
 
         google.protobuf.Timestamp last_heartbeat_timestamp = 9;
+        ClusterConfig config = 10;
     }
     repeated ClusterInfo clusters = 1;
+}
+
+message GetClusterReq {
+    string runtime = 1; // name or id
+}
+
+message GetClusterResp {
+    ListClustersResp.ClusterInfo cluster = 1;
 }
 
 message ConfigureClusterReq {
@@ -140,6 +149,11 @@ service EnvironmentManager {
     rpc ListClusters (ListClustersReq) returns (ListClustersResp) {
         option (google.api.http) = {
             get: "/v1/clusters/list"
+        };
+    }
+    rpc GetCluster(GetClusterReq) returns (GetClusterResp) {
+        option (google.api.http) = {
+            get: "/v1/clusters/{runtime=*}/get"
         };
     }
     rpc RemoveCluster (RemoveClusterReq) returns (RemoveClusterResp) {

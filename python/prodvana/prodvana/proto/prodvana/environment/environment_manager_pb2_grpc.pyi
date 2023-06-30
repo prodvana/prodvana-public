@@ -20,6 +20,10 @@ class EnvironmentManagerStub:
         prodvana.proto.prodvana.environment.environment_manager_pb2.ListClustersReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.ListClustersResp,
     ]
+    GetCluster: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterReq,
+        prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterResp,
+    ]
     RemoveCluster: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.environment.environment_manager_pb2.RemoveClusterReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.RemoveClusterResp,
@@ -68,6 +72,12 @@ class EnvironmentManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.environment.environment_manager_pb2.ListClustersReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.ListClustersResp: ...
+    @abc.abstractmethod
+    def GetCluster(
+        self,
+        request: prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterResp: ...
     @abc.abstractmethod
     def RemoveCluster(
         self,

@@ -135,6 +135,58 @@ func local_request_EnvironmentManager_ListClusters_0(ctx context.Context, marsha
 
 }
 
+func request_EnvironmentManager_GetCluster_0(ctx context.Context, marshaler runtime.Marshaler, client EnvironmentManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetClusterReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["runtime"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "runtime")
+	}
+
+	protoReq.Runtime, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "runtime", err)
+	}
+
+	msg, err := client.GetCluster(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_EnvironmentManager_GetCluster_0(ctx context.Context, marshaler runtime.Marshaler, server EnvironmentManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetClusterReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["runtime"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "runtime")
+	}
+
+	protoReq.Runtime, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "runtime", err)
+	}
+
+	msg, err := server.GetCluster(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_EnvironmentManager_RemoveCluster_0(ctx context.Context, marshaler runtime.Marshaler, client EnvironmentManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RemoveClusterReq
 	var metadata runtime.ServerMetadata
@@ -526,6 +578,31 @@ func RegisterEnvironmentManagerHandlerServer(ctx context.Context, mux *runtime.S
 
 	})
 
+	mux.Handle("GET", pattern_EnvironmentManager_GetCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.environment.EnvironmentManager/GetCluster", runtime.WithHTTPPathPattern("/v1/clusters/{runtime=*}/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_EnvironmentManager_GetCluster_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_EnvironmentManager_GetCluster_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_EnvironmentManager_RemoveCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -808,6 +885,28 @@ func RegisterEnvironmentManagerHandlerClient(ctx context.Context, mux *runtime.S
 
 	})
 
+	mux.Handle("GET", pattern_EnvironmentManager_GetCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.environment.EnvironmentManager/GetCluster", runtime.WithHTTPPathPattern("/v1/clusters/{runtime=*}/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_EnvironmentManager_GetCluster_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_EnvironmentManager_GetCluster_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_EnvironmentManager_RemoveCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -972,6 +1071,8 @@ var (
 
 	pattern_EnvironmentManager_ListClusters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "clusters", "list"}, ""))
 
+	pattern_EnvironmentManager_GetCluster_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "clusters", "runtime", "get"}, ""))
+
 	pattern_EnvironmentManager_RemoveCluster_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "clusters", "remove"}, ""))
 
 	pattern_EnvironmentManager_GetClusterAuth_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "clusters", "get_auth"}, ""))
@@ -993,6 +1094,8 @@ var (
 	forward_EnvironmentManager_LinkCluster_0 = runtime.ForwardResponseMessage
 
 	forward_EnvironmentManager_ListClusters_0 = runtime.ForwardResponseMessage
+
+	forward_EnvironmentManager_GetCluster_0 = runtime.ForwardResponseMessage
 
 	forward_EnvironmentManager_RemoveCluster_0 = runtime.ForwardResponseMessage
 
