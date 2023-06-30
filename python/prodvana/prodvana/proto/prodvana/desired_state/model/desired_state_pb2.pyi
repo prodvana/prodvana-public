@@ -10,6 +10,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
@@ -872,6 +873,8 @@ class RuntimeObject(google.protobuf.message.Message):
         FETCH_TIMEOUT_FIELD_NUMBER: builtins.int
         SERVICE_ID_FIELD_NUMBER: builtins.int
         RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+        PARAMETERS_FIELD_NUMBER: builtins.int
+        PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -883,7 +886,11 @@ class RuntimeObject(google.protobuf.message.Message):
         def fetch_timeout(self) -> google.protobuf.duration_pb2.Duration: ...
         service_id: builtins.str
         release_channel_id: builtins.str
-        """next tag: 7"""
+        @property
+        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
+        @property
+        def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]:
+            """next tag: 9"""
         def __init__(
             self,
             *,
@@ -893,9 +900,11 @@ class RuntimeObject(google.protobuf.message.Message):
             fetch_timeout: google.protobuf.duration_pb2.Duration | None = ...,
             service_id: builtins.str = ...,
             release_channel_id: builtins.str = ...,
+            parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
+            parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout", "release_channel_id", b"release_channel_id", "service_id", b"service_id"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int

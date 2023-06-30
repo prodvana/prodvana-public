@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/common_config/task.proto";
@@ -298,7 +299,9 @@ message RuntimeObject {
         google.protobuf.Duration fetch_timeout = 5;
         string service_id = 2;
         string release_channel_id = 6;
-        // next tag: 7
+        repeated prodvana.common_config.ParameterDefinition parameters = 7;
+        repeated prodvana.common_config.ParameterValue parameter_values = 8;
+        // next tag: 9
     }
     Metadata meta = 1;
     string object_type = 2;
