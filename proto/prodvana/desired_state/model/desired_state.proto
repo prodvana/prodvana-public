@@ -359,6 +359,9 @@ message ControlState {
 
     // What is DD doing now?
     ActionExplanation action_explanation = 6;
+
+    google.protobuf.Timestamp last_fetched_timestamp = 7;
+    google.protobuf.Timestamp last_applied_timestamp = 8;
 }
 
 enum ManualApprovalStatus {

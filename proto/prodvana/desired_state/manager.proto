@@ -41,6 +41,9 @@ message DebugLogs {
 
 message DesiredStateSummary {
     prodvana.desired_state.model.EntityGraph entity_graph = 15;
+    google.protobuf.Timestamp creation_timestamp = 5;
+    // will only be set if desired state has been replaced
+    google.protobuf.Timestamp replaced_timestamp = 7;
 
     // fields below are deprecated
     prodvana.desired_state.model.State starting_state = 1;
@@ -48,10 +51,7 @@ message DesiredStateSummary {
     prodvana.desired_state.model.State desired_state = 3;
     // status of the desired state, all its descendents, and the root desired state.
     map<string, prodvana.desired_state.model.Status> statuses = 4;
-    google.protobuf.Timestamp creation_timestamp = 5;
     google.protobuf.Timestamp last_update_timestamp = 6;
-    // will only be set if desired state has been replaced
-    google.protobuf.Timestamp replaced_timestamp = 7;
     // State of all preconditions involved in the desired state.
     // Key format - "{desired_state_id}-{index}", e.g., "des-0752d6c76a6943abbfcf0515634584ba-0".
     map<string, prodvana.desired_state.model.ConditionState> precondition_statuses = 8;

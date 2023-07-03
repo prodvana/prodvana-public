@@ -6726,6 +6726,15 @@
         "entityGraph": {
           "$ref": "#/definitions/modelEntityGraph"
         },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "replacedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "will only be set if desired state has been replaced"
+        },
         "startingState": {
           "$ref": "#/definitions/modelState",
           "title": "fields below are deprecated"
@@ -6743,18 +6752,9 @@
           },
           "description": "status of the desired state, all its descendents, and the root desired state."
         },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
         "lastUpdateTimestamp": {
           "type": "string",
           "format": "date-time"
-        },
-        "replacedTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "will only be set if desired state has been replaced"
         },
         "preconditionStatuses": {
           "type": "object",

@@ -1005,6 +1005,8 @@ class ControlState(google.protobuf.message.Message):
     PAUSED_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     ACTION_EXPLANATION_FIELD_NUMBER: builtins.int
+    LAST_FETCHED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    LAST_APPLIED_TIMESTAMP_FIELD_NUMBER: builtins.int
     rollback: builtins.bool
     @property
     def precondition_states(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConditionState]: ...
@@ -1022,6 +1024,10 @@ class ControlState(google.protobuf.message.Message):
     @property
     def action_explanation(self) -> global___ActionExplanation:
         """What is DD doing now?"""
+    @property
+    def last_fetched_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def last_applied_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
@@ -1031,9 +1037,11 @@ class ControlState(google.protobuf.message.Message):
         paused: builtins.bool = ...,
         status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         action_explanation: global___ActionExplanation | None = ...,
+        last_fetched_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "invariant_states", b"invariant_states", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
 
 global___ControlState = ControlState
 

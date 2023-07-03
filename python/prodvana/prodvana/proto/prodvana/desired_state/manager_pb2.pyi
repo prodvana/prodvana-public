@@ -265,13 +265,13 @@ class DesiredStateSummary(google.protobuf.message.Message):
         def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
+    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     STARTING_STATE_FIELD_NUMBER: builtins.int
     LAST_SEEN_STATE_FIELD_NUMBER: builtins.int
     DESIRED_STATE_FIELD_NUMBER: builtins.int
     STATUSES_FIELD_NUMBER: builtins.int
-    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
-    REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     PRECONDITION_STATUSES_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     DEBUG_LOGS_FIELD_NUMBER: builtins.int
@@ -281,6 +281,11 @@ class DesiredStateSummary(google.protobuf.message.Message):
     LAST_APPLIED_TIMESTAMPS_FIELD_NUMBER: builtins.int
     @property
     def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
+    @property
+    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """will only be set if desired state has been replaced"""
     @property
     def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """fields below are deprecated"""
@@ -292,12 +297,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
     def statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType]:
         """status of the desired state, all its descendents, and the root desired state."""
     @property
-    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    @property
     def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    @property
-    def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """will only be set if desired state has been replaced"""
     @property
     def precondition_statuses(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState]:
         """State of all preconditions involved in the desired state.
@@ -320,13 +320,13 @@ class DesiredStateSummary(google.protobuf.message.Message):
         self,
         *,
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
+        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         starting_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         last_seen_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType] | None = ...,
-        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         precondition_statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState] | None = ...,
         status_explanations: collections.abc.Mapping[builtins.str, global___StatusExplanations] | None = ...,
         debug_logs: collections.abc.Mapping[builtins.str, global___DebugLogs] | None = ...,
