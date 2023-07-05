@@ -32,6 +32,7 @@ class EnvironmentManagerStub:
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAuthReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAuthResp,
     ]
+    """Deprecated."""
     GetClusterConfig: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterConfigReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterConfigResp,
@@ -89,7 +90,8 @@ class EnvironmentManagerServicer(metaclass=abc.ABCMeta):
         self,
         request: prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAuthReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAuthResp: ...
+    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterAuthResp:
+        """Deprecated."""
     @abc.abstractmethod
     def GetClusterConfig(
         self,

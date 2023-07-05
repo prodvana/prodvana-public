@@ -41,6 +41,7 @@ type EnvironmentManagerClient interface {
 	ListClusters(ctx context.Context, in *ListClustersReq, opts ...grpc.CallOption) (*ListClustersResp, error)
 	GetCluster(ctx context.Context, in *GetClusterReq, opts ...grpc.CallOption) (*GetClusterResp, error)
 	RemoveCluster(ctx context.Context, in *RemoveClusterReq, opts ...grpc.CallOption) (*RemoveClusterResp, error)
+	// Deprecated.
 	GetClusterAuth(ctx context.Context, in *GetClusterAuthReq, opts ...grpc.CallOption) (*GetClusterAuthResp, error)
 	GetClusterConfig(ctx context.Context, in *GetClusterConfigReq, opts ...grpc.CallOption) (*GetClusterConfigResp, error)
 	DetectClusterConfig(ctx context.Context, in *DetectClusterConfigReq, opts ...grpc.CallOption) (*DetectClusterConfigResp, error)
@@ -165,6 +166,7 @@ type EnvironmentManagerServer interface {
 	ListClusters(context.Context, *ListClustersReq) (*ListClustersResp, error)
 	GetCluster(context.Context, *GetClusterReq) (*GetClusterResp, error)
 	RemoveCluster(context.Context, *RemoveClusterReq) (*RemoveClusterResp, error)
+	// Deprecated.
 	GetClusterAuth(context.Context, *GetClusterAuthReq) (*GetClusterAuthResp, error)
 	GetClusterConfig(context.Context, *GetClusterConfigReq) (*GetClusterConfigResp, error)
 	DetectClusterConfig(context.Context, *DetectClusterConfigReq) (*DetectClusterConfigResp, error)

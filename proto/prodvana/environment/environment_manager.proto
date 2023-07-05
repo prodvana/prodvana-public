@@ -162,6 +162,7 @@ service EnvironmentManager {
             body: "*"
         };
     }
+    // Deprecated.
     rpc GetClusterAuth (GetClusterAuthReq) returns (GetClusterAuthResp) {
         option (google.api.http) = {
             get: "/v1/clusters/get_auth"

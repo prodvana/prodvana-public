@@ -1656,6 +1656,7 @@
     },
     "/v1/clusters/get_auth": {
       "get": {
+        "summary": "Deprecated.",
         "operationId": "EnvironmentManager_GetClusterAuth",
         "responses": {
           "200": {
