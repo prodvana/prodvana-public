@@ -994,6 +994,8 @@ func (m *ExtensionClusterConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Type
+
 	if len(errors) > 0 {
 		return ExtensionClusterConfigMultiError(errors)
 	}

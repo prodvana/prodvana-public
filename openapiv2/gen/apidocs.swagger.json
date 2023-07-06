@@ -5450,8 +5450,11 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/common_configParameterValue"
-          },
-          "title": "next tag: 9"
+          }
+        },
+        "type": {
+          "$ref": "#/definitions/environmentExtensionType",
+          "title": "next tag: 10"
         }
       }
     },
@@ -7488,6 +7491,9 @@
         },
         "proxyRuntime": {
           "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/environmentExtensionType"
         }
       }
     },
@@ -7509,6 +7515,15 @@
           "title": "how long after a run has started to try another run if it has not completed yet"
         }
       }
+    },
+    "environmentExtensionType": {
+      "type": "string",
+      "enum": [
+        "GENERIC",
+        "TERRAFORM",
+        "PULUMI"
+      ],
+      "default": "GENERIC"
     },
     "environmentFakeClusterConfig": {
       "type": "object",

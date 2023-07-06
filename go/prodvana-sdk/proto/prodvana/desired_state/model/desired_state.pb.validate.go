@@ -19,6 +19,8 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 
 	common_config "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
+
+	environment "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 )
 
 // ensure the imports are used
@@ -37,6 +39,8 @@ var (
 	_ = sort.Sort
 
 	_ = common_config.TaskLifecycle(0)
+
+	_ = environment.ExtensionType(0)
 )
 
 // Validate checks the field values on ProtectionLink with the rules defined in
@@ -6112,6 +6116,8 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for Type
 
 	if len(errors) > 0 {
 		return RuntimeObject_RuntimeExtensionMultiError(errors)

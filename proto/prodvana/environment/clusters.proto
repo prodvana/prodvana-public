@@ -90,11 +90,18 @@ message ExtensionCommand {
     google.protobuf.Duration timeout = 4;
 }
 
+enum ExtensionType {
+    GENERIC = 0;
+    TERRAFORM = 1;
+    PULUMI = 2;
+}
+
 message ExtensionClusterConfig {
     ExtensionCommand apply = 1 [(validate.rules).message.required = true];
     ExtensionCommand fetch = 2;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
+    ExtensionType type = 5;
 }
 
 message CompiledExtensionCommand {

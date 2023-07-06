@@ -2661,6 +2661,28 @@
                         },
                         {}
                     ]
+                },
+                "type": {
+                    "enum": [
+                        "GENERIC",
+                        0,
+                        "TERRAFORM",
+                        1,
+                        "PULUMI",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Extension Type"
                 }
             },
             "additionalProperties": false,

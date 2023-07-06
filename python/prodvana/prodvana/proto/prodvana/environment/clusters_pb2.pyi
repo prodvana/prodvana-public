@@ -50,6 +50,23 @@ TERRAFORM_RUNNER: ClusterType.ValueType  # 5
 PULUMI_RUNNER: ClusterType.ValueType  # 6
 global___ClusterType = ClusterType
 
+class _ExtensionType:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ExtensionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ExtensionType.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    GENERIC: _ExtensionType.ValueType  # 0
+    TERRAFORM: _ExtensionType.ValueType  # 1
+    PULUMI: _ExtensionType.ValueType  # 2
+
+class ExtensionType(_ExtensionType, metaclass=_ExtensionTypeEnumTypeWrapper): ...
+
+GENERIC: ExtensionType.ValueType  # 0
+TERRAFORM: ExtensionType.ValueType  # 1
+PULUMI: ExtensionType.ValueType  # 2
+global___ExtensionType = ExtensionType
+
 class ClusterAuth(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -273,6 +290,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     FETCH_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___ExtensionCommand: ...
     @property
@@ -281,6 +299,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
+    type: global___ExtensionType.ValueType
     def __init__(
         self,
         *,
@@ -288,9 +307,10 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         fetch: global___ExtensionCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
+        type: global___ExtensionType.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 

@@ -301,7 +301,8 @@ message RuntimeObject {
         string release_channel_id = 6;
         repeated prodvana.common_config.ParameterDefinition parameters = 7;
         repeated prodvana.common_config.ParameterValue parameter_values = 8;
-        // next tag: 9
+        prodvana.environment.ExtensionType type = 9;
+        // next tag: 10
     }
     Metadata meta = 1;
     string object_type = 2;
