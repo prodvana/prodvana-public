@@ -2147,6 +2147,44 @@
             ],
             "title": "Delivery Extension Config"
         },
+        "prodvana.delivery_extension.DeliveryExtensionInstanceRef": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "parameters": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Extension Instance Ref"
+        },
         "prodvana.environment.ClusterConfig": {
             "properties": {
                 "name": {
@@ -4227,9 +4265,10 @@
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "Inline definition of a delivery extension."
                 },
-                "ref": {
+                "instance": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -4237,7 +4276,19 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "A delivery instance defined in this service config."
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionInstanceRef",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Reference to a delivery extension defined externally."
                 },
                 "lifecycle": {
                     "enum": [
@@ -4283,7 +4334,7 @@
         },
         "prodvana.service.DeliveryExtensionInstance": {
             "properties": {
-                "config": {
+                "inlined": {
                     "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [
@@ -4291,7 +4342,19 @@
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "Inline definition of the delivery extension."
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionInstanceRef",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Reference to a delivery extension defined externally."
                 },
                 "name": {
                     "oneOf": [
@@ -4302,6 +4365,36 @@
                             "type": "string"
                         }
                     ]
+                },
+                "lifecycle": {
+                    "enum": [
+                        "UNKNOWN_TASK_LIFECYCLE",
+                        0,
+                        "CONVERGENCE_START",
+                        1,
+                        "PRE_APPROVAL",
+                        2,
+                        "APPROVAL",
+                        3,
+                        "POST_APPROVAL",
+                        4,
+                        "DEPLOYMENT",
+                        5,
+                        "POST_DEPLOYMENT",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Task Lifecycle"
                 }
             },
             "additionalProperties": false,

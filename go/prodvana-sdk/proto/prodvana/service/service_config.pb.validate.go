@@ -2653,6 +2653,30 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 			}
 		}
 
+	case *DeliveryExtensionConfig_Instance:
+		if v == nil {
+			err := DeliveryExtensionConfigValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if utf8.RuneCountInString(m.GetInstance()) < 1 {
+			err := DeliveryExtensionConfigValidationError{
+				field:  "Instance",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	case *DeliveryExtensionConfig_Ref:
 		if v == nil {
 			err := DeliveryExtensionConfigValidationError{
@@ -2666,15 +2690,33 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 		}
 		oneofDefinitionPresent = true
 
-		if utf8.RuneCountInString(m.GetRef()) < 1 {
-			err := DeliveryExtensionConfigValidationError{
-				field:  "Ref",
-				reason: "value length must be at least 1 runes",
+		if all {
+			switch v := interface{}(m.GetRef()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionConfigValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionConfigValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
 			}
-			if !all {
-				return err
+		} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionConfigValidationError{
+					field:  "Ref",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
-			errors = append(errors, err)
 		}
 
 	default:
@@ -2798,39 +2840,121 @@ func (m *DeliveryExtensionInstance) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetConfig()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeliveryExtensionInstanceValidationError{
-					field:  "Config",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, DeliveryExtensionInstanceValidationError{
-					field:  "Config",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DeliveryExtensionInstanceValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if utf8.RuneCountInString(m.GetName()) < 1 {
 		err := DeliveryExtensionInstanceValidationError{
 			field:  "Name",
 			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if _, ok := _DeliveryExtensionInstance_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
+		err := DeliveryExtensionInstanceValidationError{
+			field:  "Lifecycle",
+			reason: "value must not be in list [0 1]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	oneofDefinitionPresent := false
+	switch v := m.Definition.(type) {
+	case *DeliveryExtensionInstance_Inlined:
+		if v == nil {
+			err := DeliveryExtensionInstanceValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if all {
+			switch v := interface{}(m.GetInlined()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionInstanceValidationError{
+						field:  "Inlined",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionInstanceValidationError{
+						field:  "Inlined",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetInlined()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionInstanceValidationError{
+					field:  "Inlined",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *DeliveryExtensionInstance_Ref:
+		if v == nil {
+			err := DeliveryExtensionInstanceValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if all {
+			switch v := interface{}(m.GetRef()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionInstanceValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionInstanceValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionInstanceValidationError{
+					field:  "Ref",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofDefinitionPresent {
+		err := DeliveryExtensionInstanceValidationError{
+			field:  "Definition",
+			reason: "value is required",
 		}
 		if !all {
 			return err
@@ -2917,6 +3041,11 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeliveryExtensionInstanceValidationError{}
+
+var _DeliveryExtensionInstance_Lifecycle_NotInLookup = map[common_config.TaskLifecycle]struct{}{
+	0: {},
+	1: {},
+}
 
 // Validate checks the field values on RuntimeSpecificConfig with the rules
 // defined in the proto definition for this message. If any rules are

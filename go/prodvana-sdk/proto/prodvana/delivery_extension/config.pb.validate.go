@@ -306,22 +306,22 @@ var _ interface {
 
 var _DeliveryExtensionConfig_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
 
-// Validate checks the field values on DeliveryExtensionInstanceConfig with the
+// Validate checks the field values on DeliveryExtensionInstanceRef with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeliveryExtensionInstanceConfig) Validate() error {
+func (m *DeliveryExtensionInstanceRef) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeliveryExtensionInstanceConfig with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// DeliveryExtensionInstanceConfigMultiError, or nil if none found.
-func (m *DeliveryExtensionInstanceConfig) ValidateAll() error {
+// ValidateAll checks the field values on DeliveryExtensionInstanceRef with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeliveryExtensionInstanceRefMultiError, or nil if none found.
+func (m *DeliveryExtensionInstanceRef) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
+func (m *DeliveryExtensionInstanceRef) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -329,7 +329,7 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 	var errors []error
 
 	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
-		err := DeliveryExtensionInstanceConfigValidationError{
+		err := DeliveryExtensionInstanceRefValidationError{
 			field:  "Name",
 			reason: "value length must be between 1 and 63 runes, inclusive",
 		}
@@ -339,8 +339,8 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_DeliveryExtensionInstanceConfig_Name_Pattern.MatchString(m.GetName()) {
-		err := DeliveryExtensionInstanceConfigValidationError{
+	if !_DeliveryExtensionInstanceRef_Name_Pattern.MatchString(m.GetName()) {
+		err := DeliveryExtensionInstanceRefValidationError{
 			field:  "Name",
 			reason: "value does not match regex pattern \"^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\"",
 		}
@@ -357,7 +357,7 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, DeliveryExtensionInstanceConfigValidationError{
+					errors = append(errors, DeliveryExtensionInstanceRefValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -365,7 +365,7 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, DeliveryExtensionInstanceConfigValidationError{
+					errors = append(errors, DeliveryExtensionInstanceRefValidationError{
 						field:  fmt.Sprintf("Parameters[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -374,7 +374,7 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return DeliveryExtensionInstanceConfigValidationError{
+				return DeliveryExtensionInstanceRefValidationError{
 					field:  fmt.Sprintf("Parameters[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -385,19 +385,19 @@ func (m *DeliveryExtensionInstanceConfig) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return DeliveryExtensionInstanceConfigMultiError(errors)
+		return DeliveryExtensionInstanceRefMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeliveryExtensionInstanceConfigMultiError is an error wrapping multiple
-// validation errors returned by DeliveryExtensionInstanceConfig.ValidateAll()
-// if the designated constraints aren't met.
-type DeliveryExtensionInstanceConfigMultiError []error
+// DeliveryExtensionInstanceRefMultiError is an error wrapping multiple
+// validation errors returned by DeliveryExtensionInstanceRef.ValidateAll() if
+// the designated constraints aren't met.
+type DeliveryExtensionInstanceRefMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeliveryExtensionInstanceConfigMultiError) Error() string {
+func (m DeliveryExtensionInstanceRefMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -406,12 +406,12 @@ func (m DeliveryExtensionInstanceConfigMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeliveryExtensionInstanceConfigMultiError) AllErrors() []error { return m }
+func (m DeliveryExtensionInstanceRefMultiError) AllErrors() []error { return m }
 
-// DeliveryExtensionInstanceConfigValidationError is the validation error
-// returned by DeliveryExtensionInstanceConfig.Validate if the designated
-// constraints aren't met.
-type DeliveryExtensionInstanceConfigValidationError struct {
+// DeliveryExtensionInstanceRefValidationError is the validation error returned
+// by DeliveryExtensionInstanceRef.Validate if the designated constraints
+// aren't met.
+type DeliveryExtensionInstanceRefValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -419,24 +419,24 @@ type DeliveryExtensionInstanceConfigValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeliveryExtensionInstanceConfigValidationError) Field() string { return e.field }
+func (e DeliveryExtensionInstanceRefValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeliveryExtensionInstanceConfigValidationError) Reason() string { return e.reason }
+func (e DeliveryExtensionInstanceRefValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeliveryExtensionInstanceConfigValidationError) Cause() error { return e.cause }
+func (e DeliveryExtensionInstanceRefValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeliveryExtensionInstanceConfigValidationError) Key() bool { return e.key }
+func (e DeliveryExtensionInstanceRefValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeliveryExtensionInstanceConfigValidationError) ErrorName() string {
-	return "DeliveryExtensionInstanceConfigValidationError"
+func (e DeliveryExtensionInstanceRefValidationError) ErrorName() string {
+	return "DeliveryExtensionInstanceRefValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeliveryExtensionInstanceConfigValidationError) Error() string {
+func (e DeliveryExtensionInstanceRefValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -448,14 +448,14 @@ func (e DeliveryExtensionInstanceConfigValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeliveryExtensionInstanceConfig.%s: %s%s",
+		"invalid %sDeliveryExtensionInstanceRef.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeliveryExtensionInstanceConfigValidationError{}
+var _ error = DeliveryExtensionInstanceRefValidationError{}
 
 var _ interface {
 	Field() string
@@ -463,9 +463,9 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeliveryExtensionInstanceConfigValidationError{}
+} = DeliveryExtensionInstanceRefValidationError{}
 
-var _DeliveryExtensionInstanceConfig_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
+var _DeliveryExtensionInstanceRef_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
 
 // Validate checks the field values on CompiledDeliveryExtensionInstanceConfig
 // with the rules defined in the proto definition for this message. If any

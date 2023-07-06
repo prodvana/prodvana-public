@@ -70,7 +70,7 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
 
 global___DeliveryExtensionConfig = DeliveryExtensionConfig
 
-class DeliveryExtensionInstanceConfig(google.protobuf.message.Message):
+class DeliveryExtensionInstanceRef(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -86,7 +86,7 @@ class DeliveryExtensionInstanceConfig(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "parameters", b"parameters"]) -> None: ...
 
-global___DeliveryExtensionInstanceConfig = DeliveryExtensionInstanceConfig
+global___DeliveryExtensionInstanceRef = DeliveryExtensionInstanceRef
 
 class CompiledDeliveryExtensionInstanceConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

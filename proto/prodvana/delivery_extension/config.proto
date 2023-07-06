@@ -40,7 +40,7 @@ message DeliveryExtensionConfig {
     // next tag: 5
 }
 
-message DeliveryExtensionInstanceConfig {
+message DeliveryExtensionInstanceRef {
     string name = 1 [
         (validate.rules).string = {
             min_len: 1,

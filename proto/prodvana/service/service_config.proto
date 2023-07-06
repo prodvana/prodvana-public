@@ -171,15 +171,26 @@ message ProtectionLink {
 message DeliveryExtensionConfig {
     oneof definition {
         option (validate.required) = true;
+        // Inline definition of a delivery extension.
         prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
-        string ref = 3 [(validate.rules).string.min_len = 1];
+        // A delivery instance defined in this service config.
+        string instance = 3 [(validate.rules).string.min_len = 1];
+        // Reference to a delivery extension defined externally.
+        prodvana.delivery_extension.DeliveryExtensionInstanceRef ref = 4;
     }
     prodvana.common_config.TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0, 1]}];
 }
 
 message DeliveryExtensionInstance {
-    prodvana.delivery_extension.DeliveryExtensionConfig config = 1;
+    oneof definition {
+        option (validate.required) = true;
+        // Inline definition of the delivery extension.
+        prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
+        // Reference to a delivery extension defined externally.
+        prodvana.delivery_extension.DeliveryExtensionInstanceRef ref = 3;
+    }
     string name = 2 [(validate.rules).string.min_len = 1];
+    prodvana.common_config.TaskLifecycle lifecycle = 4 [(validate.rules).enum = {not_in: [0, 1]}];
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a

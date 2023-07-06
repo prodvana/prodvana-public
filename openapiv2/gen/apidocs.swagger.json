@@ -6661,6 +6661,21 @@
         }
       }
     },
+    "delivery_extensionDeliveryExtensionInstanceRef": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          }
+        }
+      }
+    },
     "delivery_extensionGetDeliveryExtensionConfigResp": {
       "type": "object",
       "properties": {
@@ -9397,10 +9412,16 @@
       "type": "object",
       "properties": {
         "inlined": {
-          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig",
+          "description": "Inline definition of a delivery extension."
+        },
+        "instance": {
+          "type": "string",
+          "description": "A delivery instance defined in this service config."
         },
         "ref": {
-          "type": "string"
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionInstanceRef",
+          "description": "Reference to a delivery extension defined externally."
         },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
@@ -10112,11 +10133,19 @@
     "serviceDeliveryExtensionInstance": {
       "type": "object",
       "properties": {
-        "config": {
-          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        "inlined": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig",
+          "description": "Inline definition of the delivery extension."
+        },
+        "ref": {
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionInstanceRef",
+          "description": "Reference to a delivery extension defined externally."
         },
         "name": {
           "type": "string"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/common_configTaskLifecycle"
         }
       }
     },
