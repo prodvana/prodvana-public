@@ -8510,6 +8510,9 @@
       "properties": {
         "topic": {
           "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       }
     },
@@ -8786,6 +8789,9 @@
           "$ref": "#/definitions/modelManualApprovalStatus"
         },
         "topic": {
+          "type": "string"
+        },
+        "description": {
           "type": "string"
         }
       }
@@ -9736,7 +9742,15 @@
       }
     },
     "release_channelPreconditionManualApproval": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
     },
     "release_channelProtectionReleaseChannelAttachment": {
       "type": "object",

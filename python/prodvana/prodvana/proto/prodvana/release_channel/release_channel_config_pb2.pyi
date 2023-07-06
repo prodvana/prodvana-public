@@ -170,9 +170,17 @@ class Precondition(google.protobuf.message.Message):
     class ManualApproval(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        NAME_FIELD_NUMBER: builtins.int
+        DESCRIPTION_FIELD_NUMBER: builtins.int
+        name: builtins.str
+        description: builtins.str
         def __init__(
             self,
+            *,
+            name: builtins.str = ...,
+            description: builtins.str = ...,
         ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "name", b"name"]) -> None: ...
 
     class CustomTask(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

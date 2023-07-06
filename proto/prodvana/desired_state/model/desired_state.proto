@@ -59,6 +59,7 @@ message Condition {
 
     message ManualApproval {
         string topic = 1;
+        string description = 2;
     }
 
     message CustomTaskSuccessfulCondition {
@@ -375,6 +376,7 @@ message ManualApprovalState {
     Metadata meta = 1;
     ManualApprovalStatus status = 2;
     string topic = 3;
+    string description = 4;
 }
 
 message State {

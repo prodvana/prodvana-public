@@ -1327,6 +1327,10 @@ func (m *Precondition_ManualApproval) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
+	// no validation rules for Description
+
 	if len(errors) > 0 {
 		return Precondition_ManualApprovalMultiError(errors)
 	}

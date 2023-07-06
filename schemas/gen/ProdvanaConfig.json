@@ -3754,6 +3754,28 @@
             "title": "Custom Task"
         },
         "prodvana.release_channel.Precondition.ManualApproval": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
             "additionalProperties": false,
             "oneOf": [
                 {

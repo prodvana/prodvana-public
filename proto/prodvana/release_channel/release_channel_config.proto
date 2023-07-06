@@ -71,6 +71,8 @@ message Precondition {
         google.protobuf.Duration duration = 2;
     }
     message ManualApproval {
+        string name = 1;
+        string description = 2;
     }
     message CustomTask {
         string task_name = 1;

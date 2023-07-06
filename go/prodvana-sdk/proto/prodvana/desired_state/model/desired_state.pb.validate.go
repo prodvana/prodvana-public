@@ -3224,6 +3224,8 @@ func (m *ManualApprovalState) validate(all bool) error {
 
 	// no validation rules for Topic
 
+	// no validation rules for Description
+
 	if len(errors) > 0 {
 		return ManualApprovalStateMultiError(errors)
 	}
@@ -5554,6 +5556,8 @@ func (m *Condition_ManualApproval) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for Topic
+
+	// no validation rules for Description
 
 	if len(errors) > 0 {
 		return Condition_ManualApprovalMultiError(errors)

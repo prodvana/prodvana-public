@@ -363,13 +363,16 @@ class Condition(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         TOPIC_FIELD_NUMBER: builtins.int
+        DESCRIPTION_FIELD_NUMBER: builtins.int
         topic: builtins.str
+        description: builtins.str
         def __init__(
             self,
             *,
             topic: builtins.str = ...,
+            description: builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["topic", b"topic"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "topic", b"topic"]) -> None: ...
 
     class CustomTaskSuccessfulCondition(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1054,19 +1057,22 @@ class ManualApprovalState(google.protobuf.message.Message):
     META_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     TOPIC_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     status: global___ManualApprovalStatus.ValueType
     topic: builtins.str
+    description: builtins.str
     def __init__(
         self,
         *,
         meta: global___Metadata | None = ...,
         status: global___ManualApprovalStatus.ValueType = ...,
         topic: builtins.str = ...,
+        description: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["meta", b"meta", "status", b"status", "topic", b"topic"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "meta", b"meta", "status", b"status", "topic", b"topic"]) -> None: ...
 
 global___ManualApprovalState = ManualApprovalState
 
