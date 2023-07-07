@@ -85,12 +85,14 @@ message ListClustersResp{
 
         google.protobuf.Timestamp last_heartbeat_timestamp = 9;
         ClusterConfig config = 10;
+        ClusterAuth auth = 11;
     }
     repeated ClusterInfo clusters = 1;
 }
 
 message GetClusterReq {
     string runtime = 1; // name or id
+    bool include_auth = 2;
 }
 
 message GetClusterResp {

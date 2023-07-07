@@ -1935,6 +1935,12 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "includeAuth",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -5258,6 +5264,9 @@
         },
         "config": {
           "$ref": "#/definitions/environmentClusterConfig"
+        },
+        "auth": {
+          "$ref": "#/definitions/environmentClusterAuth"
         }
       }
     },

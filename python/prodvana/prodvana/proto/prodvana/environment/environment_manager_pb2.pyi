@@ -219,6 +219,7 @@ class ListClustersResp(google.protobuf.message.Message):
         ECS_FIELD_NUMBER: builtins.int
         LAST_HEARTBEAT_TIMESTAMP_FIELD_NUMBER: builtins.int
         CONFIG_FIELD_NUMBER: builtins.int
+        AUTH_FIELD_NUMBER: builtins.int
         name: builtins.str
         id: builtins.str
         origin: prodvana.proto.prodvana.environment.clusters_pb2.Cluster.Origin.ValueType
@@ -233,6 +234,8 @@ class ListClustersResp(google.protobuf.message.Message):
         def last_heartbeat_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
         @property
         def config(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
+        @property
+        def auth(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterAuth: ...
         def __init__(
             self,
             *,
@@ -246,9 +249,10 @@ class ListClustersResp(google.protobuf.message.Message):
             ecs: global___ListClustersResp.ClusterInfo.EcsInfo | None = ...,
             last_heartbeat_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
             config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
+            auth: prodvana.proto.prodvana.environment.clusters_pb2.ClusterAuth | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["config", b"config", "ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "service_account", b"service_account", "type", b"type", "writeback_config", b"writeback_config"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "service_account", b"service_account", "type", b"type", "writeback_config", b"writeback_config"]) -> None: ...
         def WhichOneof(self, oneof_group: typing_extensions.Literal["info", b"info"]) -> typing_extensions.Literal["ecs"] | None: ...
 
     CLUSTERS_FIELD_NUMBER: builtins.int
@@ -267,14 +271,17 @@ class GetClusterReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RUNTIME_FIELD_NUMBER: builtins.int
+    INCLUDE_AUTH_FIELD_NUMBER: builtins.int
     runtime: builtins.str
     """name or id"""
+    include_auth: builtins.bool
     def __init__(
         self,
         *,
         runtime: builtins.str = ...,
+        include_auth: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["runtime", b"runtime"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["include_auth", b"include_auth", "runtime", b"runtime"]) -> None: ...
 
 global___GetClusterReq = GetClusterReq
 

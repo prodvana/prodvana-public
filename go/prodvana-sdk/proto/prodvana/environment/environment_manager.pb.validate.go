@@ -1236,6 +1236,8 @@ func (m *GetClusterReq) validate(all bool) error {
 
 	// no validation rules for Runtime
 
+	// no validation rules for IncludeAuth
+
 	if len(errors) > 0 {
 		return GetClusterReqMultiError(errors)
 	}
@@ -2632,6 +2634,35 @@ func (m *ListClustersResp_ClusterInfo) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ListClustersResp_ClusterInfoValidationError{
 				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListClustersResp_ClusterInfoValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListClustersResp_ClusterInfoValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListClustersResp_ClusterInfoValidationError{
+				field:  "Auth",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
