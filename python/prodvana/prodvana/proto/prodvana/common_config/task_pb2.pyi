@@ -3,11 +3,14 @@
 isort:skip_file
 """
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
+import prodvana.proto.prodvana.volumes.volumes_pb2
 import sys
 import typing
 
@@ -57,9 +60,12 @@ class TaskConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PROGRAM_FIELD_NUMBER: builtins.int
+    VOLUMES_FIELD_NUMBER: builtins.int
     RETRY_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def program(self) -> prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig: ...
+    @property
+    def volumes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.volumes.volumes_pb2.Volume]: ...
     @property
     def retry_config(self) -> prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig:
         """If not set, the task will not be retried once it starts executing once."""
@@ -67,9 +73,10 @@ class TaskConfig(google.protobuf.message.Message):
         self,
         *,
         program: prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig | None = ...,
+        volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         retry_config: prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["program", b"program", "retry_config", b"retry_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["program", b"program", "retry_config", b"retry_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["program", b"program", "retry_config", b"retry_config", "volumes", b"volumes"]) -> None: ...
 
 global___TaskConfig = TaskConfig

@@ -10,6 +10,7 @@ import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
+import "prodvana/volumes/volumes.proto";
 
 message ClusterAuth {
     string endpoint = 1;
@@ -111,16 +112,28 @@ message CompiledExtensionCommand {
     map<string, prodvana.common_config.EnvValue> env = 4;
 }
 
+message IacRunnerCommand {
+    string cmd = 1 [(validate.rules).string.min_len = 1];
+}
+
 message TerraformRunnerConfig {
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
     // optional env variables to pass to terraform commands, can be useful for passing secrets
     map<string, prodvana.common_config.EnvValue> env = 2;
+    // optional volumes to mount into terraform containers
+    repeated prodvana.volumes.Volume volumes = 3;
+    // commands that must run before terraform can run, e.g. gcloud auth login
+    repeated IacRunnerCommand pre_run = 4;
 }
 
 message PulumiRunnerConfig {
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
     // optional env variables to pass to pulumi commands, can be useful for passing secrets
     map<string, prodvana.common_config.EnvValue> env = 2;
+    // optional volumes to mount into pulumi containers
+    repeated prodvana.volumes.Volume volumes = 3;
+    // commands that must run before pulumi can run, e.g. gcloud auth login
+    repeated IacRunnerCommand pre_run = 4;
 }
 
 message ClusterConfig {

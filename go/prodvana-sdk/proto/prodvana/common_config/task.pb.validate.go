@@ -97,6 +97,51 @@ func (m *TaskConfig) validate(all bool) error {
 		}
 	}
 
+	for idx, item := range m.GetVolumes() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := TaskConfigValidationError{
+				field:  fmt.Sprintf("Volumes[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskConfigValidationError{
+						field:  fmt.Sprintf("Volumes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskConfigValidationError{
+						field:  fmt.Sprintf("Volumes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskConfigValidationError{
+					field:  fmt.Sprintf("Volumes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if all {
 		switch v := interface{}(m.GetRetryConfig()).(type) {
 		case interface{ ValidateAll() error }:

@@ -127,6 +127,48 @@ func (m *EnvValue) validate(all bool) error {
 			}
 		}
 
+	case *EnvValue_KubernetesSecret:
+		if v == nil {
+			err := EnvValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetKubernetesSecret()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnvValueValidationError{
+						field:  "KubernetesSecret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnvValueValidationError{
+						field:  "KubernetesSecret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesSecret()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnvValueValidationError{
+					field:  "KubernetesSecret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -337,3 +379,125 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SecretValidationError{}
+
+// Validate checks the field values on KubernetesSecret with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *KubernetesSecret) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on KubernetesSecret with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// KubernetesSecretMultiError, or nil if none found.
+func (m *KubernetesSecret) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *KubernetesSecret) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetSecretName()) < 1 {
+		err := KubernetesSecretValidationError{
+			field:  "SecretName",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetKey()) < 1 {
+		err := KubernetesSecretValidationError{
+			field:  "Key",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return KubernetesSecretMultiError(errors)
+	}
+
+	return nil
+}
+
+// KubernetesSecretMultiError is an error wrapping multiple validation errors
+// returned by KubernetesSecret.ValidateAll() if the designated constraints
+// aren't met.
+type KubernetesSecretMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m KubernetesSecretMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m KubernetesSecretMultiError) AllErrors() []error { return m }
+
+// KubernetesSecretValidationError is the validation error returned by
+// KubernetesSecret.Validate if the designated constraints aren't met.
+type KubernetesSecretValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e KubernetesSecretValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e KubernetesSecretValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e KubernetesSecretValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e KubernetesSecretValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e KubernetesSecretValidationError) ErrorName() string { return "KubernetesSecretValidationError" }
+
+// Error satisfies the builtin error interface
+func (e KubernetesSecretValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sKubernetesSecret.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = KubernetesSecretValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = KubernetesSecretValidationError{}

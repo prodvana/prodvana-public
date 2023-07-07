@@ -6094,6 +6094,10 @@
         "secret": {
           "$ref": "#/definitions/common_configSecret",
           "description": "Externally stored secret."
+        },
+        "kubernetesSecret": {
+          "$ref": "#/definitions/common_configKubernetesSecret",
+          "description": "Kubernetes secret, only works for Kubernetes runtimes."
         }
       }
     },
@@ -6243,6 +6247,17 @@
         "KUSTOMIZE"
       ],
       "default": "UNKNOWN"
+    },
+    "common_configKubernetesSecret": {
+      "type": "object",
+      "properties": {
+        "secretName": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      }
     },
     "common_configLink": {
       "type": "object",
@@ -7602,6 +7617,14 @@
         }
       }
     },
+    "environmentIacRunnerCommand": {
+      "type": "object",
+      "properties": {
+        "cmd": {
+          "type": "string"
+        }
+      }
+    },
     "environmentLinkClusterReq": {
       "type": "object",
       "properties": {
@@ -7742,6 +7765,22 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "title": "optional env variables to pass to terraform commands, can be useful for passing secrets"
+        },
+        "volumes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/volumesVolume"
+          },
+          "title": "optional volumes to mount into terraform containers"
+        },
+        "preRun": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/environmentIacRunnerCommand"
+          },
+          "title": "commands that must run before terraform can run, e.g. gcloud auth login"
         }
       }
     },
@@ -9270,6 +9309,13 @@
       "properties": {
         "program": {
           "$ref": "#/definitions/common_configProgramConfig"
+        },
+        "volumes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/volumesVolume"
+          }
         },
         "retryConfig": {
           "$ref": "#/definitions/common_configRetryConfig",

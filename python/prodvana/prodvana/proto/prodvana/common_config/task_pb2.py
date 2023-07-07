@@ -16,9 +16,10 @@ _sym_db = _symbol_database.Default()
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 from prodvana.proto.prodvana.common_config import retry_pb2 as prodvana_dot_common__config_dot_retry__pb2
 from prodvana.proto.prodvana.common_config import program_pb2 as prodvana_dot_common__config_dot_program__pb2
+from prodvana.proto.prodvana.volumes import volumes_pb2 as prodvana_dot_volumes_dot_volumes__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!prodvana/common_config/task.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\x1a\"prodvana/common_config/retry.proto\x1a$prodvana/common_config/program.proto\"\x89\x01\n\nTaskConfig\x12@\n\x07program\x18\x01 \x01(\x0b\x32%.prodvana.common_config.ProgramConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x39\n\x0cretry_config\x18\x02 \x01(\x0b\x32#.prodvana.common_config.RetryConfig*\x9a\x01\n\rTaskLifecycle\x12\x1a\n\x16UNKNOWN_TASK_LIFECYCLE\x10\x00\x12\x15\n\x11\x43ONVERGENCE_START\x10\x01\x12\x10\n\x0cPRE_APPROVAL\x10\x02\x12\x0c\n\x08\x41PPROVAL\x10\x03\x12\x11\n\rPOST_APPROVAL\x10\x04\x12\x0e\n\nDEPLOYMENT\x10\x05\x12\x13\n\x0fPOST_DEPLOYMENT\x10\x06\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!prodvana/common_config/task.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\x1a\"prodvana/common_config/retry.proto\x1a$prodvana/common_config/program.proto\x1a\x1eprodvana/volumes/volumes.proto\"\xc3\x01\n\nTaskConfig\x12@\n\x07program\x18\x01 \x01(\x0b\x32%.prodvana.common_config.ProgramConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x38\n\x07volumes\x18\x03 \x03(\x0b\x32\x18.prodvana.volumes.VolumeB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12\x39\n\x0cretry_config\x18\x02 \x01(\x0b\x32#.prodvana.common_config.RetryConfig*\x9a\x01\n\rTaskLifecycle\x12\x1a\n\x16UNKNOWN_TASK_LIFECYCLE\x10\x00\x12\x15\n\x11\x43ONVERGENCE_START\x10\x01\x12\x10\n\x0cPRE_APPROVAL\x10\x02\x12\x0c\n\x08\x41PPROVAL\x10\x03\x12\x11\n\rPOST_APPROVAL\x10\x04\x12\x0e\n\nDEPLOYMENT\x10\x05\x12\x13\n\x0fPOST_DEPLOYMENT\x10\x06\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 _TASKLIFECYCLE = DESCRIPTOR.enum_types_by_name['TaskLifecycle']
 TaskLifecycle = enum_type_wrapper.EnumTypeWrapper(_TASKLIFECYCLE)
@@ -45,8 +46,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'ZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config'
   _TASKCONFIG.fields_by_name['program']._options = None
   _TASKCONFIG.fields_by_name['program']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _TASKLIFECYCLE._serialized_start=301
-  _TASKLIFECYCLE._serialized_end=455
-  _TASKCONFIG._serialized_start=161
-  _TASKCONFIG._serialized_end=298
+  _TASKCONFIG.fields_by_name['volumes']._options = None
+  _TASKCONFIG.fields_by_name['volumes']._serialized_options = b'\372B\n\222\001\007\"\005\212\001\002\020\001'
+  _TASKLIFECYCLE._serialized_start=391
+  _TASKLIFECYCLE._serialized_end=545
+  _TASKCONFIG._serialized_start=193
+  _TASKCONFIG._serialized_end=388
 # @@protoc_insertion_point(module_scope)

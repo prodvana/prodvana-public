@@ -572,6 +572,17 @@
                         {}
                     ],
                     "description": "Externally stored secret."
+                },
+                "kubernetesSecret": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Kubernetes secret, only works for Kubernetes runtimes."
                 }
             },
             "additionalProperties": false,
@@ -996,6 +1007,40 @@
                 }
             ],
             "title": "Kubernetes Config"
+        },
+        "prodvana.common_config.KubernetesSecret": {
+            "properties": {
+                "secretName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "key": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Kubernetes Secret"
         },
         "prodvana.common_config.Link": {
             "properties": {
@@ -1952,6 +1997,20 @@
                         {}
                     ]
                 },
+                "volumes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.volumes.Volume"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "retryConfig": {
                     "$ref": "#/definitions/prodvana.common_config.RetryConfig",
                     "additionalProperties": false,
@@ -2852,6 +2911,30 @@
             ],
             "title": "Crashing Program Patterns"
         },
+        "prodvana.environment.IacRunnerCommand": {
+            "properties": {
+                "cmd": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Iac Runner Command"
+        },
         "prodvana.environment.TerraformRunnerConfig": {
             "properties": {
                 "proxyRuntime": {
@@ -2884,6 +2967,36 @@
                         }
                     ],
                     "description": "optional env variables to pass to terraform commands, can be useful for passing secrets"
+                },
+                "volumes": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.volumes.Volume"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "optional volumes to mount into terraform containers"
+                },
+                "preRun": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.environment.IacRunnerCommand"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "commands that must run before terraform can run, e.g. gcloud auth login"
                 }
             },
             "additionalProperties": false,

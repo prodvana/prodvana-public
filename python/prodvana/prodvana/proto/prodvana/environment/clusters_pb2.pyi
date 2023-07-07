@@ -15,6 +15,7 @@ import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
+import prodvana.proto.prodvana.volumes.volumes_pb2
 import sys
 import typing
 
@@ -358,6 +359,20 @@ class CompiledExtensionCommand(google.protobuf.message.Message):
 
 global___CompiledExtensionCommand = CompiledExtensionCommand
 
+class IacRunnerCommand(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CMD_FIELD_NUMBER: builtins.int
+    cmd: builtins.str
+    def __init__(
+        self,
+        *,
+        cmd: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cmd", b"cmd"]) -> None: ...
+
+global___IacRunnerCommand = IacRunnerCommand
+
 class TerraformRunnerConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -380,19 +395,29 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
 
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
+    VOLUMES_FIELD_NUMBER: builtins.int
+    PRE_RUN_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to pass to terraform commands, can be useful for passing secrets"""
+    @property
+    def volumes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.volumes.volumes_pb2.Volume]:
+        """optional volumes to mount into terraform containers"""
+    @property
+    def pre_run(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IacRunnerCommand]:
+        """commands that must run before terraform can run, e.g. gcloud auth login"""
     def __init__(
         self,
         *,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+        volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
+        pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "proxy_runtime", b"proxy_runtime"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 
@@ -418,19 +443,29 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
 
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
+    VOLUMES_FIELD_NUMBER: builtins.int
+    PRE_RUN_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to pass to pulumi commands, can be useful for passing secrets"""
+    @property
+    def volumes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.volumes.volumes_pb2.Volume]:
+        """optional volumes to mount into pulumi containers"""
+    @property
+    def pre_run(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IacRunnerCommand]:
+        """commands that must run before pulumi can run, e.g. gcloud auth login"""
     def __init__(
         self,
         *,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+        volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
+        pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "proxy_runtime", b"proxy_runtime"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
 
 global___PulumiRunnerConfig = PulumiRunnerConfig
 
