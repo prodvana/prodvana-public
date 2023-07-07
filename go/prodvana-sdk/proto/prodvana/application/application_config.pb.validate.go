@@ -306,8 +306,6 @@ func (m *ApplicationConfig) validate(all bool) error {
 
 	}
 
-	// no validation rules for EnableCustomTasksDynamicDelivery
-
 	if len(errors) > 0 {
 		return ApplicationConfigMultiError(errors)
 	}

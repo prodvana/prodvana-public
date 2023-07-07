@@ -187,17 +187,6 @@
                         }
                     ],
                     "description": "service templates are sets of service configurations that can be used as the base of a service. this is useful for setting default values that are kept in sync when the templates change."
-                },
-                "enableCustomTasksDynamicDelivery": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "if set and use_dynamic_delivery is set, transform custom tasks to DD preconditions for all services. Only used for safely migrating prime capabilities to DD. UNUSED: Remove from proto once the flag has been removed from all persisted configs."
                 }
             },
             "additionalProperties": false,
