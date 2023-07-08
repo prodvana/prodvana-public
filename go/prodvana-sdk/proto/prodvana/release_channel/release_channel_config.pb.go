@@ -408,7 +408,8 @@ type ReleaseChannelRuntimeConfig struct {
 	//
 	//	*ReleaseChannelRuntimeConfig_ContainerOrchestration
 	Capability isReleaseChannelRuntimeConfig_Capability `protobuf_oneof:"capability"`
-	Type       RuntimeConnectionType                    `protobuf:"varint,4,opt,name=type,proto3,enum=prodvana.release_channel.RuntimeConnectionType" json:"type,omitempty"`
+	// set internally by prodvana, overridden even if set manually.
+	Type RuntimeConnectionType `protobuf:"varint,4,opt,name=type,proto3,enum=prodvana.release_channel.RuntimeConnectionType" json:"type,omitempty"`
 }
 
 func (x *ReleaseChannelRuntimeConfig) Reset() {

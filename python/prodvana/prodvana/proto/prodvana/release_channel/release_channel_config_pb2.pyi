@@ -237,6 +237,7 @@ class ReleaseChannelRuntimeConfig(google.protobuf.message.Message):
     @property
     def container_orchestration(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.ContainerOrchestrationRuntime: ...
     type: global___RuntimeConnectionType.ValueType
+    """set internally by prodvana, overridden even if set manually."""
     def __init__(
         self,
         *,

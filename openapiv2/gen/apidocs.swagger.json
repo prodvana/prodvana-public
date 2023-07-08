@@ -9919,7 +9919,8 @@
           "$ref": "#/definitions/runtimesContainerOrchestrationRuntime"
         },
         "type": {
-          "$ref": "#/definitions/release_channelRuntimeConnectionType"
+          "$ref": "#/definitions/release_channelRuntimeConnectionType",
+          "description": "set internally by prodvana, overridden even if set manually."
         }
       }
     },

@@ -115,6 +115,7 @@ message ReleaseChannelRuntimeConfig {
         prodvana.runtimes.ContainerOrchestrationRuntime container_orchestration = 1;
     }
 
+    // set internally by prodvana, overridden even if set manually.
     RuntimeConnectionType type = 4;
 
     // next tag: 5
