@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -16,20 +15,13 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1eprodvana/stat/efficiency.proto\x12\rprodvana.stat\"A\n\x0e\x45\x66\x66iciencyStat\x12\x13\n\x0bsaved_lines\x18\x01 \x01(\x05\x12\x1a\n\x12materialized_lines\x18\x02 \x01(\x05\x42IZGgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/statb\x06proto3')
 
-
-
-_EFFICIENCYSTAT = DESCRIPTOR.message_types_by_name['EfficiencyStat']
-EfficiencyStat = _reflection.GeneratedProtocolMessageType('EfficiencyStat', (_message.Message,), {
-  'DESCRIPTOR' : _EFFICIENCYSTAT,
-  '__module__' : 'prodvana.stat.efficiency_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.stat.EfficiencyStat)
-  })
-_sym_db.RegisterMessage(EfficiencyStat)
-
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.stat.efficiency_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZGgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/stat'
-  _EFFICIENCYSTAT._serialized_start=49
-  _EFFICIENCYSTAT._serialized_end=114
+  _globals['_EFFICIENCYSTAT']._serialized_start=49
+  _globals['_EFFICIENCYSTAT']._serialized_end=114
 # @@protoc_insertion_point(module_scope)

@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,40 +17,17 @@ from prodvana.proto.prodvana.release_channel import release_channel_config_pb2 a
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%prodvana/release_channel/object.proto\x12\x18prodvana.release_channel\x1a\x1aprodvana/object/meta.proto\x1a\x35prodvana/release_channel/release_channel_config.proto\"}\n\"ReleaseChannelProtectionAttachment\x12\x12\n\nprotection\x18\x01 \x01(\t\x12\x12\n\nattachment\x18\x02 \x01(\t\x12\x18\n\x10\x64\x65sired_state_id\x18\x03 \x01(\t\x12\x15\n\rattachment_id\x18\x04 \x01(\t\"s\n\x13ReleaseChannelState\x12\\\n\x16protection_attachments\x18\x01 \x03(\x0b\x32<.prodvana.release_channel.ReleaseChannelProtectionAttachment\"\xb9\x01\n\x0eReleaseChannel\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12>\n\x06\x63onfig\x18\x02 \x01(\x0b\x32..prodvana.release_channel.ReleaseChannelConfig\x12<\n\x05state\x18\x03 \x01(\x0b\x32-.prodvana.release_channel.ReleaseChannelStateBTZRgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channelb\x06proto3')
 
-
-
-_RELEASECHANNELPROTECTIONATTACHMENT = DESCRIPTOR.message_types_by_name['ReleaseChannelProtectionAttachment']
-_RELEASECHANNELSTATE = DESCRIPTOR.message_types_by_name['ReleaseChannelState']
-_RELEASECHANNEL = DESCRIPTOR.message_types_by_name['ReleaseChannel']
-ReleaseChannelProtectionAttachment = _reflection.GeneratedProtocolMessageType('ReleaseChannelProtectionAttachment', (_message.Message,), {
-  'DESCRIPTOR' : _RELEASECHANNELPROTECTIONATTACHMENT,
-  '__module__' : 'prodvana.release_channel.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.release_channel.ReleaseChannelProtectionAttachment)
-  })
-_sym_db.RegisterMessage(ReleaseChannelProtectionAttachment)
-
-ReleaseChannelState = _reflection.GeneratedProtocolMessageType('ReleaseChannelState', (_message.Message,), {
-  'DESCRIPTOR' : _RELEASECHANNELSTATE,
-  '__module__' : 'prodvana.release_channel.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.release_channel.ReleaseChannelState)
-  })
-_sym_db.RegisterMessage(ReleaseChannelState)
-
-ReleaseChannel = _reflection.GeneratedProtocolMessageType('ReleaseChannel', (_message.Message,), {
-  'DESCRIPTOR' : _RELEASECHANNEL,
-  '__module__' : 'prodvana.release_channel.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.release_channel.ReleaseChannel)
-  })
-_sym_db.RegisterMessage(ReleaseChannel)
-
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.release_channel.object_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZRgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel'
-  _RELEASECHANNELPROTECTIONATTACHMENT._serialized_start=150
-  _RELEASECHANNELPROTECTIONATTACHMENT._serialized_end=275
-  _RELEASECHANNELSTATE._serialized_start=277
-  _RELEASECHANNELSTATE._serialized_end=392
-  _RELEASECHANNEL._serialized_start=395
-  _RELEASECHANNEL._serialized_end=580
+  _globals['_RELEASECHANNELPROTECTIONATTACHMENT']._serialized_start=150
+  _globals['_RELEASECHANNELPROTECTIONATTACHMENT']._serialized_end=275
+  _globals['_RELEASECHANNELSTATE']._serialized_start=277
+  _globals['_RELEASECHANNELSTATE']._serialized_end=392
+  _globals['_RELEASECHANNEL']._serialized_start=395
+  _globals['_RELEASECHANNEL']._serialized_end=580
 # @@protoc_insertion_point(module_scope)

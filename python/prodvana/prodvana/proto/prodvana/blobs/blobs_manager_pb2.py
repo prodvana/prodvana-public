@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,25 +17,9 @@ from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"prodvana/blobs/blobs_manager.proto\x12\x0eprodvana.blobs\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"$\n\rGetCasBlobReq\x12\x13\n\x02id\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x1f\n\x0eGetCasBlobResp\x12\r\n\x05\x62ytes\x18\x01 \x01(\x0c\x32{\n\x0c\x42lobsManager\x12k\n\nGetCasBlob\x12\x1d.prodvana.blobs.GetCasBlobReq\x1a\x1e.prodvana.blobs.GetCasBlobResp\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/blobs/cas/{id=*}0\x01\x42JZHgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/blobsb\x06proto3')
 
-
-
-_GETCASBLOBREQ = DESCRIPTOR.message_types_by_name['GetCasBlobReq']
-_GETCASBLOBRESP = DESCRIPTOR.message_types_by_name['GetCasBlobResp']
-GetCasBlobReq = _reflection.GeneratedProtocolMessageType('GetCasBlobReq', (_message.Message,), {
-  'DESCRIPTOR' : _GETCASBLOBREQ,
-  '__module__' : 'prodvana.blobs.blobs_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.blobs.GetCasBlobReq)
-  })
-_sym_db.RegisterMessage(GetCasBlobReq)
-
-GetCasBlobResp = _reflection.GeneratedProtocolMessageType('GetCasBlobResp', (_message.Message,), {
-  'DESCRIPTOR' : _GETCASBLOBRESP,
-  '__module__' : 'prodvana.blobs.blobs_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.blobs.GetCasBlobResp)
-  })
-_sym_db.RegisterMessage(GetCasBlobResp)
-
-_BLOBSMANAGER = DESCRIPTOR.services_by_name['BlobsManager']
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.blobs.blobs_manager_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
@@ -45,10 +28,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETCASBLOBREQ.fields_by_name['id']._serialized_options = b'\372B\004r\002\020\001'
   _BLOBSMANAGER.methods_by_name['GetCasBlob']._options = None
   _BLOBSMANAGER.methods_by_name['GetCasBlob']._serialized_options = b'\202\323\344\223\002\026\022\024/v1/blobs/cas/{id=*}'
-  _GETCASBLOBREQ._serialized_start=109
-  _GETCASBLOBREQ._serialized_end=145
-  _GETCASBLOBRESP._serialized_start=147
-  _GETCASBLOBRESP._serialized_end=178
-  _BLOBSMANAGER._serialized_start=180
-  _BLOBSMANAGER._serialized_end=303
+  _globals['_GETCASBLOBREQ']._serialized_start=109
+  _globals['_GETCASBLOBREQ']._serialized_end=145
+  _globals['_GETCASBLOBRESP']._serialized_start=147
+  _globals['_GETCASBLOBRESP']._serialized_end=178
+  _globals['_BLOBSMANAGER']._serialized_start=180
+  _globals['_BLOBSMANAGER']._serialized_end=303
 # @@protoc_insertion_point(module_scope)

@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,20 +17,13 @@ from prodvana.proto.prodvana.protection import protection_config_pb2 as prodvana
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n prodvana/protection/object.proto\x12\x13prodvana.protection\x1a\x1aprodvana/object/meta.proto\x1a+prodvana/protection/protection_config.proto\"\x7f\n\nProtection\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x35\n\x06\x63onfig\x18\x02 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12\x0f\n\x07\x62uiltin\x18\x03 \x01(\x08\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
-
-
-_PROTECTION = DESCRIPTOR.message_types_by_name['Protection']
-Protection = _reflection.GeneratedProtocolMessageType('Protection', (_message.Message,), {
-  'DESCRIPTOR' : _PROTECTION,
-  '__module__' : 'prodvana.protection.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.Protection)
-  })
-_sym_db.RegisterMessage(Protection)
-
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.protection.object_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection'
-  _PROTECTION._serialized_start=130
-  _PROTECTION._serialized_end=257
+  _globals['_PROTECTION']._serialized_start=130
+  _globals['_PROTECTION']._serialized_end=257
 # @@protoc_insertion_point(module_scope)

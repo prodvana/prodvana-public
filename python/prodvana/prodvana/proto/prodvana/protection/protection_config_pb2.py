@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -23,57 +22,9 @@ from prodvana.proto.prodvana.runtimes import runtimes_config_pb2 as prodvana_dot
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+prodvana/protection/protection_config.proto\x12\x13prodvana.protection\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\x1a!prodvana/common_config/task.proto\x1a prodvana/common_config/env.proto\x1a.prodvana/common_config/kubernetes_config.proto\x1a\'prodvana/common_config/parameters.proto\x1a\'prodvana/runtimes/runtimes_config.proto\"\x91\x03\n\x10ProtectionConfig\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12\x39\n\x0btask_config\x18\x02 \x01(\x0b\x32\".prodvana.common_config.TaskConfigH\x00\x12\x45\n\x11kubernetes_config\x18\x03 \x01(\x0b\x32(.prodvana.common_config.KubernetesConfigH\x00\x12\x30\n\rpoll_interval\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12*\n\x07timeout\x18\x05 \x01(\x0b\x32\x19.google.protobuf.Duration\x12N\n\nparameters\x18\x06 \x03(\x0b\x32+.prodvana.common_config.ParameterDefinitionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x42\x12\n\x0b\x65xec_config\x12\x03\xf8\x42\x01\"\xe8\x03\n\"CompiledProtectionAttachmentConfig\x12\x35\n\x06\x63onfig\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12=\n\nattachment\x18\x02 \x01(\x0b\x32).prodvana.protection.ProtectionAttachment\x12\x44\n\x11runtime_execution\x18\x03 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfig\x12v\n\x03\x65nv\x18\x04 \x03(\x0b\x32@.prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12@\n\x10parameter_values\x18\x05 \x03(\x0b\x32&.prodvana.common_config.ParameterValue\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\"Z\n\x19ServiceInstanceAttachment\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x03 \x01(\t\"H\n\x18ReleaseChannelAttachment\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\"\xbf\x01\n\x14ProtectionAttachment\x12J\n\x10service_instance\x18\x01 \x01(\x0b\x32..prodvana.protection.ServiceInstanceAttachmentH\x00\x12H\n\x0frelease_channel\x18\x02 \x01(\x0b\x32-.prodvana.protection.ReleaseChannelAttachmentH\x00\x42\x11\n\nattachment\x12\x03\xf8\x42\x01\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
-
-
-_PROTECTIONCONFIG = DESCRIPTOR.message_types_by_name['ProtectionConfig']
-_COMPILEDPROTECTIONATTACHMENTCONFIG = DESCRIPTOR.message_types_by_name['CompiledProtectionAttachmentConfig']
-_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY = _COMPILEDPROTECTIONATTACHMENTCONFIG.nested_types_by_name['EnvEntry']
-_SERVICEINSTANCEATTACHMENT = DESCRIPTOR.message_types_by_name['ServiceInstanceAttachment']
-_RELEASECHANNELATTACHMENT = DESCRIPTOR.message_types_by_name['ReleaseChannelAttachment']
-_PROTECTIONATTACHMENT = DESCRIPTOR.message_types_by_name['ProtectionAttachment']
-ProtectionConfig = _reflection.GeneratedProtocolMessageType('ProtectionConfig', (_message.Message,), {
-  'DESCRIPTOR' : _PROTECTIONCONFIG,
-  '__module__' : 'prodvana.protection.protection_config_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionConfig)
-  })
-_sym_db.RegisterMessage(ProtectionConfig)
-
-CompiledProtectionAttachmentConfig = _reflection.GeneratedProtocolMessageType('CompiledProtectionAttachmentConfig', (_message.Message,), {
-
-  'EnvEntry' : _reflection.GeneratedProtocolMessageType('EnvEntry', (_message.Message,), {
-    'DESCRIPTOR' : _COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY,
-    '__module__' : 'prodvana.protection.protection_config_pb2'
-    # @@protoc_insertion_point(class_scope:prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry)
-    })
-  ,
-  'DESCRIPTOR' : _COMPILEDPROTECTIONATTACHMENTCONFIG,
-  '__module__' : 'prodvana.protection.protection_config_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.CompiledProtectionAttachmentConfig)
-  })
-_sym_db.RegisterMessage(CompiledProtectionAttachmentConfig)
-_sym_db.RegisterMessage(CompiledProtectionAttachmentConfig.EnvEntry)
-
-ServiceInstanceAttachment = _reflection.GeneratedProtocolMessageType('ServiceInstanceAttachment', (_message.Message,), {
-  'DESCRIPTOR' : _SERVICEINSTANCEATTACHMENT,
-  '__module__' : 'prodvana.protection.protection_config_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.ServiceInstanceAttachment)
-  })
-_sym_db.RegisterMessage(ServiceInstanceAttachment)
-
-ReleaseChannelAttachment = _reflection.GeneratedProtocolMessageType('ReleaseChannelAttachment', (_message.Message,), {
-  'DESCRIPTOR' : _RELEASECHANNELATTACHMENT,
-  '__module__' : 'prodvana.protection.protection_config_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.ReleaseChannelAttachment)
-  })
-_sym_db.RegisterMessage(ReleaseChannelAttachment)
-
-ProtectionAttachment = _reflection.GeneratedProtocolMessageType('ProtectionAttachment', (_message.Message,), {
-  'DESCRIPTOR' : _PROTECTIONATTACHMENT,
-  '__module__' : 'prodvana.protection.protection_config_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.protection.ProtectionAttachment)
-  })
-_sym_db.RegisterMessage(ProtectionAttachment)
-
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.protection.protection_config_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
@@ -90,16 +41,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _COMPILEDPROTECTIONATTACHMENTCONFIG.fields_by_name['env']._serialized_options = b'\372B$\232\001!\030\001\"\035r\0332\031^[a-zA-Z_]+[a-zA-Z0-9_]*$'
   _PROTECTIONATTACHMENT.oneofs_by_name['attachment']._options = None
   _PROTECTIONATTACHMENT.oneofs_by_name['attachment']._serialized_options = b'\370B\001'
-  _PROTECTIONCONFIG._serialized_start=325
-  _PROTECTIONCONFIG._serialized_end=726
-  _COMPILEDPROTECTIONATTACHMENTCONFIG._serialized_start=729
-  _COMPILEDPROTECTIONATTACHMENTCONFIG._serialized_end=1217
-  _COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY._serialized_start=1141
-  _COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY._serialized_end=1217
-  _SERVICEINSTANCEATTACHMENT._serialized_start=1219
-  _SERVICEINSTANCEATTACHMENT._serialized_end=1309
-  _RELEASECHANNELATTACHMENT._serialized_start=1311
-  _RELEASECHANNELATTACHMENT._serialized_end=1383
-  _PROTECTIONATTACHMENT._serialized_start=1386
-  _PROTECTIONATTACHMENT._serialized_end=1577
+  _globals['_PROTECTIONCONFIG']._serialized_start=325
+  _globals['_PROTECTIONCONFIG']._serialized_end=726
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_start=729
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_end=1217
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_start=1141
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_end=1217
+  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_start=1219
+  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_end=1309
+  _globals['_RELEASECHANNELATTACHMENT']._serialized_start=1311
+  _globals['_RELEASECHANNELATTACHMENT']._serialized_end=1383
+  _globals['_PROTECTIONATTACHMENT']._serialized_start=1386
+  _globals['_PROTECTIONATTACHMENT']._serialized_end=1577
 # @@protoc_insertion_point(module_scope)

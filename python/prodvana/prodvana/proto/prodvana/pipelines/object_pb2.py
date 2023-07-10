@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,30 +17,15 @@ from prodvana.proto.prodvana.common_config import meta_pb2 as prodvana_dot_commo
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fprodvana/pipelines/object.proto\x12\x12prodvana.pipelines\x1a\x1fgoogle/protobuf/timestamp.proto\x1a!prodvana/common_config/meta.proto\"\xa6\x01\n\x10PipelineRunState\x12\x36\n\x12\x63reation_timestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x39\n\x15last_update_timestamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05state\x18\x03 \x01(\t\x12\x10\n\x08terminal\x18\x04 \x01(\x08\"\x7f\n\x0bPipelineRun\x12;\n\x04meta\x18\x01 \x01(\x0b\x32-.prodvana.common_config.PipelineRunObjectMeta\x12\x33\n\x05state\x18\x03 \x01(\x0b\x32$.prodvana.pipelines.PipelineRunStateBNZLgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pipelinesb\x06proto3')
 
-
-
-_PIPELINERUNSTATE = DESCRIPTOR.message_types_by_name['PipelineRunState']
-_PIPELINERUN = DESCRIPTOR.message_types_by_name['PipelineRun']
-PipelineRunState = _reflection.GeneratedProtocolMessageType('PipelineRunState', (_message.Message,), {
-  'DESCRIPTOR' : _PIPELINERUNSTATE,
-  '__module__' : 'prodvana.pipelines.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.pipelines.PipelineRunState)
-  })
-_sym_db.RegisterMessage(PipelineRunState)
-
-PipelineRun = _reflection.GeneratedProtocolMessageType('PipelineRun', (_message.Message,), {
-  'DESCRIPTOR' : _PIPELINERUN,
-  '__module__' : 'prodvana.pipelines.object_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.pipelines.PipelineRun)
-  })
-_sym_db.RegisterMessage(PipelineRun)
-
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.pipelines.object_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZLgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pipelines'
-  _PIPELINERUNSTATE._serialized_start=124
-  _PIPELINERUNSTATE._serialized_end=290
-  _PIPELINERUN._serialized_start=292
-  _PIPELINERUN._serialized_end=419
+  _globals['_PIPELINERUNSTATE']._serialized_start=124
+  _globals['_PIPELINERUNSTATE']._serialized_end=290
+  _globals['_PIPELINERUN']._serialized_start=292
+  _globals['_PIPELINERUN']._serialized_end=419
 # @@protoc_insertion_point(module_scope)

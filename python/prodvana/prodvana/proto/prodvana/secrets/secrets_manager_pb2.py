@@ -4,9 +4,8 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -19,89 +18,9 @@ from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&prodvana/secrets/secrets_manager.proto\x12\x14prodvana.environment\x1a\x1cgoogle/api/annotations.proto\x1a prodvana/common_config/env.proto\x1a\x17validate/validate.proto\"\x10\n\x0eListSecretsReq\"B\n\x0fListSecretsResp\x12/\n\x07secrets\x18\x01 \x03(\x0b\x32\x1e.prodvana.common_config.Secret\"-\n\x15ListSecretVersionsReq\x12\x14\n\x03key\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"*\n\x16ListSecretVersionsResp\x12\x10\n\x08versions\x18\x01 \x03(\t\"<\n\x0cSetSecretReq\x12\x14\n\x03key\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x16\n\x05value\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\" \n\rSetSecretResp\x12\x0f\n\x07version\x18\x01 \x01(\t\"\'\n\x0f\x44\x65leteSecretReq\x12\x14\n\x03key\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x12\n\x10\x44\x65leteSecretResp\"H\n\x16\x44\x65leteSecretVersionReq\x12\x14\n\x03key\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x18\n\x07version\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x19\n\x17\x44\x65leteSecretVersionResp2\xbe\x05\n\x0eSecretsManager\x12t\n\x0bListSecrets\x12$.prodvana.environment.ListSecretsReq\x1a%.prodvana.environment.ListSecretsResp\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/secrets/list\x12\x95\x01\n\x12ListSecretVersions\x12+.prodvana.environment.ListSecretVersionsReq\x1a,.prodvana.environment.ListSecretVersionsResp\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/v1/secrets/{key=*}/versions\x12l\n\tSetSecret\x12\".prodvana.environment.SetSecretReq\x1a#.prodvana.environment.SetSecretResp\"\x16\x82\xd3\xe4\x93\x02\x10\"\x0b/v1/secrets:\x01*\x12\x81\x01\n\x0c\x44\x65leteSecret\x12%.prodvana.environment.DeleteSecretReq\x1a&.prodvana.environment.DeleteSecretResp\"\"\x82\xd3\xe4\x93\x02\x1c*\x1a/v1/secrets/{key=*}/delete\x12\xab\x01\n\x13\x44\x65leteSecretVersion\x12,.prodvana.environment.DeleteSecretVersionReq\x1a-.prodvana.environment.DeleteSecretVersionResp\"7\x82\xd3\xe4\x93\x02\x31*//v1/secrets/{key=*}/versions/{version=*}/deleteBLZJgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secretsb\x06proto3')
 
-
-
-_LISTSECRETSREQ = DESCRIPTOR.message_types_by_name['ListSecretsReq']
-_LISTSECRETSRESP = DESCRIPTOR.message_types_by_name['ListSecretsResp']
-_LISTSECRETVERSIONSREQ = DESCRIPTOR.message_types_by_name['ListSecretVersionsReq']
-_LISTSECRETVERSIONSRESP = DESCRIPTOR.message_types_by_name['ListSecretVersionsResp']
-_SETSECRETREQ = DESCRIPTOR.message_types_by_name['SetSecretReq']
-_SETSECRETRESP = DESCRIPTOR.message_types_by_name['SetSecretResp']
-_DELETESECRETREQ = DESCRIPTOR.message_types_by_name['DeleteSecretReq']
-_DELETESECRETRESP = DESCRIPTOR.message_types_by_name['DeleteSecretResp']
-_DELETESECRETVERSIONREQ = DESCRIPTOR.message_types_by_name['DeleteSecretVersionReq']
-_DELETESECRETVERSIONRESP = DESCRIPTOR.message_types_by_name['DeleteSecretVersionResp']
-ListSecretsReq = _reflection.GeneratedProtocolMessageType('ListSecretsReq', (_message.Message,), {
-  'DESCRIPTOR' : _LISTSECRETSREQ,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.ListSecretsReq)
-  })
-_sym_db.RegisterMessage(ListSecretsReq)
-
-ListSecretsResp = _reflection.GeneratedProtocolMessageType('ListSecretsResp', (_message.Message,), {
-  'DESCRIPTOR' : _LISTSECRETSRESP,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.ListSecretsResp)
-  })
-_sym_db.RegisterMessage(ListSecretsResp)
-
-ListSecretVersionsReq = _reflection.GeneratedProtocolMessageType('ListSecretVersionsReq', (_message.Message,), {
-  'DESCRIPTOR' : _LISTSECRETVERSIONSREQ,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.ListSecretVersionsReq)
-  })
-_sym_db.RegisterMessage(ListSecretVersionsReq)
-
-ListSecretVersionsResp = _reflection.GeneratedProtocolMessageType('ListSecretVersionsResp', (_message.Message,), {
-  'DESCRIPTOR' : _LISTSECRETVERSIONSRESP,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.ListSecretVersionsResp)
-  })
-_sym_db.RegisterMessage(ListSecretVersionsResp)
-
-SetSecretReq = _reflection.GeneratedProtocolMessageType('SetSecretReq', (_message.Message,), {
-  'DESCRIPTOR' : _SETSECRETREQ,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.SetSecretReq)
-  })
-_sym_db.RegisterMessage(SetSecretReq)
-
-SetSecretResp = _reflection.GeneratedProtocolMessageType('SetSecretResp', (_message.Message,), {
-  'DESCRIPTOR' : _SETSECRETRESP,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.SetSecretResp)
-  })
-_sym_db.RegisterMessage(SetSecretResp)
-
-DeleteSecretReq = _reflection.GeneratedProtocolMessageType('DeleteSecretReq', (_message.Message,), {
-  'DESCRIPTOR' : _DELETESECRETREQ,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.DeleteSecretReq)
-  })
-_sym_db.RegisterMessage(DeleteSecretReq)
-
-DeleteSecretResp = _reflection.GeneratedProtocolMessageType('DeleteSecretResp', (_message.Message,), {
-  'DESCRIPTOR' : _DELETESECRETRESP,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.DeleteSecretResp)
-  })
-_sym_db.RegisterMessage(DeleteSecretResp)
-
-DeleteSecretVersionReq = _reflection.GeneratedProtocolMessageType('DeleteSecretVersionReq', (_message.Message,), {
-  'DESCRIPTOR' : _DELETESECRETVERSIONREQ,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.DeleteSecretVersionReq)
-  })
-_sym_db.RegisterMessage(DeleteSecretVersionReq)
-
-DeleteSecretVersionResp = _reflection.GeneratedProtocolMessageType('DeleteSecretVersionResp', (_message.Message,), {
-  'DESCRIPTOR' : _DELETESECRETVERSIONRESP,
-  '__module__' : 'prodvana.secrets.secrets_manager_pb2'
-  # @@protoc_insertion_point(class_scope:prodvana.environment.DeleteSecretVersionResp)
-  })
-_sym_db.RegisterMessage(DeleteSecretVersionResp)
-
-_SECRETSMANAGER = DESCRIPTOR.services_by_name['SecretsManager']
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prodvana.secrets.secrets_manager_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
@@ -128,26 +47,26 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SECRETSMANAGER.methods_by_name['DeleteSecret']._serialized_options = b'\202\323\344\223\002\034*\032/v1/secrets/{key=*}/delete'
   _SECRETSMANAGER.methods_by_name['DeleteSecretVersion']._options = None
   _SECRETSMANAGER.methods_by_name['DeleteSecretVersion']._serialized_options = b'\202\323\344\223\0021*//v1/secrets/{key=*}/versions/{version=*}/delete'
-  _LISTSECRETSREQ._serialized_start=153
-  _LISTSECRETSREQ._serialized_end=169
-  _LISTSECRETSRESP._serialized_start=171
-  _LISTSECRETSRESP._serialized_end=237
-  _LISTSECRETVERSIONSREQ._serialized_start=239
-  _LISTSECRETVERSIONSREQ._serialized_end=284
-  _LISTSECRETVERSIONSRESP._serialized_start=286
-  _LISTSECRETVERSIONSRESP._serialized_end=328
-  _SETSECRETREQ._serialized_start=330
-  _SETSECRETREQ._serialized_end=390
-  _SETSECRETRESP._serialized_start=392
-  _SETSECRETRESP._serialized_end=424
-  _DELETESECRETREQ._serialized_start=426
-  _DELETESECRETREQ._serialized_end=465
-  _DELETESECRETRESP._serialized_start=467
-  _DELETESECRETRESP._serialized_end=485
-  _DELETESECRETVERSIONREQ._serialized_start=487
-  _DELETESECRETVERSIONREQ._serialized_end=559
-  _DELETESECRETVERSIONRESP._serialized_start=561
-  _DELETESECRETVERSIONRESP._serialized_end=586
-  _SECRETSMANAGER._serialized_start=589
-  _SECRETSMANAGER._serialized_end=1291
+  _globals['_LISTSECRETSREQ']._serialized_start=153
+  _globals['_LISTSECRETSREQ']._serialized_end=169
+  _globals['_LISTSECRETSRESP']._serialized_start=171
+  _globals['_LISTSECRETSRESP']._serialized_end=237
+  _globals['_LISTSECRETVERSIONSREQ']._serialized_start=239
+  _globals['_LISTSECRETVERSIONSREQ']._serialized_end=284
+  _globals['_LISTSECRETVERSIONSRESP']._serialized_start=286
+  _globals['_LISTSECRETVERSIONSRESP']._serialized_end=328
+  _globals['_SETSECRETREQ']._serialized_start=330
+  _globals['_SETSECRETREQ']._serialized_end=390
+  _globals['_SETSECRETRESP']._serialized_start=392
+  _globals['_SETSECRETRESP']._serialized_end=424
+  _globals['_DELETESECRETREQ']._serialized_start=426
+  _globals['_DELETESECRETREQ']._serialized_end=465
+  _globals['_DELETESECRETRESP']._serialized_start=467
+  _globals['_DELETESECRETRESP']._serialized_end=485
+  _globals['_DELETESECRETVERSIONREQ']._serialized_start=487
+  _globals['_DELETESECRETVERSIONREQ']._serialized_end=559
+  _globals['_DELETESECRETVERSIONRESP']._serialized_start=561
+  _globals['_DELETESECRETVERSIONRESP']._serialized_end=586
+  _globals['_SECRETSMANAGER']._serialized_start=589
+  _globals['_SECRETSMANAGER']._serialized_end=1291
 # @@protoc_insertion_point(module_scope)
