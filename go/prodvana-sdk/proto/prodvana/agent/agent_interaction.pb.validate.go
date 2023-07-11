@@ -2365,6 +2365,8 @@ func (m *ProxyAPIServerReq) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ConnId
+
 	switch v := m.Msg.(type) {
 	case *ProxyAPIServerReq_RuntimeId:
 		if v == nil {

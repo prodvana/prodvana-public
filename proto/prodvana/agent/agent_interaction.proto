@@ -118,6 +118,9 @@ message ProxyAPIServerReq {
         string runtime_id = 1; // Header
         bytes blob = 2; // Everything after header
     }
+
+    // Debugging/logging bits
+    string conn_id = 3;
 }
 
 message ProxyAPIServerResp {

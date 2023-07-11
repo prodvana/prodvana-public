@@ -387,18 +387,22 @@ class ProxyAPIServerReq(google.protobuf.message.Message):
 
     RUNTIME_ID_FIELD_NUMBER: builtins.int
     BLOB_FIELD_NUMBER: builtins.int
+    CONN_ID_FIELD_NUMBER: builtins.int
     runtime_id: builtins.str
     """Header"""
     blob: builtins.bytes
     """Everything after header"""
+    conn_id: builtins.str
+    """Debugging/logging bits"""
     def __init__(
         self,
         *,
         runtime_id: builtins.str = ...,
         blob: builtins.bytes = ...,
+        conn_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["blob", b"blob", "msg", b"msg", "runtime_id", b"runtime_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blob", b"blob", "msg", b"msg", "runtime_id", b"runtime_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blob", b"blob", "conn_id", b"conn_id", "msg", b"msg", "runtime_id", b"runtime_id"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["msg", b"msg"]) -> typing_extensions.Literal["runtime_id", "blob"] | None: ...
 
 global___ProxyAPIServerReq = ProxyAPIServerReq
