@@ -2986,6 +2986,12 @@
                         }
                     ],
                     "description": "commands that must run before terraform can run, e.g. gcloud auth login"
+                },
+                "pollInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.",
+                    "format": "regex"
                 }
             },
             "additionalProperties": false,

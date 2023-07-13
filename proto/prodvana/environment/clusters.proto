@@ -124,6 +124,8 @@ message TerraformRunnerConfig {
     repeated prodvana.volumes.Volume volumes = 3;
     // commands that must run before terraform can run, e.g. gcloud auth login
     repeated IacRunnerCommand pre_run = 4;
+    // Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.
+    google.protobuf.Duration poll_interval = 5;
 }
 
 message PulumiRunnerConfig {
@@ -134,6 +136,8 @@ message PulumiRunnerConfig {
     repeated prodvana.volumes.Volume volumes = 3;
     // commands that must run before pulumi can run, e.g. gcloud auth login
     repeated IacRunnerCommand pre_run = 4;
+    // Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
+    google.protobuf.Duration poll_interval = 5;
 }
 
 message ClusterConfig {

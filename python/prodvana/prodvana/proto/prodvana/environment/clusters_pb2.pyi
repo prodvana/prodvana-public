@@ -397,6 +397,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     VOLUMES_FIELD_NUMBER: builtins.int
     PRE_RUN_FIELD_NUMBER: builtins.int
+    POLL_INTERVAL_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -408,6 +409,9 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     @property
     def pre_run(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IacRunnerCommand]:
         """commands that must run before terraform can run, e.g. gcloud auth login"""
+    @property
+    def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
+        """Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."""
     def __init__(
         self,
         *,
@@ -415,9 +419,10 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
+        poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 
@@ -445,6 +450,7 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     VOLUMES_FIELD_NUMBER: builtins.int
     PRE_RUN_FIELD_NUMBER: builtins.int
+    POLL_INTERVAL_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -456,6 +462,9 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
     @property
     def pre_run(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IacRunnerCommand]:
         """commands that must run before pulumi can run, e.g. gcloud auth login"""
+    @property
+    def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
+        """Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often."""
     def __init__(
         self,
         *,
@@ -463,9 +472,10 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
+        poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
 
 global___PulumiRunnerConfig = PulumiRunnerConfig
 

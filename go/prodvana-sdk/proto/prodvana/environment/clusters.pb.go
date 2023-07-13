@@ -866,6 +866,8 @@ type TerraformRunnerConfig struct {
 	Volumes []*volumes.Volume `protobuf:"bytes,3,rep,name=volumes,proto3" json:"volumes,omitempty"`
 	// commands that must run before terraform can run, e.g. gcloud auth login
 	PreRun []*IacRunnerCommand `protobuf:"bytes,4,rep,name=pre_run,json=preRun,proto3" json:"pre_run,omitempty"`
+	// Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.
+	PollInterval *durationpb.Duration `protobuf:"bytes,5,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
 }
 
 func (x *TerraformRunnerConfig) Reset() {
@@ -928,6 +930,13 @@ func (x *TerraformRunnerConfig) GetPreRun() []*IacRunnerCommand {
 	return nil
 }
 
+func (x *TerraformRunnerConfig) GetPollInterval() *durationpb.Duration {
+	if x != nil {
+		return x.PollInterval
+	}
+	return nil
+}
+
 type PulumiRunnerConfig struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -940,6 +949,8 @@ type PulumiRunnerConfig struct {
 	Volumes []*volumes.Volume `protobuf:"bytes,3,rep,name=volumes,proto3" json:"volumes,omitempty"`
 	// commands that must run before pulumi can run, e.g. gcloud auth login
 	PreRun []*IacRunnerCommand `protobuf:"bytes,4,rep,name=pre_run,json=preRun,proto3" json:"pre_run,omitempty"`
+	// Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
+	PollInterval *durationpb.Duration `protobuf:"bytes,5,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
 }
 
 func (x *PulumiRunnerConfig) Reset() {
@@ -998,6 +1009,13 @@ func (x *PulumiRunnerConfig) GetVolumes() []*volumes.Volume {
 func (x *PulumiRunnerConfig) GetPreRun() []*IacRunnerCommand {
 	if x != nil {
 		return x.PreRun
+	}
+	return nil
+}
+
+func (x *PulumiRunnerConfig) GetPollInterval() *durationpb.Duration {
+	if x != nil {
+		return x.PollInterval
 	}
 	return nil
 }
@@ -1954,7 +1972,7 @@ var file_prodvana_environment_clusters_proto_rawDesc = []byte{
 	0x61, 0x6c, 0x75, 0x65, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x22,
 	0x2d, 0x0a, 0x10, 0x49, 0x61, 0x63, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x43, 0x6f, 0x6d, 0x6d,
 	0x61, 0x6e, 0x64, 0x12, 0x19, 0x0a, 0x03, 0x63, 0x6d, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x03, 0x63, 0x6d, 0x64, 0x22, 0x88,
+	0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x03, 0x63, 0x6d, 0x64, 0x22, 0xc8,
 	0x03, 0x0a, 0x15, 0x54, 0x65, 0x72, 0x72, 0x61, 0x66, 0x6f, 0x72, 0x6d, 0x52, 0x75, 0x6e, 0x6e,
 	0x65, 0x72, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x12, 0x58, 0x0a, 0x0d, 0x70, 0x72, 0x6f, 0x78,
 	0x79, 0x5f, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
@@ -1973,13 +1991,17 @@ var file_prodvana_environment_clusters_proto_rawDesc = []byte{
 	0x0a, 0x07, 0x70, 0x72, 0x65, 0x5f, 0x72, 0x75, 0x6e, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x26, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x65, 0x6e, 0x76, 0x69, 0x72,
 	0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x2e, 0x49, 0x61, 0x63, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72,
-	0x43, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x52, 0x06, 0x70, 0x72, 0x65, 0x52, 0x75, 0x6e, 0x1a,
+	0x43, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x52, 0x06, 0x70, 0x72, 0x65, 0x52, 0x75, 0x6e, 0x12,
+	0x3e, 0x0a, 0x0d, 0x70, 0x6f, 0x6c, 0x6c, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x0c, 0x70, 0x6f, 0x6c, 0x6c, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x1a,
 	0x58, 0x0a, 0x08, 0x45, 0x6e, 0x76, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b,
 	0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x36, 0x0a,
 	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x70,
 	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63,
 	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x45, 0x6e, 0x76, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x05,
-	0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0x82, 0x03, 0x0a, 0x12, 0x50, 0x75,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0xc2, 0x03, 0x0a, 0x12, 0x50, 0x75,
 	0x6c, 0x75, 0x6d, 0x69, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
 	0x12, 0x58, 0x0a, 0x0d, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x5f, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d,
 	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61,
@@ -1998,7 +2020,11 @@ var file_prodvana_environment_clusters_proto_rawDesc = []byte{
 	0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e,
 	0x65, 0x6e, 0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x2e, 0x49, 0x61, 0x63, 0x52,
 	0x75, 0x6e, 0x6e, 0x65, 0x72, 0x43, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x52, 0x06, 0x70, 0x72,
-	0x65, 0x52, 0x75, 0x6e, 0x1a, 0x58, 0x0a, 0x08, 0x45, 0x6e, 0x76, 0x45, 0x6e, 0x74, 0x72, 0x79,
+	0x65, 0x52, 0x75, 0x6e, 0x12, 0x3e, 0x0a, 0x0d, 0x70, 0x6f, 0x6c, 0x6c, 0x5f, 0x69, 0x6e, 0x74,
+	0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75,
+	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x70, 0x6f, 0x6c, 0x6c, 0x49, 0x6e, 0x74, 0x65,
+	0x72, 0x76, 0x61, 0x6c, 0x1a, 0x58, 0x0a, 0x08, 0x45, 0x6e, 0x76, 0x45, 0x6e, 0x74, 0x72, 0x79,
 	0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b,
 	0x65, 0x79, 0x12, 0x36, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d,
@@ -2234,33 +2260,35 @@ var file_prodvana_environment_clusters_proto_depIdxs = []int32{
 	20, // 21: prodvana.environment.TerraformRunnerConfig.env:type_name -> prodvana.environment.TerraformRunnerConfig.EnvEntry
 	35, // 22: prodvana.environment.TerraformRunnerConfig.volumes:type_name -> prodvana.volumes.Volume
 	11, // 23: prodvana.environment.TerraformRunnerConfig.pre_run:type_name -> prodvana.environment.IacRunnerCommand
-	34, // 24: prodvana.environment.PulumiRunnerConfig.proxy_runtime:type_name -> prodvana.runtimes.RuntimeExecutionConfig
-	21, // 25: prodvana.environment.PulumiRunnerConfig.env:type_name -> prodvana.environment.PulumiRunnerConfig.EnvEntry
-	35, // 26: prodvana.environment.PulumiRunnerConfig.volumes:type_name -> prodvana.volumes.Volume
-	11, // 27: prodvana.environment.PulumiRunnerConfig.pre_run:type_name -> prodvana.environment.IacRunnerCommand
-	22, // 28: prodvana.environment.ClusterConfig.kubecost:type_name -> prodvana.environment.ClusterConfig.Kubecost
-	23, // 29: prodvana.environment.ClusterConfig.datadog:type_name -> prodvana.environment.ClusterConfig.Datadog
-	24, // 30: prodvana.environment.ClusterConfig.alb_ingress:type_name -> prodvana.environment.ClusterConfig.ALBIngress
-	25, // 31: prodvana.environment.ClusterConfig.argo_rollouts:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts
-	26, // 32: prodvana.environment.ClusterConfig.gke_ingress:type_name -> prodvana.environment.ClusterConfig.GKEIngress
-	26, // 33: prodvana.environment.ClusterConfig.self_managed_gke_ingress:type_name -> prodvana.environment.ClusterConfig.GKEIngress
-	3,  // 34: prodvana.environment.ClusterConfig.cloud_provider:type_name -> prodvana.environment.ClusterConfig.CloudProvider
-	7,  // 35: prodvana.environment.ClusterConfig.fake:type_name -> prodvana.environment.FakeClusterConfig
-	9,  // 36: prodvana.environment.ClusterConfig.extension:type_name -> prodvana.environment.ExtensionClusterConfig
-	12, // 37: prodvana.environment.ClusterConfig.terraform_runner:type_name -> prodvana.environment.TerraformRunnerConfig
-	12, // 38: prodvana.environment.ClusterConfig.pulumi_runner:type_name -> prodvana.environment.TerraformRunnerConfig
-	17, // 39: prodvana.environment.ClusterAuth.K8sAuth.agent_env:type_name -> prodvana.environment.ClusterAuth.K8sAuth.AgentEnvEntry
-	36, // 40: prodvana.environment.CompiledExtensionCommand.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	36, // 41: prodvana.environment.TerraformRunnerConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	36, // 42: prodvana.environment.PulumiRunnerConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	27, // 43: prodvana.environment.ClusterConfig.ArgoRollouts.templates:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate
-	28, // 44: prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.arg_mapping:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry
-	4,  // 45: prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry.value:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgValue
-	46, // [46:46] is the sub-list for method output_type
-	46, // [46:46] is the sub-list for method input_type
-	46, // [46:46] is the sub-list for extension type_name
-	46, // [46:46] is the sub-list for extension extendee
-	0,  // [0:46] is the sub-list for field type_name
+	32, // 24: prodvana.environment.TerraformRunnerConfig.poll_interval:type_name -> google.protobuf.Duration
+	34, // 25: prodvana.environment.PulumiRunnerConfig.proxy_runtime:type_name -> prodvana.runtimes.RuntimeExecutionConfig
+	21, // 26: prodvana.environment.PulumiRunnerConfig.env:type_name -> prodvana.environment.PulumiRunnerConfig.EnvEntry
+	35, // 27: prodvana.environment.PulumiRunnerConfig.volumes:type_name -> prodvana.volumes.Volume
+	11, // 28: prodvana.environment.PulumiRunnerConfig.pre_run:type_name -> prodvana.environment.IacRunnerCommand
+	32, // 29: prodvana.environment.PulumiRunnerConfig.poll_interval:type_name -> google.protobuf.Duration
+	22, // 30: prodvana.environment.ClusterConfig.kubecost:type_name -> prodvana.environment.ClusterConfig.Kubecost
+	23, // 31: prodvana.environment.ClusterConfig.datadog:type_name -> prodvana.environment.ClusterConfig.Datadog
+	24, // 32: prodvana.environment.ClusterConfig.alb_ingress:type_name -> prodvana.environment.ClusterConfig.ALBIngress
+	25, // 33: prodvana.environment.ClusterConfig.argo_rollouts:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts
+	26, // 34: prodvana.environment.ClusterConfig.gke_ingress:type_name -> prodvana.environment.ClusterConfig.GKEIngress
+	26, // 35: prodvana.environment.ClusterConfig.self_managed_gke_ingress:type_name -> prodvana.environment.ClusterConfig.GKEIngress
+	3,  // 36: prodvana.environment.ClusterConfig.cloud_provider:type_name -> prodvana.environment.ClusterConfig.CloudProvider
+	7,  // 37: prodvana.environment.ClusterConfig.fake:type_name -> prodvana.environment.FakeClusterConfig
+	9,  // 38: prodvana.environment.ClusterConfig.extension:type_name -> prodvana.environment.ExtensionClusterConfig
+	12, // 39: prodvana.environment.ClusterConfig.terraform_runner:type_name -> prodvana.environment.TerraformRunnerConfig
+	12, // 40: prodvana.environment.ClusterConfig.pulumi_runner:type_name -> prodvana.environment.TerraformRunnerConfig
+	17, // 41: prodvana.environment.ClusterAuth.K8sAuth.agent_env:type_name -> prodvana.environment.ClusterAuth.K8sAuth.AgentEnvEntry
+	36, // 42: prodvana.environment.CompiledExtensionCommand.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	36, // 43: prodvana.environment.TerraformRunnerConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	36, // 44: prodvana.environment.PulumiRunnerConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	27, // 45: prodvana.environment.ClusterConfig.ArgoRollouts.templates:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate
+	28, // 46: prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.arg_mapping:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry
+	4,  // 47: prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgMappingEntry.value:type_name -> prodvana.environment.ClusterConfig.ArgoRollouts.AnalysisTemplate.ArgValue
+	48, // [48:48] is the sub-list for method output_type
+	48, // [48:48] is the sub-list for method input_type
+	48, // [48:48] is the sub-list for extension type_name
+	48, // [48:48] is the sub-list for extension extendee
+	0,  // [0:48] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_environment_clusters_proto_init() }

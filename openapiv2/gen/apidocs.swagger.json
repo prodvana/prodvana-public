@@ -7777,6 +7777,10 @@
             "$ref": "#/definitions/environmentIacRunnerCommand"
           },
           "title": "commands that must run before terraform can run, e.g. gcloud auth login"
+        },
+        "pollInterval": {
+          "type": "string",
+          "description": "Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."
         }
       }
     },
