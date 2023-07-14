@@ -38,6 +38,16 @@ message ProtectionConfig {
     google.protobuf.Duration timeout = 5;
 
     repeated prodvana.common_config.ParameterDefinition parameters = 6 [(validate.rules).repeated.items.message.required = true];
+
+    // optional env variables to inject and override from exec_config
+    map<string, prodvana.common_config.EnvValue> env = 7 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
 }
 
 message CompiledProtectionAttachmentConfig {

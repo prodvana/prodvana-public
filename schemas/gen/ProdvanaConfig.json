@@ -2182,6 +2182,27 @@
                             "type": "array"
                         }
                     ]
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to inject and override from exec_config"
                 }
             },
             "additionalProperties": false,
@@ -2815,6 +2836,27 @@
                     "type": "string",
                     "description": "how long after a run has started to try another run if it has not completed yet",
                     "format": "regex"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to inject and override from exec_config"
                 }
             },
             "additionalProperties": false,
@@ -3529,6 +3571,27 @@
                             "type": "array"
                         }
                     ]
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to inject and override from exec_config"
                 }
             },
             "additionalProperties": false,
@@ -4819,6 +4882,27 @@
                         },
                         {}
                     ]
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "Additional env variables that are injected to the service. This can be useful for injecting and/or overriding env variables from release channel configs for Kubernetes and runtime extension configs. Not supported for helm configs."
                 }
             },
             "additionalProperties": false,
@@ -5382,6 +5466,27 @@
                         }
                     ],
                     "description": "if set, do not attempt to delete the underlying runtime objects when deleting a service"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "Additional env variables that are injected to the service. This can be useful for injecting and/or overriding env variables from release channel configs for Kubernetes and runtime extension configs. Not supported for helm configs."
                 }
             },
             "additionalProperties": false,

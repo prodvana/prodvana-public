@@ -37,7 +37,17 @@ message DeliveryExtensionConfig {
 
     repeated prodvana.common_config.ParameterDefinition parameters = 4 [(validate.rules).repeated.items.message.required = true];
 
-    // next tag: 5
+    // optional env variables to inject and override from exec_config
+    map<string, prodvana.common_config.EnvValue> env = 5 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
+    // next tag: 6
 }
 
 message DeliveryExtensionInstanceRef {

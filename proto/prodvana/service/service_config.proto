@@ -115,10 +115,23 @@ message PerReleaseChannelConfig {
         prodvana.common_config.HelmConfig helm = 15;
     }
 
+    // Additional env variables that are injected to the service.
+    // This can be useful for injecting and/or overriding env variables from release channel
+    // configs for Kubernetes and runtime extension configs.
+    // Not supported for helm configs.
+    map<string, prodvana.common_config.EnvValue> env = 19 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
     reserved 3, 4, 12;
     reserved "protections";
 
-    // next tag: 19
+    // next tag: 20
 }
 
 message CapabilityReference {
@@ -315,7 +328,20 @@ message ServiceConfig {
     // if set, do not attempt to delete the underlying runtime objects when deleting a service
     bool no_cleanup_on_delete = 31;
 
-    // next tag: 32
+    // Additional env variables that are injected to the service.
+    // This can be useful for injecting and/or overriding env variables from release channel
+    // configs for Kubernetes and runtime extension configs.
+    // Not supported for helm configs.
+    map<string, prodvana.common_config.EnvValue> env = 32 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
+    // next tag: 33
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

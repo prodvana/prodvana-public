@@ -7548,6 +7548,13 @@
         "timeout": {
           "type": "string",
           "title": "how long after a run has started to try another run if it has not completed yet"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to inject and override from exec_config"
         }
       }
     },
@@ -9355,6 +9362,13 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterDefinition"
           }
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to inject and override from exec_config"
         }
       }
     },
@@ -9642,6 +9656,13 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterDefinition"
           }
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to inject and override from exec_config"
         }
       }
     },
@@ -10531,6 +10552,13 @@
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "description": "Additional env variables that are injected to the service.\nThis can be useful for injecting and/or overriding env variables from release channel\nconfigs for Kubernetes and runtime extension configs.\nNot supported for helm configs."
         }
       }
     },
@@ -10756,6 +10784,13 @@
         "noCleanupOnDelete": {
           "type": "boolean",
           "title": "if set, do not attempt to delete the underlying runtime objects when deleting a service"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "description": "Additional env variables that are injected to the service.\nThis can be useful for injecting and/or overriding env variables from release channel\nconfigs for Kubernetes and runtime extension configs.\nNot supported for helm configs."
         }
       }
     },

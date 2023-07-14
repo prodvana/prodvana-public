@@ -1438,6 +1438,72 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 
 	// no validation rules for RuntimeConnection
 
+	{
+		sorted_keys := make([]string, len(m.GetEnv()))
+		i := 0
+		for key := range m.GetEnv() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetEnv()[key]
+			_ = val
+
+			if val == nil {
+				err := PerReleaseChannelConfigValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value cannot be sparse, all pairs must be non-nil",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_PerReleaseChannelConfig_Env_Pattern.MatchString(key) {
+				err := PerReleaseChannelConfigValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value does not match regex pattern \"^[a-zA-Z_]+[a-zA-Z0-9_]*$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, PerReleaseChannelConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, PerReleaseChannelConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return PerReleaseChannelConfigValidationError{
+						field:  fmt.Sprintf("Env[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
 	switch v := m.ConfigOneof.(type) {
 	case *PerReleaseChannelConfig_RuntimeExtension:
 		if v == nil {
@@ -1716,6 +1782,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PerReleaseChannelConfigValidationError{}
+
+var _PerReleaseChannelConfig_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
 
 // Validate checks the field values on CapabilityReference with the rules
 // defined in the proto definition for this message. If any rules are
@@ -4298,6 +4366,72 @@ func (m *ServiceConfig) validate(all bool) error {
 
 	// no validation rules for NoCleanupOnDelete
 
+	{
+		sorted_keys := make([]string, len(m.GetEnv()))
+		i := 0
+		for key := range m.GetEnv() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetEnv()[key]
+			_ = val
+
+			if val == nil {
+				err := ServiceConfigValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value cannot be sparse, all pairs must be non-nil",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_ServiceConfig_Env_Pattern.MatchString(key) {
+				err := ServiceConfigValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value does not match regex pattern \"^[a-zA-Z_]+[a-zA-Z0-9_]*$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, ServiceConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, ServiceConfigValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return ServiceConfigValidationError{
+						field:  fmt.Sprintf("Env[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
 	switch v := m.ConfigOneof.(type) {
 	case *ServiceConfig_RuntimeExtension:
 		if v == nil {
@@ -4546,6 +4680,8 @@ var _ interface {
 } = ServiceConfigValidationError{}
 
 var _ServiceConfig_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
+
+var _ServiceConfig_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
 
 // Validate checks the field values on CompiledServiceInstanceConfig with the
 // rules defined in the proto definition for this message. If any rules are

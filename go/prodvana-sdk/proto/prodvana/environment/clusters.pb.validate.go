@@ -640,6 +640,72 @@ func (m *ExtensionCommand) validate(all bool) error {
 		}
 	}
 
+	{
+		sorted_keys := make([]string, len(m.GetEnv()))
+		i := 0
+		for key := range m.GetEnv() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetEnv()[key]
+			_ = val
+
+			if val == nil {
+				err := ExtensionCommandValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value cannot be sparse, all pairs must be non-nil",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_ExtensionCommand_Env_Pattern.MatchString(key) {
+				err := ExtensionCommandValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value does not match regex pattern \"^[a-zA-Z_]+[a-zA-Z0-9_]*$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, ExtensionCommandValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, ExtensionCommandValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return ExtensionCommandValidationError{
+						field:  fmt.Sprintf("Env[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *ExtensionCommand_TaskConfig:
@@ -817,6 +883,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ExtensionCommandValidationError{}
+
+var _ExtensionCommand_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
 
 // Validate checks the field values on ExtensionClusterConfig with the rules
 // defined in the proto definition for this message. If any rules are

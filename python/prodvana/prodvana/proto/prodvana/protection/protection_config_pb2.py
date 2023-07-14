@@ -20,7 +20,7 @@ from prodvana.proto.prodvana.common_config import parameters_pb2 as prodvana_dot
 from prodvana.proto.prodvana.runtimes import runtimes_config_pb2 as prodvana_dot_runtimes_dot_runtimes__config__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+prodvana/protection/protection_config.proto\x12\x13prodvana.protection\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\x1a!prodvana/common_config/task.proto\x1a prodvana/common_config/env.proto\x1a.prodvana/common_config/kubernetes_config.proto\x1a\'prodvana/common_config/parameters.proto\x1a\'prodvana/runtimes/runtimes_config.proto\"\x91\x03\n\x10ProtectionConfig\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12\x39\n\x0btask_config\x18\x02 \x01(\x0b\x32\".prodvana.common_config.TaskConfigH\x00\x12\x45\n\x11kubernetes_config\x18\x03 \x01(\x0b\x32(.prodvana.common_config.KubernetesConfigH\x00\x12\x30\n\rpoll_interval\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12*\n\x07timeout\x18\x05 \x01(\x0b\x32\x19.google.protobuf.Duration\x12N\n\nparameters\x18\x06 \x03(\x0b\x32+.prodvana.common_config.ParameterDefinitionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x42\x12\n\x0b\x65xec_config\x12\x03\xf8\x42\x01\"\xe8\x03\n\"CompiledProtectionAttachmentConfig\x12\x35\n\x06\x63onfig\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12=\n\nattachment\x18\x02 \x01(\x0b\x32).prodvana.protection.ProtectionAttachment\x12\x44\n\x11runtime_execution\x18\x03 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfig\x12v\n\x03\x65nv\x18\x04 \x03(\x0b\x32@.prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12@\n\x10parameter_values\x18\x05 \x03(\x0b\x32&.prodvana.common_config.ParameterValue\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\"Z\n\x19ServiceInstanceAttachment\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x03 \x01(\t\"H\n\x18ReleaseChannelAttachment\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\"\xbf\x01\n\x14ProtectionAttachment\x12J\n\x10service_instance\x18\x01 \x01(\x0b\x32..prodvana.protection.ServiceInstanceAttachmentH\x00\x12H\n\x0frelease_channel\x18\x02 \x01(\x0b\x32-.prodvana.protection.ReleaseChannelAttachmentH\x00\x42\x11\n\nattachment\x12\x03\xf8\x42\x01\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+prodvana/protection/protection_config.proto\x12\x13prodvana.protection\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\x1a!prodvana/common_config/task.proto\x1a prodvana/common_config/env.proto\x1a.prodvana/common_config/kubernetes_config.proto\x1a\'prodvana/common_config/parameters.proto\x1a\'prodvana/runtimes/runtimes_config.proto\"\xc5\x04\n\x10ProtectionConfig\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12\x39\n\x0btask_config\x18\x02 \x01(\x0b\x32\".prodvana.common_config.TaskConfigH\x00\x12\x45\n\x11kubernetes_config\x18\x03 \x01(\x0b\x32(.prodvana.common_config.KubernetesConfigH\x00\x12\x30\n\rpoll_interval\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12*\n\x07timeout\x18\x05 \x01(\x0b\x32\x19.google.protobuf.Duration\x12N\n\nparameters\x18\x06 \x03(\x0b\x32+.prodvana.common_config.ParameterDefinitionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12\x64\n\x03\x65nv\x18\x07 \x03(\x0b\x32..prodvana.protection.ProtectionConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\x42\x12\n\x0b\x65xec_config\x12\x03\xf8\x42\x01\"\xe8\x03\n\"CompiledProtectionAttachmentConfig\x12\x35\n\x06\x63onfig\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12=\n\nattachment\x18\x02 \x01(\x0b\x32).prodvana.protection.ProtectionAttachment\x12\x44\n\x11runtime_execution\x18\x03 \x01(\x0b\x32).prodvana.runtimes.RuntimeExecutionConfig\x12v\n\x03\x65nv\x18\x04 \x03(\x0b\x32@.prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12@\n\x10parameter_values\x18\x05 \x03(\x0b\x32&.prodvana.common_config.ParameterValue\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\"Z\n\x19ServiceInstanceAttachment\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x03 \x01(\t\"H\n\x18ReleaseChannelAttachment\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x17\n\x0frelease_channel\x18\x02 \x01(\t\"\xbf\x01\n\x14ProtectionAttachment\x12J\n\x10service_instance\x18\x01 \x01(\x0b\x32..prodvana.protection.ServiceInstanceAttachmentH\x00\x12H\n\x0frelease_channel\x18\x02 \x01(\x0b\x32-.prodvana.protection.ReleaseChannelAttachmentH\x00\x42\x11\n\nattachment\x12\x03\xf8\x42\x01\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,12 +29,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection'
+  _PROTECTIONCONFIG_ENVENTRY._options = None
+  _PROTECTIONCONFIG_ENVENTRY._serialized_options = b'8\001'
   _PROTECTIONCONFIG.oneofs_by_name['exec_config']._options = None
   _PROTECTIONCONFIG.oneofs_by_name['exec_config']._serialized_options = b'\370B\001'
   _PROTECTIONCONFIG.fields_by_name['name']._options = None
   _PROTECTIONCONFIG.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$'
   _PROTECTIONCONFIG.fields_by_name['parameters']._options = None
   _PROTECTIONCONFIG.fields_by_name['parameters']._serialized_options = b'\372B\n\222\001\007\"\005\212\001\002\020\001'
+  _PROTECTIONCONFIG.fields_by_name['env']._options = None
+  _PROTECTIONCONFIG.fields_by_name['env']._serialized_options = b'\372B$\232\001!\030\001\"\035r\0332\031^[a-zA-Z_]+[a-zA-Z0-9_]*$'
   _COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY._options = None
   _COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY._serialized_options = b'8\001'
   _COMPILEDPROTECTIONATTACHMENTCONFIG.fields_by_name['env']._options = None
@@ -42,15 +46,17 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _PROTECTIONATTACHMENT.oneofs_by_name['attachment']._options = None
   _PROTECTIONATTACHMENT.oneofs_by_name['attachment']._serialized_options = b'\370B\001'
   _globals['_PROTECTIONCONFIG']._serialized_start=325
-  _globals['_PROTECTIONCONFIG']._serialized_end=726
-  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_start=729
-  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_end=1217
-  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_start=1141
-  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_end=1217
-  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_start=1219
-  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_end=1309
-  _globals['_RELEASECHANNELATTACHMENT']._serialized_start=1311
-  _globals['_RELEASECHANNELATTACHMENT']._serialized_end=1383
-  _globals['_PROTECTIONATTACHMENT']._serialized_start=1386
-  _globals['_PROTECTIONATTACHMENT']._serialized_end=1577
+  _globals['_PROTECTIONCONFIG']._serialized_end=906
+  _globals['_PROTECTIONCONFIG_ENVENTRY']._serialized_start=810
+  _globals['_PROTECTIONCONFIG_ENVENTRY']._serialized_end=886
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_start=909
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG']._serialized_end=1397
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_start=810
+  _globals['_COMPILEDPROTECTIONATTACHMENTCONFIG_ENVENTRY']._serialized_end=886
+  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_start=1399
+  _globals['_SERVICEINSTANCEATTACHMENT']._serialized_end=1489
+  _globals['_RELEASECHANNELATTACHMENT']._serialized_start=1491
+  _globals['_RELEASECHANNELATTACHMENT']._serialized_end=1563
+  _globals['_PROTECTIONATTACHMENT']._serialized_start=1566
+  _globals['_PROTECTIONATTACHMENT']._serialized_end=1757
 # @@protoc_insertion_point(module_scope)
