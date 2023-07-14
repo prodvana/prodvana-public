@@ -1,0 +1,18 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+import "validate/validate.proto";
+
+message Constant {
+    // constant name, used in substitutions
+    string name = 1 [(validate.rules).string.min_len = 1];
+
+    oneof config_oneof {
+        option (validate.required) = true;
+        StringConstant string = 3;
+    }
+}
+
+message StringConstant {
+    string value = 1;
+}

@@ -3,6 +3,7 @@ package prodvana.release_channel;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel";
 
 import "google/protobuf/duration.proto";
+import "prodvana/common_config/constants.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/pipelines/pipelines.proto";
@@ -43,6 +44,9 @@ message ReleaseChannelConfig {
 
     repeated ProtectionReleaseChannelAttachment protections = 8;
     repeated prodvana.protection.ProtectionConvergenceAttachment convergence_protections = 9;
+
+    // constants made available in template substitutions
+    repeated prodvana.common_config.Constant constants = 10;
 }
 
 message ProtectionReleaseChannelAttachment {

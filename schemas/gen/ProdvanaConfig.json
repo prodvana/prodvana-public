@@ -455,6 +455,41 @@
             ],
             "title": "Cmd Probe"
         },
+        "prodvana.common_config.Constant": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "constant name, used in substitutions"
+                },
+                "string": {
+                    "$ref": "#/definitions/prodvana.common_config.StringConstant",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Constant"
+        },
         "prodvana.common_config.DockerImageParameterDefinition": {
             "properties": {
                 "defaultTag": {
@@ -1949,6 +1984,30 @@
                 }
             ],
             "title": "Service Template Ref"
+        },
+        "prodvana.common_config.StringConstant": {
+            "properties": {
+                "value": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "String Constant"
         },
         "prodvana.common_config.StringParameterDefinition": {
             "properties": {
@@ -4158,6 +4217,21 @@
                             "type": "array"
                         }
                     ]
+                },
+                "constants": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Constant"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "constants made available in template substitutions"
                 }
             },
             "additionalProperties": false,
@@ -4903,6 +4977,21 @@
                         }
                     ],
                     "description": "Additional env variables that are injected to the service. This can be useful for injecting and/or overriding env variables from release channel configs for Kubernetes and runtime extension configs. Not supported for helm configs."
+                },
+                "constants": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Constant"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "constants made available in template substitutions"
                 }
             },
             "additionalProperties": false,
@@ -5374,6 +5463,21 @@
                         {}
                     ],
                     "description": "only valid to set in compiled configs by Prodvana"
+                },
+                "constants": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Constant"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "constants made available in template substitutions"
                 },
                 "progressDeadline": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",

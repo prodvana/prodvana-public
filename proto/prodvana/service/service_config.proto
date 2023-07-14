@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "google/protobuf/duration.proto";
 import "prodvana/capability/capability.proto";
+import "prodvana/common_config/constants.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/helm.proto";
@@ -128,10 +129,13 @@ message PerReleaseChannelConfig {
         no_sparse: true,
     }];
 
+    // constants made available in template substitutions
+    repeated prodvana.common_config.Constant constants = 20;
+
     reserved 3, 4, 12;
     reserved "protections";
 
-    // next tag: 20
+    // next tag: 21
 }
 
 message CapabilityReference {
@@ -295,6 +299,9 @@ message ServiceConfig {
     // only valid to set in compiled configs by Prodvana
     ServiceParameterValues parameter_values = 22;
 
+    // constants made available in template substitutions
+    repeated prodvana.common_config.Constant constants = 33;
+
     // how long to wait before marking deployment as failed
     google.protobuf.Duration progress_deadline = 24;
 
@@ -341,7 +348,7 @@ message ServiceConfig {
         no_sparse: true,
     }];
 
-    // next tag: 33
+    // next tag: 34
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -375,6 +382,9 @@ message CompiledServiceInstanceConfig {
 
     repeated prodvana.common_config.ParameterDefinition parameters = 24;
     repeated prodvana.common_config.ParameterValue parameter_values = 25;
+    // constants made available in template substitutions
+    repeated prodvana.common_config.Constant constants = 33;
+
 
     // how long to wait before marking deployment as failed
     google.protobuf.Duration progress_deadline = 26;
@@ -401,7 +411,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 20, 21;
     reserved "protections", "runtime_type";
 
-    // next tag: 33
+    // next tag: 34
 }
 
 message CompiledJobConfig {

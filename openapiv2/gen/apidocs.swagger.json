@@ -6039,6 +6039,18 @@
         }
       }
     },
+    "common_configConstant": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "constant name, used in substitutions"
+        },
+        "string": {
+          "$ref": "#/definitions/common_configStringConstant"
+        }
+      }
+    },
     "common_configDangerousAction": {
       "type": "object",
       "properties": {
@@ -6572,6 +6584,14 @@
       "type": "object",
       "properties": {
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "common_configStringConstant": {
+      "type": "object",
+      "properties": {
+        "value": {
           "type": "string"
         }
       }
@@ -9910,6 +9930,14 @@
             "type": "object",
             "$ref": "#/definitions/prodvanaprotectionProtectionConvergenceAttachment"
           }
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configConstant"
+          },
+          "title": "constants made available in template substitutions"
         }
       }
     },
@@ -10180,6 +10208,14 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterValue"
           }
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configConstant"
+          },
+          "title": "constants made available in template substitutions"
         },
         "progressDeadline": {
           "type": "string",
@@ -10559,6 +10595,14 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "description": "Additional env variables that are injected to the service.\nThis can be useful for injecting and/or overriding env variables from release channel\nconfigs for Kubernetes and runtime extension configs.\nNot supported for helm configs."
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configConstant"
+          },
+          "title": "constants made available in template substitutions"
         }
       }
     },
@@ -10756,6 +10800,14 @@
         "parameterValues": {
           "$ref": "#/definitions/serviceServiceParameterValues",
           "title": "only valid to set in compiled configs by Prodvana"
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configConstant"
+          },
+          "title": "constants made available in template substitutions"
         },
         "progressDeadline": {
           "type": "string",
