@@ -486,7 +486,7 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
         """commands that must run before pulumi can run, e.g. gcloud auth login"""
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
-        """Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often."""
+        """Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often."""
     def __init__(
         self,
         *,

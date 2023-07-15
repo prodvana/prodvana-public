@@ -958,7 +958,7 @@ type PulumiRunnerConfig struct {
 	Volumes []*volumes.Volume `protobuf:"bytes,3,rep,name=volumes,proto3" json:"volumes,omitempty"`
 	// commands that must run before pulumi can run, e.g. gcloud auth login
 	PreRun []*IacRunnerCommand `protobuf:"bytes,4,rep,name=pre_run,json=preRun,proto3" json:"pre_run,omitempty"`
-	// Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
+	// Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
 	PollInterval *durationpb.Duration `protobuf:"bytes,5,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
 }
 
