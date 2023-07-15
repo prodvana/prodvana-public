@@ -10,7 +10,6 @@ import google.protobuf.message
 import prodvana.proto.prodvana.capability.capability_pb2
 import prodvana.proto.prodvana.common_config.notification_pb2
 import prodvana.proto.prodvana.release_channel.release_channel_config_pb2
-import prodvana.proto.prodvana.template.service_pb2
 import prodvana.proto.prodvana.workflow.integration_config_pb2
 import sys
 
@@ -30,7 +29,6 @@ class ApplicationConfig(google.protobuf.message.Message):
     ALERTS_FIELD_NUMBER: builtins.int
     CAPABILITIES_FIELD_NUMBER: builtins.int
     CAPABILITY_INSTANCES_FIELD_NUMBER: builtins.int
-    SERVICE_TEMPLATES_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def release_channels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig]: ...
@@ -47,11 +45,6 @@ class ApplicationConfig(google.protobuf.message.Message):
         for example, you may choose to have two database capability instances, staging and prod,
         and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
         """
-    @property
-    def service_templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.template.service_pb2.ServiceTemplate]:
-        """service templates are sets of service configurations that can be used as the base of a service.
-        this is useful for setting default values that are kept in sync when the templates change.
-        """
     def __init__(
         self,
         *,
@@ -61,9 +54,8 @@ class ApplicationConfig(google.protobuf.message.Message):
         alerts: prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig | None = ...,
         capabilities: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityConfig] | None = ...,
         capability_instances: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig] | None = ...,
-        service_templates: collections.abc.Iterable[prodvana.proto.prodvana.template.service_pb2.ServiceTemplate] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "notifications", b"notifications"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channels", b"release_channels", "service_templates", b"service_templates"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channels", b"release_channels"]) -> None: ...
 
 global___ApplicationConfig = ApplicationConfig

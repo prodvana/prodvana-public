@@ -4,7 +4,6 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/notification.proto";
 import "prodvana/release_channel/release_channel_config.proto";
-import "prodvana/template/service.proto";
 import "prodvana/workflow/integration_config.proto";
 import "validate/validate.proto";
 
@@ -28,11 +27,7 @@ message ApplicationConfig {
     // and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
     repeated prodvana.capability.CapabilityInstanceConfig capability_instances = 7 [(validate.rules).repeated.items.message.required = true];
 
-    // service templates are sets of service configurations that can be used as the base of a service.
-    // this is useful for setting default values that are kept in sync when the templates change.
-    repeated prodvana.template.ServiceTemplate service_templates = 8 [(validate.rules).repeated.items.message.required = true];
-
-    reserved 3, 9, 10;
-    reserved "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
+    reserved 3, 8, 9, 10;
+    reserved "service_templates", "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
     // next tag: 11
 }

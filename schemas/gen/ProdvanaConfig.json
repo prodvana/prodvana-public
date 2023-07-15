@@ -172,21 +172,6 @@
                         }
                     ],
                     "description": "optional capability instances that can be referenced by `capabilities`, useful to deduplication. for example, you may choose to have two database capability instances, staging and prod, and use them across release channels staging, beta, and prod, where beta and prod use the prod db."
-                },
-                "serviceTemplates": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.template.ServiceTemplate"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "service templates are sets of service configurations that can be used as the base of a service. this is useful for setting default values that are kept in sync when the templates change."
                 }
             },
             "additionalProperties": false,
@@ -1961,30 +1946,6 @@
             ],
             "title": "Secret Parameter Value"
         },
-        "prodvana.common_config.ServiceTemplateRef": {
-            "properties": {
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Service Template Ref"
-        },
         "prodvana.common_config.StringConstant": {
             "properties": {
                 "value": {
@@ -3105,101 +3066,6 @@
                 }
             ],
             "title": "Terraform Runner Config"
-        },
-        "prodvana.object.ObjectMeta": {
-            "properties": {
-                "id": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "version": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "configVersion": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "only set for objects who has configurations with parametrization support. At the time of this writing, only services."
-                },
-                "source": {
-                    "enum": [
-                        "UNKNOWN_SOURCE",
-                        0,
-                        "WEB",
-                        1,
-                        "INTERACTIVE_PVNCTL",
-                        2,
-                        "CONFIG_FILE",
-                        3,
-                        "REPO_FOLLOW",
-                        4,
-                        "PRODVANA",
-                        5,
-                        "IAC",
-                        6
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Source"
-                },
-                "sourceMetadata": {
-                    "$ref": "#/definitions/prodvana.version.SourceMetadata",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Object Meta"
         },
         "prodvana.pipelines.CustomTask": {
             "properties": {
@@ -5365,16 +5231,6 @@
                         {}
                     ]
                 },
-                "baseTemplate": {
-                    "$ref": "#/definitions/prodvana.common_config.ServiceTemplateRef",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
                 "prePushTasks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.TaskConfig"
@@ -5844,101 +5700,6 @@
                 }
             ],
             "title": "Task Reference"
-        },
-        "prodvana.template.ServiceTemplate": {
-            "properties": {
-                "meta": {
-                    "$ref": "#/definitions/prodvana.object.ObjectMeta",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "lastUpdateTimestamp": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "serviceConfig": {
-                    "$ref": "#/definitions/prodvana.service.ServiceConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Service Template"
-        },
-        "prodvana.version.SourceMetadata": {
-            "properties": {
-                "repoUrl": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "full repo URL, like git@github.com:foo/bar.git or https://github.com/foo/bar"
-                },
-                "filePath": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "commit": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "userId": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "set internally, automatically, by Prodvana if the action was initiated by a user"
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Source Metadata",
-            "description": "all of these fields are optional and only set if it makes sense for a given source."
         },
         "prodvana.volumes.Volume": {
             "properties": {

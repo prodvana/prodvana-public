@@ -4102,35 +4102,6 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetBaseTemplate()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ServiceConfigValidationError{
-					field:  "BaseTemplate",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ServiceConfigValidationError{
-					field:  "BaseTemplate",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetBaseTemplate()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ServiceConfigValidationError{
-				field:  "BaseTemplate",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	for idx, item := range m.GetPrePushTasks() {
 		_, _ = idx, item
 
@@ -5091,35 +5062,6 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return CompiledServiceInstanceConfigValidationError{
 				field:  "DeployAnnotations",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetBaseTemplate()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CompiledServiceInstanceConfigValidationError{
-					field:  "BaseTemplate",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, CompiledServiceInstanceConfigValidationError{
-					field:  "BaseTemplate",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetBaseTemplate()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CompiledServiceInstanceConfigValidationError{
-				field:  "BaseTemplate",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

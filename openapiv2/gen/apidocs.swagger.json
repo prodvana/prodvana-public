@@ -5678,14 +5678,6 @@
             "$ref": "#/definitions/capabilityCapabilityInstanceConfig"
           },
           "description": "optional capability instances that can be referenced by `capabilities`, useful to deduplication.\nfor example, you may choose to have two database capability instances, staging and prod,\nand use them across release channels staging, beta, and prod, where beta and prod use the prod db."
-        },
-        "serviceTemplates": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/templateServiceTemplate"
-          },
-          "description": "service templates are sets of service configurations that can be used as the base of a service.\nthis is useful for setting default values that are kept in sync when the templates change."
         }
       }
     },
@@ -6579,14 +6571,6 @@
         }
       },
       "title": "HACK(naphat) service instances do not have their own id and names today"
-    },
-    "common_configServiceTemplateRef": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        }
-      }
     },
     "common_configStringConstant": {
       "type": "object",
@@ -10167,9 +10151,6 @@
         "deployAnnotations": {
           "$ref": "#/definitions/workflowAnnotationsConfig"
         },
-        "baseTemplate": {
-          "$ref": "#/definitions/common_configServiceTemplateRef"
-        },
         "prePushTasks": {
           "type": "array",
           "items": {
@@ -10758,9 +10739,6 @@
         "deployAnnotations": {
           "$ref": "#/definitions/workflowAnnotationsConfig"
         },
-        "baseTemplate": {
-          "$ref": "#/definitions/common_configServiceTemplateRef"
-        },
         "prePushTasks": {
           "type": "array",
           "items": {
@@ -10988,21 +10966,6 @@
           "type": "integer",
           "format": "int32",
           "title": "how many lines of materialized config was either added, modified, or deleted?"
-        }
-      }
-    },
-    "templateServiceTemplate": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "serviceConfig": {
-          "$ref": "#/definitions/serviceServiceConfig"
         }
       }
     },

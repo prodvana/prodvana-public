@@ -11,7 +11,6 @@ import "prodvana/common_config/helm.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
-import "prodvana/common_config/ref.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/delivery/delivery_config.proto";
@@ -282,8 +281,6 @@ message ServiceConfig {
     repeated prodvana.volumes.Volume volumes = 12 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 13;
 
-    prodvana.common_config.ServiceTemplateRef base_template = 14;
-
     // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 15;
     repeated DeliveryExtensionConfig delivery_extensions = 29;
@@ -305,8 +302,8 @@ message ServiceConfig {
     // how long to wait before marking deployment as failed
     google.protobuf.Duration progress_deadline = 24;
 
-    reserved 6, 7, 8, 17;
-    reserved "external", "image_repository", "container_registry_id", "protections";
+    reserved 6, 7, 8, 14, 17;
+    reserved "external", "image_repository", "base_template", "container_registry_id", "protections";
 
     oneof config_oneof {
         RuntimeExtensionConfig runtime_extension = 18;
@@ -371,8 +368,6 @@ message CompiledServiceInstanceConfig {
     repeated prodvana.volumes.Volume volumes = 14 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 15;
 
-    prodvana.common_config.ServiceTemplateRef base_template = 16;
-
     // DEPRECATED: Replace with delivery_extensions once its implemented.
     repeated TaskConfig pre_push_tasks = 17;
     repeated DeliveryExtensionConfig delivery_extensions = 30;
@@ -408,8 +403,8 @@ message CompiledServiceInstanceConfig {
 
     bool no_cleanup_on_delete = 32;
 
-    reserved 8, 9, 20, 21;
-    reserved "protections", "runtime_type";
+    reserved 8, 9, 16, 20, 21;
+    reserved "protections", "base_template", "runtime_type";
 
     // next tag: 34
 }
