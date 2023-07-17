@@ -169,3 +169,40 @@ class GetProtectionConfigResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "version", b"version"]) -> None: ...
 
 global___GetProtectionConfigResp = GetProtectionConfigResp
+
+class GetProtectionAttachmentConfigReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATTACHMENT_ID_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    attachment_id: builtins.str
+    version: builtins.str
+    """omit to get latest version"""
+    def __init__(
+        self,
+        *,
+        attachment_id: builtins.str = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "version", b"version"]) -> None: ...
+
+global___GetProtectionAttachmentConfigReq = GetProtectionAttachmentConfigReq
+
+class GetProtectionAttachmentConfigResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    @property
+    def config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.CompiledProtectionAttachmentConfig: ...
+    version: builtins.str
+    def __init__(
+        self,
+        *,
+        config: prodvana.proto.prodvana.protection.protection_config_pb2.CompiledProtectionAttachmentConfig | None = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "version", b"version"]) -> None: ...
+
+global___GetProtectionAttachmentConfigResp = GetProtectionAttachmentConfigResp

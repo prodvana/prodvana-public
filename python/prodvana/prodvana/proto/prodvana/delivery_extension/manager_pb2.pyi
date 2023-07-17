@@ -169,3 +169,40 @@ class GetDeliveryExtensionConfigResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "version", b"version"]) -> None: ...
 
 global___GetDeliveryExtensionConfigResp = GetDeliveryExtensionConfigResp
+
+class GetDeliveryExtensionInstanceConfigReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DELIVERY_EXTENSION_INSTANCE_ID_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    delivery_extension_instance_id: builtins.str
+    version: builtins.str
+    """omit to get latest version"""
+    def __init__(
+        self,
+        *,
+        delivery_extension_instance_id: builtins.str = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery_extension_instance_id", b"delivery_extension_instance_id", "version", b"version"]) -> None: ...
+
+global___GetDeliveryExtensionInstanceConfigReq = GetDeliveryExtensionInstanceConfigReq
+
+class GetDeliveryExtensionInstanceConfigResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    @property
+    def config(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.CompiledDeliveryExtensionInstanceConfig: ...
+    version: builtins.str
+    def __init__(
+        self,
+        *,
+        config: prodvana.proto.prodvana.delivery_extension.config_pb2.CompiledDeliveryExtensionInstanceConfig | None = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "version", b"version"]) -> None: ...
+
+global___GetDeliveryExtensionInstanceConfigResp = GetDeliveryExtensionInstanceConfigResp

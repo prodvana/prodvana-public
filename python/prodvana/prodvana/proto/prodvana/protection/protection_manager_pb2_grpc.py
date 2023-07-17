@@ -39,6 +39,11 @@ class ProtectionManagerStub(object):
                 request_serializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigReq.SerializeToString,
                 response_deserializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigResp.FromString,
                 )
+        self.GetProtectionAttachmentConfig = channel.unary_unary(
+                '/prodvana.protection.ProtectionManager/GetProtectionAttachmentConfig',
+                request_serializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigReq.SerializeToString,
+                response_deserializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigResp.FromString,
+                )
 
 
 class ProtectionManagerServicer(object):
@@ -74,6 +79,12 @@ class ProtectionManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetProtectionAttachmentConfig(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProtectionManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_ProtectionManagerServicer_to_server(servicer, server):
                     servicer.GetProtectionConfig,
                     request_deserializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigReq.FromString,
                     response_serializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigResp.SerializeToString,
+            ),
+            'GetProtectionAttachmentConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProtectionAttachmentConfig,
+                    request_deserializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigReq.FromString,
+                    response_serializer=prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +210,22 @@ class ProtectionManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.protection.ProtectionManager/GetProtectionConfig',
             prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigReq.SerializeToString,
             prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionConfigResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetProtectionAttachmentConfig(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.protection.ProtectionManager/GetProtectionAttachmentConfig',
+            prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigReq.SerializeToString,
+            prodvana_dot_protection_dot_protection__manager__pb2.GetProtectionAttachmentConfigResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ProtectionManager_ConfigureProtection_FullMethodName         = "/prodvana.protection.ProtectionManager/ConfigureProtection"
-	ProtectionManager_ValidateConfigureProtection_FullMethodName = "/prodvana.protection.ProtectionManager/ValidateConfigureProtection"
-	ProtectionManager_ListProtections_FullMethodName             = "/prodvana.protection.ProtectionManager/ListProtections"
-	ProtectionManager_GetProtection_FullMethodName               = "/prodvana.protection.ProtectionManager/GetProtection"
-	ProtectionManager_GetProtectionConfig_FullMethodName         = "/prodvana.protection.ProtectionManager/GetProtectionConfig"
+	ProtectionManager_ConfigureProtection_FullMethodName           = "/prodvana.protection.ProtectionManager/ConfigureProtection"
+	ProtectionManager_ValidateConfigureProtection_FullMethodName   = "/prodvana.protection.ProtectionManager/ValidateConfigureProtection"
+	ProtectionManager_ListProtections_FullMethodName               = "/prodvana.protection.ProtectionManager/ListProtections"
+	ProtectionManager_GetProtection_FullMethodName                 = "/prodvana.protection.ProtectionManager/GetProtection"
+	ProtectionManager_GetProtectionConfig_FullMethodName           = "/prodvana.protection.ProtectionManager/GetProtectionConfig"
+	ProtectionManager_GetProtectionAttachmentConfig_FullMethodName = "/prodvana.protection.ProtectionManager/GetProtectionAttachmentConfig"
 )
 
 // ProtectionManagerClient is the client API for ProtectionManager service.
@@ -35,6 +36,7 @@ type ProtectionManagerClient interface {
 	ListProtections(ctx context.Context, in *ListProtectionsReq, opts ...grpc.CallOption) (*ListProtectionsResp, error)
 	GetProtection(ctx context.Context, in *GetProtectionReq, opts ...grpc.CallOption) (*GetProtectionResp, error)
 	GetProtectionConfig(ctx context.Context, in *GetProtectionConfigReq, opts ...grpc.CallOption) (*GetProtectionConfigResp, error)
+	GetProtectionAttachmentConfig(ctx context.Context, in *GetProtectionAttachmentConfigReq, opts ...grpc.CallOption) (*GetProtectionAttachmentConfigResp, error)
 }
 
 type protectionManagerClient struct {
@@ -90,6 +92,15 @@ func (c *protectionManagerClient) GetProtectionConfig(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *protectionManagerClient) GetProtectionAttachmentConfig(ctx context.Context, in *GetProtectionAttachmentConfigReq, opts ...grpc.CallOption) (*GetProtectionAttachmentConfigResp, error) {
+	out := new(GetProtectionAttachmentConfigResp)
+	err := c.cc.Invoke(ctx, ProtectionManager_GetProtectionAttachmentConfig_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtectionManagerServer is the server API for ProtectionManager service.
 // All implementations must embed UnimplementedProtectionManagerServer
 // for forward compatibility
@@ -99,6 +110,7 @@ type ProtectionManagerServer interface {
 	ListProtections(context.Context, *ListProtectionsReq) (*ListProtectionsResp, error)
 	GetProtection(context.Context, *GetProtectionReq) (*GetProtectionResp, error)
 	GetProtectionConfig(context.Context, *GetProtectionConfigReq) (*GetProtectionConfigResp, error)
+	GetProtectionAttachmentConfig(context.Context, *GetProtectionAttachmentConfigReq) (*GetProtectionAttachmentConfigResp, error)
 	mustEmbedUnimplementedProtectionManagerServer()
 }
 
@@ -120,6 +132,9 @@ func (UnimplementedProtectionManagerServer) GetProtection(context.Context, *GetP
 }
 func (UnimplementedProtectionManagerServer) GetProtectionConfig(context.Context, *GetProtectionConfigReq) (*GetProtectionConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProtectionConfig not implemented")
+}
+func (UnimplementedProtectionManagerServer) GetProtectionAttachmentConfig(context.Context, *GetProtectionAttachmentConfigReq) (*GetProtectionAttachmentConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProtectionAttachmentConfig not implemented")
 }
 func (UnimplementedProtectionManagerServer) mustEmbedUnimplementedProtectionManagerServer() {}
 
@@ -224,6 +239,24 @@ func _ProtectionManager_GetProtectionConfig_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProtectionManager_GetProtectionAttachmentConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProtectionAttachmentConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtectionManagerServer).GetProtectionAttachmentConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProtectionManager_GetProtectionAttachmentConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtectionManagerServer).GetProtectionAttachmentConfig(ctx, req.(*GetProtectionAttachmentConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProtectionManager_ServiceDesc is the grpc.ServiceDesc for ProtectionManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +283,10 @@ var ProtectionManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProtectionConfig",
 			Handler:    _ProtectionManager_GetProtectionConfig_Handler,
+		},
+		{
+			MethodName: "GetProtectionAttachmentConfig",
+			Handler:    _ProtectionManager_GetProtectionAttachmentConfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

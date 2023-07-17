@@ -39,6 +39,11 @@ class DeliveryExtensionManagerStub(object):
                 request_serializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigReq.SerializeToString,
                 response_deserializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigResp.FromString,
                 )
+        self.GetDeliveryExtensionInstanceConfig = channel.unary_unary(
+                '/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtensionInstanceConfig',
+                request_serializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigReq.SerializeToString,
+                response_deserializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigResp.FromString,
+                )
 
 
 class DeliveryExtensionManagerServicer(object):
@@ -74,6 +79,12 @@ class DeliveryExtensionManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetDeliveryExtensionInstanceConfig(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DeliveryExtensionManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_DeliveryExtensionManagerServicer_to_server(servicer, server):
                     servicer.GetDeliveryExtensionConfig,
                     request_deserializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigReq.FromString,
                     response_serializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigResp.SerializeToString,
+            ),
+            'GetDeliveryExtensionInstanceConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDeliveryExtensionInstanceConfig,
+                    request_deserializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigReq.FromString,
+                    response_serializer=prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +210,22 @@ class DeliveryExtensionManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtensionConfig',
             prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigReq.SerializeToString,
             prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionConfigResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetDeliveryExtensionInstanceConfig(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtensionInstanceConfig',
+            prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigReq.SerializeToString,
+            prodvana_dot_delivery__extension_dot_manager__pb2.GetDeliveryExtensionInstanceConfigResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

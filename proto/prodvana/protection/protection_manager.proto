@@ -50,6 +50,16 @@ message GetProtectionConfigResp {
     string version = 2;
 }
 
+message GetProtectionAttachmentConfigReq {
+    string attachment_id = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetProtectionAttachmentConfigResp {
+    CompiledProtectionAttachmentConfig config = 1;
+    string version = 2;
+}
+
 service ProtectionManager {
     rpc ConfigureProtection (ConfigureProtectionReq) returns (ConfigureProtectionResp) {
         option (google.api.http) = {
@@ -76,6 +86,11 @@ service ProtectionManager {
     rpc GetProtectionConfig (GetProtectionConfigReq) returns (GetProtectionConfigResp) {
         option (google.api.http) = {
             get: "/v1/protections/{protection=*}/config"
+        };
+    }
+    rpc GetProtectionAttachmentConfig (GetProtectionAttachmentConfigReq) returns (GetProtectionAttachmentConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/protections/attachment/{attachment_id=*}/config"
         };
     }
 }

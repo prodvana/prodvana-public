@@ -1948,6 +1948,44 @@
         ]
       }
     },
+    "/v1/delivery_extension/instance/{deliveryExtensionInstanceId}/config": {
+      "get": {
+        "operationId": "DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/delivery_extensionGetDeliveryExtensionInstanceConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deliveryExtensionInstanceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.delivery_extension.DeliveryExtensionManager"
+        ]
+      }
+    },
     "/v1/delivery_extension/{deliveryExtension}": {
       "get": {
         "operationId": "DeliveryExtensionManager_GetDeliveryExtension",
@@ -3746,6 +3784,44 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.protection.ProtectionManager"
+        ]
+      }
+    },
+    "/v1/protections/attachment/{attachmentId}/config": {
+      "get": {
+        "operationId": "ProtectionManager_GetProtectionAttachmentConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protectionGetProtectionAttachmentConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -6660,6 +6736,32 @@
         }
       }
     },
+    "delivery_extensionCompiledDeliveryExtensionInstanceConfig": {
+      "type": "object",
+      "properties": {
+        "definition": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "runtimeExecution": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "description": "The compiled environment for this attachment's context, e.g.  Release Channel."
+        },
+        "parameterValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          },
+          "title": "compiled parameter values"
+        }
+      }
+    },
     "delivery_extensionConfigureDeliveryExtensionReq": {
       "type": "object",
       "properties": {
@@ -6705,6 +6807,17 @@
       "properties": {
         "config": {
           "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "delivery_extensionGetDeliveryExtensionInstanceConfigResp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/delivery_extensionCompiledDeliveryExtensionInstanceConfig"
         },
         "version": {
           "type": "string"
@@ -9456,6 +9569,17 @@
         }
       }
     },
+    "prodvanaprotectionProtectionAttachment": {
+      "type": "object",
+      "properties": {
+        "serviceInstance": {
+          "$ref": "#/definitions/protectionServiceInstanceAttachment"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/protectionReleaseChannelAttachment"
+        }
+      }
+    },
     "prodvanaprotectionProtectionConvergenceAttachment": {
       "type": "object",
       "properties": {
@@ -9574,6 +9698,36 @@
         }
       }
     },
+    "protectionCompiledProtectionAttachmentConfig": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "attachment": {
+          "$ref": "#/definitions/prodvanaprotectionProtectionAttachment",
+          "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
+        },
+        "runtimeExecution": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "description": "The compiled environment for this attachment's context, e.g.  Release Channel."
+        },
+        "parameterValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterValue"
+          },
+          "title": "compiled parameter values"
+        }
+      }
+    },
     "protectionConfigureProtectionReq": {
       "type": "object",
       "properties": {
@@ -9593,6 +9747,17 @@
       "properties": {
         "protectionId": {
           "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "protectionGetProtectionAttachmentConfigResp": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/protectionCompiledProtectionAttachmentConfig"
         },
         "version": {
           "type": "string"
@@ -9701,6 +9866,31 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterValue"
           }
+        }
+      }
+    },
+    "protectionReleaseChannelAttachment": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        }
+      }
+    },
+    "protectionServiceInstanceAttachment": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        },
+        "application": {
+          "type": "string"
         }
       }
     },

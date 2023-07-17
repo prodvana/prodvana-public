@@ -24,6 +24,7 @@ const (
 	DeliveryExtensionManager_ListDeliveryExtensions_FullMethodName             = "/prodvana.delivery_extension.DeliveryExtensionManager/ListDeliveryExtensions"
 	DeliveryExtensionManager_GetDeliveryExtension_FullMethodName               = "/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtension"
 	DeliveryExtensionManager_GetDeliveryExtensionConfig_FullMethodName         = "/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtensionConfig"
+	DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig_FullMethodName = "/prodvana.delivery_extension.DeliveryExtensionManager/GetDeliveryExtensionInstanceConfig"
 )
 
 // DeliveryExtensionManagerClient is the client API for DeliveryExtensionManager service.
@@ -35,6 +36,7 @@ type DeliveryExtensionManagerClient interface {
 	ListDeliveryExtensions(ctx context.Context, in *ListDeliveryExtensionsReq, opts ...grpc.CallOption) (*ListDeliveryExtensionsResp, error)
 	GetDeliveryExtension(ctx context.Context, in *GetDeliveryExtensionReq, opts ...grpc.CallOption) (*GetDeliveryExtensionResp, error)
 	GetDeliveryExtensionConfig(ctx context.Context, in *GetDeliveryExtensionConfigReq, opts ...grpc.CallOption) (*GetDeliveryExtensionConfigResp, error)
+	GetDeliveryExtensionInstanceConfig(ctx context.Context, in *GetDeliveryExtensionInstanceConfigReq, opts ...grpc.CallOption) (*GetDeliveryExtensionInstanceConfigResp, error)
 }
 
 type deliveryExtensionManagerClient struct {
@@ -90,6 +92,15 @@ func (c *deliveryExtensionManagerClient) GetDeliveryExtensionConfig(ctx context.
 	return out, nil
 }
 
+func (c *deliveryExtensionManagerClient) GetDeliveryExtensionInstanceConfig(ctx context.Context, in *GetDeliveryExtensionInstanceConfigReq, opts ...grpc.CallOption) (*GetDeliveryExtensionInstanceConfigResp, error) {
+	out := new(GetDeliveryExtensionInstanceConfigResp)
+	err := c.cc.Invoke(ctx, DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DeliveryExtensionManagerServer is the server API for DeliveryExtensionManager service.
 // All implementations must embed UnimplementedDeliveryExtensionManagerServer
 // for forward compatibility
@@ -99,6 +110,7 @@ type DeliveryExtensionManagerServer interface {
 	ListDeliveryExtensions(context.Context, *ListDeliveryExtensionsReq) (*ListDeliveryExtensionsResp, error)
 	GetDeliveryExtension(context.Context, *GetDeliveryExtensionReq) (*GetDeliveryExtensionResp, error)
 	GetDeliveryExtensionConfig(context.Context, *GetDeliveryExtensionConfigReq) (*GetDeliveryExtensionConfigResp, error)
+	GetDeliveryExtensionInstanceConfig(context.Context, *GetDeliveryExtensionInstanceConfigReq) (*GetDeliveryExtensionInstanceConfigResp, error)
 	mustEmbedUnimplementedDeliveryExtensionManagerServer()
 }
 
@@ -120,6 +132,9 @@ func (UnimplementedDeliveryExtensionManagerServer) GetDeliveryExtension(context.
 }
 func (UnimplementedDeliveryExtensionManagerServer) GetDeliveryExtensionConfig(context.Context, *GetDeliveryExtensionConfigReq) (*GetDeliveryExtensionConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDeliveryExtensionConfig not implemented")
+}
+func (UnimplementedDeliveryExtensionManagerServer) GetDeliveryExtensionInstanceConfig(context.Context, *GetDeliveryExtensionInstanceConfigReq) (*GetDeliveryExtensionInstanceConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeliveryExtensionInstanceConfig not implemented")
 }
 func (UnimplementedDeliveryExtensionManagerServer) mustEmbedUnimplementedDeliveryExtensionManagerServer() {
 }
@@ -225,6 +240,24 @@ func _DeliveryExtensionManager_GetDeliveryExtensionConfig_Handler(srv interface{
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeliveryExtensionInstanceConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeliveryExtensionManagerServer).GetDeliveryExtensionInstanceConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeliveryExtensionManagerServer).GetDeliveryExtensionInstanceConfig(ctx, req.(*GetDeliveryExtensionInstanceConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DeliveryExtensionManager_ServiceDesc is the grpc.ServiceDesc for DeliveryExtensionManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -251,6 +284,10 @@ var DeliveryExtensionManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDeliveryExtensionConfig",
 			Handler:    _DeliveryExtensionManager_GetDeliveryExtensionConfig_Handler,
+		},
+		{
+			MethodName: "GetDeliveryExtensionInstanceConfig",
+			Handler:    _DeliveryExtensionManager_GetDeliveryExtensionInstanceConfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

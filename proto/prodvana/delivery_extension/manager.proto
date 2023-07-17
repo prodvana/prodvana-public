@@ -50,6 +50,16 @@ message GetDeliveryExtensionConfigResp {
     string version = 2;
 }
 
+message GetDeliveryExtensionInstanceConfigReq {
+    string delivery_extension_instance_id = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetDeliveryExtensionInstanceConfigResp {
+    CompiledDeliveryExtensionInstanceConfig config = 1;
+    string version = 2;
+}
+
 service DeliveryExtensionManager {
     rpc ConfigureDeliveryExtension (ConfigureDeliveryExtensionReq) returns (ConfigureDeliveryExtensionResp) {
         option (google.api.http) = {
@@ -76,6 +86,11 @@ service DeliveryExtensionManager {
     rpc GetDeliveryExtensionConfig (GetDeliveryExtensionConfigReq) returns (GetDeliveryExtensionConfigResp) {
         option (google.api.http) = {
             get: "/v1/delivery_extension/{delivery_extension=*}/config"
+        };
+    }
+    rpc GetDeliveryExtensionInstanceConfig (GetDeliveryExtensionInstanceConfigReq) returns (GetDeliveryExtensionInstanceConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/delivery_extension/instance/{delivery_extension_instance_id=*}/config"
         };
     }
 }

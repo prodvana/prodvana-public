@@ -28,6 +28,10 @@ class ProtectionManagerStub:
         prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionConfigReq,
         prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionConfigResp,
     ]
+    GetProtectionAttachmentConfig: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionAttachmentConfigReq,
+        prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionAttachmentConfigResp,
+    ]
 
 class ProtectionManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -60,5 +64,11 @@ class ProtectionManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionConfigReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionConfigResp: ...
+    @abc.abstractmethod
+    def GetProtectionAttachmentConfig(
+        self,
+        request: prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionAttachmentConfigReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.protection.protection_manager_pb2.GetProtectionAttachmentConfigResp: ...
 
 def add_ProtectionManagerServicer_to_server(servicer: ProtectionManagerServicer, server: grpc.Server) -> None: ...

@@ -28,6 +28,10 @@ class DeliveryExtensionManagerStub:
         prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionConfigReq,
         prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionConfigResp,
     ]
+    GetDeliveryExtensionInstanceConfig: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionInstanceConfigReq,
+        prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionInstanceConfigResp,
+    ]
 
 class DeliveryExtensionManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -60,5 +64,11 @@ class DeliveryExtensionManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionConfigReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionConfigResp: ...
+    @abc.abstractmethod
+    def GetDeliveryExtensionInstanceConfig(
+        self,
+        request: prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionInstanceConfigReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.delivery_extension.manager_pb2.GetDeliveryExtensionInstanceConfigResp: ...
 
 def add_DeliveryExtensionManagerServicer_to_server(servicer: DeliveryExtensionManagerServicer, server: grpc.Server) -> None: ...

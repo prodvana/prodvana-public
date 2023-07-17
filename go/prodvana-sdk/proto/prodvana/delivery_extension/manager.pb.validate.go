@@ -1163,3 +1163,258 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetDeliveryExtensionConfigRespValidationError{}
+
+// Validate checks the field values on GetDeliveryExtensionInstanceConfigReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetDeliveryExtensionInstanceConfigReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetDeliveryExtensionInstanceConfigReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetDeliveryExtensionInstanceConfigReqMultiError, or nil if none found.
+func (m *GetDeliveryExtensionInstanceConfigReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDeliveryExtensionInstanceConfigReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDeliveryExtensionInstanceId()) < 1 {
+		err := GetDeliveryExtensionInstanceConfigReqValidationError{
+			field:  "DeliveryExtensionInstanceId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return GetDeliveryExtensionInstanceConfigReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDeliveryExtensionInstanceConfigReqMultiError is an error wrapping
+// multiple validation errors returned by
+// GetDeliveryExtensionInstanceConfigReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetDeliveryExtensionInstanceConfigReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDeliveryExtensionInstanceConfigReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDeliveryExtensionInstanceConfigReqMultiError) AllErrors() []error { return m }
+
+// GetDeliveryExtensionInstanceConfigReqValidationError is the validation error
+// returned by GetDeliveryExtensionInstanceConfigReq.Validate if the
+// designated constraints aren't met.
+type GetDeliveryExtensionInstanceConfigReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) ErrorName() string {
+	return "GetDeliveryExtensionInstanceConfigReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDeliveryExtensionInstanceConfigReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDeliveryExtensionInstanceConfigReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDeliveryExtensionInstanceConfigReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDeliveryExtensionInstanceConfigReqValidationError{}
+
+// Validate checks the field values on GetDeliveryExtensionInstanceConfigResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetDeliveryExtensionInstanceConfigResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetDeliveryExtensionInstanceConfigResp with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// GetDeliveryExtensionInstanceConfigRespMultiError, or nil if none found.
+func (m *GetDeliveryExtensionInstanceConfigResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDeliveryExtensionInstanceConfigResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDeliveryExtensionInstanceConfigRespValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDeliveryExtensionInstanceConfigRespValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDeliveryExtensionInstanceConfigRespValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return GetDeliveryExtensionInstanceConfigRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDeliveryExtensionInstanceConfigRespMultiError is an error wrapping
+// multiple validation errors returned by
+// GetDeliveryExtensionInstanceConfigResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetDeliveryExtensionInstanceConfigRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDeliveryExtensionInstanceConfigRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDeliveryExtensionInstanceConfigRespMultiError) AllErrors() []error { return m }
+
+// GetDeliveryExtensionInstanceConfigRespValidationError is the validation
+// error returned by GetDeliveryExtensionInstanceConfigResp.Validate if the
+// designated constraints aren't met.
+type GetDeliveryExtensionInstanceConfigRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) ErrorName() string {
+	return "GetDeliveryExtensionInstanceConfigRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDeliveryExtensionInstanceConfigRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDeliveryExtensionInstanceConfigResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDeliveryExtensionInstanceConfigRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDeliveryExtensionInstanceConfigRespValidationError{}
