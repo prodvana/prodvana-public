@@ -38,11 +38,7 @@ SERVICE_INSTANCE: AttachmentType.ValueType  # 2
 CONVERGENCE: AttachmentType.ValueType  # 3
 global___AttachmentType = AttachmentType
 
-class ProtectionConvergenceAttachment(google.protobuf.message.Message):
-    """Protections attached to convergence. The desired state ID of the convergence is passed to the protection
-    and its lifecycle is tied to the convergence itself.
-    """
-
+class ProtectionAttachmentConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -53,7 +49,10 @@ class ProtectionConvergenceAttachment(google.protobuf.message.Message):
     @property
     def ref(self) -> prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionReference: ...
     @property
-    def lifecycle(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle]: ...
+    def lifecycle(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle]:
+        """if set, the attachment is automatically used in all deployments for the subject of this attachment.
+        e.g. for release channels, all service instances in that release channel will use the attachment.
+        """
     def __init__(
         self,
         *,
@@ -64,4 +63,4 @@ class ProtectionConvergenceAttachment(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["ref", b"ref"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle", "name", b"name", "ref", b"ref"]) -> None: ...
 
-global___ProtectionConvergenceAttachment = ProtectionConvergenceAttachment
+global___ProtectionAttachmentConfig = ProtectionAttachmentConfig

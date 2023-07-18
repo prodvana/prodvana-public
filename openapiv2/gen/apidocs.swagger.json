@@ -9580,26 +9580,6 @@
         }
       }
     },
-    "prodvanaprotectionProtectionConvergenceAttachment": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "optional, default to protection name"
-        },
-        "ref": {
-          "$ref": "#/definitions/protectionProtectionReference"
-        },
-        "lifecycle": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionProtectionLifecycle"
-          }
-        }
-      },
-      "description": "Protections attached to convergence. The desired state ID of the convergence is passed to the protection\nand its lifecycle is tied to the convergence itself."
-    },
     "prodvanarepoUser": {
       "type": "object",
       "properties": {
@@ -9795,6 +9775,26 @@
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "protectionProtectionAttachmentConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "optional, default to protection name"
+        },
+        "ref": {
+          "$ref": "#/definitions/protectionProtectionReference"
+        },
+        "lifecycle": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionLifecycle"
+          },
+          "description": "if set, the attachment is automatically used in all deployments for the subject of this attachment.\ne.g. for release channels, all service instances in that release channel will use the attachment."
         }
       }
     },
@@ -10022,26 +10022,6 @@
         }
       }
     },
-    "release_channelProtectionReleaseChannelAttachment": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "optional, default to protection name"
-        },
-        "ref": {
-          "$ref": "#/definitions/protectionProtectionReference"
-        },
-        "lifecycle": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protectionProtectionLifecycle"
-          },
-          "title": "if set, this protection is automatically used as part of service pushes in this release channel"
-        }
-      }
-    },
     "release_channelReleaseChannel": {
       "type": "object",
       "properties": {
@@ -10095,14 +10075,14 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/release_channelProtectionReleaseChannelAttachment"
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
         },
         "convergenceProtections": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanaprotectionProtectionConvergenceAttachment"
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
         },
         "constants": {

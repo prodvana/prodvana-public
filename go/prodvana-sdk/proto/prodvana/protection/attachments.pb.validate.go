@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on ProtectionConvergenceAttachment with the
+// Validate checks the field values on ProtectionAttachmentConfig with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ProtectionConvergenceAttachment) Validate() error {
+func (m *ProtectionAttachmentConfig) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ProtectionConvergenceAttachment with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ProtectionConvergenceAttachmentMultiError, or nil if none found.
-func (m *ProtectionConvergenceAttachment) ValidateAll() error {
+// ValidateAll checks the field values on ProtectionAttachmentConfig with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionAttachmentConfigMultiError, or nil if none found.
+func (m *ProtectionAttachmentConfig) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ProtectionConvergenceAttachment) validate(all bool) error {
+func (m *ProtectionAttachmentConfig) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,7 +58,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 	var errors []error
 
 	if l := utf8.RuneCountInString(m.GetName()); l < 0 || l > 63 {
-		err := ProtectionConvergenceAttachmentValidationError{
+		err := ProtectionAttachmentConfigValidationError{
 			field:  "Name",
 			reason: "value length must be between 0 and 63 runes, inclusive",
 		}
@@ -68,8 +68,8 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_ProtectionConvergenceAttachment_Name_Pattern.MatchString(m.GetName()) {
-		err := ProtectionConvergenceAttachmentValidationError{
+	if !_ProtectionAttachmentConfig_Name_Pattern.MatchString(m.GetName()) {
+		err := ProtectionAttachmentConfigValidationError{
 			field:  "Name",
 			reason: "value does not match regex pattern \"^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\"",
 		}
@@ -80,7 +80,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 	}
 
 	if m.GetRef() == nil {
-		err := ProtectionConvergenceAttachmentValidationError{
+		err := ProtectionAttachmentConfigValidationError{
 			field:  "Ref",
 			reason: "value is required",
 		}
@@ -94,7 +94,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 		switch v := interface{}(m.GetRef()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ProtectionConvergenceAttachmentValidationError{
+				errors = append(errors, ProtectionAttachmentConfigValidationError{
 					field:  "Ref",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -102,7 +102,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ProtectionConvergenceAttachmentValidationError{
+				errors = append(errors, ProtectionAttachmentConfigValidationError{
 					field:  "Ref",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -111,7 +111,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ProtectionConvergenceAttachmentValidationError{
+			return ProtectionAttachmentConfigValidationError{
 				field:  "Ref",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -119,22 +119,11 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetLifecycle()) < 1 {
-		err := ProtectionConvergenceAttachmentValidationError{
-			field:  "Lifecycle",
-			reason: "value must contain at least 1 item(s)",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	for idx, item := range m.GetLifecycle() {
 		_, _ = idx, item
 
 		if item == nil {
-			err := ProtectionConvergenceAttachmentValidationError{
+			err := ProtectionAttachmentConfigValidationError{
 				field:  fmt.Sprintf("Lifecycle[%v]", idx),
 				reason: "value is required",
 			}
@@ -148,7 +137,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ProtectionConvergenceAttachmentValidationError{
+					errors = append(errors, ProtectionAttachmentConfigValidationError{
 						field:  fmt.Sprintf("Lifecycle[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -156,7 +145,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ProtectionConvergenceAttachmentValidationError{
+					errors = append(errors, ProtectionAttachmentConfigValidationError{
 						field:  fmt.Sprintf("Lifecycle[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -165,7 +154,7 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ProtectionConvergenceAttachmentValidationError{
+				return ProtectionAttachmentConfigValidationError{
 					field:  fmt.Sprintf("Lifecycle[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -176,19 +165,19 @@ func (m *ProtectionConvergenceAttachment) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ProtectionConvergenceAttachmentMultiError(errors)
+		return ProtectionAttachmentConfigMultiError(errors)
 	}
 
 	return nil
 }
 
-// ProtectionConvergenceAttachmentMultiError is an error wrapping multiple
-// validation errors returned by ProtectionConvergenceAttachment.ValidateAll()
-// if the designated constraints aren't met.
-type ProtectionConvergenceAttachmentMultiError []error
+// ProtectionAttachmentConfigMultiError is an error wrapping multiple
+// validation errors returned by ProtectionAttachmentConfig.ValidateAll() if
+// the designated constraints aren't met.
+type ProtectionAttachmentConfigMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ProtectionConvergenceAttachmentMultiError) Error() string {
+func (m ProtectionAttachmentConfigMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -197,12 +186,11 @@ func (m ProtectionConvergenceAttachmentMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ProtectionConvergenceAttachmentMultiError) AllErrors() []error { return m }
+func (m ProtectionAttachmentConfigMultiError) AllErrors() []error { return m }
 
-// ProtectionConvergenceAttachmentValidationError is the validation error
-// returned by ProtectionConvergenceAttachment.Validate if the designated
-// constraints aren't met.
-type ProtectionConvergenceAttachmentValidationError struct {
+// ProtectionAttachmentConfigValidationError is the validation error returned
+// by ProtectionAttachmentConfig.Validate if the designated constraints aren't met.
+type ProtectionAttachmentConfigValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -210,24 +198,24 @@ type ProtectionConvergenceAttachmentValidationError struct {
 }
 
 // Field function returns field value.
-func (e ProtectionConvergenceAttachmentValidationError) Field() string { return e.field }
+func (e ProtectionAttachmentConfigValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ProtectionConvergenceAttachmentValidationError) Reason() string { return e.reason }
+func (e ProtectionAttachmentConfigValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ProtectionConvergenceAttachmentValidationError) Cause() error { return e.cause }
+func (e ProtectionAttachmentConfigValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ProtectionConvergenceAttachmentValidationError) Key() bool { return e.key }
+func (e ProtectionAttachmentConfigValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ProtectionConvergenceAttachmentValidationError) ErrorName() string {
-	return "ProtectionConvergenceAttachmentValidationError"
+func (e ProtectionAttachmentConfigValidationError) ErrorName() string {
+	return "ProtectionAttachmentConfigValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ProtectionConvergenceAttachmentValidationError) Error() string {
+func (e ProtectionAttachmentConfigValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -239,14 +227,14 @@ func (e ProtectionConvergenceAttachmentValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sProtectionConvergenceAttachment.%s: %s%s",
+		"invalid %sProtectionAttachmentConfig.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ProtectionConvergenceAttachmentValidationError{}
+var _ error = ProtectionAttachmentConfigValidationError{}
 
 var _ interface {
 	Field() string
@@ -254,6 +242,6 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ProtectionConvergenceAttachmentValidationError{}
+} = ProtectionAttachmentConfigValidationError{}
 
-var _ProtectionConvergenceAttachment_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
+var _ProtectionAttachmentConfig_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")

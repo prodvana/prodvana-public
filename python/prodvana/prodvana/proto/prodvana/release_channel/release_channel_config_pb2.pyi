@@ -14,7 +14,6 @@ import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.maturity_pb2
 import prodvana.proto.prodvana.pipelines.pipelines_pb2
 import prodvana.proto.prodvana.protection.attachments_pb2
-import prodvana.proto.prodvana.protection.protection_reference_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
 import prodvana.proto.prodvana.workflow.integration_config_pb2
 import sys
@@ -103,9 +102,9 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     @property
     def preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]: ...
     @property
-    def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionReleaseChannelAttachment]: ...
+    def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]: ...
     @property
-    def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionConvergenceAttachment]: ...
+    def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]: ...
     @property
     def constants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.constants_pb2.Constant]:
         """constants made available in template substitutions"""
@@ -119,39 +118,14 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         runtimes: collections.abc.Iterable[global___ReleaseChannelRuntimeConfig] | None = ...,
         deploy_annotations: prodvana.proto.prodvana.workflow.integration_config_pb2.AnnotationsConfig | None = ...,
         preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
-        protections: collections.abc.Iterable[global___ProtectionReleaseChannelAttachment] | None = ...,
-        convergence_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionConvergenceAttachment] | None = ...,
+        protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
+        convergence_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
         constants: collections.abc.Iterable[prodvana.proto.prodvana.common_config.constants_pb2.Constant] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deploy_annotations", b"deploy_annotations", "policy", b"policy"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes"]) -> None: ...
 
 global___ReleaseChannelConfig = ReleaseChannelConfig
-
-class ProtectionReleaseChannelAttachment(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NAME_FIELD_NUMBER: builtins.int
-    REF_FIELD_NUMBER: builtins.int
-    LIFECYCLE_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    """optional, default to protection name"""
-    @property
-    def ref(self) -> prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionReference: ...
-    @property
-    def lifecycle(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle]:
-        """if set, this protection is automatically used as part of service pushes in this release channel"""
-    def __init__(
-        self,
-        *,
-        name: builtins.str = ...,
-        ref: prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionReference | None = ...,
-        lifecycle: collections.abc.Iterable[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle", "name", b"name", "ref", b"ref"]) -> None: ...
-
-global___ProtectionReleaseChannelAttachment = ProtectionReleaseChannelAttachment
 
 class Precondition(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

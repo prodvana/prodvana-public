@@ -233,26 +233,6 @@ message AutoRollbackConfig {
     bool disabled = 1;
 }
 
-message ProtectionConvergenceAttachment {
-    string name = 1 [
-        (validate.rules).string = {
-            min_len: 0,
-            max_len: 63,
-            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
-        }
-    ]; // optional, default to protection name
-    prodvana.protection.ProtectionReference ref = 2 [(validate.rules).message.required = true];
-
-    repeated prodvana.protection.ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
-        min_items: 1,
-        items: {
-            message: {
-                required: true,
-            },
-        },
-    }];
-}
-
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {

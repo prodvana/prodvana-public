@@ -3438,6 +3438,56 @@
             ],
             "title": "Wait Task"
         },
+        "prodvana.protection.ProtectionAttachmentConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, default to protection name"
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "lifecycle": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set, the attachment is automatically used in all deployments for the subject of this attachment. e.g. for release channels, all service instances in that release channel will use the attachment."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Protection Attachment Config"
+        },
         "prodvana.protection.ProtectionConfig": {
             "properties": {
                 "name": {
@@ -3529,56 +3579,6 @@
                 }
             ],
             "title": "Protection Config"
-        },
-        "prodvana.protection.ProtectionConvergenceAttachment": {
-            "properties": {
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "optional, default to protection name"
-                },
-                "ref": {
-                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "lifecycle": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Protection Convergence Attachment",
-            "description": "Protections attached to convergence. The desired state ID of the convergence is passed to the protection and its lifecycle is tied to the convergence itself."
         },
         "prodvana.protection.ProtectionLifecycle": {
             "properties": {
@@ -3912,56 +3912,6 @@
             ],
             "title": "Release Channel Stable"
         },
-        "prodvana.release_channel.ProtectionReleaseChannelAttachment": {
-            "properties": {
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "optional, default to protection name"
-                },
-                "ref": {
-                    "$ref": "#/definitions/prodvana.protection.ProtectionReference",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "lifecycle": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "if set, this protection is automatically used as part of service pushes in this release channel"
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Protection Release Channel Attachment"
-        },
         "prodvana.release_channel.ReleaseChannelConfig": {
             "properties": {
                 "name": {
@@ -4058,7 +4008,7 @@
                 },
                 "protections": {
                     "items": {
-                        "$ref": "#/definitions/prodvana.release_channel.ProtectionReleaseChannelAttachment"
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -4072,7 +4022,7 @@
                 },
                 "convergenceProtections": {
                     "items": {
-                        "$ref": "#/definitions/prodvana.protection.ProtectionConvergenceAttachment"
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
                     },
                     "additionalProperties": false,
                     "oneOf": [

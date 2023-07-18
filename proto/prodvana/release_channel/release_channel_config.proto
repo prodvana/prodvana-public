@@ -8,7 +8,6 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
 import "prodvana/pipelines/pipelines.proto";
 import "prodvana/protection/attachments.proto";
-import "prodvana/protection/protection_reference.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/workflow/integration_config.proto";
 import "validate/validate.proto";
@@ -42,31 +41,11 @@ message ReleaseChannelConfig {
 
     repeated Precondition preconditions = 7;
 
-    repeated ProtectionReleaseChannelAttachment protections = 8;
-    repeated prodvana.protection.ProtectionConvergenceAttachment convergence_protections = 9;
+    repeated prodvana.protection.ProtectionAttachmentConfig protections = 8;
+    repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 9;
 
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 10;
-}
-
-message ProtectionReleaseChannelAttachment {
-    string name = 1 [
-        (validate.rules).string = {
-            min_len: 0,
-            max_len: 63,
-            pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
-        }
-    ]; // optional, default to protection name
-    prodvana.protection.ProtectionReference ref = 2 [(validate.rules).message.required = true];
-
-    // if set, this protection is automatically used as part of service pushes in this release channel
-    repeated prodvana.protection.ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
-        items: {
-            message: {
-                required: true,
-            },
-        },
-    }];
 }
 
 message Precondition {

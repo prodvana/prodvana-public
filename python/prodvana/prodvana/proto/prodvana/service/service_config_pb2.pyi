@@ -567,30 +567,6 @@ class AutoRollbackConfig(google.protobuf.message.Message):
 
 global___AutoRollbackConfig = AutoRollbackConfig
 
-class ProtectionConvergenceAttachment(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NAME_FIELD_NUMBER: builtins.int
-    REF_FIELD_NUMBER: builtins.int
-    LIFECYCLE_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    """optional, default to protection name"""
-    @property
-    def ref(self) -> prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionReference: ...
-    @property
-    def lifecycle(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle]: ...
-    def __init__(
-        self,
-        *,
-        name: builtins.str = ...,
-        ref: prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionReference | None = ...,
-        lifecycle: collections.abc.Iterable[prodvana.proto.prodvana.protection.protection_reference_pb2.ProtectionLifecycle] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["lifecycle", b"lifecycle", "name", b"name", "ref", b"ref"]) -> None: ...
-
-global___ProtectionConvergenceAttachment = ProtectionConvergenceAttachment
-
 class ServiceConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
