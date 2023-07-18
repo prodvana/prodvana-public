@@ -4034,6 +4034,21 @@
                         }
                     ]
                 },
+                "serviceInstanceProtections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "protections that all service instances in this release channel should get"
+                },
                 "constants": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.Constant"
@@ -4808,6 +4823,20 @@
                         }
                     ],
                     "description": "constants made available in template substitutions"
+                },
+                "protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,

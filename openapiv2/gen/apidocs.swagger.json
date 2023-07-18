@@ -10085,6 +10085,14 @@
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
         },
+        "serviceInstanceProtections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          },
+          "title": "protections that all service instances in this release channel should get"
+        },
         "constants": {
           "type": "array",
           "items": {
@@ -10390,6 +10398,13 @@
         },
         "noCleanupOnDelete": {
           "type": "boolean"
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          }
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
@@ -10754,6 +10769,13 @@
             "$ref": "#/definitions/common_configConstant"
           },
           "title": "constants made available in template substitutions"
+        },
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          }
         }
       }
     },

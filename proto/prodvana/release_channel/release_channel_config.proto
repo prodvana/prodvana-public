@@ -43,9 +43,13 @@ message ReleaseChannelConfig {
 
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 8;
     repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 9;
+    // protections that all service instances in this release channel should get
+    repeated prodvana.protection.ProtectionAttachmentConfig service_instance_protections = 11;
 
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 10;
+
+    // next tag: 12
 }
 
 message Precondition {
