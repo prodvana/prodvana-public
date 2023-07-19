@@ -9620,6 +9620,13 @@
             "type": "object",
             "$ref": "#/definitions/serviceExternalAddr"
           }
+        },
+        "protectionAttachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceServiceInstanceProtectionAttachment"
+          }
         }
       }
     },
@@ -11043,6 +11050,23 @@
         },
         "state": {
           "$ref": "#/definitions/prodvanaserviceServiceInstanceState"
+        }
+      }
+    },
+    "serviceServiceInstanceProtectionAttachment": {
+      "type": "object",
+      "properties": {
+        "protection": {
+          "type": "string"
+        },
+        "attachment": {
+          "type": "string"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "attachmentId": {
+          "type": "string"
         }
       }
     },

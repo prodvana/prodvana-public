@@ -7,6 +7,13 @@ import "prodvana/common_config/meta.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
 
+message ServiceInstanceProtectionAttachment {
+    string protection = 1;
+    string attachment = 2;
+    string desired_state_id = 3;
+    string attachment_id = 4;
+}
+
 message ExternalAddr {
     enum Type {
         UNKNOWN = 0;
@@ -34,11 +41,12 @@ message Service {
 
 message ServiceInstanceState {
     repeated ExternalAddr external_addrs = 7;
+    repeated ServiceInstanceProtectionAttachment protection_attachments = 13;
 
     reserved 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12;
     reserved "state", "available_pods", "desired_pods", "latest_successful_prodvana_push", "latest_successful_unknown_push_after_prodvana_push", "ongoing_push", "pods", "runtime_id", "runtime_name", "writeback_config", "delivery_state";
 
-    // next tag: 13
+    // next tag: 14
 }
 
 message ServiceInstance {

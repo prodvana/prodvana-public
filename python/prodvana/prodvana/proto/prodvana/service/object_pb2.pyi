@@ -22,6 +22,29 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class ServiceInstanceProtectionAttachment(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PROTECTION_FIELD_NUMBER: builtins.int
+    ATTACHMENT_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    ATTACHMENT_ID_FIELD_NUMBER: builtins.int
+    protection: builtins.str
+    attachment: builtins.str
+    desired_state_id: builtins.str
+    attachment_id: builtins.str
+    def __init__(
+        self,
+        *,
+        protection: builtins.str = ...,
+        attachment: builtins.str = ...,
+        desired_state_id: builtins.str = ...,
+        attachment_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment", b"attachment", "attachment_id", b"attachment_id", "desired_state_id", b"desired_state_id", "protection", b"protection"]) -> None: ...
+
+global___ServiceInstanceProtectionAttachment = ServiceInstanceProtectionAttachment
+
 class ExternalAddr(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -101,14 +124,18 @@ class ServiceInstanceState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     EXTERNAL_ADDRS_FIELD_NUMBER: builtins.int
+    PROTECTION_ATTACHMENTS_FIELD_NUMBER: builtins.int
     @property
     def external_addrs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExternalAddr]: ...
+    @property
+    def protection_attachments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ServiceInstanceProtectionAttachment]: ...
     def __init__(
         self,
         *,
         external_addrs: collections.abc.Iterable[global___ExternalAddr] | None = ...,
+        protection_attachments: collections.abc.Iterable[global___ServiceInstanceProtectionAttachment] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["external_addrs", b"external_addrs"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["external_addrs", b"external_addrs", "protection_attachments", b"protection_attachments"]) -> None: ...
 
 global___ServiceInstanceState = ServiceInstanceState
 
