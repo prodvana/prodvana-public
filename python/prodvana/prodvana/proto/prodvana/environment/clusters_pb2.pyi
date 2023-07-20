@@ -314,6 +314,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
+    REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___ExtensionCommand: ...
     @property
@@ -323,6 +324,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     type: global___ExtensionType.ValueType
+    require_approval_before_apply: builtins.bool
     def __init__(
         self,
         *,
@@ -331,9 +333,10 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         type: global___ExtensionType.ValueType = ...,
+        require_approval_before_apply: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 
@@ -420,6 +423,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     VOLUMES_FIELD_NUMBER: builtins.int
     PRE_RUN_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
+    REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -434,6 +438,8 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
         """Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."""
+    require_approval_before_apply: builtins.bool
+    """Require approval before every apply operation - this is on top of any release channel-level approvals."""
     def __init__(
         self,
         *,
@@ -442,9 +448,10 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        require_approval_before_apply: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 

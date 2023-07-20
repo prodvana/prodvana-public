@@ -539,6 +539,40 @@ func local_request_DesiredStateManager_BypassProtection_0(ctx context.Context, m
 
 }
 
+func request_DesiredStateManager_ApproveRuntimeExtensionApply_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ApproveRuntimeExtensionApplyReq
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ApproveRuntimeExtensionApply(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DesiredStateManager_ApproveRuntimeExtensionApply_0(ctx context.Context, marshaler runtime.Marshaler, server DesiredStateManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ApproveRuntimeExtensionApplyReq
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ApproveRuntimeExtensionApply(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 // RegisterDesiredStateManagerHandlerServer registers the http handlers for service DesiredStateManager to "mux".
 // UnaryRPC     :call DesiredStateManagerServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -792,6 +826,31 @@ func RegisterDesiredStateManagerHandlerServer(ctx context.Context, mux *runtime.
 		}
 
 		forward_DesiredStateManager_BypassProtection_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DesiredStateManager_ApproveRuntimeExtensionApply_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.desired_state.DesiredStateManager/ApproveRuntimeExtensionApply", runtime.WithHTTPPathPattern("/v1/desired_states/approve_runtime_extension_apply"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DesiredStateManager_ApproveRuntimeExtensionApply_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DesiredStateManager_ApproveRuntimeExtensionApply_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1056,6 +1115,28 @@ func RegisterDesiredStateManagerHandlerClient(ctx context.Context, mux *runtime.
 
 	})
 
+	mux.Handle("POST", pattern_DesiredStateManager_ApproveRuntimeExtensionApply_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.desired_state.DesiredStateManager/ApproveRuntimeExtensionApply", runtime.WithHTTPPathPattern("/v1/desired_states/approve_runtime_extension_apply"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DesiredStateManager_ApproveRuntimeExtensionApply_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DesiredStateManager_ApproveRuntimeExtensionApply_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -1079,6 +1160,8 @@ var (
 	pattern_DesiredStateManager_PromoteDelivery_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "promote_delivery"}, ""))
 
 	pattern_DesiredStateManager_BypassProtection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "bypass_protection"}, ""))
+
+	pattern_DesiredStateManager_ApproveRuntimeExtensionApply_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "approve_runtime_extension_apply"}, ""))
 )
 
 var (
@@ -1101,4 +1184,6 @@ var (
 	forward_DesiredStateManager_PromoteDelivery_0 = runtime.ForwardResponseMessage
 
 	forward_DesiredStateManager_BypassProtection_0 = runtime.ForwardResponseMessage
+
+	forward_DesiredStateManager_ApproveRuntimeExtensionApply_0 = runtime.ForwardResponseMessage
 )

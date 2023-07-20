@@ -1064,6 +1064,8 @@ func (m *ExtensionClusterConfig) validate(all bool) error {
 
 	// no validation rules for Type
 
+	// no validation rules for RequireApprovalBeforeApply
+
 	if len(errors) > 0 {
 		return ExtensionClusterConfigMultiError(errors)
 	}
@@ -1667,6 +1669,8 @@ func (m *TerraformRunnerConfig) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for RequireApprovalBeforeApply
 
 	if len(errors) > 0 {
 		return TerraformRunnerConfigMultiError(errors)

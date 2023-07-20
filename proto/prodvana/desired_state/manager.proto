@@ -143,6 +143,15 @@ message BypassProtectionReq {
 message BypassProtectionResp {
 }
 
+message ApproveRuntimeExtensionApplyReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    string source = 2 [(validate.rules).string.min_len = 1];
+    google.protobuf.Timestamp approval_timestamp = 3;
+}
+
+message ApproveRuntimeExtensionApplyResp {
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -196,6 +205,12 @@ service DesiredStateManager {
     rpc BypassProtection(BypassProtectionReq) returns (BypassProtectionResp) {
         option (google.api.http) = {
             post: "/v1/desired_states/bypass_protection"
+            body: "*"
+        };
+    }
+    rpc ApproveRuntimeExtensionApply(ApproveRuntimeExtensionApplyReq) returns (ApproveRuntimeExtensionApplyResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/approve_runtime_extension_apply"
             body: "*"
         };
     }

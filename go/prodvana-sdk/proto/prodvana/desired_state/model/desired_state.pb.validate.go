@@ -2697,6 +2697,8 @@ func (m *RuntimeObject) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for RequireApprovalBeforeApply
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}
@@ -5204,6 +5206,47 @@ func (m *Signal) validate(all bool) error {
 			}
 		}
 
+	case *Signal_RuntimeExtensionApproval_:
+		if v == nil {
+			err := SignalValidationError{
+				field:  "Config",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntimeExtensionApproval()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SignalValidationError{
+						field:  "RuntimeExtensionApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SignalValidationError{
+						field:  "RuntimeExtensionApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntimeExtensionApproval()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignalValidationError{
+					field:  "RuntimeExtensionApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -6518,3 +6561,135 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Signal_ProtectionBypassValidationError{}
+
+// Validate checks the field values on Signal_RuntimeExtensionApproval with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *Signal_RuntimeExtensionApproval) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Signal_RuntimeExtensionApproval with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// Signal_RuntimeExtensionApprovalMultiError, or nil if none found.
+func (m *Signal_RuntimeExtensionApproval) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Signal_RuntimeExtensionApproval) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, Signal_RuntimeExtensionApprovalValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, Signal_RuntimeExtensionApprovalValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Signal_RuntimeExtensionApprovalValidationError{
+				field:  "Timestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return Signal_RuntimeExtensionApprovalMultiError(errors)
+	}
+
+	return nil
+}
+
+// Signal_RuntimeExtensionApprovalMultiError is an error wrapping multiple
+// validation errors returned by Signal_RuntimeExtensionApproval.ValidateAll()
+// if the designated constraints aren't met.
+type Signal_RuntimeExtensionApprovalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Signal_RuntimeExtensionApprovalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Signal_RuntimeExtensionApprovalMultiError) AllErrors() []error { return m }
+
+// Signal_RuntimeExtensionApprovalValidationError is the validation error
+// returned by Signal_RuntimeExtensionApproval.Validate if the designated
+// constraints aren't met.
+type Signal_RuntimeExtensionApprovalValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Signal_RuntimeExtensionApprovalValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Signal_RuntimeExtensionApprovalValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Signal_RuntimeExtensionApprovalValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Signal_RuntimeExtensionApprovalValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Signal_RuntimeExtensionApprovalValidationError) ErrorName() string {
+	return "Signal_RuntimeExtensionApprovalValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Signal_RuntimeExtensionApprovalValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignal_RuntimeExtensionApproval.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Signal_RuntimeExtensionApprovalValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Signal_RuntimeExtensionApprovalValidationError{}

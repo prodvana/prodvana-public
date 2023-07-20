@@ -113,6 +113,7 @@ message ExtensionClusterConfig {
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
+    bool require_approval_before_apply = 6;
 }
 
 message CompiledExtensionCommand {
@@ -136,6 +137,8 @@ message TerraformRunnerConfig {
     repeated IacRunnerCommand pre_run = 4;
     // Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.
     google.protobuf.Duration poll_interval = 5;
+    // Require approval before every apply operation - this is on top of any release channel-level approvals.
+    bool require_approval_before_apply = 6;
 }
 
 message PulumiRunnerConfig {

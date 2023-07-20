@@ -603,3 +603,34 @@ class BypassProtectionResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___BypassProtectionResp = BypassProtectionResp
+
+class ApproveRuntimeExtensionApplyReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    APPROVAL_TIMESTAMP_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    source: builtins.str
+    @property
+    def approval_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        source: builtins.str = ...,
+        approval_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["approval_timestamp", b"approval_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["approval_timestamp", b"approval_timestamp", "desired_state_id", b"desired_state_id", "source", b"source"]) -> None: ...
+
+global___ApproveRuntimeExtensionApplyReq = ApproveRuntimeExtensionApplyReq
+
+class ApproveRuntimeExtensionApplyResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ApproveRuntimeExtensionApplyResp = ApproveRuntimeExtensionApplyResp

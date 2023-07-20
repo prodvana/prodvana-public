@@ -296,12 +296,14 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     SIGNAL_UNKNOWN: _SignalType.ValueType  # 0
     DELIVERY_PROMOTION: _SignalType.ValueType  # 1
     PROTECTION_BYPASS: _SignalType.ValueType  # 2
+    RUNTIME_EXTENSION_APPROVAL: _SignalType.ValueType  # 3
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
 SIGNAL_UNKNOWN: SignalType.ValueType  # 0
 DELIVERY_PROMOTION: SignalType.ValueType  # 1
 PROTECTION_BYPASS: SignalType.ValueType  # 2
+RUNTIME_EXTENSION_APPROVAL: SignalType.ValueType  # 3
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -928,6 +930,7 @@ class RuntimeObject(google.protobuf.message.Message):
     TIMEOUT_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
+    REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -963,6 +966,7 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """exit codes, only for run-to-completion objects like jobs"""
+    require_approval_before_apply: builtins.bool
     def __init__(
         self,
         *,
@@ -982,9 +986,10 @@ class RuntimeObject(google.protobuf.message.Message):
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+        require_approval_before_apply: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -1420,24 +1425,47 @@ class Signal(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
+    class RuntimeExtensionApproval(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        TIMESTAMP_FIELD_NUMBER: builtins.int
+        @property
+        def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+            """When was the approval issued?
+            If this is after last run timestamp, apply can proceed.
+            TODO: Add actor info - who/what approved and how?
+            TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
+            """
+        def __init__(
+            self,
+            *,
+            timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> None: ...
+
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
     PROTECTION_BYPASS_FIELD_NUMBER: builtins.int
+    RUNTIME_EXTENSION_APPROVAL_FIELD_NUMBER: builtins.int
     type: global___SignalType.ValueType
     @property
     def delivery_promotion(self) -> global___Signal.DeliveryPromotionConfig: ...
     @property
     def protection_bypass(self) -> global___Signal.ProtectionBypass: ...
+    @property
+    def runtime_extension_approval(self) -> global___Signal.RuntimeExtensionApproval: ...
     def __init__(
         self,
         *,
         type: global___SignalType.ValueType = ...,
         delivery_promotion: global___Signal.DeliveryPromotionConfig | None = ...,
         protection_bypass: global___Signal.ProtectionBypass | None = ...,
+        runtime_extension_approval: global___Signal.RuntimeExtensionApproval | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval"] | None: ...
 
 global___Signal = Signal
 

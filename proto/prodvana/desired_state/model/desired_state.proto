@@ -328,10 +328,11 @@ message RuntimeObject {
     // output_blob_ids and exit_codes are in the same order, assuming output is saved
     repeated string output_blob_ids = 18; // if output is saved, this is the ID of the blob to retrieve it, only for run-to-completion objects.
     repeated int32 exit_codes = 19; // exit codes, only for run-to-completion objects like jobs
+    bool require_approval_before_apply = 21;
 
     reserved 9, 11, 14, 17;
     reserved "unhealthy_pods", "state_hash";
-    // next tag: 21
+    // next tag: 22
 }
 
 enum ConditionStatus {
@@ -495,7 +496,8 @@ message DeliveryExtensionState {
 enum SignalType {
     SIGNAL_UNKNOWN = 0;
     DELIVERY_PROMOTION = 1;
-	PROTECTION_BYPASS = 2;
+    PROTECTION_BYPASS = 2;
+    RUNTIME_EXTENSION_APPROVAL = 3;
 }
 
 message Signal {
@@ -508,12 +510,21 @@ message Signal {
         bool full = 2;
     }
 
-	message ProtectionBypass {
-	}
+    message ProtectionBypass {
+    }
+
+    message RuntimeExtensionApproval {
+        // When was the approval issued?
+        // If this is after last run timestamp, apply can proceed.
+        google.protobuf.Timestamp timestamp = 1;
+        // TODO: Add actor info - who/what approved and how?
+        // TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
+    }
 
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
-		ProtectionBypass protection_bypass = 3;
+        ProtectionBypass protection_bypass = 3;
+        RuntimeExtensionApproval runtime_extension_approval = 4;
     }
 }
 

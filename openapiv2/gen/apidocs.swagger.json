@@ -2220,6 +2220,38 @@
         ]
       }
     },
+    "/v1/desired_states/approve_runtime_extension_apply": {
+      "post": {
+        "operationId": "DesiredStateManager_ApproveRuntimeExtensionApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateApproveRuntimeExtensionApplyResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateApproveRuntimeExtensionApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/bypass_protection": {
       "post": {
         "operationId": "DesiredStateManager_BypassProtection",
@@ -6850,6 +6882,24 @@
     "delivery_extensionValidateConfigureDeliveryExtensionResp": {
       "type": "object"
     },
+    "desired_stateApproveRuntimeExtensionApplyReq": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "approvalTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "desired_stateApproveRuntimeExtensionApplyResp": {
+      "type": "object"
+    },
     "desired_stateBypassProtectionReq": {
       "type": "object",
       "properties": {
@@ -7361,6 +7411,9 @@
             "format": "int32"
           },
           "title": "exit codes, only for run-to-completion objects like jobs"
+        },
+        "requireApprovalBeforeApply": {
+          "type": "boolean"
         }
       }
     },
@@ -7646,6 +7699,9 @@
         },
         "type": {
           "$ref": "#/definitions/environmentExtensionType"
+        },
+        "requireApprovalBeforeApply": {
+          "type": "boolean"
         }
       }
     },
@@ -7905,6 +7961,10 @@
         "pollInterval": {
           "type": "string",
           "description": "Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."
+        },
+        "requireApprovalBeforeApply": {
+          "type": "boolean",
+          "description": "Require approval before every apply operation - this is on top of any release channel-level approvals."
         }
       }
     },

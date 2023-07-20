@@ -2810,6 +2810,16 @@
                         }
                     ],
                     "title": "Extension Type"
+                },
+                "requireApprovalBeforeApply": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -3054,6 +3064,17 @@
                     "type": "string",
                     "description": "Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.",
                     "format": "regex"
+                },
+                "requireApprovalBeforeApply": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Require approval before every apply operation - this is on top of any release channel-level approvals."
                 }
             },
             "additionalProperties": false,
