@@ -145,6 +145,7 @@ class _SimpleStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     SS_CONVERGING: _SimpleStatus.ValueType  # 1
     SS_CONVERGED: _SimpleStatus.ValueType  # 2
     SS_FAILED: _SimpleStatus.ValueType  # 3
+    SS_WAITING_FOR_APPROVAL: _SimpleStatus.ValueType  # 4
 
 class SimpleStatus(_SimpleStatus, metaclass=_SimpleStatusEnumTypeWrapper): ...
 
@@ -152,6 +153,7 @@ SS_UNKNOWN: SimpleStatus.ValueType  # 0
 SS_CONVERGING: SimpleStatus.ValueType  # 1
 SS_CONVERGED: SimpleStatus.ValueType  # 2
 SS_FAILED: SimpleStatus.ValueType  # 3
+SS_WAITING_FOR_APPROVAL: SimpleStatus.ValueType  # 4
 global___SimpleStatus = SimpleStatus
 
 class _StatusReason:
@@ -931,6 +933,7 @@ class RuntimeObject(google.protobuf.message.Message):
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
+    MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -967,6 +970,8 @@ class RuntimeObject(google.protobuf.message.Message):
     def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """exit codes, only for run-to-completion objects like jobs"""
     require_approval_before_apply: builtins.bool
+    @property
+    def missing_approval(self) -> global___MissingApproval: ...
     def __init__(
         self,
         *,
@@ -987,9 +992,10 @@ class RuntimeObject(google.protobuf.message.Message):
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         require_approval_before_apply: builtins.bool = ...,
+        missing_approval: global___MissingApproval | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "missing_approval", b"missing_approval", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "missing_approval", b"missing_approval", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -1487,3 +1493,20 @@ class DebugLog(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["log", b"log", "ts", b"ts"]) -> None: ...
 
 global___DebugLog = DebugLog
+
+class MissingApproval(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    SIGNAL_TYPE_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    signal_type: global___SignalType.ValueType
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        signal_type: global___SignalType.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "signal_type", b"signal_type"]) -> None: ...
+
+global___MissingApproval = MissingApproval

@@ -134,6 +134,7 @@ enum SimpleStatus {
     SS_CONVERGING = 1;
     SS_CONVERGED = 2;
     SS_FAILED = 3;
+    SS_WAITING_FOR_APPROVAL = 4;
 }
 
 enum StatusReason {
@@ -330,9 +331,11 @@ message RuntimeObject {
     repeated int32 exit_codes = 19; // exit codes, only for run-to-completion objects like jobs
     bool require_approval_before_apply = 21;
 
+    MissingApproval missing_approval = 22;
+
     reserved 9, 11, 14, 17;
     reserved "unhealthy_pods", "state_hash";
-    // next tag: 22
+    // next tag: 23
 }
 
 enum ConditionStatus {
@@ -531,4 +534,9 @@ message Signal {
 message DebugLog {
     google.protobuf.Timestamp ts = 1;
     string log = 2;
+}
+
+message MissingApproval {
+    string desired_state_id = 1;
+    prodvana.desired_state.model.SignalType signal_type = 2;
 }

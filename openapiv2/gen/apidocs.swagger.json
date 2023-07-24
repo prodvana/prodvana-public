@@ -7414,6 +7414,9 @@
         },
         "requireApprovalBeforeApply": {
           "type": "boolean"
+        },
+        "missingApproval": {
+          "$ref": "#/definitions/modelMissingApproval"
         }
       }
     },
@@ -9037,6 +9040,17 @@
       ],
       "default": "PENDING"
     },
+    "modelMissingApproval": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "signalType": {
+          "$ref": "#/definitions/modelSignalType"
+        }
+      }
+    },
     "modelProtectionLinkState": {
       "type": "object",
       "properties": {
@@ -9109,13 +9123,24 @@
         }
       }
     },
+    "modelSignalType": {
+      "type": "string",
+      "enum": [
+        "SIGNAL_UNKNOWN",
+        "DELIVERY_PROMOTION",
+        "PROTECTION_BYPASS",
+        "RUNTIME_EXTENSION_APPROVAL"
+      ],
+      "default": "SIGNAL_UNKNOWN"
+    },
     "modelSimpleStatus": {
       "type": "string",
       "enum": [
         "SS_UNKNOWN",
         "SS_CONVERGING",
         "SS_CONVERGED",
-        "SS_FAILED"
+        "SS_FAILED",
+        "SS_WAITING_FOR_APPROVAL"
       ],
       "default": "SS_UNKNOWN"
     },
