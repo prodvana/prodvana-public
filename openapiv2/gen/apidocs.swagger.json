@@ -2220,38 +2220,6 @@
         ]
       }
     },
-    "/v1/desired_states/approve_runtime_extension_apply": {
-      "post": {
-        "operationId": "DesiredStateManager_ApproveRuntimeExtensionApply",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/desired_stateApproveRuntimeExtensionApplyResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/desired_stateApproveRuntimeExtensionApplyReq"
-            }
-          }
-        ],
-        "tags": [
-          "prodvana.desired_state.DesiredStateManager"
-        ]
-      }
-    },
     "/v1/desired_states/bypass_protection": {
       "post": {
         "operationId": "DesiredStateManager_BypassProtection",
@@ -6882,24 +6850,6 @@
     "delivery_extensionValidateConfigureDeliveryExtensionResp": {
       "type": "object"
     },
-    "desired_stateApproveRuntimeExtensionApplyReq": {
-      "type": "object",
-      "properties": {
-        "desiredStateId": {
-          "type": "string"
-        },
-        "source": {
-          "type": "string"
-        },
-        "approvalTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "desired_stateApproveRuntimeExtensionApplyResp": {
-      "type": "object"
-    },
     "desired_stateBypassProtectionReq": {
       "type": "object",
       "properties": {
@@ -7119,6 +7069,9 @@
         },
         "reject": {
           "type": "boolean"
+        },
+        "signalType": {
+          "$ref": "#/definitions/modelSignalType"
         }
       }
     },
@@ -9129,7 +9082,8 @@
         "SIGNAL_UNKNOWN",
         "DELIVERY_PROMOTION",
         "PROTECTION_BYPASS",
-        "RUNTIME_EXTENSION_APPROVAL"
+        "RUNTIME_EXTENSION_APPROVAL",
+        "SIGNAL_MANUAL_APPROVAL"
       ],
       "default": "SIGNAL_UNKNOWN"
     },

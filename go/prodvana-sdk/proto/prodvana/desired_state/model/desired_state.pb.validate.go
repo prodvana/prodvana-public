@@ -6746,6 +6746,8 @@ func (m *Signal_RuntimeExtensionApproval) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Reject
+
 	if len(errors) > 0 {
 		return Signal_RuntimeExtensionApprovalMultiError(errors)
 	}

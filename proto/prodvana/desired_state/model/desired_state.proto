@@ -501,6 +501,7 @@ enum SignalType {
     DELIVERY_PROMOTION = 1;
     PROTECTION_BYPASS = 2;
     RUNTIME_EXTENSION_APPROVAL = 3;
+    SIGNAL_MANUAL_APPROVAL = 4;
 }
 
 message Signal {
@@ -520,6 +521,7 @@ message Signal {
         // When was the approval issued?
         // If this is after last run timestamp, apply can proceed.
         google.protobuf.Timestamp timestamp = 1;
+        bool reject = 2;
         // TODO: Add actor info - who/what approved and how?
         // TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
     }

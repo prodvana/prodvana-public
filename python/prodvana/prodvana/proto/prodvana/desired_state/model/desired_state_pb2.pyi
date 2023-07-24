@@ -299,6 +299,7 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     DELIVERY_PROMOTION: _SignalType.ValueType  # 1
     PROTECTION_BYPASS: _SignalType.ValueType  # 2
     RUNTIME_EXTENSION_APPROVAL: _SignalType.ValueType  # 3
+    SIGNAL_MANUAL_APPROVAL: _SignalType.ValueType  # 4
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
@@ -306,6 +307,7 @@ SIGNAL_UNKNOWN: SignalType.ValueType  # 0
 DELIVERY_PROMOTION: SignalType.ValueType  # 1
 PROTECTION_BYPASS: SignalType.ValueType  # 2
 RUNTIME_EXTENSION_APPROVAL: SignalType.ValueType  # 3
+SIGNAL_MANUAL_APPROVAL: SignalType.ValueType  # 4
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -1435,20 +1437,24 @@ class Signal(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         TIMESTAMP_FIELD_NUMBER: builtins.int
+        REJECT_FIELD_NUMBER: builtins.int
         @property
         def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
             """When was the approval issued?
             If this is after last run timestamp, apply can proceed.
-            TODO: Add actor info - who/what approved and how?
-            TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
             """
+        reject: builtins.bool
+        """TODO: Add actor info - who/what approved and how?
+        TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
+        """
         def __init__(
             self,
             *,
             timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+            reject: builtins.bool = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["reject", b"reject", "timestamp", b"timestamp"]) -> None: ...
 
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int

@@ -519,6 +519,7 @@ class SetManualApprovalReq(google.protobuf.message.Message):
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     TOPIC_FIELD_NUMBER: builtins.int
     REJECT_FIELD_NUMBER: builtins.int
+    SIGNAL_TYPE_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     topic: builtins.str
     """string application = 2 [(prodvana.proto.validate.rules).string.min_len = 1];
@@ -526,14 +527,16 @@ class SetManualApprovalReq(google.protobuf.message.Message):
     string release_channel = 4 [(prodvana.proto.validate.rules).string.min_len = 1];
     """
     reject: builtins.bool
+    signal_type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SignalType.ValueType
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         topic: builtins.str = ...,
         reject: builtins.bool = ...,
+        signal_type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SignalType.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "reject", b"reject", "topic", b"topic"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "reject", b"reject", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 
 global___SetManualApprovalReq = SetManualApprovalReq
 
@@ -603,34 +606,3 @@ class BypassProtectionResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___BypassProtectionResp = BypassProtectionResp
-
-class ApproveRuntimeExtensionApplyReq(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
-    SOURCE_FIELD_NUMBER: builtins.int
-    APPROVAL_TIMESTAMP_FIELD_NUMBER: builtins.int
-    desired_state_id: builtins.str
-    source: builtins.str
-    @property
-    def approval_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    def __init__(
-        self,
-        *,
-        desired_state_id: builtins.str = ...,
-        source: builtins.str = ...,
-        approval_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["approval_timestamp", b"approval_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["approval_timestamp", b"approval_timestamp", "desired_state_id", b"desired_state_id", "source", b"source"]) -> None: ...
-
-global___ApproveRuntimeExtensionApplyReq = ApproveRuntimeExtensionApplyReq
-
-class ApproveRuntimeExtensionApplyResp(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    def __init__(
-        self,
-    ) -> None: ...
-
-global___ApproveRuntimeExtensionApplyResp = ApproveRuntimeExtensionApplyResp

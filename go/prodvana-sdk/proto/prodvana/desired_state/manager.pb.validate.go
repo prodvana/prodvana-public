@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = model.SignalType(0)
 )
 
 // Validate checks the field values on SetDesiredStateReq with the rules
@@ -2886,6 +2890,8 @@ func (m *SetManualApprovalReq) validate(all bool) error {
 
 	// no validation rules for Reject
 
+	// no validation rules for SignalType
+
 	if len(errors) > 0 {
 		return SetManualApprovalReqMultiError(errors)
 	}
@@ -3523,262 +3529,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = BypassProtectionRespValidationError{}
-
-// Validate checks the field values on ApproveRuntimeExtensionApplyReq with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ApproveRuntimeExtensionApplyReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on ApproveRuntimeExtensionApplyReq with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ApproveRuntimeExtensionApplyReqMultiError, or nil if none found.
-func (m *ApproveRuntimeExtensionApplyReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *ApproveRuntimeExtensionApplyReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
-		err := ApproveRuntimeExtensionApplyReqValidationError{
-			field:  "DesiredStateId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetSource()) < 1 {
-		err := ApproveRuntimeExtensionApplyReqValidationError{
-			field:  "Source",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetApprovalTimestamp()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ApproveRuntimeExtensionApplyReqValidationError{
-					field:  "ApprovalTimestamp",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ApproveRuntimeExtensionApplyReqValidationError{
-					field:  "ApprovalTimestamp",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetApprovalTimestamp()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ApproveRuntimeExtensionApplyReqValidationError{
-				field:  "ApprovalTimestamp",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return ApproveRuntimeExtensionApplyReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// ApproveRuntimeExtensionApplyReqMultiError is an error wrapping multiple
-// validation errors returned by ApproveRuntimeExtensionApplyReq.ValidateAll()
-// if the designated constraints aren't met.
-type ApproveRuntimeExtensionApplyReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m ApproveRuntimeExtensionApplyReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m ApproveRuntimeExtensionApplyReqMultiError) AllErrors() []error { return m }
-
-// ApproveRuntimeExtensionApplyReqValidationError is the validation error
-// returned by ApproveRuntimeExtensionApplyReq.Validate if the designated
-// constraints aren't met.
-type ApproveRuntimeExtensionApplyReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ApproveRuntimeExtensionApplyReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ApproveRuntimeExtensionApplyReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ApproveRuntimeExtensionApplyReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ApproveRuntimeExtensionApplyReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ApproveRuntimeExtensionApplyReqValidationError) ErrorName() string {
-	return "ApproveRuntimeExtensionApplyReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ApproveRuntimeExtensionApplyReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sApproveRuntimeExtensionApplyReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ApproveRuntimeExtensionApplyReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ApproveRuntimeExtensionApplyReqValidationError{}
-
-// Validate checks the field values on ApproveRuntimeExtensionApplyResp with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the first error encountered is returned, or nil if there are
-// no violations.
-func (m *ApproveRuntimeExtensionApplyResp) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on ApproveRuntimeExtensionApplyResp with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ApproveRuntimeExtensionApplyRespMultiError, or nil if none found.
-func (m *ApproveRuntimeExtensionApplyResp) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *ApproveRuntimeExtensionApplyResp) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return ApproveRuntimeExtensionApplyRespMultiError(errors)
-	}
-
-	return nil
-}
-
-// ApproveRuntimeExtensionApplyRespMultiError is an error wrapping multiple
-// validation errors returned by
-// ApproveRuntimeExtensionApplyResp.ValidateAll() if the designated
-// constraints aren't met.
-type ApproveRuntimeExtensionApplyRespMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m ApproveRuntimeExtensionApplyRespMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m ApproveRuntimeExtensionApplyRespMultiError) AllErrors() []error { return m }
-
-// ApproveRuntimeExtensionApplyRespValidationError is the validation error
-// returned by ApproveRuntimeExtensionApplyResp.Validate if the designated
-// constraints aren't met.
-type ApproveRuntimeExtensionApplyRespValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ApproveRuntimeExtensionApplyRespValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ApproveRuntimeExtensionApplyRespValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ApproveRuntimeExtensionApplyRespValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ApproveRuntimeExtensionApplyRespValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ApproveRuntimeExtensionApplyRespValidationError) ErrorName() string {
-	return "ApproveRuntimeExtensionApplyRespValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ApproveRuntimeExtensionApplyRespValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sApproveRuntimeExtensionApplyResp.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ApproveRuntimeExtensionApplyRespValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ApproveRuntimeExtensionApplyRespValidationError{}

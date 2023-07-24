@@ -120,6 +120,7 @@ message SetManualApprovalReq {
     // string release_channel = 4 [(validate.rules).string.min_len = 1];
     string topic = 2 [(validate.rules).string.min_len =1];
     bool reject = 3;
+    prodvana.desired_state.model.SignalType signal_type = 4;
 }
 
 message SetManualApprovalResp {
@@ -141,15 +142,6 @@ message BypassProtectionReq {
 }
 
 message BypassProtectionResp {
-}
-
-message ApproveRuntimeExtensionApplyReq {
-    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
-    string source = 2 [(validate.rules).string.min_len = 1];
-    google.protobuf.Timestamp approval_timestamp = 3;
-}
-
-message ApproveRuntimeExtensionApplyResp {
 }
 
 service DesiredStateManager {
@@ -205,12 +197,6 @@ service DesiredStateManager {
     rpc BypassProtection(BypassProtectionReq) returns (BypassProtectionResp) {
         option (google.api.http) = {
             post: "/v1/desired_states/bypass_protection"
-            body: "*"
-        };
-    }
-    rpc ApproveRuntimeExtensionApply(ApproveRuntimeExtensionApplyReq) returns (ApproveRuntimeExtensionApplyResp) {
-        option (google.api.http) = {
-            post: "/v1/desired_states/approve_runtime_extension_apply"
             body: "*"
         };
     }

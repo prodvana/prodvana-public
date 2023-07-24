@@ -48,10 +48,6 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp,
     ]
-    ApproveRuntimeExtensionApply: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.desired_state.manager_pb2.ApproveRuntimeExtensionApplyReq,
-        prodvana.proto.prodvana.desired_state.manager_pb2.ApproveRuntimeExtensionApplyResp,
-    ]
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -114,11 +110,5 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp: ...
-    @abc.abstractmethod
-    def ApproveRuntimeExtensionApply(
-        self,
-        request: prodvana.proto.prodvana.desired_state.manager_pb2.ApproveRuntimeExtensionApplyReq,
-        context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ApproveRuntimeExtensionApplyResp: ...
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...
