@@ -14,7 +14,8 @@ message Entity {
     SimpleStatus simple_status = 17;
     State starting_state = 6;
     State last_seen_state = 7;
-    State desired_state = 8;
+    State desired_state = 8; // the state we want to get to before calling convergence complete
+    State target_state = 19; // the state we are actually going to apply. when preconditions are met, target state = desired state, otherwise, target state = previous desired state
     repeated ConditionState precondition_statuses = 9;
     repeated StatusExplanation status_explanations = 10;
     repeated DebugLog logs = 11;
@@ -25,7 +26,7 @@ message Entity {
 
     repeated Identifier dependencies = 16;
     prodvana.common_config.TaskLifecycle lifecycle = 18;
-    // next tag: 19
+    // next tag: 20
 }
 
 message EntityGraph {

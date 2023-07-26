@@ -8886,7 +8886,12 @@
           "$ref": "#/definitions/modelState"
         },
         "desiredState": {
-          "$ref": "#/definitions/modelState"
+          "$ref": "#/definitions/modelState",
+          "title": "the state we want to get to before calling convergence complete"
+        },
+        "targetState": {
+          "$ref": "#/definitions/modelState",
+          "title": "the state we are actually going to apply. when preconditions are met, target state = desired state, otherwise, target state = previous desired state"
         },
         "preconditionStatuses": {
           "type": "array",
@@ -8936,7 +8941,7 @@
         },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle",
-          "title": "next tag: 19"
+          "title": "next tag: 20"
         }
       }
     },
