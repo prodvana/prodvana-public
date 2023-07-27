@@ -1185,6 +1185,8 @@ func (m *Precondition_ManualApproval) validate(all bool) error {
 
 	// no validation rules for Description
 
+	// no validation rules for EveryAction
+
 	if len(errors) > 0 {
 		return Precondition_ManualApprovalMultiError(errors)
 	}

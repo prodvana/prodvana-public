@@ -5243,6 +5243,10 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 
 	}
 
+	// no validation rules for HasAtLeastOneManualApproval
+
+	// no validation rules for RequiresApprovalForEveryApply
+
 	switch v := m.ConfigOneof.(type) {
 	case *CompiledServiceInstanceConfig_RuntimeExtension:
 		if v == nil {

@@ -386,10 +386,16 @@ message CompiledServiceInstanceConfig {
 
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 34;
 
+    // Does this service instance have at least one manual approval configured?
+    bool has_at_least_one_manual_approval = 35;
+
+    // Does this service instance require manual approval on each push/apply action?
+    bool requires_approval_for_every_apply = 36;
+
     reserved 8, 9, 16, 20, 21;
     reserved "base_template", "runtime_type";
 
-    // next tag: 35
+    // next tag: 37
 }
 
 message CompiledJobConfig {

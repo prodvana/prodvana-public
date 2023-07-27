@@ -60,6 +60,7 @@ message Precondition {
     message ManualApproval {
         string name = 1;
         string description = 2;
+        bool every_action = 3;
     }
     message CustomTask {
         string task_name = 1;

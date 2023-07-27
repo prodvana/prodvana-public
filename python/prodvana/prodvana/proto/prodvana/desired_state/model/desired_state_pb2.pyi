@@ -491,6 +491,7 @@ class Metadata(google.protobuf.message.Message):
     PROTECTION_LINKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     TARGET_STATE_SET_BY_PARENT_FIELD_NUMBER: builtins.int
+    REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     @property
     def preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Condition]: ...
     @property
@@ -505,6 +506,7 @@ class Metadata(google.protobuf.message.Message):
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtension]: ...
     target_state_set_by_parent: builtins.bool
     """if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."""
+    require_approval_before_apply: builtins.bool
     def __init__(
         # pyright: reportSelfClsParameterName=false
         self_,
@@ -517,9 +519,10 @@ class Metadata(google.protobuf.message.Message):
         protection_links: collections.abc.Iterable[global___ProtectionLink] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtension] | None = ...,
         target_state_set_by_parent: builtins.bool = ...,
+        require_approval_before_apply: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
 
 global___Metadata = Metadata
 
@@ -935,7 +938,6 @@ class RuntimeObject(google.protobuf.message.Message):
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
-    MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -972,8 +974,6 @@ class RuntimeObject(google.protobuf.message.Message):
     def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """exit codes, only for run-to-completion objects like jobs"""
     require_approval_before_apply: builtins.bool
-    @property
-    def missing_approval(self) -> global___MissingApproval: ...
     def __init__(
         self,
         *,
@@ -994,10 +994,9 @@ class RuntimeObject(google.protobuf.message.Message):
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         require_approval_before_apply: builtins.bool = ...,
-        missing_approval: global___MissingApproval | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "missing_approval", b"missing_approval", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "missing_approval", b"missing_approval", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -1026,6 +1025,7 @@ class ControlState(google.protobuf.message.Message):
     ACTION_EXPLANATION_FIELD_NUMBER: builtins.int
     LAST_FETCHED_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_APPLIED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     rollback: builtins.bool
     @property
     def precondition_states(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConditionState]: ...
@@ -1047,6 +1047,8 @@ class ControlState(google.protobuf.message.Message):
     def last_fetched_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def last_applied_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def missing_approval(self) -> global___MissingApproval: ...
     def __init__(
         self,
         *,
@@ -1058,9 +1060,10 @@ class ControlState(google.protobuf.message.Message):
         action_explanation: global___ActionExplanation | None = ...,
         last_fetched_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        missing_approval: global___MissingApproval | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
 
 global___ControlState = ControlState
 
@@ -1516,3 +1519,23 @@ class MissingApproval(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "signal_type", b"signal_type"]) -> None: ...
 
 global___MissingApproval = MissingApproval
+
+class ApplyRejected(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MISSING_APPROVAL_FIELD_NUMBER: builtins.int
+    @property
+    def missing_approval(self) -> global___MissingApproval:
+        """Cannot apply because this entity requires additional approval.
+        TODO: Add reasons like paused entities.
+        """
+    def __init__(
+        self,
+        *,
+        missing_approval: global___MissingApproval | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["reason", b"reason"]) -> typing_extensions.Literal["missing_approval"] | None: ...
+
+global___ApplyRejected = ApplyRejected

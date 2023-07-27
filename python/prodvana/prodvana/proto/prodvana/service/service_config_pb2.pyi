@@ -794,6 +794,8 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     NO_CLEANUP_ON_DELETE_FIELD_NUMBER: builtins.int
     PROTECTIONS_FIELD_NUMBER: builtins.int
+    HAS_AT_LEAST_ONE_MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
+    REQUIRES_APPROVAL_FOR_EVERY_APPLY_FIELD_NUMBER: builtins.int
     service: builtins.str
     application: builtins.str
     release_channel: builtins.str
@@ -853,6 +855,10 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
     no_cleanup_on_delete: builtins.bool
     @property
     def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]: ...
+    has_at_least_one_manual_approval: builtins.bool
+    """Does this service instance have at least one manual approval configured?"""
+    requires_approval_for_every_apply: builtins.bool
+    """Does this service instance require manual approval on each push/apply action?"""
     def __init__(
         self,
         *,
@@ -885,9 +891,11 @@ class CompiledServiceInstanceConfig(google.protobuf.message.Message):
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         no_cleanup_on_delete: builtins.bool = ...,
         protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
+        has_at_least_one_manual_approval: builtins.bool = ...,
+        requires_approval_for_every_apply: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["cert", b"cert", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "capabilities", b"capabilities", "cert", b"cert", "config_oneof", b"config_oneof", "constants", b"constants", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "delivery_extension_instances", b"delivery_extension_instances", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "env", b"env", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "maturity", b"maturity", "no_cleanup_on_delete", b"no_cleanup_on_delete", "parameter_values", b"parameter_values", "parameters", b"parameters", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "protections", b"protections", "release_channel", b"release_channel", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "service", b"service", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "capabilities", b"capabilities", "cert", b"cert", "config_oneof", b"config_oneof", "constants", b"constants", "custom_hostnames", b"custom_hostnames", "delivery_config", b"delivery_config", "delivery_extension_instances", b"delivery_extension_instances", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "env", b"env", "has_at_least_one_manual_approval", b"has_at_least_one_manual_approval", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "maturity", b"maturity", "no_cleanup_on_delete", b"no_cleanup_on_delete", "parameter_values", b"parameter_values", "parameters", b"parameters", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "protections", b"protections", "release_channel", b"release_channel", "release_strategy", b"release_strategy", "replicas", b"replicas", "requires_approval_for_every_apply", b"requires_approval_for_every_apply", "runtime", b"runtime", "runtime_execution", b"runtime_execution", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "service", b"service", "volumes", b"volumes"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["runtime_extension", "kubernetes_config", "helm"] | None: ...
 
 global___CompiledServiceInstanceConfig = CompiledServiceInstanceConfig

@@ -107,9 +107,12 @@ message Metadata {
     repeated DeliveryExtension delivery_extensions = 8;
     // if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state.
     bool target_state_set_by_parent = 9;
+    bool require_approval_before_apply = 10;
 
     reserved 7;
     reserved "protections";
+
+    // next tag: 11
 }
 
 enum Status {
@@ -135,6 +138,8 @@ enum SimpleStatus {
     SS_CONVERGED = 2;
     SS_FAILED = 3;
     SS_WAITING_FOR_APPROVAL = 4;
+
+    // next tag: 5
 }
 
 enum StatusReason {
@@ -331,10 +336,8 @@ message RuntimeObject {
     repeated int32 exit_codes = 19; // exit codes, only for run-to-completion objects like jobs
     bool require_approval_before_apply = 21;
 
-    MissingApproval missing_approval = 22;
-
-    reserved 9, 11, 14, 17;
-    reserved "unhealthy_pods", "state_hash";
+    reserved 9, 11, 14, 17, 22;
+    reserved "unhealthy_pods", "state_hash", "missing_approval";
     // next tag: 23
 }
 
@@ -368,6 +371,9 @@ message ControlState {
 
     google.protobuf.Timestamp last_fetched_timestamp = 7;
     google.protobuf.Timestamp last_applied_timestamp = 8;
+    MissingApproval missing_approval = 9;
+
+    // next tag: 10
 }
 
 enum ManualApprovalStatus {
@@ -541,4 +547,12 @@ message DebugLog {
 message MissingApproval {
     string desired_state_id = 1;
     prodvana.desired_state.model.SignalType signal_type = 2;
+}
+
+message ApplyRejected {
+    oneof reason {
+        // Cannot apply because this entity requires additional approval.
+        MissingApproval missing_approval = 1;
+        // TODO: Add reasons like paused entities.
+    }
 }

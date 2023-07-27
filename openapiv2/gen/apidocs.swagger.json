@@ -7234,6 +7234,9 @@
         "targetStateSetByParent": {
           "type": "boolean",
           "description": "if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."
+        },
+        "requireApprovalBeforeApply": {
+          "type": "boolean"
         }
       }
     },
@@ -7367,9 +7370,6 @@
         },
         "requireApprovalBeforeApply": {
           "type": "boolean"
-        },
-        "missingApproval": {
-          "$ref": "#/definitions/modelMissingApproval"
         }
       }
     },
@@ -8998,17 +8998,6 @@
       ],
       "default": "PENDING"
     },
-    "modelMissingApproval": {
-      "type": "object",
-      "properties": {
-        "desiredStateId": {
-          "type": "string"
-        },
-        "signalType": {
-          "$ref": "#/definitions/modelSignalType"
-        }
-      }
-    },
     "modelProtectionLinkState": {
       "type": "object",
       "properties": {
@@ -10070,6 +10059,9 @@
         },
         "description": {
           "type": "string"
+        },
+        "everyAction": {
+          "type": "boolean"
         }
       }
     },
@@ -10456,6 +10448,14 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
+        },
+        "hasAtLeastOneManualApproval": {
+          "type": "boolean",
+          "title": "Does this service instance have at least one manual approval configured?"
+        },
+        "requiresApprovalForEveryApply": {
+          "type": "boolean",
+          "title": "Does this service instance require manual approval on each push/apply action?"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"

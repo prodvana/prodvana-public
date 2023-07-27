@@ -3891,6 +3891,16 @@
                             "type": "string"
                         }
                     ]
+                },
+                "everyAction": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
