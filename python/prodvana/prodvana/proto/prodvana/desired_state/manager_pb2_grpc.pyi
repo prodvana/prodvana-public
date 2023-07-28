@@ -12,6 +12,13 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateResp,
     ]
+    PreviewEntityGraph: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.PreviewEntityGraphResp,
+    ]
+    """validate a SetDesiredState call and return a preview entity graph
+    TODO(naphat) delete ValidateDesiredState and replace with this
+    """
     GetServiceDesiredStateConvergenceSummary: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryResp,
@@ -56,6 +63,15 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateResp: ...
+    @abc.abstractmethod
+    def PreviewEntityGraph(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.SetDesiredStateReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.PreviewEntityGraphResp:
+        """validate a SetDesiredState call and return a preview entity graph
+        TODO(naphat) delete ValidateDesiredState and replace with this
+        """
     @abc.abstractmethod
     def GetServiceDesiredStateConvergenceSummary(
         self,

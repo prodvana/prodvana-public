@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	DesiredStateManager_SetDesiredState_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/SetDesiredState"
+	DesiredStateManager_PreviewEntityGraph_FullMethodName                       = "/prodvana.desired_state.DesiredStateManager/PreviewEntityGraph"
 	DesiredStateManager_GetServiceDesiredStateConvergenceSummary_FullMethodName = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateConvergenceSummary"
 	DesiredStateManager_GetServiceLastConvergedStates_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceLastConvergedStates"
 	DesiredStateManager_GetServiceDesiredStateHistory_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateHistory"
@@ -36,6 +37,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DesiredStateManagerClient interface {
 	SetDesiredState(ctx context.Context, in *SetDesiredStateReq, opts ...grpc.CallOption) (*SetDesiredStateResp, error)
+	// validate a SetDesiredState call and return a preview entity graph
+	// TODO(naphat) delete ValidateDesiredState and replace with this
+	PreviewEntityGraph(ctx context.Context, in *SetDesiredStateReq, opts ...grpc.CallOption) (*PreviewEntityGraphResp, error)
 	GetServiceDesiredStateConvergenceSummary(ctx context.Context, in *GetServiceDesiredStateConvergenceSummaryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateConvergenceSummaryResp, error)
 	GetServiceLastConvergedStates(ctx context.Context, in *GetServiceLastConvergedStateReq, opts ...grpc.CallOption) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(ctx context.Context, in *GetServiceDesiredStateHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateHistoryResp, error)
@@ -58,6 +62,15 @@ func NewDesiredStateManagerClient(cc grpc.ClientConnInterface) DesiredStateManag
 func (c *desiredStateManagerClient) SetDesiredState(ctx context.Context, in *SetDesiredStateReq, opts ...grpc.CallOption) (*SetDesiredStateResp, error) {
 	out := new(SetDesiredStateResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_SetDesiredState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *desiredStateManagerClient) PreviewEntityGraph(ctx context.Context, in *SetDesiredStateReq, opts ...grpc.CallOption) (*PreviewEntityGraphResp, error) {
+	out := new(PreviewEntityGraphResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_PreviewEntityGraph_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +163,9 @@ func (c *desiredStateManagerClient) BypassProtection(ctx context.Context, in *By
 // for forward compatibility
 type DesiredStateManagerServer interface {
 	SetDesiredState(context.Context, *SetDesiredStateReq) (*SetDesiredStateResp, error)
+	// validate a SetDesiredState call and return a preview entity graph
+	// TODO(naphat) delete ValidateDesiredState and replace with this
+	PreviewEntityGraph(context.Context, *SetDesiredStateReq) (*PreviewEntityGraphResp, error)
 	GetServiceDesiredStateConvergenceSummary(context.Context, *GetServiceDesiredStateConvergenceSummaryReq) (*GetServiceDesiredStateConvergenceSummaryResp, error)
 	GetServiceLastConvergedStates(context.Context, *GetServiceLastConvergedStateReq) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(context.Context, *GetServiceDesiredStateHistoryReq) (*GetServiceDesiredStateHistoryResp, error)
@@ -168,6 +184,9 @@ type UnimplementedDesiredStateManagerServer struct {
 
 func (UnimplementedDesiredStateManagerServer) SetDesiredState(context.Context, *SetDesiredStateReq) (*SetDesiredStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetDesiredState not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) PreviewEntityGraph(context.Context, *SetDesiredStateReq) (*PreviewEntityGraphResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PreviewEntityGraph not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) GetServiceDesiredStateConvergenceSummary(context.Context, *GetServiceDesiredStateConvergenceSummaryReq) (*GetServiceDesiredStateConvergenceSummaryResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceDesiredStateConvergenceSummary not implemented")
@@ -223,6 +242,24 @@ func _DesiredStateManager_SetDesiredState_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DesiredStateManagerServer).SetDesiredState(ctx, req.(*SetDesiredStateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DesiredStateManager_PreviewEntityGraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetDesiredStateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).PreviewEntityGraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_PreviewEntityGraph_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).PreviewEntityGraph(ctx, req.(*SetDesiredStateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -399,6 +436,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetDesiredState",
 			Handler:    _DesiredStateManager_SetDesiredState_Handler,
+		},
+		{
+			MethodName: "PreviewEntityGraph",
+			Handler:    _DesiredStateManager_PreviewEntityGraph_Handler,
 		},
 		{
 			MethodName: "GetServiceDesiredStateConvergenceSummary",

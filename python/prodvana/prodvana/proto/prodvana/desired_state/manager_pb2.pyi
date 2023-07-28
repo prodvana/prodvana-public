@@ -80,6 +80,22 @@ class SetDesiredStateResp(google.protobuf.message.Message):
 
 global___SetDesiredStateResp = SetDesiredStateResp
 
+class PreviewEntityGraphResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_GRAPH_FIELD_NUMBER: builtins.int
+    @property
+    def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
+    def __init__(
+        self,
+        *,
+        entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph"]) -> None: ...
+
+global___PreviewEntityGraphResp = PreviewEntityGraphResp
+
 class GetServiceDesiredStateConvergenceSummaryReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

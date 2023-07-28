@@ -19,6 +19,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateResp.FromString,
                 )
+        self.PreviewEntityGraph = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/PreviewEntityGraph',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.PreviewEntityGraphResp.FromString,
+                )
         self.GetServiceDesiredStateConvergenceSummary = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateConvergenceSummary',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryReq.SerializeToString,
@@ -71,6 +76,14 @@ class DesiredStateManagerServicer(object):
 
     def SetDesiredState(self, request, context):
         """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PreviewEntityGraph(self, request, context):
+        """validate a SetDesiredState call and return a preview entity graph
+        TODO(naphat) delete ValidateDesiredState and replace with this
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -136,6 +149,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.SetDesiredState,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateResp.SerializeToString,
+            ),
+            'PreviewEntityGraph': grpc.unary_unary_rpc_method_handler(
+                    servicer.PreviewEntityGraph,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.PreviewEntityGraphResp.SerializeToString,
             ),
             'GetServiceDesiredStateConvergenceSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetServiceDesiredStateConvergenceSummary,
@@ -206,6 +224,23 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/SetDesiredState',
             prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PreviewEntityGraph(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/PreviewEntityGraph',
+            prodvana_dot_desired__state_dot_manager__pb2.SetDesiredStateReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.PreviewEntityGraphResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

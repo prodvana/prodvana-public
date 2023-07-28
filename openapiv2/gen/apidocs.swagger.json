@@ -2252,6 +2252,39 @@
         ]
       }
     },
+    "/v1/desired_states/preview": {
+      "post": {
+        "summary": "validate a SetDesiredState call and return a preview entity graph\nTODO(naphat) delete ValidateDesiredState and replace with this",
+        "operationId": "DesiredStateManager_PreviewEntityGraph",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_statePreviewEntityGraphResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateSetDesiredStateReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/promote_delivery": {
       "post": {
         "operationId": "DesiredStateManager_PromoteDelivery",
@@ -7012,6 +7045,14 @@
             "type": "object",
             "$ref": "#/definitions/desired_statemodelServiceInstanceState"
           }
+        }
+      }
+    },
+    "desired_statePreviewEntityGraphResp": {
+      "type": "object",
+      "properties": {
+        "entityGraph": {
+          "$ref": "#/definitions/modelEntityGraph"
         }
       }
     },

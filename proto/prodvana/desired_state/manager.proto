@@ -26,6 +26,10 @@ message SetDesiredStateResp {
     string desired_state_id = 1;  // unique identifier for the desired state that was just set
 }
 
+message PreviewEntityGraphResp {
+    prodvana.desired_state.model.EntityGraph entity_graph = 1;
+}
+
 message GetServiceDesiredStateConvergenceSummaryReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
@@ -148,6 +152,14 @@ service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
             post: "/v1/desired_states"
+            body: "*"
+        };
+    }
+    // validate a SetDesiredState call and return a preview entity graph
+    // TODO(naphat) delete ValidateDesiredState and replace with this
+    rpc PreviewEntityGraph(SetDesiredStateReq) returns (PreviewEntityGraphResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/preview"
             body: "*"
         };
     }
