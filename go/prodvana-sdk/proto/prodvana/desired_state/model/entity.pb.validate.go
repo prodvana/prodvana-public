@@ -496,6 +496,35 @@ func (m *Entity) validate(all bool) error {
 
 	// no validation rules for Lifecycle
 
+	if all {
+		switch v := interface{}(m.GetMissingApproval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, EntityValidationError{
+					field:  "MissingApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, EntityValidationError{
+					field:  "MissingApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMissingApproval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EntityValidationError{
+				field:  "MissingApproval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return EntityMultiError(errors)
 	}

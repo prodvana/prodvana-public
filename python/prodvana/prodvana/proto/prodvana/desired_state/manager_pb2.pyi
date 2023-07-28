@@ -543,14 +543,14 @@ class SetManualApprovalReq(google.protobuf.message.Message):
     string release_channel = 4 [(prodvana.proto.validate.rules).string.min_len = 1];
     """
     reject: builtins.bool
-    signal_type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SignalType.ValueType
+    signal_type: builtins.str
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         topic: builtins.str = ...,
         reject: builtins.bool = ...,
-        signal_type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SignalType.ValueType = ...,
+        signal_type: builtins.str = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "reject", b"reject", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 

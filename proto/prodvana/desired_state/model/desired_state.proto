@@ -547,6 +547,7 @@ message DebugLog {
 message MissingApproval {
     string desired_state_id = 1;
     prodvana.desired_state.model.SignalType signal_type = 2;
+    string topic = 3;
 }
 
 message ApplyRejected {

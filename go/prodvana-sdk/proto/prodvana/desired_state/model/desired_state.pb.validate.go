@@ -5515,6 +5515,8 @@ func (m *MissingApproval) validate(all bool) error {
 
 	// no validation rules for SignalType
 
+	// no validation rules for Topic
+
 	if len(errors) > 0 {
 		return MissingApprovalMultiError(errors)
 	}

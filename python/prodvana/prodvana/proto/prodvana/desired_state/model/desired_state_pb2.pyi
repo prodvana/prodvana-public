@@ -1508,15 +1508,18 @@ class MissingApproval(google.protobuf.message.Message):
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SIGNAL_TYPE_FIELD_NUMBER: builtins.int
+    TOPIC_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     signal_type: global___SignalType.ValueType
+    topic: builtins.str
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         signal_type: global___SignalType.ValueType = ...,
+        topic: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "signal_type", b"signal_type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 
 global___MissingApproval = MissingApproval
 

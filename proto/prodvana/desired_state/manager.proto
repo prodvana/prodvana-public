@@ -124,7 +124,9 @@ message SetManualApprovalReq {
     // string release_channel = 4 [(validate.rules).string.min_len = 1];
     string topic = 2 [(validate.rules).string.min_len =1];
     bool reject = 3;
-    prodvana.desired_state.model.SignalType signal_type = 4;
+    string signal_type = 5;
+
+    reserved 4;
 }
 
 message SetManualApprovalResp {

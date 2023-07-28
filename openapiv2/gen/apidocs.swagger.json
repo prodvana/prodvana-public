@@ -7112,7 +7112,7 @@
           "type": "boolean"
         },
         "signalType": {
-          "$ref": "#/definitions/modelSignalType"
+          "type": "string"
         }
       }
     },
@@ -8981,8 +8981,11 @@
           }
         },
         "lifecycle": {
-          "$ref": "#/definitions/common_configTaskLifecycle",
-          "title": "next tag: 20"
+          "$ref": "#/definitions/common_configTaskLifecycle"
+        },
+        "missingApproval": {
+          "$ref": "#/definitions/modelMissingApproval",
+          "title": "next tag: 21"
         }
       }
     },
@@ -9038,6 +9041,20 @@
         "REJECTED"
       ],
       "default": "PENDING"
+    },
+    "modelMissingApproval": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "signalType": {
+          "$ref": "#/definitions/modelSignalType"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
     },
     "modelProtectionLinkState": {
       "type": "object",
