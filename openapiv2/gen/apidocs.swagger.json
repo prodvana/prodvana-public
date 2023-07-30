@@ -7053,6 +7053,10 @@
       "properties": {
         "entityGraph": {
           "$ref": "#/definitions/modelEntityGraph"
+        },
+        "desiredStateId": {
+          "type": "string",
+          "title": "unique identifier the preview entity graph that was just created. This same ID can be used across any endpoints that inspect desired states, e.g. GetDesiredState"
         }
       }
     },
@@ -7510,10 +7514,11 @@
         "WAITING_PRECONDITIONS",
         "REPLACED",
         "WAITING_MANUAL_APPROVAL",
-        "DELETED"
+        "DELETED",
+        "PREVIEW"
       ],
       "default": "UNKNOWN_STATUS",
-      "title": "- CHILD_PAUSED: entity itself not paused, but one of its children is paused, so it is not making any progress\n - WAITING_PRECONDITIONS: Waiting for non-manual approval preconditions\n - WAITING_MANUAL_APPROVAL: Waiting only for manual approval\n - DELETED: next tag: 13"
+      "description": " - CHILD_PAUSED: entity itself not paused, but one of its children is paused, so it is not making any progress\n - WAITING_PRECONDITIONS: Waiting for non-manual approval preconditions\n - WAITING_MANUAL_APPROVAL: Waiting only for manual approval\n - PREVIEW: status for all entities in a preview desired state. will never show up in a real desired state."
     },
     "desired_statemodelType": {
       "type": "string",

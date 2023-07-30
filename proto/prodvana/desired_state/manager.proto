@@ -28,6 +28,7 @@ message SetDesiredStateResp {
 
 message PreviewEntityGraphResp {
     prodvana.desired_state.model.EntityGraph entity_graph = 1;
+    string desired_state_id = 2;  // unique identifier the preview entity graph that was just created. This same ID can be used across any endpoints that inspect desired states, e.g. GetDesiredState
 }
 
 message GetServiceDesiredStateConvergenceSummaryReq {

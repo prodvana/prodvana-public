@@ -84,15 +84,19 @@ class PreviewEntityGraphResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     @property
     def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
+    desired_state_id: builtins.str
+    """unique identifier the preview entity graph that was just created. This same ID can be used across any endpoints that inspect desired states, e.g. GetDesiredState"""
     def __init__(
         self,
         *,
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
+        desired_state_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_graph", b"entity_graph"]) -> None: ...
 
 global___PreviewEntityGraphResp = PreviewEntityGraphResp
 

@@ -112,7 +112,8 @@ class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     WAITING_MANUAL_APPROVAL: _Status.ValueType  # 10
     """Waiting only for manual approval"""
     DELETED: _Status.ValueType  # 11
-    """next tag: 13"""
+    PREVIEW: _Status.ValueType  # 13
+    """status for all entities in a preview desired state. will never show up in a real desired state."""
 
 class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
 
@@ -132,7 +133,8 @@ REPLACED: Status.ValueType  # 9
 WAITING_MANUAL_APPROVAL: Status.ValueType  # 10
 """Waiting only for manual approval"""
 DELETED: Status.ValueType  # 11
-"""next tag: 13"""
+PREVIEW: Status.ValueType  # 13
+"""status for all entities in a preview desired state. will never show up in a real desired state."""
 global___Status = Status
 
 class _SimpleStatus:

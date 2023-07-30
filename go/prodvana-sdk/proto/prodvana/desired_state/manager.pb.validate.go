@@ -512,6 +512,8 @@ func (m *PreviewEntityGraphResp) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for DesiredStateId
+
 	if len(errors) > 0 {
 		return PreviewEntityGraphRespMultiError(errors)
 	}
