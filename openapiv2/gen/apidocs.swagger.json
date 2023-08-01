@@ -7415,6 +7415,10 @@
         },
         "requireApprovalBeforeApply": {
           "type": "boolean"
+        },
+        "rawConfig": {
+          "type": "string",
+          "title": "raw runtime-specific config, e.g. k8s yaml"
         }
       }
     },

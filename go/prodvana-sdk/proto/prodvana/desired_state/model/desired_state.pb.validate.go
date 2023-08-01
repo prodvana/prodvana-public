@@ -2701,6 +2701,8 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for RequireApprovalBeforeApply
 
+	// no validation rules for RawConfig
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}

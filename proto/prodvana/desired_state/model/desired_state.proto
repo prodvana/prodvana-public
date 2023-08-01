@@ -337,9 +337,11 @@ message RuntimeObject {
     repeated int32 exit_codes = 19; // exit codes, only for run-to-completion objects like jobs
     bool require_approval_before_apply = 21;
 
+    string raw_config = 23; // raw runtime-specific config, e.g. k8s yaml
+
     reserved 9, 11, 14, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval";
-    // next tag: 23
+    // next tag: 24
 }
 
 enum ConditionStatus {
