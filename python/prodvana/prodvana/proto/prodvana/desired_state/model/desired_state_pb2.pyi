@@ -878,6 +878,19 @@ class RuntimeObject(google.protobuf.message.Message):
     SUCCEEDED: RuntimeObject.Status.ValueType  # 1
     FAILED: RuntimeObject.Status.ValueType  # 2
 
+    class _ManagementStatus:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ManagementStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RuntimeObject._ManagementStatus.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        PVN_MANAGED: RuntimeObject._ManagementStatus.ValueType  # 0
+        UNMANAGED: RuntimeObject._ManagementStatus.ValueType  # 1
+
+    class ManagementStatus(_ManagementStatus, metaclass=_ManagementStatusEnumTypeWrapper): ...
+    PVN_MANAGED: RuntimeObject.ManagementStatus.ValueType  # 0
+    UNMANAGED: RuntimeObject.ManagementStatus.ValueType  # 1
+
     class RuntimeExtension(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -942,6 +955,7 @@ class RuntimeObject(google.protobuf.message.Message):
     EXIT_CODES_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     RAW_CONFIG_FIELD_NUMBER: builtins.int
+    MANAGEMENT_STATUS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -982,6 +996,7 @@ class RuntimeObject(google.protobuf.message.Message):
     require_approval_before_apply: builtins.bool
     raw_config: builtins.str
     """raw runtime-specific config, e.g. k8s yaml"""
+    management_status: global___RuntimeObject.ManagementStatus.ValueType
     def __init__(
         self,
         *,
@@ -1004,9 +1019,10 @@ class RuntimeObject(google.protobuf.message.Message):
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         require_approval_before_apply: builtins.bool = ...,
         raw_config: builtins.str = ...,
+        management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

@@ -340,9 +340,16 @@ message RuntimeObject {
 
     string raw_config = 23; // raw runtime-specific config, e.g. k8s yaml
 
+    enum ManagementStatus {
+        PVN_MANAGED = 0;
+        UNMANAGED = 1;
+    }
+
+    ManagementStatus management_status = 25;
+
     reserved 9, 11, 14, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval";
-    // next tag: 25
+    // next tag: 26
 }
 
 enum ConditionStatus {

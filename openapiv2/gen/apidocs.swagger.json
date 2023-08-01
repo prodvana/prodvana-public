@@ -5543,6 +5543,14 @@
       ],
       "default": "UNKNOWN"
     },
+    "RuntimeObjectManagementStatus": {
+      "type": "string",
+      "enum": [
+        "PVN_MANAGED",
+        "UNMANAGED"
+      ],
+      "default": "PVN_MANAGED"
+    },
     "RuntimeObjectRuntimeExtension": {
       "type": "object",
       "properties": {
@@ -7432,6 +7440,9 @@
         "rawConfig": {
           "type": "string",
           "title": "raw runtime-specific config, e.g. k8s yaml"
+        },
+        "managementStatus": {
+          "$ref": "#/definitions/RuntimeObjectManagementStatus"
         }
       }
     },

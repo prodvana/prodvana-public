@@ -2705,6 +2705,8 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for RawConfig
 
+	// no validation rules for ManagementStatus
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}
