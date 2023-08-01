@@ -2056,6 +2056,1980 @@ var _ interface {
 	ErrorName() string
 } = KeyDeliveryDecisionEventValidationError{}
 
+// Validate checks the field values on RpcCallEvent with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RpcCallEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RpcCallEvent with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RpcCallEventMultiError, or
+// nil if none found.
+func (m *RpcCallEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RpcCallEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Type
+
+	// no validation rules for RpcService
+
+	// no validation rules for RpcMethod
+
+	if len(errors) > 0 {
+		return RpcCallEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// RpcCallEventMultiError is an error wrapping multiple validation errors
+// returned by RpcCallEvent.ValidateAll() if the designated constraints aren't met.
+type RpcCallEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RpcCallEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RpcCallEventMultiError) AllErrors() []error { return m }
+
+// RpcCallEventValidationError is the validation error returned by
+// RpcCallEvent.Validate if the designated constraints aren't met.
+type RpcCallEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RpcCallEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RpcCallEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RpcCallEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RpcCallEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RpcCallEventValidationError) ErrorName() string { return "RpcCallEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RpcCallEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRpcCallEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RpcCallEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RpcCallEventValidationError{}
+
+// Validate checks the field values on ApplicationHandle with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ApplicationHandle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationHandle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationHandleMultiError, or nil if none found.
+func (m *ApplicationHandle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationHandle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return ApplicationHandleMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplicationHandleMultiError is an error wrapping multiple validation errors
+// returned by ApplicationHandle.ValidateAll() if the designated constraints
+// aren't met.
+type ApplicationHandleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationHandleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationHandleMultiError) AllErrors() []error { return m }
+
+// ApplicationHandleValidationError is the validation error returned by
+// ApplicationHandle.Validate if the designated constraints aren't met.
+type ApplicationHandleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationHandleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationHandleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationHandleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationHandleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationHandleValidationError) ErrorName() string {
+	return "ApplicationHandleValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplicationHandleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationHandle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationHandleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationHandleValidationError{}
+
+// Validate checks the field values on ReleaseChannelHandle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseChannelHandle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseChannelHandle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseChannelHandleMultiError, or nil if none found.
+func (m *ReleaseChannelHandle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseChannelHandle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetApplication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseChannelHandleValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseChannelHandleValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseChannelHandleValidationError{
+				field:  "Application",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return ReleaseChannelHandleMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseChannelHandleMultiError is an error wrapping multiple validation
+// errors returned by ReleaseChannelHandle.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseChannelHandleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseChannelHandleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseChannelHandleMultiError) AllErrors() []error { return m }
+
+// ReleaseChannelHandleValidationError is the validation error returned by
+// ReleaseChannelHandle.Validate if the designated constraints aren't met.
+type ReleaseChannelHandleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseChannelHandleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseChannelHandleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseChannelHandleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseChannelHandleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseChannelHandleValidationError) ErrorName() string {
+	return "ReleaseChannelHandleValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseChannelHandleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseChannelHandle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseChannelHandleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseChannelHandleValidationError{}
+
+// Validate checks the field values on ServiceHandle with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ServiceHandle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ServiceHandle with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ServiceHandleMultiError, or
+// nil if none found.
+func (m *ServiceHandle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ServiceHandle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetApplication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ServiceHandleValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ServiceHandleValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceHandleValidationError{
+				field:  "Application",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetReleaseChannel()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ServiceHandleValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ServiceHandleValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceHandleValidationError{
+				field:  "ReleaseChannel",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return ServiceHandleMultiError(errors)
+	}
+
+	return nil
+}
+
+// ServiceHandleMultiError is an error wrapping multiple validation errors
+// returned by ServiceHandle.ValidateAll() if the designated constraints
+// aren't met.
+type ServiceHandleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ServiceHandleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ServiceHandleMultiError) AllErrors() []error { return m }
+
+// ServiceHandleValidationError is the validation error returned by
+// ServiceHandle.Validate if the designated constraints aren't met.
+type ServiceHandleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceHandleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceHandleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceHandleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceHandleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceHandleValidationError) ErrorName() string { return "ServiceHandleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServiceHandleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceHandle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceHandleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceHandleValidationError{}
+
+// Validate checks the field values on RuntimeHandle with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RuntimeHandle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeHandle with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RuntimeHandleMultiError, or
+// nil if none found.
+func (m *RuntimeHandle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeHandle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return RuntimeHandleMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeHandleMultiError is an error wrapping multiple validation errors
+// returned by RuntimeHandle.ValidateAll() if the designated constraints
+// aren't met.
+type RuntimeHandleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeHandleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeHandleMultiError) AllErrors() []error { return m }
+
+// RuntimeHandleValidationError is the validation error returned by
+// RuntimeHandle.Validate if the designated constraints aren't met.
+type RuntimeHandleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeHandleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeHandleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeHandleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeHandleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeHandleValidationError) ErrorName() string { return "RuntimeHandleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RuntimeHandleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeHandle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeHandleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeHandleValidationError{}
+
+// Validate checks the field values on ProtectionHandle with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionHandle) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionHandle with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionHandleMultiError, or nil if none found.
+func (m *ProtectionHandle) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionHandle) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return ProtectionHandleMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionHandleMultiError is an error wrapping multiple validation errors
+// returned by ProtectionHandle.ValidateAll() if the designated constraints
+// aren't met.
+type ProtectionHandleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionHandleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionHandleMultiError) AllErrors() []error { return m }
+
+// ProtectionHandleValidationError is the validation error returned by
+// ProtectionHandle.Validate if the designated constraints aren't met.
+type ProtectionHandleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionHandleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionHandleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionHandleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionHandleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionHandleValidationError) ErrorName() string { return "ProtectionHandleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ProtectionHandleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionHandle.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionHandleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionHandleValidationError{}
+
+// Validate checks the field values on PermissionDeniedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PermissionDeniedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PermissionDeniedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PermissionDeniedEventMultiError, or nil if none found.
+func (m *PermissionDeniedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PermissionDeniedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Action
+
+	switch v := m.Target.(type) {
+	case *PermissionDeniedEvent_Application:
+		if v == nil {
+			err := PermissionDeniedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetApplication()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PermissionDeniedEventValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *PermissionDeniedEvent_ReleaseChannel:
+		if v == nil {
+			err := PermissionDeniedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PermissionDeniedEventValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *PermissionDeniedEvent_Service:
+		if v == nil {
+			err := PermissionDeniedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PermissionDeniedEventValidationError{
+					field:  "Service",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *PermissionDeniedEvent_Runtime:
+		if v == nil {
+			err := PermissionDeniedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PermissionDeniedEventValidationError{
+					field:  "Runtime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *PermissionDeniedEvent_Protection:
+		if v == nil {
+			err := PermissionDeniedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetProtection()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PermissionDeniedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PermissionDeniedEventValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return PermissionDeniedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// PermissionDeniedEventMultiError is an error wrapping multiple validation
+// errors returned by PermissionDeniedEvent.ValidateAll() if the designated
+// constraints aren't met.
+type PermissionDeniedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PermissionDeniedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PermissionDeniedEventMultiError) AllErrors() []error { return m }
+
+// PermissionDeniedEventValidationError is the validation error returned by
+// PermissionDeniedEvent.Validate if the designated constraints aren't met.
+type PermissionDeniedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PermissionDeniedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PermissionDeniedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PermissionDeniedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PermissionDeniedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PermissionDeniedEventValidationError) ErrorName() string {
+	return "PermissionDeniedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PermissionDeniedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPermissionDeniedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PermissionDeniedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PermissionDeniedEventValidationError{}
+
+// Validate checks the field values on ObjectCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectCreatedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectCreatedEventMultiError, or nil if none found.
+func (m *ObjectCreatedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectCreatedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ConfigVersion
+
+	switch v := m.Target.(type) {
+	case *ObjectCreatedEvent_Application:
+		if v == nil {
+			err := ObjectCreatedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetApplication()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectCreatedEventValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectCreatedEvent_ReleaseChannel:
+		if v == nil {
+			err := ObjectCreatedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectCreatedEventValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectCreatedEvent_Service:
+		if v == nil {
+			err := ObjectCreatedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectCreatedEventValidationError{
+					field:  "Service",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectCreatedEvent_Runtime:
+		if v == nil {
+			err := ObjectCreatedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectCreatedEventValidationError{
+					field:  "Runtime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectCreatedEvent_Protection:
+		if v == nil {
+			err := ObjectCreatedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetProtection()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectCreatedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectCreatedEventValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ObjectCreatedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectCreatedEventMultiError is an error wrapping multiple validation errors
+// returned by ObjectCreatedEvent.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectCreatedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectCreatedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectCreatedEventMultiError) AllErrors() []error { return m }
+
+// ObjectCreatedEventValidationError is the validation error returned by
+// ObjectCreatedEvent.Validate if the designated constraints aren't met.
+type ObjectCreatedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectCreatedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectCreatedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectCreatedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectCreatedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectCreatedEventValidationError) ErrorName() string {
+	return "ObjectCreatedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectCreatedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectCreatedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectCreatedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectCreatedEventValidationError{}
+
+// Validate checks the field values on ObjectDeletedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectDeletedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectDeletedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectDeletedEventMultiError, or nil if none found.
+func (m *ObjectDeletedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectDeletedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ConfigVersion
+
+	switch v := m.Target.(type) {
+	case *ObjectDeletedEvent_Application:
+		if v == nil {
+			err := ObjectDeletedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetApplication()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeletedEventValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectDeletedEvent_ReleaseChannel:
+		if v == nil {
+			err := ObjectDeletedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeletedEventValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectDeletedEvent_Service:
+		if v == nil {
+			err := ObjectDeletedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeletedEventValidationError{
+					field:  "Service",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectDeletedEvent_Runtime:
+		if v == nil {
+			err := ObjectDeletedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeletedEventValidationError{
+					field:  "Runtime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectDeletedEvent_Protection:
+		if v == nil {
+			err := ObjectDeletedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetProtection()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeletedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeletedEventValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ObjectDeletedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectDeletedEventMultiError is an error wrapping multiple validation errors
+// returned by ObjectDeletedEvent.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectDeletedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectDeletedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectDeletedEventMultiError) AllErrors() []error { return m }
+
+// ObjectDeletedEventValidationError is the validation error returned by
+// ObjectDeletedEvent.Validate if the designated constraints aren't met.
+type ObjectDeletedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectDeletedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectDeletedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectDeletedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectDeletedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectDeletedEventValidationError) ErrorName() string {
+	return "ObjectDeletedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectDeletedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectDeletedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectDeletedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectDeletedEventValidationError{}
+
+// Validate checks the field values on ObjectModifiedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectModifiedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectModifiedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectModifiedEventMultiError, or nil if none found.
+func (m *ObjectModifiedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectModifiedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for OldConfigVersion
+
+	// no validation rules for NewConfigVersion
+
+	switch v := m.Target.(type) {
+	case *ObjectModifiedEvent_Application:
+		if v == nil {
+			err := ObjectModifiedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetApplication()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Application",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectModifiedEventValidationError{
+					field:  "Application",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectModifiedEvent_ReleaseChannel:
+		if v == nil {
+			err := ObjectModifiedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseChannel()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "ReleaseChannel",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseChannel()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectModifiedEventValidationError{
+					field:  "ReleaseChannel",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectModifiedEvent_Service:
+		if v == nil {
+			err := ObjectModifiedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Service",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectModifiedEventValidationError{
+					field:  "Service",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectModifiedEvent_Runtime:
+		if v == nil {
+			err := ObjectModifiedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRuntime()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Runtime",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRuntime()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectModifiedEventValidationError{
+					field:  "Runtime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ObjectModifiedEvent_Protection:
+		if v == nil {
+			err := ObjectModifiedEventValidationError{
+				field:  "Target",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetProtection()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectModifiedEventValidationError{
+						field:  "Protection",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetProtection()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectModifiedEventValidationError{
+					field:  "Protection",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ObjectModifiedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectModifiedEventMultiError is an error wrapping multiple validation
+// errors returned by ObjectModifiedEvent.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectModifiedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectModifiedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectModifiedEventMultiError) AllErrors() []error { return m }
+
+// ObjectModifiedEventValidationError is the validation error returned by
+// ObjectModifiedEvent.Validate if the designated constraints aren't met.
+type ObjectModifiedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectModifiedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectModifiedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectModifiedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectModifiedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectModifiedEventValidationError) ErrorName() string {
+	return "ObjectModifiedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectModifiedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectModifiedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectModifiedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectModifiedEventValidationError{}
+
 // Validate checks the field values on EventDetails with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2524,6 +4498,211 @@ func (m *EventDetails) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return EventDetailsValidationError{
 					field:  "KeyDeliveryDecision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_RpcCall:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRpcCall()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "RpcCall",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "RpcCall",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRpcCall()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "RpcCall",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_PermissionDenied:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetPermissionDenied()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "PermissionDenied",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "PermissionDenied",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPermissionDenied()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "PermissionDenied",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_ObjectCreated:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetObjectCreated()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObjectCreated()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "ObjectCreated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_ObjectDeleted:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetObjectDeleted()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectDeleted",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectDeleted",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObjectDeleted()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "ObjectDeleted",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_ObjectModified:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetObjectModified()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectModified",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ObjectModified",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObjectModified()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "ObjectModified",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

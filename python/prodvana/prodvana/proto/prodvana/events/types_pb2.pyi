@@ -45,6 +45,11 @@ class _EventTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     DELIVERY_MANUAL_PROMOTION: _EventType.ValueType  # 10
     DESIRED_STATE_STATUS_CHANGE: _EventType.ValueType  # 11
     KEY_DELIVERY_DECISION: _EventType.ValueType  # 12
+    RPC_CALL: _EventType.ValueType  # 13
+    PERMISSON_DENIED: _EventType.ValueType  # 14
+    OBJECT_CREATED: _EventType.ValueType  # 15
+    OBJECT_DELETED: _EventType.ValueType  # 16
+    OBJECT_MODIFIED: _EventType.ValueType  # 17
 
 class EventType(_EventType, metaclass=_EventTypeEnumTypeWrapper): ...
 
@@ -68,6 +73,11 @@ DELIVERY_PROGRESS: EventType.ValueType  # 9
 DELIVERY_MANUAL_PROMOTION: EventType.ValueType  # 10
 DESIRED_STATE_STATUS_CHANGE: EventType.ValueType  # 11
 KEY_DELIVERY_DECISION: EventType.ValueType  # 12
+RPC_CALL: EventType.ValueType  # 13
+PERMISSON_DENIED: EventType.ValueType  # 14
+OBJECT_CREATED: EventType.ValueType  # 15
+OBJECT_DELETED: EventType.ValueType  # 16
+OBJECT_MODIFIED: EventType.ValueType  # 17
 global___EventType = EventType
 
 class SetDesiredStateEvent(google.protobuf.message.Message):
@@ -515,6 +525,302 @@ class KeyDeliveryDecisionEvent(google.protobuf.message.Message):
 
 global___KeyDeliveryDecisionEvent = KeyDeliveryDecisionEvent
 
+class RpcCallEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Type:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RpcCallEvent._Type.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: RpcCallEvent._Type.ValueType  # 0
+        READ: RpcCallEvent._Type.ValueType  # 1
+        WRITE: RpcCallEvent._Type.ValueType  # 2
+
+    class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
+    UNKNOWN: RpcCallEvent.Type.ValueType  # 0
+    READ: RpcCallEvent.Type.ValueType  # 1
+    WRITE: RpcCallEvent.Type.ValueType  # 2
+
+    TYPE_FIELD_NUMBER: builtins.int
+    RPC_SERVICE_FIELD_NUMBER: builtins.int
+    RPC_METHOD_FIELD_NUMBER: builtins.int
+    type: global___RpcCallEvent.Type.ValueType
+    rpc_service: builtins.str
+    rpc_method: builtins.str
+    def __init__(
+        self,
+        *,
+        type: global___RpcCallEvent.Type.ValueType = ...,
+        rpc_service: builtins.str = ...,
+        rpc_method: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["rpc_method", b"rpc_method", "rpc_service", b"rpc_service", "type", b"type"]) -> None: ...
+
+global___RpcCallEvent = RpcCallEvent
+
+class ApplicationHandle(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "name", b"name"]) -> None: ...
+
+global___ApplicationHandle = ApplicationHandle
+
+class ReleaseChannelHandle(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    name: builtins.str
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        application: global___ApplicationHandle | None = ...,
+        name: builtins.str = ...,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "id", b"id", "name", b"name"]) -> None: ...
+
+global___ReleaseChannelHandle = ReleaseChannelHandle
+
+class ServiceHandle(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    @property
+    def release_channel(self) -> global___ReleaseChannelHandle: ...
+    name: builtins.str
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        application: global___ApplicationHandle | None = ...,
+        release_channel: global___ReleaseChannelHandle | None = ...,
+        name: builtins.str = ...,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "id", b"id", "name", b"name", "release_channel", b"release_channel"]) -> None: ...
+
+global___ServiceHandle = ServiceHandle
+
+class RuntimeHandle(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "name", b"name"]) -> None: ...
+
+global___RuntimeHandle = RuntimeHandle
+
+class ProtectionHandle(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "name", b"name"]) -> None: ...
+
+global___ProtectionHandle = ProtectionHandle
+
+class PermissionDeniedEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Action:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PermissionDeniedEvent._Action.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: PermissionDeniedEvent._Action.ValueType  # 0
+        READ: PermissionDeniedEvent._Action.ValueType  # 1
+        WRITE: PermissionDeniedEvent._Action.ValueType  # 2
+
+    class Action(_Action, metaclass=_ActionEnumTypeWrapper): ...
+    UNKNOWN: PermissionDeniedEvent.Action.ValueType  # 0
+    READ: PermissionDeniedEvent.Action.ValueType  # 1
+    WRITE: PermissionDeniedEvent.Action.ValueType  # 2
+
+    ACTION_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    RUNTIME_FIELD_NUMBER: builtins.int
+    PROTECTION_FIELD_NUMBER: builtins.int
+    action: global___PermissionDeniedEvent.Action.ValueType
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    @property
+    def release_channel(self) -> global___ReleaseChannelHandle: ...
+    @property
+    def service(self) -> global___ServiceHandle: ...
+    @property
+    def runtime(self) -> global___RuntimeHandle: ...
+    @property
+    def protection(self) -> global___ProtectionHandle: ...
+    def __init__(
+        self,
+        *,
+        action: global___PermissionDeniedEvent.Action.ValueType = ...,
+        application: global___ApplicationHandle | None = ...,
+        release_channel: global___ReleaseChannelHandle | None = ...,
+        service: global___ServiceHandle | None = ...,
+        runtime: global___RuntimeHandle | None = ...,
+        protection: global___ProtectionHandle | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action", b"action", "application", b"application", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["target", b"target"]) -> typing_extensions.Literal["application", "release_channel", "service", "runtime", "protection"] | None: ...
+
+global___PermissionDeniedEvent = PermissionDeniedEvent
+
+class ObjectCreatedEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    RUNTIME_FIELD_NUMBER: builtins.int
+    PROTECTION_FIELD_NUMBER: builtins.int
+    config_version: builtins.str
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    @property
+    def release_channel(self) -> global___ReleaseChannelHandle: ...
+    @property
+    def service(self) -> global___ServiceHandle: ...
+    @property
+    def runtime(self) -> global___RuntimeHandle: ...
+    @property
+    def protection(self) -> global___ProtectionHandle: ...
+    def __init__(
+        self,
+        *,
+        config_version: builtins.str = ...,
+        application: global___ApplicationHandle | None = ...,
+        release_channel: global___ReleaseChannelHandle | None = ...,
+        service: global___ServiceHandle | None = ...,
+        runtime: global___RuntimeHandle | None = ...,
+        protection: global___ProtectionHandle | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "config_version", b"config_version", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["target", b"target"]) -> typing_extensions.Literal["application", "release_channel", "service", "runtime", "protection"] | None: ...
+
+global___ObjectCreatedEvent = ObjectCreatedEvent
+
+class ObjectDeletedEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    RUNTIME_FIELD_NUMBER: builtins.int
+    PROTECTION_FIELD_NUMBER: builtins.int
+    config_version: builtins.str
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    @property
+    def release_channel(self) -> global___ReleaseChannelHandle: ...
+    @property
+    def service(self) -> global___ServiceHandle: ...
+    @property
+    def runtime(self) -> global___RuntimeHandle: ...
+    @property
+    def protection(self) -> global___ProtectionHandle: ...
+    def __init__(
+        self,
+        *,
+        config_version: builtins.str = ...,
+        application: global___ApplicationHandle | None = ...,
+        release_channel: global___ReleaseChannelHandle | None = ...,
+        service: global___ServiceHandle | None = ...,
+        runtime: global___RuntimeHandle | None = ...,
+        protection: global___ProtectionHandle | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "config_version", b"config_version", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["target", b"target"]) -> typing_extensions.Literal["application", "release_channel", "service", "runtime", "protection"] | None: ...
+
+global___ObjectDeletedEvent = ObjectDeletedEvent
+
+class ObjectModifiedEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    OLD_CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    NEW_CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    RUNTIME_FIELD_NUMBER: builtins.int
+    PROTECTION_FIELD_NUMBER: builtins.int
+    old_config_version: builtins.str
+    new_config_version: builtins.str
+    @property
+    def application(self) -> global___ApplicationHandle: ...
+    @property
+    def release_channel(self) -> global___ReleaseChannelHandle: ...
+    @property
+    def service(self) -> global___ServiceHandle: ...
+    @property
+    def runtime(self) -> global___RuntimeHandle: ...
+    @property
+    def protection(self) -> global___ProtectionHandle: ...
+    def __init__(
+        self,
+        *,
+        old_config_version: builtins.str = ...,
+        new_config_version: builtins.str = ...,
+        application: global___ApplicationHandle | None = ...,
+        release_channel: global___ReleaseChannelHandle | None = ...,
+        service: global___ServiceHandle | None = ...,
+        runtime: global___RuntimeHandle | None = ...,
+        protection: global___ProtectionHandle | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application", b"application", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "new_config_version", b"new_config_version", "old_config_version", b"old_config_version", "protection", b"protection", "release_channel", b"release_channel", "runtime", b"runtime", "service", b"service", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["target", b"target"]) -> typing_extensions.Literal["application", "release_channel", "service", "runtime", "protection"] | None: ...
+
+global___ObjectModifiedEvent = ObjectModifiedEvent
+
 class EventDetails(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -529,6 +835,11 @@ class EventDetails(google.protobuf.message.Message):
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
     DESIRED_STATE_STATUS_CHANGE_FIELD_NUMBER: builtins.int
     KEY_DELIVERY_DECISION_FIELD_NUMBER: builtins.int
+    RPC_CALL_FIELD_NUMBER: builtins.int
+    PERMISSION_DENIED_FIELD_NUMBER: builtins.int
+    OBJECT_CREATED_FIELD_NUMBER: builtins.int
+    OBJECT_DELETED_FIELD_NUMBER: builtins.int
+    OBJECT_MODIFIED_FIELD_NUMBER: builtins.int
     @property
     def set_desired_state(self) -> global___SetDesiredStateEvent: ...
     @property
@@ -551,6 +862,16 @@ class EventDetails(google.protobuf.message.Message):
     def desired_state_status_change(self) -> global___DesiredStateStatusChangeEvent: ...
     @property
     def key_delivery_decision(self) -> global___KeyDeliveryDecisionEvent: ...
+    @property
+    def rpc_call(self) -> global___RpcCallEvent: ...
+    @property
+    def permission_denied(self) -> global___PermissionDeniedEvent: ...
+    @property
+    def object_created(self) -> global___ObjectCreatedEvent: ...
+    @property
+    def object_deleted(self) -> global___ObjectDeletedEvent: ...
+    @property
+    def object_modified(self) -> global___ObjectModifiedEvent: ...
     def __init__(
         self,
         *,
@@ -565,9 +886,14 @@ class EventDetails(google.protobuf.message.Message):
         delivery_promotion: global___DeliveryManualPromotionEvent | None = ...,
         desired_state_status_change: global___DesiredStateStatusChangeEvent | None = ...,
         key_delivery_decision: global___KeyDeliveryDecisionEvent | None = ...,
+        rpc_call: global___RpcCallEvent | None = ...,
+        permission_denied: global___PermissionDeniedEvent | None = ...,
+        object_created: global___ObjectCreatedEvent | None = ...,
+        object_deleted: global___ObjectDeletedEvent | None = ...,
+        object_modified: global___ObjectModifiedEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "manual_approval", b"manual_approval", "program_exit", b"program_exit", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "manual_approval", b"manual_approval", "program_exit", b"program_exit", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "custom_task_execution", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "custom_task_execution", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision", "rpc_call", "permission_denied", "object_created", "object_deleted", "object_modified"] | None: ...
 
 global___EventDetails = EventDetails

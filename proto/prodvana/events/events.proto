@@ -12,6 +12,7 @@ message Event {
     EventDetails details = 4;
     google.protobuf.Timestamp timestamp = 5;
     RelatedObjects related_objects = 6;
+    string actor = 7;
 }
 
 message RelatedObjects {

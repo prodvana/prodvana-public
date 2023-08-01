@@ -24,6 +24,13 @@ enum EventType {
     DESIRED_STATE_STATUS_CHANGE = 11;
     KEY_DELIVERY_DECISION = 12;
 
+    RPC_CALL = 13;
+    PERMISSON_DENIED = 14;
+
+    OBJECT_CREATED = 15;
+    OBJECT_DELETED = 16;
+    OBJECT_MODIFIED = 17;
+
     reserved 5;
 }
 
@@ -170,6 +177,91 @@ message KeyDeliveryDecisionEvent {
     repeated prodvana.desired_state.model.StatusExplanation status_explanations = 10;
 }
 
+message RpcCallEvent {
+    enum Type {
+        UNKNOWN = 0;
+        READ = 1;
+        WRITE = 2;
+    }
+    Type type = 1;
+    string rpc_service = 2;
+    string rpc_method = 3;
+}
+
+message ApplicationHandle {
+    string name = 1;
+    string id = 2;
+}
+message ReleaseChannelHandle {
+    ApplicationHandle application = 1;
+    string name = 2;
+    string id = 3;
+}
+message ServiceHandle {
+    ApplicationHandle application = 1;
+    ReleaseChannelHandle release_channel = 2;
+    string name = 3;
+    string id = 4;
+}
+message RuntimeHandle {
+    string name = 1;
+    string id = 2;
+}
+message ProtectionHandle {
+    string name = 1;
+    string id = 2;
+}
+
+message PermissionDeniedEvent {
+    enum Action {
+        UNKNOWN = 0;
+        READ = 1;
+        WRITE = 2;
+    }
+    Action action = 1;
+    oneof target {
+        ApplicationHandle application = 2;
+        ReleaseChannelHandle release_channel = 3;
+        ServiceHandle service = 4;
+        RuntimeHandle runtime = 5;
+        ProtectionHandle protection = 6;
+    }
+}
+
+message ObjectCreatedEvent {
+    string config_version = 1;
+    oneof target {
+        ApplicationHandle application = 2;
+        ReleaseChannelHandle release_channel = 3;
+        ServiceHandle service = 4;
+        RuntimeHandle runtime = 5;
+        ProtectionHandle protection = 6;
+    }
+}
+
+message ObjectDeletedEvent {
+    string config_version = 1;
+    oneof target {
+        ApplicationHandle application = 2;
+        ReleaseChannelHandle release_channel = 3;
+        ServiceHandle service = 4;
+        RuntimeHandle runtime = 5;
+        ProtectionHandle protection = 6;
+    }
+}
+
+message ObjectModifiedEvent {
+    string old_config_version = 1;
+    string new_config_version = 2;
+    oneof target {
+        ApplicationHandle application = 3;
+        ReleaseChannelHandle release_channel = 4;
+        ServiceHandle service = 5;
+        RuntimeHandle runtime = 6;
+        ProtectionHandle protection = 7;
+    }
+}
+
 message EventDetails {
     oneof details {
         SetDesiredStateEvent set_desired_state = 1;
@@ -183,6 +275,11 @@ message EventDetails {
         DeliveryManualPromotionEvent delivery_promotion = 10;
         DesiredStateStatusChangeEvent desired_state_status_change = 11;
         KeyDeliveryDecisionEvent key_delivery_decision = 12;
+        RpcCallEvent rpc_call = 13;
+        PermissionDeniedEvent permission_denied = 14;
+        ObjectCreatedEvent object_created = 15;
+        ObjectDeletedEvent object_deleted = 16;
+        ObjectModifiedEvent object_modified = 17;
     }
     reserved 5;
 }

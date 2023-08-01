@@ -5476,6 +5476,15 @@
         }
       }
     },
+    "PermissionDeniedEventAction": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "READ",
+        "WRITE"
+      ],
+      "default": "UNKNOWN"
+    },
     "PortConfigProtocol": {
       "type": "string",
       "enum": [
@@ -7977,6 +7986,17 @@
     "environmentValidateConfigureClusterResp": {
       "type": "object"
     },
+    "eventsApplicationHandle": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "eventsApplyTargetStateEvent": {
       "type": "object",
       "properties": {
@@ -8109,6 +8129,9 @@
         },
         "relatedObjects": {
           "$ref": "#/definitions/eventsRelatedObjects"
+        },
+        "actor": {
+          "type": "string"
         }
       }
     },
@@ -8147,6 +8170,21 @@
         },
         "keyDeliveryDecision": {
           "$ref": "#/definitions/eventsKeyDeliveryDecisionEvent"
+        },
+        "rpcCall": {
+          "$ref": "#/definitions/eventsRpcCallEvent"
+        },
+        "permissionDenied": {
+          "$ref": "#/definitions/eventsPermissionDeniedEvent"
+        },
+        "objectCreated": {
+          "$ref": "#/definitions/eventsObjectCreatedEvent"
+        },
+        "objectDeleted": {
+          "$ref": "#/definitions/eventsObjectDeletedEvent"
+        },
+        "objectModified": {
+          "$ref": "#/definitions/eventsObjectModifiedEvent"
         }
       }
     },
@@ -8164,7 +8202,12 @@
         "DELIVERY_PROGRESS",
         "DELIVERY_MANUAL_PROMOTION",
         "DESIRED_STATE_STATUS_CHANGE",
-        "KEY_DELIVERY_DECISION"
+        "KEY_DELIVERY_DECISION",
+        "RPC_CALL",
+        "PERMISSON_DENIED",
+        "OBJECT_CREATED",
+        "OBJECT_DELETED",
+        "OBJECT_MODIFIED"
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available."
@@ -8286,6 +8329,101 @@
         }
       }
     },
+    "eventsObjectCreatedEvent": {
+      "type": "object",
+      "properties": {
+        "configVersion": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelHandle"
+        },
+        "service": {
+          "$ref": "#/definitions/eventsServiceHandle"
+        },
+        "runtime": {
+          "$ref": "#/definitions/eventsRuntimeHandle"
+        },
+        "protection": {
+          "$ref": "#/definitions/eventsProtectionHandle"
+        }
+      }
+    },
+    "eventsObjectDeletedEvent": {
+      "type": "object",
+      "properties": {
+        "configVersion": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelHandle"
+        },
+        "service": {
+          "$ref": "#/definitions/eventsServiceHandle"
+        },
+        "runtime": {
+          "$ref": "#/definitions/eventsRuntimeHandle"
+        },
+        "protection": {
+          "$ref": "#/definitions/eventsProtectionHandle"
+        }
+      }
+    },
+    "eventsObjectModifiedEvent": {
+      "type": "object",
+      "properties": {
+        "oldConfigVersion": {
+          "type": "string"
+        },
+        "newConfigVersion": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelHandle"
+        },
+        "service": {
+          "$ref": "#/definitions/eventsServiceHandle"
+        },
+        "runtime": {
+          "$ref": "#/definitions/eventsRuntimeHandle"
+        },
+        "protection": {
+          "$ref": "#/definitions/eventsProtectionHandle"
+        }
+      }
+    },
+    "eventsPermissionDeniedEvent": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/PermissionDeniedEventAction"
+        },
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelHandle"
+        },
+        "service": {
+          "$ref": "#/definitions/eventsServiceHandle"
+        },
+        "runtime": {
+          "$ref": "#/definitions/eventsRuntimeHandle"
+        },
+        "protection": {
+          "$ref": "#/definitions/eventsProtectionHandle"
+        }
+      }
+    },
     "eventsProgramExitEvent": {
       "type": "object",
       "properties": {
@@ -8323,6 +8461,17 @@
         }
       }
     },
+    "eventsProtectionHandle": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "eventsRelatedObjects": {
       "type": "object",
       "properties": {
@@ -8352,6 +8501,20 @@
         }
       }
     },
+    "eventsReleaseChannelHandle": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "eventsReleaseChannelLookup": {
       "type": "object",
       "properties": {
@@ -8359,6 +8522,40 @@
           "type": "string"
         },
         "releaseChannel": {
+          "type": "string"
+        }
+      }
+    },
+    "eventsRpcCallEvent": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/eventsRpcCallEventType"
+        },
+        "rpcService": {
+          "type": "string"
+        },
+        "rpcMethod": {
+          "type": "string"
+        }
+      }
+    },
+    "eventsRpcCallEventType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "READ",
+        "WRITE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "eventsRuntimeHandle": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
           "type": "string"
         }
       }
@@ -8374,6 +8571,23 @@
         },
         "status": {
           "$ref": "#/definitions/RuntimeUpdateEventRuntimeStatus"
+        }
+      }
+    },
+    "eventsServiceHandle": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/eventsApplicationHandle"
+        },
+        "releaseChannel": {
+          "$ref": "#/definitions/eventsReleaseChannelHandle"
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
         }
       }
     },

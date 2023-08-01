@@ -149,6 +149,8 @@ func (m *Event) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Actor
+
 	if len(errors) > 0 {
 		return EventMultiError(errors)
 	}

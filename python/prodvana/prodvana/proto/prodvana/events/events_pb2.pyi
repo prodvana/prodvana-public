@@ -27,6 +27,7 @@ class Event(google.protobuf.message.Message):
     DETAILS_FIELD_NUMBER: builtins.int
     TIMESTAMP_FIELD_NUMBER: builtins.int
     RELATED_OBJECTS_FIELD_NUMBER: builtins.int
+    ACTOR_FIELD_NUMBER: builtins.int
     id: builtins.str
     type: prodvana.proto.prodvana.events.types_pb2.EventType.ValueType
     title: builtins.str
@@ -36,6 +37,7 @@ class Event(google.protobuf.message.Message):
     def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def related_objects(self) -> global___RelatedObjects: ...
+    actor: builtins.str
     def __init__(
         self,
         *,
@@ -45,9 +47,10 @@ class Event(google.protobuf.message.Message):
         details: prodvana.proto.prodvana.events.types_pb2.EventDetails | None = ...,
         timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         related_objects: global___RelatedObjects | None = ...,
+        actor: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["details", b"details", "related_objects", b"related_objects", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["details", b"details", "id", b"id", "related_objects", b"related_objects", "timestamp", b"timestamp", "title", b"title", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["actor", b"actor", "details", b"details", "id", b"id", "related_objects", b"related_objects", "timestamp", b"timestamp", "title", b"title", "type", b"type"]) -> None: ...
 
 global___Event = Event
 
