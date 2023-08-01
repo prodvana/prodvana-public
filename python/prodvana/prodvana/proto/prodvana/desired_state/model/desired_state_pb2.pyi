@@ -927,6 +927,7 @@ class RuntimeObject(google.protobuf.message.Message):
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    GENERATE_NAME_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
@@ -946,6 +947,8 @@ class RuntimeObject(google.protobuf.message.Message):
     object_type: builtins.str
     namespace: builtins.str
     name: builtins.str
+    generate_name: builtins.str
+    """if set, this runtime object will have a name that is generated at creation time, by the runtime implementation"""
     @property
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
     status: global___RuntimeObject.Status.ValueType
@@ -986,6 +989,7 @@ class RuntimeObject(google.protobuf.message.Message):
         object_type: builtins.str = ...,
         namespace: builtins.str = ...,
         name: builtins.str = ...,
+        generate_name: builtins.str = ...,
         versions: collections.abc.Iterable[global___Version] | None = ...,
         status: global___RuntimeObject.Status.ValueType = ...,
         rollback_version: global___Version | None = ...,
@@ -1002,7 +1006,7 @@ class RuntimeObject(google.protobuf.message.Message):
         raw_config: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

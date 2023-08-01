@@ -2512,6 +2512,8 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for Name
 
+	// no validation rules for GenerateName
+
 	for idx, item := range m.GetVersions() {
 		_, _ = idx, item
 

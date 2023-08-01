@@ -7366,6 +7366,10 @@
         "name": {
           "type": "string"
         },
+        "generateName": {
+          "type": "string",
+          "title": "if set, this runtime object will have a name that is generated at creation time, by the runtime implementation"
+        },
         "versions": {
           "type": "array",
           "items": {

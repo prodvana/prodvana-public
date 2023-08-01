@@ -316,6 +316,7 @@ message RuntimeObject {
     string object_type = 2;
     string namespace = 3;
     string name = 4;
+    string generate_name = 24; // if set, this runtime object will have a name that is generated at creation time, by the runtime implementation
     enum Status {
         PENDING = 0;
         SUCCEEDED = 1;
@@ -341,7 +342,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval";
-    // next tag: 24
+    // next tag: 25
 }
 
 enum ConditionStatus {
