@@ -2519,6 +2519,412 @@ var _ interface {
 	ErrorName() string
 } = GetClusterStatusRespValidationError{}
 
+// Validate checks the field values on PauseClusterReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PauseClusterReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PauseClusterReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PauseClusterReqMultiError, or nil if none found.
+func (m *PauseClusterReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PauseClusterReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Runtime
+
+	if len(errors) > 0 {
+		return PauseClusterReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// PauseClusterReqMultiError is an error wrapping multiple validation errors
+// returned by PauseClusterReq.ValidateAll() if the designated constraints
+// aren't met.
+type PauseClusterReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PauseClusterReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PauseClusterReqMultiError) AllErrors() []error { return m }
+
+// PauseClusterReqValidationError is the validation error returned by
+// PauseClusterReq.Validate if the designated constraints aren't met.
+type PauseClusterReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PauseClusterReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PauseClusterReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PauseClusterReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PauseClusterReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PauseClusterReqValidationError) ErrorName() string { return "PauseClusterReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PauseClusterReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPauseClusterReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PauseClusterReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PauseClusterReqValidationError{}
+
+// Validate checks the field values on PauseClusterResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PauseClusterResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PauseClusterResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PauseClusterRespMultiError, or nil if none found.
+func (m *PauseClusterResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PauseClusterResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return PauseClusterRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// PauseClusterRespMultiError is an error wrapping multiple validation errors
+// returned by PauseClusterResp.ValidateAll() if the designated constraints
+// aren't met.
+type PauseClusterRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PauseClusterRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PauseClusterRespMultiError) AllErrors() []error { return m }
+
+// PauseClusterRespValidationError is the validation error returned by
+// PauseClusterResp.Validate if the designated constraints aren't met.
+type PauseClusterRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PauseClusterRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PauseClusterRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PauseClusterRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PauseClusterRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PauseClusterRespValidationError) ErrorName() string { return "PauseClusterRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PauseClusterRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPauseClusterResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PauseClusterRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PauseClusterRespValidationError{}
+
+// Validate checks the field values on ResumeClusterReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ResumeClusterReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResumeClusterReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ResumeClusterReqMultiError, or nil if none found.
+func (m *ResumeClusterReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResumeClusterReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Runtime
+
+	if len(errors) > 0 {
+		return ResumeClusterReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ResumeClusterReqMultiError is an error wrapping multiple validation errors
+// returned by ResumeClusterReq.ValidateAll() if the designated constraints
+// aren't met.
+type ResumeClusterReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResumeClusterReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResumeClusterReqMultiError) AllErrors() []error { return m }
+
+// ResumeClusterReqValidationError is the validation error returned by
+// ResumeClusterReq.Validate if the designated constraints aren't met.
+type ResumeClusterReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResumeClusterReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResumeClusterReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResumeClusterReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResumeClusterReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResumeClusterReqValidationError) ErrorName() string { return "ResumeClusterReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ResumeClusterReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResumeClusterReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResumeClusterReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResumeClusterReqValidationError{}
+
+// Validate checks the field values on ResumeClusterResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ResumeClusterResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResumeClusterResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ResumeClusterRespMultiError, or nil if none found.
+func (m *ResumeClusterResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResumeClusterResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ResumeClusterRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ResumeClusterRespMultiError is an error wrapping multiple validation errors
+// returned by ResumeClusterResp.ValidateAll() if the designated constraints
+// aren't met.
+type ResumeClusterRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResumeClusterRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResumeClusterRespMultiError) AllErrors() []error { return m }
+
+// ResumeClusterRespValidationError is the validation error returned by
+// ResumeClusterResp.Validate if the designated constraints aren't met.
+type ResumeClusterRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResumeClusterRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResumeClusterRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResumeClusterRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResumeClusterRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResumeClusterRespValidationError) ErrorName() string {
+	return "ResumeClusterRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ResumeClusterRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResumeClusterResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResumeClusterRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResumeClusterRespValidationError{}
+
 // Validate checks the field values on ListClustersResp_ClusterInfo with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

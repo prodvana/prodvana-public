@@ -434,3 +434,51 @@ class GetClusterStatusResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["last_heartbeat_timestamp", b"last_heartbeat_timestamp"]) -> None: ...
 
 global___GetClusterStatusResp = GetClusterStatusResp
+
+class PauseClusterReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RUNTIME_FIELD_NUMBER: builtins.int
+    runtime: builtins.str
+    """name or id"""
+    def __init__(
+        self,
+        *,
+        runtime: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["runtime", b"runtime"]) -> None: ...
+
+global___PauseClusterReq = PauseClusterReq
+
+class PauseClusterResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___PauseClusterResp = PauseClusterResp
+
+class ResumeClusterReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RUNTIME_FIELD_NUMBER: builtins.int
+    runtime: builtins.str
+    """name or id"""
+    def __init__(
+        self,
+        *,
+        runtime: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["runtime", b"runtime"]) -> None: ...
+
+global___ResumeClusterReq = ResumeClusterReq
+
+class ResumeClusterResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ResumeClusterResp = ResumeClusterResp

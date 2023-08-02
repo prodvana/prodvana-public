@@ -30,6 +30,8 @@ const (
 	EnvironmentManager_ConfigureCluster_FullMethodName         = "/prodvana.environment.EnvironmentManager/ConfigureCluster"
 	EnvironmentManager_ValidateConfigureCluster_FullMethodName = "/prodvana.environment.EnvironmentManager/ValidateConfigureCluster"
 	EnvironmentManager_GetClusterStatus_FullMethodName         = "/prodvana.environment.EnvironmentManager/GetClusterStatus"
+	EnvironmentManager_PauseCluster_FullMethodName             = "/prodvana.environment.EnvironmentManager/PauseCluster"
+	EnvironmentManager_ResumeCluster_FullMethodName            = "/prodvana.environment.EnvironmentManager/ResumeCluster"
 )
 
 // EnvironmentManagerClient is the client API for EnvironmentManager service.
@@ -48,6 +50,8 @@ type EnvironmentManagerClient interface {
 	ConfigureCluster(ctx context.Context, in *ConfigureClusterReq, opts ...grpc.CallOption) (*ConfigureClusterResp, error)
 	ValidateConfigureCluster(ctx context.Context, in *ConfigureClusterReq, opts ...grpc.CallOption) (*ValidateConfigureClusterResp, error)
 	GetClusterStatus(ctx context.Context, in *GetClusterStatusReq, opts ...grpc.CallOption) (*GetClusterStatusResp, error)
+	PauseCluster(ctx context.Context, in *PauseClusterReq, opts ...grpc.CallOption) (*PauseClusterResp, error)
+	ResumeCluster(ctx context.Context, in *ResumeClusterReq, opts ...grpc.CallOption) (*ResumeClusterResp, error)
 }
 
 type environmentManagerClient struct {
@@ -157,6 +161,24 @@ func (c *environmentManagerClient) GetClusterStatus(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *environmentManagerClient) PauseCluster(ctx context.Context, in *PauseClusterReq, opts ...grpc.CallOption) (*PauseClusterResp, error) {
+	out := new(PauseClusterResp)
+	err := c.cc.Invoke(ctx, EnvironmentManager_PauseCluster_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagerClient) ResumeCluster(ctx context.Context, in *ResumeClusterReq, opts ...grpc.CallOption) (*ResumeClusterResp, error) {
+	out := new(ResumeClusterResp)
+	err := c.cc.Invoke(ctx, EnvironmentManager_ResumeCluster_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EnvironmentManagerServer is the server API for EnvironmentManager service.
 // All implementations must embed UnimplementedEnvironmentManagerServer
 // for forward compatibility
@@ -173,6 +195,8 @@ type EnvironmentManagerServer interface {
 	ConfigureCluster(context.Context, *ConfigureClusterReq) (*ConfigureClusterResp, error)
 	ValidateConfigureCluster(context.Context, *ConfigureClusterReq) (*ValidateConfigureClusterResp, error)
 	GetClusterStatus(context.Context, *GetClusterStatusReq) (*GetClusterStatusResp, error)
+	PauseCluster(context.Context, *PauseClusterReq) (*PauseClusterResp, error)
+	ResumeCluster(context.Context, *ResumeClusterReq) (*ResumeClusterResp, error)
 	mustEmbedUnimplementedEnvironmentManagerServer()
 }
 
@@ -212,6 +236,12 @@ func (UnimplementedEnvironmentManagerServer) ValidateConfigureCluster(context.Co
 }
 func (UnimplementedEnvironmentManagerServer) GetClusterStatus(context.Context, *GetClusterStatusReq) (*GetClusterStatusResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterStatus not implemented")
+}
+func (UnimplementedEnvironmentManagerServer) PauseCluster(context.Context, *PauseClusterReq) (*PauseClusterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PauseCluster not implemented")
+}
+func (UnimplementedEnvironmentManagerServer) ResumeCluster(context.Context, *ResumeClusterReq) (*ResumeClusterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResumeCluster not implemented")
 }
 func (UnimplementedEnvironmentManagerServer) mustEmbedUnimplementedEnvironmentManagerServer() {}
 
@@ -424,6 +454,42 @@ func _EnvironmentManager_GetClusterStatus_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EnvironmentManager_PauseCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PauseClusterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnvironmentManagerServer).PauseCluster(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EnvironmentManager_PauseCluster_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnvironmentManagerServer).PauseCluster(ctx, req.(*PauseClusterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EnvironmentManager_ResumeCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResumeClusterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnvironmentManagerServer).ResumeCluster(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EnvironmentManager_ResumeCluster_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnvironmentManagerServer).ResumeCluster(ctx, req.(*ResumeClusterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EnvironmentManager_ServiceDesc is the grpc.ServiceDesc for EnvironmentManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -474,6 +540,14 @@ var EnvironmentManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClusterStatus",
 			Handler:    _EnvironmentManager_GetClusterStatus_Handler,
+		},
+		{
+			MethodName: "PauseCluster",
+			Handler:    _EnvironmentManager_PauseCluster_Handler,
+		},
+		{
+			MethodName: "ResumeCluster",
+			Handler:    _EnvironmentManager_ResumeCluster_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -136,6 +136,20 @@ message GetClusterStatusResp{
     google.protobuf.Timestamp last_heartbeat_timestamp = 1;
 }
 
+message PauseClusterReq {
+    string runtime = 1; // name or id
+}
+
+message PauseClusterResp {
+}
+
+message ResumeClusterReq {
+    string runtime = 1; // name or id
+}
+
+message ResumeClusterResp {
+}
+
 service EnvironmentManager {
     rpc GetClusterAgentApiToken (GetClusterAgentApiTokenReq) returns (GetClusterAgentApiTokenResp) {
         option (google.api.http) = {
@@ -197,6 +211,18 @@ service EnvironmentManager {
     rpc GetClusterStatus (GetClusterStatusReq) returns (GetClusterStatusResp) {
         option (google.api.http) = {
             get: "/v1/clusters/get_status"
+        };
+    }
+    rpc PauseCluster(PauseClusterReq) returns (PauseClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/pause"
+            body: "*"
+        };
+    }
+    rpc ResumeCluster(ResumeClusterReq) returns (ResumeClusterResp) {
+        option (google.api.http) = {
+            post: "/v1/clusters/resume"
+            body: "*"
         };
     }
 }

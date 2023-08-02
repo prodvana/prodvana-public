@@ -69,6 +69,16 @@ class EnvironmentManagerStub(object):
                 request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusReq.SerializeToString,
                 response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusResp.FromString,
                 )
+        self.PauseCluster = channel.unary_unary(
+                '/prodvana.environment.EnvironmentManager/PauseCluster',
+                request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterReq.SerializeToString,
+                response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterResp.FromString,
+                )
+        self.ResumeCluster = channel.unary_unary(
+                '/prodvana.environment.EnvironmentManager/ResumeCluster',
+                request_serializer=prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterReq.SerializeToString,
+                response_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterResp.FromString,
+                )
 
 
 class EnvironmentManagerServicer(object):
@@ -141,6 +151,18 @@ class EnvironmentManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PauseCluster(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ResumeCluster(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_EnvironmentManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -198,6 +220,16 @@ def add_EnvironmentManagerServicer_to_server(servicer, server):
                     servicer.GetClusterStatus,
                     request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusReq.FromString,
                     response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusResp.SerializeToString,
+            ),
+            'PauseCluster': grpc.unary_unary_rpc_method_handler(
+                    servicer.PauseCluster,
+                    request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterReq.FromString,
+                    response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterResp.SerializeToString,
+            ),
+            'ResumeCluster': grpc.unary_unary_rpc_method_handler(
+                    servicer.ResumeCluster,
+                    request_deserializer=prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterReq.FromString,
+                    response_serializer=prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -393,5 +425,39 @@ class EnvironmentManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/GetClusterStatus',
             prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusReq.SerializeToString,
             prodvana_dot_environment_dot_environment__manager__pb2.GetClusterStatusResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PauseCluster(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/PauseCluster',
+            prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterReq.SerializeToString,
+            prodvana_dot_environment_dot_environment__manager__pb2.PauseClusterResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ResumeCluster(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.environment.EnvironmentManager/ResumeCluster',
+            prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterReq.SerializeToString,
+            prodvana_dot_environment_dot_environment__manager__pb2.ResumeClusterResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

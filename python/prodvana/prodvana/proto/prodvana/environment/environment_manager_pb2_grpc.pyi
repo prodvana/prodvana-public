@@ -53,6 +53,14 @@ class EnvironmentManagerStub:
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterStatusReq,
         prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterStatusResp,
     ]
+    PauseCluster: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.environment.environment_manager_pb2.PauseClusterReq,
+        prodvana.proto.prodvana.environment.environment_manager_pb2.PauseClusterResp,
+    ]
+    ResumeCluster: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.environment.environment_manager_pb2.ResumeClusterReq,
+        prodvana.proto.prodvana.environment.environment_manager_pb2.ResumeClusterResp,
+    ]
 
 class EnvironmentManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -122,5 +130,17 @@ class EnvironmentManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterStatusReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.GetClusterStatusResp: ...
+    @abc.abstractmethod
+    def PauseCluster(
+        self,
+        request: prodvana.proto.prodvana.environment.environment_manager_pb2.PauseClusterReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.PauseClusterResp: ...
+    @abc.abstractmethod
+    def ResumeCluster(
+        self,
+        request: prodvana.proto.prodvana.environment.environment_manager_pb2.ResumeClusterReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.environment.environment_manager_pb2.ResumeClusterResp: ...
 
 def add_EnvironmentManagerServicer_to_server(servicer: EnvironmentManagerServicer, server: grpc.Server) -> None: ...

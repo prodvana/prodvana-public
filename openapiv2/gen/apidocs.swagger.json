@@ -1769,6 +1769,38 @@
         ]
       }
     },
+    "/v1/clusters/pause": {
+      "post": {
+        "operationId": "EnvironmentManager_PauseCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentPauseClusterResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/environmentPauseClusterReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.environment.EnvironmentManager"
+        ]
+      }
+    },
     "/v1/clusters/remove": {
       "post": {
         "operationId": "EnvironmentManager_RemoveCluster",
@@ -1793,6 +1825,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/environmentRemoveClusterReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.environment.EnvironmentManager"
+        ]
+      }
+    },
+    "/v1/clusters/resume": {
+      "post": {
+        "operationId": "EnvironmentManager_ResumeCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/environmentResumeClusterResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/environmentResumeClusterReq"
             }
           }
         ],
@@ -7928,6 +7992,18 @@
         }
       }
     },
+    "environmentPauseClusterReq": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "title": "name or id"
+        }
+      }
+    },
+    "environmentPauseClusterResp": {
+      "type": "object"
+    },
     "environmentRemoveClusterReq": {
       "type": "object",
       "properties": {
@@ -7938,6 +8014,18 @@
       }
     },
     "environmentRemoveClusterResp": {
+      "type": "object"
+    },
+    "environmentResumeClusterReq": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "title": "name or id"
+        }
+      }
+    },
+    "environmentResumeClusterResp": {
       "type": "object"
     },
     "environmentSetSecretReq": {
