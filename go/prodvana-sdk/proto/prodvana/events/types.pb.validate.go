@@ -2084,6 +2084,64 @@ func (m *RpcCallEvent) validate(all bool) error {
 
 	// no validation rules for RpcMethod
 
+	if all {
+		switch v := interface{}(m.GetRequest()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RpcCallEventValidationError{
+					field:  "Request",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RpcCallEventValidationError{
+					field:  "Request",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRequest()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RpcCallEventValidationError{
+				field:  "Request",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetResponse()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RpcCallEventValidationError{
+					field:  "Response",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RpcCallEventValidationError{
+					field:  "Response",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResponse()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RpcCallEventValidationError{
+				field:  "Response",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return RpcCallEventMultiError(errors)
 	}

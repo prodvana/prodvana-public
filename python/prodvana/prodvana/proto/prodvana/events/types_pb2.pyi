@@ -4,6 +4,7 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import google.protobuf.any_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
@@ -546,17 +547,26 @@ class RpcCallEvent(google.protobuf.message.Message):
     TYPE_FIELD_NUMBER: builtins.int
     RPC_SERVICE_FIELD_NUMBER: builtins.int
     RPC_METHOD_FIELD_NUMBER: builtins.int
+    REQUEST_FIELD_NUMBER: builtins.int
+    RESPONSE_FIELD_NUMBER: builtins.int
     type: global___RpcCallEvent.Type.ValueType
     rpc_service: builtins.str
     rpc_method: builtins.str
+    @property
+    def request(self) -> google.protobuf.any_pb2.Any: ...
+    @property
+    def response(self) -> google.protobuf.any_pb2.Any: ...
     def __init__(
         self,
         *,
         type: global___RpcCallEvent.Type.ValueType = ...,
         rpc_service: builtins.str = ...,
         rpc_method: builtins.str = ...,
+        request: google.protobuf.any_pb2.Any | None = ...,
+        response: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["rpc_method", b"rpc_method", "rpc_service", b"rpc_service", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request", b"request", "response", b"response"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["request", b"request", "response", b"response", "rpc_method", b"rpc_method", "rpc_service", b"rpc_service", "type", b"type"]) -> None: ...
 
 global___RpcCallEvent = RpcCallEvent
 
