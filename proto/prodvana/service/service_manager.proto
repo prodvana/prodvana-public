@@ -5,6 +5,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/convergence/convergence_mode.proto";
 import "prodvana/service/parameters.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
@@ -193,6 +194,15 @@ message SetServiceMetadataReq {
 message SetServiceMetadataResp {
 }
 
+message SetServiceConvergenceModeReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    prodvana.convergence.ConvergenceMode convergence_mode = 3;
+}
+
+message SetServiceConvergenceModeResp {
+}
+
 message ListMaterializedConfigVersionsReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
@@ -350,6 +360,12 @@ service ServiceManager {
     rpc SetServiceMetadata(SetServiceMetadataReq) returns (SetServiceMetadataResp) {
         option (google.api.http) = {
             post: "/v1/applications/{application=*}/services/{service=*}/metadata"
+            body: "*"
+        };
+    }
+    rpc SetServiceConvergenceMode(SetServiceConvergenceModeReq) returns (SetServiceConvergenceModeResp) {
+        option (google.api.http) = {
+            post: "/v1/applications/{application=*}/services/{service=*}/convergence-mode"
             body: "*"
         };
     }

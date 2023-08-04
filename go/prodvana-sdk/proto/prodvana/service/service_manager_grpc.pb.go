@@ -37,6 +37,7 @@ const (
 	ServiceManager_SnoozeServiceInsight_FullMethodName           = "/prodvana.service.ServiceManager/SnoozeServiceInsight"
 	ServiceManager_GetServiceMetadata_FullMethodName             = "/prodvana.service.ServiceManager/GetServiceMetadata"
 	ServiceManager_SetServiceMetadata_FullMethodName             = "/prodvana.service.ServiceManager/SetServiceMetadata"
+	ServiceManager_SetServiceConvergenceMode_FullMethodName      = "/prodvana.service.ServiceManager/SetServiceConvergenceMode"
 )
 
 // ServiceManagerClient is the client API for ServiceManager service.
@@ -62,6 +63,7 @@ type ServiceManagerClient interface {
 	SnoozeServiceInsight(ctx context.Context, in *SnoozeServiceInsightReq, opts ...grpc.CallOption) (*SnoozeServiceInsightResp, error)
 	GetServiceMetadata(ctx context.Context, in *GetServiceMetadataReq, opts ...grpc.CallOption) (*GetServiceMetadataResp, error)
 	SetServiceMetadata(ctx context.Context, in *SetServiceMetadataReq, opts ...grpc.CallOption) (*SetServiceMetadataResp, error)
+	SetServiceConvergenceMode(ctx context.Context, in *SetServiceConvergenceModeReq, opts ...grpc.CallOption) (*SetServiceConvergenceModeResp, error)
 }
 
 type serviceManagerClient struct {
@@ -234,6 +236,15 @@ func (c *serviceManagerClient) SetServiceMetadata(ctx context.Context, in *SetSe
 	return out, nil
 }
 
+func (c *serviceManagerClient) SetServiceConvergenceMode(ctx context.Context, in *SetServiceConvergenceModeReq, opts ...grpc.CallOption) (*SetServiceConvergenceModeResp, error) {
+	out := new(SetServiceConvergenceModeResp)
+	err := c.cc.Invoke(ctx, ServiceManager_SetServiceConvergenceMode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceManagerServer is the server API for ServiceManager service.
 // All implementations must embed UnimplementedServiceManagerServer
 // for forward compatibility
@@ -257,6 +268,7 @@ type ServiceManagerServer interface {
 	SnoozeServiceInsight(context.Context, *SnoozeServiceInsightReq) (*SnoozeServiceInsightResp, error)
 	GetServiceMetadata(context.Context, *GetServiceMetadataReq) (*GetServiceMetadataResp, error)
 	SetServiceMetadata(context.Context, *SetServiceMetadataReq) (*SetServiceMetadataResp, error)
+	SetServiceConvergenceMode(context.Context, *SetServiceConvergenceModeReq) (*SetServiceConvergenceModeResp, error)
 	mustEmbedUnimplementedServiceManagerServer()
 }
 
@@ -317,6 +329,9 @@ func (UnimplementedServiceManagerServer) GetServiceMetadata(context.Context, *Ge
 }
 func (UnimplementedServiceManagerServer) SetServiceMetadata(context.Context, *SetServiceMetadataReq) (*SetServiceMetadataResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetServiceMetadata not implemented")
+}
+func (UnimplementedServiceManagerServer) SetServiceConvergenceMode(context.Context, *SetServiceConvergenceModeReq) (*SetServiceConvergenceModeResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetServiceConvergenceMode not implemented")
 }
 func (UnimplementedServiceManagerServer) mustEmbedUnimplementedServiceManagerServer() {}
 
@@ -655,6 +670,24 @@ func _ServiceManager_SetServiceMetadata_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceManager_SetServiceConvergenceMode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetServiceConvergenceModeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).SetServiceConvergenceMode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_SetServiceConvergenceMode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).SetServiceConvergenceMode(ctx, req.(*SetServiceConvergenceModeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceManager_ServiceDesc is the grpc.ServiceDesc for ServiceManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -733,6 +766,10 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetServiceMetadata",
 			Handler:    _ServiceManager_SetServiceMetadata_Handler,
+		},
+		{
+			MethodName: "SetServiceConvergenceMode",
+			Handler:    _ServiceManager_SetServiceConvergenceMode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

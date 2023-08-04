@@ -104,6 +104,11 @@ class ServiceManagerStub(object):
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataResp.FromString,
                 )
+        self.SetServiceConvergenceMode = channel.unary_unary(
+                '/prodvana.service.ServiceManager/SetServiceConvergenceMode',
+                request_serializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeReq.SerializeToString,
+                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeResp.FromString,
+                )
 
 
 class ServiceManagerServicer(object):
@@ -218,6 +223,12 @@ class ServiceManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetServiceConvergenceMode(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ServiceManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -310,6 +321,11 @@ def add_ServiceManagerServicer_to_server(servicer, server):
                     servicer.SetServiceMetadata,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataResp.SerializeToString,
+            ),
+            'SetServiceConvergenceMode': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetServiceConvergenceMode,
+                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeReq.FromString,
+                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -624,5 +640,22 @@ class ServiceManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/SetServiceMetadata',
             prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataReq.SerializeToString,
             prodvana_dot_service_dot_service__manager__pb2.SetServiceMetadataResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetServiceConvergenceMode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/SetServiceConvergenceMode',
+            prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeReq.SerializeToString,
+            prodvana_dot_service_dot_service__manager__pb2.SetServiceConvergenceModeResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

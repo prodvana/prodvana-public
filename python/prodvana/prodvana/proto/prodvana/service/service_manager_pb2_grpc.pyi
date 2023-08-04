@@ -81,6 +81,10 @@ class ServiceManagerStub:
         prodvana.proto.prodvana.service.service_manager_pb2.SetServiceMetadataReq,
         prodvana.proto.prodvana.service.service_manager_pb2.SetServiceMetadataResp,
     ]
+    SetServiceConvergenceMode: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.service.service_manager_pb2.SetServiceConvergenceModeReq,
+        prodvana.proto.prodvana.service.service_manager_pb2.SetServiceConvergenceModeResp,
+    ]
 
 class ServiceManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -192,5 +196,11 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.service.service_manager_pb2.SetServiceMetadataReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.SetServiceMetadataResp: ...
+    @abc.abstractmethod
+    def SetServiceConvergenceMode(
+        self,
+        request: prodvana.proto.prodvana.service.service_manager_pb2.SetServiceConvergenceModeReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.service.service_manager_pb2.SetServiceConvergenceModeResp: ...
 
 def add_ServiceManagerServicer_to_server(servicer: ServiceManagerServicer, server: grpc.Server) -> None: ...

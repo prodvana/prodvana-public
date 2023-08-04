@@ -777,6 +777,57 @@
         ]
       }
     },
+    "/v1/applications/{application}/services/{service}/convergence-mode": {
+      "post": {
+        "operationId": "ServiceManager_SetServiceConvergenceMode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceSetServiceConvergenceModeResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "convergenceMode": {
+                  "$ref": "#/definitions/convergenceConvergenceMode"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
     "/v1/applications/{application}/services/{service}/desired_states": {
       "get": {
         "operationId": "DesiredStateManager_GetServiceDesiredStateHistory",
@@ -6817,6 +6868,16 @@
         }
       }
     },
+    "convergenceConvergenceMode": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "CONVERGE",
+        "OBSERVER"
+      ],
+      "default": "UNKNOWN",
+      "title": "- UNKNOWN: Defaults to CONVERGE"
+    },
     "deliveryCanaryProgress": {
       "type": "object",
       "properties": {
@@ -11542,6 +11603,9 @@
           "$ref": "#/definitions/serviceFollowContainerRepositorySettings"
         }
       }
+    },
+    "serviceSetServiceConvergenceModeResp": {
+      "type": "object"
     },
     "serviceSetServiceMetadataResp": {
       "type": "object"

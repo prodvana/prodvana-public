@@ -10,6 +10,7 @@ import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
+import prodvana.proto.prodvana.convergence.convergence_mode_pb2
 import prodvana.proto.prodvana.insights.insights_pb2
 import prodvana.proto.prodvana.metrics.metrics_pb2
 import prodvana.proto.prodvana.repo.repo_pb2
@@ -597,6 +598,35 @@ class SetServiceMetadataResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___SetServiceMetadataResp = SetServiceMetadataResp
+
+class SetServiceConvergenceModeReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    CONVERGENCE_MODE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+        convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "convergence_mode", b"convergence_mode", "service", b"service"]) -> None: ...
+
+global___SetServiceConvergenceModeReq = SetServiceConvergenceModeReq
+
+class SetServiceConvergenceModeResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___SetServiceConvergenceModeResp = SetServiceConvergenceModeResp
 
 class ListMaterializedConfigVersionsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

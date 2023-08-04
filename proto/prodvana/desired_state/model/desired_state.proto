@@ -384,7 +384,9 @@ message ControlState {
     google.protobuf.Timestamp last_applied_timestamp = 8;
     MissingApproval missing_approval = 9;
 
-    // next tag: 10
+    bool observer_mode = 10;
+
+    // next tag: 11
 }
 
 enum ManualApprovalStatus {

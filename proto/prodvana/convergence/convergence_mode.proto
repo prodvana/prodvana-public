@@ -1,0 +1,9 @@
+syntax = "proto3";
+package prodvana.convergence;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/convergence";
+
+enum ConvergenceMode {
+    UNKNOWN = 0; // Defaults to CONVERGE
+    CONVERGE = 1;
+    OBSERVER = 2;
+}

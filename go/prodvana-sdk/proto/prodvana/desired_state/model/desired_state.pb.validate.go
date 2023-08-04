@@ -3131,6 +3131,8 @@ func (m *ControlState) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ObserverMode
+
 	if len(errors) > 0 {
 		return ControlStateMultiError(errors)
 	}

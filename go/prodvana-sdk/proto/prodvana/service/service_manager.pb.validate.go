@@ -18,6 +18,8 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
+	convergence "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/convergence"
+
 	insights "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/insights"
 
 	version "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
@@ -37,6 +39,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = convergence.ConvergenceMode(0)
 
 	_ = insights.Class(0)
 
@@ -4074,6 +4078,236 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SetServiceMetadataRespValidationError{}
+
+// Validate checks the field values on SetServiceConvergenceModeReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetServiceConvergenceModeReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetServiceConvergenceModeReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetServiceConvergenceModeReqMultiError, or nil if none found.
+func (m *SetServiceConvergenceModeReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetServiceConvergenceModeReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := SetServiceConvergenceModeReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := SetServiceConvergenceModeReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ConvergenceMode
+
+	if len(errors) > 0 {
+		return SetServiceConvergenceModeReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetServiceConvergenceModeReqMultiError is an error wrapping multiple
+// validation errors returned by SetServiceConvergenceModeReq.ValidateAll() if
+// the designated constraints aren't met.
+type SetServiceConvergenceModeReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetServiceConvergenceModeReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetServiceConvergenceModeReqMultiError) AllErrors() []error { return m }
+
+// SetServiceConvergenceModeReqValidationError is the validation error returned
+// by SetServiceConvergenceModeReq.Validate if the designated constraints
+// aren't met.
+type SetServiceConvergenceModeReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetServiceConvergenceModeReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetServiceConvergenceModeReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetServiceConvergenceModeReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetServiceConvergenceModeReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetServiceConvergenceModeReqValidationError) ErrorName() string {
+	return "SetServiceConvergenceModeReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetServiceConvergenceModeReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetServiceConvergenceModeReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetServiceConvergenceModeReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetServiceConvergenceModeReqValidationError{}
+
+// Validate checks the field values on SetServiceConvergenceModeResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetServiceConvergenceModeResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetServiceConvergenceModeResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// SetServiceConvergenceModeRespMultiError, or nil if none found.
+func (m *SetServiceConvergenceModeResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetServiceConvergenceModeResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SetServiceConvergenceModeRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetServiceConvergenceModeRespMultiError is an error wrapping multiple
+// validation errors returned by SetServiceConvergenceModeResp.ValidateAll()
+// if the designated constraints aren't met.
+type SetServiceConvergenceModeRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetServiceConvergenceModeRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetServiceConvergenceModeRespMultiError) AllErrors() []error { return m }
+
+// SetServiceConvergenceModeRespValidationError is the validation error
+// returned by SetServiceConvergenceModeResp.Validate if the designated
+// constraints aren't met.
+type SetServiceConvergenceModeRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetServiceConvergenceModeRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetServiceConvergenceModeRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetServiceConvergenceModeRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetServiceConvergenceModeRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetServiceConvergenceModeRespValidationError) ErrorName() string {
+	return "SetServiceConvergenceModeRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetServiceConvergenceModeRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetServiceConvergenceModeResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetServiceConvergenceModeRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetServiceConvergenceModeRespValidationError{}
 
 // Validate checks the field values on ListMaterializedConfigVersionsReq with
 // the rules defined in the proto definition for this message. If any rules
