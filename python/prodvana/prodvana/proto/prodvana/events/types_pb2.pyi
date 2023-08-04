@@ -171,11 +171,13 @@ class ApplyTargetStateEvent(google.protobuf.message.Message):
         UNKNOWN: ApplyTargetStateEvent._ApplyResult.ValueType  # 0
         SUCCEEDED: ApplyTargetStateEvent._ApplyResult.ValueType  # 1
         FAILED: ApplyTargetStateEvent._ApplyResult.ValueType  # 2
+        RETRIABLE_FAILURE: ApplyTargetStateEvent._ApplyResult.ValueType  # 3
 
     class ApplyResult(_ApplyResult, metaclass=_ApplyResultEnumTypeWrapper): ...
     UNKNOWN: ApplyTargetStateEvent.ApplyResult.ValueType  # 0
     SUCCEEDED: ApplyTargetStateEvent.ApplyResult.ValueType  # 1
     FAILED: ApplyTargetStateEvent.ApplyResult.ValueType  # 2
+    RETRIABLE_FAILURE: ApplyTargetStateEvent.ApplyResult.ValueType  # 3
 
     ID_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int

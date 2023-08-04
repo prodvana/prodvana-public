@@ -4964,7 +4964,8 @@
       "enum": [
         "UNKNOWN",
         "SUCCEEDED",
-        "FAILED"
+        "FAILED",
+        "RETRIABLE_FAILURE"
       ],
       "default": "UNKNOWN"
     },
