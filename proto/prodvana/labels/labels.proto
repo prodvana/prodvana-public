@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.labels;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/labels";
+import "validate/validate.proto";
+
+message LabelDefinition {
+    string label = 1 [(validate.rules).string = {
+        min_len: 1,
+        pattern: "^[a-zA-Z0-9.\\-_@+]$",
+    }];
+    string value = 2 [(validate.rules).string = {
+        pattern: "^[a-zA-Z0-9.\\-_@+]$",
+    }];
+}

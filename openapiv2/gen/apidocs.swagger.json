@@ -7764,6 +7764,13 @@
         "pulumiRunner": {
           "$ref": "#/definitions/environmentTerraformRunnerConfig",
           "title": "pulumi runner is a runtime that runs pulumi via k8s jobs"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/labelsLabelDefinition"
+          }
         }
       }
     },
@@ -8906,6 +8913,17 @@
         },
         "organization": {
           "$ref": "#/definitions/InsightSubject"
+        }
+      }
+    },
+    "labelsLabelDefinition": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
         }
       }
     },

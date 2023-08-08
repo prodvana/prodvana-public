@@ -2437,6 +2437,20 @@
                         {}
                     ],
                     "description": "pulumi runner is a runtime that runs pulumi via k8s jobs"
+                },
+                "labels": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.labels.LabelDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -3087,6 +3101,40 @@
                 }
             ],
             "title": "Terraform Runner Config"
+        },
+        "prodvana.labels.LabelDefinition": {
+            "properties": {
+                "label": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "value": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Label Definition"
         },
         "prodvana.pipelines.CustomTask": {
             "properties": {

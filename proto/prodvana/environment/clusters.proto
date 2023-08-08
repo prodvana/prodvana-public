@@ -9,6 +9,7 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/labels/labels.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/volumes/volumes.proto";
 
@@ -234,5 +235,7 @@ message ClusterConfig {
     reserved 5;
     reserved "aws_alb_ingress";
 
-    // next tag: 17
+    repeated prodvana.labels.LabelDefinition labels = 17;
+
+    // next tag: 18
 }

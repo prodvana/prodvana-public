@@ -14,6 +14,7 @@ import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
+import prodvana.proto.prodvana.labels.labels_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
 import prodvana.proto.prodvana.volumes.volumes_pb2
 import sys
@@ -691,6 +692,7 @@ class ClusterConfig(google.protobuf.message.Message):
     EXTENSION_FIELD_NUMBER: builtins.int
     TERRAFORM_RUNNER_FIELD_NUMBER: builtins.int
     PULUMI_RUNNER_FIELD_NUMBER: builtins.int
+    LABELS_FIELD_NUMBER: builtins.int
     name: builtins.str
     disable_flagger: builtins.bool
     disable_istio: builtins.bool
@@ -721,6 +723,8 @@ class ClusterConfig(google.protobuf.message.Message):
     @property
     def pulumi_runner(self) -> global___TerraformRunnerConfig:
         """pulumi runner is a runtime that runs pulumi via k8s jobs"""
+    @property
+    def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
     def __init__(
         self,
         *,
@@ -738,9 +742,10 @@ class ClusterConfig(google.protobuf.message.Message):
         extension: global___ExtensionClusterConfig | None = ...,
         terraform_runner: global___TerraformRunnerConfig | None = ...,
         pulumi_runner: global___TerraformRunnerConfig | None = ...,
+        labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "labels", b"labels", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension", "terraform_runner", "pulumi_runner"] | None: ...
 
 global___ClusterConfig = ClusterConfig
