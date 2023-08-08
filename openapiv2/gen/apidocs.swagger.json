@@ -8350,6 +8350,9 @@
         },
         "objectModified": {
           "$ref": "#/definitions/eventsObjectModifiedEvent"
+        },
+        "kubectlCmd": {
+          "$ref": "#/definitions/eventsKubectlCmdEvent"
         }
       }
     },
@@ -8372,7 +8375,8 @@
         "PERMISSON_DENIED",
         "OBJECT_CREATED",
         "OBJECT_DELETED",
-        "OBJECT_MODIFIED"
+        "OBJECT_MODIFIED",
+        "KUBECTL_CMD"
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available."
@@ -8461,6 +8465,24 @@
             "type": "object",
             "$ref": "#/definitions/modelStatusExplanation"
           }
+        }
+      }
+    },
+    "eventsKubectlCmdEvent": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exitCode": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

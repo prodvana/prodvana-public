@@ -32,6 +32,8 @@ enum EventType {
     OBJECT_DELETED = 16;
     OBJECT_MODIFIED = 17;
 
+    KUBECTL_CMD = 18;
+
     reserved 5;
 }
 
@@ -266,6 +268,12 @@ message ObjectModifiedEvent {
     }
 }
 
+message KubectlCmdEvent {
+    string runtime = 1;
+    repeated string args = 2;
+    int32 exit_code = 3;
+}
+
 message EventDetails {
     oneof details {
         SetDesiredStateEvent set_desired_state = 1;
@@ -284,6 +292,7 @@ message EventDetails {
         ObjectCreatedEvent object_created = 15;
         ObjectDeletedEvent object_deleted = 16;
         ObjectModifiedEvent object_modified = 17;
+        KubectlCmdEvent kubectl_cmd = 18;
     }
     reserved 5;
 }
