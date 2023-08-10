@@ -12,6 +12,12 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+var noTlsAllowlist = map[string]struct{}{
+	"apiserver":         {}, // local testing
+	"agent-interaction": {}, // local testing
+	"localhost":         {}, // local testing
+}
+
 type ConnectionOptions struct {
 	Address          string // Prodvana server address
 	AuthToken        string // Prodvana api token
@@ -52,7 +58,8 @@ func MakeProdvanaConnection(options ConnectionOptions) (*grpc.ClientConn, error)
 	}
 	parts := strings.Split(addr, ":")
 	var cred credentials.TransportCredentials
-	if options.SkipTls {
+	_, noTlsHost := noTlsAllowlist[parts[0]]
+	if options.SkipTls || noTlsHost {
 		cred = insecure.NewCredentials()
 	} else {
 		cred = credentials.NewTLS(&tls.Config{ServerName: parts[0]})
