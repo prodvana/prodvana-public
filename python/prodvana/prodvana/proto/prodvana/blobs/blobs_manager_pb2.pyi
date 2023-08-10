@@ -41,3 +41,31 @@ class GetCasBlobResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["bytes", b"bytes"]) -> None: ...
 
 global___GetCasBlobResp = GetCasBlobResp
+
+class UploadCasBlobReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BYTES_FIELD_NUMBER: builtins.int
+    bytes: builtins.bytes
+    def __init__(
+        self,
+        *,
+        bytes: builtins.bytes = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bytes", b"bytes"]) -> None: ...
+
+global___UploadCasBlobReq = UploadCasBlobReq
+
+class UploadCasBlobResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ID_FIELD_NUMBER: builtins.int
+    id: builtins.str
+    def __init__(
+        self,
+        *,
+        id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id"]) -> None: ...
+
+global___UploadCasBlobResp = UploadCasBlobResp

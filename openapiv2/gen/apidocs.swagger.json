@@ -6200,6 +6200,14 @@
         }
       }
     },
+    "blobsUploadCasBlobResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "capabilityCapabilityConfig": {
       "type": "object",
       "properties": {

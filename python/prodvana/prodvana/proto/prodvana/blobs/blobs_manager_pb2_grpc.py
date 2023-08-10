@@ -19,12 +19,23 @@ class BlobsManagerStub(object):
                 request_serializer=prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobReq.SerializeToString,
                 response_deserializer=prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobResp.FromString,
                 )
+        self.UploadCasBlob = channel.stream_unary(
+                '/prodvana.blobs.BlobsManager/UploadCasBlob',
+                request_serializer=prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobReq.SerializeToString,
+                response_deserializer=prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobResp.FromString,
+                )
 
 
 class BlobsManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetCasBlob(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UploadCasBlob(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_BlobsManagerServicer_to_server(servicer, server):
                     servicer.GetCasBlob,
                     request_deserializer=prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobReq.FromString,
                     response_serializer=prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobResp.SerializeToString,
+            ),
+            'UploadCasBlob': grpc.stream_unary_rpc_method_handler(
+                    servicer.UploadCasBlob,
+                    request_deserializer=prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobReq.FromString,
+                    response_serializer=prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class BlobsManager(object):
         return grpc.experimental.unary_stream(request, target, '/prodvana.blobs.BlobsManager/GetCasBlob',
             prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobReq.SerializeToString,
             prodvana_dot_blobs_dot_blobs__manager__pb2.GetCasBlobResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UploadCasBlob(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/prodvana.blobs.BlobsManager/UploadCasBlob',
+            prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobReq.SerializeToString,
+            prodvana_dot_blobs_dot_blobs__manager__pb2.UploadCasBlobResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

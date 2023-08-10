@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BlobsManager_GetCasBlob_FullMethodName = "/prodvana.blobs.BlobsManager/GetCasBlob"
+	BlobsManager_GetCasBlob_FullMethodName    = "/prodvana.blobs.BlobsManager/GetCasBlob"
+	BlobsManager_UploadCasBlob_FullMethodName = "/prodvana.blobs.BlobsManager/UploadCasBlob"
 )
 
 // BlobsManagerClient is the client API for BlobsManager service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BlobsManagerClient interface {
 	GetCasBlob(ctx context.Context, in *GetCasBlobReq, opts ...grpc.CallOption) (BlobsManager_GetCasBlobClient, error)
+	UploadCasBlob(ctx context.Context, opts ...grpc.CallOption) (BlobsManager_UploadCasBlobClient, error)
 }
 
 type blobsManagerClient struct {
@@ -69,11 +71,46 @@ func (x *blobsManagerGetCasBlobClient) Recv() (*GetCasBlobResp, error) {
 	return m, nil
 }
 
+func (c *blobsManagerClient) UploadCasBlob(ctx context.Context, opts ...grpc.CallOption) (BlobsManager_UploadCasBlobClient, error) {
+	stream, err := c.cc.NewStream(ctx, &BlobsManager_ServiceDesc.Streams[1], BlobsManager_UploadCasBlob_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &blobsManagerUploadCasBlobClient{stream}
+	return x, nil
+}
+
+type BlobsManager_UploadCasBlobClient interface {
+	Send(*UploadCasBlobReq) error
+	CloseAndRecv() (*UploadCasBlobResp, error)
+	grpc.ClientStream
+}
+
+type blobsManagerUploadCasBlobClient struct {
+	grpc.ClientStream
+}
+
+func (x *blobsManagerUploadCasBlobClient) Send(m *UploadCasBlobReq) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *blobsManagerUploadCasBlobClient) CloseAndRecv() (*UploadCasBlobResp, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(UploadCasBlobResp)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // BlobsManagerServer is the server API for BlobsManager service.
 // All implementations must embed UnimplementedBlobsManagerServer
 // for forward compatibility
 type BlobsManagerServer interface {
 	GetCasBlob(*GetCasBlobReq, BlobsManager_GetCasBlobServer) error
+	UploadCasBlob(BlobsManager_UploadCasBlobServer) error
 	mustEmbedUnimplementedBlobsManagerServer()
 }
 
@@ -83,6 +120,9 @@ type UnimplementedBlobsManagerServer struct {
 
 func (UnimplementedBlobsManagerServer) GetCasBlob(*GetCasBlobReq, BlobsManager_GetCasBlobServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetCasBlob not implemented")
+}
+func (UnimplementedBlobsManagerServer) UploadCasBlob(BlobsManager_UploadCasBlobServer) error {
+	return status.Errorf(codes.Unimplemented, "method UploadCasBlob not implemented")
 }
 func (UnimplementedBlobsManagerServer) mustEmbedUnimplementedBlobsManagerServer() {}
 
@@ -118,6 +158,32 @@ func (x *blobsManagerGetCasBlobServer) Send(m *GetCasBlobResp) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _BlobsManager_UploadCasBlob_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(BlobsManagerServer).UploadCasBlob(&blobsManagerUploadCasBlobServer{stream})
+}
+
+type BlobsManager_UploadCasBlobServer interface {
+	SendAndClose(*UploadCasBlobResp) error
+	Recv() (*UploadCasBlobReq, error)
+	grpc.ServerStream
+}
+
+type blobsManagerUploadCasBlobServer struct {
+	grpc.ServerStream
+}
+
+func (x *blobsManagerUploadCasBlobServer) SendAndClose(m *UploadCasBlobResp) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *blobsManagerUploadCasBlobServer) Recv() (*UploadCasBlobReq, error) {
+	m := new(UploadCasBlobReq)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // BlobsManager_ServiceDesc is the grpc.ServiceDesc for BlobsManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -130,6 +196,11 @@ var BlobsManager_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "GetCasBlob",
 			Handler:       _BlobsManager_GetCasBlob_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "UploadCasBlob",
+			Handler:       _BlobsManager_UploadCasBlob_Handler,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "prodvana/blobs/blobs_manager.proto",
