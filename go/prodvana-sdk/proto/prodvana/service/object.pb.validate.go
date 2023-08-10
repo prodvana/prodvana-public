@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	convergence "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/convergence"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = convergence.ConvergenceMode(0)
 )
 
 // Validate checks the field values on ServiceInstanceProtectionAttachment with
@@ -272,6 +276,8 @@ func (m *ServiceState) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for ConvergenceMode
 
 	if len(errors) > 0 {
 		return ServiceStateMultiError(errors)

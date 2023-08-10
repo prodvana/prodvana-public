@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "prodvana/object/meta.proto";
 import "prodvana/common_config/meta.proto";
+import "prodvana/convergence/convergence_mode.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
 
@@ -30,6 +31,7 @@ message ExternalAddr {
 message ServiceState {
     reserved 1, 2;
     reserved "ongoing_pipeline_runs", "state";
+    convergence.ConvergenceMode convergence_mode = 3;
 }
 
 message Service {

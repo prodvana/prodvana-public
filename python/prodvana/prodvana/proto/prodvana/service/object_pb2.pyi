@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.meta_pb2
+import prodvana.proto.prodvana.convergence.convergence_mode_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.service.service_config_pb2
 import prodvana.proto.prodvana.service.user_metadata_pb2
@@ -86,9 +87,14 @@ global___ExternalAddr = ExternalAddr
 class ServiceState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    CONVERGENCE_MODE_FIELD_NUMBER: builtins.int
+    convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType
     def __init__(
         self,
+        *,
+        convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["convergence_mode", b"convergence_mode"]) -> None: ...
 
 global___ServiceState = ServiceState
 
