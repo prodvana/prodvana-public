@@ -1,0 +1,19 @@
+syntax = "proto3";
+package prodvana.pvn_wrapper;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pvn_wrapper";
+
+message Output {
+    int32 exit_code = 1; // Exit code of wrapped process. -1 if process failed to execute.
+    string exec_error = 2; // Internal error when trying to execute wrapped process.
+    string stdout_blob_id = 3;
+    string stderr_blob_id = 4;
+    string version = 5; // Wrapper version.
+    int64 start_timestamp_ns = 6;  // Timestamp when the process began executing, in ns.
+    int64 duration_ns = 7;  // Total execution duration of the process, in ns.
+    repeated OutputFile files = 8;
+}
+
+message OutputFile {
+    string name = 1;
+    string content_blob_id = 2;
+}
