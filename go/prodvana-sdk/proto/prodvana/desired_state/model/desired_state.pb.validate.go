@@ -2455,6 +2455,141 @@ var _ interface {
 	ErrorName() string
 } = RuntimeExtensionFetchOutputValidationError{}
 
+// Validate checks the field values on RuntimeExtensionFetchPlan with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExtensionFetchPlan) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExtensionFetchPlan with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RuntimeExtensionFetchPlanMultiError, or nil if none found.
+func (m *RuntimeExtensionFetchPlan) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExtensionFetchPlan) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for FetchPlanBlobId
+
+	// no validation rules for FetchPlanExplanationBlobId
+
+	if all {
+		switch v := interface{}(m.GetTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchPlanValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchPlanValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionFetchPlanValidationError{
+				field:  "Timestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RuntimeExtensionFetchPlanMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExtensionFetchPlanMultiError is an error wrapping multiple validation
+// errors returned by RuntimeExtensionFetchPlan.ValidateAll() if the
+// designated constraints aren't met.
+type RuntimeExtensionFetchPlanMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExtensionFetchPlanMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExtensionFetchPlanMultiError) AllErrors() []error { return m }
+
+// RuntimeExtensionFetchPlanValidationError is the validation error returned by
+// RuntimeExtensionFetchPlan.Validate if the designated constraints aren't met.
+type RuntimeExtensionFetchPlanValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExtensionFetchPlanValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExtensionFetchPlanValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExtensionFetchPlanValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExtensionFetchPlanValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExtensionFetchPlanValidationError) ErrorName() string {
+	return "RuntimeExtensionFetchPlanValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExtensionFetchPlanValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExtensionFetchPlan.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExtensionFetchPlanValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExtensionFetchPlanValidationError{}
+
 // Validate checks the field values on RuntimeObject with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -6456,6 +6591,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 	}
 
 	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetFetchPlan()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchPlan",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchPlan",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchPlan()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "FetchPlan",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return RuntimeObject_RuntimeExtensionMultiError(errors)

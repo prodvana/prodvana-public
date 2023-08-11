@@ -860,6 +860,31 @@ class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
 
 global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 
+class RuntimeExtensionFetchPlan(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FETCH_PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
+    FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    fetch_plan_blob_id: builtins.str
+    """for fetch commands that return a plan, this is the plan blob id"""
+    fetch_plan_explanation_blob_id: builtins.str
+    """additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"""
+    @property
+    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """when the plan was created"""
+    def __init__(
+        self,
+        *,
+        fetch_plan_blob_id: builtins.str = ...,
+        fetch_plan_explanation_blob_id: builtins.str = ...,
+        timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "timestamp", b"timestamp"]) -> None: ...
+
+global___RuntimeExtensionFetchPlan = RuntimeExtensionFetchPlan
+
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -903,6 +928,7 @@ class RuntimeObject(google.protobuf.message.Message):
         PARAMETERS_FIELD_NUMBER: builtins.int
         PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         TYPE_FIELD_NUMBER: builtins.int
+        FETCH_PLAN_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -919,7 +945,9 @@ class RuntimeObject(google.protobuf.message.Message):
         @property
         def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
         type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType
-        """next tag: 10"""
+        @property
+        def fetch_plan(self) -> global___RuntimeExtensionFetchPlan:
+            """next tag: 11"""
         def __init__(
             self,
             *,
@@ -932,9 +960,10 @@ class RuntimeObject(google.protobuf.message.Message):
             parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
             parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
             type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType = ...,
+            fetch_plan: global___RuntimeExtensionFetchPlan | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_plan", b"fetch_plan", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_plan", b"fetch_plan", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int

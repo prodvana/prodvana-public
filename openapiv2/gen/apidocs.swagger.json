@@ -5704,8 +5704,11 @@
           }
         },
         "type": {
-          "$ref": "#/definitions/environmentExtensionType",
-          "title": "next tag: 10"
+          "$ref": "#/definitions/environmentExtensionType"
+        },
+        "fetchPlan": {
+          "$ref": "#/definitions/modelRuntimeExtensionFetchPlan",
+          "title": "next tag: 11"
         }
       }
     },
@@ -9528,6 +9531,24 @@
           "type": "string",
           "format": "date-time",
           "description": "Will be set the first time this attachment returned success.\nUseful for time-based protections (post-push - check X succeeds for N mins). We make the ProtectionLink return CONVERGING till time expires."
+        }
+      }
+    },
+    "modelRuntimeExtensionFetchPlan": {
+      "type": "object",
+      "properties": {
+        "fetchPlanBlobId": {
+          "type": "string",
+          "title": "for fetch commands that return a plan, this is the plan blob id"
+        },
+        "fetchPlanExplanationBlobId": {
+          "type": "string",
+          "title": "additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the plan was created"
         }
       }
     },

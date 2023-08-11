@@ -298,6 +298,15 @@ message RuntimeExtensionFetchOutput {
     string message = 2;
 }
 
+message RuntimeExtensionFetchPlan {
+    // for fetch commands that return a plan, this is the plan blob id
+    string fetch_plan_blob_id = 1;
+    // additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
+    string fetch_plan_explanation_blob_id = 2;
+    // when the plan was created
+    google.protobuf.Timestamp timestamp = 3;
+}
+
 message RuntimeObject {
     message RuntimeExtension {
         // aggregate object will have all commands set. Fetcher will only have fetch set.
@@ -310,7 +319,8 @@ message RuntimeObject {
         repeated prodvana.common_config.ParameterDefinition parameters = 7;
         repeated prodvana.common_config.ParameterValue parameter_values = 8;
         prodvana.environment.ExtensionType type = 9;
-        // next tag: 10
+        RuntimeExtensionFetchPlan fetch_plan = 10;
+        // next tag: 11
     }
     Metadata meta = 1;
     string object_type = 2;
