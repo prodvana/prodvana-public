@@ -60,9 +60,9 @@ func (m *Output) validate(all bool) error {
 
 	// no validation rules for ExecError
 
-	// no validation rules for Stdout
+	// no validation rules for StdoutBlobId
 
-	// no validation rules for Stderr
+	// no validation rules for StderrBlobId
 
 	// no validation rules for Version
 

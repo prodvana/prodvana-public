@@ -21,8 +21,8 @@ class Output(google.protobuf.message.Message):
 
     EXIT_CODE_FIELD_NUMBER: builtins.int
     EXEC_ERROR_FIELD_NUMBER: builtins.int
-    STDOUT_FIELD_NUMBER: builtins.int
-    STDERR_FIELD_NUMBER: builtins.int
+    STDOUT_BLOB_ID_FIELD_NUMBER: builtins.int
+    STDERR_BLOB_ID_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     START_TIMESTAMP_NS_FIELD_NUMBER: builtins.int
     DURATION_NS_FIELD_NUMBER: builtins.int
@@ -31,8 +31,8 @@ class Output(google.protobuf.message.Message):
     """Exit code of wrapped process. -1 if process failed to execute."""
     exec_error: builtins.str
     """Internal error when trying to execute wrapped process."""
-    stdout: builtins.bytes
-    stderr: builtins.bytes
+    stdout_blob_id: builtins.str
+    stderr_blob_id: builtins.str
     version: builtins.str
     """Wrapper version."""
     start_timestamp_ns: builtins.int
@@ -46,14 +46,14 @@ class Output(google.protobuf.message.Message):
         *,
         exit_code: builtins.int = ...,
         exec_error: builtins.str = ...,
-        stdout: builtins.bytes = ...,
-        stderr: builtins.bytes = ...,
+        stdout_blob_id: builtins.str = ...,
+        stderr_blob_id: builtins.str = ...,
         version: builtins.str = ...,
         start_timestamp_ns: builtins.int = ...,
         duration_ns: builtins.int = ...,
         files: collections.abc.Iterable[global___OutputFile] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["duration_ns", b"duration_ns", "exec_error", b"exec_error", "exit_code", b"exit_code", "files", b"files", "start_timestamp_ns", b"start_timestamp_ns", "stderr", b"stderr", "stdout", b"stdout", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["duration_ns", b"duration_ns", "exec_error", b"exec_error", "exit_code", b"exit_code", "files", b"files", "start_timestamp_ns", b"start_timestamp_ns", "stderr_blob_id", b"stderr_blob_id", "stdout_blob_id", b"stdout_blob_id", "version", b"version"]) -> None: ...
 
 global___Output = Output
 
