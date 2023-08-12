@@ -10,6 +10,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
+import prodvana.proto.prodvana.pvn_wrapper.output_pb2
 import sys
 import typing
 
@@ -232,6 +233,7 @@ class ProgramExitEvent(google.protobuf.message.Message):
     KILLED_REASON_FIELD_NUMBER: builtins.int
     EXIT_CODE_FIELD_NUMBER: builtins.int
     SIGNAL_FIELD_NUMBER: builtins.int
+    STRUCTURED_OUTPUT_FIELD_NUMBER: builtins.int
     namespace: builtins.str
     pod: builtins.str
     program: builtins.str
@@ -245,6 +247,9 @@ class ProgramExitEvent(google.protobuf.message.Message):
     """if 0, this is a successful exit."""
     signal: builtins.int
     """signal used to terminate this process, if any"""
+    @property
+    def structured_output(self) -> prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output:
+        """optional structured output, if the process exited with a schema compatible with pvn_wrapper's structured output"""
     def __init__(
         self,
         *,
@@ -256,8 +261,10 @@ class ProgramExitEvent(google.protobuf.message.Message):
         killed_reason: builtins.str = ...,
         exit_code: builtins.int = ...,
         signal: builtins.int = ...,
+        structured_output: prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["exit_code", b"exit_code", "killed_reason", b"killed_reason", "namespace", b"namespace", "pod", b"pod", "program", b"program", "reason", b"reason", "restart_count", b"restart_count", "signal", b"signal"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["structured_output", b"structured_output"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exit_code", b"exit_code", "killed_reason", b"killed_reason", "namespace", b"namespace", "pod", b"pod", "program", b"program", "reason", b"reason", "restart_count", b"restart_count", "signal", b"signal", "structured_output", b"structured_output"]) -> None: ...
 
 global___ProgramExitEvent = ProgramExitEvent
 
