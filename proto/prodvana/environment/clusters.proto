@@ -88,6 +88,8 @@ message ExtensionCommand {
     // only used for fetch
     // how often to run command after it succeeds
     google.protobuf.Duration poll_interval = 3;
+    // how often to fetch when in steady state (after the extension has converged)
+    google.protobuf.Duration steady_state_poll_interval = 6;
     // how long after a run has started to try another run if it has not completed yet
     google.protobuf.Duration timeout = 4;
 
@@ -136,10 +138,15 @@ message TerraformRunnerConfig {
     repeated prodvana.volumes.Volume volumes = 3;
     // commands that must run before terraform can run, e.g. gcloud auth login
     repeated IacRunnerCommand pre_run = 4;
-    // Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.
+    // Poll interval for terraform plan when not converged, defaults to 5 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.
     google.protobuf.Duration poll_interval = 5;
+    // Poll interval for terraform plan in steady state (after it has converged), defaults to 1 hour. During steady state, polling is used for drift detection.
+    // This is the min duration of time for which drift not being detected is OK.
+    google.protobuf.Duration steady_state_poll_interval = 7;
     // Require approval before every apply operation - this is on top of any release channel-level approvals.
     bool require_approval_before_apply = 6;
+
+    // next tag: 8;
 }
 
 message PulumiRunnerConfig {

@@ -5680,6 +5680,9 @@
         "fetchInterval": {
           "type": "string"
         },
+        "fetchSteadyStateInterval": {
+          "type": "string"
+        },
         "fetchTimeout": {
           "type": "string"
         },
@@ -5708,7 +5711,7 @@
         },
         "fetchPlan": {
           "$ref": "#/definitions/modelRuntimeExtensionFetchPlan",
-          "title": "next tag: 11"
+          "title": "next tag: 12"
         }
       }
     },
@@ -7551,6 +7554,9 @@
           "type": "string",
           "title": "if set, runtime object is continuously applied instead of being done once when there is a version mismatch"
         },
+        "steadyStateInterval": {
+          "type": "string"
+        },
         "timeout": {
           "type": "string",
           "description": "if set, runtime object is recreated when this timeout is hit if it has not converged by then."
@@ -7892,6 +7898,10 @@
           "type": "string",
           "title": "customize intervals instead of using Prodvana default\nonly used for fetch\nhow often to run command after it succeeds"
         },
+        "steadyStatePollInterval": {
+          "type": "string",
+          "title": "how often to fetch when in steady state (after the extension has converged)"
+        },
         "timeout": {
           "type": "string",
           "title": "how long after a run has started to try another run if it has not completed yet"
@@ -8158,7 +8168,11 @@
         },
         "pollInterval": {
           "type": "string",
-          "description": "Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."
+          "description": "Poll interval for terraform plan when not converged, defaults to 5 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."
+        },
+        "steadyStatePollInterval": {
+          "type": "string",
+          "description": "Poll interval for terraform plan in steady state (after it has converged), defaults to 1 hour. During steady state, polling is used for drift detection.\nThis is the min duration of time for which drift not being detected is OK."
         },
         "requireApprovalBeforeApply": {
           "type": "boolean",

@@ -313,6 +313,7 @@ message RuntimeObject {
         prodvana.environment.CompiledExtensionCommand apply = 3;
         prodvana.environment.CompiledExtensionCommand fetch = 1;
         google.protobuf.Duration fetch_interval = 4;
+        google.protobuf.Duration fetch_steady_state_interval = 11;
         google.protobuf.Duration fetch_timeout = 5;
         string service_id = 2;
         string release_channel_id = 6;
@@ -320,7 +321,7 @@ message RuntimeObject {
         repeated prodvana.common_config.ParameterValue parameter_values = 8;
         prodvana.environment.ExtensionType type = 9;
         RuntimeExtensionFetchPlan fetch_plan = 10;
-        // next tag: 11
+        // next tag: 12
     }
     Metadata meta = 1;
     string object_type = 2;
@@ -341,6 +342,7 @@ message RuntimeObject {
     string message = 12; // Human readable message (typically for errors).
     RuntimeExtension runtime_extension = 13; // additional config if this runtime object belongs to a runtime extension
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
+    google.protobuf.Duration steady_state_interval = 26;
     google.protobuf.Duration timeout = 16; // if set, runtime object is recreated when this timeout is hit if it has not converged by then.
 
     // output_blob_ids and exit_codes are in the same order, assuming output is saved
@@ -359,7 +361,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval";
-    // next tag: 26
+    // next tag: 27
 }
 
 enum ConditionStatus {

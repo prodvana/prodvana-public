@@ -274,6 +274,7 @@ class ExtensionCommand(google.protobuf.message.Message):
     TASK_CONFIG_FIELD_NUMBER: builtins.int
     KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
+    STEADY_STATE_POLL_INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
     @property
@@ -287,6 +288,9 @@ class ExtensionCommand(google.protobuf.message.Message):
         how often to run command after it succeeds
         """
     @property
+    def steady_state_poll_interval(self) -> google.protobuf.duration_pb2.Duration:
+        """how often to fetch when in steady state (after the extension has converged)"""
+    @property
     def timeout(self) -> google.protobuf.duration_pb2.Duration:
         """how long after a run has started to try another run if it has not completed yet"""
     @property
@@ -298,11 +302,12 @@ class ExtensionCommand(google.protobuf.message.Message):
         task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
         kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        steady_state_poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ExtensionCommand = ExtensionCommand
@@ -424,6 +429,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     VOLUMES_FIELD_NUMBER: builtins.int
     PRE_RUN_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
+    STEADY_STATE_POLL_INTERVAL_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
@@ -438,7 +444,12 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         """commands that must run before terraform can run, e.g. gcloud auth login"""
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
-        """Poll interval for terraform plan, defaults to 2 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."""
+        """Poll interval for terraform plan when not converged, defaults to 5 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often."""
+    @property
+    def steady_state_poll_interval(self) -> google.protobuf.duration_pb2.Duration:
+        """Poll interval for terraform plan in steady state (after it has converged), defaults to 1 hour. During steady state, polling is used for drift detection.
+        This is the min duration of time for which drift not being detected is OK.
+        """
     require_approval_before_apply: builtins.bool
     """Require approval before every apply operation - this is on top of any release channel-level approvals."""
     def __init__(
@@ -449,10 +460,11 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        steady_state_poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         require_approval_before_apply: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 

@@ -2808,6 +2808,35 @@ func (m *RuntimeObject) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetSteadyStateInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObjectValidationError{
+					field:  "SteadyStateInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObjectValidationError{
+					field:  "SteadyStateInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSteadyStateInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObjectValidationError{
+				field:  "SteadyStateInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetTimeout()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -6483,6 +6512,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "FetchInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFetchSteadyStateInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchSteadyStateInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchSteadyStateInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchSteadyStateInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "FetchSteadyStateInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

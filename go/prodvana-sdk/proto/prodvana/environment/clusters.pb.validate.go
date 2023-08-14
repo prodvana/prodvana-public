@@ -612,6 +612,35 @@ func (m *ExtensionCommand) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetSteadyStatePollInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ExtensionCommandValidationError{
+					field:  "SteadyStatePollInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ExtensionCommandValidationError{
+					field:  "SteadyStatePollInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSteadyStatePollInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ExtensionCommandValidationError{
+				field:  "SteadyStatePollInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetTimeout()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -1664,6 +1693,35 @@ func (m *TerraformRunnerConfig) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return TerraformRunnerConfigValidationError{
 				field:  "PollInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSteadyStatePollInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "SteadyStatePollInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "SteadyStatePollInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSteadyStatePollInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TerraformRunnerConfigValidationError{
+				field:  "SteadyStatePollInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
