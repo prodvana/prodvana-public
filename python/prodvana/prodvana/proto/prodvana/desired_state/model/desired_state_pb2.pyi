@@ -1507,23 +1507,24 @@ class Signal(google.protobuf.message.Message):
 
         TIMESTAMP_FIELD_NUMBER: builtins.int
         REJECT_FIELD_NUMBER: builtins.int
+        PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
         @property
         def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
             """When was the approval issued?
             If this is after last run timestamp, apply can proceed.
             """
         reject: builtins.bool
-        """TODO: Add actor info - who/what approved and how?
-        TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
-        """
+        plan_blob_id: builtins.str
+        """if set, approve specifically for this plan"""
         def __init__(
             self,
             *,
             timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
             reject: builtins.bool = ...,
+            plan_blob_id: builtins.str = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["reject", b"reject", "timestamp", b"timestamp"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["plan_blob_id", b"plan_blob_id", "reject", b"reject", "timestamp", b"timestamp"]) -> None: ...
 
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
@@ -1572,20 +1573,40 @@ global___DebugLog = DebugLog
 class MissingApproval(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class RuntimeExtensionMetadata(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        PLAN_FIELD_NUMBER: builtins.int
+        @property
+        def plan(self) -> global___RuntimeExtensionFetchPlan:
+            """the plan this approval is for, if any"""
+        def __init__(
+            self,
+            *,
+            plan: global___RuntimeExtensionFetchPlan | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["plan", b"plan"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["plan", b"plan"]) -> None: ...
+
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SIGNAL_TYPE_FIELD_NUMBER: builtins.int
     TOPIC_FIELD_NUMBER: builtins.int
+    RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     signal_type: global___SignalType.ValueType
     topic: builtins.str
+    @property
+    def runtime_extension(self) -> global___MissingApproval.RuntimeExtensionMetadata: ...
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         signal_type: global___SignalType.ValueType = ...,
         topic: builtins.str = ...,
+        runtime_extension: global___MissingApproval.RuntimeExtensionMetadata | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["runtime_extension", b"runtime_extension"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "runtime_extension", b"runtime_extension", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 
 global___MissingApproval = MissingApproval
 

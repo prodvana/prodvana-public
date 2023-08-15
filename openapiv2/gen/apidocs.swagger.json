@@ -5572,6 +5572,15 @@
         }
       }
     },
+    "MissingApprovalRuntimeExtensionMetadata": {
+      "type": "object",
+      "properties": {
+        "plan": {
+          "$ref": "#/definitions/modelRuntimeExtensionFetchPlan",
+          "title": "the plan this approval is for, if any"
+        }
+      }
+    },
     "NotificationConfigSlack": {
       "type": "object",
       "properties": {
@@ -9516,6 +9525,9 @@
         },
         "topic": {
           "type": "string"
+        },
+        "runtimeExtension": {
+          "$ref": "#/definitions/MissingApprovalRuntimeExtensionMetadata"
         }
       }
     },

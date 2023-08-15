@@ -5689,6 +5689,35 @@ func (m *MissingApproval) validate(all bool) error {
 
 	// no validation rules for Topic
 
+	if all {
+		switch v := interface{}(m.GetRuntimeExtension()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MissingApprovalValidationError{
+					field:  "RuntimeExtension",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MissingApprovalValidationError{
+					field:  "RuntimeExtension",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MissingApprovalValidationError{
+				field:  "RuntimeExtension",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return MissingApprovalMultiError(errors)
 	}
@@ -7128,6 +7157,8 @@ func (m *Signal_RuntimeExtensionApproval) validate(all bool) error {
 
 	// no validation rules for Reject
 
+	// no validation rules for PlanBlobId
+
 	if len(errors) > 0 {
 		return Signal_RuntimeExtensionApprovalMultiError(errors)
 	}
@@ -7208,3 +7239,138 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Signal_RuntimeExtensionApprovalValidationError{}
+
+// Validate checks the field values on MissingApproval_RuntimeExtensionMetadata
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *MissingApproval_RuntimeExtensionMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// MissingApproval_RuntimeExtensionMetadata with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// MissingApproval_RuntimeExtensionMetadataMultiError, or nil if none found.
+func (m *MissingApproval_RuntimeExtensionMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MissingApproval_RuntimeExtensionMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPlan()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MissingApproval_RuntimeExtensionMetadataValidationError{
+					field:  "Plan",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MissingApproval_RuntimeExtensionMetadataValidationError{
+					field:  "Plan",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPlan()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MissingApproval_RuntimeExtensionMetadataValidationError{
+				field:  "Plan",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MissingApproval_RuntimeExtensionMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// MissingApproval_RuntimeExtensionMetadataMultiError is an error wrapping
+// multiple validation errors returned by
+// MissingApproval_RuntimeExtensionMetadata.ValidateAll() if the designated
+// constraints aren't met.
+type MissingApproval_RuntimeExtensionMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MissingApproval_RuntimeExtensionMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MissingApproval_RuntimeExtensionMetadataMultiError) AllErrors() []error { return m }
+
+// MissingApproval_RuntimeExtensionMetadataValidationError is the validation
+// error returned by MissingApproval_RuntimeExtensionMetadata.Validate if the
+// designated constraints aren't met.
+type MissingApproval_RuntimeExtensionMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) ErrorName() string {
+	return "MissingApproval_RuntimeExtensionMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MissingApproval_RuntimeExtensionMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMissingApproval_RuntimeExtensionMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MissingApproval_RuntimeExtensionMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MissingApproval_RuntimeExtensionMetadataValidationError{}

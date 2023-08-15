@@ -553,6 +553,7 @@ message Signal {
         // If this is after last run timestamp, apply can proceed.
         google.protobuf.Timestamp timestamp = 1;
         bool reject = 2;
+        string plan_blob_id = 3;  // if set, approve specifically for this plan
         // TODO: Add actor info - who/what approved and how?
         // TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
     }
@@ -573,6 +574,10 @@ message MissingApproval {
     string desired_state_id = 1;
     prodvana.desired_state.model.SignalType signal_type = 2;
     string topic = 3;
+    message RuntimeExtensionMetadata {
+        RuntimeExtensionFetchPlan plan = 1;  // the plan this approval is for, if any
+    }
+    RuntimeExtensionMetadata runtime_extension = 4;
 }
 
 message ApplyRejected {
