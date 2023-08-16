@@ -359,9 +359,11 @@ message RuntimeObject {
 
     ManagementStatus management_status = 25;
 
+    TaskRun last_completed_task_run = 27; // For entities that run jobs/tasks multiple times, what is the most recent status we have?
+
     reserved 9, 11, 14, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval";
-    // next tag: 27
+    // next tag: 28
 }
 
 enum ConditionStatus {
@@ -586,4 +588,28 @@ message ApplyRejected {
         MissingApproval missing_approval = 1;
         // TODO: Add reasons like paused entities.
     }
+}
+
+message TaskRun {
+    SimpleStatus status = 1;
+    repeated StatusExplanation status_explanations = 2;
+    string version = 3;
+    repeated Version seen_versions = 4;
+    google.protobuf.Timestamp started_timestamp = 5;
+    google.protobuf.Timestamp completed_timestamp = 6;
+    // these fields are only populated for completed tasks
+    repeated string output_blob_ids = 7;
+    repeated int32 exit_codes = 8;
+}
+
+message TaskEntityContext {
+    TaskRun last_completed_run = 1;
+    TaskRun last_run = 2;
+    // Can this task be run, ignoring retry limits?
+    // This is used to prevent a task from starting to run in certain scenarios.
+    bool is_active = 3;
+
+    reserved 4;
+    reserved "missing_approval";
+    // next tag: 5
 }

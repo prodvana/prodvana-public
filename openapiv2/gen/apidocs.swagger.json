@@ -7595,6 +7595,10 @@
         },
         "managementStatus": {
           "$ref": "#/definitions/RuntimeObjectManagementStatus"
+        },
+        "lastCompletedTaskRun": {
+          "$ref": "#/definitions/modelTaskRun",
+          "title": "For entities that run jobs/tasks multiple times, what is the most recent status we have?"
         }
       }
     },
@@ -9708,6 +9712,53 @@
       ],
       "default": "REASON_UNKNOWN",
       "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time\n - VERSION_DIRTY: the active version is explicitly marked as dirty"
+    },
+    "modelTaskRun": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelSimpleStatus"
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "version": {
+          "type": "string"
+        },
+        "seenVersions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          }
+        },
+        "startedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outputBlobIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "these fields are only populated for completed tasks"
+        },
+        "exitCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
     },
     "modelVersion": {
       "type": "object",

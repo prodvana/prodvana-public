@@ -990,6 +990,7 @@ class RuntimeObject(google.protobuf.message.Message):
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     RAW_CONFIG_FIELD_NUMBER: builtins.int
     MANAGEMENT_STATUS_FIELD_NUMBER: builtins.int
+    LAST_COMPLETED_TASK_RUN_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -1033,6 +1034,9 @@ class RuntimeObject(google.protobuf.message.Message):
     raw_config: builtins.str
     """raw runtime-specific config, e.g. k8s yaml"""
     management_status: global___RuntimeObject.ManagementStatus.ValueType
+    @property
+    def last_completed_task_run(self) -> global___TaskRun:
+        """For entities that run jobs/tasks multiple times, what is the most recent status we have?"""
     def __init__(
         self,
         *,
@@ -1057,9 +1061,10 @@ class RuntimeObject(google.protobuf.message.Message):
         require_approval_before_apply: builtins.bool = ...,
         raw_config: builtins.str = ...,
         management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
+        last_completed_task_run: global___TaskRun | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -1629,3 +1634,72 @@ class ApplyRejected(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["reason", b"reason"]) -> typing_extensions.Literal["missing_approval"] | None: ...
 
 global___ApplyRejected = ApplyRejected
+
+class TaskRun(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    SEEN_VERSIONS_FIELD_NUMBER: builtins.int
+    STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
+    EXIT_CODES_FIELD_NUMBER: builtins.int
+    status: global___SimpleStatus.ValueType
+    @property
+    def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
+    version: builtins.str
+    @property
+    def seen_versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    @property
+    def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def output_blob_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """these fields are only populated for completed tasks"""
+    @property
+    def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        status: global___SimpleStatus.ValueType = ...,
+        status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
+        version: builtins.str = ...,
+        seen_versions: collections.abc.Iterable[global___Version] | None = ...,
+        started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "output_blob_ids", b"output_blob_ids", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "version", b"version"]) -> None: ...
+
+global___TaskRun = TaskRun
+
+class TaskEntityContext(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LAST_COMPLETED_RUN_FIELD_NUMBER: builtins.int
+    LAST_RUN_FIELD_NUMBER: builtins.int
+    IS_ACTIVE_FIELD_NUMBER: builtins.int
+    @property
+    def last_completed_run(self) -> global___TaskRun: ...
+    @property
+    def last_run(self) -> global___TaskRun: ...
+    is_active: builtins.bool
+    """Can this task be run, ignoring retry limits?
+    This is used to prevent a task from starting to run in certain scenarios.
+    """
+    def __init__(
+        self,
+        *,
+        last_completed_run: global___TaskRun | None = ...,
+        last_run: global___TaskRun | None = ...,
+        is_active: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
+
+global___TaskEntityContext = TaskEntityContext

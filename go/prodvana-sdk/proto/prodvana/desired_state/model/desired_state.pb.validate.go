@@ -2871,6 +2871,35 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for ManagementStatus
 
+	if all {
+		switch v := interface{}(m.GetLastCompletedTaskRun()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObjectValidationError{
+					field:  "LastCompletedTaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObjectValidationError{
+					field:  "LastCompletedTaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastCompletedTaskRun()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObjectValidationError{
+				field:  "LastCompletedTaskRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}
@@ -5941,6 +5970,396 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ApplyRejectedValidationError{}
+
+// Validate checks the field values on TaskRun with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *TaskRun) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TaskRun with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in TaskRunMultiError, or nil if none found.
+func (m *TaskRun) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TaskRun) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	for idx, item := range m.GetStatusExplanations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskRunValidationError{
+					field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Version
+
+	for idx, item := range m.GetSeenVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("SeenVersions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("SeenVersions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskRunValidationError{
+					field:  fmt.Sprintf("SeenVersions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRunValidationError{
+				field:  "StartedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompletedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompletedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRunValidationError{
+				field:  "CompletedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return TaskRunMultiError(errors)
+	}
+
+	return nil
+}
+
+// TaskRunMultiError is an error wrapping multiple validation errors returned
+// by TaskRun.ValidateAll() if the designated constraints aren't met.
+type TaskRunMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TaskRunMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TaskRunMultiError) AllErrors() []error { return m }
+
+// TaskRunValidationError is the validation error returned by TaskRun.Validate
+// if the designated constraints aren't met.
+type TaskRunValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskRunValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskRunValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskRunValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskRunValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskRunValidationError) ErrorName() string { return "TaskRunValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TaskRunValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskRun.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskRunValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskRunValidationError{}
+
+// Validate checks the field values on TaskEntityContext with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *TaskEntityContext) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TaskEntityContext with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TaskEntityContextMultiError, or nil if none found.
+func (m *TaskEntityContext) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TaskEntityContext) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetLastCompletedRun()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "LastCompletedRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "LastCompletedRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastCompletedRun()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskEntityContextValidationError{
+				field:  "LastCompletedRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetLastRun()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "LastRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "LastRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastRun()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskEntityContextValidationError{
+				field:  "LastRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for IsActive
+
+	if len(errors) > 0 {
+		return TaskEntityContextMultiError(errors)
+	}
+
+	return nil
+}
+
+// TaskEntityContextMultiError is an error wrapping multiple validation errors
+// returned by TaskEntityContext.ValidateAll() if the designated constraints
+// aren't met.
+type TaskEntityContextMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TaskEntityContextMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TaskEntityContextMultiError) AllErrors() []error { return m }
+
+// TaskEntityContextValidationError is the validation error returned by
+// TaskEntityContext.Validate if the designated constraints aren't met.
+type TaskEntityContextValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskEntityContextValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskEntityContextValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskEntityContextValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskEntityContextValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskEntityContextValidationError) ErrorName() string {
+	return "TaskEntityContextValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TaskEntityContextValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskEntityContext.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskEntityContextValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskEntityContextValidationError{}
 
 // Validate checks the field values on Condition_ReleaseChannelStableCondition
 // with the rules defined in the proto definition for this message. If any
