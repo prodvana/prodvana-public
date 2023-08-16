@@ -2286,26 +2286,6 @@
                         }
                     ]
                 },
-                "disableFlagger": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
-                "disableIstio": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
                 "kubecost": {
                     "$ref": "#/definitions/prodvana.environment.ClusterConfig.Kubecost",
                     "additionalProperties": false,

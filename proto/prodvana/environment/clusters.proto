@@ -163,8 +163,6 @@ message PulumiRunnerConfig {
 
 message ClusterConfig {
     string name = 14;
-    bool disable_flagger = 1;
-    bool disable_istio = 2;
 
     message Kubecost {
         bool enabled = 1;
@@ -239,8 +237,8 @@ message ClusterConfig {
         TerraformRunnerConfig pulumi_runner = 16;
     }
 
-    reserved 5;
-    reserved "aws_alb_ingress";
+    reserved 1, 2, 5;
+    reserved "disable_flagger", "disable_istio", "aws_alb_ingress";
 
     repeated prodvana.labels.LabelDefinition labels = 17;
 

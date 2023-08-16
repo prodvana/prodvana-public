@@ -2119,10 +2119,6 @@ func (m *ClusterConfig) validate(all bool) error {
 
 	// no validation rules for Name
 
-	// no validation rules for DisableFlagger
-
-	// no validation rules for DisableIstio
-
 	if all {
 		switch v := interface{}(m.GetKubecost()).(type) {
 		case interface{ ValidateAll() error }:
