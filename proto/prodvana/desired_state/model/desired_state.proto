@@ -600,6 +600,8 @@ message TaskRun {
     // these fields are only populated for completed tasks
     repeated string output_blob_ids = 7;
     repeated int32 exit_codes = 8;
+    // all entities that make up the task
+    repeated Identifier task_entities = 9;
 }
 
 message TaskEntityContext {

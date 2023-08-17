@@ -9757,6 +9757,14 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "taskEntities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          },
+          "title": "all entities that make up the task"
         }
       }
     },
