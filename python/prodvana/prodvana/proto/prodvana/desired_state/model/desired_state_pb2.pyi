@@ -849,30 +849,17 @@ global___DeliveryState = DeliveryState
 class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    DIRTY_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    dirty: builtins.bool
-    message: builtins.str
-    def __init__(
-        self,
-        *,
-        dirty: builtins.bool = ...,
-        message: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dirty", b"dirty", "message", b"message"]) -> None: ...
-
-global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
-
-class RuntimeExtensionFetchPlan(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
     FETCH_PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
     FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
     TIMESTAMP_FIELD_NUMBER: builtins.int
     fetch_plan_blob_id: builtins.str
-    """for fetch commands that return a plan, this is the plan blob id"""
+    """for fetch commands that return a plan, this is the plan blob id
+    optional
+    """
     fetch_plan_explanation_blob_id: builtins.str
-    """additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"""
+    """additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
+    optional
+    """
     @property
     def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the plan was created"""
@@ -886,7 +873,7 @@ class RuntimeExtensionFetchPlan(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "timestamp", b"timestamp"]) -> None: ...
 
-global___RuntimeExtensionFetchPlan = RuntimeExtensionFetchPlan
+global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -932,7 +919,7 @@ class RuntimeObject(google.protobuf.message.Message):
         PARAMETERS_FIELD_NUMBER: builtins.int
         PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         TYPE_FIELD_NUMBER: builtins.int
-        FETCH_PLAN_FIELD_NUMBER: builtins.int
+        FETCH_OUTPUT_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -952,7 +939,7 @@ class RuntimeObject(google.protobuf.message.Message):
         def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
         type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType
         @property
-        def fetch_plan(self) -> global___RuntimeExtensionFetchPlan:
+        def fetch_output(self) -> global___RuntimeExtensionFetchOutput:
             """next tag: 12"""
         def __init__(
             self,
@@ -967,10 +954,10 @@ class RuntimeObject(google.protobuf.message.Message):
             parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
             parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
             type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType = ...,
-            fetch_plan: global___RuntimeExtensionFetchPlan | None = ...,
+            fetch_output: global___RuntimeExtensionFetchOutput | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_plan", b"fetch_plan", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_plan", b"fetch_plan", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
@@ -1584,17 +1571,17 @@ class MissingApproval(google.protobuf.message.Message):
     class RuntimeExtensionMetadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        PLAN_FIELD_NUMBER: builtins.int
+        OUTPUT_FIELD_NUMBER: builtins.int
         @property
-        def plan(self) -> global___RuntimeExtensionFetchPlan:
+        def output(self) -> global___RuntimeExtensionFetchOutput:
             """the plan this approval is for, if any"""
         def __init__(
             self,
             *,
-            plan: global___RuntimeExtensionFetchPlan | None = ...,
+            output: global___RuntimeExtensionFetchOutput | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["plan", b"plan"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["plan", b"plan"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["output", b"output"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["output", b"output"]) -> None: ...
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SIGNAL_TYPE_FIELD_NUMBER: builtins.int

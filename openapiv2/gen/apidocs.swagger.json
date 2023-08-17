@@ -5575,8 +5575,8 @@
     "MissingApprovalRuntimeExtensionMetadata": {
       "type": "object",
       "properties": {
-        "plan": {
-          "$ref": "#/definitions/modelRuntimeExtensionFetchPlan",
+        "output": {
+          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
           "title": "the plan this approval is for, if any"
         }
       }
@@ -5718,8 +5718,8 @@
         "type": {
           "$ref": "#/definitions/environmentExtensionType"
         },
-        "fetchPlan": {
-          "$ref": "#/definitions/modelRuntimeExtensionFetchPlan",
+        "fetchOutput": {
+          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
           "title": "next tag: 12"
         }
       }
@@ -9565,15 +9565,17 @@
         }
       }
     },
-    "modelRuntimeExtensionFetchPlan": {
+    "modelRuntimeExtensionFetchOutput": {
       "type": "object",
       "properties": {
         "fetchPlanBlobId": {
           "type": "string",
+          "description": "optional",
           "title": "for fetch commands that return a plan, this is the plan blob id"
         },
         "fetchPlanExplanationBlobId": {
           "type": "string",
+          "description": "optional",
           "title": "additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"
         },
         "timestamp": {

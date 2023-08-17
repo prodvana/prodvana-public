@@ -293,17 +293,11 @@ message DeliveryState {
     // next: 14
 }
 
-
 message RuntimeExtensionFetchOutput {
-    bool dirty = 1;
-    string message = 2;
-}
-
-message RuntimeExtensionFetchPlan {
     // for fetch commands that return a plan, this is the plan blob id
-    string fetch_plan_blob_id = 1;
+    string fetch_plan_blob_id = 1; // optional
     // additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
-    string fetch_plan_explanation_blob_id = 2;
+    string fetch_plan_explanation_blob_id = 2; // optional
     // when the plan was created
     google.protobuf.Timestamp timestamp = 3;
 }
@@ -321,7 +315,7 @@ message RuntimeObject {
         repeated prodvana.common_config.ParameterDefinition parameters = 7;
         repeated prodvana.common_config.ParameterValue parameter_values = 8;
         prodvana.environment.ExtensionType type = 9;
-        RuntimeExtensionFetchPlan fetch_plan = 10;
+        RuntimeExtensionFetchOutput fetch_output = 10;
         // next tag: 12
     }
     Metadata meta = 1;
@@ -578,7 +572,7 @@ message MissingApproval {
     prodvana.desired_state.model.SignalType signal_type = 2;
     string topic = 3;
     message RuntimeExtensionMetadata {
-        RuntimeExtensionFetchPlan plan = 1;  // the plan this approval is for, if any
+        RuntimeExtensionFetchOutput output = 1;  // the plan this approval is for, if any
     }
     RuntimeExtensionMetadata runtime_extension = 4;
 }
