@@ -7448,6 +7448,9 @@
         },
         "requireApprovalBeforeApply": {
           "type": "boolean"
+        },
+        "appliesInObserverMode": {
+          "type": "boolean"
         }
       }
     },

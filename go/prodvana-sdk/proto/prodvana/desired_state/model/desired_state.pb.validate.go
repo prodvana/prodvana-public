@@ -841,6 +841,8 @@ func (m *Metadata) validate(all bool) error {
 
 	// no validation rules for RequireApprovalBeforeApply
 
+	// no validation rules for AppliesInObserverMode
+
 	if len(errors) > 0 {
 		return MetadataMultiError(errors)
 	}

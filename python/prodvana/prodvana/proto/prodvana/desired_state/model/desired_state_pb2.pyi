@@ -494,6 +494,7 @@ class Metadata(google.protobuf.message.Message):
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     TARGET_STATE_SET_BY_PARENT_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
+    APPLIES_IN_OBSERVER_MODE_FIELD_NUMBER: builtins.int
     @property
     def preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Condition]: ...
     @property
@@ -509,6 +510,7 @@ class Metadata(google.protobuf.message.Message):
     target_state_set_by_parent: builtins.bool
     """if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."""
     require_approval_before_apply: builtins.bool
+    applies_in_observer_mode: builtins.bool
     def __init__(
         # pyright: reportSelfClsParameterName=false
         self_,
@@ -522,9 +524,10 @@ class Metadata(google.protobuf.message.Message):
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtension] | None = ...,
         target_state_set_by_parent: builtins.bool = ...,
         require_approval_before_apply: builtins.bool = ...,
+        applies_in_observer_mode: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
 
 global___Metadata = Metadata
 

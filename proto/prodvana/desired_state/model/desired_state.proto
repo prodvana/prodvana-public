@@ -108,6 +108,7 @@ message Metadata {
     // if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state.
     bool target_state_set_by_parent = 9;
     bool require_approval_before_apply = 10;
+    bool applies_in_observer_mode = 11;
 
     reserved 7;
     reserved "protections";
