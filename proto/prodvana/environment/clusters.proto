@@ -117,6 +117,10 @@ message ExtensionClusterConfig {
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
     bool require_approval_before_apply = 6;
+    // How long after apply ran the first time should it be restarted if the service still has not converged.
+    // This duration is computed from the *start* of apply run.
+    // Defaults to 10m.
+    google.protobuf.Duration convergence_grace_period = 7 [(validate.rules).duration.gt.seconds = 0];
 }
 
 message CompiledExtensionCommand {

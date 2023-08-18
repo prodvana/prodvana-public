@@ -495,6 +495,7 @@ class Metadata(google.protobuf.message.Message):
     TARGET_STATE_SET_BY_PARENT_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     APPLIES_IN_OBSERVER_MODE_FIELD_NUMBER: builtins.int
+    CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Condition]: ...
     @property
@@ -511,6 +512,11 @@ class Metadata(google.protobuf.message.Message):
     """if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."""
     require_approval_before_apply: builtins.bool
     applies_in_observer_mode: builtins.bool
+    @property
+    def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration:
+        """How long after apply ran the first time should it be restarted if the entity still has not converged.
+        This duration is computed from the *start* of apply run.
+        """
     def __init__(
         # pyright: reportSelfClsParameterName=false
         self_,
@@ -525,9 +531,10 @@ class Metadata(google.protobuf.message.Message):
         target_state_set_by_parent: builtins.bool = ...,
         require_approval_before_apply: builtins.bool = ...,
         applies_in_observer_mode: builtins.bool = ...,
+        convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "self", b"self"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "convergence_grace_period", b"convergence_grace_period", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
 
 global___Metadata = Metadata
 
@@ -1679,6 +1686,7 @@ class TaskEntityContext(google.protobuf.message.Message):
     LAST_COMPLETED_RUN_FIELD_NUMBER: builtins.int
     LAST_RUN_FIELD_NUMBER: builtins.int
     IS_ACTIVE_FIELD_NUMBER: builtins.int
+    IS_NOT_IN_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def last_completed_run(self) -> global___TaskRun: ...
     @property
@@ -1687,14 +1695,16 @@ class TaskEntityContext(google.protobuf.message.Message):
     """Can this task be run, ignoring retry limits?
     This is used to prevent a task from starting to run in certain scenarios.
     """
+    is_not_in_grace_period: builtins.bool
     def __init__(
         self,
         *,
         last_completed_run: global___TaskRun | None = ...,
         last_run: global___TaskRun | None = ...,
         is_active: builtins.bool = ...,
+        is_not_in_grace_period: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "is_not_in_grace_period", b"is_not_in_grace_period", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
 
 global___TaskEntityContext = TaskEntityContext

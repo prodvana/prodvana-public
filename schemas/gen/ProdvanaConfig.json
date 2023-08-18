@@ -2814,6 +2814,12 @@
                             "type": "boolean"
                         }
                     ]
+                },
+                "convergenceGracePeriod": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after apply ran the first time should it be restarted if the service still has not converged. This duration is computed from the *start* of apply run. Defaults to 10m.",
+                    "format": "regex"
                 }
             },
             "additionalProperties": false,

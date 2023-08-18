@@ -7451,6 +7451,10 @@
         },
         "appliesInObserverMode": {
           "type": "boolean"
+        },
+        "convergenceGracePeriod": {
+          "type": "string",
+          "description": "How long after apply ran the first time should it be restarted if the entity still has not converged.\nThis duration is computed from the *start* of apply run."
         }
       }
     },
@@ -7892,6 +7896,10 @@
         },
         "requireApprovalBeforeApply": {
           "type": "boolean"
+        },
+        "convergenceGracePeriod": {
+          "type": "string",
+          "description": "How long after apply ran the first time should it be restarted if the service still has not converged.\nThis duration is computed from the *start* of apply run.\nDefaults to 10m."
         }
       }
     },

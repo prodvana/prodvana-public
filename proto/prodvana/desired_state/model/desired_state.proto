@@ -110,10 +110,14 @@ message Metadata {
     bool require_approval_before_apply = 10;
     bool applies_in_observer_mode = 11;
 
+    // How long after apply ran the first time should it be restarted if the entity still has not converged.
+    // This duration is computed from the *start* of apply run.
+    google.protobuf.Duration convergence_grace_period = 12;
+
     reserved 7;
     reserved "protections";
 
-    // next tag: 11
+    // next tag: 13
 }
 
 enum Status {
@@ -605,8 +609,9 @@ message TaskEntityContext {
     // Can this task be run, ignoring retry limits?
     // This is used to prevent a task from starting to run in certain scenarios.
     bool is_active = 3;
+    bool is_not_in_grace_period = 5;
 
     reserved 4;
     reserved "missing_approval";
-    // next tag: 5
+    // next tag: 6
 }

@@ -321,6 +321,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
+    CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___ExtensionCommand: ...
     @property
@@ -331,6 +332,12 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     type: global___ExtensionType.ValueType
     require_approval_before_apply: builtins.bool
+    @property
+    def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration:
+        """How long after apply ran the first time should it be restarted if the service still has not converged.
+        This duration is computed from the *start* of apply run.
+        Defaults to 10m.
+        """
     def __init__(
         self,
         *,
@@ -340,9 +347,10 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         type: global___ExtensionType.ValueType = ...,
         require_approval_before_apply: builtins.bool = ...,
+        convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 
