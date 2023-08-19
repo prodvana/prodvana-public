@@ -90,7 +90,7 @@ message ExtensionCommand {
     google.protobuf.Duration poll_interval = 3;
     // how often to fetch when in steady state (after the extension has converged)
     google.protobuf.Duration steady_state_poll_interval = 6;
-    // how long after a run has started to try another run if it has not completed yet
+    // deprecated, not used
     google.protobuf.Duration timeout = 4;
 
     // optional env variables to inject and override from exec_config

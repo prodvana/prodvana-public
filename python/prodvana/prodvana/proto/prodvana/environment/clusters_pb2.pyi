@@ -292,7 +292,7 @@ class ExtensionCommand(google.protobuf.message.Message):
         """how often to fetch when in steady state (after the extension has converged)"""
     @property
     def timeout(self) -> google.protobuf.duration_pb2.Duration:
-        """how long after a run has started to try another run if it has not completed yet"""
+        """deprecated, not used"""
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to inject and override from exec_config"""

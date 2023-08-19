@@ -38,7 +38,7 @@ type ProtectionConfig struct {
 	// customize intervals instead of using Prodvana default
 	// how often to run check even if it succeeds
 	PollInterval *durationpb.Duration `protobuf:"bytes,4,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
-	// how long after a run has started to try another run if it has not completed yet
+	// deprecated, not used
 	Timeout    *durationpb.Duration                 `protobuf:"bytes,5,opt,name=timeout,proto3" json:"timeout,omitempty"`
 	Parameters []*common_config.ParameterDefinition `protobuf:"bytes,6,rep,name=parameters,proto3" json:"parameters,omitempty"`
 	// optional env variables to inject and override from exec_config

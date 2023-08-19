@@ -34,7 +34,7 @@ message ProtectionConfig {
     // customize intervals instead of using Prodvana default
     // how often to run check even if it succeeds
     google.protobuf.Duration poll_interval = 4;
-    // how long after a run has started to try another run if it has not completed yet
+    // deprecated, not used
     google.protobuf.Duration timeout = 5;
 
     repeated prodvana.common_config.ParameterDefinition parameters = 6 [(validate.rules).repeated.items.message.required = true];

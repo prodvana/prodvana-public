@@ -2761,35 +2761,6 @@ func (m *RuntimeObject) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetTimeout()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RuntimeObjectValidationError{
-					field:  "Timeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RuntimeObjectValidationError{
-					field:  "Timeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTimeout()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RuntimeObjectValidationError{
-				field:  "Timeout",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	// no validation rules for RequireApprovalBeforeApply
 
 	// no validation rules for RawConfig
@@ -6950,35 +6921,6 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "FetchSteadyStateInterval",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetFetchTimeout()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
-					field:  "FetchTimeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
-					field:  "FetchTimeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetFetchTimeout()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RuntimeObject_RuntimeExtensionValidationError{
-				field:  "FetchTimeout",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

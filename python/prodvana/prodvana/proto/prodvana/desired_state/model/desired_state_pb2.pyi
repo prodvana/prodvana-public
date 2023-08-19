@@ -920,7 +920,6 @@ class RuntimeObject(google.protobuf.message.Message):
         FETCH_FIELD_NUMBER: builtins.int
         FETCH_INTERVAL_FIELD_NUMBER: builtins.int
         FETCH_STEADY_STATE_INTERVAL_FIELD_NUMBER: builtins.int
-        FETCH_TIMEOUT_FIELD_NUMBER: builtins.int
         SERVICE_ID_FIELD_NUMBER: builtins.int
         RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
         PARAMETERS_FIELD_NUMBER: builtins.int
@@ -936,8 +935,6 @@ class RuntimeObject(google.protobuf.message.Message):
         def fetch_interval(self) -> google.protobuf.duration_pb2.Duration: ...
         @property
         def fetch_steady_state_interval(self) -> google.protobuf.duration_pb2.Duration: ...
-        @property
-        def fetch_timeout(self) -> google.protobuf.duration_pb2.Duration: ...
         service_id: builtins.str
         release_channel_id: builtins.str
         @property
@@ -946,8 +943,7 @@ class RuntimeObject(google.protobuf.message.Message):
         def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
         type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType
         @property
-        def fetch_output(self) -> global___RuntimeExtensionFetchOutput:
-            """next tag: 12"""
+        def fetch_output(self) -> global___RuntimeExtensionFetchOutput: ...
         def __init__(
             self,
             *,
@@ -955,7 +951,6 @@ class RuntimeObject(google.protobuf.message.Message):
             fetch: prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand | None = ...,
             fetch_interval: google.protobuf.duration_pb2.Duration | None = ...,
             fetch_steady_state_interval: google.protobuf.duration_pb2.Duration | None = ...,
-            fetch_timeout: google.protobuf.duration_pb2.Duration | None = ...,
             service_id: builtins.str = ...,
             release_channel_id: builtins.str = ...,
             parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
@@ -963,8 +958,8 @@ class RuntimeObject(google.protobuf.message.Message):
             type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType = ...,
             fetch_output: global___RuntimeExtensionFetchOutput | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "fetch_timeout", b"fetch_timeout", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
@@ -981,7 +976,6 @@ class RuntimeObject(google.protobuf.message.Message):
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
     INTERVAL_FIELD_NUMBER: builtins.int
     STEADY_STATE_INTERVAL_FIELD_NUMBER: builtins.int
-    TIMEOUT_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
@@ -1017,9 +1011,6 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def steady_state_interval(self) -> google.protobuf.duration_pb2.Duration: ...
     @property
-    def timeout(self) -> google.protobuf.duration_pb2.Duration:
-        """if set, runtime object is recreated when this timeout is hit if it has not converged by then."""
-    @property
     def output_blob_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """output_blob_ids and exit_codes are in the same order, assuming output is saved
         if output is saved, this is the ID of the blob to retrieve it, only for run-to-completion objects.
@@ -1052,7 +1043,6 @@ class RuntimeObject(google.protobuf.message.Message):
         runtime_extension: global___RuntimeObject.RuntimeExtension | None = ...,
         interval: google.protobuf.duration_pb2.Duration | None = ...,
         steady_state_interval: google.protobuf.duration_pb2.Duration | None = ...,
-        timeout: google.protobuf.duration_pb2.Duration | None = ...,
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         require_approval_before_apply: builtins.bool = ...,
@@ -1060,8 +1050,8 @@ class RuntimeObject(google.protobuf.message.Message):
         management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
         last_completed_task_run: global___TaskRun | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "timeout", b"timeout", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

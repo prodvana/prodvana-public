@@ -573,7 +573,7 @@ type ExtensionCommand struct {
 	PollInterval *durationpb.Duration `protobuf:"bytes,3,opt,name=poll_interval,json=pollInterval,proto3" json:"poll_interval,omitempty"`
 	// how often to fetch when in steady state (after the extension has converged)
 	SteadyStatePollInterval *durationpb.Duration `protobuf:"bytes,6,opt,name=steady_state_poll_interval,json=steadyStatePollInterval,proto3" json:"steady_state_poll_interval,omitempty"`
-	// how long after a run has started to try another run if it has not completed yet
+	// deprecated, not used
 	Timeout *durationpb.Duration `protobuf:"bytes,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
 	// optional env variables to inject and override from exec_config
 	Env map[string]*common_config.EnvValue `protobuf:"bytes,5,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`

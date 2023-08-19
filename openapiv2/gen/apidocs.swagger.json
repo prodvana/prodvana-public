@@ -5692,9 +5692,6 @@
         "fetchSteadyStateInterval": {
           "type": "string"
         },
-        "fetchTimeout": {
-          "type": "string"
-        },
         "serviceId": {
           "type": "string"
         },
@@ -5719,8 +5716,7 @@
           "$ref": "#/definitions/environmentExtensionType"
         },
         "fetchOutput": {
-          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
-          "title": "next tag: 12"
+          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput"
         }
       }
     },
@@ -7573,10 +7569,6 @@
         "steadyStateInterval": {
           "type": "string"
         },
-        "timeout": {
-          "type": "string",
-          "description": "if set, runtime object is recreated when this timeout is hit if it has not converged by then."
-        },
         "outputBlobIds": {
           "type": "array",
           "items": {
@@ -7922,7 +7914,7 @@
         },
         "timeout": {
           "type": "string",
-          "title": "how long after a run has started to try another run if it has not completed yet"
+          "title": "deprecated, not used"
         },
         "env": {
           "type": "object",
@@ -10479,7 +10471,7 @@
         },
         "timeout": {
           "type": "string",
-          "title": "how long after a run has started to try another run if it has not completed yet"
+          "title": "deprecated, not used"
         },
         "parameters": {
           "type": "array",

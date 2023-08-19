@@ -62,7 +62,7 @@ class ProtectionConfig(google.protobuf.message.Message):
         """
     @property
     def timeout(self) -> google.protobuf.duration_pb2.Duration:
-        """how long after a run has started to try another run if it has not completed yet"""
+        """deprecated, not used"""
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property

@@ -2870,7 +2870,7 @@
                 "timeout": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "how long after a run has started to try another run if it has not completed yet",
+                    "description": "deprecated, not used",
                     "format": "regex"
                 },
                 "env": {
@@ -3597,7 +3597,7 @@
                 "timeout": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "how long after a run has started to try another run if it has not completed yet",
+                    "description": "deprecated, not used",
                     "format": "regex"
                 },
                 "parameters": {
