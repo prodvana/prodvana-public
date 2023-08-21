@@ -1676,7 +1676,6 @@ class TaskEntityContext(google.protobuf.message.Message):
     LAST_COMPLETED_RUN_FIELD_NUMBER: builtins.int
     LAST_RUN_FIELD_NUMBER: builtins.int
     IS_ACTIVE_FIELD_NUMBER: builtins.int
-    IS_NOT_IN_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def last_completed_run(self) -> global___TaskRun: ...
     @property
@@ -1685,16 +1684,14 @@ class TaskEntityContext(google.protobuf.message.Message):
     """Can this task be run, ignoring retry limits?
     This is used to prevent a task from starting to run in certain scenarios.
     """
-    is_not_in_grace_period: builtins.bool
     def __init__(
         self,
         *,
         last_completed_run: global___TaskRun | None = ...,
         last_run: global___TaskRun | None = ...,
         is_active: builtins.bool = ...,
-        is_not_in_grace_period: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "is_not_in_grace_period", b"is_not_in_grace_period", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
 
 global___TaskEntityContext = TaskEntityContext

@@ -6211,8 +6211,6 @@ func (m *TaskEntityContext) validate(all bool) error {
 
 	// no validation rules for IsActive
 
-	// no validation rules for IsNotInGracePeriod
-
 	if len(errors) > 0 {
 		return TaskEntityContextMultiError(errors)
 	}
