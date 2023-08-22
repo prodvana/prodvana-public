@@ -856,9 +856,28 @@ global___DeliveryState = DeliveryState
 class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _FetchStatus:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _FetchStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RuntimeExtensionFetchOutput._FetchStatus.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 0
+        DRIFTED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 1
+        CONVERGED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 2
+        FAILED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 3
+
+    class FetchStatus(_FetchStatus, metaclass=_FetchStatusEnumTypeWrapper): ...
+    UNKNOWN: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 0
+    DRIFTED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 1
+    CONVERGED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 2
+    FAILED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 3
+
     FETCH_PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
     FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
     TIMESTAMP_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    FETCH_STATUS_FIELD_NUMBER: builtins.int
     fetch_plan_blob_id: builtins.str
     """for fetch commands that return a plan, this is the plan blob id
     optional
@@ -870,15 +889,19 @@ class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     @property
     def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the plan was created"""
+    version: builtins.str
+    fetch_status: global___RuntimeExtensionFetchOutput.FetchStatus.ValueType
     def __init__(
         self,
         *,
         fetch_plan_blob_id: builtins.str = ...,
         fetch_plan_explanation_blob_id: builtins.str = ...,
         timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        version: builtins.str = ...,
+        fetch_status: global___RuntimeExtensionFetchOutput.FetchStatus.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "timestamp", b"timestamp"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "timestamp", b"timestamp", "version", b"version"]) -> None: ...
 
 global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 

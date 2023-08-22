@@ -5668,6 +5668,16 @@
       ],
       "default": "UNKNOWN"
     },
+    "RuntimeExtensionFetchOutputFetchStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "DRIFTED",
+        "CONVERGED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
     "RuntimeObjectManagementStatus": {
       "type": "string",
       "enum": [
@@ -9582,6 +9592,12 @@
           "type": "string",
           "format": "date-time",
           "title": "when the plan was created"
+        },
+        "version": {
+          "type": "string"
+        },
+        "fetchStatus": {
+          "$ref": "#/definitions/RuntimeExtensionFetchOutputFetchStatus"
         }
       }
     },

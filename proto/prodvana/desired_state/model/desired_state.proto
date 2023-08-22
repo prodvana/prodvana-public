@@ -298,12 +298,20 @@ message DeliveryState {
 }
 
 message RuntimeExtensionFetchOutput {
+    enum FetchStatus {
+        UNKNOWN = 0;
+        DRIFTED = 1;
+        CONVERGED = 2;
+        FAILED = 3;
+    }
     // for fetch commands that return a plan, this is the plan blob id
     string fetch_plan_blob_id = 1; // optional
     // additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
     string fetch_plan_explanation_blob_id = 2; // optional
     // when the plan was created
     google.protobuf.Timestamp timestamp = 3;
+    string version = 4;
+    FetchStatus fetch_status = 5;
 }
 
 message RuntimeObject {

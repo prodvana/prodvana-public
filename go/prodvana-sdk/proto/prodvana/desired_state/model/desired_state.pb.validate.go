@@ -2434,6 +2434,10 @@ func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Version
+
+	// no validation rules for FetchStatus
+
 	if len(errors) > 0 {
 		return RuntimeExtensionFetchOutputMultiError(errors)
 	}
