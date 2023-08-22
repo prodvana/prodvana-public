@@ -19,10 +19,12 @@ var noTlsAllowlist = map[string]struct{}{
 }
 
 type ConnectionOptions struct {
-	Address          string // Prodvana server address
-	AuthToken        string // Prodvana api token
-	SkipTls          bool   // exposed for testing purposes only
-	NoAuth           bool   // exposed for internal purposes only
+	Address          string        // Prodvana server address
+	AuthToken        string        // Prodvana api token
+	GetAuthToken     func() string // same as AuthToken, but for tokens that may change/need to be computed
+	AuthTokenPtr     *string       // save as AuthToken but passes a pointer, for tokens that need to be updated in process
+	SkipTls          bool          // exposed for testing purposes only
+	NoAuth           bool          // exposed for internal purposes only
 	ExtraDialOptions []grpc.DialOption
 }
 
@@ -34,12 +36,12 @@ func DefaultConnectionOptions() ConnectionOptions {
 }
 
 type authToken struct {
-	Token string
+	MakeToken func() string
 }
 
 func (t authToken) GetRequestMetadata(ctx context.Context, in ...string) (map[string]string, error) {
 	return map[string]string{
-		"authorization": "Bearer " + t.Token,
+		"authorization": "Bearer " + t.MakeToken(),
 	}, nil
 }
 
@@ -53,7 +55,7 @@ func MakeProdvanaConnection(options ConnectionOptions) (*grpc.ClientConn, error)
 		return nil, fmt.Errorf("either Address or PVN_APISERVER_ADDR must be set")
 	}
 	token := options.AuthToken
-	if token == "" && !options.NoAuth {
+	if token == "" && options.GetAuthToken == nil && !options.NoAuth {
 		return nil, fmt.Errorf("either AuthToken or PVN_TOKEN must be set")
 	}
 	parts := strings.Split(addr, ":")
@@ -68,7 +70,11 @@ func MakeProdvanaConnection(options ConnectionOptions) (*grpc.ClientConn, error)
 		grpc.WithTransportCredentials(cred),
 	}
 	if !options.NoAuth {
-		grpcOpts = append(grpcOpts, grpc.WithPerRPCCredentials(authToken{token}))
+		getToken := options.GetAuthToken
+		if getToken == nil {
+			getToken = func() string { return options.AuthToken }
+		}
+		grpcOpts = append(grpcOpts, grpc.WithPerRPCCredentials(authToken{getToken}))
 	}
 	return grpc.Dial(addr, grpcOpts...)
 }
