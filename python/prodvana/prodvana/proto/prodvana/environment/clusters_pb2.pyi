@@ -439,6 +439,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
     STEADY_STATE_POLL_INTERVAL_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
+    CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -460,6 +461,8 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         """
     require_approval_before_apply: builtins.bool
     """Require approval before every apply operation - this is on top of any release channel-level approvals."""
+    @property
+    def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration: ...
     def __init__(
         self,
         *,
@@ -470,9 +473,10 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         steady_state_poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         require_approval_before_apply: builtins.bool = ...,
+        convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 
@@ -501,6 +505,7 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
     VOLUMES_FIELD_NUMBER: builtins.int
     PRE_RUN_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
+    CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -515,6 +520,8 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
         """Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often."""
+    @property
+    def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration: ...
     def __init__(
         self,
         *,
@@ -523,9 +530,10 @@ class PulumiRunnerConfig(google.protobuf.message.Message):
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "env", b"env", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
 
 global___PulumiRunnerConfig = PulumiRunnerConfig
 

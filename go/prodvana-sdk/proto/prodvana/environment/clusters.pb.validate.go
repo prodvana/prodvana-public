@@ -1760,6 +1760,36 @@ func (m *TerraformRunnerConfig) validate(all bool) error {
 
 	// no validation rules for RequireApprovalBeforeApply
 
+	if d := m.GetConvergenceGracePeriod(); d != nil {
+		dur, err := d.AsDuration(), d.CheckValid()
+		if err != nil {
+			err = TerraformRunnerConfigValidationError{
+				field:  "ConvergenceGracePeriod",
+				reason: "value is not a valid duration",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			gt := time.Duration(0*time.Second + 0*time.Nanosecond)
+
+			if dur <= gt {
+				err := TerraformRunnerConfigValidationError{
+					field:  "ConvergenceGracePeriod",
+					reason: "value must be greater than 0s",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+	}
+
 	if len(errors) > 0 {
 		return TerraformRunnerConfigMultiError(errors)
 	}
@@ -2042,6 +2072,36 @@ func (m *PulumiRunnerConfig) validate(all bool) error {
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
+		}
+	}
+
+	if d := m.GetConvergenceGracePeriod(); d != nil {
+		dur, err := d.AsDuration(), d.CheckValid()
+		if err != nil {
+			err = PulumiRunnerConfigValidationError{
+				field:  "ConvergenceGracePeriod",
+				reason: "value is not a valid duration",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			gt := time.Duration(0*time.Second + 0*time.Nanosecond)
+
+			if dur <= gt {
+				err := PulumiRunnerConfigValidationError{
+					field:  "ConvergenceGracePeriod",
+					reason: "value must be greater than 0s",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
 		}
 	}
 

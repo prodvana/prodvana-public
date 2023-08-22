@@ -8197,6 +8197,9 @@
         "requireApprovalBeforeApply": {
           "type": "boolean",
           "description": "Require approval before every apply operation - this is on top of any release channel-level approvals."
+        },
+        "convergenceGracePeriod": {
+          "type": "string"
         }
       }
     },

@@ -150,7 +150,9 @@ message TerraformRunnerConfig {
     // Require approval before every apply operation - this is on top of any release channel-level approvals.
     bool require_approval_before_apply = 6;
 
-    // next tag: 8;
+    google.protobuf.Duration convergence_grace_period = 8 [(validate.rules).duration.gt.seconds = 0];
+
+    // next tag: 9
 }
 
 message PulumiRunnerConfig {
@@ -163,6 +165,7 @@ message PulumiRunnerConfig {
     repeated IacRunnerCommand pre_run = 4;
     // Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
     google.protobuf.Duration poll_interval = 5;
+    google.protobuf.Duration convergence_grace_period = 6 [(validate.rules).duration.gt.seconds = 0];
 }
 
 message ClusterConfig {
