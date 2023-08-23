@@ -5390,6 +5390,16 @@
         }
       }
     },
+    "FetchDetailsFetchStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "DRIFTED",
+        "CONVERGED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
     "GetServiceImageInfoRespProgramInfo": {
       "type": "object",
       "properties": {
@@ -5668,16 +5678,6 @@
       ],
       "default": "UNKNOWN"
     },
-    "RuntimeExtensionFetchOutputFetchStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "DRIFTED",
-        "CONVERGED",
-        "FAILED"
-      ],
-      "default": "UNKNOWN"
-    },
     "RuntimeObjectManagementStatus": {
       "type": "string",
       "enum": [
@@ -5727,6 +5727,9 @@
         },
         "fetchOutput": {
           "$ref": "#/definitions/modelRuntimeExtensionFetchOutput"
+        },
+        "applyOutput": {
+          "$ref": "#/definitions/modelRuntimeExtensionApplyOutput"
         }
       }
     },
@@ -9170,6 +9173,25 @@
         }
       }
     },
+    "modelApplyDetails": {
+      "type": "object",
+      "properties": {
+        "startedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the apply job started"
+        },
+        "completedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the apply job completed"
+        },
+        "version": {
+          "type": "string",
+          "title": "the version of the service associated with this apply run"
+        }
+      }
+    },
     "modelCanaryProgressState": {
       "type": "object",
       "properties": {
@@ -9490,6 +9512,38 @@
         }
       }
     },
+    "modelFetchDetails": {
+      "type": "object",
+      "properties": {
+        "startedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the fetch job started"
+        },
+        "completedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the fetch job completed"
+        },
+        "fetchPlanBlobId": {
+          "type": "string",
+          "description": "optional",
+          "title": "for fetch commands that return a plan, this is the plan blob id"
+        },
+        "fetchPlanExplanationBlobId": {
+          "type": "string",
+          "description": "optional",
+          "title": "additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"
+        },
+        "version": {
+          "type": "string",
+          "title": "the version of the service associated with this fetch run"
+        },
+        "fetchStatus": {
+          "$ref": "#/definitions/FetchDetailsFetchStatus"
+        }
+      }
+    },
     "modelIdentifier": {
       "type": "object",
       "properties": {
@@ -9578,29 +9632,29 @@
         }
       }
     },
+    "modelRuntimeExtensionApplyOutput": {
+      "type": "object",
+      "properties": {
+        "ongoingApply": {
+          "$ref": "#/definitions/modelApplyDetails",
+          "title": "details of an actively executing apply, may be null if no apply is currently executing"
+        },
+        "lastApply": {
+          "$ref": "#/definitions/modelApplyDetails",
+          "title": "details of the last apply that completed, may be null if no apply has ever executed"
+        }
+      }
+    },
     "modelRuntimeExtensionFetchOutput": {
       "type": "object",
       "properties": {
-        "fetchPlanBlobId": {
-          "type": "string",
-          "description": "optional",
-          "title": "for fetch commands that return a plan, this is the plan blob id"
+        "ongoingFetch": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "title": "details of an actively executing fetch, may be null if no fetch is currently executing"
         },
-        "fetchPlanExplanationBlobId": {
-          "type": "string",
-          "description": "optional",
-          "title": "additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "when the plan was created"
-        },
-        "version": {
-          "type": "string"
-        },
-        "fetchStatus": {
-          "$ref": "#/definitions/RuntimeExtensionFetchOutputFetchStatus"
+        "lastFetch": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "title": "details of the last fetch that completed, may be null if no fetch has ever executed"
         }
       }
     },

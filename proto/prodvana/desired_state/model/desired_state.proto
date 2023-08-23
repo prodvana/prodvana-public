@@ -297,21 +297,50 @@ message DeliveryState {
     // next: 14
 }
 
-message RuntimeExtensionFetchOutput {
+message FetchDetails {
     enum FetchStatus {
         UNKNOWN = 0;
         DRIFTED = 1;
         CONVERGED = 2;
         FAILED = 3;
     }
+    // when the fetch job started
+    google.protobuf.Timestamp started_timestamp = 1;
+    // when the fetch job completed
+    google.protobuf.Timestamp completed_timestamp = 2;
     // for fetch commands that return a plan, this is the plan blob id
-    string fetch_plan_blob_id = 1; // optional
+    string fetch_plan_blob_id = 3; // optional
     // additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
-    string fetch_plan_explanation_blob_id = 2; // optional
-    // when the plan was created
-    google.protobuf.Timestamp timestamp = 3;
-    string version = 4;
-    FetchStatus fetch_status = 5;
+    string fetch_plan_explanation_blob_id = 4; // optional
+    // the version of the service associated with this fetch run
+    string version = 5;
+    FetchStatus fetch_status = 6;
+}
+
+message RuntimeExtensionFetchOutput {
+    // details of an actively executing fetch, may be null if no fetch is currently executing
+    FetchDetails ongoing_fetch = 8;
+    // details of the last fetch that completed, may be null if no fetch has ever executed
+    FetchDetails last_fetch = 9;
+
+    reserved 1, 2, 3, 4, 5, 6, 7;
+    reserved "fetch_plan_blob_id", "fetch_plan_explanation_blob_id", "version", "fetch_status", "started_timestamp", "completed_timestamp";
+}
+
+message ApplyDetails {
+    // when the apply job started
+    google.protobuf.Timestamp started_timestamp = 1;
+    // when the apply job completed
+    google.protobuf.Timestamp completed_timestamp = 2;
+    // the version of the service associated with this apply run
+    string version = 3;
+}
+
+message RuntimeExtensionApplyOutput {
+    // details of an actively executing apply, may be null if no apply is currently executing
+    ApplyDetails ongoing_apply = 1;
+    // details of the last apply that completed, may be null if no apply has ever executed
+    ApplyDetails last_apply = 2;
 }
 
 message RuntimeObject {
@@ -327,9 +356,10 @@ message RuntimeObject {
         repeated prodvana.common_config.ParameterValue parameter_values = 8;
         prodvana.environment.ExtensionType type = 9;
         RuntimeExtensionFetchOutput fetch_output = 10;
+        RuntimeExtensionApplyOutput apply_output = 12;
         reserved 5;
         reserved "fetch_timeout";
-        // next tag: 12
+        // next tag: 13
     }
     Metadata meta = 1;
     string object_type = 2;

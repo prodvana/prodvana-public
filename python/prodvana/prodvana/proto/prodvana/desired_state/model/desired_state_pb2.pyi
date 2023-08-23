@@ -853,31 +853,38 @@ class DeliveryState(google.protobuf.message.Message):
 
 global___DeliveryState = DeliveryState
 
-class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
+class FetchDetails(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _FetchStatus:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _FetchStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RuntimeExtensionFetchOutput._FetchStatus.ValueType], builtins.type):  # noqa: F821
+    class _FetchStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FetchDetails._FetchStatus.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        UNKNOWN: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 0
-        DRIFTED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 1
-        CONVERGED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 2
-        FAILED: RuntimeExtensionFetchOutput._FetchStatus.ValueType  # 3
+        UNKNOWN: FetchDetails._FetchStatus.ValueType  # 0
+        DRIFTED: FetchDetails._FetchStatus.ValueType  # 1
+        CONVERGED: FetchDetails._FetchStatus.ValueType  # 2
+        FAILED: FetchDetails._FetchStatus.ValueType  # 3
 
     class FetchStatus(_FetchStatus, metaclass=_FetchStatusEnumTypeWrapper): ...
-    UNKNOWN: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 0
-    DRIFTED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 1
-    CONVERGED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 2
-    FAILED: RuntimeExtensionFetchOutput.FetchStatus.ValueType  # 3
+    UNKNOWN: FetchDetails.FetchStatus.ValueType  # 0
+    DRIFTED: FetchDetails.FetchStatus.ValueType  # 1
+    CONVERGED: FetchDetails.FetchStatus.ValueType  # 2
+    FAILED: FetchDetails.FetchStatus.ValueType  # 3
 
+    STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
     FETCH_PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
     FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     FETCH_STATUS_FIELD_NUMBER: builtins.int
+    @property
+    def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """when the fetch job started"""
+    @property
+    def completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """when the fetch job completed"""
     fetch_plan_blob_id: builtins.str
     """for fetch commands that return a plan, this is the plan blob id
     optional
@@ -886,24 +893,93 @@ class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     """additionally, for fetch commands that return a plan with a separate explanation text, this is the explanation blob id
     optional
     """
-    @property
-    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """when the plan was created"""
     version: builtins.str
-    fetch_status: global___RuntimeExtensionFetchOutput.FetchStatus.ValueType
+    """the version of the service associated with this fetch run"""
+    fetch_status: global___FetchDetails.FetchStatus.ValueType
     def __init__(
         self,
         *,
+        started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         fetch_plan_blob_id: builtins.str = ...,
         fetch_plan_explanation_blob_id: builtins.str = ...,
-        timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         version: builtins.str = ...,
-        fetch_status: global___RuntimeExtensionFetchOutput.FetchStatus.ValueType = ...,
+        fetch_status: global___FetchDetails.FetchStatus.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "timestamp", b"timestamp", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+
+global___FetchDetails = FetchDetails
+
+class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ONGOING_FETCH_FIELD_NUMBER: builtins.int
+    LAST_FETCH_FIELD_NUMBER: builtins.int
+    @property
+    def ongoing_fetch(self) -> global___FetchDetails:
+        """details of an actively executing fetch, may be null if no fetch is currently executing"""
+    @property
+    def last_fetch(self) -> global___FetchDetails:
+        """details of the last fetch that completed, may be null if no fetch has ever executed"""
+    def __init__(
+        self,
+        *,
+        ongoing_fetch: global___FetchDetails | None = ...,
+        last_fetch: global___FetchDetails | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_fetch", b"last_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_fetch", b"last_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> None: ...
 
 global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
+
+class ApplyDetails(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    @property
+    def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """when the apply job started"""
+    @property
+    def completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """when the apply job completed"""
+    version: builtins.str
+    """the version of the service associated with this apply run"""
+    def __init__(
+        self,
+        *,
+        started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+
+global___ApplyDetails = ApplyDetails
+
+class RuntimeExtensionApplyOutput(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ONGOING_APPLY_FIELD_NUMBER: builtins.int
+    LAST_APPLY_FIELD_NUMBER: builtins.int
+    @property
+    def ongoing_apply(self) -> global___ApplyDetails:
+        """details of an actively executing apply, may be null if no apply is currently executing"""
+    @property
+    def last_apply(self) -> global___ApplyDetails:
+        """details of the last apply that completed, may be null if no apply has ever executed"""
+    def __init__(
+        self,
+        *,
+        ongoing_apply: global___ApplyDetails | None = ...,
+        last_apply: global___ApplyDetails | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_apply", b"last_apply", "ongoing_apply", b"ongoing_apply"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_apply", b"last_apply", "ongoing_apply", b"ongoing_apply"]) -> None: ...
+
+global___RuntimeExtensionApplyOutput = RuntimeExtensionApplyOutput
 
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -949,6 +1025,7 @@ class RuntimeObject(google.protobuf.message.Message):
         PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         TYPE_FIELD_NUMBER: builtins.int
         FETCH_OUTPUT_FIELD_NUMBER: builtins.int
+        APPLY_OUTPUT_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -967,6 +1044,8 @@ class RuntimeObject(google.protobuf.message.Message):
         type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType
         @property
         def fetch_output(self) -> global___RuntimeExtensionFetchOutput: ...
+        @property
+        def apply_output(self) -> global___RuntimeExtensionApplyOutput: ...
         def __init__(
             self,
             *,
@@ -980,9 +1059,10 @@ class RuntimeObject(google.protobuf.message.Message):
             parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
             type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType = ...,
             fetch_output: global___RuntimeExtensionFetchOutput | None = ...,
+            apply_output: global___RuntimeExtensionApplyOutput | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int

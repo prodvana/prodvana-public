@@ -2379,6 +2379,171 @@ var _ interface {
 	ErrorName() string
 } = DeliveryStateValidationError{}
 
+// Validate checks the field values on FetchDetails with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *FetchDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FetchDetails with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in FetchDetailsMultiError, or
+// nil if none found.
+func (m *FetchDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FetchDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetStartedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FetchDetailsValidationError{
+				field:  "StartedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompletedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompletedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FetchDetailsValidationError{
+				field:  "CompletedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for FetchPlanBlobId
+
+	// no validation rules for FetchPlanExplanationBlobId
+
+	// no validation rules for Version
+
+	// no validation rules for FetchStatus
+
+	if len(errors) > 0 {
+		return FetchDetailsMultiError(errors)
+	}
+
+	return nil
+}
+
+// FetchDetailsMultiError is an error wrapping multiple validation errors
+// returned by FetchDetails.ValidateAll() if the designated constraints aren't met.
+type FetchDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FetchDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FetchDetailsMultiError) AllErrors() []error { return m }
+
+// FetchDetailsValidationError is the validation error returned by
+// FetchDetails.Validate if the designated constraints aren't met.
+type FetchDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchDetailsValidationError) ErrorName() string { return "FetchDetailsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FetchDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchDetailsValidationError{}
+
 // Validate checks the field values on RuntimeExtensionFetchOutput with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2401,16 +2566,12 @@ func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for FetchPlanBlobId
-
-	// no validation rules for FetchPlanExplanationBlobId
-
 	if all {
-		switch v := interface{}(m.GetTimestamp()).(type) {
+		switch v := interface{}(m.GetOngoingFetch()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
-					field:  "Timestamp",
+					field:  "OngoingFetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -2418,25 +2579,50 @@ func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
-					field:  "Timestamp",
+					field:  "OngoingFetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetOngoingFetch()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RuntimeExtensionFetchOutputValidationError{
-				field:  "Timestamp",
+				field:  "OngoingFetch",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
 	}
 
-	// no validation rules for Version
-
-	// no validation rules for FetchStatus
+	if all {
+		switch v := interface{}(m.GetLastFetch()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
+					field:  "LastFetch",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
+					field:  "LastFetch",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastFetch()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionFetchOutputValidationError{
+				field:  "LastFetch",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return RuntimeExtensionFetchOutputMultiError(errors)
@@ -2518,6 +2704,326 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RuntimeExtensionFetchOutputValidationError{}
+
+// Validate checks the field values on ApplyDetails with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApplyDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplyDetails with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ApplyDetailsMultiError, or
+// nil if none found.
+func (m *ApplyDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetStartedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDetailsValidationError{
+				field:  "StartedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompletedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompletedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDetailsValidationError{
+				field:  "CompletedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return ApplyDetailsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyDetailsMultiError is an error wrapping multiple validation errors
+// returned by ApplyDetails.ValidateAll() if the designated constraints aren't met.
+type ApplyDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyDetailsMultiError) AllErrors() []error { return m }
+
+// ApplyDetailsValidationError is the validation error returned by
+// ApplyDetails.Validate if the designated constraints aren't met.
+type ApplyDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyDetailsValidationError) ErrorName() string { return "ApplyDetailsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApplyDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyDetailsValidationError{}
+
+// Validate checks the field values on RuntimeExtensionApplyOutput with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExtensionApplyOutput) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExtensionApplyOutput with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RuntimeExtensionApplyOutputMultiError, or nil if none found.
+func (m *RuntimeExtensionApplyOutput) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExtensionApplyOutput) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOngoingApply()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionApplyOutputValidationError{
+					field:  "OngoingApply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionApplyOutputValidationError{
+					field:  "OngoingApply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOngoingApply()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionApplyOutputValidationError{
+				field:  "OngoingApply",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetLastApply()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionApplyOutputValidationError{
+					field:  "LastApply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionApplyOutputValidationError{
+					field:  "LastApply",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastApply()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionApplyOutputValidationError{
+				field:  "LastApply",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RuntimeExtensionApplyOutputMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExtensionApplyOutputMultiError is an error wrapping multiple
+// validation errors returned by RuntimeExtensionApplyOutput.ValidateAll() if
+// the designated constraints aren't met.
+type RuntimeExtensionApplyOutputMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExtensionApplyOutputMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExtensionApplyOutputMultiError) AllErrors() []error { return m }
+
+// RuntimeExtensionApplyOutputValidationError is the validation error returned
+// by RuntimeExtensionApplyOutput.Validate if the designated constraints
+// aren't met.
+type RuntimeExtensionApplyOutputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExtensionApplyOutputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExtensionApplyOutputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExtensionApplyOutputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExtensionApplyOutputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExtensionApplyOutputValidationError) ErrorName() string {
+	return "RuntimeExtensionApplyOutputValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExtensionApplyOutputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExtensionApplyOutput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExtensionApplyOutputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExtensionApplyOutputValidationError{}
 
 // Validate checks the field values on RuntimeObject with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -7026,6 +7532,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "FetchOutput",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetApplyOutput()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "ApplyOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "ApplyOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplyOutput()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "ApplyOutput",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
