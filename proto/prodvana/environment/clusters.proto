@@ -116,6 +116,7 @@ message ExtensionClusterConfig {
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
+    // Apply is potentially dangerous - require approval before each apply
     bool require_approval_before_apply = 6;
     // How long after apply ran the first time should it be restarted if the service still has not converged.
     // This duration is computed from the *start* of apply run.

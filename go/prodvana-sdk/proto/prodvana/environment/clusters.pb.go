@@ -681,12 +681,13 @@ type ExtensionClusterConfig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Apply                      *ExtensionCommand                    `protobuf:"bytes,1,opt,name=apply,proto3" json:"apply,omitempty"`
-	Fetch                      *ExtensionCommand                    `protobuf:"bytes,2,opt,name=fetch,proto3" json:"fetch,omitempty"`
-	Parameters                 []*common_config.ParameterDefinition `protobuf:"bytes,3,rep,name=parameters,proto3" json:"parameters,omitempty"`
-	ProxyRuntime               *runtimes.RuntimeExecutionConfig     `protobuf:"bytes,4,opt,name=proxy_runtime,json=proxyRuntime,proto3" json:"proxy_runtime,omitempty"`
-	Type                       ExtensionType                        `protobuf:"varint,5,opt,name=type,proto3,enum=prodvana.environment.ExtensionType" json:"type,omitempty"`
-	RequireApprovalBeforeApply bool                                 `protobuf:"varint,6,opt,name=require_approval_before_apply,json=requireApprovalBeforeApply,proto3" json:"require_approval_before_apply,omitempty"`
+	Apply        *ExtensionCommand                    `protobuf:"bytes,1,opt,name=apply,proto3" json:"apply,omitempty"`
+	Fetch        *ExtensionCommand                    `protobuf:"bytes,2,opt,name=fetch,proto3" json:"fetch,omitempty"`
+	Parameters   []*common_config.ParameterDefinition `protobuf:"bytes,3,rep,name=parameters,proto3" json:"parameters,omitempty"`
+	ProxyRuntime *runtimes.RuntimeExecutionConfig     `protobuf:"bytes,4,opt,name=proxy_runtime,json=proxyRuntime,proto3" json:"proxy_runtime,omitempty"`
+	Type         ExtensionType                        `protobuf:"varint,5,opt,name=type,proto3,enum=prodvana.environment.ExtensionType" json:"type,omitempty"`
+	// Apply is potentially dangerous - require approval before each apply
+	RequireApprovalBeforeApply bool `protobuf:"varint,6,opt,name=require_approval_before_apply,json=requireApprovalBeforeApply,proto3" json:"require_approval_before_apply,omitempty"`
 	// How long after apply ran the first time should it be restarted if the service still has not converged.
 	// This duration is computed from the *start* of apply run.
 	// Defaults to 10m.

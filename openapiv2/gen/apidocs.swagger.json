@@ -7900,7 +7900,8 @@
           "$ref": "#/definitions/environmentExtensionType"
         },
         "requireApprovalBeforeApply": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "Apply is potentially dangerous - require approval before each apply"
         },
         "convergenceGracePeriod": {
           "type": "string",
@@ -11189,14 +11190,6 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
-        },
-        "hasAtLeastOneManualApproval": {
-          "type": "boolean",
-          "title": "Does this service instance have at least one manual approval configured?"
-        },
-        "requiresApprovalForEveryApply": {
-          "type": "boolean",
-          "title": "Does this service instance require manual approval on each push/apply action?"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"

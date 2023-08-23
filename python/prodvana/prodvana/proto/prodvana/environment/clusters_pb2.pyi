@@ -332,6 +332,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     type: global___ExtensionType.ValueType
     require_approval_before_apply: builtins.bool
+    """Apply is potentially dangerous - require approval before each apply"""
     @property
     def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration:
         """How long after apply ran the first time should it be restarted if the service still has not converged.
