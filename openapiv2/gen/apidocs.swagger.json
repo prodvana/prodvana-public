@@ -5591,15 +5591,6 @@
         }
       }
     },
-    "MissingApprovalRuntimeExtensionMetadata": {
-      "type": "object",
-      "properties": {
-        "output": {
-          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
-          "title": "the plan this approval is for, if any"
-        }
-      }
-    },
     "NotificationConfigSlack": {
       "type": "object",
       "properties": {
@@ -9554,6 +9545,9 @@
         },
         "fetchStatus": {
           "$ref": "#/definitions/FetchDetailsFetchStatus"
+        },
+        "fetcherDesiredStateId": {
+          "type": "string"
         }
       }
     },
@@ -9608,7 +9602,10 @@
           "type": "string"
         },
         "runtimeExtension": {
-          "$ref": "#/definitions/MissingApprovalRuntimeExtensionMetadata"
+          "$ref": "#/definitions/modelRuntimeExtensionMetadata"
+        },
+        "current": {
+          "type": "boolean"
         }
       }
     },
@@ -9668,6 +9665,15 @@
         "lastFetch": {
           "$ref": "#/definitions/modelFetchDetails",
           "title": "details of the last fetch that completed, may be null if no fetch has ever executed"
+        }
+      }
+    },
+    "modelRuntimeExtensionMetadata": {
+      "type": "object",
+      "properties": {
+        "output": {
+          "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
+          "title": "the plan this approval is for, if any"
         }
       }
     },

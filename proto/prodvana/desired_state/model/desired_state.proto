@@ -315,6 +315,7 @@ message FetchDetails {
     // the version of the service associated with this fetch run
     string version = 5;
     FetchStatus fetch_status = 6;
+    string fetcher_desired_state_id = 7;
 }
 
 message RuntimeExtensionFetchOutput {
@@ -615,20 +616,35 @@ message DebugLog {
     string log = 2;
 }
 
+message RuntimeExtensionMetadata {
+    RuntimeExtensionFetchOutput output = 1;  // the plan this approval is for, if any
+}
+
 message MissingApproval {
     string desired_state_id = 1;
     prodvana.desired_state.model.SignalType signal_type = 2;
     string topic = 3;
-    message RuntimeExtensionMetadata {
-        RuntimeExtensionFetchOutput output = 1;  // the plan this approval is for, if any
-    }
     RuntimeExtensionMetadata runtime_extension = 4;
+    bool current = 5;
+
+    // next tag: 6
 }
 
 message ApplyRejected {
+    message InternalMissingApproval {
+        string desired_state_id = 1;
+        prodvana.desired_state.model.SignalType signal_type = 2;
+        string topic = 3;
+        RuntimeExtensionMetadata runtime_extension = 4;
+        // What created this missing approval?
+        // If any of these desired state ids have been superseded,
+        // this approval should be considered not current.
+        repeated string generator_desired_state_ids = 5;
+    }
+
     oneof reason {
         // Cannot apply because this entity requires additional approval.
-        MissingApproval missing_approval = 1;
+        InternalMissingApproval missing_approval = 1;
         // TODO: Add reasons like paused entities.
     }
 }

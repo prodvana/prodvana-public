@@ -879,6 +879,7 @@ class FetchDetails(google.protobuf.message.Message):
     FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     FETCH_STATUS_FIELD_NUMBER: builtins.int
+    FETCHER_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the fetch job started"""
@@ -896,6 +897,7 @@ class FetchDetails(google.protobuf.message.Message):
     version: builtins.str
     """the version of the service associated with this fetch run"""
     fetch_status: global___FetchDetails.FetchStatus.ValueType
+    fetcher_desired_state_id: builtins.str
     def __init__(
         self,
         *,
@@ -905,9 +907,10 @@ class FetchDetails(google.protobuf.message.Message):
         fetch_plan_explanation_blob_id: builtins.str = ...,
         version: builtins.str = ...,
         fetch_status: global___FetchDetails.FetchStatus.ValueType = ...,
+        fetcher_desired_state_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
 
 global___FetchDetails = FetchDetails
 
@@ -1683,59 +1686,95 @@ class DebugLog(google.protobuf.message.Message):
 
 global___DebugLog = DebugLog
 
-class MissingApproval(google.protobuf.message.Message):
+class RuntimeExtensionMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class RuntimeExtensionMetadata(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    OUTPUT_FIELD_NUMBER: builtins.int
+    @property
+    def output(self) -> global___RuntimeExtensionFetchOutput:
+        """the plan this approval is for, if any"""
+    def __init__(
+        self,
+        *,
+        output: global___RuntimeExtensionFetchOutput | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["output", b"output"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["output", b"output"]) -> None: ...
 
-        OUTPUT_FIELD_NUMBER: builtins.int
-        @property
-        def output(self) -> global___RuntimeExtensionFetchOutput:
-            """the plan this approval is for, if any"""
-        def __init__(
-            self,
-            *,
-            output: global___RuntimeExtensionFetchOutput | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["output", b"output"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["output", b"output"]) -> None: ...
+global___RuntimeExtensionMetadata = RuntimeExtensionMetadata
+
+class MissingApproval(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SIGNAL_TYPE_FIELD_NUMBER: builtins.int
     TOPIC_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
+    CURRENT_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     signal_type: global___SignalType.ValueType
     topic: builtins.str
     @property
-    def runtime_extension(self) -> global___MissingApproval.RuntimeExtensionMetadata: ...
+    def runtime_extension(self) -> global___RuntimeExtensionMetadata: ...
+    current: builtins.bool
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         signal_type: global___SignalType.ValueType = ...,
         topic: builtins.str = ...,
-        runtime_extension: global___MissingApproval.RuntimeExtensionMetadata | None = ...,
+        runtime_extension: global___RuntimeExtensionMetadata | None = ...,
+        current: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["runtime_extension", b"runtime_extension"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "runtime_extension", b"runtime_extension", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "desired_state_id", b"desired_state_id", "runtime_extension", b"runtime_extension", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 
 global___MissingApproval = MissingApproval
 
 class ApplyRejected(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class InternalMissingApproval(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+        SIGNAL_TYPE_FIELD_NUMBER: builtins.int
+        TOPIC_FIELD_NUMBER: builtins.int
+        RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
+        GENERATOR_DESIRED_STATE_IDS_FIELD_NUMBER: builtins.int
+        desired_state_id: builtins.str
+        signal_type: global___SignalType.ValueType
+        topic: builtins.str
+        @property
+        def runtime_extension(self) -> global___RuntimeExtensionMetadata: ...
+        @property
+        def generator_desired_state_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+            """What created this missing approval?
+            If any of these desired state ids have been superseded,
+            this approval should be considered not current.
+            """
+        def __init__(
+            self,
+            *,
+            desired_state_id: builtins.str = ...,
+            signal_type: global___SignalType.ValueType = ...,
+            topic: builtins.str = ...,
+            runtime_extension: global___RuntimeExtensionMetadata | None = ...,
+            generator_desired_state_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["runtime_extension", b"runtime_extension"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "generator_desired_state_ids", b"generator_desired_state_ids", "runtime_extension", b"runtime_extension", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
+
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     @property
-    def missing_approval(self) -> global___MissingApproval:
+    def missing_approval(self) -> global___ApplyRejected.InternalMissingApproval:
         """Cannot apply because this entity requires additional approval.
         TODO: Add reasons like paused entities.
         """
     def __init__(
         self,
         *,
-        missing_approval: global___MissingApproval | None = ...,
+        missing_approval: global___ApplyRejected.InternalMissingApproval | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> None: ...
