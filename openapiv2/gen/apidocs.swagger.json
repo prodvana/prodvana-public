@@ -4959,6 +4959,15 @@
         }
       }
     },
+    "ApplyDetailsApplyStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "CONVERGED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
     "ApplyTargetStateEventApplyResult": {
       "type": "string",
       "enum": [
@@ -9190,6 +9199,9 @@
         "version": {
           "type": "string",
           "title": "the version of the service associated with this apply run"
+        },
+        "applyStatus": {
+          "$ref": "#/definitions/ApplyDetailsApplyStatus"
         }
       }
     },

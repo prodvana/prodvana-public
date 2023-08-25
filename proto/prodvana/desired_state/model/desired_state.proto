@@ -328,12 +328,18 @@ message RuntimeExtensionFetchOutput {
 }
 
 message ApplyDetails {
+    enum ApplyStatus {
+        UNKNOWN = 0;
+        CONVERGED = 1;
+        FAILED = 2;
+    }
     // when the apply job started
     google.protobuf.Timestamp started_timestamp = 1;
     // when the apply job completed
     google.protobuf.Timestamp completed_timestamp = 2;
     // the version of the service associated with this apply run
     string version = 3;
+    ApplyStatus apply_status = 4;
 }
 
 message RuntimeExtensionApplyOutput {

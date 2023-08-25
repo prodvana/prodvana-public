@@ -936,9 +936,25 @@ global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 class ApplyDetails(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _ApplyStatus:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ApplyStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApplyDetails._ApplyStatus.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: ApplyDetails._ApplyStatus.ValueType  # 0
+        CONVERGED: ApplyDetails._ApplyStatus.ValueType  # 1
+        FAILED: ApplyDetails._ApplyStatus.ValueType  # 2
+
+    class ApplyStatus(_ApplyStatus, metaclass=_ApplyStatusEnumTypeWrapper): ...
+    UNKNOWN: ApplyDetails.ApplyStatus.ValueType  # 0
+    CONVERGED: ApplyDetails.ApplyStatus.ValueType  # 1
+    FAILED: ApplyDetails.ApplyStatus.ValueType  # 2
+
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
     COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
+    APPLY_STATUS_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the apply job started"""
@@ -947,15 +963,17 @@ class ApplyDetails(google.protobuf.message.Message):
         """when the apply job completed"""
     version: builtins.str
     """the version of the service associated with this apply run"""
+    apply_status: global___ApplyDetails.ApplyStatus.ValueType
     def __init__(
         self,
         *,
         started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         version: builtins.str = ...,
+        apply_status: global___ApplyDetails.ApplyStatus.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
 
 global___ApplyDetails = ApplyDetails
 

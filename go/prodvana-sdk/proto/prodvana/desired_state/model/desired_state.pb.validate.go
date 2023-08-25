@@ -2787,6 +2787,8 @@ func (m *ApplyDetails) validate(all bool) error {
 
 	// no validation rules for Version
 
+	// no validation rules for ApplyStatus
+
 	if len(errors) > 0 {
 		return ApplyDetailsMultiError(errors)
 	}
