@@ -346,6 +346,8 @@ message ApplyDetails {
     // the version of the service associated with this apply run
     string version = 3;
     ApplyStatus apply_status = 4;
+    // the fetch details used for this particular apply, including any plan id
+    FetchDetails fetch_details = 5;
 }
 
 message RuntimeExtensionApplyOutput {
@@ -667,6 +669,9 @@ message TaskRun {
     repeated int32 exit_codes = 8;
     // all entities that make up the task
     repeated Identifier task_entities = 9;
+
+    // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
+    FetchDetails fetch_details = 10;
 }
 
 message TaskEntityContext {

@@ -9215,6 +9215,10 @@
         },
         "applyStatus": {
           "$ref": "#/definitions/ApplyDetailsApplyStatus"
+        },
+        "fetchDetails": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "title": "the fetch details used for this particular apply, including any plan id"
         }
       }
     },
@@ -9888,6 +9892,10 @@
             "$ref": "#/definitions/modelIdentifier"
           },
           "title": "all entities that make up the task"
+        },
+        "fetchDetails": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "title": "for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)"
         }
       }
     },
