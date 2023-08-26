@@ -321,11 +321,16 @@ message FetchDetails {
 message RuntimeExtensionFetchOutput {
     // details of an actively executing fetch, may be null if no fetch is currently executing
     FetchDetails ongoing_fetch = 8;
-    // details of the last fetch that completed, may be null if no fetch has ever executed
-    FetchDetails last_fetch = 9;
+    // details of the last fetch that completed successfully (as in, either DRIFTED or CONVERGED), may be null if no fetch has ever executed
+    FetchDetails last_successful_fetch = 9;
+    // if the latest completed fetch is FAILED, then it is stored here.
+    // if the latest completed fetch is not FAILED, then this is null.
+    FetchDetails last_failed_fetch = 10;
 
     reserved 1, 2, 3, 4, 5, 6, 7;
     reserved "fetch_plan_blob_id", "fetch_plan_explanation_blob_id", "version", "fetch_status", "started_timestamp", "completed_timestamp";
+
+    // next tag: 11
 }
 
 message ApplyDetails {
@@ -364,9 +369,10 @@ message RuntimeObject {
         prodvana.environment.ExtensionType type = 9;
         RuntimeExtensionFetchOutput fetch_output = 10;
         RuntimeExtensionApplyOutput apply_output = 12;
+        prodvana.environment.RetryPolicy fetch_retry_policy = 13;
         reserved 5;
         reserved "fetch_timeout";
-        // next tag: 13
+        // next tag: 14
     }
     Metadata meta = 1;
     string object_type = 2;

@@ -5730,6 +5730,9 @@
         },
         "applyOutput": {
           "$ref": "#/definitions/modelRuntimeExtensionApplyOutput"
+        },
+        "fetchRetryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy"
         }
       }
     },
@@ -7930,6 +7933,10 @@
           "type": "string",
           "title": "deprecated, not used"
         },
+        "retryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy",
+          "description": "retry policy for unexpected failures (for fetch, this means exits other than 0 or 2).\nif not set, regular poll interval is used for fetches, convergence grace period for apply."
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -8142,6 +8149,17 @@
     "environmentResumeClusterResp": {
       "type": "object"
     },
+    "environmentRetryPolicy": {
+      "type": "object",
+      "properties": {
+        "baseInterval": {
+          "type": "string"
+        },
+        "maxInterval": {
+          "type": "string"
+        }
+      }
+    },
     "environmentSetSecretReq": {
       "type": "object",
       "properties": {
@@ -8204,6 +8222,10 @@
         },
         "convergenceGracePeriod": {
           "type": "string"
+        },
+        "fetchRetryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy",
+          "description": "override default retry policy. Default is min = 1m, max = 15m."
         }
       }
     },
@@ -9662,9 +9684,13 @@
           "$ref": "#/definitions/modelFetchDetails",
           "title": "details of an actively executing fetch, may be null if no fetch is currently executing"
         },
-        "lastFetch": {
+        "lastSuccessfulFetch": {
           "$ref": "#/definitions/modelFetchDetails",
-          "title": "details of the last fetch that completed, may be null if no fetch has ever executed"
+          "title": "details of the last fetch that completed successfully (as in, either DRIFTED or CONVERGED), may be null if no fetch has ever executed"
+        },
+        "lastFailedFetch": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "description": "if the latest completed fetch is FAILED, then it is stored here.\nif the latest completed fetch is not FAILED, then this is null."
         }
       }
     },

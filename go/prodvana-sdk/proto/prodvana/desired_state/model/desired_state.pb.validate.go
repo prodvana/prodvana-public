@@ -2598,11 +2598,11 @@ func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetLastFetch()).(type) {
+		switch v := interface{}(m.GetLastSuccessfulFetch()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
-					field:  "LastFetch",
+					field:  "LastSuccessfulFetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -2610,16 +2610,45 @@ func (m *RuntimeExtensionFetchOutput) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
-					field:  "LastFetch",
+					field:  "LastSuccessfulFetch",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetLastFetch()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetLastSuccessfulFetch()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RuntimeExtensionFetchOutputValidationError{
-				field:  "LastFetch",
+				field:  "LastSuccessfulFetch",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetLastFailedFetch()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
+					field:  "LastFailedFetch",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionFetchOutputValidationError{
+					field:  "LastFailedFetch",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastFailedFetch()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionFetchOutputValidationError{
+				field:  "LastFailedFetch",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -7698,6 +7727,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "ApplyOutput",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFetchRetryPolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "FetchRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchRetryPolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "FetchRetryPolicy",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

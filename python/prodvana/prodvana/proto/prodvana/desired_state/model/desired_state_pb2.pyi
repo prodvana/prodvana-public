@@ -918,21 +918,28 @@ class RuntimeExtensionFetchOutput(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ONGOING_FETCH_FIELD_NUMBER: builtins.int
-    LAST_FETCH_FIELD_NUMBER: builtins.int
+    LAST_SUCCESSFUL_FETCH_FIELD_NUMBER: builtins.int
+    LAST_FAILED_FETCH_FIELD_NUMBER: builtins.int
     @property
     def ongoing_fetch(self) -> global___FetchDetails:
         """details of an actively executing fetch, may be null if no fetch is currently executing"""
     @property
-    def last_fetch(self) -> global___FetchDetails:
-        """details of the last fetch that completed, may be null if no fetch has ever executed"""
+    def last_successful_fetch(self) -> global___FetchDetails:
+        """details of the last fetch that completed successfully (as in, either DRIFTED or CONVERGED), may be null if no fetch has ever executed"""
+    @property
+    def last_failed_fetch(self) -> global___FetchDetails:
+        """if the latest completed fetch is FAILED, then it is stored here.
+        if the latest completed fetch is not FAILED, then this is null.
+        """
     def __init__(
         self,
         *,
         ongoing_fetch: global___FetchDetails | None = ...,
-        last_fetch: global___FetchDetails | None = ...,
+        last_successful_fetch: global___FetchDetails | None = ...,
+        last_failed_fetch: global___FetchDetails | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["last_fetch", b"last_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["last_fetch", b"last_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_failed_fetch", b"last_failed_fetch", "last_successful_fetch", b"last_successful_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_failed_fetch", b"last_failed_fetch", "last_successful_fetch", b"last_successful_fetch", "ongoing_fetch", b"ongoing_fetch"]) -> None: ...
 
 global___RuntimeExtensionFetchOutput = RuntimeExtensionFetchOutput
 
@@ -1047,6 +1054,7 @@ class RuntimeObject(google.protobuf.message.Message):
         TYPE_FIELD_NUMBER: builtins.int
         FETCH_OUTPUT_FIELD_NUMBER: builtins.int
         APPLY_OUTPUT_FIELD_NUMBER: builtins.int
+        FETCH_RETRY_POLICY_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -1067,6 +1075,8 @@ class RuntimeObject(google.protobuf.message.Message):
         def fetch_output(self) -> global___RuntimeExtensionFetchOutput: ...
         @property
         def apply_output(self) -> global___RuntimeExtensionApplyOutput: ...
+        @property
+        def fetch_retry_policy(self) -> prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy: ...
         def __init__(
             self,
             *,
@@ -1081,9 +1091,10 @@ class RuntimeObject(google.protobuf.message.Message):
             type: prodvana.proto.prodvana.environment.clusters_pb2.ExtensionType.ValueType = ...,
             fetch_output: global___RuntimeExtensionFetchOutput | None = ...,
             apply_output: global___RuntimeExtensionApplyOutput | None = ...,
+            fetch_retry_policy: prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int

@@ -2874,6 +2874,17 @@
                     "description": "deprecated, not used",
                     "format": "regex"
                 },
+                "retryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "retry policy for unexpected failures (for fetch, this means exits other than 0 or 2). if not set, regular poll interval is used for fetches, convergence grace period for apply."
+                },
                 "env": {
                     "additionalProperties": {
                         "$ref": "#/definitions/prodvana.common_config.EnvValue",
@@ -3003,6 +3014,30 @@
             ],
             "title": "Iac Runner Command"
         },
+        "prodvana.environment.RetryPolicy": {
+            "properties": {
+                "baseInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
+                "maxInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Retry Policy"
+        },
         "prodvana.environment.TerraformRunnerConfig": {
             "properties": {
                 "proxyRuntime": {
@@ -3093,6 +3128,17 @@
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "format": "regex"
+                },
+                "fetchRetryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "override default retry policy. Default is min = 1m, max = 15m."
                 }
             },
             "additionalProperties": false,

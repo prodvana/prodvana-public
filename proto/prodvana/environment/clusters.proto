@@ -78,6 +78,11 @@ message FakeClusterConfig {
     repeated CrashingProgramPatterns crashing_programs = 1;
 }
 
+message RetryPolicy {
+    google.protobuf.Duration base_interval = 1 [(validate.rules).duration.gt.seconds = 0];
+    google.protobuf.Duration max_interval = 2 [(validate.rules).duration.gt.seconds = 0];
+}
+
 message ExtensionCommand {
     oneof exec_config {
         option (validate.required) = true;
@@ -92,6 +97,9 @@ message ExtensionCommand {
     google.protobuf.Duration steady_state_poll_interval = 6;
     // deprecated, not used
     google.protobuf.Duration timeout = 4;
+    // retry policy for unexpected failures (for fetch, this means exits other than 0 or 2).
+    // if not set, regular poll interval is used for fetches, convergence grace period for apply.
+    RetryPolicy retry_policy = 7;
 
     // optional env variables to inject and override from exec_config
     map<string, prodvana.common_config.EnvValue> env = 5 [(validate.rules).map = {
@@ -153,7 +161,10 @@ message TerraformRunnerConfig {
 
     google.protobuf.Duration convergence_grace_period = 8 [(validate.rules).duration.gt.seconds = 0];
 
-    // next tag: 9
+    // override default retry policy. Default is min = 1m, max = 15m.
+    RetryPolicy fetch_retry_policy = 9;
+
+    // next tag: 10
 }
 
 message PulumiRunnerConfig {
@@ -167,6 +178,8 @@ message PulumiRunnerConfig {
     // Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often.
     google.protobuf.Duration poll_interval = 5;
     google.protobuf.Duration convergence_grace_period = 6 [(validate.rules).duration.gt.seconds = 0];
+    // override default retry policy. Default is min = 1m, max = 15m.
+    RetryPolicy fetch_retry_policy = 7;
 }
 
 message ClusterConfig {
