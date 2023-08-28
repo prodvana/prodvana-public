@@ -271,7 +271,7 @@ class RetryPolicy(google.protobuf.message.Message):
 
 global___RetryPolicy = RetryPolicy
 
-class ExtensionCommand(google.protobuf.message.Message):
+class ExtensionFetchCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class EnvEntry(google.protobuf.message.Message):
@@ -316,8 +316,8 @@ class ExtensionCommand(google.protobuf.message.Message):
         """deprecated, not used"""
     @property
     def retry_policy(self) -> global___RetryPolicy:
-        """retry policy for unexpected failures (for fetch, this means exits other than 0 or 2).
-        if not set, regular poll interval is used for fetches, convergence grace period for apply.
+        """retry policy for unexpected failures (this means exits other than 0 or 2).
+        if not set, regular, non-steady-state poll interval is used for fetches.
         """
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
@@ -337,7 +337,55 @@ class ExtensionCommand(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
-global___ExtensionCommand = ExtensionCommand
+global___ExtensionFetchCommand = ExtensionFetchCommand
+
+class ExtensionApplyCommand(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class EnvEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> prodvana.proto.prodvana.common_config.env_pb2.EnvValue: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: prodvana.proto.prodvana.common_config.env_pb2.EnvValue | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    TASK_CONFIG_FIELD_NUMBER: builtins.int
+    KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
+    TIMEOUT_FIELD_NUMBER: builtins.int
+    ENV_FIELD_NUMBER: builtins.int
+    @property
+    def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
+    @property
+    def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
+    @property
+    def timeout(self) -> google.protobuf.duration_pb2.Duration:
+        """deprecated, not used"""
+    @property
+    def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
+        """optional env variables to inject and override from exec_config"""
+    def __init__(
+        self,
+        *,
+        task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
+        kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
+        timeout: google.protobuf.duration_pb2.Duration | None = ...,
+        env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
+
+global___ExtensionApplyCommand = ExtensionApplyCommand
 
 class ExtensionClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -350,9 +398,9 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     @property
-    def apply(self) -> global___ExtensionCommand: ...
+    def apply(self) -> global___ExtensionApplyCommand: ...
     @property
-    def fetch(self) -> global___ExtensionCommand: ...
+    def fetch(self) -> global___ExtensionFetchCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
@@ -369,8 +417,8 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        apply: global___ExtensionCommand | None = ...,
-        fetch: global___ExtensionCommand | None = ...,
+        apply: global___ExtensionApplyCommand | None = ...,
+        fetch: global___ExtensionFetchCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         type: global___ExtensionType.ValueType = ...,
@@ -384,6 +432,25 @@ global___ExtensionClusterConfig = ExtensionClusterConfig
 
 class CompiledExtensionCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class CompiledExtensionCommandExec(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        TASK_CONFIG_FIELD_NUMBER: builtins.int
+        KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
+        @property
+        def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
+        @property
+        def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
+        def __init__(
+            self,
+            *,
+            task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
+            kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
     class EnvEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -408,7 +475,8 @@ class CompiledExtensionCommand(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     name_prefix: builtins.str
     @property
-    def command(self) -> global___ExtensionCommand: ...
+    def command(self) -> global___CompiledExtensionCommand.CompiledExtensionCommandExec:
+        """weird nesting for compatibility reasons, from before fetch and apply definitions were split"""
     @property
     def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -417,7 +485,7 @@ class CompiledExtensionCommand(google.protobuf.message.Message):
         self,
         *,
         name_prefix: builtins.str = ...,
-        command: global___ExtensionCommand | None = ...,
+        command: global___CompiledExtensionCommand.CompiledExtensionCommandExec | None = ...,
         runtime_execution: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...

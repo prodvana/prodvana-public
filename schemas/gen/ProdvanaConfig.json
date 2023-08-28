@@ -2737,10 +2737,71 @@
             ],
             "title": "Kubecost"
         },
+        "prodvana.environment.ExtensionApplyCommand": {
+            "properties": {
+                "taskConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "timeout": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "deprecated, not used",
+                    "format": "regex"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to inject and override from exec_config"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Extension Apply Command"
+        },
         "prodvana.environment.ExtensionClusterConfig": {
             "properties": {
                 "apply": {
-                    "$ref": "#/definitions/prodvana.environment.ExtensionCommand",
+                    "$ref": "#/definitions/prodvana.environment.ExtensionApplyCommand",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2750,7 +2811,7 @@
                     ]
                 },
                 "fetch": {
-                    "$ref": "#/definitions/prodvana.environment.ExtensionCommand",
+                    "$ref": "#/definitions/prodvana.environment.ExtensionFetchCommand",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2834,7 +2895,7 @@
             ],
             "title": "Extension Cluster Config"
         },
-        "prodvana.environment.ExtensionCommand": {
+        "prodvana.environment.ExtensionFetchCommand": {
             "properties": {
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
@@ -2883,7 +2944,7 @@
                         },
                         {}
                     ],
-                    "description": "retry policy for unexpected failures (for fetch, this means exits other than 0 or 2). if not set, regular poll interval is used for fetches, convergence grace period for apply."
+                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2). if not set, regular, non-steady-state poll interval is used for fetches."
                 },
                 "env": {
                     "additionalProperties": {
@@ -2916,7 +2977,7 @@
                     "type": "object"
                 }
             ],
-            "title": "Extension Command"
+            "title": "Extension Fetch Command"
         },
         "prodvana.environment.FakeClusterConfig": {
             "properties": {

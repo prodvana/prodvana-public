@@ -719,22 +719,22 @@ var _ interface {
 	ErrorName() string
 } = RetryPolicyValidationError{}
 
-// Validate checks the field values on ExtensionCommand with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *ExtensionCommand) Validate() error {
+// Validate checks the field values on ExtensionFetchCommand with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ExtensionFetchCommand) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ExtensionCommand with the rules
+// ValidateAll checks the field values on ExtensionFetchCommand with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ExtensionCommandMultiError, or nil if none found.
-func (m *ExtensionCommand) ValidateAll() error {
+// ExtensionFetchCommandMultiError, or nil if none found.
+func (m *ExtensionFetchCommand) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ExtensionCommand) validate(all bool) error {
+func (m *ExtensionFetchCommand) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -745,7 +745,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		switch v := interface{}(m.GetPollInterval()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "PollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -753,7 +753,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "PollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -762,7 +762,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetPollInterval()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ExtensionCommandValidationError{
+			return ExtensionFetchCommandValidationError{
 				field:  "PollInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -774,7 +774,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		switch v := interface{}(m.GetSteadyStatePollInterval()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "SteadyStatePollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -782,7 +782,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "SteadyStatePollInterval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -791,7 +791,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetSteadyStatePollInterval()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ExtensionCommandValidationError{
+			return ExtensionFetchCommandValidationError{
 				field:  "SteadyStatePollInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -803,7 +803,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		switch v := interface{}(m.GetTimeout()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "Timeout",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -811,7 +811,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "Timeout",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -820,7 +820,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetTimeout()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ExtensionCommandValidationError{
+			return ExtensionFetchCommandValidationError{
 				field:  "Timeout",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -832,7 +832,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		switch v := interface{}(m.GetRetryPolicy()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "RetryPolicy",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -840,7 +840,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ExtensionCommandValidationError{
+				errors = append(errors, ExtensionFetchCommandValidationError{
 					field:  "RetryPolicy",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -849,7 +849,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRetryPolicy()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ExtensionCommandValidationError{
+			return ExtensionFetchCommandValidationError{
 				field:  "RetryPolicy",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -870,7 +870,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			_ = val
 
 			if val == nil {
-				err := ExtensionCommandValidationError{
+				err := ExtensionFetchCommandValidationError{
 					field:  fmt.Sprintf("Env[%v]", key),
 					reason: "value cannot be sparse, all pairs must be non-nil",
 				}
@@ -880,8 +880,8 @@ func (m *ExtensionCommand) validate(all bool) error {
 				errors = append(errors, err)
 			}
 
-			if !_ExtensionCommand_Env_Pattern.MatchString(key) {
-				err := ExtensionCommandValidationError{
+			if !_ExtensionFetchCommand_Env_Pattern.MatchString(key) {
+				err := ExtensionFetchCommandValidationError{
 					field:  fmt.Sprintf("Env[%v]", key),
 					reason: "value does not match regex pattern \"^[a-zA-Z_]+[a-zA-Z0-9_]*$\"",
 				}
@@ -895,7 +895,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 				switch v := interface{}(val).(type) {
 				case interface{ ValidateAll() error }:
 					if err := v.ValidateAll(); err != nil {
-						errors = append(errors, ExtensionCommandValidationError{
+						errors = append(errors, ExtensionFetchCommandValidationError{
 							field:  fmt.Sprintf("Env[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
@@ -903,7 +903,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 					}
 				case interface{ Validate() error }:
 					if err := v.Validate(); err != nil {
-						errors = append(errors, ExtensionCommandValidationError{
+						errors = append(errors, ExtensionFetchCommandValidationError{
 							field:  fmt.Sprintf("Env[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
@@ -912,7 +912,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 				}
 			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 				if err := v.Validate(); err != nil {
-					return ExtensionCommandValidationError{
+					return ExtensionFetchCommandValidationError{
 						field:  fmt.Sprintf("Env[%v]", key),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -925,9 +925,9 @@ func (m *ExtensionCommand) validate(all bool) error {
 
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
-	case *ExtensionCommand_TaskConfig:
+	case *ExtensionFetchCommand_TaskConfig:
 		if v == nil {
-			err := ExtensionCommandValidationError{
+			err := ExtensionFetchCommandValidationError{
 				field:  "ExecConfig",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -942,7 +942,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			switch v := interface{}(m.GetTaskConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ExtensionCommandValidationError{
+					errors = append(errors, ExtensionFetchCommandValidationError{
 						field:  "TaskConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -950,7 +950,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ExtensionCommandValidationError{
+					errors = append(errors, ExtensionFetchCommandValidationError{
 						field:  "TaskConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -959,7 +959,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetTaskConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ExtensionCommandValidationError{
+				return ExtensionFetchCommandValidationError{
 					field:  "TaskConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -967,9 +967,9 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		}
 
-	case *ExtensionCommand_KubernetesConfig:
+	case *ExtensionFetchCommand_KubernetesConfig:
 		if v == nil {
-			err := ExtensionCommandValidationError{
+			err := ExtensionFetchCommandValidationError{
 				field:  "ExecConfig",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -984,7 +984,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			switch v := interface{}(m.GetKubernetesConfig()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ExtensionCommandValidationError{
+					errors = append(errors, ExtensionFetchCommandValidationError{
 						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -992,7 +992,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ExtensionCommandValidationError{
+					errors = append(errors, ExtensionFetchCommandValidationError{
 						field:  "KubernetesConfig",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1001,7 +1001,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ExtensionCommandValidationError{
+				return ExtensionFetchCommandValidationError{
 					field:  "KubernetesConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1013,7 +1013,7 @@ func (m *ExtensionCommand) validate(all bool) error {
 		_ = v // ensures v is used
 	}
 	if !oneofExecConfigPresent {
-		err := ExtensionCommandValidationError{
+		err := ExtensionFetchCommandValidationError{
 			field:  "ExecConfig",
 			reason: "value is required",
 		}
@@ -1024,19 +1024,19 @@ func (m *ExtensionCommand) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ExtensionCommandMultiError(errors)
+		return ExtensionFetchCommandMultiError(errors)
 	}
 
 	return nil
 }
 
-// ExtensionCommandMultiError is an error wrapping multiple validation errors
-// returned by ExtensionCommand.ValidateAll() if the designated constraints
-// aren't met.
-type ExtensionCommandMultiError []error
+// ExtensionFetchCommandMultiError is an error wrapping multiple validation
+// errors returned by ExtensionFetchCommand.ValidateAll() if the designated
+// constraints aren't met.
+type ExtensionFetchCommandMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ExtensionCommandMultiError) Error() string {
+func (m ExtensionFetchCommandMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1045,11 +1045,11 @@ func (m ExtensionCommandMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ExtensionCommandMultiError) AllErrors() []error { return m }
+func (m ExtensionFetchCommandMultiError) AllErrors() []error { return m }
 
-// ExtensionCommandValidationError is the validation error returned by
-// ExtensionCommand.Validate if the designated constraints aren't met.
-type ExtensionCommandValidationError struct {
+// ExtensionFetchCommandValidationError is the validation error returned by
+// ExtensionFetchCommand.Validate if the designated constraints aren't met.
+type ExtensionFetchCommandValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1057,22 +1057,24 @@ type ExtensionCommandValidationError struct {
 }
 
 // Field function returns field value.
-func (e ExtensionCommandValidationError) Field() string { return e.field }
+func (e ExtensionFetchCommandValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ExtensionCommandValidationError) Reason() string { return e.reason }
+func (e ExtensionFetchCommandValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ExtensionCommandValidationError) Cause() error { return e.cause }
+func (e ExtensionFetchCommandValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ExtensionCommandValidationError) Key() bool { return e.key }
+func (e ExtensionFetchCommandValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ExtensionCommandValidationError) ErrorName() string { return "ExtensionCommandValidationError" }
+func (e ExtensionFetchCommandValidationError) ErrorName() string {
+	return "ExtensionFetchCommandValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e ExtensionCommandValidationError) Error() string {
+func (e ExtensionFetchCommandValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1084,14 +1086,14 @@ func (e ExtensionCommandValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sExtensionCommand.%s: %s%s",
+		"invalid %sExtensionFetchCommand.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ExtensionCommandValidationError{}
+var _ error = ExtensionFetchCommandValidationError{}
 
 var _ interface {
 	Field() string
@@ -1099,9 +1101,308 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ExtensionCommandValidationError{}
+} = ExtensionFetchCommandValidationError{}
 
-var _ExtensionCommand_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
+var _ExtensionFetchCommand_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
+
+// Validate checks the field values on ExtensionApplyCommand with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ExtensionApplyCommand) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ExtensionApplyCommand with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ExtensionApplyCommandMultiError, or nil if none found.
+func (m *ExtensionApplyCommand) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ExtensionApplyCommand) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTimeout()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ExtensionApplyCommandValidationError{
+					field:  "Timeout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ExtensionApplyCommandValidationError{
+					field:  "Timeout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimeout()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ExtensionApplyCommandValidationError{
+				field:  "Timeout",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	{
+		sorted_keys := make([]string, len(m.GetEnv()))
+		i := 0
+		for key := range m.GetEnv() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetEnv()[key]
+			_ = val
+
+			if val == nil {
+				err := ExtensionApplyCommandValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value cannot be sparse, all pairs must be non-nil",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_ExtensionApplyCommand_Env_Pattern.MatchString(key) {
+				err := ExtensionApplyCommandValidationError{
+					field:  fmt.Sprintf("Env[%v]", key),
+					reason: "value does not match regex pattern \"^[a-zA-Z_]+[a-zA-Z0-9_]*$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, ExtensionApplyCommandValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, ExtensionApplyCommandValidationError{
+							field:  fmt.Sprintf("Env[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return ExtensionApplyCommandValidationError{
+						field:  fmt.Sprintf("Env[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
+	oneofExecConfigPresent := false
+	switch v := m.ExecConfig.(type) {
+	case *ExtensionApplyCommand_TaskConfig:
+		if v == nil {
+			err := ExtensionApplyCommandValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetTaskConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ExtensionApplyCommandValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ExtensionApplyCommandValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetTaskConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ExtensionApplyCommandValidationError{
+					field:  "TaskConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ExtensionApplyCommand_KubernetesConfig:
+		if v == nil {
+			err := ExtensionApplyCommandValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ExtensionApplyCommandValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ExtensionApplyCommandValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ExtensionApplyCommandValidationError{
+					field:  "KubernetesConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofExecConfigPresent {
+		err := ExtensionApplyCommandValidationError{
+			field:  "ExecConfig",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ExtensionApplyCommandMultiError(errors)
+	}
+
+	return nil
+}
+
+// ExtensionApplyCommandMultiError is an error wrapping multiple validation
+// errors returned by ExtensionApplyCommand.ValidateAll() if the designated
+// constraints aren't met.
+type ExtensionApplyCommandMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ExtensionApplyCommandMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ExtensionApplyCommandMultiError) AllErrors() []error { return m }
+
+// ExtensionApplyCommandValidationError is the validation error returned by
+// ExtensionApplyCommand.Validate if the designated constraints aren't met.
+type ExtensionApplyCommandValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ExtensionApplyCommandValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ExtensionApplyCommandValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ExtensionApplyCommandValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ExtensionApplyCommandValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ExtensionApplyCommandValidationError) ErrorName() string {
+	return "ExtensionApplyCommandValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ExtensionApplyCommandValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sExtensionApplyCommand.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ExtensionApplyCommandValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ExtensionApplyCommandValidationError{}
+
+var _ExtensionApplyCommand_Env_Pattern = regexp.MustCompile("^[a-zA-Z_]+[a-zA-Z0-9_]*$")
 
 // Validate checks the field values on ExtensionClusterConfig with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3241,6 +3542,224 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FakeClusterConfig_CrashingProgramPatternsValidationError{}
+
+// Validate checks the field values on
+// CompiledExtensionCommand_CompiledExtensionCommandExec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CompiledExtensionCommand_CompiledExtensionCommandExec) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// CompiledExtensionCommand_CompiledExtensionCommandExec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CompiledExtensionCommand_CompiledExtensionCommandExecMultiError, or nil if
+// none found.
+func (m *CompiledExtensionCommand_CompiledExtensionCommandExec) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CompiledExtensionCommand_CompiledExtensionCommandExec) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofExecConfigPresent := false
+	switch v := m.ExecConfig.(type) {
+	case *CompiledExtensionCommand_CompiledExtensionCommandExec_TaskConfig:
+		if v == nil {
+			err := CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetTaskConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+						field:  "TaskConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetTaskConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+					field:  "TaskConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *CompiledExtensionCommand_CompiledExtensionCommandExec_KubernetesConfig:
+		if v == nil {
+			err := CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+				field:  "ExecConfig",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofExecConfigPresent = true
+
+		if all {
+			switch v := interface{}(m.GetKubernetesConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+						field:  "KubernetesConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetKubernetesConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+					field:  "KubernetesConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofExecConfigPresent {
+		err := CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{
+			field:  "ExecConfig",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CompiledExtensionCommand_CompiledExtensionCommandExecMultiError(errors)
+	}
+
+	return nil
+}
+
+// CompiledExtensionCommand_CompiledExtensionCommandExecMultiError is an error
+// wrapping multiple validation errors returned by
+// CompiledExtensionCommand_CompiledExtensionCommandExec.ValidateAll() if the
+// designated constraints aren't met.
+type CompiledExtensionCommand_CompiledExtensionCommandExecMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CompiledExtensionCommand_CompiledExtensionCommandExecMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CompiledExtensionCommand_CompiledExtensionCommandExecMultiError) AllErrors() []error {
+	return m
+}
+
+// CompiledExtensionCommand_CompiledExtensionCommandExecValidationError is the
+// validation error returned by
+// CompiledExtensionCommand_CompiledExtensionCommandExec.Validate if the
+// designated constraints aren't met.
+type CompiledExtensionCommand_CompiledExtensionCommandExecValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) Key() bool {
+	return e.key
+}
+
+// ErrorName returns error name.
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) ErrorName() string {
+	return "CompiledExtensionCommand_CompiledExtensionCommandExecValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CompiledExtensionCommand_CompiledExtensionCommandExecValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCompiledExtensionCommand_CompiledExtensionCommandExec.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{}
 
 // Validate checks the field values on ClusterConfig_Kubecost with the rules
 // defined in the proto definition for this message. If any rules are

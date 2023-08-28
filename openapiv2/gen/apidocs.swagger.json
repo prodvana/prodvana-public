@@ -5154,6 +5154,17 @@
       "default": "UNKNOWN",
       "description": "Origin specifies where the cluster came from.\n\n - PRODVANA: our infra created it\n - EXTERNAL: created externally and added"
     },
+    "CompiledExtensionCommandCompiledExtensionCommandExec": {
+      "type": "object",
+      "properties": {
+        "taskConfig": {
+          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        }
+      }
+    },
     "ConditionCustomTaskSuccessfulCondition": {
       "type": "object",
       "properties": {
@@ -7833,7 +7844,8 @@
           "type": "string"
         },
         "command": {
-          "$ref": "#/definitions/environmentExtensionCommand"
+          "$ref": "#/definitions/CompiledExtensionCommandCompiledExtensionCommandExec",
+          "title": "weird nesting for compatibility reasons, from before fetch and apply definitions were split"
         },
         "runtimeExecution": {
           "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
@@ -7880,14 +7892,36 @@
         }
       }
     },
+    "environmentExtensionApplyCommand": {
+      "type": "object",
+      "properties": {
+        "taskConfig": {
+          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        },
+        "timeout": {
+          "type": "string",
+          "title": "deprecated, not used"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to inject and override from exec_config"
+        }
+      }
+    },
     "environmentExtensionClusterConfig": {
       "type": "object",
       "properties": {
         "apply": {
-          "$ref": "#/definitions/environmentExtensionCommand"
+          "$ref": "#/definitions/environmentExtensionApplyCommand"
         },
         "fetch": {
-          "$ref": "#/definitions/environmentExtensionCommand"
+          "$ref": "#/definitions/environmentExtensionFetchCommand"
         },
         "parameters": {
           "type": "array",
@@ -7912,7 +7946,7 @@
         }
       }
     },
-    "environmentExtensionCommand": {
+    "environmentExtensionFetchCommand": {
       "type": "object",
       "properties": {
         "taskConfig": {
@@ -7935,7 +7969,7 @@
         },
         "retryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy",
-          "description": "retry policy for unexpected failures (for fetch, this means exits other than 0 or 2).\nif not set, regular poll interval is used for fetches, convergence grace period for apply."
+          "description": "retry policy for unexpected failures (this means exits other than 0 or 2).\nif not set, regular, non-steady-state poll interval is used for fetches."
         },
         "env": {
           "type": "object",

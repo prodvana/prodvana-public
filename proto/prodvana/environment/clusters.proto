@@ -83,7 +83,7 @@ message RetryPolicy {
     google.protobuf.Duration max_interval = 2 [(validate.rules).duration.gt.seconds = 0];
 }
 
-message ExtensionCommand {
+message ExtensionFetchCommand {
     oneof exec_config {
         option (validate.required) = true;
         prodvana.common_config.TaskConfig task_config = 1;
@@ -97,8 +97,8 @@ message ExtensionCommand {
     google.protobuf.Duration steady_state_poll_interval = 6;
     // deprecated, not used
     google.protobuf.Duration timeout = 4;
-    // retry policy for unexpected failures (for fetch, this means exits other than 0 or 2).
-    // if not set, regular poll interval is used for fetches, convergence grace period for apply.
+    // retry policy for unexpected failures (this means exits other than 0 or 2).
+    // if not set, regular, non-steady-state poll interval is used for fetches.
     RetryPolicy retry_policy = 7;
 
     // optional env variables to inject and override from exec_config
@@ -112,6 +112,29 @@ message ExtensionCommand {
     }];
 }
 
+message ExtensionApplyCommand {
+    oneof exec_config {
+        option (validate.required) = true;
+        prodvana.common_config.TaskConfig task_config = 1;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 2;
+    }
+    // deprecated, not used
+    google.protobuf.Duration timeout = 4;
+
+    // optional env variables to inject and override from exec_config
+    map<string, prodvana.common_config.EnvValue> env = 5 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+
+    // reserved fields from before fetch and apply definitions were split.
+    reserved 3, 6, 7;
+}
+
 enum ExtensionType {
     GENERIC = 0;
     TERRAFORM = 1;
@@ -119,8 +142,8 @@ enum ExtensionType {
 }
 
 message ExtensionClusterConfig {
-    ExtensionCommand apply = 1 [(validate.rules).message.required = true];
-    ExtensionCommand fetch = 2;
+    ExtensionApplyCommand apply = 1 [(validate.rules).message.required = true];
+    ExtensionFetchCommand fetch = 2;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
@@ -133,8 +156,19 @@ message ExtensionClusterConfig {
 }
 
 message CompiledExtensionCommand {
+    message CompiledExtensionCommandExec {
+        oneof exec_config {
+            option (validate.required) = true;
+            prodvana.common_config.TaskConfig task_config = 1;
+            prodvana.common_config.KubernetesConfig kubernetes_config = 2;
+        }
+
+        // reserved fields from before fetch and apply definitions were split.
+        reserved 3, 4, 5, 6, 7;
+    }
     string name_prefix = 1;
-    ExtensionCommand command = 2;
+    // weird nesting for compatibility reasons, from before fetch and apply definitions were split
+    CompiledExtensionCommandExec command = 2;
     prodvana.runtimes.RuntimeExecutionConfig runtime_execution = 3;
     map<string, prodvana.common_config.EnvValue> env = 4;
 }
