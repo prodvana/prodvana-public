@@ -338,6 +338,7 @@ message ApplyDetails {
         UNKNOWN = 0;
         CONVERGED = 1;
         FAILED = 2;
+        RETRYABLE = 3;
     }
     // when the apply job started
     google.protobuf.Timestamp started_timestamp = 1;
@@ -372,9 +373,11 @@ message RuntimeObject {
         RuntimeExtensionFetchOutput fetch_output = 10;
         RuntimeExtensionApplyOutput apply_output = 12;
         prodvana.environment.RetryPolicy fetch_retry_policy = 13;
+        prodvana.environment.RetryPolicy apply_retry_policy = 14;
+        repeated int32 apply_retryable_exit_codes = 15;
         reserved 5;
         reserved "fetch_timeout";
-        // next tag: 14
+        // next tag: 16
     }
     Metadata meta = 1;
     string object_type = 2;
@@ -672,6 +675,11 @@ message TaskRun {
 
     // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
     FetchDetails fetch_details = 10;
+
+    // if there is any intersection between these and exit_codes, and the status is FAILED, then the retryable bit below will be
+    // set to true.
+    repeated int32 retryable_exit_codes = 11;
+    bool retryable = 12;
 }
 
 message TaskEntityContext {

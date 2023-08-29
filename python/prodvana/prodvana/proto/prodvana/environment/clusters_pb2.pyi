@@ -363,6 +363,8 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
     KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
+    RETRY_POLICY_FIELD_NUMBER: builtins.int
+    RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
     @property
@@ -373,6 +375,12 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to inject and override from exec_config"""
+    @property
+    def retry_policy(self) -> global___RetryPolicy:
+        """used in conjunction with retryable_exit_codes, defaults to the convergence grace period"""
+    @property
+    def retryable_exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """if set and the apply command returns these exit codes, retry the command without marking the result as failing."""
     def __init__(
         self,
         *,
@@ -380,9 +388,11 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
         kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+        retry_policy: global___RetryPolicy | None = ...,
+        retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "retry_policy", b"retry_policy", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "retry_policy", b"retry_policy", "retryable_exit_codes", b"retryable_exit_codes", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ExtensionApplyCommand = ExtensionApplyCommand
@@ -537,6 +547,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     FETCH_RETRY_POLICY_FIELD_NUMBER: builtins.int
+    APPLY_RETRY_POLICY_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -563,6 +574,9 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     @property
     def fetch_retry_policy(self) -> global___RetryPolicy:
         """override default retry policy. Default is min = 1m, max = 15m."""
+    @property
+    def apply_retry_policy(self) -> global___RetryPolicy:
+        """override apply retry policy. Default is min = 30s, max = 5m."""
     def __init__(
         self,
         *,
@@ -575,9 +589,10 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         require_approval_before_apply: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
         fetch_retry_policy: global___RetryPolicy | None = ...,
+        apply_retry_policy: global___RetryPolicy | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 

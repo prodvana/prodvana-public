@@ -4964,7 +4964,8 @@
       "enum": [
         "UNKNOWN",
         "CONVERGED",
-        "FAILED"
+        "FAILED",
+        "RETRYABLE"
       ],
       "default": "UNKNOWN"
     },
@@ -5744,6 +5745,16 @@
         },
         "fetchRetryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy"
+        },
+        "applyRetryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy"
+        },
+        "applyRetryableExitCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         }
       }
     },
@@ -7911,6 +7922,18 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "title": "optional env variables to inject and override from exec_config"
+        },
+        "retryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy",
+          "title": "used in conjunction with retryable_exit_codes, defaults to the convergence grace period"
+        },
+        "retryableExitCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
         }
       }
     },
@@ -8260,6 +8283,10 @@
         "fetchRetryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy",
           "description": "override default retry policy. Default is min = 1m, max = 15m."
+        },
+        "applyRetryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy",
+          "description": "override apply retry policy. Default is min = 30s, max = 5m."
         }
       }
     },
@@ -9930,6 +9957,17 @@
         "fetchDetails": {
           "$ref": "#/definitions/modelFetchDetails",
           "title": "for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)"
+        },
+        "retryableExitCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "if there is any intersection between these and exit_codes, and the status is FAILED, then the retryable bit below will be\nset to true."
+        },
+        "retryable": {
+          "type": "boolean"
         }
       }
     },

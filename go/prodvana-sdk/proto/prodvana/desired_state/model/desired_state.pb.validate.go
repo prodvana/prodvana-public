@@ -6786,6 +6786,8 @@ func (m *TaskRun) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Retryable
+
 	if len(errors) > 0 {
 		return TaskRunMultiError(errors)
 	}
@@ -7814,6 +7816,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "FetchRetryPolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetApplyRetryPolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "ApplyRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "ApplyRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplyRetryPolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "ApplyRetryPolicy",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

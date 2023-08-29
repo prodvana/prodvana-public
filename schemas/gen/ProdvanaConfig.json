@@ -2785,6 +2785,38 @@
                         }
                     ],
                     "description": "optional env variables to inject and override from exec_config"
+                },
+                "retryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "used in conjunction with retryable_exit_codes, defaults to the convergence grace period"
+                },
+                "retryableExitCodes": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "integer"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
                 }
             },
             "additionalProperties": false,
@@ -3200,6 +3232,17 @@
                         {}
                     ],
                     "description": "override default retry policy. Default is min = 1m, max = 15m."
+                },
+                "applyRetryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "override apply retry policy. Default is min = 30s, max = 5m."
                 }
             },
             "additionalProperties": false,

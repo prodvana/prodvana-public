@@ -955,11 +955,13 @@ class ApplyDetails(google.protobuf.message.Message):
         UNKNOWN: ApplyDetails._ApplyStatus.ValueType  # 0
         CONVERGED: ApplyDetails._ApplyStatus.ValueType  # 1
         FAILED: ApplyDetails._ApplyStatus.ValueType  # 2
+        RETRYABLE: ApplyDetails._ApplyStatus.ValueType  # 3
 
     class ApplyStatus(_ApplyStatus, metaclass=_ApplyStatusEnumTypeWrapper): ...
     UNKNOWN: ApplyDetails.ApplyStatus.ValueType  # 0
     CONVERGED: ApplyDetails.ApplyStatus.ValueType  # 1
     FAILED: ApplyDetails.ApplyStatus.ValueType  # 2
+    RETRYABLE: ApplyDetails.ApplyStatus.ValueType  # 3
 
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
     COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -1060,6 +1062,8 @@ class RuntimeObject(google.protobuf.message.Message):
         FETCH_OUTPUT_FIELD_NUMBER: builtins.int
         APPLY_OUTPUT_FIELD_NUMBER: builtins.int
         FETCH_RETRY_POLICY_FIELD_NUMBER: builtins.int
+        APPLY_RETRY_POLICY_FIELD_NUMBER: builtins.int
+        APPLY_RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
         @property
         def apply(self) -> prodvana.proto.prodvana.environment.clusters_pb2.CompiledExtensionCommand:
             """aggregate object will have all commands set. Fetcher will only have fetch set."""
@@ -1082,6 +1086,10 @@ class RuntimeObject(google.protobuf.message.Message):
         def apply_output(self) -> global___RuntimeExtensionApplyOutput: ...
         @property
         def fetch_retry_policy(self) -> prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy: ...
+        @property
+        def apply_retry_policy(self) -> prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy: ...
+        @property
+        def apply_retryable_exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
         def __init__(
             self,
             *,
@@ -1097,9 +1105,11 @@ class RuntimeObject(google.protobuf.message.Message):
             fetch_output: global___RuntimeExtensionFetchOutput | None = ...,
             apply_output: global___RuntimeExtensionApplyOutput | None = ...,
             fetch_retry_policy: prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy | None = ...,
+            apply_retry_policy: prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy | None = ...,
+            apply_retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "apply_retry_policy", b"apply_retry_policy", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_output", b"apply_output", "apply_retry_policy", b"apply_retry_policy", "apply_retryable_exit_codes", b"apply_retryable_exit_codes", "fetch", b"fetch", "fetch_interval", b"fetch_interval", "fetch_output", b"fetch_output", "fetch_retry_policy", b"fetch_retry_policy", "fetch_steady_state_interval", b"fetch_steady_state_interval", "parameter_values", b"parameter_values", "parameters", b"parameters", "release_channel_id", b"release_channel_id", "service_id", b"service_id", "type", b"type"]) -> None: ...
 
     META_FIELD_NUMBER: builtins.int
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
@@ -1811,6 +1821,8 @@ class TaskRun(google.protobuf.message.Message):
     EXIT_CODES_FIELD_NUMBER: builtins.int
     TASK_ENTITIES_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
+    RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
+    RETRYABLE_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
     @property
     def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
@@ -1832,6 +1844,12 @@ class TaskRun(google.protobuf.message.Message):
     @property
     def fetch_details(self) -> global___FetchDetails:
         """for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)"""
+    @property
+    def retryable_exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """if there is any intersection between these and exit_codes, and the status is FAILED, then the retryable bit below will be
+        set to true.
+        """
+    retryable: builtins.bool
     def __init__(
         self,
         *,
@@ -1845,9 +1863,11 @@ class TaskRun(google.protobuf.message.Message):
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         task_entities: collections.abc.Iterable[global___Identifier] | None = ...,
         fetch_details: global___FetchDetails | None = ...,
+        retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+        retryable: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "output_blob_ids", b"output_blob_ids", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "output_blob_ids", b"output_blob_ids", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

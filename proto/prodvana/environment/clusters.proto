@@ -131,8 +131,16 @@ message ExtensionApplyCommand {
         no_sparse: true,
     }];
 
+    // used in conjunction with retryable_exit_codes, defaults to the convergence grace period
+    RetryPolicy retry_policy = 7;
+
+    // if set and the apply command returns these exit codes, retry the command without marking the result as failing.
+    repeated int32 retryable_exit_codes = 8;
+
     // reserved fields from before fetch and apply definitions were split.
-    reserved 3, 6, 7;
+    reserved 3, 6;
+
+    // next tag: 9
 }
 
 enum ExtensionType {
@@ -197,8 +205,10 @@ message TerraformRunnerConfig {
 
     // override default retry policy. Default is min = 1m, max = 15m.
     RetryPolicy fetch_retry_policy = 9;
+    // override apply retry policy. Default is min = 30s, max = 5m.
+    RetryPolicy apply_retry_policy = 10;
 
-    // next tag: 10
+    // next tag: 11
 }
 
 message PulumiRunnerConfig {

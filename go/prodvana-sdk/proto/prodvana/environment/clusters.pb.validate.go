@@ -1222,6 +1222,35 @@ func (m *ExtensionApplyCommand) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetRetryPolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ExtensionApplyCommandValidationError{
+					field:  "RetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ExtensionApplyCommandValidationError{
+					field:  "RetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRetryPolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ExtensionApplyCommandValidationError{
+				field:  "RetryPolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *ExtensionApplyCommand_TaskConfig:
@@ -2302,6 +2331,35 @@ func (m *TerraformRunnerConfig) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return TerraformRunnerConfigValidationError{
 				field:  "FetchRetryPolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetApplyRetryPolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "ApplyRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TerraformRunnerConfigValidationError{
+					field:  "ApplyRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplyRetryPolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TerraformRunnerConfigValidationError{
+				field:  "ApplyRetryPolicy",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
