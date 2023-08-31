@@ -661,6 +661,7 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
         CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
         CONFIG_VERSION_FIELD_NUMBER: builtins.int
         PARAMETERS_FIELD_NUMBER: builtins.int
+        PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         SOURCE_FIELD_NUMBER: builtins.int
         SOURCE_METADATA_FIELD_NUMBER: builtins.int
         version: builtins.str
@@ -668,7 +669,9 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
         def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
         config_version: builtins.str
         @property
-        def parameters(self) -> prodvana.proto.prodvana.service.parameters_pb2.ServiceParameterValues: ...
+        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
+        @property
+        def parameter_values(self) -> prodvana.proto.prodvana.service.parameters_pb2.ServiceParameterValues: ...
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
         @property
         def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
@@ -678,12 +681,13 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
             version: builtins.str = ...,
             creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
             config_version: builtins.str = ...,
-            parameters: prodvana.proto.prodvana.service.parameters_pb2.ServiceParameterValues | None = ...,
+            parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
+            parameter_values: prodvana.proto.prodvana.service.parameters_pb2.ServiceParameterValues | None = ...,
             source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
             source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "parameters", b"parameters", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "creation_timestamp", b"creation_timestamp", "parameters", b"parameters", "source", b"source", "source_metadata", b"source_metadata", "version", b"version"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "parameter_values", b"parameter_values", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "creation_timestamp", b"creation_timestamp", "parameter_values", b"parameter_values", "parameters", b"parameters", "source", b"source", "source_metadata", b"source_metadata", "version", b"version"]) -> None: ...
 
     VERSIONS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int

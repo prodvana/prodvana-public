@@ -11516,6 +11516,13 @@
           "type": "string"
         },
         "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configParameterDefinition"
+          }
+        },
+        "parameterValues": {
           "$ref": "#/definitions/serviceServiceParameterValues"
         },
         "source": {
