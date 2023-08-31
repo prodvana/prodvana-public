@@ -3,6 +3,15 @@ package prodvana.object;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object";
 import "prodvana/version/source_metadata.proto";
 
+enum ObjectType {
+    UNKNOWN = 0;
+    RUNTIME = 1;
+    APPLICATION = 2;
+    SERVICE = 3;
+    RELEASE_CHANNEL = 4;
+    PROTECTION = 5;
+}
+
 message ObjectMeta {
     string id = 1;
     string name = 2;
@@ -12,4 +21,6 @@ message ObjectMeta {
 
     prodvana.version.Source source = 5;
     prodvana.version.SourceMetadata source_metadata = 6;
+
+    ObjectType type = 7;
 }

@@ -10026,8 +10026,23 @@
         },
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "type": {
+          "$ref": "#/definitions/objectObjectType"
         }
       }
+    },
+    "objectObjectType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "RUNTIME",
+        "APPLICATION",
+        "SERVICE",
+        "RELEASE_CHANNEL",
+        "PROTECTION"
+      ],
+      "default": "UNKNOWN"
     },
     "organizationGetOrganizationInsightsResp": {
       "type": "object",
