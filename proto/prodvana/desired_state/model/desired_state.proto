@@ -629,6 +629,13 @@ message DebugLog {
 
 message RuntimeExtensionMetadata {
     RuntimeExtensionFetchOutput output = 1;  // the plan this approval is for, if any
+    string apply_desired_state_id = 2;
+}
+
+message ManualApprovalConfig {
+    oneof config {
+        RuntimeExtensionMetadata runtime_extension = 1;
+    }
 }
 
 message MissingApproval {

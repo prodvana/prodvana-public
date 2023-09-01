@@ -1716,18 +1716,38 @@ class RuntimeExtensionMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     OUTPUT_FIELD_NUMBER: builtins.int
+    APPLY_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     @property
     def output(self) -> global___RuntimeExtensionFetchOutput:
         """the plan this approval is for, if any"""
+    apply_desired_state_id: builtins.str
     def __init__(
         self,
         *,
         output: global___RuntimeExtensionFetchOutput | None = ...,
+        apply_desired_state_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["output", b"output"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["output", b"output"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_desired_state_id", b"apply_desired_state_id", "output", b"output"]) -> None: ...
 
 global___RuntimeExtensionMetadata = RuntimeExtensionMetadata
+
+class ManualApprovalConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
+    @property
+    def runtime_extension(self) -> global___RuntimeExtensionMetadata: ...
+    def __init__(
+        self,
+        *,
+        runtime_extension: global___RuntimeExtensionMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "runtime_extension", b"runtime_extension"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "runtime_extension", b"runtime_extension"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["runtime_extension"] | None: ...
+
+global___ManualApprovalConfig = ManualApprovalConfig
 
 class MissingApproval(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

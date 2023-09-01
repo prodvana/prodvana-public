@@ -9765,6 +9765,9 @@
         "output": {
           "$ref": "#/definitions/modelRuntimeExtensionFetchOutput",
           "title": "the plan this approval is for, if any"
+        },
+        "applyDesiredStateId": {
+          "type": "string"
         }
       }
     },

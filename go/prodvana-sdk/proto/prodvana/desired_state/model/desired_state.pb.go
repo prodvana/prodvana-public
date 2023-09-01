@@ -3790,7 +3790,8 @@ type RuntimeExtensionMetadata struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Output *RuntimeExtensionFetchOutput `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"` // the plan this approval is for, if any
+	Output              *RuntimeExtensionFetchOutput `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"` // the plan this approval is for, if any
+	ApplyDesiredStateId string                       `protobuf:"bytes,2,opt,name=apply_desired_state_id,json=applyDesiredStateId,proto3" json:"apply_desired_state_id,omitempty"`
 }
 
 func (x *RuntimeExtensionMetadata) Reset() {
@@ -3832,6 +3833,80 @@ func (x *RuntimeExtensionMetadata) GetOutput() *RuntimeExtensionFetchOutput {
 	return nil
 }
 
+func (x *RuntimeExtensionMetadata) GetApplyDesiredStateId() string {
+	if x != nil {
+		return x.ApplyDesiredStateId
+	}
+	return ""
+}
+
+type ManualApprovalConfig struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Config:
+	//
+	//	*ManualApprovalConfig_RuntimeExtension
+	Config isManualApprovalConfig_Config `protobuf_oneof:"config"`
+}
+
+func (x *ManualApprovalConfig) Reset() {
+	*x = ManualApprovalConfig{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[31]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManualApprovalConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManualApprovalConfig) ProtoMessage() {}
+
+func (x *ManualApprovalConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[31]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManualApprovalConfig.ProtoReflect.Descriptor instead.
+func (*ManualApprovalConfig) Descriptor() ([]byte, []int) {
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{31}
+}
+
+func (m *ManualApprovalConfig) GetConfig() isManualApprovalConfig_Config {
+	if m != nil {
+		return m.Config
+	}
+	return nil
+}
+
+func (x *ManualApprovalConfig) GetRuntimeExtension() *RuntimeExtensionMetadata {
+	if x, ok := x.GetConfig().(*ManualApprovalConfig_RuntimeExtension); ok {
+		return x.RuntimeExtension
+	}
+	return nil
+}
+
+type isManualApprovalConfig_Config interface {
+	isManualApprovalConfig_Config()
+}
+
+type ManualApprovalConfig_RuntimeExtension struct {
+	RuntimeExtension *RuntimeExtensionMetadata `protobuf:"bytes,1,opt,name=runtime_extension,json=runtimeExtension,proto3,oneof"`
+}
+
+func (*ManualApprovalConfig_RuntimeExtension) isManualApprovalConfig_Config() {}
+
 type MissingApproval struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3847,7 +3922,7 @@ type MissingApproval struct {
 func (x *MissingApproval) Reset() {
 	*x = MissingApproval{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[31]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3860,7 +3935,7 @@ func (x *MissingApproval) String() string {
 func (*MissingApproval) ProtoMessage() {}
 
 func (x *MissingApproval) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[31]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3873,7 +3948,7 @@ func (x *MissingApproval) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MissingApproval.ProtoReflect.Descriptor instead.
 func (*MissingApproval) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{31}
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *MissingApproval) GetDesiredStateId() string {
@@ -3925,7 +4000,7 @@ type ApplyRejected struct {
 func (x *ApplyRejected) Reset() {
 	*x = ApplyRejected{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[32]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3938,7 +4013,7 @@ func (x *ApplyRejected) String() string {
 func (*ApplyRejected) ProtoMessage() {}
 
 func (x *ApplyRejected) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[32]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3951,7 +4026,7 @@ func (x *ApplyRejected) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApplyRejected.ProtoReflect.Descriptor instead.
 func (*ApplyRejected) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{32}
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{33}
 }
 
 func (m *ApplyRejected) GetReason() isApplyRejected_Reason {
@@ -4006,7 +4081,7 @@ type TaskRun struct {
 func (x *TaskRun) Reset() {
 	*x = TaskRun{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[33]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4019,7 +4094,7 @@ func (x *TaskRun) String() string {
 func (*TaskRun) ProtoMessage() {}
 
 func (x *TaskRun) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[33]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4032,7 +4107,7 @@ func (x *TaskRun) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TaskRun.ProtoReflect.Descriptor instead.
 func (*TaskRun) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{33}
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *TaskRun) GetStatus() SimpleStatus {
@@ -4134,7 +4209,7 @@ type TaskEntityContext struct {
 func (x *TaskEntityContext) Reset() {
 	*x = TaskEntityContext{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[34]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4147,7 +4222,7 @@ func (x *TaskEntityContext) String() string {
 func (*TaskEntityContext) ProtoMessage() {}
 
 func (x *TaskEntityContext) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[34]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4160,7 +4235,7 @@ func (x *TaskEntityContext) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TaskEntityContext.ProtoReflect.Descriptor instead.
 func (*TaskEntityContext) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{34}
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *TaskEntityContext) GetLastCompletedRun() *TaskRun {
@@ -4201,7 +4276,7 @@ type Condition_ReleaseChannelStableCondition struct {
 func (x *Condition_ReleaseChannelStableCondition) Reset() {
 	*x = Condition_ReleaseChannelStableCondition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[35]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4214,7 +4289,7 @@ func (x *Condition_ReleaseChannelStableCondition) String() string {
 func (*Condition_ReleaseChannelStableCondition) ProtoMessage() {}
 
 func (x *Condition_ReleaseChannelStableCondition) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[35]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4284,7 +4359,7 @@ type Condition_ManualApproval struct {
 func (x *Condition_ManualApproval) Reset() {
 	*x = Condition_ManualApproval{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[36]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4297,7 +4372,7 @@ func (x *Condition_ManualApproval) String() string {
 func (*Condition_ManualApproval) ProtoMessage() {}
 
 func (x *Condition_ManualApproval) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[36]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4342,7 +4417,7 @@ type Condition_CustomTaskSuccessfulCondition struct {
 func (x *Condition_CustomTaskSuccessfulCondition) Reset() {
 	*x = Condition_CustomTaskSuccessfulCondition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[37]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4355,7 +4430,7 @@ func (x *Condition_CustomTaskSuccessfulCondition) String() string {
 func (*Condition_CustomTaskSuccessfulCondition) ProtoMessage() {}
 
 func (x *Condition_CustomTaskSuccessfulCondition) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[37]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4415,7 +4490,7 @@ type Condition_CustomTaskSuccessfulCondition_Protection struct {
 func (x *Condition_CustomTaskSuccessfulCondition_Protection) Reset() {
 	*x = Condition_CustomTaskSuccessfulCondition_Protection{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[38]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4428,7 +4503,7 @@ func (x *Condition_CustomTaskSuccessfulCondition_Protection) String() string {
 func (*Condition_CustomTaskSuccessfulCondition_Protection) ProtoMessage() {}
 
 func (x *Condition_CustomTaskSuccessfulCondition_Protection) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[38]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4483,7 +4558,7 @@ type RuntimeObject_RuntimeExtension struct {
 func (x *RuntimeObject_RuntimeExtension) Reset() {
 	*x = RuntimeObject_RuntimeExtension{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[39]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4496,7 +4571,7 @@ func (x *RuntimeObject_RuntimeExtension) String() string {
 func (*RuntimeObject_RuntimeExtension) ProtoMessage() {}
 
 func (x *RuntimeObject_RuntimeExtension) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[39]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4622,7 +4697,7 @@ type Annotations_Annotation struct {
 func (x *Annotations_Annotation) Reset() {
 	*x = Annotations_Annotation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[40]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4635,7 +4710,7 @@ func (x *Annotations_Annotation) String() string {
 func (*Annotations_Annotation) ProtoMessage() {}
 
 func (x *Annotations_Annotation) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[40]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4679,7 +4754,7 @@ type Signal_DeliveryPromotionConfig struct {
 func (x *Signal_DeliveryPromotionConfig) Reset() {
 	*x = Signal_DeliveryPromotionConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[41]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4692,7 +4767,7 @@ func (x *Signal_DeliveryPromotionConfig) String() string {
 func (*Signal_DeliveryPromotionConfig) ProtoMessage() {}
 
 func (x *Signal_DeliveryPromotionConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[41]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4731,7 +4806,7 @@ type Signal_ProtectionBypass struct {
 func (x *Signal_ProtectionBypass) Reset() {
 	*x = Signal_ProtectionBypass{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[42]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4744,7 +4819,7 @@ func (x *Signal_ProtectionBypass) String() string {
 func (*Signal_ProtectionBypass) ProtoMessage() {}
 
 func (x *Signal_ProtectionBypass) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[42]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4775,7 +4850,7 @@ type Signal_RuntimeExtensionApproval struct {
 func (x *Signal_RuntimeExtensionApproval) Reset() {
 	*x = Signal_RuntimeExtensionApproval{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[43]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4788,7 +4863,7 @@ func (x *Signal_RuntimeExtensionApproval) String() string {
 func (*Signal_RuntimeExtensionApproval) ProtoMessage() {}
 
 func (x *Signal_RuntimeExtensionApproval) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[43]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4843,7 +4918,7 @@ type ApplyRejected_InternalMissingApproval struct {
 func (x *ApplyRejected_InternalMissingApproval) Reset() {
 	*x = ApplyRejected_InternalMissingApproval{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[44]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4856,7 +4931,7 @@ func (x *ApplyRejected_InternalMissingApproval) String() string {
 func (*ApplyRejected_InternalMissingApproval) ProtoMessage() {}
 
 func (x *ApplyRejected_InternalMissingApproval) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[44]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4869,7 +4944,7 @@ func (x *ApplyRejected_InternalMissingApproval) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use ApplyRejected_InternalMissingApproval.ProtoReflect.Descriptor instead.
 func (*ApplyRejected_InternalMissingApproval) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{32, 0}
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{33, 0}
 }
 
 func (x *ApplyRejected_InternalMissingApproval) GetDesiredStateId() string {
@@ -5872,13 +5947,25 @@ var file_prodvana_desired_state_model_desired_state_proto_rawDesc = []byte{
 	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
 	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x02, 0x74, 0x73, 0x12, 0x10, 0x0a,
 	0x03, 0x6c, 0x6f, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6c, 0x6f, 0x67, 0x22,
-	0x6d, 0x0a, 0x18, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73,
-	0x69, 0x6f, 0x6e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x51, 0x0a, 0x06, 0x6f,
-	0x75, 0x74, 0x70, 0x75, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x39, 0x2e, 0x70, 0x72,
-	0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73,
-	0x74, 0x61, 0x74, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x52, 0x75, 0x6e, 0x74, 0x69,
-	0x6d, 0x65, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x74, 0x63, 0x68,
-	0x4f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x52, 0x06, 0x6f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x22, 0x9b,
+	0xa2, 0x01, 0x0a, 0x18, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x74, 0x65, 0x6e,
+	0x73, 0x69, 0x6f, 0x6e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x51, 0x0a, 0x06,
+	0x6f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x39, 0x2e, 0x70,
+	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f,
+	0x73, 0x74, 0x61, 0x74, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x52, 0x75, 0x6e, 0x74,
+	0x69, 0x6d, 0x65, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x74, 0x63,
+	0x68, 0x4f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x52, 0x06, 0x6f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x12,
+	0x33, 0x0a, 0x16, 0x61, 0x70, 0x70, 0x6c, 0x79, 0x5f, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64,
+	0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x13, 0x61, 0x70, 0x70, 0x6c, 0x79, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61,
+	0x74, 0x65, 0x49, 0x64, 0x22, 0x87, 0x01, 0x0a, 0x14, 0x4d, 0x61, 0x6e, 0x75, 0x61, 0x6c, 0x41,
+	0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x12, 0x65, 0x0a,
+	0x11, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x65, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69,
+	0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x36, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76,
+	0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74,
+	0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45,
+	0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0x48, 0x00, 0x52, 0x10, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x74, 0x65, 0x6e,
+	0x73, 0x69, 0x6f, 0x6e, 0x42, 0x08, 0x0a, 0x06, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x22, 0x9b,
 	0x02, 0x0a, 0x0f, 0x4d, 0x69, 0x73, 0x73, 0x69, 0x6e, 0x67, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76,
 	0x61, 0x6c, 0x12, 0x28, 0x0a, 0x10, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74,
 	0x61, 0x74, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x64, 0x65,
@@ -6110,7 +6197,7 @@ func file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP() []byte 
 }
 
 var file_prodvana_desired_state_model_desired_state_proto_enumTypes = make([]protoimpl.EnumInfo, 17)
-var file_prodvana_desired_state_model_desired_state_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
+var file_prodvana_desired_state_model_desired_state_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_prodvana_desired_state_model_desired_state_proto_goTypes = []interface{}{
 	(Type)(0),                                       // 0: prodvana.desired_state.model.Type
 	(CustomTaskType)(0),                             // 1: prodvana.desired_state.model.CustomTaskType
@@ -6160,38 +6247,39 @@ var file_prodvana_desired_state_model_desired_state_proto_goTypes = []interface{
 	(*Signal)(nil),                                  // 45: prodvana.desired_state.model.Signal
 	(*DebugLog)(nil),                                // 46: prodvana.desired_state.model.DebugLog
 	(*RuntimeExtensionMetadata)(nil),                // 47: prodvana.desired_state.model.RuntimeExtensionMetadata
-	(*MissingApproval)(nil),                         // 48: prodvana.desired_state.model.MissingApproval
-	(*ApplyRejected)(nil),                           // 49: prodvana.desired_state.model.ApplyRejected
-	(*TaskRun)(nil),                                 // 50: prodvana.desired_state.model.TaskRun
-	(*TaskEntityContext)(nil),                       // 51: prodvana.desired_state.model.TaskEntityContext
-	(*Condition_ReleaseChannelStableCondition)(nil), // 52: prodvana.desired_state.model.Condition.ReleaseChannelStableCondition
-	(*Condition_ManualApproval)(nil),                // 53: prodvana.desired_state.model.Condition.ManualApproval
-	(*Condition_CustomTaskSuccessfulCondition)(nil), // 54: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition
-	(*Condition_CustomTaskSuccessfulCondition_Protection)(nil), // 55: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection
-	(*RuntimeObject_RuntimeExtension)(nil),                     // 56: prodvana.desired_state.model.RuntimeObject.RuntimeExtension
-	(*Annotations_Annotation)(nil),                             // 57: prodvana.desired_state.model.Annotations.Annotation
-	(*Signal_DeliveryPromotionConfig)(nil),                     // 58: prodvana.desired_state.model.Signal.DeliveryPromotionConfig
-	(*Signal_ProtectionBypass)(nil),                            // 59: prodvana.desired_state.model.Signal.ProtectionBypass
-	(*Signal_RuntimeExtensionApproval)(nil),                    // 60: prodvana.desired_state.model.Signal.RuntimeExtensionApproval
-	(*ApplyRejected_InternalMissingApproval)(nil),              // 61: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval
-	(*protection.ProtectionLifecycle)(nil),                     // 62: prodvana.protection.ProtectionLifecycle
-	(common_config.TaskLifecycle)(0),                           // 63: prodvana.common_config.TaskLifecycle
-	(*durationpb.Duration)(nil),                                // 64: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),                              // 65: google.protobuf.Timestamp
-	(*common_config.ProgramConfig)(nil),                        // 66: prodvana.common_config.ProgramConfig
-	(*common_config.RetryConfig)(nil),                          // 67: prodvana.common_config.RetryConfig
-	(*environment.CompiledExtensionCommand)(nil),               // 68: prodvana.environment.CompiledExtensionCommand
-	(*common_config.ParameterDefinition)(nil),                  // 69: prodvana.common_config.ParameterDefinition
-	(*common_config.ParameterValue)(nil),                       // 70: prodvana.common_config.ParameterValue
-	(environment.ExtensionType)(0),                             // 71: prodvana.environment.ExtensionType
-	(*environment.RetryPolicy)(nil),                            // 72: prodvana.environment.RetryPolicy
+	(*ManualApprovalConfig)(nil),                    // 48: prodvana.desired_state.model.ManualApprovalConfig
+	(*MissingApproval)(nil),                         // 49: prodvana.desired_state.model.MissingApproval
+	(*ApplyRejected)(nil),                           // 50: prodvana.desired_state.model.ApplyRejected
+	(*TaskRun)(nil),                                 // 51: prodvana.desired_state.model.TaskRun
+	(*TaskEntityContext)(nil),                       // 52: prodvana.desired_state.model.TaskEntityContext
+	(*Condition_ReleaseChannelStableCondition)(nil), // 53: prodvana.desired_state.model.Condition.ReleaseChannelStableCondition
+	(*Condition_ManualApproval)(nil),                // 54: prodvana.desired_state.model.Condition.ManualApproval
+	(*Condition_CustomTaskSuccessfulCondition)(nil), // 55: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition
+	(*Condition_CustomTaskSuccessfulCondition_Protection)(nil), // 56: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection
+	(*RuntimeObject_RuntimeExtension)(nil),                     // 57: prodvana.desired_state.model.RuntimeObject.RuntimeExtension
+	(*Annotations_Annotation)(nil),                             // 58: prodvana.desired_state.model.Annotations.Annotation
+	(*Signal_DeliveryPromotionConfig)(nil),                     // 59: prodvana.desired_state.model.Signal.DeliveryPromotionConfig
+	(*Signal_ProtectionBypass)(nil),                            // 60: prodvana.desired_state.model.Signal.ProtectionBypass
+	(*Signal_RuntimeExtensionApproval)(nil),                    // 61: prodvana.desired_state.model.Signal.RuntimeExtensionApproval
+	(*ApplyRejected_InternalMissingApproval)(nil),              // 62: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval
+	(*protection.ProtectionLifecycle)(nil),                     // 63: prodvana.protection.ProtectionLifecycle
+	(common_config.TaskLifecycle)(0),                           // 64: prodvana.common_config.TaskLifecycle
+	(*durationpb.Duration)(nil),                                // 65: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),                              // 66: google.protobuf.Timestamp
+	(*common_config.ProgramConfig)(nil),                        // 67: prodvana.common_config.ProgramConfig
+	(*common_config.RetryConfig)(nil),                          // 68: prodvana.common_config.RetryConfig
+	(*environment.CompiledExtensionCommand)(nil),               // 69: prodvana.environment.CompiledExtensionCommand
+	(*common_config.ParameterDefinition)(nil),                  // 70: prodvana.common_config.ParameterDefinition
+	(*common_config.ParameterValue)(nil),                       // 71: prodvana.common_config.ParameterValue
+	(environment.ExtensionType)(0),                             // 72: prodvana.environment.ExtensionType
+	(*environment.RetryPolicy)(nil),                            // 73: prodvana.environment.RetryPolicy
 }
 var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
-	62,  // 0: prodvana.desired_state.model.ProtectionLink.lifecycle:type_name -> prodvana.protection.ProtectionLifecycle
-	52,  // 1: prodvana.desired_state.model.Condition.rc_cond:type_name -> prodvana.desired_state.model.Condition.ReleaseChannelStableCondition
-	53,  // 2: prodvana.desired_state.model.Condition.manual_approval:type_name -> prodvana.desired_state.model.Condition.ManualApproval
-	54,  // 3: prodvana.desired_state.model.Condition.custom_task:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition
-	63,  // 4: prodvana.desired_state.model.DeliveryExtension.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
+	63,  // 0: prodvana.desired_state.model.ProtectionLink.lifecycle:type_name -> prodvana.protection.ProtectionLifecycle
+	53,  // 1: prodvana.desired_state.model.Condition.rc_cond:type_name -> prodvana.desired_state.model.Condition.ReleaseChannelStableCondition
+	54,  // 2: prodvana.desired_state.model.Condition.manual_approval:type_name -> prodvana.desired_state.model.Condition.ManualApproval
+	55,  // 3: prodvana.desired_state.model.Condition.custom_task:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition
+	64,  // 4: prodvana.desired_state.model.DeliveryExtension.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
 	20,  // 5: prodvana.desired_state.model.DeliveryExtension.references:type_name -> prodvana.desired_state.model.Identifier
 	0,   // 6: prodvana.desired_state.model.Identifier.type:type_name -> prodvana.desired_state.model.Type
 	18,  // 7: prodvana.desired_state.model.Metadata.preconditions:type_name -> prodvana.desired_state.model.Condition
@@ -6199,12 +6287,12 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	20,  // 9: prodvana.desired_state.model.Metadata.self:type_name -> prodvana.desired_state.model.Identifier
 	17,  // 10: prodvana.desired_state.model.Metadata.protection_links:type_name -> prodvana.desired_state.model.ProtectionLink
 	19,  // 11: prodvana.desired_state.model.Metadata.delivery_extensions:type_name -> prodvana.desired_state.model.DeliveryExtension
-	64,  // 12: prodvana.desired_state.model.Metadata.convergence_grace_period:type_name -> google.protobuf.Duration
+	65,  // 12: prodvana.desired_state.model.Metadata.convergence_grace_period:type_name -> google.protobuf.Duration
 	20,  // 13: prodvana.desired_state.model.StatusExplanation.subject:type_name -> prodvana.desired_state.model.Identifier
 	4,   // 14: prodvana.desired_state.model.StatusExplanation.reason:type_name -> prodvana.desired_state.model.StatusReason
-	65,  // 15: prodvana.desired_state.model.ActionExplanation.ts:type_name -> google.protobuf.Timestamp
+	66,  // 15: prodvana.desired_state.model.ActionExplanation.ts:type_name -> google.protobuf.Timestamp
 	5,   // 16: prodvana.desired_state.model.ActionExplanation.action_type:type_name -> prodvana.desired_state.model.ActionType
-	65,  // 17: prodvana.desired_state.model.Version.push_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 17: prodvana.desired_state.model.Version.push_timestamp:type_name -> google.protobuf.Timestamp
 	21,  // 18: prodvana.desired_state.model.ServiceInstanceState.meta:type_name -> prodvana.desired_state.model.Metadata
 	24,  // 19: prodvana.desired_state.model.ServiceInstanceState.versions:type_name -> prodvana.desired_state.model.Version
 	24,  // 20: prodvana.desired_state.model.ServiceInstanceState.rollback_version:type_name -> prodvana.desired_state.model.Version
@@ -6218,18 +6306,18 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	41,  // 28: prodvana.desired_state.model.ServiceGroupState.custom_tasks:type_name -> prodvana.desired_state.model.CustomTaskState
 	44,  // 29: prodvana.desired_state.model.ServiceGroupState.delivery_extensions:type_name -> prodvana.desired_state.model.DeliveryExtensionState
 	10,  // 30: prodvana.desired_state.model.CanaryProgressState.status:type_name -> prodvana.desired_state.model.CanaryProgressState.Status
-	64,  // 31: prodvana.desired_state.model.CanaryProgressState.duration:type_name -> google.protobuf.Duration
-	65,  // 32: prodvana.desired_state.model.CanaryProgressState.pause_start_timestamp:type_name -> google.protobuf.Timestamp
+	65,  // 31: prodvana.desired_state.model.CanaryProgressState.duration:type_name -> google.protobuf.Duration
+	66,  // 32: prodvana.desired_state.model.CanaryProgressState.pause_start_timestamp:type_name -> google.protobuf.Timestamp
 	11,  // 33: prodvana.desired_state.model.DeliveryState.status:type_name -> prodvana.desired_state.model.DeliveryState.Status
 	28,  // 34: prodvana.desired_state.model.DeliveryState.canary_progress:type_name -> prodvana.desired_state.model.CanaryProgressState
-	65,  // 35: prodvana.desired_state.model.FetchDetails.started_timestamp:type_name -> google.protobuf.Timestamp
-	65,  // 36: prodvana.desired_state.model.FetchDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 35: prodvana.desired_state.model.FetchDetails.started_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 36: prodvana.desired_state.model.FetchDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
 	12,  // 37: prodvana.desired_state.model.FetchDetails.fetch_status:type_name -> prodvana.desired_state.model.FetchDetails.FetchStatus
 	30,  // 38: prodvana.desired_state.model.RuntimeExtensionFetchOutput.ongoing_fetch:type_name -> prodvana.desired_state.model.FetchDetails
 	30,  // 39: prodvana.desired_state.model.RuntimeExtensionFetchOutput.last_successful_fetch:type_name -> prodvana.desired_state.model.FetchDetails
 	30,  // 40: prodvana.desired_state.model.RuntimeExtensionFetchOutput.last_failed_fetch:type_name -> prodvana.desired_state.model.FetchDetails
-	65,  // 41: prodvana.desired_state.model.ApplyDetails.started_timestamp:type_name -> google.protobuf.Timestamp
-	65,  // 42: prodvana.desired_state.model.ApplyDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 41: prodvana.desired_state.model.ApplyDetails.started_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 42: prodvana.desired_state.model.ApplyDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
 	13,  // 43: prodvana.desired_state.model.ApplyDetails.apply_status:type_name -> prodvana.desired_state.model.ApplyDetails.ApplyStatus
 	30,  // 44: prodvana.desired_state.model.ApplyDetails.fetch_details:type_name -> prodvana.desired_state.model.FetchDetails
 	32,  // 45: prodvana.desired_state.model.RuntimeExtensionApplyOutput.ongoing_apply:type_name -> prodvana.desired_state.model.ApplyDetails
@@ -6239,19 +6327,19 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	14,  // 49: prodvana.desired_state.model.RuntimeObject.status:type_name -> prodvana.desired_state.model.RuntimeObject.Status
 	24,  // 50: prodvana.desired_state.model.RuntimeObject.rollback_version:type_name -> prodvana.desired_state.model.Version
 	29,  // 51: prodvana.desired_state.model.RuntimeObject.delivery:type_name -> prodvana.desired_state.model.DeliveryState
-	56,  // 52: prodvana.desired_state.model.RuntimeObject.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeObject.RuntimeExtension
-	64,  // 53: prodvana.desired_state.model.RuntimeObject.interval:type_name -> google.protobuf.Duration
-	64,  // 54: prodvana.desired_state.model.RuntimeObject.steady_state_interval:type_name -> google.protobuf.Duration
+	57,  // 52: prodvana.desired_state.model.RuntimeObject.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeObject.RuntimeExtension
+	65,  // 53: prodvana.desired_state.model.RuntimeObject.interval:type_name -> google.protobuf.Duration
+	65,  // 54: prodvana.desired_state.model.RuntimeObject.steady_state_interval:type_name -> google.protobuf.Duration
 	15,  // 55: prodvana.desired_state.model.RuntimeObject.management_status:type_name -> prodvana.desired_state.model.RuntimeObject.ManagementStatus
-	50,  // 56: prodvana.desired_state.model.RuntimeObject.last_completed_task_run:type_name -> prodvana.desired_state.model.TaskRun
+	51,  // 56: prodvana.desired_state.model.RuntimeObject.last_completed_task_run:type_name -> prodvana.desired_state.model.TaskRun
 	6,   // 57: prodvana.desired_state.model.ConditionState.status:type_name -> prodvana.desired_state.model.ConditionStatus
 	35,  // 58: prodvana.desired_state.model.ControlState.precondition_states:type_name -> prodvana.desired_state.model.ConditionState
 	35,  // 59: prodvana.desired_state.model.ControlState.invariant_states:type_name -> prodvana.desired_state.model.ConditionState
 	22,  // 60: prodvana.desired_state.model.ControlState.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	23,  // 61: prodvana.desired_state.model.ControlState.action_explanation:type_name -> prodvana.desired_state.model.ActionExplanation
-	65,  // 62: prodvana.desired_state.model.ControlState.last_fetched_timestamp:type_name -> google.protobuf.Timestamp
-	65,  // 63: prodvana.desired_state.model.ControlState.last_applied_timestamp:type_name -> google.protobuf.Timestamp
-	48,  // 64: prodvana.desired_state.model.ControlState.missing_approval:type_name -> prodvana.desired_state.model.MissingApproval
+	66,  // 62: prodvana.desired_state.model.ControlState.last_fetched_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 63: prodvana.desired_state.model.ControlState.last_applied_timestamp:type_name -> google.protobuf.Timestamp
+	49,  // 64: prodvana.desired_state.model.ControlState.missing_approval:type_name -> prodvana.desired_state.model.MissingApproval
 	21,  // 65: prodvana.desired_state.model.ManualApprovalState.meta:type_name -> prodvana.desired_state.model.Metadata
 	7,   // 66: prodvana.desired_state.model.ManualApprovalState.status:type_name -> prodvana.desired_state.model.ManualApprovalStatus
 	26,  // 67: prodvana.desired_state.model.State.service:type_name -> prodvana.desired_state.model.ServiceState
@@ -6263,73 +6351,74 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	43,  // 73: prodvana.desired_state.model.State.protection_attachment:type_name -> prodvana.desired_state.model.ProtectionAttachment
 	42,  // 74: prodvana.desired_state.model.State.protection_link:type_name -> prodvana.desired_state.model.ProtectionLinkState
 	44,  // 75: prodvana.desired_state.model.State.delivery_extension:type_name -> prodvana.desired_state.model.DeliveryExtensionState
-	57,  // 76: prodvana.desired_state.model.Annotations.annotations:type_name -> prodvana.desired_state.model.Annotations.Annotation
+	58,  // 76: prodvana.desired_state.model.Annotations.annotations:type_name -> prodvana.desired_state.model.Annotations.Annotation
 	8,   // 77: prodvana.desired_state.model.CustomTaskExecutionState.status:type_name -> prodvana.desired_state.model.CustomTaskStatus
-	65,  // 78: prodvana.desired_state.model.CustomTaskExecutionState.latest_attempt_end_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 78: prodvana.desired_state.model.CustomTaskExecutionState.latest_attempt_end_timestamp:type_name -> google.protobuf.Timestamp
 	21,  // 79: prodvana.desired_state.model.CustomTaskState.meta:type_name -> prodvana.desired_state.model.Metadata
-	66,  // 80: prodvana.desired_state.model.CustomTaskState.program:type_name -> prodvana.common_config.ProgramConfig
+	67,  // 80: prodvana.desired_state.model.CustomTaskState.program:type_name -> prodvana.common_config.ProgramConfig
 	40,  // 81: prodvana.desired_state.model.CustomTaskState.task_state:type_name -> prodvana.desired_state.model.CustomTaskExecutionState
-	67,  // 82: prodvana.desired_state.model.CustomTaskState.retry_config:type_name -> prodvana.common_config.RetryConfig
+	68,  // 82: prodvana.desired_state.model.CustomTaskState.retry_config:type_name -> prodvana.common_config.RetryConfig
 	21,  // 83: prodvana.desired_state.model.ProtectionLinkState.meta:type_name -> prodvana.desired_state.model.Metadata
 	6,   // 84: prodvana.desired_state.model.ProtectionLinkState.status:type_name -> prodvana.desired_state.model.ConditionStatus
 	17,  // 85: prodvana.desired_state.model.ProtectionLinkState.link:type_name -> prodvana.desired_state.model.ProtectionLink
-	65,  // 86: prodvana.desired_state.model.ProtectionLinkState.started_timestamp:type_name -> google.protobuf.Timestamp
-	65,  // 87: prodvana.desired_state.model.ProtectionLinkState.stopped_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 86: prodvana.desired_state.model.ProtectionLinkState.started_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 87: prodvana.desired_state.model.ProtectionLinkState.stopped_timestamp:type_name -> google.protobuf.Timestamp
 	16,  // 88: prodvana.desired_state.model.ProtectionLinkState.stopped_reason:type_name -> prodvana.desired_state.model.ProtectionLinkState.StopReason
-	65,  // 89: prodvana.desired_state.model.ProtectionLinkState.first_success_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 89: prodvana.desired_state.model.ProtectionLinkState.first_success_timestamp:type_name -> google.protobuf.Timestamp
 	21,  // 90: prodvana.desired_state.model.ProtectionAttachment.meta:type_name -> prodvana.desired_state.model.Metadata
 	24,  // 91: prodvana.desired_state.model.ProtectionAttachment.versions:type_name -> prodvana.desired_state.model.Version
 	24,  // 92: prodvana.desired_state.model.ProtectionAttachment.last_completed_versions:type_name -> prodvana.desired_state.model.Version
-	65,  // 93: prodvana.desired_state.model.ProtectionAttachment.last_completed_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 93: prodvana.desired_state.model.ProtectionAttachment.last_completed_timestamp:type_name -> google.protobuf.Timestamp
 	3,   // 94: prodvana.desired_state.model.ProtectionAttachment.last_completed_status:type_name -> prodvana.desired_state.model.SimpleStatus
 	22,  // 95: prodvana.desired_state.model.ProtectionAttachment.last_completed_status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	21,  // 96: prodvana.desired_state.model.DeliveryExtensionState.meta:type_name -> prodvana.desired_state.model.Metadata
 	24,  // 97: prodvana.desired_state.model.DeliveryExtensionState.versions:type_name -> prodvana.desired_state.model.Version
-	63,  // 98: prodvana.desired_state.model.DeliveryExtensionState.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
-	65,  // 99: prodvana.desired_state.model.DeliveryExtensionState.last_completed_timestamp:type_name -> google.protobuf.Timestamp
+	64,  // 98: prodvana.desired_state.model.DeliveryExtensionState.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
+	66,  // 99: prodvana.desired_state.model.DeliveryExtensionState.last_completed_timestamp:type_name -> google.protobuf.Timestamp
 	3,   // 100: prodvana.desired_state.model.DeliveryExtensionState.last_completed_status:type_name -> prodvana.desired_state.model.SimpleStatus
 	22,  // 101: prodvana.desired_state.model.DeliveryExtensionState.last_completed_status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	20,  // 102: prodvana.desired_state.model.DeliveryExtensionState.references:type_name -> prodvana.desired_state.model.Identifier
 	6,   // 103: prodvana.desired_state.model.DeliveryExtensionState.status:type_name -> prodvana.desired_state.model.ConditionStatus
 	9,   // 104: prodvana.desired_state.model.Signal.type:type_name -> prodvana.desired_state.model.SignalType
-	58,  // 105: prodvana.desired_state.model.Signal.delivery_promotion:type_name -> prodvana.desired_state.model.Signal.DeliveryPromotionConfig
-	59,  // 106: prodvana.desired_state.model.Signal.protection_bypass:type_name -> prodvana.desired_state.model.Signal.ProtectionBypass
-	60,  // 107: prodvana.desired_state.model.Signal.runtime_extension_approval:type_name -> prodvana.desired_state.model.Signal.RuntimeExtensionApproval
-	65,  // 108: prodvana.desired_state.model.DebugLog.ts:type_name -> google.protobuf.Timestamp
+	59,  // 105: prodvana.desired_state.model.Signal.delivery_promotion:type_name -> prodvana.desired_state.model.Signal.DeliveryPromotionConfig
+	60,  // 106: prodvana.desired_state.model.Signal.protection_bypass:type_name -> prodvana.desired_state.model.Signal.ProtectionBypass
+	61,  // 107: prodvana.desired_state.model.Signal.runtime_extension_approval:type_name -> prodvana.desired_state.model.Signal.RuntimeExtensionApproval
+	66,  // 108: prodvana.desired_state.model.DebugLog.ts:type_name -> google.protobuf.Timestamp
 	31,  // 109: prodvana.desired_state.model.RuntimeExtensionMetadata.output:type_name -> prodvana.desired_state.model.RuntimeExtensionFetchOutput
-	9,   // 110: prodvana.desired_state.model.MissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
-	47,  // 111: prodvana.desired_state.model.MissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
-	61,  // 112: prodvana.desired_state.model.ApplyRejected.missing_approval:type_name -> prodvana.desired_state.model.ApplyRejected.InternalMissingApproval
-	3,   // 113: prodvana.desired_state.model.TaskRun.status:type_name -> prodvana.desired_state.model.SimpleStatus
-	22,  // 114: prodvana.desired_state.model.TaskRun.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
-	24,  // 115: prodvana.desired_state.model.TaskRun.seen_versions:type_name -> prodvana.desired_state.model.Version
-	65,  // 116: prodvana.desired_state.model.TaskRun.started_timestamp:type_name -> google.protobuf.Timestamp
-	65,  // 117: prodvana.desired_state.model.TaskRun.completed_timestamp:type_name -> google.protobuf.Timestamp
-	20,  // 118: prodvana.desired_state.model.TaskRun.task_entities:type_name -> prodvana.desired_state.model.Identifier
-	30,  // 119: prodvana.desired_state.model.TaskRun.fetch_details:type_name -> prodvana.desired_state.model.FetchDetails
-	50,  // 120: prodvana.desired_state.model.TaskEntityContext.last_completed_run:type_name -> prodvana.desired_state.model.TaskRun
-	50,  // 121: prodvana.desired_state.model.TaskEntityContext.last_run:type_name -> prodvana.desired_state.model.TaskRun
-	55,  // 122: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.protection:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection
-	1,   // 123: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection.task_type:type_name -> prodvana.desired_state.model.CustomTaskType
-	68,  // 124: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply:type_name -> prodvana.environment.CompiledExtensionCommand
-	68,  // 125: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch:type_name -> prodvana.environment.CompiledExtensionCommand
-	64,  // 126: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_interval:type_name -> google.protobuf.Duration
-	64,  // 127: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_steady_state_interval:type_name -> google.protobuf.Duration
-	69,  // 128: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameters:type_name -> prodvana.common_config.ParameterDefinition
-	70,  // 129: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameter_values:type_name -> prodvana.common_config.ParameterValue
-	71,  // 130: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.type:type_name -> prodvana.environment.ExtensionType
-	31,  // 131: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_output:type_name -> prodvana.desired_state.model.RuntimeExtensionFetchOutput
-	33,  // 132: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_output:type_name -> prodvana.desired_state.model.RuntimeExtensionApplyOutput
-	72,  // 133: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_retry_policy:type_name -> prodvana.environment.RetryPolicy
-	72,  // 134: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_retry_policy:type_name -> prodvana.environment.RetryPolicy
-	65,  // 135: prodvana.desired_state.model.Signal.RuntimeExtensionApproval.timestamp:type_name -> google.protobuf.Timestamp
-	9,   // 136: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
-	47,  // 137: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
-	138, // [138:138] is the sub-list for method output_type
-	138, // [138:138] is the sub-list for method input_type
-	138, // [138:138] is the sub-list for extension type_name
-	138, // [138:138] is the sub-list for extension extendee
-	0,   // [0:138] is the sub-list for field type_name
+	47,  // 110: prodvana.desired_state.model.ManualApprovalConfig.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
+	9,   // 111: prodvana.desired_state.model.MissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
+	47,  // 112: prodvana.desired_state.model.MissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
+	62,  // 113: prodvana.desired_state.model.ApplyRejected.missing_approval:type_name -> prodvana.desired_state.model.ApplyRejected.InternalMissingApproval
+	3,   // 114: prodvana.desired_state.model.TaskRun.status:type_name -> prodvana.desired_state.model.SimpleStatus
+	22,  // 115: prodvana.desired_state.model.TaskRun.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
+	24,  // 116: prodvana.desired_state.model.TaskRun.seen_versions:type_name -> prodvana.desired_state.model.Version
+	66,  // 117: prodvana.desired_state.model.TaskRun.started_timestamp:type_name -> google.protobuf.Timestamp
+	66,  // 118: prodvana.desired_state.model.TaskRun.completed_timestamp:type_name -> google.protobuf.Timestamp
+	20,  // 119: prodvana.desired_state.model.TaskRun.task_entities:type_name -> prodvana.desired_state.model.Identifier
+	30,  // 120: prodvana.desired_state.model.TaskRun.fetch_details:type_name -> prodvana.desired_state.model.FetchDetails
+	51,  // 121: prodvana.desired_state.model.TaskEntityContext.last_completed_run:type_name -> prodvana.desired_state.model.TaskRun
+	51,  // 122: prodvana.desired_state.model.TaskEntityContext.last_run:type_name -> prodvana.desired_state.model.TaskRun
+	56,  // 123: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.protection:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection
+	1,   // 124: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection.task_type:type_name -> prodvana.desired_state.model.CustomTaskType
+	69,  // 125: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply:type_name -> prodvana.environment.CompiledExtensionCommand
+	69,  // 126: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch:type_name -> prodvana.environment.CompiledExtensionCommand
+	65,  // 127: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_interval:type_name -> google.protobuf.Duration
+	65,  // 128: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_steady_state_interval:type_name -> google.protobuf.Duration
+	70,  // 129: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameters:type_name -> prodvana.common_config.ParameterDefinition
+	71,  // 130: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameter_values:type_name -> prodvana.common_config.ParameterValue
+	72,  // 131: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.type:type_name -> prodvana.environment.ExtensionType
+	31,  // 132: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_output:type_name -> prodvana.desired_state.model.RuntimeExtensionFetchOutput
+	33,  // 133: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_output:type_name -> prodvana.desired_state.model.RuntimeExtensionApplyOutput
+	73,  // 134: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_retry_policy:type_name -> prodvana.environment.RetryPolicy
+	73,  // 135: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_retry_policy:type_name -> prodvana.environment.RetryPolicy
+	66,  // 136: prodvana.desired_state.model.Signal.RuntimeExtensionApproval.timestamp:type_name -> google.protobuf.Timestamp
+	9,   // 137: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
+	47,  // 138: prodvana.desired_state.model.ApplyRejected.InternalMissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
+	139, // [139:139] is the sub-list for method output_type
+	139, // [139:139] is the sub-list for method input_type
+	139, // [139:139] is the sub-list for extension type_name
+	139, // [139:139] is the sub-list for extension extendee
+	0,   // [0:139] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_desired_state_model_desired_state_proto_init() }
@@ -6711,7 +6800,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MissingApproval); i {
+			switch v := v.(*ManualApprovalConfig); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6723,7 +6812,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ApplyRejected); i {
+			switch v := v.(*MissingApproval); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6735,7 +6824,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TaskRun); i {
+			switch v := v.(*ApplyRejected); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6747,7 +6836,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TaskEntityContext); i {
+			switch v := v.(*TaskRun); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6759,7 +6848,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Condition_ReleaseChannelStableCondition); i {
+			switch v := v.(*TaskEntityContext); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6771,7 +6860,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Condition_ManualApproval); i {
+			switch v := v.(*Condition_ReleaseChannelStableCondition); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6783,7 +6872,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Condition_CustomTaskSuccessfulCondition); i {
+			switch v := v.(*Condition_ManualApproval); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6795,7 +6884,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Condition_CustomTaskSuccessfulCondition_Protection); i {
+			switch v := v.(*Condition_CustomTaskSuccessfulCondition); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6807,7 +6896,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RuntimeObject_RuntimeExtension); i {
+			switch v := v.(*Condition_CustomTaskSuccessfulCondition_Protection); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6819,7 +6908,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Annotations_Annotation); i {
+			switch v := v.(*RuntimeObject_RuntimeExtension); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6831,7 +6920,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Signal_DeliveryPromotionConfig); i {
+			switch v := v.(*Annotations_Annotation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6843,7 +6932,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Signal_ProtectionBypass); i {
+			switch v := v.(*Signal_DeliveryPromotionConfig); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6855,7 +6944,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Signal_RuntimeExtensionApproval); i {
+			switch v := v.(*Signal_ProtectionBypass); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6867,6 +6956,18 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Signal_RuntimeExtensionApproval); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_desired_state_model_desired_state_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ApplyRejected_InternalMissingApproval); i {
 			case 0:
 				return &v.state
@@ -6900,10 +7001,13 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 		(*Signal_ProtectionBypass_)(nil),
 		(*Signal_RuntimeExtensionApproval_)(nil),
 	}
-	file_prodvana_desired_state_model_desired_state_proto_msgTypes[32].OneofWrappers = []interface{}{
+	file_prodvana_desired_state_model_desired_state_proto_msgTypes[31].OneofWrappers = []interface{}{
+		(*ManualApprovalConfig_RuntimeExtension)(nil),
+	}
+	file_prodvana_desired_state_model_desired_state_proto_msgTypes[33].OneofWrappers = []interface{}{
 		(*ApplyRejected_MissingApproval)(nil),
 	}
-	file_prodvana_desired_state_model_desired_state_proto_msgTypes[37].OneofWrappers = []interface{}{
+	file_prodvana_desired_state_model_desired_state_proto_msgTypes[38].OneofWrappers = []interface{}{
 		(*Condition_CustomTaskSuccessfulCondition_Protection_)(nil),
 	}
 	type x struct{}
@@ -6912,7 +7016,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_desired_state_model_desired_state_proto_rawDesc,
 			NumEnums:      17,
-			NumMessages:   45,
+			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
