@@ -1,0 +1,38 @@
+syntax = "proto3";
+package prodvana.object;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object";
+import "google/api/annotations.proto";
+import "prodvana/labels/labels.proto";
+import "prodvana/object/meta.proto";
+import "validate/validate.proto";
+
+message QueryObjectReq {
+    string query = 1 [(validate.rules).string.min_len = 1];
+}
+
+message QueryObjectResp {
+    repeated ObjectMeta objects = 1;
+}
+
+message GetLabelsReq {
+    ObjectType type = 1;
+    string name_or_id = 2;
+}
+
+message GetLabelsResp {
+    ObjectMeta meta = 1;
+    repeated prodvana.labels.LabelDefinition labels = 2;
+}
+
+service ObjectManager {
+    rpc QueryObjects(QueryObjectReq) returns (QueryObjectResp) {
+        option (google.api.http) = {
+            get: "/v1/objects/query"
+        };
+    }
+    rpc GetLabels(GetLabelsReq) returns (GetLabelsResp) {
+        option (google.api.http) = {
+            get: "/v1/objects/labels"
+        };
+    }
+}

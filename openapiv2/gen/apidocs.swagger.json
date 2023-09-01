@@ -36,6 +36,9 @@
       "name": "prodvana.managed_resource.ResourceManager"
     },
     {
+      "name": "prodvana.object.ObjectManager"
+    },
+    {
       "name": "prodvana.organization.OrganizationManager"
     },
     {
@@ -3688,6 +3691,81 @@
         ],
         "tags": [
           "prodvana.managed_resource.ResourceManager"
+        ]
+      }
+    },
+    "/v1/objects/labels": {
+      "get": {
+        "operationId": "ObjectManager_GetLabels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/objectGetLabelsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "RUNTIME",
+              "APPLICATION",
+              "SERVICE",
+              "RELEASE_CHANNEL",
+              "PROTECTION"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "nameOrId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.object.ObjectManager"
+        ]
+      }
+    },
+    "/v1/objects/query": {
+      "get": {
+        "operationId": "ObjectManager_QueryObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/objectQueryObjectResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.object.ObjectManager"
         ]
       }
     },
@@ -10008,6 +10086,21 @@
         }
       }
     },
+    "objectGetLabelsResp": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/labelsLabelDefinition"
+          }
+        }
+      }
+    },
     "objectObjectMeta": {
       "type": "object",
       "properties": {
@@ -10046,6 +10139,18 @@
         "PROTECTION"
       ],
       "default": "UNKNOWN"
+    },
+    "objectQueryObjectResp": {
+      "type": "object",
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/objectObjectMeta"
+          }
+        }
+      }
     },
     "organizationGetOrganizationInsightsResp": {
       "type": "object",

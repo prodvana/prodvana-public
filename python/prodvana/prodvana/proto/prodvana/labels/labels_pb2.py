@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cprodvana/labels/labels.proto\x12\x0fprodvana.labels\x1a\x17validate/validate.proto\"i\n\x0fLabelDefinition\x12+\n\x05label\x18\x01 \x01(\tB\x1c\xfa\x42\x19r\x17\x10\x01\x32\x13^[a-zA-Z0-9.\\-_@+]$\x12)\n\x05value\x18\x02 \x01(\tB\x1a\xfa\x42\x17r\x15\x32\x13^[a-zA-Z0-9.\\-_@+]$BKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/labelsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cprodvana/labels/labels.proto\x12\x0fprodvana.labels\x1a\x17validate/validate.proto\"k\n\x0fLabelDefinition\x12,\n\x05label\x18\x01 \x01(\tB\x1d\xfa\x42\x1ar\x18\x10\x01\x32\x14^[a-zA-Z0-9.\\-_@+]*$\x12*\n\x05value\x18\x02 \x01(\tB\x1b\xfa\x42\x18r\x16\x32\x14^[a-zA-Z0-9.\\-_@+]*$BKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/labelsb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,9 +24,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/labels'
   _LABELDEFINITION.fields_by_name['label']._options = None
-  _LABELDEFINITION.fields_by_name['label']._serialized_options = b'\372B\031r\027\020\0012\023^[a-zA-Z0-9.\\-_@+]$'
+  _LABELDEFINITION.fields_by_name['label']._serialized_options = b'\372B\032r\030\020\0012\024^[a-zA-Z0-9.\\-_@+]*$'
   _LABELDEFINITION.fields_by_name['value']._options = None
-  _LABELDEFINITION.fields_by_name['value']._serialized_options = b'\372B\027r\0252\023^[a-zA-Z0-9.\\-_@+]$'
+  _LABELDEFINITION.fields_by_name['value']._serialized_options = b'\372B\030r\0262\024^[a-zA-Z0-9.\\-_@+]*$'
   _globals['_LABELDEFINITION']._serialized_start=74
-  _globals['_LABELDEFINITION']._serialized_end=179
+  _globals['_LABELDEFINITION']._serialized_end=181
 # @@protoc_insertion_point(module_scope)

@@ -71,7 +71,7 @@ func (m *LabelDefinition) validate(all bool) error {
 	if !_LabelDefinition_Label_Pattern.MatchString(m.GetLabel()) {
 		err := LabelDefinitionValidationError{
 			field:  "Label",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_@+]$\"",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_@+]*$\"",
 		}
 		if !all {
 			return err
@@ -82,7 +82,7 @@ func (m *LabelDefinition) validate(all bool) error {
 	if !_LabelDefinition_Value_Pattern.MatchString(m.GetValue()) {
 		err := LabelDefinitionValidationError{
 			field:  "Value",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_@+]$\"",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_@+]*$\"",
 		}
 		if !all {
 			return err
@@ -168,6 +168,6 @@ var _ interface {
 	ErrorName() string
 } = LabelDefinitionValidationError{}
 
-var _LabelDefinition_Label_Pattern = regexp.MustCompile("^[a-zA-Z0-9.\\-_@+]$")
+var _LabelDefinition_Label_Pattern = regexp.MustCompile("^[a-zA-Z0-9.\\-_@+]*$")
 
-var _LabelDefinition_Value_Pattern = regexp.MustCompile("^[a-zA-Z0-9.\\-_@+]$")
+var _LabelDefinition_Value_Pattern = regexp.MustCompile("^[a-zA-Z0-9.\\-_@+]*$")

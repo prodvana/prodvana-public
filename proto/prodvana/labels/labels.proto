@@ -6,9 +6,9 @@ import "validate/validate.proto";
 message LabelDefinition {
     string label = 1 [(validate.rules).string = {
         min_len: 1,
-        pattern: "^[a-zA-Z0-9.\\-_@+]$",
+        pattern: "^[a-zA-Z0-9.\\-_@+]*$",
     }];
     string value = 2 [(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9.\\-_@+]$",
+        pattern: "^[a-zA-Z0-9.\\-_@+]*$",
     }];
 }
