@@ -2,7 +2,6 @@ syntax = "proto3";
 package prodvana.release_channel;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel";
 
-import "google/protobuf/duration.proto";
 import "prodvana/common_config/constants.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
@@ -55,11 +54,14 @@ message ReleaseChannelConfig {
 message Precondition {
     message ReleaseChannelStable {
         string release_channel = 1;
-        google.protobuf.Duration duration = 2;
+        reserved 2;
+        reserved "duration";
     }
     message ManualApproval {
         string name = 1;
         string description = 2;
+        // request approval on every apply action, not just the first.
+        // only works for runtime extensions, will do nothing for kubernetes services.
         bool every_action = 3;
     }
     message CustomTask {

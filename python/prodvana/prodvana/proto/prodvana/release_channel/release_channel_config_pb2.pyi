@@ -5,7 +5,6 @@ isort:skip_file
 import builtins
 import collections.abc
 import google.protobuf.descriptor
-import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
@@ -139,18 +138,13 @@ class Precondition(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
-        DURATION_FIELD_NUMBER: builtins.int
         release_channel: builtins.str
-        @property
-        def duration(self) -> google.protobuf.duration_pb2.Duration: ...
         def __init__(
             self,
             *,
             release_channel: builtins.str = ...,
-            duration: google.protobuf.duration_pb2.Duration | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["duration", b"duration"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["duration", b"duration", "release_channel", b"release_channel"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel"]) -> None: ...
 
     class ManualApproval(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -161,6 +155,9 @@ class Precondition(google.protobuf.message.Message):
         name: builtins.str
         description: builtins.str
         every_action: builtins.bool
+        """request approval on every apply action, not just the first.
+        only works for runtime extensions, will do nothing for kubernetes services.
+        """
         def __init__(
             self,
             *,

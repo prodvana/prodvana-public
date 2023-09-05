@@ -1048,35 +1048,6 @@ func (m *Precondition_ReleaseChannelStable) validate(all bool) error {
 
 	// no validation rules for ReleaseChannel
 
-	if all {
-		switch v := interface{}(m.GetDuration()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, Precondition_ReleaseChannelStableValidationError{
-					field:  "Duration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, Precondition_ReleaseChannelStableValidationError{
-					field:  "Duration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetDuration()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return Precondition_ReleaseChannelStableValidationError{
-				field:  "Duration",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if len(errors) > 0 {
 		return Precondition_ReleaseChannelStableMultiError(errors)
 	}

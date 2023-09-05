@@ -5726,9 +5726,6 @@
       "properties": {
         "releaseChannel": {
           "type": "string"
-        },
-        "duration": {
-          "type": "string"
         }
       }
     },
@@ -11050,7 +11047,8 @@
           "type": "string"
         },
         "everyAction": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "request approval on every apply action, not just the first.\nonly works for runtime extensions, will do nothing for kubernetes services."
         }
       }
     },
