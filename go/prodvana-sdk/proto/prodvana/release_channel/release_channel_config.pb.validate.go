@@ -249,6 +249,8 @@ func (m *ReleaseChannelConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for Group
+
 	// no validation rules for Order
 
 	// no validation rules for Maturity
@@ -1022,6 +1024,150 @@ var _ interface {
 var _ReleaseChannelRuntimeConfig_Runtime_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
 
 var _ReleaseChannelRuntimeConfig_Name_Pattern = regexp.MustCompile("^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$")
+
+// Validate checks the field values on ReleaseChannelGroupGeneratorConfig with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ReleaseChannelGroupGeneratorConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseChannelGroupGeneratorConfig
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReleaseChannelGroupGeneratorConfigMultiError, or nil if none found.
+func (m *ReleaseChannelGroupGeneratorConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseChannelGroupGeneratorConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+		err := ReleaseChannelGroupGeneratorConfigValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 63 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_ReleaseChannelGroupGeneratorConfig_Name_Pattern.MatchString(m.GetName()) {
+		err := ReleaseChannelGroupGeneratorConfigValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetRuntimeSelector()) < 1 {
+		err := ReleaseChannelGroupGeneratorConfigValidationError{
+			field:  "RuntimeSelector",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for AllowEmpty
+
+	// skipping validation for template
+
+	if len(errors) > 0 {
+		return ReleaseChannelGroupGeneratorConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseChannelGroupGeneratorConfigMultiError is an error wrapping multiple
+// validation errors returned by
+// ReleaseChannelGroupGeneratorConfig.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseChannelGroupGeneratorConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseChannelGroupGeneratorConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseChannelGroupGeneratorConfigMultiError) AllErrors() []error { return m }
+
+// ReleaseChannelGroupGeneratorConfigValidationError is the validation error
+// returned by ReleaseChannelGroupGeneratorConfig.Validate if the designated
+// constraints aren't met.
+type ReleaseChannelGroupGeneratorConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseChannelGroupGeneratorConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseChannelGroupGeneratorConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseChannelGroupGeneratorConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseChannelGroupGeneratorConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseChannelGroupGeneratorConfigValidationError) ErrorName() string {
+	return "ReleaseChannelGroupGeneratorConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseChannelGroupGeneratorConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseChannelGroupGeneratorConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseChannelGroupGeneratorConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseChannelGroupGeneratorConfigValidationError{}
+
+var _ReleaseChannelGroupGeneratorConfig_Name_Pattern = regexp.MustCompile("^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$")
 
 // Validate checks the field values on Precondition_ReleaseChannelStable with
 // the rules defined in the proto definition for this message. If any rules

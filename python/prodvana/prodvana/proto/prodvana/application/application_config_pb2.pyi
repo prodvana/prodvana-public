@@ -25,6 +25,7 @@ class ApplicationConfig(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_GROUPS_FIELD_NUMBER: builtins.int
     NOTIFICATIONS_FIELD_NUMBER: builtins.int
     ALERTS_FIELD_NUMBER: builtins.int
     CAPABILITIES_FIELD_NUMBER: builtins.int
@@ -32,6 +33,8 @@ class ApplicationConfig(google.protobuf.message.Message):
     name: builtins.str
     @property
     def release_channels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig]: ...
+    @property
+    def release_channel_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelGroupGeneratorConfig]: ...
     @property
     def notifications(self) -> prodvana.proto.prodvana.common_config.notification_pb2.NotificationConfig: ...
     @property
@@ -50,12 +53,13 @@ class ApplicationConfig(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         release_channels: collections.abc.Iterable[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig] | None = ...,
+        release_channel_groups: collections.abc.Iterable[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelGroupGeneratorConfig] | None = ...,
         notifications: prodvana.proto.prodvana.common_config.notification_pb2.NotificationConfig | None = ...,
         alerts: prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig | None = ...,
         capabilities: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityConfig] | None = ...,
         capability_instances: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "notifications", b"notifications"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channels", b"release_channels"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channel_groups", b"release_channel_groups", "release_channels", b"release_channels"]) -> None: ...
 
 global___ApplicationConfig = ApplicationConfig

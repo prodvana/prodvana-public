@@ -6023,6 +6023,13 @@
             "$ref": "#/definitions/release_channelReleaseChannelConfig"
           }
         },
+        "releaseChannelGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/release_channelReleaseChannelGroupGeneratorConfig"
+          }
+        },
         "notifications": {
           "$ref": "#/definitions/common_configNotificationConfig"
         },
@@ -11073,9 +11080,14 @@
           "type": "string",
           "title": "intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"
         },
+        "group": {
+          "type": "string",
+          "description": "if specified, this release channel is part of a group. This can affect how release channels are rendered on the Prodvana web interface."
+        },
         "order": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "deprecated"
         },
         "maturity": {
           "$ref": "#/definitions/common_configMaturity",
@@ -11130,6 +11142,26 @@
             "$ref": "#/definitions/common_configConstant"
           },
           "title": "constants made available in template substitutions"
+        }
+      }
+    },
+    "release_channelReleaseChannelGroupGeneratorConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "runtimeSelector": {
+          "type": "string",
+          "description": "label selector for runtimes to generate release channels for.\nOne release channel will be generated for each runtime that matches this selector.\nThe selector will automatically be intersected with \"@type=runtime\"."
+        },
+        "allowEmpty": {
+          "type": "boolean",
+          "description": "By default, if the runtime selector returns an empty list of runtimes, Prodvana will error out.\nSet allow_empty to true to explicitly allow the selector to return an empty list."
+        },
+        "template": {
+          "$ref": "#/definitions/release_channelReleaseChannelConfig",
+          "title": "optionally customize how the release channel will be generated.\nTemplate variables .Builtins.Group an d.Builtins.Runtime are available.\nAny value specified here will be merged with:\nname: {{.Builtins.Group}}-{{.Builtins.Runtime.Name}}\ngroup: {{.Builtins.Group}}\nruntimes:\n- runtime: {{Builtins.Runtime.Name}}"
         }
       }
     },

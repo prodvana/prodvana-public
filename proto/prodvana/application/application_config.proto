@@ -16,6 +16,7 @@ message ApplicationConfig {
         }
     ];
     repeated prodvana.release_channel.ReleaseChannelConfig release_channels = 2;
+    repeated prodvana.release_channel.ReleaseChannelGroupGeneratorConfig release_channel_groups = 11 [(validate.rules).repeated.items.message.required = true];
     prodvana.common_config.NotificationConfig notifications = 4;
     prodvana.workflow.AlertingConfig alerts = 5;
 
@@ -29,5 +30,5 @@ message ApplicationConfig {
 
     reserved 3, 8, 9, 10;
     reserved "service_templates", "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
-    // next tag: 11
+    // next tag: 12
 }

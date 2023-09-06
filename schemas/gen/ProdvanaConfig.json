@@ -123,6 +123,20 @@
                         }
                     ]
                 },
+                "releaseChannelGroups": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelGroupGeneratorConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "notifications": {
                     "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
                     "additionalProperties": false,
@@ -4154,6 +4168,17 @@
                     ],
                     "description": "intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"
                 },
+                "group": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "if specified, this release channel is part of a group. This can affect how release channels are rendered on the Prodvana web interface."
+                },
                 "order": {
                     "oneOf": [
                         {
@@ -4162,7 +4187,8 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "deprecated"
                 },
                 "maturity": {
                     "enum": [
@@ -4304,6 +4330,63 @@
                 }
             ],
             "title": "Release Channel Config"
+        },
+        "prodvana.release_channel.ReleaseChannelGroupGeneratorConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "runtimeSelector": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "label selector for runtimes to generate release channels for. One release channel will be generated for each runtime that matches this selector. The selector will automatically be intersected with \"@type=runtime\"."
+                },
+                "allowEmpty": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "By default, if the runtime selector returns an empty list of runtimes, Prodvana will error out. Set allow_empty to true to explicitly allow the selector to return an empty list."
+                },
+                "template": {
+                    "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optionally customize how the release channel will be generated. Template variables .Builtins.Group an d.Builtins.Runtime are available. Any value specified here will be merged with: name: {{.Builtins.Group}}-{{.Builtins.Runtime.Name}} group: {{.Builtins.Group}} runtimes: - runtime: {{Builtins.Runtime.Name}}"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Channel Group Generator Config"
         },
         "prodvana.release_channel.ReleaseChannelRuntimeConfig": {
             "properties": {

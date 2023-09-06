@@ -78,6 +78,7 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    GROUP_FIELD_NUMBER: builtins.int
     ORDER_FIELD_NUMBER: builtins.int
     MATURITY_FIELD_NUMBER: builtins.int
     POLICY_FIELD_NUMBER: builtins.int
@@ -90,7 +91,10 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     CONSTANTS_FIELD_NUMBER: builtins.int
     name: builtins.str
     """intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"""
+    group: builtins.str
+    """if specified, this release channel is part of a group. This can affect how release channels are rendered on the Prodvana web interface."""
     order: builtins.int
+    """deprecated"""
     maturity: prodvana.proto.prodvana.common_config.maturity_pb2.Maturity.ValueType
     """deprecated"""
     @property
@@ -115,6 +119,7 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         self,
         *,
         name: builtins.str = ...,
+        group: builtins.str = ...,
         order: builtins.int = ...,
         maturity: prodvana.proto.prodvana.common_config.maturity_pb2.Maturity.ValueType = ...,
         policy: global___Policy | None = ...,
@@ -127,7 +132,7 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         constants: collections.abc.Iterable[prodvana.proto.prodvana.common_config.constants_pb2.Constant] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deploy_annotations", b"deploy_annotations", "policy", b"policy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "group", b"group", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
 
 global___ReleaseChannelConfig = ReleaseChannelConfig
 
@@ -236,3 +241,43 @@ class ReleaseChannelRuntimeConfig(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["capability", b"capability"]) -> typing_extensions.Literal["container_orchestration"] | None: ...
 
 global___ReleaseChannelRuntimeConfig = ReleaseChannelRuntimeConfig
+
+class ReleaseChannelGroupGeneratorConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    RUNTIME_SELECTOR_FIELD_NUMBER: builtins.int
+    ALLOW_EMPTY_FIELD_NUMBER: builtins.int
+    TEMPLATE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    runtime_selector: builtins.str
+    """label selector for runtimes to generate release channels for.
+    One release channel will be generated for each runtime that matches this selector.
+    The selector will automatically be intersected with "@type=runtime".
+    """
+    allow_empty: builtins.bool
+    """By default, if the runtime selector returns an empty list of runtimes, Prodvana will error out.
+    Set allow_empty to true to explicitly allow the selector to return an empty list.
+    """
+    @property
+    def template(self) -> global___ReleaseChannelConfig:
+        """optionally customize how the release channel will be generated.
+        Template variables .Builtins.Group an d.Builtins.Runtime are available.
+        Any value specified here will be merged with:
+        name: {{.Builtins.Group}}-{{.Builtins.Runtime.Name}}
+        group: {{.Builtins.Group}}
+        runtimes:
+        - runtime: {{Builtins.Runtime.Name}}
+        """
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        runtime_selector: builtins.str = ...,
+        allow_empty: builtins.bool = ...,
+        template: global___ReleaseChannelConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["template", b"template"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["allow_empty", b"allow_empty", "name", b"name", "runtime_selector", b"runtime_selector", "template", b"template"]) -> None: ...
+
+global___ReleaseChannelGroupGeneratorConfig = ReleaseChannelGroupGeneratorConfig

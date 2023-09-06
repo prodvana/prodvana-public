@@ -31,7 +31,9 @@ message ReleaseChannelConfig {
             pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
         }
     ];
-    int64 order = 2;
+    // if specified, this release channel is part of a group. This can affect how release channels are rendered on the Prodvana web interface.
+    string group = 12;
+    int64 order = 2; // deprecated
     prodvana.common_config.Maturity maturity = 3;  // deprecated
     Policy policy = 4;
 
@@ -48,7 +50,7 @@ message ReleaseChannelConfig {
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 10;
 
-    // next tag: 12
+    // next tag: 13
 }
 
 message Precondition {
@@ -109,4 +111,31 @@ message ReleaseChannelRuntimeConfig {
     RuntimeConnectionType type = 4;
 
     // next tag: 5
+}
+
+message ReleaseChannelGroupGeneratorConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+    // label selector for runtimes to generate release channels for.
+    // One release channel will be generated for each runtime that matches this selector.
+    // The selector will automatically be intersected with "@type=runtime".
+    string runtime_selector = 2 [(validate.rules).string.min_len = 1];
+
+    // By default, if the runtime selector returns an empty list of runtimes, Prodvana will error out.
+    // Set allow_empty to true to explicitly allow the selector to return an empty list.
+    bool allow_empty = 3;
+
+    // optionally customize how the release channel will be generated.
+    // Template variables .Builtins.Group an d.Builtins.Runtime are available.
+    // Any value specified here will be merged with:
+    // name: {{.Builtins.Group}}-{{.Builtins.Runtime.Name}}
+    // group: {{.Builtins.Group}}
+    // runtimes:
+    // - runtime: {{Builtins.Runtime.Name}}
+    ReleaseChannelConfig template = 4 [(validate.rules).message.skip = true];
 }
