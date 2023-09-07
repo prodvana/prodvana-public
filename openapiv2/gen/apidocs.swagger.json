@@ -11142,6 +11142,13 @@
             "$ref": "#/definitions/common_configConstant"
           },
           "title": "constants made available in template substitutions"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/labelsLabelDefinition"
+          }
         }
       }
     },

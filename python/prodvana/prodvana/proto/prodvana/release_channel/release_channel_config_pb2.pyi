@@ -11,6 +11,7 @@ import google.protobuf.message
 import prodvana.proto.prodvana.common_config.constants_pb2
 import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.maturity_pb2
+import prodvana.proto.prodvana.labels.labels_pb2
 import prodvana.proto.prodvana.pipelines.pipelines_pb2
 import prodvana.proto.prodvana.protection.attachments_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
@@ -89,6 +90,7 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     CONVERGENCE_PROTECTIONS_FIELD_NUMBER: builtins.int
     SERVICE_INSTANCE_PROTECTIONS_FIELD_NUMBER: builtins.int
     CONSTANTS_FIELD_NUMBER: builtins.int
+    LABELS_FIELD_NUMBER: builtins.int
     name: builtins.str
     """intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"""
     group: builtins.str
@@ -115,6 +117,8 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     @property
     def constants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.constants_pb2.Constant]:
         """constants made available in template substitutions"""
+    @property
+    def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
     def __init__(
         self,
         *,
@@ -130,9 +134,10 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         convergence_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
         service_instance_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
         constants: collections.abc.Iterable[prodvana.proto.prodvana.common_config.constants_pb2.Constant] | None = ...,
+        labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deploy_annotations", b"deploy_annotations", "policy", b"policy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "group", b"group", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "group", b"group", "labels", b"labels", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
 
 global___ReleaseChannelConfig = ReleaseChannelConfig
 

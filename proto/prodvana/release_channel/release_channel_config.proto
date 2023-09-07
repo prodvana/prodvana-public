@@ -5,6 +5,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "prodvana/common_config/constants.proto";
 import "prodvana/common_config/env.proto";
 import "prodvana/common_config/maturity.proto";
+import "prodvana/labels/labels.proto";
 import "prodvana/pipelines/pipelines.proto";
 import "prodvana/protection/attachments.proto";
 import "prodvana/runtimes/runtimes_config.proto";
@@ -49,8 +50,9 @@ message ReleaseChannelConfig {
 
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 10;
+    repeated prodvana.labels.LabelDefinition labels = 13;
 
-    // next tag: 13
+    // next tag: 14
 }
 
 message Precondition {

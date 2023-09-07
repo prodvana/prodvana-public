@@ -4318,6 +4318,20 @@
                         }
                     ],
                     "description": "constants made available in template substitutions"
+                },
+                "labels": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.labels.LabelDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
