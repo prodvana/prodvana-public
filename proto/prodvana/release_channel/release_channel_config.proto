@@ -57,7 +57,9 @@ message ReleaseChannelConfig {
 
 message Precondition {
     message ReleaseChannelStable {
-        string release_channel = 1;
+        oneof stable_oneof {
+            string release_channel = 1;
+        }
         reserved 2;
         reserved "duration";
     }
