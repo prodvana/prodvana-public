@@ -1777,7 +1777,7 @@ class MissingApproval(google.protobuf.message.Message):
 
 global___MissingApproval = MissingApproval
 
-class ApplyRejected(google.protobuf.message.Message):
+class ApplyConditionUnsatisfied(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class InternalMissingApproval(google.protobuf.message.Message):
@@ -1813,20 +1813,20 @@ class ApplyRejected(google.protobuf.message.Message):
 
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     @property
-    def missing_approval(self) -> global___ApplyRejected.InternalMissingApproval:
+    def missing_approval(self) -> global___ApplyConditionUnsatisfied.InternalMissingApproval:
         """Cannot apply because this entity requires additional approval.
         TODO: Add reasons like paused entities.
         """
     def __init__(
         self,
         *,
-        missing_approval: global___ApplyRejected.InternalMissingApproval | None = ...,
+        missing_approval: global___ApplyConditionUnsatisfied.InternalMissingApproval | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["reason", b"reason"]) -> typing_extensions.Literal["missing_approval"] | None: ...
 
-global___ApplyRejected = ApplyRejected
+global___ApplyConditionUnsatisfied = ApplyConditionUnsatisfied
 
 class TaskRun(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

@@ -6576,22 +6576,22 @@ var _ interface {
 	ErrorName() string
 } = MissingApprovalValidationError{}
 
-// Validate checks the field values on ApplyRejected with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *ApplyRejected) Validate() error {
+// Validate checks the field values on ApplyConditionUnsatisfied with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApplyConditionUnsatisfied) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ApplyRejected with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in ApplyRejectedMultiError, or
-// nil if none found.
-func (m *ApplyRejected) ValidateAll() error {
+// ValidateAll checks the field values on ApplyConditionUnsatisfied with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplyConditionUnsatisfiedMultiError, or nil if none found.
+func (m *ApplyConditionUnsatisfied) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ApplyRejected) validate(all bool) error {
+func (m *ApplyConditionUnsatisfied) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -6599,9 +6599,9 @@ func (m *ApplyRejected) validate(all bool) error {
 	var errors []error
 
 	switch v := m.Reason.(type) {
-	case *ApplyRejected_MissingApproval:
+	case *ApplyConditionUnsatisfied_MissingApproval:
 		if v == nil {
-			err := ApplyRejectedValidationError{
+			err := ApplyConditionUnsatisfiedValidationError{
 				field:  "Reason",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -6615,7 +6615,7 @@ func (m *ApplyRejected) validate(all bool) error {
 			switch v := interface{}(m.GetMissingApproval()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ApplyRejectedValidationError{
+					errors = append(errors, ApplyConditionUnsatisfiedValidationError{
 						field:  "MissingApproval",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -6623,7 +6623,7 @@ func (m *ApplyRejected) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ApplyRejectedValidationError{
+					errors = append(errors, ApplyConditionUnsatisfiedValidationError{
 						field:  "MissingApproval",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -6632,7 +6632,7 @@ func (m *ApplyRejected) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetMissingApproval()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ApplyRejectedValidationError{
+				return ApplyConditionUnsatisfiedValidationError{
 					field:  "MissingApproval",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -6645,19 +6645,19 @@ func (m *ApplyRejected) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ApplyRejectedMultiError(errors)
+		return ApplyConditionUnsatisfiedMultiError(errors)
 	}
 
 	return nil
 }
 
-// ApplyRejectedMultiError is an error wrapping multiple validation errors
-// returned by ApplyRejected.ValidateAll() if the designated constraints
-// aren't met.
-type ApplyRejectedMultiError []error
+// ApplyConditionUnsatisfiedMultiError is an error wrapping multiple validation
+// errors returned by ApplyConditionUnsatisfied.ValidateAll() if the
+// designated constraints aren't met.
+type ApplyConditionUnsatisfiedMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ApplyRejectedMultiError) Error() string {
+func (m ApplyConditionUnsatisfiedMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -6666,11 +6666,11 @@ func (m ApplyRejectedMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ApplyRejectedMultiError) AllErrors() []error { return m }
+func (m ApplyConditionUnsatisfiedMultiError) AllErrors() []error { return m }
 
-// ApplyRejectedValidationError is the validation error returned by
-// ApplyRejected.Validate if the designated constraints aren't met.
-type ApplyRejectedValidationError struct {
+// ApplyConditionUnsatisfiedValidationError is the validation error returned by
+// ApplyConditionUnsatisfied.Validate if the designated constraints aren't met.
+type ApplyConditionUnsatisfiedValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -6678,22 +6678,24 @@ type ApplyRejectedValidationError struct {
 }
 
 // Field function returns field value.
-func (e ApplyRejectedValidationError) Field() string { return e.field }
+func (e ApplyConditionUnsatisfiedValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ApplyRejectedValidationError) Reason() string { return e.reason }
+func (e ApplyConditionUnsatisfiedValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ApplyRejectedValidationError) Cause() error { return e.cause }
+func (e ApplyConditionUnsatisfiedValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ApplyRejectedValidationError) Key() bool { return e.key }
+func (e ApplyConditionUnsatisfiedValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ApplyRejectedValidationError) ErrorName() string { return "ApplyRejectedValidationError" }
+func (e ApplyConditionUnsatisfiedValidationError) ErrorName() string {
+	return "ApplyConditionUnsatisfiedValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e ApplyRejectedValidationError) Error() string {
+func (e ApplyConditionUnsatisfiedValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -6705,14 +6707,14 @@ func (e ApplyRejectedValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sApplyRejected.%s: %s%s",
+		"invalid %sApplyConditionUnsatisfied.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ApplyRejectedValidationError{}
+var _ error = ApplyConditionUnsatisfiedValidationError{}
 
 var _ interface {
 	Field() string
@@ -6720,7 +6722,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ApplyRejectedValidationError{}
+} = ApplyConditionUnsatisfiedValidationError{}
 
 // Validate checks the field values on TaskRun with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -8533,23 +8535,24 @@ var _ interface {
 	ErrorName() string
 } = Signal_RuntimeExtensionApprovalValidationError{}
 
-// Validate checks the field values on ApplyRejected_InternalMissingApproval
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *ApplyRejected_InternalMissingApproval) Validate() error {
+// Validate checks the field values on
+// ApplyConditionUnsatisfied_InternalMissingApproval with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApplyConditionUnsatisfied_InternalMissingApproval) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ApplyRejected_InternalMissingApproval
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the result is a list of violation errors wrapped in
-// ApplyRejected_InternalMissingApprovalMultiError, or nil if none found.
-func (m *ApplyRejected_InternalMissingApproval) ValidateAll() error {
+// ValidateAll checks the field values on
+// ApplyConditionUnsatisfied_InternalMissingApproval with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// ApplyConditionUnsatisfied_InternalMissingApprovalMultiError, or nil if none found.
+func (m *ApplyConditionUnsatisfied_InternalMissingApproval) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ApplyRejected_InternalMissingApproval) validate(all bool) error {
+func (m *ApplyConditionUnsatisfied_InternalMissingApproval) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -8566,7 +8569,7 @@ func (m *ApplyRejected_InternalMissingApproval) validate(all bool) error {
 		switch v := interface{}(m.GetRuntimeExtension()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ApplyRejected_InternalMissingApprovalValidationError{
+				errors = append(errors, ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{
 					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -8574,7 +8577,7 @@ func (m *ApplyRejected_InternalMissingApproval) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ApplyRejected_InternalMissingApprovalValidationError{
+				errors = append(errors, ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{
 					field:  "RuntimeExtension",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -8583,7 +8586,7 @@ func (m *ApplyRejected_InternalMissingApproval) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRuntimeExtension()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ApplyRejected_InternalMissingApprovalValidationError{
+			return ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{
 				field:  "RuntimeExtension",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -8592,20 +8595,20 @@ func (m *ApplyRejected_InternalMissingApproval) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ApplyRejected_InternalMissingApprovalMultiError(errors)
+		return ApplyConditionUnsatisfied_InternalMissingApprovalMultiError(errors)
 	}
 
 	return nil
 }
 
-// ApplyRejected_InternalMissingApprovalMultiError is an error wrapping
-// multiple validation errors returned by
-// ApplyRejected_InternalMissingApproval.ValidateAll() if the designated
-// constraints aren't met.
-type ApplyRejected_InternalMissingApprovalMultiError []error
+// ApplyConditionUnsatisfied_InternalMissingApprovalMultiError is an error
+// wrapping multiple validation errors returned by
+// ApplyConditionUnsatisfied_InternalMissingApproval.ValidateAll() if the
+// designated constraints aren't met.
+type ApplyConditionUnsatisfied_InternalMissingApprovalMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ApplyRejected_InternalMissingApprovalMultiError) Error() string {
+func (m ApplyConditionUnsatisfied_InternalMissingApprovalMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -8614,12 +8617,13 @@ func (m ApplyRejected_InternalMissingApprovalMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ApplyRejected_InternalMissingApprovalMultiError) AllErrors() []error { return m }
+func (m ApplyConditionUnsatisfied_InternalMissingApprovalMultiError) AllErrors() []error { return m }
 
-// ApplyRejected_InternalMissingApprovalValidationError is the validation error
-// returned by ApplyRejected_InternalMissingApproval.Validate if the
+// ApplyConditionUnsatisfied_InternalMissingApprovalValidationError is the
+// validation error returned by
+// ApplyConditionUnsatisfied_InternalMissingApproval.Validate if the
 // designated constraints aren't met.
-type ApplyRejected_InternalMissingApprovalValidationError struct {
+type ApplyConditionUnsatisfied_InternalMissingApprovalValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -8627,24 +8631,30 @@ type ApplyRejected_InternalMissingApprovalValidationError struct {
 }
 
 // Field function returns field value.
-func (e ApplyRejected_InternalMissingApprovalValidationError) Field() string { return e.field }
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) Field() string {
+	return e.field
+}
 
 // Reason function returns reason value.
-func (e ApplyRejected_InternalMissingApprovalValidationError) Reason() string { return e.reason }
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) Reason() string {
+	return e.reason
+}
 
 // Cause function returns cause value.
-func (e ApplyRejected_InternalMissingApprovalValidationError) Cause() error { return e.cause }
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) Cause() error {
+	return e.cause
+}
 
 // Key function returns key value.
-func (e ApplyRejected_InternalMissingApprovalValidationError) Key() bool { return e.key }
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ApplyRejected_InternalMissingApprovalValidationError) ErrorName() string {
-	return "ApplyRejected_InternalMissingApprovalValidationError"
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) ErrorName() string {
+	return "ApplyConditionUnsatisfied_InternalMissingApprovalValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ApplyRejected_InternalMissingApprovalValidationError) Error() string {
+func (e ApplyConditionUnsatisfied_InternalMissingApprovalValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -8656,14 +8666,14 @@ func (e ApplyRejected_InternalMissingApprovalValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sApplyRejected_InternalMissingApproval.%s: %s%s",
+		"invalid %sApplyConditionUnsatisfied_InternalMissingApproval.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ApplyRejected_InternalMissingApprovalValidationError{}
+var _ error = ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{}
 
 var _ interface {
 	Field() string
@@ -8671,4 +8681,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ApplyRejected_InternalMissingApprovalValidationError{}
+} = ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{}

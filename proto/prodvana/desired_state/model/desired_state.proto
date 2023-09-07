@@ -648,7 +648,7 @@ message MissingApproval {
     // next tag: 6
 }
 
-message ApplyRejected {
+message ApplyConditionUnsatisfied {
     message InternalMissingApproval {
         string desired_state_id = 1;
         prodvana.desired_state.model.SignalType signal_type = 2;
