@@ -4142,6 +4142,27 @@
                             "type": "string"
                         }
                     ]
+                },
+                "selector": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "allowEmpty": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if selector is used, allow selector to return an empty list of release channels"
                 }
             },
             "additionalProperties": false,

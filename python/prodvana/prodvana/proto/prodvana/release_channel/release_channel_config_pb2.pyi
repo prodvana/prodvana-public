@@ -148,15 +148,22 @@ class Precondition(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+        SELECTOR_FIELD_NUMBER: builtins.int
+        ALLOW_EMPTY_FIELD_NUMBER: builtins.int
         release_channel: builtins.str
+        selector: builtins.str
+        allow_empty: builtins.bool
+        """if selector is used, allow selector to return an empty list of release channels"""
         def __init__(
             self,
             *,
             release_channel: builtins.str = ...,
+            selector: builtins.str = ...,
+            allow_empty: builtins.bool = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel", "stable_oneof", b"stable_oneof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel", "stable_oneof", b"stable_oneof"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing_extensions.Literal["stable_oneof", b"stable_oneof"]) -> typing_extensions.Literal["release_channel"] | None: ...
+        def HasField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel", "selector", b"selector", "stable_oneof", b"stable_oneof"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["allow_empty", b"allow_empty", "release_channel", b"release_channel", "selector", b"selector", "stable_oneof", b"stable_oneof"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing_extensions.Literal["stable_oneof", b"stable_oneof"]) -> typing_extensions.Literal["release_channel", "selector"] | None: ...
 
     class ManualApproval(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

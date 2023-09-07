@@ -58,8 +58,12 @@ message ReleaseChannelConfig {
 message Precondition {
     message ReleaseChannelStable {
         oneof stable_oneof {
+            option (validate.required) = true;
             string release_channel = 1;
+            string selector = 3;
         }
+        // if selector is used, allow selector to return an empty list of release channels
+        bool allow_empty = 4;
         reserved 2;
         reserved "duration";
     }

@@ -5726,6 +5726,13 @@
       "properties": {
         "releaseChannel": {
           "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "allowEmpty": {
+          "type": "boolean",
+          "title": "if selector is used, allow selector to return an empty list of release channels"
         }
       }
     },

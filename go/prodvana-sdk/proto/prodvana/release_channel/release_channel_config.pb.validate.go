@@ -1226,6 +1226,9 @@ func (m *Precondition_ReleaseChannelStable) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for AllowEmpty
+
+	oneofStableOneofPresent := false
 	switch v := m.StableOneof.(type) {
 	case *Precondition_ReleaseChannelStable_ReleaseChannel:
 		if v == nil {
@@ -1238,9 +1241,33 @@ func (m *Precondition_ReleaseChannelStable) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
+		oneofStableOneofPresent = true
 		// no validation rules for ReleaseChannel
+	case *Precondition_ReleaseChannelStable_Selector:
+		if v == nil {
+			err := Precondition_ReleaseChannelStableValidationError{
+				field:  "StableOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofStableOneofPresent = true
+		// no validation rules for Selector
 	default:
 		_ = v // ensures v is used
+	}
+	if !oneofStableOneofPresent {
+		err := Precondition_ReleaseChannelStableValidationError{
+			field:  "StableOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
