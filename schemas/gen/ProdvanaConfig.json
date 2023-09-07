@@ -4039,6 +4039,16 @@
                         },
                         {}
                     ]
+                },
+                "sharedManualApproval": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.SharedManualApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -4175,6 +4185,30 @@
                 }
             ],
             "title": "Release Channel Stable"
+        },
+        "prodvana.release_channel.Precondition.SharedManualApproval": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Shared Manual Approval"
         },
         "prodvana.release_channel.ReleaseChannelConfig": {
             "properties": {

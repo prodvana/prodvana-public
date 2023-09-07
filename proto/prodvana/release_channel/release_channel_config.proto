@@ -78,10 +78,14 @@ message Precondition {
         string task_name = 1;
         prodvana.pipelines.CustomTask custom_task = 2;
     }
+    message SharedManualApproval {
+        string name = 1 [(validate.rules).string.min_len = 1];
+    }
     oneof precondition {
         ReleaseChannelStable release_channel_stable = 1;
         ManualApproval manual_approval = 2;
         CustomTask custom_task = 3;
+        SharedManualApproval shared_manual_approval = 5;
     }
     reserved 4;
     reserved "protection";

@@ -5736,6 +5736,14 @@
         }
       }
     },
+    "PreconditionSharedManualApproval": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "ProtectionLifecycleDeployment": {
       "type": "object"
     },
@@ -11037,6 +11045,9 @@
         },
         "customTask": {
           "$ref": "#/definitions/release_channelPreconditionCustomTask"
+        },
+        "sharedManualApproval": {
+          "$ref": "#/definitions/PreconditionSharedManualApproval"
         }
       }
     },

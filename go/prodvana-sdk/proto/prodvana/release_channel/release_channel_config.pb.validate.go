@@ -779,6 +779,47 @@ func (m *Precondition) validate(all bool) error {
 			}
 		}
 
+	case *Precondition_SharedManualApproval_:
+		if v == nil {
+			err := PreconditionValidationError{
+				field:  "Precondition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetSharedManualApproval()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PreconditionValidationError{
+						field:  "SharedManualApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PreconditionValidationError{
+						field:  "SharedManualApproval",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSharedManualApproval()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PreconditionValidationError{
+					field:  "SharedManualApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -1593,3 +1634,119 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Precondition_CustomTaskValidationError{}
+
+// Validate checks the field values on Precondition_SharedManualApproval with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *Precondition_SharedManualApproval) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Precondition_SharedManualApproval
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// Precondition_SharedManualApprovalMultiError, or nil if none found.
+func (m *Precondition_SharedManualApproval) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Precondition_SharedManualApproval) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := Precondition_SharedManualApprovalValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return Precondition_SharedManualApprovalMultiError(errors)
+	}
+
+	return nil
+}
+
+// Precondition_SharedManualApprovalMultiError is an error wrapping multiple
+// validation errors returned by
+// Precondition_SharedManualApproval.ValidateAll() if the designated
+// constraints aren't met.
+type Precondition_SharedManualApprovalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Precondition_SharedManualApprovalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Precondition_SharedManualApprovalMultiError) AllErrors() []error { return m }
+
+// Precondition_SharedManualApprovalValidationError is the validation error
+// returned by Precondition_SharedManualApproval.Validate if the designated
+// constraints aren't met.
+type Precondition_SharedManualApprovalValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Precondition_SharedManualApprovalValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Precondition_SharedManualApprovalValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Precondition_SharedManualApprovalValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Precondition_SharedManualApprovalValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Precondition_SharedManualApprovalValidationError) ErrorName() string {
+	return "Precondition_SharedManualApprovalValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Precondition_SharedManualApprovalValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPrecondition_SharedManualApproval.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Precondition_SharedManualApprovalValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Precondition_SharedManualApprovalValidationError{}
