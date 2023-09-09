@@ -22,19 +22,34 @@ class LocalConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PATH_FIELD_NUMBER: builtins.int
+    TARBALL_BLOB_ID_FIELD_NUMBER: builtins.int
     PATHS_FIELD_NUMBER: builtins.int
+    SUB_PATH_FIELD_NUMBER: builtins.int
     path: builtins.str
     """Specify a path to a local file or directory"""
+    tarball_blob_id: builtins.str
+    """A directory tarball blob id uploaded to prodvana.proto.prodvana. This is meant for internal use."""
     @property
     def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Specify multiple paths. They will get concatenated."""
+        """cannot be set in conjunction with path or tarball_blob_id
+        Specify multiple paths. They will get concatenated.
+        """
+    sub_path: builtins.str
+    """A sub_path relative to path containing the actual config.
+    sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.
+    if specified, path must also be specified and be a directory.
+    """
     def __init__(
         self,
         *,
         path: builtins.str = ...,
+        tarball_blob_id: builtins.str = ...,
         paths: collections.abc.Iterable[builtins.str] | None = ...,
+        sub_path: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "paths", b"paths"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "tarball_blob_id", b"tarball_blob_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "paths", b"paths", "sub_path", b"sub_path", "tarball_blob_id", b"tarball_blob_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["path_oneof", b"path_oneof"]) -> typing_extensions.Literal["path", "tarball_blob_id"] | None: ...
 
 global___LocalConfig = LocalConfig
 

@@ -6673,12 +6673,20 @@
           "type": "string",
           "title": "Specify a path to a local file or directory"
         },
+        "tarballBlobId": {
+          "type": "string",
+          "description": "A directory tarball blob id uploaded to prodvana. This is meant for internal use."
+        },
         "paths": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Specify multiple paths. They will get concatenated."
+          "description": "cannot be set in conjunction with path or tarball_blob_id\nSpecify multiple paths. They will get concatenated."
+        },
+        "subPath": {
+          "type": "string",
+          "description": "A sub_path relative to path containing the actual config.\nsub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.\nif specified, path must also be specified and be a directory."
         }
       }
     },

@@ -57,7 +57,36 @@ func (m *LocalConfig) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Path
+	// no validation rules for SubPath
+
+	switch v := m.PathOneof.(type) {
+	case *LocalConfig_Path:
+		if v == nil {
+			err := LocalConfigValidationError{
+				field:  "PathOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for Path
+	case *LocalConfig_TarballBlobId:
+		if v == nil {
+			err := LocalConfigValidationError{
+				field:  "PathOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for TarballBlobId
+	default:
+		_ = v // ensures v is used
+	}
 
 	if len(errors) > 0 {
 		return LocalConfigMultiError(errors)

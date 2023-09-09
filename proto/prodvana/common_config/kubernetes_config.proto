@@ -4,10 +4,20 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "validate/validate.proto";
 
 message LocalConfig {
-    // Specify a path to a local file or directory
-    string path = 1;
+    oneof path_oneof {
+        // Specify a path to a local file or directory
+        string path = 1;
+        // A directory tarball blob id uploaded to prodvana. This is meant for internal use.
+        string tarball_blob_id = 4;
+    }
+    // cannot be set in conjunction with path or tarball_blob_id
     // Specify multiple paths. They will get concatenated.
     repeated string paths = 2;
+
+    // A sub_path relative to path containing the actual config.
+    // sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.
+    // if specified, path must also be specified and be a directory.
+    string sub_path = 3;
 }
 
 message KubernetesConfig {
