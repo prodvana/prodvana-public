@@ -35,7 +35,7 @@ def find_missing_approval(
             ]
             if manual_approval_entity.status == Status.CONVERGING:
                 return MissingApproval(
-                    topic=release_channel_entity.desired_state.service_instance.release_channel,
+                    topic=manual_approval_entity.desired_state.manual_approval.topic,
                     signal_type=SignalType.SIGNAL_MANUAL_APPROVAL,
                     desired_state_id=release_channel_entity.root_desired_state_id,
                 )
