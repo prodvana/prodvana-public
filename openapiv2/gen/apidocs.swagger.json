@@ -4644,6 +4644,9 @@
                 },
                 "sourceMetadata": {
                   "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "bundleNameOverride": {
+                  "type": "string"
                 }
               }
             }
@@ -4716,6 +4719,9 @@
                 },
                 "sourceMetadata": {
                   "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "bundleNameOverride": {
+                  "type": "string"
                 }
               }
             }
@@ -4766,6 +4772,9 @@
                 },
                 "sourceMetadata": {
                   "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "bundleNameOverride": {
+                  "type": "string"
                 }
               }
             }

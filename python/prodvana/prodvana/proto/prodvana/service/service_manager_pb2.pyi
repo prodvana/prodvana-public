@@ -78,6 +78,7 @@ class ApplyParametersReq(google.protobuf.message.Message):
     APPLICATION_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    BUNDLE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     @property
     def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
     @property
@@ -93,6 +94,7 @@ class ApplyParametersReq(google.protobuf.message.Message):
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    bundle_name_override: builtins.str
     def __init__(
         self,
         *,
@@ -104,9 +106,10 @@ class ApplyParametersReq(google.protobuf.message.Message):
         application: builtins.str = ...,
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        bundle_name_override: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["oneof", b"oneof", "service_config", b"service_config", "service_config_version", b"service_config_version", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "oneof", b"oneof", "parameters", b"parameters", "per_release_channel", b"per_release_channel", "service_config", b"service_config", "service_config_version", b"service_config_version", "source", b"source", "source_metadata", b"source_metadata", "test_only_skip_registry_check", b"test_only_skip_registry_check"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "oneof", b"oneof", "parameters", b"parameters", "per_release_channel", b"per_release_channel", "service_config", b"service_config", "service_config_version", b"service_config_version", "source", b"source", "source_metadata", b"source_metadata", "test_only_skip_registry_check", b"test_only_skip_registry_check"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["oneof", b"oneof"]) -> typing_extensions.Literal["service_config", "service_config_version"] | None: ...
 
 global___ApplyParametersReq = ApplyParametersReq
@@ -711,12 +714,14 @@ class ConfigureServiceReq(google.protobuf.message.Message):
     SERVICE_CONFIG_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    BUNDLE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     application: builtins.str
     @property
     def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    bundle_name_override: builtins.str
     def __init__(
         self,
         *,
@@ -724,9 +729,10 @@ class ConfigureServiceReq(google.protobuf.message.Message):
         service_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        bundle_name_override: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["service_config", b"service_config", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service_config", b"service_config", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "service_config", b"service_config", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___ConfigureServiceReq = ConfigureServiceReq
 

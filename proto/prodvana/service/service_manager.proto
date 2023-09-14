@@ -46,10 +46,12 @@ message ApplyParametersReq {
     prodvana.version.Source source = 6;
     prodvana.version.SourceMetadata source_metadata = 7;
 
+    string bundle_name_override = 11;
+
     reserved 2, 3;
     reserved "release_channels", "compute_efficiency";
 
-    // next tag: 11
+    // next tag: 12
 }
 
 message ApplyParametersResp {
@@ -229,6 +231,7 @@ message ConfigureServiceReq {
     ServiceConfig service_config = 2 [(validate.rules).message.required = true];
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
+    string bundle_name_override = 5;
 }
 
 message ConfigureServiceResp {
