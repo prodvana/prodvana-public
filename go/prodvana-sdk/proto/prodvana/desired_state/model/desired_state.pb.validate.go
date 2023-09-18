@@ -6940,6 +6940,8 @@ func (m *TaskRun) validate(all bool) error {
 
 	// no validation rules for Retryable
 
+	// no validation rules for Phase
+
 	if len(errors) > 0 {
 		return TaskRunMultiError(errors)
 	}

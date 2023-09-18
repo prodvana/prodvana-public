@@ -5899,6 +5899,14 @@
       "default": "UNKNOWN",
       "title": "- NONE: no autogen\n - IMAGE: autogen one parameter per program for the image\n - IMAGE_AND_REPLICAS: IMAGE + autogen a parameter for replicas count"
     },
+    "TaskRunPhase": {
+      "type": "string",
+      "enum": [
+        "RUNNING",
+        "NOT_STARTED"
+      ],
+      "default": "RUNNING"
+    },
     "VolumeSourceEphemeralSource": {
       "type": "object",
       "properties": {
@@ -10085,6 +10093,10 @@
         },
         "retryable": {
           "type": "boolean"
+        },
+        "phase": {
+          "$ref": "#/definitions/TaskRunPhase",
+          "title": "tasks are created first in the NOT_STARTED phase"
         }
       }
     },

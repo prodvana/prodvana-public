@@ -668,6 +668,10 @@ message ApplyConditionUnsatisfied {
 }
 
 message TaskRun {
+    enum Phase {
+        RUNNING = 0;
+        NOT_STARTED = 1;
+    }
     SimpleStatus status = 1;
     repeated StatusExplanation status_explanations = 2;
     string version = 3;
@@ -687,6 +691,9 @@ message TaskRun {
     // set to true.
     repeated int32 retryable_exit_codes = 11;
     bool retryable = 12;
+
+    // tasks are created first in the NOT_STARTED phase
+    Phase phase = 13;
 }
 
 message TaskEntityContext {

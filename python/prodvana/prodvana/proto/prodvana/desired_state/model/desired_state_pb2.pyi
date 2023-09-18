@@ -1831,6 +1831,19 @@ global___ApplyConditionUnsatisfied = ApplyConditionUnsatisfied
 class TaskRun(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _Phase:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _PhaseEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TaskRun._Phase.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        RUNNING: TaskRun._Phase.ValueType  # 0
+        NOT_STARTED: TaskRun._Phase.ValueType  # 1
+
+    class Phase(_Phase, metaclass=_PhaseEnumTypeWrapper): ...
+    RUNNING: TaskRun.Phase.ValueType  # 0
+    NOT_STARTED: TaskRun.Phase.ValueType  # 1
+
     STATUS_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
@@ -1843,6 +1856,7 @@ class TaskRun(google.protobuf.message.Message):
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
     RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
     RETRYABLE_FIELD_NUMBER: builtins.int
+    PHASE_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
     @property
     def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
@@ -1870,6 +1884,8 @@ class TaskRun(google.protobuf.message.Message):
         set to true.
         """
     retryable: builtins.bool
+    phase: global___TaskRun.Phase.ValueType
+    """tasks are created first in the NOT_STARTED phase"""
     def __init__(
         self,
         *,
@@ -1885,9 +1901,10 @@ class TaskRun(google.protobuf.message.Message):
         fetch_details: global___FetchDetails | None = ...,
         retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         retryable: builtins.bool = ...,
+        phase: global___TaskRun.Phase.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "output_blob_ids", b"output_blob_ids", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 
