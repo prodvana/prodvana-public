@@ -7,8 +7,6 @@ message LocalConfig {
     oneof path_oneof {
         // Specify a path to a local file or directory
         string path = 1;
-        // A directory tarball blob id uploaded to prodvana. This is meant for internal use.
-        string tarball_blob_id = 4;
     }
     // cannot be set in conjunction with path or tarball_blob_id
     // Specify multiple paths. They will get concatenated.
@@ -18,6 +16,21 @@ message LocalConfig {
     // sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.
     // if specified, path must also be specified and be a directory.
     string sub_path = 3;
+
+    reserved 4;
+    reserved "tarball_blob_id";
+
+    // next tag: 5
+}
+
+// a remote config, specified by a remote source and a subpath
+message RemoteConfig {
+    oneof remote_oneof {
+        // A directory tarball blob id uploaded to prodvana.
+        string tarball_blob_id = 1;
+        // TODO(naphat) git repo support?
+    }
+    string sub_path = 2;
 }
 
 message KubernetesConfig {
@@ -31,6 +44,7 @@ message KubernetesConfig {
         option (validate.required) = true;
         string inlined = 2 [(validate.rules).string.min_len = 1];
         LocalConfig local = 3;
+        RemoteConfig remote = 5;
     }
 
     enum EnvInjectionMode {
@@ -43,4 +57,6 @@ message KubernetesConfig {
 
     // Defaults to ENV_INJECT_NON_SECRET_ENV
     EnvInjectionMode env_injection_mode = 4;
+
+    // next tag: 6
 }

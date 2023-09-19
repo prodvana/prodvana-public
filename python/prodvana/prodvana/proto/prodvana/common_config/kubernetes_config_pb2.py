@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/common_config/kubernetes_config.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"g\n\x0bLocalConfig\x12\x0e\n\x04path\x18\x01 \x01(\tH\x00\x12\x19\n\x0ftarball_blob_id\x18\x04 \x01(\tH\x00\x12\r\n\x05paths\x18\x02 \x03(\t\x12\x10\n\x08sub_path\x18\x03 \x01(\tB\x0c\n\npath_oneof\"\xaf\x03\n\x10KubernetesConfig\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32-.prodvana.common_config.KubernetesConfig.TypeB\x08\xfa\x42\x05\x82\x01\x02 \x00\x12\x1a\n\x07inlined\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12\x34\n\x05local\x18\x03 \x01(\x0b\x32#.prodvana.common_config.LocalConfigH\x00\x12U\n\x12\x65nv_injection_mode\x18\x04 \x01(\x0e\x32\x39.prodvana.common_config.KubernetesConfig.EnvInjectionMode\"2\n\x04Type\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0e\n\nKUBERNETES\x10\x01\x12\r\n\tKUSTOMIZE\x10\x02\"b\n\x10\x45nvInjectionMode\x12\x16\n\x12\x45NV_INJECT_UNKNOWN\x10\x00\x12\x17\n\x13\x45NV_INJECT_DISABLED\x10\x01\x12\x1d\n\x19\x45NV_INJECT_NON_SECRET_ENV\x10\x02\x42\x13\n\x0csource_oneof\x12\x03\xf8\x42\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.prodvana/common_config/kubernetes_config.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"c\n\x0bLocalConfig\x12\x0e\n\x04path\x18\x01 \x01(\tH\x00\x12\r\n\x05paths\x18\x02 \x03(\t\x12\x10\n\x08sub_path\x18\x03 \x01(\tB\x0c\n\npath_oneofJ\x04\x08\x04\x10\x05R\x0ftarball_blob_id\"K\n\x0cRemoteConfig\x12\x19\n\x0ftarball_blob_id\x18\x01 \x01(\tH\x00\x12\x10\n\x08sub_path\x18\x02 \x01(\tB\x0e\n\x0cremote_oneof\"\xe7\x03\n\x10KubernetesConfig\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32-.prodvana.common_config.KubernetesConfig.TypeB\x08\xfa\x42\x05\x82\x01\x02 \x00\x12\x1a\n\x07inlined\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12\x34\n\x05local\x18\x03 \x01(\x0b\x32#.prodvana.common_config.LocalConfigH\x00\x12\x36\n\x06remote\x18\x05 \x01(\x0b\x32$.prodvana.common_config.RemoteConfigH\x00\x12U\n\x12\x65nv_injection_mode\x18\x04 \x01(\x0e\x32\x39.prodvana.common_config.KubernetesConfig.EnvInjectionMode\"2\n\x04Type\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0e\n\nKUBERNETES\x10\x01\x12\r\n\tKUSTOMIZE\x10\x02\"b\n\x10\x45nvInjectionMode\x12\x16\n\x12\x45NV_INJECT_UNKNOWN\x10\x00\x12\x17\n\x13\x45NV_INJECT_DISABLED\x10\x01\x12\x1d\n\x19\x45NV_INJECT_NON_SECRET_ENV\x10\x02\x42\x13\n\x0csource_oneof\x12\x03\xf8\x42\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -30,11 +30,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _KUBERNETESCONFIG.fields_by_name['inlined']._options = None
   _KUBERNETESCONFIG.fields_by_name['inlined']._serialized_options = b'\372B\004r\002\020\001'
   _globals['_LOCALCONFIG']._serialized_start=99
-  _globals['_LOCALCONFIG']._serialized_end=202
-  _globals['_KUBERNETESCONFIG']._serialized_start=205
-  _globals['_KUBERNETESCONFIG']._serialized_end=636
-  _globals['_KUBERNETESCONFIG_TYPE']._serialized_start=465
-  _globals['_KUBERNETESCONFIG_TYPE']._serialized_end=515
-  _globals['_KUBERNETESCONFIG_ENVINJECTIONMODE']._serialized_start=517
-  _globals['_KUBERNETESCONFIG_ENVINJECTIONMODE']._serialized_end=615
+  _globals['_LOCALCONFIG']._serialized_end=198
+  _globals['_REMOTECONFIG']._serialized_start=200
+  _globals['_REMOTECONFIG']._serialized_end=275
+  _globals['_KUBERNETESCONFIG']._serialized_start=278
+  _globals['_KUBERNETESCONFIG']._serialized_end=765
+  _globals['_KUBERNETESCONFIG_TYPE']._serialized_start=594
+  _globals['_KUBERNETESCONFIG_TYPE']._serialized_end=644
+  _globals['_KUBERNETESCONFIG_ENVINJECTIONMODE']._serialized_start=646
+  _globals['_KUBERNETESCONFIG_ENVINJECTIONMODE']._serialized_end=744
 # @@protoc_insertion_point(module_scope)

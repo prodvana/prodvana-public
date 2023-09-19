@@ -72,18 +72,6 @@ func (m *LocalConfig) validate(all bool) error {
 			errors = append(errors, err)
 		}
 		// no validation rules for Path
-	case *LocalConfig_TarballBlobId:
-		if v == nil {
-			err := LocalConfigValidationError{
-				field:  "PathOneof",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-		// no validation rules for TarballBlobId
 	default:
 		_ = v // ensures v is used
 	}
@@ -164,6 +152,124 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = LocalConfigValidationError{}
+
+// Validate checks the field values on RemoteConfig with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RemoteConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoteConfig with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RemoteConfigMultiError, or
+// nil if none found.
+func (m *RemoteConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoteConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for SubPath
+
+	switch v := m.RemoteOneof.(type) {
+	case *RemoteConfig_TarballBlobId:
+		if v == nil {
+			err := RemoteConfigValidationError{
+				field:  "RemoteOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for TarballBlobId
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return RemoteConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// RemoteConfigMultiError is an error wrapping multiple validation errors
+// returned by RemoteConfig.ValidateAll() if the designated constraints aren't met.
+type RemoteConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoteConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoteConfigMultiError) AllErrors() []error { return m }
+
+// RemoteConfigValidationError is the validation error returned by
+// RemoteConfig.Validate if the designated constraints aren't met.
+type RemoteConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoteConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoteConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoteConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoteConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoteConfigValidationError) ErrorName() string { return "RemoteConfigValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RemoteConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoteConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoteConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoteConfigValidationError{}
 
 // Validate checks the field values on KubernetesConfig with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -262,6 +368,48 @@ func (m *KubernetesConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return KubernetesConfigValidationError{
 					field:  "Local",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *KubernetesConfig_Remote:
+		if v == nil {
+			err := KubernetesConfigValidationError{
+				field:  "SourceOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSourceOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetRemote()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, KubernetesConfigValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, KubernetesConfigValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRemote()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return KubernetesConfigValidationError{
+					field:  "Remote",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -6646,6 +6646,9 @@
         "local": {
           "$ref": "#/definitions/common_configLocalConfig"
         },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
+        },
         "envInjectionMode": {
           "$ref": "#/definitions/KubernetesConfigEnvInjectionMode",
           "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
@@ -6689,10 +6692,6 @@
         "path": {
           "type": "string",
           "title": "Specify a path to a local file or directory"
-        },
-        "tarballBlobId": {
-          "type": "string",
-          "description": "A directory tarball blob id uploaded to prodvana. This is meant for internal use."
         },
         "paths": {
           "type": "array",
@@ -6904,6 +6903,19 @@
         }
       },
       "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.\nThe validations expressed here represent the lowest common denominator of the use cases."
+    },
+    "common_configRemoteConfig": {
+      "type": "object",
+      "properties": {
+        "tarballBlobId": {
+          "type": "string",
+          "description": "A directory tarball blob id uploaded to prodvana.\n\nTODO(naphat) git repo support?"
+        },
+        "subPath": {
+          "type": "string"
+        }
+      },
+      "title": "a remote config, specified by a remote source and a subpath"
     },
     "common_configRemoteHelmChart": {
       "type": "object",

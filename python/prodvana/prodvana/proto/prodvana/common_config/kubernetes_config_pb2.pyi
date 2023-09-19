@@ -22,13 +22,10 @@ class LocalConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PATH_FIELD_NUMBER: builtins.int
-    TARBALL_BLOB_ID_FIELD_NUMBER: builtins.int
     PATHS_FIELD_NUMBER: builtins.int
     SUB_PATH_FIELD_NUMBER: builtins.int
     path: builtins.str
     """Specify a path to a local file or directory"""
-    tarball_blob_id: builtins.str
-    """A directory tarball blob id uploaded to prodvana.proto.prodvana. This is meant for internal use."""
     @property
     def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """cannot be set in conjunction with path or tarball_blob_id
@@ -43,15 +40,38 @@ class LocalConfig(google.protobuf.message.Message):
         self,
         *,
         path: builtins.str = ...,
-        tarball_blob_id: builtins.str = ...,
         paths: collections.abc.Iterable[builtins.str] | None = ...,
         sub_path: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "tarball_blob_id", b"tarball_blob_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "paths", b"paths", "sub_path", b"sub_path", "tarball_blob_id", b"tarball_blob_id"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["path_oneof", b"path_oneof"]) -> typing_extensions.Literal["path", "tarball_blob_id"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "paths", b"paths", "sub_path", b"sub_path"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["path_oneof", b"path_oneof"]) -> typing_extensions.Literal["path"] | None: ...
 
 global___LocalConfig = LocalConfig
+
+class RemoteConfig(google.protobuf.message.Message):
+    """a remote config, specified by a remote source and a subpath"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TARBALL_BLOB_ID_FIELD_NUMBER: builtins.int
+    SUB_PATH_FIELD_NUMBER: builtins.int
+    tarball_blob_id: builtins.str
+    """A directory tarball blob id uploaded to prodvana.proto.prodvana.
+    TODO(naphat) git repo support?
+    """
+    sub_path: builtins.str
+    def __init__(
+        self,
+        *,
+        tarball_blob_id: builtins.str = ...,
+        sub_path: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["remote_oneof", b"remote_oneof", "tarball_blob_id", b"tarball_blob_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["remote_oneof", b"remote_oneof", "sub_path", b"sub_path", "tarball_blob_id", b"tarball_blob_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["remote_oneof", b"remote_oneof"]) -> typing_extensions.Literal["tarball_blob_id"] | None: ...
+
+global___RemoteConfig = RemoteConfig
 
 class KubernetesConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -93,11 +113,14 @@ class KubernetesConfig(google.protobuf.message.Message):
     TYPE_FIELD_NUMBER: builtins.int
     INLINED_FIELD_NUMBER: builtins.int
     LOCAL_FIELD_NUMBER: builtins.int
+    REMOTE_FIELD_NUMBER: builtins.int
     ENV_INJECTION_MODE_FIELD_NUMBER: builtins.int
     type: global___KubernetesConfig.Type.ValueType
     inlined: builtins.str
     @property
     def local(self) -> global___LocalConfig: ...
+    @property
+    def remote(self) -> global___RemoteConfig: ...
     env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType
     """Defaults to ENV_INJECT_NON_SECRET_ENV"""
     def __init__(
@@ -106,10 +129,11 @@ class KubernetesConfig(google.protobuf.message.Message):
         type: global___KubernetesConfig.Type.ValueType = ...,
         inlined: builtins.str = ...,
         local: global___LocalConfig | None = ...,
+        remote: global___RemoteConfig | None = ...,
         env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "source_oneof", b"source_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env_injection_mode", b"env_injection_mode", "inlined", b"inlined", "local", b"local", "source_oneof", b"source_oneof", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["source_oneof", b"source_oneof"]) -> typing_extensions.Literal["inlined", "local"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "remote", b"remote", "source_oneof", b"source_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env_injection_mode", b"env_injection_mode", "inlined", b"inlined", "local", b"local", "remote", b"remote", "source_oneof", b"source_oneof", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["source_oneof", b"source_oneof"]) -> typing_extensions.Literal["inlined", "local", "remote"] | None: ...
 
 global___KubernetesConfig = KubernetesConfig

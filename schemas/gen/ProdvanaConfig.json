@@ -997,6 +997,16 @@
                         {}
                     ]
                 },
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "envInjectionMode": {
                     "enum": [
                         "ENV_INJECT_UNKNOWN",
@@ -1111,17 +1121,6 @@
                         }
                     ],
                     "description": "Specify a path to a local file or directory"
-                },
-                "tarballBlobId": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "A directory tarball blob id uploaded to prodvana. This is meant for internal use."
                 },
                 "paths": {
                     "items": {
@@ -1757,6 +1756,42 @@
             ],
             "title": "Program Config",
             "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks. The validations expressed here represent the lowest common denominator of the use cases."
+        },
+        "prodvana.common_config.RemoteConfig": {
+            "properties": {
+                "tarballBlobId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "A directory tarball blob id uploaded to prodvana.  TODO(naphat) git repo support?"
+                },
+                "subPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Remote Config",
+            "description": "a remote config, specified by a remote source and a subpath"
         },
         "prodvana.common_config.RemoteHelmChart": {
             "properties": {
