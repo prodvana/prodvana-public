@@ -1153,6 +1153,27 @@
                         }
                     ],
                     "description": "A sub_path relative to path containing the actual config. sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`. if specified, path must also be specified and be a directory."
+                },
+                "excludePatterns": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded to Prodvana. Follows the same format as gitignore."
                 }
             },
             "additionalProperties": false,

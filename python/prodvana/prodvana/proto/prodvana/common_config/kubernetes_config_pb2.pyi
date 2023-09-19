@@ -24,6 +24,7 @@ class LocalConfig(google.protobuf.message.Message):
     PATH_FIELD_NUMBER: builtins.int
     PATHS_FIELD_NUMBER: builtins.int
     SUB_PATH_FIELD_NUMBER: builtins.int
+    EXCLUDE_PATTERNS_FIELD_NUMBER: builtins.int
     path: builtins.str
     """Specify a path to a local file or directory"""
     @property
@@ -36,15 +37,22 @@ class LocalConfig(google.protobuf.message.Message):
     sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.
     if specified, path must also be specified and be a directory.
     """
+    @property
+    def exclude_patterns(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded
+        to Prodvana.
+        Follows the same format as gitignore.
+        """
     def __init__(
         self,
         *,
         path: builtins.str = ...,
         paths: collections.abc.Iterable[builtins.str] | None = ...,
         sub_path: builtins.str = ...,
+        exclude_patterns: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["path", b"path", "path_oneof", b"path_oneof", "paths", b"paths", "sub_path", b"sub_path"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exclude_patterns", b"exclude_patterns", "path", b"path", "path_oneof", b"path_oneof", "paths", b"paths", "sub_path", b"sub_path"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["path_oneof", b"path_oneof"]) -> typing_extensions.Literal["path"] | None: ...
 
 global___LocalConfig = LocalConfig

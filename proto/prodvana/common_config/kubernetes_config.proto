@@ -16,11 +16,15 @@ message LocalConfig {
     // sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`.
     // if specified, path must also be specified and be a directory.
     string sub_path = 3;
+    // Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded
+    // to Prodvana.
+    // Follows the same format as gitignore.
+    repeated string exclude_patterns = 5;
 
     reserved 4;
     reserved "tarball_blob_id";
 
-    // next tag: 5
+    // next tag: 6
 }
 
 // a remote config, specified by a remote source and a subpath
