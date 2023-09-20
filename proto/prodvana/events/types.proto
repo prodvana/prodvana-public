@@ -35,6 +35,12 @@ enum EventType {
 
     KUBECTL_CMD = 18;
 
+    // a generic event type for submitting an audit log only event
+    // without creating an explicit event type for it.
+    // This should only be used for short lived logs. If the log will
+    // be around for a long time, it should be elevated to a proper event type.
+    AUDIT_LOG_DEBUG = 19;
+
     reserved 5;
 }
 
@@ -276,6 +282,10 @@ message KubectlCmdEvent {
     int32 exit_code = 3;
 }
 
+message AuditLogDebugEvent {
+    map<string, string> details = 1;
+}
+
 message EventDetails {
     oneof details {
         SetDesiredStateEvent set_desired_state = 1;
@@ -295,6 +305,7 @@ message EventDetails {
         ObjectDeletedEvent object_deleted = 16;
         ObjectModifiedEvent object_modified = 17;
         KubectlCmdEvent kubectl_cmd = 18;
+        AuditLogDebugEvent audit_log_debug = 19;
     }
     reserved 5;
 }

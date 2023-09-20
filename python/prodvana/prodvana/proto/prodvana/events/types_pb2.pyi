@@ -53,6 +53,12 @@ class _EventTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     OBJECT_DELETED: _EventType.ValueType  # 16
     OBJECT_MODIFIED: _EventType.ValueType  # 17
     KUBECTL_CMD: _EventType.ValueType  # 18
+    AUDIT_LOG_DEBUG: _EventType.ValueType  # 19
+    """a generic event type for submitting an audit log only event
+    without creating an explicit event type for it.
+    This should only be used for short lived logs. If the log will
+    be around for a long time, it should be elevated to a proper event type.
+    """
 
 class EventType(_EventType, metaclass=_EventTypeEnumTypeWrapper): ...
 
@@ -82,6 +88,12 @@ OBJECT_CREATED: EventType.ValueType  # 15
 OBJECT_DELETED: EventType.ValueType  # 16
 OBJECT_MODIFIED: EventType.ValueType  # 17
 KUBECTL_CMD: EventType.ValueType  # 18
+AUDIT_LOG_DEBUG: EventType.ValueType  # 19
+"""a generic event type for submitting an audit log only event
+without creating an explicit event type for it.
+This should only be used for short lived logs. If the log will
+be around for a long time, it should be elevated to a proper event type.
+"""
 global___EventType = EventType
 
 class SetDesiredStateEvent(google.protobuf.message.Message):
@@ -863,6 +875,36 @@ class KubectlCmdEvent(google.protobuf.message.Message):
 
 global___KubectlCmdEvent = KubectlCmdEvent
 
+class AuditLogDebugEvent(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class DetailsEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.str
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    DETAILS_FIELD_NUMBER: builtins.int
+    @property
+    def details(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        details: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["details", b"details"]) -> None: ...
+
+global___AuditLogDebugEvent = AuditLogDebugEvent
+
 class EventDetails(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -883,6 +925,7 @@ class EventDetails(google.protobuf.message.Message):
     OBJECT_DELETED_FIELD_NUMBER: builtins.int
     OBJECT_MODIFIED_FIELD_NUMBER: builtins.int
     KUBECTL_CMD_FIELD_NUMBER: builtins.int
+    AUDIT_LOG_DEBUG_FIELD_NUMBER: builtins.int
     @property
     def set_desired_state(self) -> global___SetDesiredStateEvent: ...
     @property
@@ -917,6 +960,8 @@ class EventDetails(google.protobuf.message.Message):
     def object_modified(self) -> global___ObjectModifiedEvent: ...
     @property
     def kubectl_cmd(self) -> global___KubectlCmdEvent: ...
+    @property
+    def audit_log_debug(self) -> global___AuditLogDebugEvent: ...
     def __init__(
         self,
         *,
@@ -937,9 +982,10 @@ class EventDetails(google.protobuf.message.Message):
         object_deleted: global___ObjectDeletedEvent | None = ...,
         object_modified: global___ObjectModifiedEvent | None = ...,
         kubectl_cmd: global___KubectlCmdEvent | None = ...,
+        audit_log_debug: global___AuditLogDebugEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "custom_task_execution", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision", "rpc_call", "permission_denied", "object_created", "object_deleted", "object_modified", "kubectl_cmd"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "custom_task_execution", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision", "rpc_call", "permission_denied", "object_created", "object_deleted", "object_modified", "kubectl_cmd", "audit_log_debug"] | None: ...
 
 global___EventDetails = EventDetails
