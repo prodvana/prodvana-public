@@ -49,6 +49,8 @@ message DesiredStateSummary {
     google.protobuf.Timestamp creation_timestamp = 5;
     // will only be set if desired state has been replaced
     google.protobuf.Timestamp replaced_timestamp = 7;
+    // uncompiled desired state originally passed as input to SetDesiredState
+    prodvana.desired_state.model.State input_desired_state = 16;
 
     // fields below are deprecated
     prodvana.desired_state.model.State starting_state = 1;
@@ -68,7 +70,7 @@ message DesiredStateSummary {
     map<string, google.protobuf.Timestamp> last_fetched_timestamps = 13;
     map<string, google.protobuf.Timestamp> last_applied_timestamps = 14;
 
-    // next tag: 16
+    // next tag: 17
 }
 
 message GetDesiredStateConvergenceReq {

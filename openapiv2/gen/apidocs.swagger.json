@@ -7253,6 +7253,10 @@
           "format": "date-time",
           "title": "will only be set if desired state has been replaced"
         },
+        "inputDesiredState": {
+          "$ref": "#/definitions/modelState",
+          "title": "uncompiled desired state originally passed as input to SetDesiredState"
+        },
         "startingState": {
           "$ref": "#/definitions/modelState",
           "title": "fields below are deprecated"

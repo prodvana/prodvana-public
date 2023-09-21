@@ -1101,6 +1101,35 @@ func (m *DesiredStateSummary) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetInputDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "InputDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "InputDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInputDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateSummaryValidationError{
+				field:  "InputDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetStartingState()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {

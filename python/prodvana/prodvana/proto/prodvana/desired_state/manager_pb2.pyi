@@ -287,6 +287,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
     CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
     REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
     STARTING_STATE_FIELD_NUMBER: builtins.int
     LAST_SEEN_STATE_FIELD_NUMBER: builtins.int
     DESIRED_STATE_FIELD_NUMBER: builtins.int
@@ -306,6 +307,9 @@ class DesiredStateSummary(google.protobuf.message.Message):
     @property
     def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """will only be set if desired state has been replaced"""
+    @property
+    def input_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
+        """uncompiled desired state originally passed as input to SetDesiredState"""
     @property
     def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """fields below are deprecated"""
@@ -342,6 +346,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
         creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         starting_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         last_seen_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
@@ -355,8 +360,8 @@ class DesiredStateSummary(google.protobuf.message.Message):
         last_fetched_timestamps: collections.abc.Mapping[builtins.str, google.protobuf.timestamp_pb2.Timestamp] | None = ...,
         last_applied_timestamps: collections.abc.Mapping[builtins.str, google.protobuf.timestamp_pb2.Timestamp] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
 
 global___DesiredStateSummary = DesiredStateSummary
 
