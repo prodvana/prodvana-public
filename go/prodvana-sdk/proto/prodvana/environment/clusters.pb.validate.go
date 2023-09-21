@@ -57,16 +57,6 @@ func (m *ClusterAuth) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Endpoint
-
-	// no validation rules for CaCert
-
-	// no validation rules for Token
-
-	// no validation rules for ServiceAccount
-
-	// no validation rules for K8SAgentAuth
-
 	switch v := m.AuthOneof.(type) {
 	case *ClusterAuth_Ecs:
 		if v == nil {
@@ -255,8 +245,6 @@ func (m *Cluster) validate(all bool) error {
 	// no validation rules for Name
 
 	// no validation rules for ClusterId
-
-	// no validation rules for Origin
 
 	if all {
 		switch v := interface{}(m.GetAuth()).(type) {
@@ -3843,9 +3831,9 @@ func (m *ClusterConfig_Kubecost) validate(all bool) error {
 
 	// no validation rules for Enabled
 
-	// no validation rules for Managed
-
 	// no validation rules for KubecostNamespace
+
+	// no validation rules for Managed
 
 	if len(errors) > 0 {
 		return ClusterConfig_KubecostMultiError(errors)
@@ -3951,13 +3939,13 @@ func (m *ClusterConfig_Datadog) validate(all bool) error {
 
 	// no validation rules for Enabled
 
-	// no validation rules for Managed
-
 	// no validation rules for DatadogNamespace
 
 	// no validation rules for ApiKey
 
 	// no validation rules for Site
+
+	// no validation rules for Managed
 
 	if len(errors) > 0 {
 		return ClusterConfig_DatadogMultiError(errors)

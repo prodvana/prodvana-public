@@ -14,11 +14,6 @@ import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/volumes/volumes.proto";
 
 message ClusterAuth {
-    string endpoint = 1;
-    string ca_cert = 2;
-    string token = 3;
-    string service_account = 4;
-
     message ECSAuth {
         string access_key = 1;
         string secret_key = 2;
@@ -36,10 +31,9 @@ message ClusterAuth {
         ECSAuth ecs = 5;
         K8sAuth k8s = 8;
     }
-    bool k8s_agent_auth = 6;
 
-    reserved 7;
-    reserved "extension";
+    reserved 1, 2, 3, 4, 6, 7;
+    reserved "extension", "endpoint", "ca_cert", "token", "service_account", "k8s_agent_auth";
     // next tag: 9
 }
 
@@ -54,19 +48,15 @@ enum ClusterType {
 }
 
 message Cluster {
-    // Origin specifies where the cluster came from.
-    enum Origin {
-        UNKNOWN = 0;
-        PRODVANA = 1; // our infra created it
-        EXTERNAL = 2; // created externally and added
-    }
     string name = 1;
     string cluster_id = 2;
-    Origin origin = 3;
     ClusterAuth auth = 4;
     ClusterType type = 5;
     ClusterConfig config = 6;
     google.protobuf.Timestamp last_heartbeat_timestamp = 7;
+
+    reserved 3;
+    reserved "origin";
 }
 
 message FakeClusterConfig {
@@ -231,17 +221,21 @@ message ClusterConfig {
 
     message Kubecost {
         bool enabled = 1;
-        bool managed = 2;
         string kubecost_namespace = 3;
+
+        // deprecated
+        bool managed = 2;
     }
     Kubecost kubecost = 3;
 
     message Datadog {
         bool enabled = 1;
-        bool managed = 2;
         string datadog_namespace = 3;
         string api_key = 4;
         string site = 5;
+
+        // deprecated
+        bool managed = 2;
     }
     Datadog datadog = 4;
 
@@ -255,6 +249,7 @@ message ClusterConfig {
     ALBIngress alb_ingress = 6;
 
     message ArgoRollouts {
+        // deprecated
         message AnalysisTemplate {
             enum ArgValue {
                 UNKNOWN = 0;
@@ -266,6 +261,7 @@ message ClusterConfig {
             map<string, ArgValue> arg_mapping = 2;
         }
         bool enabled = 1;
+        // deprecated
         repeated AnalysisTemplate templates = 2;
     }
     ArgoRollouts argo_rollouts = 7;

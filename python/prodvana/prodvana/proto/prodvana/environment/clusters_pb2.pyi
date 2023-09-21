@@ -128,35 +128,20 @@ class ClusterAuth(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["agent_env", b"agent_env", "agent_externally_managed", b"agent_externally_managed"]) -> None: ...
 
-    ENDPOINT_FIELD_NUMBER: builtins.int
-    CA_CERT_FIELD_NUMBER: builtins.int
-    TOKEN_FIELD_NUMBER: builtins.int
-    SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
     ECS_FIELD_NUMBER: builtins.int
     K8S_FIELD_NUMBER: builtins.int
-    K8S_AGENT_AUTH_FIELD_NUMBER: builtins.int
-    endpoint: builtins.str
-    ca_cert: builtins.str
-    token: builtins.str
-    service_account: builtins.str
     @property
     def ecs(self) -> global___ClusterAuth.ECSAuth: ...
     @property
     def k8s(self) -> global___ClusterAuth.K8sAuth: ...
-    k8s_agent_auth: builtins.bool
     def __init__(
         self,
         *,
-        endpoint: builtins.str = ...,
-        ca_cert: builtins.str = ...,
-        token: builtins.str = ...,
-        service_account: builtins.str = ...,
         ecs: global___ClusterAuth.ECSAuth | None = ...,
         k8s: global___ClusterAuth.K8sAuth | None = ...,
-        k8s_agent_auth: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "k8s", b"k8s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ca_cert", b"ca_cert", "ecs", b"ecs", "endpoint", b"endpoint", "k8s", b"k8s", "k8s_agent_auth", b"k8s_agent_auth", "service_account", b"service_account", "token", b"token"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth_oneof", b"auth_oneof", "ecs", b"ecs", "k8s", b"k8s"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["auth_oneof", b"auth_oneof"]) -> typing_extensions.Literal["ecs", "k8s"] | None: ...
 
 global___ClusterAuth = ClusterAuth
@@ -164,37 +149,14 @@ global___ClusterAuth = ClusterAuth
 class Cluster(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class _Origin:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _OriginEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Cluster._Origin.ValueType], builtins.type):  # noqa: F821
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        UNKNOWN: Cluster._Origin.ValueType  # 0
-        PRODVANA: Cluster._Origin.ValueType  # 1
-        """our infra created it"""
-        EXTERNAL: Cluster._Origin.ValueType  # 2
-        """created externally and added"""
-
-    class Origin(_Origin, metaclass=_OriginEnumTypeWrapper):
-        """Origin specifies where the cluster came from."""
-
-    UNKNOWN: Cluster.Origin.ValueType  # 0
-    PRODVANA: Cluster.Origin.ValueType  # 1
-    """our infra created it"""
-    EXTERNAL: Cluster.Origin.ValueType  # 2
-    """created externally and added"""
-
     NAME_FIELD_NUMBER: builtins.int
     CLUSTER_ID_FIELD_NUMBER: builtins.int
-    ORIGIN_FIELD_NUMBER: builtins.int
     AUTH_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
     LAST_HEARTBEAT_TIMESTAMP_FIELD_NUMBER: builtins.int
     name: builtins.str
     cluster_id: builtins.str
-    origin: global___Cluster.Origin.ValueType
     @property
     def auth(self) -> global___ClusterAuth: ...
     type: global___ClusterType.ValueType
@@ -207,14 +169,13 @@ class Cluster(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         cluster_id: builtins.str = ...,
-        origin: global___Cluster.Origin.ValueType = ...,
         auth: global___ClusterAuth | None = ...,
         type: global___ClusterType.ValueType = ...,
         config: global___ClusterConfig | None = ...,
         last_heartbeat_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "last_heartbeat_timestamp", b"last_heartbeat_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "cluster_id", b"cluster_id", "config", b"config", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "cluster_id", b"cluster_id", "config", b"config", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "type", b"type"]) -> None: ...
 
 global___Cluster = Cluster
 
@@ -686,17 +647,18 @@ class ClusterConfig(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         ENABLED_FIELD_NUMBER: builtins.int
-        MANAGED_FIELD_NUMBER: builtins.int
         KUBECOST_NAMESPACE_FIELD_NUMBER: builtins.int
+        MANAGED_FIELD_NUMBER: builtins.int
         enabled: builtins.bool
-        managed: builtins.bool
         kubecost_namespace: builtins.str
+        managed: builtins.bool
+        """deprecated"""
         def __init__(
             self,
             *,
             enabled: builtins.bool = ...,
-            managed: builtins.bool = ...,
             kubecost_namespace: builtins.str = ...,
+            managed: builtins.bool = ...,
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["enabled", b"enabled", "kubecost_namespace", b"kubecost_namespace", "managed", b"managed"]) -> None: ...
 
@@ -704,23 +666,24 @@ class ClusterConfig(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         ENABLED_FIELD_NUMBER: builtins.int
-        MANAGED_FIELD_NUMBER: builtins.int
         DATADOG_NAMESPACE_FIELD_NUMBER: builtins.int
         API_KEY_FIELD_NUMBER: builtins.int
         SITE_FIELD_NUMBER: builtins.int
+        MANAGED_FIELD_NUMBER: builtins.int
         enabled: builtins.bool
-        managed: builtins.bool
         datadog_namespace: builtins.str
         api_key: builtins.str
         site: builtins.str
+        managed: builtins.bool
+        """deprecated"""
         def __init__(
             self,
             *,
             enabled: builtins.bool = ...,
-            managed: builtins.bool = ...,
             datadog_namespace: builtins.str = ...,
             api_key: builtins.str = ...,
             site: builtins.str = ...,
+            managed: builtins.bool = ...,
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["api_key", b"api_key", "datadog_namespace", b"datadog_namespace", "enabled", b"enabled", "managed", b"managed", "site", b"site"]) -> None: ...
 
@@ -750,6 +713,8 @@ class ClusterConfig(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         class AnalysisTemplate(google.protobuf.message.Message):
+            """deprecated"""
+
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
             class _ArgValue:
@@ -800,7 +765,8 @@ class ClusterConfig(google.protobuf.message.Message):
         TEMPLATES_FIELD_NUMBER: builtins.int
         enabled: builtins.bool
         @property
-        def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ClusterConfig.ArgoRollouts.AnalysisTemplate]: ...
+        def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ClusterConfig.ArgoRollouts.AnalysisTemplate]:
+            """deprecated"""
         def __init__(
             self,
             *,

@@ -4,7 +4,6 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "prodvana/environment/clusters.proto";
-import "prodvana/config_writeback/writeback.proto";
 import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
@@ -19,15 +18,17 @@ message GetClusterAgentApiTokenResp {
 message LinkClusterReq {
     string name = 1;
     ClusterAuth auth = 2;
-    // HACK(naphat) this should never be set by users. delete once pulumi runner no longer relies on this endpoint.
-    bool prodvana_managed = 3;
-    bool disable_istio = 4;
-    bool disable_flagger = 5;
-
     ClusterType type = 6;
+
+    ClusterConfig config = 9;
 
     prodvana.version.Source source = 7;
     prodvana.version.SourceMetadata source_metadata = 8;
+
+    // next: 10
+
+    reserved 3, 4, 5;
+    reserved "prodvana_managed", "disable_istio", "disable_flagger";
 }
 
 message LinkClusterResp {
@@ -69,10 +70,8 @@ message ListClustersResp{
     message ClusterInfo {
         string name = 1;
         string id = 2;
-        Cluster.Origin origin = 3;
         string endpoint = 4;
         string service_account = 5;
-        prodvana.config_writeback.ConfigWritebackPath writeback_config = 6;
         ClusterType type = 7;
 
         message EcsInfo {
@@ -86,6 +85,9 @@ message ListClustersResp{
         google.protobuf.Timestamp last_heartbeat_timestamp = 9;
         ClusterConfig config = 10;
         ClusterAuth auth = 11;
+
+        reserved 3, 6;
+        reserved "origin", "writeback_config";
     }
     repeated ClusterInfo clusters = 1;
 }

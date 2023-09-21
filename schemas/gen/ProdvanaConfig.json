@@ -2615,7 +2615,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "deprecated"
                 }
             },
             "additionalProperties": false,
@@ -2684,21 +2685,12 @@
                     "type": "object"
                 }
             ],
-            "title": "Analysis Template"
+            "title": "Analysis Template",
+            "description": "deprecated"
         },
         "prodvana.environment.ClusterConfig.Datadog": {
             "properties": {
                 "enabled": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
-                "managed": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -2737,6 +2729,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "managed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "deprecated"
                 }
             },
             "additionalProperties": false,
@@ -2797,16 +2800,6 @@
                         }
                     ]
                 },
-                "managed": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
                 "kubecostNamespace": {
                     "oneOf": [
                         {
@@ -2816,6 +2809,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "managed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "deprecated"
                 }
             },
             "additionalProperties": false,

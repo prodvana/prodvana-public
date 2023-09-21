@@ -8,7 +8,6 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
-import prodvana.proto.prodvana.config_writeback.writeback_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.version.source_metadata_pb2
 import sys
@@ -53,20 +52,16 @@ class LinkClusterReq(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     AUTH_FIELD_NUMBER: builtins.int
-    PRODVANA_MANAGED_FIELD_NUMBER: builtins.int
-    DISABLE_ISTIO_FIELD_NUMBER: builtins.int
-    DISABLE_FLAGGER_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def auth(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterAuth: ...
-    prodvana_managed: builtins.bool
-    """HACK(naphat) this should never be set by users. delete once pulumi runner no longer relies on this endpoint."""
-    disable_istio: builtins.bool
-    disable_flagger: builtins.bool
     type: prodvana.proto.prodvana.environment.clusters_pb2.ClusterType.ValueType
+    @property
+    def config(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
@@ -75,15 +70,13 @@ class LinkClusterReq(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         auth: prodvana.proto.prodvana.environment.clusters_pb2.ClusterAuth | None = ...,
-        prodvana_managed: builtins.bool = ...,
-        disable_istio: builtins.bool = ...,
-        disable_flagger: builtins.bool = ...,
         type: prodvana.proto.prodvana.environment.clusters_pb2.ClusterType.ValueType = ...,
+        config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "disable_flagger", b"disable_flagger", "disable_istio", b"disable_istio", "name", b"name", "prodvana_managed", b"prodvana_managed", "source", b"source", "source_metadata", b"source_metadata", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "name", b"name", "source", b"source", "source_metadata", b"source_metadata", "type", b"type"]) -> None: ...
 
 global___LinkClusterReq = LinkClusterReq
 
@@ -211,10 +204,8 @@ class ListClustersResp(google.protobuf.message.Message):
 
         NAME_FIELD_NUMBER: builtins.int
         ID_FIELD_NUMBER: builtins.int
-        ORIGIN_FIELD_NUMBER: builtins.int
         ENDPOINT_FIELD_NUMBER: builtins.int
         SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
-        WRITEBACK_CONFIG_FIELD_NUMBER: builtins.int
         TYPE_FIELD_NUMBER: builtins.int
         ECS_FIELD_NUMBER: builtins.int
         LAST_HEARTBEAT_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -222,11 +213,8 @@ class ListClustersResp(google.protobuf.message.Message):
         AUTH_FIELD_NUMBER: builtins.int
         name: builtins.str
         id: builtins.str
-        origin: prodvana.proto.prodvana.environment.clusters_pb2.Cluster.Origin.ValueType
         endpoint: builtins.str
         service_account: builtins.str
-        @property
-        def writeback_config(self) -> prodvana.proto.prodvana.config_writeback.writeback_pb2.ConfigWritebackPath: ...
         type: prodvana.proto.prodvana.environment.clusters_pb2.ClusterType.ValueType
         @property
         def ecs(self) -> global___ListClustersResp.ClusterInfo.EcsInfo: ...
@@ -241,18 +229,16 @@ class ListClustersResp(google.protobuf.message.Message):
             *,
             name: builtins.str = ...,
             id: builtins.str = ...,
-            origin: prodvana.proto.prodvana.environment.clusters_pb2.Cluster.Origin.ValueType = ...,
             endpoint: builtins.str = ...,
             service_account: builtins.str = ...,
-            writeback_config: prodvana.proto.prodvana.config_writeback.writeback_pb2.ConfigWritebackPath | None = ...,
             type: prodvana.proto.prodvana.environment.clusters_pb2.ClusterType.ValueType = ...,
             ecs: global___ListClustersResp.ClusterInfo.EcsInfo | None = ...,
             last_heartbeat_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
             config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
             auth: prodvana.proto.prodvana.environment.clusters_pb2.ClusterAuth | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "origin", b"origin", "service_account", b"service_account", "type", b"type", "writeback_config", b"writeback_config"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["auth", b"auth", "config", b"config", "ecs", b"ecs", "endpoint", b"endpoint", "id", b"id", "info", b"info", "last_heartbeat_timestamp", b"last_heartbeat_timestamp", "name", b"name", "service_account", b"service_account", "type", b"type"]) -> None: ...
         def WhichOneof(self, oneof_group: typing_extensions.Literal["info", b"info"]) -> typing_extensions.Literal["ecs"] | None: ...
 
     CLUSTERS_FIELD_NUMBER: builtins.int

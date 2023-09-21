@@ -5079,7 +5079,8 @@
           },
           "title": "template argument name to prodvana value to inject"
         }
-      }
+      },
+      "title": "deprecated"
     },
     "CliAuthRespUserPrompt": {
       "type": "object",
@@ -5159,7 +5160,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/ArgoRolloutsAnalysisTemplate"
-          }
+          },
+          "title": "deprecated"
         }
       }
     },
@@ -5181,9 +5183,6 @@
         "enabled": {
           "type": "boolean"
         },
-        "managed": {
-          "type": "boolean"
-        },
         "datadogNamespace": {
           "type": "string"
         },
@@ -5192,6 +5191,10 @@
         },
         "site": {
           "type": "string"
+        },
+        "managed": {
+          "type": "boolean",
+          "title": "deprecated"
         }
       }
     },
@@ -5213,11 +5216,12 @@
         "enabled": {
           "type": "boolean"
         },
-        "managed": {
-          "type": "boolean"
-        },
         "kubecostNamespace": {
           "type": "string"
+        },
+        "managed": {
+          "type": "boolean",
+          "title": "deprecated"
         }
       }
     },
@@ -5231,16 +5235,6 @@
           "type": "string"
         }
       }
-    },
-    "ClusterOrigin": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "PRODVANA",
-        "EXTERNAL"
-      ],
-      "default": "UNKNOWN",
-      "description": "Origin specifies where the cluster came from.\n\n - PRODVANA: our infra created it\n - EXTERNAL: created externally and added"
     },
     "CompiledExtensionCommandCompiledExtensionCommandExec": {
       "type": "object",
@@ -5583,17 +5577,11 @@
         "id": {
           "type": "string"
         },
-        "origin": {
-          "$ref": "#/definitions/ClusterOrigin"
-        },
         "endpoint": {
           "type": "string"
         },
         "serviceAccount": {
           "type": "string"
-        },
-        "writebackConfig": {
-          "$ref": "#/definitions/config_writebackConfigWritebackPath"
         },
         "type": {
           "$ref": "#/definitions/environmentClusterType"
@@ -7901,26 +7889,11 @@
     "environmentClusterAuth": {
       "type": "object",
       "properties": {
-        "endpoint": {
-          "type": "string"
-        },
-        "caCert": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        },
-        "serviceAccount": {
-          "type": "string"
-        },
         "ecs": {
           "$ref": "#/definitions/ClusterAuthECSAuth"
         },
         "k8s": {
           "$ref": "#/definitions/ClusterAuthK8sAuth"
-        },
-        "k8sAgentAuth": {
-          "type": "boolean"
         }
       }
     },
@@ -8223,18 +8196,11 @@
         "auth": {
           "$ref": "#/definitions/environmentClusterAuth"
         },
-        "prodvanaManaged": {
-          "type": "boolean",
-          "description": "HACK(naphat) this should never be set by users. delete once pulumi runner no longer relies on this endpoint."
-        },
-        "disableIstio": {
-          "type": "boolean"
-        },
-        "disableFlagger": {
-          "type": "boolean"
-        },
         "type": {
           "$ref": "#/definitions/environmentClusterType"
+        },
+        "config": {
+          "$ref": "#/definitions/environmentClusterConfig"
         },
         "source": {
           "$ref": "#/definitions/versionSource"

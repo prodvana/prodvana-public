@@ -310,13 +310,36 @@ func (m *LinkClusterReq) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ProdvanaManaged
-
-	// no validation rules for DisableIstio
-
-	// no validation rules for DisableFlagger
-
 	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, LinkClusterReqValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, LinkClusterReqValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return LinkClusterReqValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Source
 
@@ -2951,40 +2974,9 @@ func (m *ListClustersResp_ClusterInfo) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for Origin
-
 	// no validation rules for Endpoint
 
 	// no validation rules for ServiceAccount
-
-	if all {
-		switch v := interface{}(m.GetWritebackConfig()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListClustersResp_ClusterInfoValidationError{
-					field:  "WritebackConfig",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ListClustersResp_ClusterInfoValidationError{
-					field:  "WritebackConfig",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetWritebackConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ListClustersResp_ClusterInfoValidationError{
-				field:  "WritebackConfig",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	// no validation rules for Type
 
