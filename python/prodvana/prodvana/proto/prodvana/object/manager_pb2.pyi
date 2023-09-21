@@ -51,35 +51,30 @@ class GetLabelsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     TYPE_FIELD_NUMBER: builtins.int
-    NAME_OR_ID_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
     type: prodvana.proto.prodvana.object.meta_pb2.ObjectType.ValueType
-    name_or_id: builtins.str
+    id: builtins.str
     def __init__(
         self,
         *,
         type: prodvana.proto.prodvana.object.meta_pb2.ObjectType.ValueType = ...,
-        name_or_id: builtins.str = ...,
+        id: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name_or_id", b"name_or_id", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "type", b"type"]) -> None: ...
 
 global___GetLabelsReq = GetLabelsReq
 
 class GetLabelsResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    META_FIELD_NUMBER: builtins.int
     LABELS_FIELD_NUMBER: builtins.int
-    @property
-    def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     @property
     def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
     def __init__(
         self,
         *,
-        meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
         labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["labels", b"labels", "meta", b"meta"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["labels", b"labels"]) -> None: ...
 
 global___GetLabelsResp = GetLabelsResp

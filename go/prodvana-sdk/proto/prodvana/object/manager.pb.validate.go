@@ -304,7 +304,7 @@ func (m *GetLabelsReq) validate(all bool) error {
 
 	// no validation rules for Type
 
-	// no validation rules for NameOrId
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return GetLabelsReqMultiError(errors)
@@ -404,35 +404,6 @@ func (m *GetLabelsResp) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetMeta()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetLabelsRespValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetLabelsRespValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetLabelsRespValidationError{
-				field:  "Meta",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	for idx, item := range m.GetLabels() {
 		_, _ = idx, item

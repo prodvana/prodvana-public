@@ -17,7 +17,7 @@ from prodvana.proto.prodvana.object import meta_pb2 as prodvana_dot_object_dot_m
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/object/manager.proto\x12\x0fprodvana.object\x1a\x1cgoogle/api/annotations.proto\x1a\x1cprodvana/labels/labels.proto\x1a\x1aprodvana/object/meta.proto\x1a\x17validate/validate.proto\"(\n\x0eQueryObjectReq\x12\x16\n\x05query\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"?\n\x0fQueryObjectResp\x12,\n\x07objects\x18\x01 \x03(\x0b\x32\x1b.prodvana.object.ObjectMeta\"M\n\x0cGetLabelsReq\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.prodvana.object.ObjectType\x12\x12\n\nname_or_id\x18\x02 \x01(\t\"l\n\rGetLabelsResp\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x30\n\x06labels\x18\x02 \x03(\x0b\x32 .prodvana.labels.LabelDefinition2\xe5\x01\n\rObjectManager\x12l\n\x0cQueryObjects\x12\x1f.prodvana.object.QueryObjectReq\x1a .prodvana.object.QueryObjectResp\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/objects/query\x12\x66\n\tGetLabels\x12\x1d.prodvana.object.GetLabelsReq\x1a\x1e.prodvana.object.GetLabelsResp\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/objects/labelsBKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/objectb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/object/manager.proto\x12\x0fprodvana.object\x1a\x1cgoogle/api/annotations.proto\x1a\x1cprodvana/labels/labels.proto\x1a\x1aprodvana/object/meta.proto\x1a\x17validate/validate.proto\"(\n\x0eQueryObjectReq\x12\x16\n\x05query\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"?\n\x0fQueryObjectResp\x12,\n\x07objects\x18\x01 \x03(\x0b\x32\x1b.prodvana.object.ObjectMeta\"E\n\x0cGetLabelsReq\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.prodvana.object.ObjectType\x12\n\n\x02id\x18\x02 \x01(\t\"M\n\rGetLabelsResp\x12\x30\n\x06labels\x18\x02 \x03(\x0b\x32 .prodvana.labels.LabelDefinitionJ\x04\x08\x01\x10\x02R\x04meta2\xe5\x01\n\rObjectManager\x12l\n\x0cQueryObjects\x12\x1f.prodvana.object.QueryObjectReq\x1a .prodvana.object.QueryObjectResp\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/objects/query\x12\x66\n\tGetLabels\x12\x1d.prodvana.object.GetLabelsReq\x1a\x1e.prodvana.object.GetLabelsResp\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/objects/labelsBKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/objectb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,9 +37,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_QUERYOBJECTRESP']._serialized_start=205
   _globals['_QUERYOBJECTRESP']._serialized_end=268
   _globals['_GETLABELSREQ']._serialized_start=270
-  _globals['_GETLABELSREQ']._serialized_end=347
-  _globals['_GETLABELSRESP']._serialized_start=349
-  _globals['_GETLABELSRESP']._serialized_end=457
-  _globals['_OBJECTMANAGER']._serialized_start=460
-  _globals['_OBJECTMANAGER']._serialized_end=689
+  _globals['_GETLABELSREQ']._serialized_end=339
+  _globals['_GETLABELSRESP']._serialized_start=341
+  _globals['_GETLABELSRESP']._serialized_end=418
+  _globals['_OBJECTMANAGER']._serialized_start=421
+  _globals['_OBJECTMANAGER']._serialized_end=650
 # @@protoc_insertion_point(module_scope)

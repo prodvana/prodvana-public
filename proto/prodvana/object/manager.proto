@@ -16,12 +16,13 @@ message QueryObjectResp {
 
 message GetLabelsReq {
     ObjectType type = 1;
-    string name_or_id = 2;
+    string id = 2;
 }
 
 message GetLabelsResp {
-    ObjectMeta meta = 1;
     repeated prodvana.labels.LabelDefinition labels = 2;
+    reserved 1;
+    reserved "meta";
 }
 
 service ObjectManager {

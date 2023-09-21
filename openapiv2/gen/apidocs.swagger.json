@@ -3728,7 +3728,7 @@
             "default": "UNKNOWN"
           },
           {
-            "name": "nameOrId",
+            "name": "id",
             "in": "query",
             "required": false,
             "type": "string"
@@ -10141,9 +10141,6 @@
     "objectGetLabelsResp": {
       "type": "object",
       "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
         "labels": {
           "type": "array",
           "items": {
