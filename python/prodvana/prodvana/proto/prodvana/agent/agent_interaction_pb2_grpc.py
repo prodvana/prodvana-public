@@ -74,6 +74,11 @@ class AgentInteractionStub(object):
                 request_serializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoReq.SerializeToString,
                 response_deserializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoResp.FromString,
                 )
+        self.ReportClusterMetadata = channel.unary_unary(
+                '/prodvana.agent.AgentInteraction/ReportClusterMetadata',
+                request_serializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataReq.SerializeToString,
+                response_deserializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataResp.FromString,
+                )
 
 
 class AgentInteractionServicer(object):
@@ -153,6 +158,12 @@ class AgentInteractionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReportClusterMetadata(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AgentInteractionServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -215,6 +226,11 @@ def add_AgentInteractionServicer_to_server(servicer, server):
                     servicer.ReportDebugInfo,
                     request_deserializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoReq.FromString,
                     response_serializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoResp.SerializeToString,
+            ),
+            'ReportClusterMetadata': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReportClusterMetadata,
+                    request_deserializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataReq.FromString,
+                    response_serializer=prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -427,5 +443,22 @@ class AgentInteraction(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.agent.AgentInteraction/ReportDebugInfo',
             prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoReq.SerializeToString,
             prodvana_dot_agent_dot_agent__interaction__pb2.ReportDebugInfoResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReportClusterMetadata(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.agent.AgentInteraction/ReportClusterMetadata',
+            prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataReq.SerializeToString,
+            prodvana_dot_agent_dot_agent__interaction__pb2.ReportClusterMetadataResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

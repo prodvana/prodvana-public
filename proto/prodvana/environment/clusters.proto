@@ -216,6 +216,19 @@ message PulumiRunnerConfig {
     RetryPolicy fetch_retry_policy = 7;
 }
 
+
+message GKEClusterMetadata {
+    string project_name = 1;
+    string cluster_location = 2;
+    string cluster_name = 3;
+}
+
+message ClusterMetadata {
+    oneof cluster_metadata {
+        GKEClusterMetadata gke = 1;
+    }
+}
+
 message ClusterConfig {
     string name = 14;
 
@@ -288,6 +301,9 @@ message ClusterConfig {
     }
     CloudProvider cloud_provider = 9;
 
+    ClusterMetadata detected_cluster_metadata = 18;
+    ClusterMetadata user_supplied_cluster_metadata = 19;
+
     oneof cluster_oneof {
         // only used for fake runtimes
         FakeClusterConfig fake = 10;
@@ -303,5 +319,5 @@ message ClusterConfig {
 
     repeated prodvana.labels.LabelDefinition labels = 17;
 
-    // next tag: 18
+    // next tag: 19
 }

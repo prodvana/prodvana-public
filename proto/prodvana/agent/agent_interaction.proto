@@ -1,8 +1,10 @@
 syntax = "proto3";
 package prodvana.agent;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/agent";
+
 import "google/api/visibility.proto";
 import "google/protobuf/timestamp.proto";
+import "prodvana/environment/clusters.proto";
 
 message HeartbeatReq {
     string cluster_id = 1;
@@ -149,6 +151,15 @@ message ReportDebugInfoReq {
 message ReportDebugInfoResp {
 }
 
+message ReportClusterMetadataReq {
+    string runtime_id = 1;
+    prodvana.environment.ClusterMetadata cluster_metadata = 2;
+    string error = 3; // For debugging
+}
+
+message ReportClusterMetadataResp {
+}
+
 service AgentInteraction {
     option (google.api.api_visibility).restriction = "INTERNAL";
     rpc Heartbeat (HeartbeatReq) returns (HeartbeatResp) {}
@@ -165,4 +176,5 @@ service AgentInteraction {
     rpc RecordRollout(RecordRolloutReq) returns (RecordRolloutResp) {}
     rpc ProxyAPIServer(stream ProxyAPIServerReq) returns (stream ProxyAPIServerResp) {}
     rpc ReportDebugInfo(ReportDebugInfoReq) returns (ReportDebugInfoResp) {}
+    rpc ReportClusterMetadata(ReportClusterMetadataReq) returns (ReportClusterMetadataResp) {}
 }

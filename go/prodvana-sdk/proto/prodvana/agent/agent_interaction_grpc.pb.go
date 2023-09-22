@@ -19,18 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AgentInteraction_Heartbeat_FullMethodName            = "/prodvana.agent.AgentInteraction/Heartbeat"
-	AgentInteraction_ConfirmPushApproval_FullMethodName  = "/prodvana.agent.AgentInteraction/ConfirmPushApproval"
-	AgentInteraction_RecordNewUnknownPush_FullMethodName = "/prodvana.agent.AgentInteraction/RecordNewUnknownPush"
-	AgentInteraction_RecordPushStart_FullMethodName      = "/prodvana.agent.AgentInteraction/RecordPushStart"
-	AgentInteraction_RecordPushOngoing_FullMethodName    = "/prodvana.agent.AgentInteraction/RecordPushOngoing"
-	AgentInteraction_RecordPushComplete_FullMethodName   = "/prodvana.agent.AgentInteraction/RecordPushComplete"
-	AgentInteraction_RecordPod_FullMethodName            = "/prodvana.agent.AgentInteraction/RecordPod"
-	AgentInteraction_RecordPods_FullMethodName           = "/prodvana.agent.AgentInteraction/RecordPods"
-	AgentInteraction_RecordDeployment_FullMethodName     = "/prodvana.agent.AgentInteraction/RecordDeployment"
-	AgentInteraction_RecordRollout_FullMethodName        = "/prodvana.agent.AgentInteraction/RecordRollout"
-	AgentInteraction_ProxyAPIServer_FullMethodName       = "/prodvana.agent.AgentInteraction/ProxyAPIServer"
-	AgentInteraction_ReportDebugInfo_FullMethodName      = "/prodvana.agent.AgentInteraction/ReportDebugInfo"
+	AgentInteraction_Heartbeat_FullMethodName             = "/prodvana.agent.AgentInteraction/Heartbeat"
+	AgentInteraction_ConfirmPushApproval_FullMethodName   = "/prodvana.agent.AgentInteraction/ConfirmPushApproval"
+	AgentInteraction_RecordNewUnknownPush_FullMethodName  = "/prodvana.agent.AgentInteraction/RecordNewUnknownPush"
+	AgentInteraction_RecordPushStart_FullMethodName       = "/prodvana.agent.AgentInteraction/RecordPushStart"
+	AgentInteraction_RecordPushOngoing_FullMethodName     = "/prodvana.agent.AgentInteraction/RecordPushOngoing"
+	AgentInteraction_RecordPushComplete_FullMethodName    = "/prodvana.agent.AgentInteraction/RecordPushComplete"
+	AgentInteraction_RecordPod_FullMethodName             = "/prodvana.agent.AgentInteraction/RecordPod"
+	AgentInteraction_RecordPods_FullMethodName            = "/prodvana.agent.AgentInteraction/RecordPods"
+	AgentInteraction_RecordDeployment_FullMethodName      = "/prodvana.agent.AgentInteraction/RecordDeployment"
+	AgentInteraction_RecordRollout_FullMethodName         = "/prodvana.agent.AgentInteraction/RecordRollout"
+	AgentInteraction_ProxyAPIServer_FullMethodName        = "/prodvana.agent.AgentInteraction/ProxyAPIServer"
+	AgentInteraction_ReportDebugInfo_FullMethodName       = "/prodvana.agent.AgentInteraction/ReportDebugInfo"
+	AgentInteraction_ReportClusterMetadata_FullMethodName = "/prodvana.agent.AgentInteraction/ReportClusterMetadata"
 )
 
 // AgentInteractionClient is the client API for AgentInteraction service.
@@ -51,6 +52,7 @@ type AgentInteractionClient interface {
 	RecordRollout(ctx context.Context, in *RecordRolloutReq, opts ...grpc.CallOption) (*RecordRolloutResp, error)
 	ProxyAPIServer(ctx context.Context, opts ...grpc.CallOption) (AgentInteraction_ProxyAPIServerClient, error)
 	ReportDebugInfo(ctx context.Context, in *ReportDebugInfoReq, opts ...grpc.CallOption) (*ReportDebugInfoResp, error)
+	ReportClusterMetadata(ctx context.Context, in *ReportClusterMetadataReq, opts ...grpc.CallOption) (*ReportClusterMetadataResp, error)
 }
 
 type agentInteractionClient struct {
@@ -191,6 +193,15 @@ func (c *agentInteractionClient) ReportDebugInfo(ctx context.Context, in *Report
 	return out, nil
 }
 
+func (c *agentInteractionClient) ReportClusterMetadata(ctx context.Context, in *ReportClusterMetadataReq, opts ...grpc.CallOption) (*ReportClusterMetadataResp, error) {
+	out := new(ReportClusterMetadataResp)
+	err := c.cc.Invoke(ctx, AgentInteraction_ReportClusterMetadata_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AgentInteractionServer is the server API for AgentInteraction service.
 // All implementations must embed UnimplementedAgentInteractionServer
 // for forward compatibility
@@ -209,6 +220,7 @@ type AgentInteractionServer interface {
 	RecordRollout(context.Context, *RecordRolloutReq) (*RecordRolloutResp, error)
 	ProxyAPIServer(AgentInteraction_ProxyAPIServerServer) error
 	ReportDebugInfo(context.Context, *ReportDebugInfoReq) (*ReportDebugInfoResp, error)
+	ReportClusterMetadata(context.Context, *ReportClusterMetadataReq) (*ReportClusterMetadataResp, error)
 	mustEmbedUnimplementedAgentInteractionServer()
 }
 
@@ -251,6 +263,9 @@ func (UnimplementedAgentInteractionServer) ProxyAPIServer(AgentInteraction_Proxy
 }
 func (UnimplementedAgentInteractionServer) ReportDebugInfo(context.Context, *ReportDebugInfoReq) (*ReportDebugInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReportDebugInfo not implemented")
+}
+func (UnimplementedAgentInteractionServer) ReportClusterMetadata(context.Context, *ReportClusterMetadataReq) (*ReportClusterMetadataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReportClusterMetadata not implemented")
 }
 func (UnimplementedAgentInteractionServer) mustEmbedUnimplementedAgentInteractionServer() {}
 
@@ -489,6 +504,24 @@ func _AgentInteraction_ReportDebugInfo_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AgentInteraction_ReportClusterMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportClusterMetadataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentInteractionServer).ReportClusterMetadata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AgentInteraction_ReportClusterMetadata_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentInteractionServer).ReportClusterMetadata(ctx, req.(*ReportClusterMetadataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AgentInteraction_ServiceDesc is the grpc.ServiceDesc for AgentInteraction service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -539,6 +572,10 @@ var AgentInteraction_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReportDebugInfo",
 			Handler:    _AgentInteraction_ReportDebugInfo_Handler,
+		},
+		{
+			MethodName: "ReportClusterMetadata",
+			Handler:    _AgentInteraction_ReportClusterMetadata_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

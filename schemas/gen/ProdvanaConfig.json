@@ -2467,6 +2467,26 @@
                     ],
                     "title": "Cloud Provider"
                 },
+                "detectedClusterMetadata": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "userSuppliedClusterMetadata": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "fake": {
                     "$ref": "#/definitions/prodvana.environment.FakeClusterConfig",
                     "additionalProperties": false,
@@ -2833,6 +2853,30 @@
             ],
             "title": "Kubecost"
         },
+        "prodvana.environment.ClusterMetadata": {
+            "properties": {
+                "gke": {
+                    "$ref": "#/definitions/prodvana.environment.GKEClusterMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Cluster Metadata"
+        },
         "prodvana.environment.ExtensionApplyCommand": {
             "properties": {
                 "taskConfig": {
@@ -3178,6 +3222,50 @@
                 }
             ],
             "title": "Crashing Program Patterns"
+        },
+        "prodvana.environment.GKEClusterMetadata": {
+            "properties": {
+                "projectName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "clusterLocation": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "clusterName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "GKE Cluster Metadata"
         },
         "prodvana.environment.IacRunnerCommand": {
             "properties": {

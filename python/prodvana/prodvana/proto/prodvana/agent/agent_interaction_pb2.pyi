@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.environment.clusters_pb2
 import sys
 import typing
 
@@ -487,3 +488,35 @@ class ReportDebugInfoResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___ReportDebugInfoResp = ReportDebugInfoResp
+
+class ReportClusterMetadataReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RUNTIME_ID_FIELD_NUMBER: builtins.int
+    CLUSTER_METADATA_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    runtime_id: builtins.str
+    @property
+    def cluster_metadata(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterMetadata: ...
+    error: builtins.str
+    """For debugging"""
+    def __init__(
+        self,
+        *,
+        runtime_id: builtins.str = ...,
+        cluster_metadata: prodvana.proto.prodvana.environment.clusters_pb2.ClusterMetadata | None = ...,
+        error: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["cluster_metadata", b"cluster_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cluster_metadata", b"cluster_metadata", "error", b"error", "runtime_id", b"runtime_id"]) -> None: ...
+
+global___ReportClusterMetadataReq = ReportClusterMetadataReq
+
+class ReportClusterMetadataResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ReportClusterMetadataResp = ReportClusterMetadataResp

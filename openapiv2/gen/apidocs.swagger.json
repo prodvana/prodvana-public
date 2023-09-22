@@ -6022,6 +6022,9 @@
         }
       }
     },
+    "agentReportClusterMetadataResp": {
+      "type": "object"
+    },
     "agentReportDebugInfoResp": {
       "type": "object"
     },
@@ -7958,6 +7961,12 @@
         "cloudProvider": {
           "$ref": "#/definitions/ClusterConfigCloudProvider"
         },
+        "detectedClusterMetadata": {
+          "$ref": "#/definitions/environmentClusterMetadata"
+        },
+        "userSuppliedClusterMetadata": {
+          "$ref": "#/definitions/environmentClusterMetadata"
+        },
         "fake": {
           "$ref": "#/definitions/environmentFakeClusterConfig",
           "title": "only used for fake runtimes"
@@ -7979,6 +7988,14 @@
             "type": "object",
             "$ref": "#/definitions/labelsLabelDefinition"
           }
+        }
+      }
+    },
+    "environmentClusterMetadata": {
+      "type": "object",
+      "properties": {
+        "gke": {
+          "$ref": "#/definitions/environmentGKEClusterMetadata"
         }
       }
     },
@@ -8168,6 +8185,20 @@
             "type": "object",
             "$ref": "#/definitions/FakeClusterConfigCrashingProgramPatterns"
           }
+        }
+      }
+    },
+    "environmentGKEClusterMetadata": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "clusterLocation": {
+          "type": "string"
+        },
+        "clusterName": {
+          "type": "string"
         }
       }
     },

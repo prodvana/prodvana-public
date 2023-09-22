@@ -2944,3 +2944,240 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ReportDebugInfoRespValidationError{}
+
+// Validate checks the field values on ReportClusterMetadataReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReportClusterMetadataReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReportClusterMetadataReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReportClusterMetadataReqMultiError, or nil if none found.
+func (m *ReportClusterMetadataReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReportClusterMetadataReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for RuntimeId
+
+	if all {
+		switch v := interface{}(m.GetClusterMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReportClusterMetadataReqValidationError{
+					field:  "ClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReportClusterMetadataReqValidationError{
+					field:  "ClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetClusterMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReportClusterMetadataReqValidationError{
+				field:  "ClusterMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Error
+
+	if len(errors) > 0 {
+		return ReportClusterMetadataReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReportClusterMetadataReqMultiError is an error wrapping multiple validation
+// errors returned by ReportClusterMetadataReq.ValidateAll() if the designated
+// constraints aren't met.
+type ReportClusterMetadataReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReportClusterMetadataReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReportClusterMetadataReqMultiError) AllErrors() []error { return m }
+
+// ReportClusterMetadataReqValidationError is the validation error returned by
+// ReportClusterMetadataReq.Validate if the designated constraints aren't met.
+type ReportClusterMetadataReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReportClusterMetadataReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReportClusterMetadataReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReportClusterMetadataReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReportClusterMetadataReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReportClusterMetadataReqValidationError) ErrorName() string {
+	return "ReportClusterMetadataReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReportClusterMetadataReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReportClusterMetadataReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReportClusterMetadataReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReportClusterMetadataReqValidationError{}
+
+// Validate checks the field values on ReportClusterMetadataResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReportClusterMetadataResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReportClusterMetadataResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReportClusterMetadataRespMultiError, or nil if none found.
+func (m *ReportClusterMetadataResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReportClusterMetadataResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ReportClusterMetadataRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReportClusterMetadataRespMultiError is an error wrapping multiple validation
+// errors returned by ReportClusterMetadataResp.ValidateAll() if the
+// designated constraints aren't met.
+type ReportClusterMetadataRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReportClusterMetadataRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReportClusterMetadataRespMultiError) AllErrors() []error { return m }
+
+// ReportClusterMetadataRespValidationError is the validation error returned by
+// ReportClusterMetadataResp.Validate if the designated constraints aren't met.
+type ReportClusterMetadataRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReportClusterMetadataRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReportClusterMetadataRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReportClusterMetadataRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReportClusterMetadataRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReportClusterMetadataRespValidationError) ErrorName() string {
+	return "ReportClusterMetadataRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReportClusterMetadataRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReportClusterMetadataResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReportClusterMetadataRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReportClusterMetadataRespValidationError{}

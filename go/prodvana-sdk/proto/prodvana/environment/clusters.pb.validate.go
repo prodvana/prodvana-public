@@ -2778,6 +2778,260 @@ var _ interface {
 	ErrorName() string
 } = PulumiRunnerConfigValidationError{}
 
+// Validate checks the field values on GKEClusterMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GKEClusterMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GKEClusterMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GKEClusterMetadataMultiError, or nil if none found.
+func (m *GKEClusterMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GKEClusterMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ProjectName
+
+	// no validation rules for ClusterLocation
+
+	// no validation rules for ClusterName
+
+	if len(errors) > 0 {
+		return GKEClusterMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// GKEClusterMetadataMultiError is an error wrapping multiple validation errors
+// returned by GKEClusterMetadata.ValidateAll() if the designated constraints
+// aren't met.
+type GKEClusterMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GKEClusterMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GKEClusterMetadataMultiError) AllErrors() []error { return m }
+
+// GKEClusterMetadataValidationError is the validation error returned by
+// GKEClusterMetadata.Validate if the designated constraints aren't met.
+type GKEClusterMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GKEClusterMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GKEClusterMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GKEClusterMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GKEClusterMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GKEClusterMetadataValidationError) ErrorName() string {
+	return "GKEClusterMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GKEClusterMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGKEClusterMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GKEClusterMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GKEClusterMetadataValidationError{}
+
+// Validate checks the field values on ClusterMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ClusterMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ClusterMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ClusterMetadataMultiError, or nil if none found.
+func (m *ClusterMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ClusterMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.ClusterMetadata.(type) {
+	case *ClusterMetadata_Gke:
+		if v == nil {
+			err := ClusterMetadataValidationError{
+				field:  "ClusterMetadata",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGke()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterMetadataValidationError{
+						field:  "Gke",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterMetadataValidationError{
+						field:  "Gke",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGke()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterMetadataValidationError{
+					field:  "Gke",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ClusterMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// ClusterMetadataMultiError is an error wrapping multiple validation errors
+// returned by ClusterMetadata.ValidateAll() if the designated constraints
+// aren't met.
+type ClusterMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ClusterMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ClusterMetadataMultiError) AllErrors() []error { return m }
+
+// ClusterMetadataValidationError is the validation error returned by
+// ClusterMetadata.Validate if the designated constraints aren't met.
+type ClusterMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ClusterMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ClusterMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ClusterMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ClusterMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ClusterMetadataValidationError) ErrorName() string { return "ClusterMetadataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ClusterMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sClusterMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ClusterMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ClusterMetadataValidationError{}
+
 // Validate checks the field values on ClusterConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2977,6 +3231,64 @@ func (m *ClusterConfig) validate(all bool) error {
 	}
 
 	// no validation rules for CloudProvider
+
+	if all {
+		switch v := interface{}(m.GetDetectedClusterMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ClusterConfigValidationError{
+					field:  "DetectedClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ClusterConfigValidationError{
+					field:  "DetectedClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDetectedClusterMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ClusterConfigValidationError{
+				field:  "DetectedClusterMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserSuppliedClusterMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ClusterConfigValidationError{
+					field:  "UserSuppliedClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ClusterConfigValidationError{
+					field:  "UserSuppliedClusterMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserSuppliedClusterMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ClusterConfigValidationError{
+				field:  "UserSuppliedClusterMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	for idx, item := range m.GetLabels() {
 		_, _ = idx, item

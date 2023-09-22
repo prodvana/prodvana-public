@@ -60,6 +60,10 @@ class AgentInteractionStub:
         prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportDebugInfoReq,
         prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportDebugInfoResp,
     ]
+    ReportClusterMetadata: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportClusterMetadataReq,
+        prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportClusterMetadataResp,
+    ]
 
 class AgentInteractionServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -137,5 +141,11 @@ class AgentInteractionServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportDebugInfoReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportDebugInfoResp: ...
+    @abc.abstractmethod
+    def ReportClusterMetadata(
+        self,
+        request: prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportClusterMetadataReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.agent.agent_interaction_pb2.ReportClusterMetadataResp: ...
 
 def add_AgentInteractionServicer_to_server(servicer: AgentInteractionServicer, server: grpc.Server) -> None: ...
