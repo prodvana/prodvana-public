@@ -647,6 +647,7 @@ class ServiceInstanceState(google.protobuf.message.Message):
     RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
+    COMPUTE_ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
     @property
@@ -661,7 +662,10 @@ class ServiceInstanceState(google.protobuf.message.Message):
     @property
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
     @property
-    def rollback_version(self) -> global___Version: ...
+    def rollback_version(self) -> global___Version:
+        """set an explicit auto rollback version"""
+    compute_rollback_version: builtins.bool
+    """use the last converged version as the auto rollback version"""
     rollback: builtins.bool
     @property
     def delivery(self) -> global___DeliveryState: ...
@@ -676,11 +680,13 @@ class ServiceInstanceState(google.protobuf.message.Message):
         release_channel_id: builtins.str = ...,
         versions: collections.abc.Iterable[global___Version] | None = ...,
         rollback_version: global___Version | None = ...,
+        compute_rollback_version: builtins.bool = ...,
         rollback: builtins.bool = ...,
         delivery: global___DeliveryState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "delivery", b"delivery", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof"]) -> typing_extensions.Literal["rollback_version", "compute_rollback_version"] | None: ...
 
 global___ServiceInstanceState = ServiceInstanceState
 
@@ -737,6 +743,7 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
     ALL_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
+    COMPUTE_ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     release_channel_selector: builtins.str
     """release channel selector, automatically scoped to `@type=release-channel @application=<app>`"""
     all: builtins.bool
@@ -744,7 +751,10 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
     @property
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
     @property
-    def rollback_version(self) -> global___Version: ...
+    def rollback_version(self) -> global___Version:
+        """set an explicit auto rollback version"""
+    compute_rollback_version: builtins.bool
+    """use the last converged version as the auto rollback version"""
     def __init__(
         self,
         *,
@@ -752,9 +762,13 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
         all: builtins.bool = ...,
         versions: collections.abc.Iterable[global___Version] | None = ...,
         rollback_version: global___Version | None = ...,
+        compute_rollback_version: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["all", b"all", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["all", b"all", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["all", b"all", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["all", b"all", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof", "versions", b"versions"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof"]) -> typing_extensions.Literal["rollback_version", "compute_rollback_version"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["selector_oneof", b"selector_oneof"]) -> typing_extensions.Literal["release_channel_selector", "all"] | None: ...
 
 global___ServiceInstanceLabelSelector = ServiceInstanceLabelSelector

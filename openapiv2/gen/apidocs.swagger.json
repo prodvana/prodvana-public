@@ -7819,7 +7819,12 @@
           }
         },
         "rollbackVersion": {
-          "$ref": "#/definitions/modelVersion"
+          "$ref": "#/definitions/modelVersion",
+          "title": "set an explicit auto rollback version"
+        },
+        "computeRollbackVersion": {
+          "type": "boolean",
+          "title": "use the last converged version as the auto rollback version"
         },
         "rollback": {
           "type": "boolean"
@@ -9979,7 +9984,12 @@
           }
         },
         "rollbackVersion": {
-          "$ref": "#/definitions/modelVersion"
+          "$ref": "#/definitions/modelVersion",
+          "title": "set an explicit auto rollback version"
+        },
+        "computeRollbackVersion": {
+          "type": "boolean",
+          "title": "use the last converged version as the auto rollback version"
         }
       }
     },

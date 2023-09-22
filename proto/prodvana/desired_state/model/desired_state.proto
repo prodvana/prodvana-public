@@ -226,11 +226,16 @@ message ServiceInstanceState {
     string service_id = 8;  // set internally by prodvana
     string release_channel_id = 9;  // set internally by prodvana
     repeated Version versions = 5;
-    Version rollback_version = 6;
+    oneof autorollback_oneof {
+        // set an explicit auto rollback version
+        Version rollback_version = 6;
+        // use the last converged version as the auto rollback version
+        bool compute_rollback_version = 11;
+    }
     bool rollback = 7;
     DeliveryState delivery = 10;
 
-    // next tag: 11
+    // next tag: 12
 }
 
 message ServiceState {
@@ -259,7 +264,12 @@ message ServiceInstanceLabelSelector {
     }
 
     repeated Version versions = 3;
-    Version rollback_version = 4;
+    oneof autorollback_oneof {
+        // set an explicit auto rollback version
+        Version rollback_version = 4;
+        // use the last converged version as the auto rollback version
+        bool compute_rollback_version = 5;
+    }
 }
 
 message ServiceGroupState {

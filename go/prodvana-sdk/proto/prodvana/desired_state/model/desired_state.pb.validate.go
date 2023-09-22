@@ -1453,35 +1453,6 @@ func (m *ServiceInstanceState) validate(all bool) error {
 
 	}
 
-	if all {
-		switch v := interface{}(m.GetRollbackVersion()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ServiceInstanceStateValidationError{
-					field:  "RollbackVersion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ServiceInstanceStateValidationError{
-					field:  "RollbackVersion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetRollbackVersion()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ServiceInstanceStateValidationError{
-				field:  "RollbackVersion",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	// no validation rules for Rollback
 
 	if all {
@@ -1511,6 +1482,64 @@ func (m *ServiceInstanceState) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	switch v := m.AutorollbackOneof.(type) {
+	case *ServiceInstanceState_RollbackVersion:
+		if v == nil {
+			err := ServiceInstanceStateValidationError{
+				field:  "AutorollbackOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRollbackVersion()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceInstanceStateValidationError{
+						field:  "RollbackVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceInstanceStateValidationError{
+						field:  "RollbackVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRollbackVersion()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceInstanceStateValidationError{
+					field:  "RollbackVersion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ServiceInstanceState_ComputeRollbackVersion:
+		if v == nil {
+			err := ServiceInstanceStateValidationError{
+				field:  "AutorollbackOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for ComputeRollbackVersion
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
@@ -1919,35 +1948,6 @@ func (m *ServiceInstanceLabelSelector) validate(all bool) error {
 
 	}
 
-	if all {
-		switch v := interface{}(m.GetRollbackVersion()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ServiceInstanceLabelSelectorValidationError{
-					field:  "RollbackVersion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ServiceInstanceLabelSelectorValidationError{
-					field:  "RollbackVersion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetRollbackVersion()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ServiceInstanceLabelSelectorValidationError{
-				field:  "RollbackVersion",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	oneofSelectorOneofPresent := false
 	switch v := m.SelectorOneof.(type) {
 	case *ServiceInstanceLabelSelector_ReleaseChannelSelector:
@@ -1988,6 +1988,63 @@ func (m *ServiceInstanceLabelSelector) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+	switch v := m.AutorollbackOneof.(type) {
+	case *ServiceInstanceLabelSelector_RollbackVersion:
+		if v == nil {
+			err := ServiceInstanceLabelSelectorValidationError{
+				field:  "AutorollbackOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRollbackVersion()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceInstanceLabelSelectorValidationError{
+						field:  "RollbackVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceInstanceLabelSelectorValidationError{
+						field:  "RollbackVersion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRollbackVersion()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceInstanceLabelSelectorValidationError{
+					field:  "RollbackVersion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ServiceInstanceLabelSelector_ComputeRollbackVersion:
+		if v == nil {
+			err := ServiceInstanceLabelSelectorValidationError{
+				field:  "AutorollbackOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for ComputeRollbackVersion
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
