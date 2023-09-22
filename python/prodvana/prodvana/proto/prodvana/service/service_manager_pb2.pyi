@@ -50,6 +50,48 @@ class ServiceConfigVersionReference(google.protobuf.message.Message):
 
 global___ServiceConfigVersionReference = ServiceConfigVersionReference
 
+class GenerateVersionNameReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    SERVICE_CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    PARAMETERS_FIELD_NUMBER: builtins.int
+    PER_RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    service_config_version: builtins.str
+    @property
+    def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
+    @property
+    def per_release_channel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApplyParametersReq.PerReleaseChannel]: ...
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+        service_config_version: builtins.str = ...,
+        parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
+        per_release_channel: collections.abc.Iterable[global___ApplyParametersReq.PerReleaseChannel] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "parameters", b"parameters", "per_release_channel", b"per_release_channel", "service", b"service", "service_config_version", b"service_config_version"]) -> None: ...
+
+global___GenerateVersionNameReq = GenerateVersionNameReq
+
+class GenerateVersionNameResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VERSION_FIELD_NUMBER: builtins.int
+    version: builtins.str
+    def __init__(
+        self,
+        *,
+        version: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["version", b"version"]) -> None: ...
+
+global___GenerateVersionNameResp = GenerateVersionNameResp
+
 class ApplyParametersReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

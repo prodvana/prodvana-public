@@ -22,6 +22,7 @@ const (
 	ServiceManager_ConfigureService_FullMethodName               = "/prodvana.service.ServiceManager/ConfigureService"
 	ServiceManager_ListServiceConfigVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceConfigVersions"
 	ServiceManager_GetServiceConfig_FullMethodName               = "/prodvana.service.ServiceManager/GetServiceConfig"
+	ServiceManager_GenerateVersionName_FullMethodName            = "/prodvana.service.ServiceManager/GenerateVersionName"
 	ServiceManager_ApplyParameters_FullMethodName                = "/prodvana.service.ServiceManager/ApplyParameters"
 	ServiceManager_ValidateApplyParameters_FullMethodName        = "/prodvana.service.ServiceManager/ValidateApplyParameters"
 	ServiceManager_GetMaterializedConfig_FullMethodName          = "/prodvana.service.ServiceManager/GetMaterializedConfig"
@@ -48,6 +49,7 @@ type ServiceManagerClient interface {
 	ListServiceConfigVersions(ctx context.Context, in *ListServiceConfigVersionsReq, opts ...grpc.CallOption) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
 	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
+	GenerateVersionName(ctx context.Context, in *GenerateVersionNameReq, opts ...grpc.CallOption) (*GenerateVersionNameResp, error)
 	ApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ApplyParametersResp, error)
 	ValidateApplyParameters(ctx context.Context, in *ApplyParametersReq, opts ...grpc.CallOption) (*ValidateApplyParametersResp, error)
 	GetMaterializedConfig(ctx context.Context, in *GetMaterializedConfigReq, opts ...grpc.CallOption) (*GetMaterializedConfigResp, error)
@@ -95,6 +97,15 @@ func (c *serviceManagerClient) ListServiceConfigVersions(ctx context.Context, in
 func (c *serviceManagerClient) GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error) {
 	out := new(GetServiceConfigResp)
 	err := c.cc.Invoke(ctx, ServiceManager_GetServiceConfig_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceManagerClient) GenerateVersionName(ctx context.Context, in *GenerateVersionNameReq, opts ...grpc.CallOption) (*GenerateVersionNameResp, error) {
+	out := new(GenerateVersionNameResp)
+	err := c.cc.Invoke(ctx, ServiceManager_GenerateVersionName_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -253,6 +264,7 @@ type ServiceManagerServer interface {
 	ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
 	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
+	GenerateVersionName(context.Context, *GenerateVersionNameReq) (*GenerateVersionNameResp, error)
 	ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error)
 	ValidateApplyParameters(context.Context, *ApplyParametersReq) (*ValidateApplyParametersResp, error)
 	GetMaterializedConfig(context.Context, *GetMaterializedConfigReq) (*GetMaterializedConfigResp, error)
@@ -284,6 +296,9 @@ func (UnimplementedServiceManagerServer) ListServiceConfigVersions(context.Conte
 }
 func (UnimplementedServiceManagerServer) GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceConfig not implemented")
+}
+func (UnimplementedServiceManagerServer) GenerateVersionName(context.Context, *GenerateVersionNameReq) (*GenerateVersionNameResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateVersionName not implemented")
 }
 func (UnimplementedServiceManagerServer) ApplyParameters(context.Context, *ApplyParametersReq) (*ApplyParametersResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyParameters not implemented")
@@ -396,6 +411,24 @@ func _ServiceManager_GetServiceConfig_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceManagerServer).GetServiceConfig(ctx, req.(*GetServiceConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceManager_GenerateVersionName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateVersionNameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).GenerateVersionName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_GenerateVersionName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).GenerateVersionName(ctx, req.(*GenerateVersionNameReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -706,6 +739,10 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServiceConfig",
 			Handler:    _ServiceManager_GetServiceConfig_Handler,
+		},
+		{
+			MethodName: "GenerateVersionName",
+			Handler:    _ServiceManager_GenerateVersionName_Handler,
 		},
 		{
 			MethodName: "ApplyParameters",

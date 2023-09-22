@@ -174,6 +174,335 @@ var _ interface {
 	ErrorName() string
 } = ServiceConfigVersionReferenceValidationError{}
 
+// Validate checks the field values on GenerateVersionNameReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GenerateVersionNameReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GenerateVersionNameReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GenerateVersionNameReqMultiError, or nil if none found.
+func (m *GenerateVersionNameReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GenerateVersionNameReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GenerateVersionNameReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := GenerateVersionNameReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetServiceConfigVersion()) < 1 {
+		err := GenerateVersionNameReqValidationError{
+			field:  "ServiceConfigVersion",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := GenerateVersionNameReqValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GenerateVersionNameReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GenerateVersionNameReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GenerateVersionNameReqValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetPerReleaseChannel() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := GenerateVersionNameReqValidationError{
+				field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GenerateVersionNameReqValidationError{
+						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GenerateVersionNameReqValidationError{
+						field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GenerateVersionNameReqValidationError{
+					field:  fmt.Sprintf("PerReleaseChannel[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GenerateVersionNameReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GenerateVersionNameReqMultiError is an error wrapping multiple validation
+// errors returned by GenerateVersionNameReq.ValidateAll() if the designated
+// constraints aren't met.
+type GenerateVersionNameReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GenerateVersionNameReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GenerateVersionNameReqMultiError) AllErrors() []error { return m }
+
+// GenerateVersionNameReqValidationError is the validation error returned by
+// GenerateVersionNameReq.Validate if the designated constraints aren't met.
+type GenerateVersionNameReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GenerateVersionNameReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GenerateVersionNameReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GenerateVersionNameReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GenerateVersionNameReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GenerateVersionNameReqValidationError) ErrorName() string {
+	return "GenerateVersionNameReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GenerateVersionNameReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGenerateVersionNameReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GenerateVersionNameReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GenerateVersionNameReqValidationError{}
+
+// Validate checks the field values on GenerateVersionNameResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GenerateVersionNameResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GenerateVersionNameResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GenerateVersionNameRespMultiError, or nil if none found.
+func (m *GenerateVersionNameResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GenerateVersionNameResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return GenerateVersionNameRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GenerateVersionNameRespMultiError is an error wrapping multiple validation
+// errors returned by GenerateVersionNameResp.ValidateAll() if the designated
+// constraints aren't met.
+type GenerateVersionNameRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GenerateVersionNameRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GenerateVersionNameRespMultiError) AllErrors() []error { return m }
+
+// GenerateVersionNameRespValidationError is the validation error returned by
+// GenerateVersionNameResp.Validate if the designated constraints aren't met.
+type GenerateVersionNameRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GenerateVersionNameRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GenerateVersionNameRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GenerateVersionNameRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GenerateVersionNameRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GenerateVersionNameRespValidationError) ErrorName() string {
+	return "GenerateVersionNameRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GenerateVersionNameRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGenerateVersionNameResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GenerateVersionNameRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GenerateVersionNameRespValidationError{}
+
 // Validate checks the field values on ApplyParametersReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

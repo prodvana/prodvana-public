@@ -4932,6 +4932,50 @@
         ]
       }
     },
+    "/v1/{application}/services/{service}/generate-version-name": {
+      "get": {
+        "operationId": "ServiceManager_GenerateVersionName",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceGenerateVersionNameResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "serviceConfigVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
     "/v1/{application}/services/{service}/materialized/config": {
       "get": {
         "operationId": "ServiceManager_GetMaterializedConfig",
@@ -11675,6 +11719,14 @@
       "properties": {
         "enabled": {
           "type": "boolean"
+        }
+      }
+    },
+    "serviceGenerateVersionNameResp": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
         }
       }
     },

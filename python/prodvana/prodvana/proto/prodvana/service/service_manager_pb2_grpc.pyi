@@ -21,6 +21,10 @@ class ServiceManagerStub:
         prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigResp,
     ]
     """unparametrized configs"""
+    GenerateVersionName: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.service.service_manager_pb2.GenerateVersionNameReq,
+        prodvana.proto.prodvana.service.service_manager_pb2.GenerateVersionNameResp,
+    ]
     ApplyParameters: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.ApplyParametersReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ApplyParametersResp,
@@ -106,6 +110,12 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.GetServiceConfigResp:
         """unparametrized configs"""
+    @abc.abstractmethod
+    def GenerateVersionName(
+        self,
+        request: prodvana.proto.prodvana.service.service_manager_pb2.GenerateVersionNameReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.service.service_manager_pb2.GenerateVersionNameResp: ...
     @abc.abstractmethod
     def ApplyParameters(
         self,

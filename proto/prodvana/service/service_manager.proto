@@ -23,6 +23,18 @@ message ServiceConfigVersionReference {
     string service_config_version = 3 [(validate.rules).string.min_len = 1];
 }
 
+message GenerateVersionNameReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string service_config_version = 3 [(validate.rules).string.min_len = 1];
+    repeated prodvana.common_config.ParameterValue parameters = 4 [(validate.rules).repeated.items.message.required = true];
+    repeated ApplyParametersReq.PerReleaseChannel per_release_channel = 5 [(validate.rules).repeated.items.message.required = true];
+}
+
+message GenerateVersionNameResp {
+    string version = 1;
+}
+
 message ApplyParametersReq {
     message PerReleaseChannel {
         string release_channel = 1 [(validate.rules).string.min_len = 1];
@@ -291,6 +303,11 @@ service ServiceManager {
     rpc GetServiceConfig (GetServiceConfigReq) returns (GetServiceConfigResp) {
         option (google.api.http) = {
             get: "/v1/{application=*}/services/{service=*}/config"
+        };
+    }
+    rpc GenerateVersionName (GenerateVersionNameReq) returns (GenerateVersionNameResp) {
+        option (google.api.http) = {
+            get: "/v1/{application=*}/services/{service=*}/generate-version-name"
         };
     }
     rpc ApplyParameters (ApplyParametersReq) returns (ApplyParametersResp) {
