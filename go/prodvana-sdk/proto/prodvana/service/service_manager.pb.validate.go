@@ -323,6 +323,8 @@ func (m *ApplyParametersReq) validate(all bool) error {
 
 	// no validation rules for BundleNameOverride
 
+	// no validation rules for SkipRuntimeValidation
+
 	oneofOneofPresent := false
 	switch v := m.Oneof.(type) {
 	case *ApplyParametersReq_ServiceConfig:
@@ -4688,6 +4690,8 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 	}
 
 	// no validation rules for BundleNameOverride
+
+	// no validation rules for SkipRuntimeValidation
 
 	if len(errors) > 0 {
 		return ConfigureServiceReqMultiError(errors)

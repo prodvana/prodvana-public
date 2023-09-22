@@ -20,6 +20,9 @@ message ValidateDesiredStateReq {
     bool rollback = 2;
     // optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState
     repeated prodvana.service.CompiledServiceInstanceConfig service_instance_configs = 3;
+
+    // only do label expansion instead of the full compilation, can be useful for speedup if the only desired outcome is to look at the materialized release channels
+    bool label_expansion_only = 4;
 }
 
 message SetDesiredStateResp {

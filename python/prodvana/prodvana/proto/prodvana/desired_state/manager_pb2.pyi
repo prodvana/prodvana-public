@@ -46,6 +46,7 @@ class ValidateDesiredStateReq(google.protobuf.message.Message):
     DESIRED_STATE_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
     SERVICE_INSTANCE_CONFIGS_FIELD_NUMBER: builtins.int
+    LABEL_EXPANSION_ONLY_FIELD_NUMBER: builtins.int
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     rollback: builtins.bool
@@ -53,15 +54,18 @@ class ValidateDesiredStateReq(google.protobuf.message.Message):
     @property
     def service_instance_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.service.service_config_pb2.CompiledServiceInstanceConfig]:
         """optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState"""
+    label_expansion_only: builtins.bool
+    """only do label expansion instead of the full compilation, can be useful for speedup if the only desired outcome is to look at the materialized release channels"""
     def __init__(
         self,
         *,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         rollback: builtins.bool = ...,
         service_instance_configs: collections.abc.Iterable[prodvana.proto.prodvana.service.service_config_pb2.CompiledServiceInstanceConfig] | None = ...,
+        label_expansion_only: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "rollback", b"rollback", "service_instance_configs", b"service_instance_configs"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "label_expansion_only", b"label_expansion_only", "rollback", b"rollback", "service_instance_configs", b"service_instance_configs"]) -> None: ...
 
 global___ValidateDesiredStateReq = ValidateDesiredStateReq
 

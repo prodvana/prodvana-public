@@ -48,10 +48,13 @@ message ApplyParametersReq {
 
     string bundle_name_override = 11;
 
+    // skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config
+    bool skip_runtime_validation = 12;
+
     reserved 2, 3;
     reserved "release_channels", "compute_efficiency";
 
-    // next tag: 12
+    // next tag: 13
 }
 
 message ApplyParametersResp {
@@ -232,6 +235,8 @@ message ConfigureServiceReq {
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
     string bundle_name_override = 5;
+    // skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config
+    bool skip_runtime_validation = 6;
 }
 
 message ConfigureServiceResp {

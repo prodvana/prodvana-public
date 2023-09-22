@@ -4647,6 +4647,10 @@
                 },
                 "bundleNameOverride": {
                   "type": "string"
+                },
+                "skipRuntimeValidation": {
+                  "type": "boolean",
+                  "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
                 }
               }
             }
@@ -4722,6 +4726,10 @@
                 },
                 "bundleNameOverride": {
                   "type": "string"
+                },
+                "skipRuntimeValidation": {
+                  "type": "boolean",
+                  "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
                 }
               }
             }
@@ -4775,6 +4783,10 @@
                 },
                 "bundleNameOverride": {
                   "type": "string"
+                },
+                "skipRuntimeValidation": {
+                  "type": "boolean",
+                  "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
                 }
               }
             }
@@ -7485,6 +7497,10 @@
             "$ref": "#/definitions/serviceCompiledServiceInstanceConfig"
           },
           "title": "optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState"
+        },
+        "labelExpansionOnly": {
+          "type": "boolean",
+          "title": "only do label expansion instead of the full compilation, can be useful for speedup if the only desired outcome is to look at the materialized release channels"
         }
       }
     },
