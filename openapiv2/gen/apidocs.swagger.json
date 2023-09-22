@@ -7850,6 +7850,14 @@
             "type": "object",
             "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
           }
+        },
+        "releaseChannelLabelSelectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelServiceInstanceLabelSelector"
+          },
+          "description": "in leau of listing out individual release channels, specify versions for release channels using label selectors instead.\nThis can only be used as input to SetDesiredState and will never be returned as output from a convergence summary."
         }
       }
     },
@@ -9933,6 +9941,29 @@
             "type": "object",
             "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
           }
+        }
+      }
+    },
+    "modelServiceInstanceLabelSelector": {
+      "type": "object",
+      "properties": {
+        "releaseChannelSelector": {
+          "type": "string",
+          "title": "release channel selector, automatically scoped to `@type=release-channel @application=\u003capp\u003e`"
+        },
+        "all": {
+          "type": "boolean",
+          "title": "target all release channels"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          }
+        },
+        "rollbackVersion": {
+          "$ref": "#/definitions/modelVersion"
         }
       }
     },

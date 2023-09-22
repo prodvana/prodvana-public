@@ -242,8 +242,24 @@ message ServiceState {
     // Definitions for custom tasks used by this service. Must be empty if part of service group.
     repeated CustomTaskState custom_tasks = 7;
     repeated DeliveryExtensionState delivery_extensions = 9;
+
+    // in leau of listing out individual release channels, specify versions for release channels using label selectors instead.
+    // This can only be used as input to SetDesiredState and will never be returned as output from a convergence summary.
+    repeated ServiceInstanceLabelSelector release_channel_label_selectors = 10;
+
     reserved 4, 8;
-    // next tag: 10
+    // next tag: 11
+}
+
+message ServiceInstanceLabelSelector {
+    oneof selector_oneof {
+        option (validate.required) = true;
+        string release_channel_selector = 1;  // release channel selector, automatically scoped to `@type=release-channel @application=<app>`
+        bool all = 2; // target all release channels
+    }
+
+    repeated Version versions = 3;
+    Version rollback_version = 4;
 }
 
 message ServiceGroupState {

@@ -694,6 +694,7 @@ class ServiceState(google.protobuf.message.Message):
     RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
     CUSTOM_TASKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_LABEL_SELECTORS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     application: builtins.str
@@ -707,6 +708,11 @@ class ServiceState(google.protobuf.message.Message):
         """Definitions for custom tasks used by this service. Must be empty if part of service group."""
     @property
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionState]: ...
+    @property
+    def release_channel_label_selectors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ServiceInstanceLabelSelector]:
+        """in leau of listing out individual release channels, specify versions for release channels using label selectors instead.
+        This can only be used as input to SetDesiredState and will never be returned as output from a convergence summary.
+        """
     def __init__(
         self,
         *,
@@ -717,11 +723,41 @@ class ServiceState(google.protobuf.message.Message):
         release_channels: collections.abc.Iterable[global___ServiceInstanceState] | None = ...,
         custom_tasks: collections.abc.Iterable[global___CustomTaskState] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionState] | None = ...,
+        release_channel_label_selectors: collections.abc.Iterable[global___ServiceInstanceLabelSelector] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "release_channel_label_selectors", b"release_channel_label_selectors", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
 
 global___ServiceState = ServiceState
+
+class ServiceInstanceLabelSelector(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASE_CHANNEL_SELECTOR_FIELD_NUMBER: builtins.int
+    ALL_FIELD_NUMBER: builtins.int
+    VERSIONS_FIELD_NUMBER: builtins.int
+    ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
+    release_channel_selector: builtins.str
+    """release channel selector, automatically scoped to `@type=release-channel @application=<app>`"""
+    all: builtins.bool
+    """target all release channels"""
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    @property
+    def rollback_version(self) -> global___Version: ...
+    def __init__(
+        self,
+        *,
+        release_channel_selector: builtins.str = ...,
+        all: builtins.bool = ...,
+        versions: collections.abc.Iterable[global___Version] | None = ...,
+        rollback_version: global___Version | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["all", b"all", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["all", b"all", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof", "versions", b"versions"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["selector_oneof", b"selector_oneof"]) -> typing_extensions.Literal["release_channel_selector", "all"] | None: ...
+
+global___ServiceInstanceLabelSelector = ServiceInstanceLabelSelector
 
 class ServiceGroupState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
