@@ -18,7 +18,7 @@ from prodvana.proto.prodvana.version import source_metadata_pb2 as prodvana_dot_
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,prodvana/protection/protection_manager.proto\x12\x13prodvana.protection\x1a\x1cgoogle/api/annotations.proto\x1a prodvana/protection/object.proto\x1a+prodvana/protection/protection_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\xc9\x01\n\x16\x43onfigureProtectionReq\x12J\n\x11protection_config\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12(\n\x06source\x18\x02 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x03 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"A\n\x17\x43onfigureProtectionResp\x12\x15\n\rprotection_id\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\"!\n\x1fValidateConfigureProtectionResp\";\n\x12ListProtectionsReq\x12\x12\n\npage_token\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\"d\n\x13ListProtectionsResp\x12\x34\n\x0bprotections\x18\x01 \x03(\x0b\x32\x1f.prodvana.protection.Protection\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"/\n\x10GetProtectionReq\x12\x1b\n\nprotection\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"H\n\x11GetProtectionResp\x12\x33\n\nprotection\x18\x01 \x01(\x0b\x32\x1f.prodvana.protection.Protection\"F\n\x16GetProtectionConfigReq\x12\x1b\n\nprotection\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"a\n\x17GetProtectionConfigResp\x12\x35\n\x06\x63onfig\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\"S\n GetProtectionAttachmentConfigReq\x12\x1e\n\rattachment_id\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"}\n!GetProtectionAttachmentConfigResp\x12G\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x37.prodvana.protection.CompiledProtectionAttachmentConfig\x12\x0f\n\x07version\x18\x02 \x01(\t2\xd6\x07\n\x11ProtectionManager\x12\x96\x01\n\x13\x43onfigureProtection\x12+.prodvana.protection.ConfigureProtectionReq\x1a,.prodvana.protection.ConfigureProtectionResp\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/protections/configure:\x01*\x12\xaf\x01\n\x1bValidateConfigureProtection\x12+.prodvana.protection.ConfigureProtectionReq\x1a\x34.prodvana.protection.ValidateConfigureProtectionResp\"-\x82\xd3\xe4\x93\x02\'\"\"/v1/protections/configure/validate:\x01*\x12}\n\x0fListProtections\x12\'.prodvana.protection.ListProtectionsReq\x1a(.prodvana.protection.ListProtectionsResp\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/protections\x12\x86\x01\n\rGetProtection\x12%.prodvana.protection.GetProtectionReq\x1a&.prodvana.protection.GetProtectionResp\"&\x82\xd3\xe4\x93\x02 \x12\x1e/v1/protections/{protection=*}\x12\x9f\x01\n\x13GetProtectionConfig\x12+.prodvana.protection.GetProtectionConfigReq\x1a,.prodvana.protection.GetProtectionConfigResp\"-\x82\xd3\xe4\x93\x02\'\x12%/v1/protections/{protection=*}/config\x12\xcb\x01\n\x1dGetProtectionAttachmentConfig\x12\x35.prodvana.protection.GetProtectionAttachmentConfigReq\x1a\x36.prodvana.protection.GetProtectionAttachmentConfigResp\";\x82\xd3\xe4\x93\x02\x35\x12\x33/v1/protections/attachment/{attachment_id=*}/configBOZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,prodvana/protection/protection_manager.proto\x12\x13prodvana.protection\x1a\x1cgoogle/api/annotations.proto\x1a prodvana/protection/object.proto\x1a+prodvana/protection/protection_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\xc9\x01\n\x16\x43onfigureProtectionReq\x12J\n\x11protection_config\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12(\n\x06source\x18\x02 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x03 \x01(\x0b\x32 .prodvana.version.SourceMetadata\"A\n\x17\x43onfigureProtectionResp\x12\x15\n\rprotection_id\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\"\x9e\x01\n\x1fValidateConfigureProtectionResp\x12;\n\x0cinput_config\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12>\n\x0f\x63ompiled_config\x18\x02 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\";\n\x12ListProtectionsReq\x12\x12\n\npage_token\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\"d\n\x13ListProtectionsResp\x12\x34\n\x0bprotections\x18\x01 \x03(\x0b\x32\x1f.prodvana.protection.Protection\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"/\n\x10GetProtectionReq\x12\x1b\n\nprotection\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"H\n\x11GetProtectionResp\x12\x33\n\nprotection\x18\x01 \x01(\x0b\x32\x1f.prodvana.protection.Protection\"F\n\x16GetProtectionConfigReq\x12\x1b\n\nprotection\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"\xa7\x01\n\x17GetProtectionConfigResp\x12;\n\x0cinput_config\x18\x03 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12>\n\x0f\x63ompiled_config\x18\x01 \x01(\x0b\x32%.prodvana.protection.ProtectionConfig\x12\x0f\n\x07version\x18\x02 \x01(\t\"S\n GetProtectionAttachmentConfigReq\x12\x1e\n\rattachment_id\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"}\n!GetProtectionAttachmentConfigResp\x12G\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x37.prodvana.protection.CompiledProtectionAttachmentConfig\x12\x0f\n\x07version\x18\x02 \x01(\t2\xd6\x07\n\x11ProtectionManager\x12\x96\x01\n\x13\x43onfigureProtection\x12+.prodvana.protection.ConfigureProtectionReq\x1a,.prodvana.protection.ConfigureProtectionResp\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/protections/configure:\x01*\x12\xaf\x01\n\x1bValidateConfigureProtection\x12+.prodvana.protection.ConfigureProtectionReq\x1a\x34.prodvana.protection.ValidateConfigureProtectionResp\"-\x82\xd3\xe4\x93\x02\'\"\"/v1/protections/configure/validate:\x01*\x12}\n\x0fListProtections\x12\'.prodvana.protection.ListProtectionsReq\x1a(.prodvana.protection.ListProtectionsResp\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/protections\x12\x86\x01\n\rGetProtection\x12%.prodvana.protection.GetProtectionReq\x1a&.prodvana.protection.GetProtectionResp\"&\x82\xd3\xe4\x93\x02 \x12\x1e/v1/protections/{protection=*}\x12\x9f\x01\n\x13GetProtectionConfig\x12+.prodvana.protection.GetProtectionConfigReq\x1a,.prodvana.protection.GetProtectionConfigResp\"-\x82\xd3\xe4\x93\x02\'\x12%/v1/protections/{protection=*}/config\x12\xcb\x01\n\x1dGetProtectionAttachmentConfig\x12\x35.prodvana.protection.GetProtectionAttachmentConfigReq\x1a\x36.prodvana.protection.GetProtectionAttachmentConfigResp\";\x82\xd3\xe4\x93\x02\x35\x12\x33/v1/protections/attachment/{attachment_id=*}/configBOZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protectionb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -51,24 +51,24 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_CONFIGUREPROTECTIONREQ']._serialized_end=445
   _globals['_CONFIGUREPROTECTIONRESP']._serialized_start=447
   _globals['_CONFIGUREPROTECTIONRESP']._serialized_end=512
-  _globals['_VALIDATECONFIGUREPROTECTIONRESP']._serialized_start=514
-  _globals['_VALIDATECONFIGUREPROTECTIONRESP']._serialized_end=547
-  _globals['_LISTPROTECTIONSREQ']._serialized_start=549
-  _globals['_LISTPROTECTIONSREQ']._serialized_end=608
-  _globals['_LISTPROTECTIONSRESP']._serialized_start=610
-  _globals['_LISTPROTECTIONSRESP']._serialized_end=710
-  _globals['_GETPROTECTIONREQ']._serialized_start=712
-  _globals['_GETPROTECTIONREQ']._serialized_end=759
-  _globals['_GETPROTECTIONRESP']._serialized_start=761
-  _globals['_GETPROTECTIONRESP']._serialized_end=833
-  _globals['_GETPROTECTIONCONFIGREQ']._serialized_start=835
-  _globals['_GETPROTECTIONCONFIGREQ']._serialized_end=905
-  _globals['_GETPROTECTIONCONFIGRESP']._serialized_start=907
-  _globals['_GETPROTECTIONCONFIGRESP']._serialized_end=1004
-  _globals['_GETPROTECTIONATTACHMENTCONFIGREQ']._serialized_start=1006
-  _globals['_GETPROTECTIONATTACHMENTCONFIGREQ']._serialized_end=1089
-  _globals['_GETPROTECTIONATTACHMENTCONFIGRESP']._serialized_start=1091
-  _globals['_GETPROTECTIONATTACHMENTCONFIGRESP']._serialized_end=1216
-  _globals['_PROTECTIONMANAGER']._serialized_start=1219
-  _globals['_PROTECTIONMANAGER']._serialized_end=2201
+  _globals['_VALIDATECONFIGUREPROTECTIONRESP']._serialized_start=515
+  _globals['_VALIDATECONFIGUREPROTECTIONRESP']._serialized_end=673
+  _globals['_LISTPROTECTIONSREQ']._serialized_start=675
+  _globals['_LISTPROTECTIONSREQ']._serialized_end=734
+  _globals['_LISTPROTECTIONSRESP']._serialized_start=736
+  _globals['_LISTPROTECTIONSRESP']._serialized_end=836
+  _globals['_GETPROTECTIONREQ']._serialized_start=838
+  _globals['_GETPROTECTIONREQ']._serialized_end=885
+  _globals['_GETPROTECTIONRESP']._serialized_start=887
+  _globals['_GETPROTECTIONRESP']._serialized_end=959
+  _globals['_GETPROTECTIONCONFIGREQ']._serialized_start=961
+  _globals['_GETPROTECTIONCONFIGREQ']._serialized_end=1031
+  _globals['_GETPROTECTIONCONFIGRESP']._serialized_start=1034
+  _globals['_GETPROTECTIONCONFIGRESP']._serialized_end=1201
+  _globals['_GETPROTECTIONATTACHMENTCONFIGREQ']._serialized_start=1203
+  _globals['_GETPROTECTIONATTACHMENTCONFIGREQ']._serialized_end=1286
+  _globals['_GETPROTECTIONATTACHMENTCONFIGRESP']._serialized_start=1288
+  _globals['_GETPROTECTIONATTACHMENTCONFIGRESP']._serialized_end=1413
+  _globals['_PROTECTIONMANAGER']._serialized_start=1416
+  _globals['_PROTECTIONMANAGER']._serialized_end=2398
 # @@protoc_insertion_point(module_scope)

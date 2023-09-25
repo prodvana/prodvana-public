@@ -325,9 +325,20 @@ global___ConfigureClusterResp = ConfigureClusterResp
 class ValidateConfigureClusterResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    INPUT_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def input_config(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig: ...
     def __init__(
         self,
+        *,
+        input_config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
+        compiled_config: prodvana.proto.prodvana.environment.clusters_pb2.ClusterConfig | None = ...,
     ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> None: ...
 
 global___ValidateConfigureClusterResp = ValidateConfigureClusterResp
 

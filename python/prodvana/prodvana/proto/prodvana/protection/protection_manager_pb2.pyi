@@ -62,9 +62,20 @@ global___ConfigureProtectionResp = ConfigureProtectionResp
 class ValidateConfigureProtectionResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    INPUT_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def input_config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
     def __init__(
         self,
+        *,
+        input_config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
+        compiled_config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
     ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> None: ...
 
 global___ValidateConfigureProtectionResp = ValidateConfigureProtectionResp
 
@@ -154,19 +165,24 @@ global___GetProtectionConfigReq = GetProtectionConfigReq
 class GetProtectionConfigResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    CONFIG_FIELD_NUMBER: builtins.int
+    INPUT_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     @property
-    def config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
+    def input_config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig: ...
     version: builtins.str
+    """next tag: 4"""
     def __init__(
         self,
         *,
-        config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
+        input_config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
+        compiled_config: prodvana.proto.prodvana.protection.protection_config_pb2.ProtectionConfig | None = ...,
         version: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config", "version", b"version"]) -> None: ...
 
 global___GetProtectionConfigResp = GetProtectionConfigResp
 

@@ -20,6 +20,8 @@ message ConfigureProtectionResp {
 }
 
 message ValidateConfigureProtectionResp {
+    ProtectionConfig input_config = 1;
+    ProtectionConfig compiled_config = 2;
 }
 
 message ListProtectionsReq {
@@ -46,8 +48,10 @@ message GetProtectionConfigReq {
 }
 
 message GetProtectionConfigResp {
-    ProtectionConfig config = 1;
+    ProtectionConfig input_config = 3;
+    ProtectionConfig compiled_config = 1;
     string version = 2;
+    // next tag: 4
 }
 
 message GetProtectionAttachmentConfigReq {

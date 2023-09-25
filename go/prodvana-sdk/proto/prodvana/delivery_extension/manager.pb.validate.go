@@ -344,6 +344,64 @@ func (m *ValidateConfigureDeliveryExtensionResp) validate(all bool) error {
 
 	var errors []error
 
+	if all {
+		switch v := interface{}(m.GetInputConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ValidateConfigureDeliveryExtensionRespValidationError{
+					field:  "InputConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ValidateConfigureDeliveryExtensionRespValidationError{
+					field:  "InputConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInputConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ValidateConfigureDeliveryExtensionRespValidationError{
+				field:  "InputConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ValidateConfigureDeliveryExtensionRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ValidateConfigureDeliveryExtensionRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ValidateConfigureDeliveryExtensionRespValidationError{
+				field:  "CompiledConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return ValidateConfigureDeliveryExtensionRespMultiError(errors)
 	}
@@ -1053,11 +1111,11 @@ func (m *GetDeliveryExtensionConfigResp) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetConfig()).(type) {
+		switch v := interface{}(m.GetInputConfig()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, GetDeliveryExtensionConfigRespValidationError{
-					field:  "Config",
+					field:  "InputConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -1065,16 +1123,45 @@ func (m *GetDeliveryExtensionConfigResp) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, GetDeliveryExtensionConfigRespValidationError{
-					field:  "Config",
+					field:  "InputConfig",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetInputConfig()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GetDeliveryExtensionConfigRespValidationError{
-				field:  "Config",
+				field:  "InputConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDeliveryExtensionConfigRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDeliveryExtensionConfigRespValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDeliveryExtensionConfigRespValidationError{
+				field:  "CompiledConfig",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

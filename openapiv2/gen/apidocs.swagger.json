@@ -7291,11 +7291,15 @@
     "delivery_extensionGetDeliveryExtensionConfigResp": {
       "type": "object",
       "properties": {
-        "config": {
+        "inputConfig": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "compiledConfig": {
           "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
         },
         "version": {
-          "type": "string"
+          "type": "string",
+          "title": "next tag: 4"
         }
       }
     },
@@ -7334,7 +7338,15 @@
       }
     },
     "delivery_extensionValidateConfigureDeliveryExtensionResp": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "inputConfig": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        }
+      }
     },
     "desired_stateBypassProtectionReq": {
       "type": "object",
@@ -8571,7 +8583,15 @@
       }
     },
     "environmentValidateConfigureClusterResp": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "inputConfig": {
+          "$ref": "#/definitions/environmentClusterConfig"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/environmentClusterConfig"
+        }
+      }
     },
     "eventsApplicationHandle": {
       "type": "object",
@@ -10968,11 +10988,15 @@
     "protectionGetProtectionConfigResp": {
       "type": "object",
       "properties": {
-        "config": {
+        "inputConfig": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "compiledConfig": {
           "$ref": "#/definitions/protectionProtectionConfig"
         },
         "version": {
-          "type": "string"
+          "type": "string",
+          "title": "next tag: 4"
         }
       }
     },
@@ -11116,7 +11140,15 @@
       }
     },
     "protectionValidateConfigureProtectionResp": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "inputConfig": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        }
+      }
     },
     "protobufAny": {
       "type": "object",

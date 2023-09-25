@@ -20,6 +20,8 @@ message ConfigureDeliveryExtensionResp {
 }
 
 message ValidateConfigureDeliveryExtensionResp {
+    DeliveryExtensionConfig input_config = 1;
+    DeliveryExtensionConfig compiled_config = 2;
 }
 
 message ListDeliveryExtensionsReq {
@@ -46,8 +48,10 @@ message GetDeliveryExtensionConfigReq {
 }
 
 message GetDeliveryExtensionConfigResp {
-    DeliveryExtensionConfig config = 1;
+    DeliveryExtensionConfig input_config = 1;
+    DeliveryExtensionConfig compiled_config = 3;
     string version = 2;
+    // next tag: 4
 }
 
 message GetDeliveryExtensionInstanceConfigReq {

@@ -112,6 +112,8 @@ message ConfigureClusterResp {
 }
 
 message ValidateConfigureClusterResp {
+    ClusterConfig input_config = 1;
+    ClusterConfig compiled_config = 2;
 }
 
 message GetClusterConfigReq {
