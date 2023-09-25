@@ -12,6 +12,10 @@ class ServiceManagerStub:
         prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceResp,
     ]
+    ValidateConfigureService: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
+        prodvana.proto.prodvana.service.service_manager_pb2.ValidateConfigureServiceResp,
+    ]
     ListServiceConfigVersions: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceConfigVersionsReq,
         prodvana.proto.prodvana.service.service_manager_pb2.ListServiceConfigVersionsResp,
@@ -97,6 +101,12 @@ class ServiceManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceResp: ...
+    @abc.abstractmethod
+    def ValidateConfigureService(
+        self,
+        request: prodvana.proto.prodvana.service.service_manager_pb2.ConfigureServiceReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.service.service_manager_pb2.ValidateConfigureServiceResp: ...
     @abc.abstractmethod
     def ListServiceConfigVersions(
         self,

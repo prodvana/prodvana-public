@@ -4740,6 +4740,63 @@
         ]
       }
     },
+    "/v1/{application}/services/configure/validate": {
+      "post": {
+        "operationId": "ServiceManager_ValidateConfigureService",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceValidateConfigureServiceResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "serviceConfig": {
+                  "$ref": "#/definitions/serviceServiceConfig"
+                },
+                "source": {
+                  "$ref": "#/definitions/versionSource"
+                },
+                "sourceMetadata": {
+                  "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "bundleNameOverride": {
+                  "type": "string"
+                },
+                "skipRuntimeValidation": {
+                  "type": "boolean",
+                  "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.service.ServiceManager"
+        ]
+      }
+    },
     "/v1/{application}/services/configure2": {
       "post": {
         "operationId": "ServiceManager_ConfigureService",
@@ -11761,6 +11818,14 @@
       "type": "object",
       "properties": {
         "config": {
+          "$ref": "#/definitions/serviceServiceConfig",
+          "title": "deprecated, same as compiled_config"
+        },
+        "inputConfig": {
+          "$ref": "#/definitions/serviceServiceConfig",
+          "title": "may be null because input config wasn't stored before 2023-09-25"
+        },
+        "compiledConfig": {
           "$ref": "#/definitions/serviceServiceConfig"
         },
         "configVersion": {
@@ -11768,7 +11833,8 @@
           "title": "deprecated, use config_version_metadata"
         },
         "configVersionMetadata": {
-          "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata"
+          "$ref": "#/definitions/serviceListServiceConfigVersionsRespVersionMetadata",
+          "title": "next tag: 6"
         }
       }
     },
@@ -12427,6 +12493,19 @@
             "$ref": "#/definitions/serviceCompiledServiceInstanceConfig"
           },
           "title": "compiled config per release channel, with per-release-channel overrides applied"
+        }
+      }
+    },
+    "serviceValidateConfigureServiceResp": {
+      "type": "object",
+      "properties": {
+        "inputConfig": {
+          "$ref": "#/definitions/serviceServiceConfig",
+          "title": "config as passed in by user"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/serviceServiceConfig",
+          "title": "config with defaults applied"
         }
       }
     },

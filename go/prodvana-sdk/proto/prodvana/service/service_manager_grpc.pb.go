@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	ServiceManager_ConfigureService_FullMethodName               = "/prodvana.service.ServiceManager/ConfigureService"
+	ServiceManager_ValidateConfigureService_FullMethodName       = "/prodvana.service.ServiceManager/ValidateConfigureService"
 	ServiceManager_ListServiceConfigVersions_FullMethodName      = "/prodvana.service.ServiceManager/ListServiceConfigVersions"
 	ServiceManager_GetServiceConfig_FullMethodName               = "/prodvana.service.ServiceManager/GetServiceConfig"
 	ServiceManager_GenerateVersionName_FullMethodName            = "/prodvana.service.ServiceManager/GenerateVersionName"
@@ -46,6 +47,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceManagerClient interface {
 	ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error)
+	ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error)
 	ListServiceConfigVersions(ctx context.Context, in *ListServiceConfigVersionsReq, opts ...grpc.CallOption) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
 	GetServiceConfig(ctx context.Context, in *GetServiceConfigReq, opts ...grpc.CallOption) (*GetServiceConfigResp, error)
@@ -79,6 +81,15 @@ func NewServiceManagerClient(cc grpc.ClientConnInterface) ServiceManagerClient {
 func (c *serviceManagerClient) ConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ConfigureServiceResp, error) {
 	out := new(ConfigureServiceResp)
 	err := c.cc.Invoke(ctx, ServiceManager_ConfigureService_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceManagerClient) ValidateConfigureService(ctx context.Context, in *ConfigureServiceReq, opts ...grpc.CallOption) (*ValidateConfigureServiceResp, error) {
+	out := new(ValidateConfigureServiceResp)
+	err := c.cc.Invoke(ctx, ServiceManager_ValidateConfigureService_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -261,6 +272,7 @@ func (c *serviceManagerClient) SetServiceConvergenceMode(ctx context.Context, in
 // for forward compatibility
 type ServiceManagerServer interface {
 	ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error)
+	ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error)
 	ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error)
 	// unparametrized configs
 	GetServiceConfig(context.Context, *GetServiceConfigReq) (*GetServiceConfigResp, error)
@@ -290,6 +302,9 @@ type UnimplementedServiceManagerServer struct {
 
 func (UnimplementedServiceManagerServer) ConfigureService(context.Context, *ConfigureServiceReq) (*ConfigureServiceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConfigureService not implemented")
+}
+func (UnimplementedServiceManagerServer) ValidateConfigureService(context.Context, *ConfigureServiceReq) (*ValidateConfigureServiceResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateConfigureService not implemented")
 }
 func (UnimplementedServiceManagerServer) ListServiceConfigVersions(context.Context, *ListServiceConfigVersionsReq) (*ListServiceConfigVersionsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListServiceConfigVersions not implemented")
@@ -375,6 +390,24 @@ func _ServiceManager_ConfigureService_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceManagerServer).ConfigureService(ctx, req.(*ConfigureServiceReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceManager_ValidateConfigureService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfigureServiceReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceManagerServer).ValidateConfigureService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceManager_ValidateConfigureService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceManagerServer).ValidateConfigureService(ctx, req.(*ConfigureServiceReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -731,6 +764,10 @@ var ServiceManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConfigureService",
 			Handler:    _ServiceManager_ConfigureService_Handler,
+		},
+		{
+			MethodName: "ValidateConfigureService",
+			Handler:    _ServiceManager_ValidateConfigureService_Handler,
 		},
 		{
 			MethodName: "ListServiceConfigVersions",

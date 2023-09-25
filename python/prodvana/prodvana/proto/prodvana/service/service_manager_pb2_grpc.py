@@ -19,6 +19,11 @@ class ServiceManagerStub(object):
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
                 response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.FromString,
                 )
+        self.ValidateConfigureService = channel.unary_unary(
+                '/prodvana.service.ServiceManager/ValidateConfigureService',
+                request_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
+                response_deserializer=prodvana_dot_service_dot_service__manager__pb2.ValidateConfigureServiceResp.FromString,
+                )
         self.ListServiceConfigVersions = channel.unary_unary(
                 '/prodvana.service.ServiceManager/ListServiceConfigVersions',
                 request_serializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsReq.SerializeToString,
@@ -120,6 +125,12 @@ class ServiceManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def ConfigureService(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ValidateConfigureService(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -248,6 +259,11 @@ def add_ServiceManagerServicer_to_server(servicer, server):
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.FromString,
                     response_serializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.SerializeToString,
             ),
+            'ValidateConfigureService': grpc.unary_unary_rpc_method_handler(
+                    servicer.ValidateConfigureService,
+                    request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.FromString,
+                    response_serializer=prodvana_dot_service_dot_service__manager__pb2.ValidateConfigureServiceResp.SerializeToString,
+            ),
             'ListServiceConfigVersions': grpc.unary_unary_rpc_method_handler(
                     servicer.ListServiceConfigVersions,
                     request_deserializer=prodvana_dot_service_dot_service__manager__pb2.ListServiceConfigVersionsReq.FromString,
@@ -367,6 +383,23 @@ class ServiceManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ConfigureService',
             prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
             prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ValidateConfigureService(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.service.ServiceManager/ValidateConfigureService',
+            prodvana_dot_service_dot_service__manager__pb2.ConfigureServiceReq.SerializeToString,
+            prodvana_dot_service_dot_service__manager__pb2.ValidateConfigureServiceResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

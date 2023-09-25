@@ -256,6 +256,11 @@ message ConfigureServiceResp {
     string config_version = 2;
 }
 
+message ValidateConfigureServiceResp {
+    ServiceConfig input_config = 1;  // config as passed in by user
+    ServiceConfig compiled_config = 2;  // config with defaults applied
+}
+
 message ListServiceConfigVersionsReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
@@ -282,15 +287,24 @@ message GetServiceConfigReq {
 }
 
 message GetServiceConfigResp {
-    ServiceConfig config = 1;
+    ServiceConfig config = 1; // deprecated, same as compiled_config
+    ServiceConfig input_config = 4; // may be null because input config wasn't stored before 2023-09-25
+    ServiceConfig compiled_config = 5;
     string config_version = 2; // deprecated, use config_version_metadata
     ListServiceConfigVersionsResp.VersionMetadata config_version_metadata = 3;
+    // next tag: 6
 }
 
 service ServiceManager {
     rpc ConfigureService (ConfigureServiceReq) returns (ConfigureServiceResp) {
         option (google.api.http) = {
             post: "/v1/{application=*}/services/configure2"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureService (ConfigureServiceReq) returns (ValidateConfigureServiceResp) {
+        option (google.api.http) = {
+            post: "/v1/{application=*}/services/configure/validate"
             body: "*"
         };
     }

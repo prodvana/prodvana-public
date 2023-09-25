@@ -803,6 +803,28 @@ class ConfigureServiceResp(google.protobuf.message.Message):
 
 global___ConfigureServiceResp = ConfigureServiceResp
 
+class ValidateConfigureServiceResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INPUT_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def input_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig:
+        """config as passed in by user"""
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig:
+        """config with defaults applied"""
+    def __init__(
+        self,
+        *,
+        input_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+        compiled_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config"]) -> None: ...
+
+global___ValidateConfigureServiceResp = ValidateConfigureServiceResp
+
 class ListServiceConfigVersionsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -893,22 +915,33 @@ class GetServiceConfigResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CONFIG_FIELD_NUMBER: builtins.int
+    INPUT_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_CONFIG_FIELD_NUMBER: builtins.int
     CONFIG_VERSION_FIELD_NUMBER: builtins.int
     CONFIG_VERSION_METADATA_FIELD_NUMBER: builtins.int
     @property
-    def config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
+    def config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig:
+        """deprecated, same as compiled_config"""
+    @property
+    def input_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig:
+        """may be null because input config wasn't stored before 2023-09-25"""
+    @property
+    def compiled_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
     config_version: builtins.str
     """deprecated, use config_version_metadata"""
     @property
-    def config_version_metadata(self) -> global___ListServiceConfigVersionsResp.VersionMetadata: ...
+    def config_version_metadata(self) -> global___ListServiceConfigVersionsResp.VersionMetadata:
+        """next tag: 6"""
     def __init__(
         self,
         *,
         config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+        input_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+        compiled_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
         config_version: builtins.str = ...,
         config_version_metadata: global___ListServiceConfigVersionsResp.VersionMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "config_version_metadata", b"config_version_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "config_version", b"config_version", "config_version_metadata", b"config_version_metadata"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "config", b"config", "config_version_metadata", b"config_version_metadata", "input_config", b"input_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "config", b"config", "config_version", b"config_version", "config_version_metadata", b"config_version_metadata", "input_config", b"input_config"]) -> None: ...
 
 global___GetServiceConfigResp = GetServiceConfigResp
