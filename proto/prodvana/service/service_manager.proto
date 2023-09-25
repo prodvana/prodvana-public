@@ -59,6 +59,8 @@ message ApplyParametersReq {
     prodvana.version.SourceMetadata source_metadata = 7;
 
     string bundle_name_override = 11;
+    // if the bundle name override exists already, handle duplicate by appending a number
+    bool handle_bundle_name_duplicate = 13;
 
     // skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config
     bool skip_runtime_validation = 12;
@@ -66,7 +68,7 @@ message ApplyParametersReq {
     reserved 2, 3;
     reserved "release_channels", "compute_efficiency";
 
-    // next tag: 13
+    // next tag: 14
 }
 
 message ApplyParametersResp {

@@ -4648,6 +4648,10 @@
                 "bundleNameOverride": {
                   "type": "string"
                 },
+                "handleBundleNameDuplicate": {
+                  "type": "boolean",
+                  "title": "if the bundle name override exists already, handle duplicate by appending a number"
+                },
                 "skipRuntimeValidation": {
                   "type": "boolean",
                   "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
@@ -4726,6 +4730,10 @@
                 },
                 "bundleNameOverride": {
                   "type": "string"
+                },
+                "handleBundleNameDuplicate": {
+                  "type": "boolean",
+                  "title": "if the bundle name override exists already, handle duplicate by appending a number"
                 },
                 "skipRuntimeValidation": {
                   "type": "boolean",

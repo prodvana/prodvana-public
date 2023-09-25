@@ -121,6 +121,7 @@ class ApplyParametersReq(google.protobuf.message.Message):
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
     BUNDLE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
+    HANDLE_BUNDLE_NAME_DUPLICATE_FIELD_NUMBER: builtins.int
     SKIP_RUNTIME_VALIDATION_FIELD_NUMBER: builtins.int
     @property
     def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
@@ -138,6 +139,8 @@ class ApplyParametersReq(google.protobuf.message.Message):
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     bundle_name_override: builtins.str
+    handle_bundle_name_duplicate: builtins.bool
+    """if the bundle name override exists already, handle duplicate by appending a number"""
     skip_runtime_validation: builtins.bool
     """skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"""
     def __init__(
@@ -152,10 +155,11 @@ class ApplyParametersReq(google.protobuf.message.Message):
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         bundle_name_override: builtins.str = ...,
+        handle_bundle_name_duplicate: builtins.bool = ...,
         skip_runtime_validation: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["oneof", b"oneof", "service_config", b"service_config", "service_config_version", b"service_config_version", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "oneof", b"oneof", "parameters", b"parameters", "per_release_channel", b"per_release_channel", "service_config", b"service_config", "service_config_version", b"service_config_version", "skip_runtime_validation", b"skip_runtime_validation", "source", b"source", "source_metadata", b"source_metadata", "test_only_skip_registry_check", b"test_only_skip_registry_check"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "handle_bundle_name_duplicate", b"handle_bundle_name_duplicate", "oneof", b"oneof", "parameters", b"parameters", "per_release_channel", b"per_release_channel", "service_config", b"service_config", "service_config_version", b"service_config_version", "skip_runtime_validation", b"skip_runtime_validation", "source", b"source", "source_metadata", b"source_metadata", "test_only_skip_registry_check", b"test_only_skip_registry_check"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["oneof", b"oneof"]) -> typing_extensions.Literal["service_config", "service_config_version"] | None: ...
 
 global___ApplyParametersReq = ApplyParametersReq

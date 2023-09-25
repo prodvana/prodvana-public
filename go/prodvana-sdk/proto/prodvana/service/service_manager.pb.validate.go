@@ -652,6 +652,8 @@ func (m *ApplyParametersReq) validate(all bool) error {
 
 	// no validation rules for BundleNameOverride
 
+	// no validation rules for HandleBundleNameDuplicate
+
 	// no validation rules for SkipRuntimeValidation
 
 	oneofOneofPresent := false
