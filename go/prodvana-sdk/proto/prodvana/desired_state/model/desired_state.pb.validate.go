@@ -2768,6 +2768,8 @@ func (m *FetchDetails) validate(all bool) error {
 
 	// no validation rules for FetcherDesiredStateId
 
+	// no validation rules for Message
+
 	if len(errors) > 0 {
 		return FetchDetailsMultiError(errors)
 	}

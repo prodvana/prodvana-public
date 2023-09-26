@@ -342,6 +342,8 @@ message FetchDetails {
     string version = 5;
     FetchStatus fetch_status = 6;
     string fetcher_desired_state_id = 7;
+    // freeform message from the convergence engine explaining the fetch result
+    string message = 8;
 }
 
 message RuntimeExtensionFetchOutput {

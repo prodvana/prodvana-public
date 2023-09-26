@@ -930,6 +930,7 @@ class FetchDetails(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     FETCH_STATUS_FIELD_NUMBER: builtins.int
     FETCHER_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the fetch job started"""
@@ -948,6 +949,8 @@ class FetchDetails(google.protobuf.message.Message):
     """the version of the service associated with this fetch run"""
     fetch_status: global___FetchDetails.FetchStatus.ValueType
     fetcher_desired_state_id: builtins.str
+    message: builtins.str
+    """freeform message from the convergence engine explaining the fetch result"""
     def __init__(
         self,
         *,
@@ -958,9 +961,10 @@ class FetchDetails(google.protobuf.message.Message):
         version: builtins.str = ...,
         fetch_status: global___FetchDetails.FetchStatus.ValueType = ...,
         fetcher_desired_state_id: builtins.str = ...,
+        message: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "message", b"message", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
 
 global___FetchDetails = FetchDetails
 

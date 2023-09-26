@@ -9950,6 +9950,10 @@
         },
         "fetcherDesiredStateId": {
           "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "title": "freeform message from the convergence engine explaining the fetch result"
         }
       }
     },
