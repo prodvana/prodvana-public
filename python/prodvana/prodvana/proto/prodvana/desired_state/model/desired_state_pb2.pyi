@@ -1072,6 +1072,38 @@ class RuntimeExtensionApplyOutput(google.protobuf.message.Message):
 
 global___RuntimeExtensionApplyOutput = RuntimeExtensionApplyOutput
 
+class ExternalLink(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _LinkType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _LinkTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExternalLink._LinkType.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: ExternalLink._LinkType.ValueType  # 0
+        DETAIL: ExternalLink._LinkType.ValueType  # 1
+        LOG: ExternalLink._LinkType.ValueType  # 2
+
+    class LinkType(_LinkType, metaclass=_LinkTypeEnumTypeWrapper): ...
+    UNKNOWN: ExternalLink.LinkType.ValueType  # 0
+    DETAIL: ExternalLink.LinkType.ValueType  # 1
+    LOG: ExternalLink.LinkType.ValueType  # 2
+
+    TYPE_FIELD_NUMBER: builtins.int
+    URL_FIELD_NUMBER: builtins.int
+    type: global___ExternalLink.LinkType.ValueType
+    url: builtins.str
+    def __init__(
+        self,
+        *,
+        type: global___ExternalLink.LinkType.ValueType = ...,
+        url: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["type", b"type", "url", b"url"]) -> None: ...
+
+global___ExternalLink = ExternalLink
+
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1188,6 +1220,7 @@ class RuntimeObject(google.protobuf.message.Message):
     RAW_CONFIG_FIELD_NUMBER: builtins.int
     MANAGEMENT_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_TASK_RUN_FIELD_NUMBER: builtins.int
+    EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -1231,6 +1264,8 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def last_completed_task_run(self) -> global___TaskRun:
         """For entities that run jobs/tasks multiple times, what is the most recent status we have?"""
+    @property
+    def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExternalLink]: ...
     def __init__(
         self,
         *,
@@ -1255,9 +1290,10 @@ class RuntimeObject(google.protobuf.message.Message):
         raw_config: builtins.str = ...,
         management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
         last_completed_task_run: global___TaskRun | None = ...,
+        external_links: collections.abc.Iterable[global___ExternalLink] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

@@ -387,6 +387,17 @@ message RuntimeExtensionApplyOutput {
     ApplyDetails last_apply = 2;
 }
 
+message ExternalLink {
+    enum LinkType {
+        UNKNOWN = 0;
+        DETAIL = 1;
+        LOG = 2;
+    }
+
+    LinkType type = 1;
+    string url = 2;
+}
+
 message RuntimeObject {
     message RuntimeExtension {
         // aggregate object will have all commands set. Fetcher will only have fetch set.
@@ -445,9 +456,11 @@ message RuntimeObject {
 
     TaskRun last_completed_task_run = 27; // For entities that run jobs/tasks multiple times, what is the most recent status we have?
 
+    repeated ExternalLink external_links = 28;
+
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 28
+    // next tag: 29
 }
 
 enum ConditionStatus {

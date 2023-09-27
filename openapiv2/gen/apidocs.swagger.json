@@ -5620,6 +5620,15 @@
       "default": "UNKNOWN",
       "title": "- DEFAULT: for kubernetes, this the the node's default storage medium"
     },
+    "ExternalLinkLinkType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "DETAIL",
+        "LOG"
+      ],
+      "default": "UNKNOWN"
+    },
     "FakeClusterConfigCrashingProgramPatterns": {
       "type": "object",
       "properties": {
@@ -7934,6 +7943,13 @@
         "lastCompletedTaskRun": {
           "$ref": "#/definitions/modelTaskRun",
           "title": "For entities that run jobs/tasks multiple times, what is the most recent status we have?"
+        },
+        "externalLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelExternalLink"
+          }
         }
       }
     },
@@ -9940,6 +9956,17 @@
             "type": "object",
             "$ref": "#/definitions/modelEntity"
           }
+        }
+      }
+    },
+    "modelExternalLink": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ExternalLinkLinkType"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },
