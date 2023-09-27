@@ -4998,7 +4998,7 @@
       }
     },
     "/v1/{application}/services/{service}/generate-version-name": {
-      "get": {
+      "post": {
         "operationId": "ServiceManager_GenerateVersionName",
         "responses": {
           "200": {
@@ -5030,10 +5030,31 @@
             "pattern": "[^/]+"
           },
           {
-            "name": "serviceConfigVersion",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "serviceConfigVersion": {
+                  "type": "string"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/common_configParameterValue"
+                  }
+                },
+                "perReleaseChannel": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/serviceApplyParametersReqPerReleaseChannel"
+                  }
+                }
+              }
+            }
           }
         ],
         "tags": [

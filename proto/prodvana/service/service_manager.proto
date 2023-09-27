@@ -323,7 +323,8 @@ service ServiceManager {
     }
     rpc GenerateVersionName (GenerateVersionNameReq) returns (GenerateVersionNameResp) {
         option (google.api.http) = {
-            get: "/v1/{application=*}/services/{service=*}/generate-version-name"
+            post: "/v1/{application=*}/services/{service=*}/generate-version-name"
+            body: "*"
         };
     }
     rpc ApplyParameters (ApplyParametersReq) returns (ApplyParametersResp) {
