@@ -230,6 +230,7 @@ message ServiceInstanceState {
         // set an explicit auto rollback version
         Version rollback_version = 6;
         // use the last converged version as the auto rollback version
+        // will not do anything if the *latest* service config has auto rollback disabled
         bool compute_rollback_version = 11;
     }
     bool rollback = 7;

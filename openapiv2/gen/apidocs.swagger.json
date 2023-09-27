@@ -7973,7 +7973,7 @@
         },
         "computeRollbackVersion": {
           "type": "boolean",
-          "title": "use the last converged version as the auto rollback version"
+          "title": "use the last converged version as the auto rollback version\nwill not do anything if the *latest* service config has auto rollback disabled"
         },
         "rollback": {
           "type": "boolean"

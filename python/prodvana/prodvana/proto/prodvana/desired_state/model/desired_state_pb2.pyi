@@ -665,7 +665,9 @@ class ServiceInstanceState(google.protobuf.message.Message):
     def rollback_version(self) -> global___Version:
         """set an explicit auto rollback version"""
     compute_rollback_version: builtins.bool
-    """use the last converged version as the auto rollback version"""
+    """use the last converged version as the auto rollback version
+    will not do anything if the *latest* service config has auto rollback disabled
+    """
     rollback: builtins.bool
     @property
     def delivery(self) -> global___DeliveryState: ...

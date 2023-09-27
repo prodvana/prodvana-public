@@ -1855,6 +1855,7 @@ type ServiceInstanceState_RollbackVersion struct {
 
 type ServiceInstanceState_ComputeRollbackVersion struct {
 	// use the last converged version as the auto rollback version
+	// will not do anything if the *latest* service config has auto rollback disabled
 	ComputeRollbackVersion bool `protobuf:"varint,11,opt,name=compute_rollback_version,json=computeRollbackVersion,proto3,oneof"`
 }
 
