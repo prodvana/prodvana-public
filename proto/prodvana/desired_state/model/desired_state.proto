@@ -395,7 +395,8 @@ message ExternalLink {
     }
 
     LinkType type = 1;
-    string url = 2;
+    string url = 2 [(validate.rules).string.min_len = 1];
+    string name = 3 [(validate.rules).string.min_len = 1];
 }
 
 message RuntimeObject {

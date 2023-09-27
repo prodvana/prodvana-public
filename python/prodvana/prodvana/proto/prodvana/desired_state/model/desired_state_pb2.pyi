@@ -1092,15 +1092,18 @@ class ExternalLink(google.protobuf.message.Message):
 
     TYPE_FIELD_NUMBER: builtins.int
     URL_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
     type: global___ExternalLink.LinkType.ValueType
     url: builtins.str
+    name: builtins.str
     def __init__(
         self,
         *,
         type: global___ExternalLink.LinkType.ValueType = ...,
         url: builtins.str = ...,
+        name: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["type", b"type", "url", b"url"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "type", b"type", "url", b"url"]) -> None: ...
 
 global___ExternalLink = ExternalLink
 

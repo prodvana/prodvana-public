@@ -3412,7 +3412,27 @@ func (m *ExternalLink) validate(all bool) error {
 
 	// no validation rules for Type
 
-	// no validation rules for Url
+	if utf8.RuneCountInString(m.GetUrl()) < 1 {
+		err := ExternalLinkValidationError{
+			field:  "Url",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := ExternalLinkValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ExternalLinkMultiError(errors)
