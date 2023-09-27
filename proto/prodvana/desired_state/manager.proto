@@ -23,6 +23,9 @@ message ValidateDesiredStateReq {
 
     // only do label expansion instead of the full compilation, can be useful for speedup if the only desired outcome is to look at the materialized release channels
     bool label_expansion_only = 4;
+
+    // assume service versions in the request are invalid and do not try to fetch them.
+    bool disregard_service_versions = 5;
 }
 
 message SetDesiredStateResp {

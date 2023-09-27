@@ -7646,6 +7646,10 @@
         "labelExpansionOnly": {
           "type": "boolean",
           "title": "only do label expansion instead of the full compilation, can be useful for speedup if the only desired outcome is to look at the materialized release channels"
+        },
+        "disregardServiceVersions": {
+          "type": "boolean",
+          "description": "assume service versions in the request are invalid and do not try to fetch them."
         }
       }
     },

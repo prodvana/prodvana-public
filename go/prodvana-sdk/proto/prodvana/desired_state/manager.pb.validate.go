@@ -279,6 +279,8 @@ func (m *ValidateDesiredStateReq) validate(all bool) error {
 
 	// no validation rules for LabelExpansionOnly
 
+	// no validation rules for DisregardServiceVersions
+
 	if len(errors) > 0 {
 		return ValidateDesiredStateReqMultiError(errors)
 	}
