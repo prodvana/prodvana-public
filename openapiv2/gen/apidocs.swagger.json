@@ -875,6 +875,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "fastNoDeprecatedFields",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1096,6 +1102,12 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "fastNoDeprecatedFields",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -2522,6 +2534,12 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "fastNoDeprecatedFields",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [

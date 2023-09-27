@@ -113,15 +113,18 @@ class GetServiceDesiredStateConvergenceSummaryReq(google.protobuf.message.Messag
 
     APPLICATION_FIELD_NUMBER: builtins.int
     SERVICE_FIELD_NUMBER: builtins.int
+    FAST_NO_DEPRECATED_FIELDS_FIELD_NUMBER: builtins.int
     application: builtins.str
     service: builtins.str
+    fast_no_deprecated_fields: builtins.bool
     def __init__(
         self,
         *,
         application: builtins.str = ...,
         service: builtins.str = ...,
+        fast_no_deprecated_fields: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service", b"service"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "fast_no_deprecated_fields", b"fast_no_deprecated_fields", "service", b"service"]) -> None: ...
 
 global___GetServiceDesiredStateConvergenceSummaryReq = GetServiceDesiredStateConvergenceSummaryReq
 
@@ -377,13 +380,16 @@ class GetDesiredStateConvergenceReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    FAST_NO_DEPRECATED_FIELDS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
+    fast_no_deprecated_fields: builtins.bool
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
+        fast_no_deprecated_fields: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "fast_no_deprecated_fields", b"fast_no_deprecated_fields"]) -> None: ...
 
 global___GetDesiredStateConvergenceReq = GetDesiredStateConvergenceReq
 
@@ -458,10 +464,12 @@ class GetServiceDesiredStateHistoryReq(google.protobuf.message.Message):
     SERVICE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
+    FAST_NO_DEPRECATED_FIELDS_FIELD_NUMBER: builtins.int
     application: builtins.str
     service: builtins.str
     page_token: builtins.str
     page_size: builtins.int
+    fast_no_deprecated_fields: builtins.bool
     def __init__(
         self,
         *,
@@ -469,8 +477,9 @@ class GetServiceDesiredStateHistoryReq(google.protobuf.message.Message):
         service: builtins.str = ...,
         page_token: builtins.str = ...,
         page_size: builtins.int = ...,
+        fast_no_deprecated_fields: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "page_size", b"page_size", "page_token", b"page_token", "service", b"service"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "fast_no_deprecated_fields", b"fast_no_deprecated_fields", "page_size", b"page_size", "page_token", b"page_token", "service", b"service"]) -> None: ...
 
 global___GetServiceDesiredStateHistoryReq = GetServiceDesiredStateHistoryReq
 

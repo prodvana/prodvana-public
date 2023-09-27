@@ -644,6 +644,8 @@ func (m *GetServiceDesiredStateConvergenceSummaryReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for FastNoDeprecatedFields
+
 	if len(errors) > 0 {
 		return GetServiceDesiredStateConvergenceSummaryReqMultiError(errors)
 	}
@@ -1686,6 +1688,8 @@ func (m *GetDesiredStateConvergenceReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for FastNoDeprecatedFields
+
 	if len(errors) > 0 {
 		return GetDesiredStateConvergenceReqMultiError(errors)
 	}
@@ -2349,6 +2353,8 @@ func (m *GetServiceDesiredStateHistoryReq) validate(all bool) error {
 	// no validation rules for PageToken
 
 	// no validation rules for PageSize
+
+	// no validation rules for FastNoDeprecatedFields
 
 	if len(errors) > 0 {
 		return GetServiceDesiredStateHistoryReqMultiError(errors)

@@ -40,6 +40,7 @@ message PreviewEntityGraphResp {
 message GetServiceDesiredStateConvergenceSummaryReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
+    bool fast_no_deprecated_fields = 3;
 }
 
 message StatusExplanations {
@@ -53,18 +54,19 @@ message DebugLogs {
 message DesiredStateSummary {
     prodvana.desired_state.model.EntityGraph entity_graph = 15;
     google.protobuf.Timestamp creation_timestamp = 5;
+    google.protobuf.Timestamp last_update_timestamp = 6;
     // will only be set if desired state has been replaced
     google.protobuf.Timestamp replaced_timestamp = 7;
     // uncompiled desired state originally passed as input to SetDesiredState
     prodvana.desired_state.model.State input_desired_state = 16;
+    // compiled desired state
+    prodvana.desired_state.model.State desired_state = 3;
 
     // fields below are deprecated
     prodvana.desired_state.model.State starting_state = 1;
     prodvana.desired_state.model.State last_seen_state = 2;
-    prodvana.desired_state.model.State desired_state = 3;
     // status of the desired state, all its descendents, and the root desired state.
     map<string, prodvana.desired_state.model.Status> statuses = 4;
-    google.protobuf.Timestamp last_update_timestamp = 6;
     // State of all preconditions involved in the desired state.
     // Key format - "{desired_state_id}-{index}", e.g., "des-0752d6c76a6943abbfcf0515634584ba-0".
     map<string, prodvana.desired_state.model.ConditionState> precondition_statuses = 8;
@@ -81,6 +83,7 @@ message DesiredStateSummary {
 
 message GetDesiredStateConvergenceReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    bool fast_no_deprecated_fields = 2;
 }
 
 message GetDesiredStateConvergenceSummaryResp {
@@ -105,6 +108,7 @@ message GetServiceDesiredStateHistoryReq {
     string service = 2 [(validate.rules).string.min_len = 1];
     string page_token = 3;
     int32 page_size = 4;
+    bool fast_no_deprecated_fields = 5;
 }
 
 message GetServiceDesiredStateHistoryResp {
