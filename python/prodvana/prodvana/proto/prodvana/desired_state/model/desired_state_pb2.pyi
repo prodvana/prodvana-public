@@ -746,6 +746,7 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
     VERSIONS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     COMPUTE_ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
+    MATERIALIZED_RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
     release_channel_selector: builtins.str
     """release channel selector, automatically scoped to `@type=release-channel @application=<app>`"""
     all: builtins.bool
@@ -757,6 +758,11 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
         """set an explicit auto rollback version"""
     compute_rollback_version: builtins.bool
     """use the last converged version as the auto rollback version"""
+    @property
+    def materialized_release_channels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """set internally by Prodvana in compiled desired state to track what this selector evaluated to. This includes all release channels,
+        including ones that would be overridden by something else.
+        """
     def __init__(
         self,
         *,
@@ -765,9 +771,10 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
         versions: collections.abc.Iterable[global___Version] | None = ...,
         rollback_version: global___Version | None = ...,
         compute_rollback_version: builtins.bool = ...,
+        materialized_release_channels: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["all", b"all", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["all", b"all", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["all", b"all", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "materialized_release_channels", b"materialized_release_channels", "release_channel_selector", b"release_channel_selector", "rollback_version", b"rollback_version", "selector_oneof", b"selector_oneof", "versions", b"versions"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof"]) -> typing_extensions.Literal["rollback_version", "compute_rollback_version"] | None: ...
     @typing.overload

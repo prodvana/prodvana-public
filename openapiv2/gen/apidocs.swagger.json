@@ -7432,6 +7432,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
         "replacedTimestamp": {
           "type": "string",
           "format": "date-time",
@@ -7441,14 +7445,15 @@
           "$ref": "#/definitions/modelState",
           "title": "uncompiled desired state originally passed as input to SetDesiredState"
         },
+        "desiredState": {
+          "$ref": "#/definitions/modelState",
+          "title": "compiled desired state"
+        },
         "startingState": {
           "$ref": "#/definitions/modelState",
           "title": "fields below are deprecated"
         },
         "lastSeenState": {
-          "$ref": "#/definitions/modelState"
-        },
-        "desiredState": {
           "$ref": "#/definitions/modelState"
         },
         "statuses": {
@@ -7457,10 +7462,6 @@
             "$ref": "#/definitions/desired_statemodelStatus"
           },
           "description": "status of the desired state, all its descendents, and the root desired state."
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
         },
         "preconditionStatuses": {
           "type": "object",
@@ -10227,6 +10228,13 @@
         "computeRollbackVersion": {
           "type": "boolean",
           "title": "use the last converged version as the auto rollback version"
+        },
+        "materializedReleaseChannels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "set internally by Prodvana in compiled desired state to track what this selector evaluated to. This includes all release channels,\nincluding ones that would be overridden by something else."
         }
       }
     },

@@ -297,13 +297,13 @@ class DesiredStateSummary(google.protobuf.message.Message):
 
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
     CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
     REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_FIELD_NUMBER: builtins.int
     STARTING_STATE_FIELD_NUMBER: builtins.int
     LAST_SEEN_STATE_FIELD_NUMBER: builtins.int
-    DESIRED_STATE_FIELD_NUMBER: builtins.int
     STATUSES_FIELD_NUMBER: builtins.int
-    LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
     PRECONDITION_STATUSES_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     DEBUG_LOGS_FIELD_NUMBER: builtins.int
@@ -316,23 +316,24 @@ class DesiredStateSummary(google.protobuf.message.Message):
     @property
     def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
+    def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
     def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """will only be set if desired state has been replaced"""
     @property
     def input_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """uncompiled desired state originally passed as input to SetDesiredState"""
     @property
+    def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
+        """compiled desired state"""
+    @property
     def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """fields below are deprecated"""
     @property
     def last_seen_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     @property
-    def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
-    @property
     def statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType]:
         """status of the desired state, all its descendents, and the root desired state."""
-    @property
-    def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def precondition_statuses(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState]:
         """State of all preconditions involved in the desired state.
@@ -356,13 +357,13 @@ class DesiredStateSummary(google.protobuf.message.Message):
         *,
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
         creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         starting_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         last_seen_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
-        desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType] | None = ...,
-        last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         precondition_statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState] | None = ...,
         status_explanations: collections.abc.Mapping[builtins.str, global___StatusExplanations] | None = ...,
         debug_logs: collections.abc.Mapping[builtins.str, global___DebugLogs] | None = ...,

@@ -271,6 +271,10 @@ message ServiceInstanceLabelSelector {
         // use the last converged version as the auto rollback version
         bool compute_rollback_version = 5;
     }
+
+    // set internally by Prodvana in compiled desired state to track what this selector evaluated to. This includes all release channels,
+    // including ones that would be overridden by something else.
+    repeated string materialized_release_channels = 6;
 }
 
 message ServiceGroupState {
