@@ -11,6 +11,7 @@ import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
 import prodvana.proto.prodvana.desired_state.model.entity_pb2
 import prodvana.proto.prodvana.service.service_config_pb2
+import prodvana.proto.prodvana.version.source_metadata_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -25,18 +26,25 @@ class SetDesiredStateReq(google.protobuf.message.Message):
 
     DESIRED_STATE_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     rollback: builtins.bool
     """set if this is a rollback, which will generate a desired state with faster preconditions"""
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         rollback: builtins.bool = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "rollback", b"rollback"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "rollback", b"rollback", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___SetDesiredStateReq = SetDesiredStateReq
 
@@ -301,6 +309,8 @@ class DesiredStateSummary(google.protobuf.message.Message):
     REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
     DESIRED_STATE_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     STARTING_STATE_FIELD_NUMBER: builtins.int
     LAST_SEEN_STATE_FIELD_NUMBER: builtins.int
     STATUSES_FIELD_NUMBER: builtins.int
@@ -326,6 +336,10 @@ class DesiredStateSummary(google.protobuf.message.Message):
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """compiled desired state"""
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    """who set the desired state"""
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     @property
     def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """fields below are deprecated"""
@@ -361,6 +375,8 @@ class DesiredStateSummary(google.protobuf.message.Message):
         replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         starting_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         last_seen_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType] | None = ...,
@@ -372,8 +388,8 @@ class DesiredStateSummary(google.protobuf.message.Message):
         last_fetched_timestamps: collections.abc.Mapping[builtins.str, google.protobuf.timestamp_pb2.Timestamp] | None = ...,
         last_applied_timestamps: collections.abc.Mapping[builtins.str, google.protobuf.timestamp_pb2.Timestamp] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "starting_state", b"starting_state", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp", "source_metadata", b"source_metadata", "starting_state", b"starting_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "source", b"source", "source_metadata", b"source_metadata", "starting_state", b"starting_state", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
 
 global___DesiredStateSummary = DesiredStateSummary
 

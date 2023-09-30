@@ -7449,6 +7449,13 @@
           "$ref": "#/definitions/modelState",
           "title": "compiled desired state"
         },
+        "source": {
+          "$ref": "#/definitions/versionSource",
+          "title": "who set the desired state"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        },
         "startingState": {
           "$ref": "#/definitions/modelState",
           "title": "fields below are deprecated"
@@ -7608,6 +7615,12 @@
         "rollback": {
           "type": "boolean",
           "title": "set if this is a rollback, which will generate a desired state with faster preconditions"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },

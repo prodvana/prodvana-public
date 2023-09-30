@@ -6,12 +6,15 @@ import "google/protobuf/timestamp.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "prodvana/desired_state/model/entity.proto";
 import "prodvana/service/service_config.proto";
+import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
 message SetDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
     // set if this is a rollback, which will generate a desired state with faster preconditions
     bool rollback = 2;
+    prodvana.version.Source source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
 }
 
 message ValidateDesiredStateReq {
@@ -61,6 +64,9 @@ message DesiredStateSummary {
     prodvana.desired_state.model.State input_desired_state = 16;
     // compiled desired state
     prodvana.desired_state.model.State desired_state = 3;
+    // who set the desired state
+    prodvana.version.Source source = 17;
+    prodvana.version.SourceMetadata source_metadata = 18;
 
     // fields below are deprecated
     prodvana.desired_state.model.State starting_state = 1;
@@ -78,7 +84,7 @@ message DesiredStateSummary {
     map<string, google.protobuf.Timestamp> last_fetched_timestamps = 13;
     map<string, google.protobuf.Timestamp> last_applied_timestamps = 14;
 
-    // next tag: 17
+    // next tag: 19
 }
 
 message GetDesiredStateConvergenceReq {
