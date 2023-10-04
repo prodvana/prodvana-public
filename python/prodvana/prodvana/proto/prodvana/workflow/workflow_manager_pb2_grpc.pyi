@@ -128,6 +128,10 @@ class WorkflowManagerStub:
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallGitHubReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallGitHubResp,
     ]
+    ListRepoCommits: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsReq,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsResp,
+    ]
 
 class WorkflowManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -310,5 +314,11 @@ class WorkflowManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallGitHubReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallGitHubResp: ...
+    @abc.abstractmethod
+    def ListRepoCommits(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsResp: ...
 
 def add_WorkflowManagerServicer_to_server(servicer: WorkflowManagerServicer, server: grpc.Server) -> None: ...

@@ -133,6 +133,47 @@ class RegistryImage(google.protobuf.message.Message):
 
 global___RegistryImage = RegistryImage
 
+class ListRepoCommitsReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REPOSITORY_FIELD_NUMBER: builtins.int
+    STARTING_REF_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    repository: builtins.str
+    starting_ref: builtins.str
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        repository: builtins.str = ...,
+        starting_ref: builtins.str = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_size", b"page_size", "page_token", b"page_token", "repository", b"repository", "starting_ref", b"starting_ref"]) -> None: ...
+
+global___ListRepoCommitsReq = ListRepoCommitsReq
+
+class ListRepoCommitsResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COMMITS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def commits(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.repo.repo_pb2.Commit]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        commits: collections.abc.Iterable[prodvana.proto.prodvana.repo.repo_pb2.Commit] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commits", b"commits", "next_page_token", b"next_page_token"]) -> None: ...
+
+global___ListRepoCommitsResp = ListRepoCommitsResp
+
 class CreateContainerRegistryIntegrationReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

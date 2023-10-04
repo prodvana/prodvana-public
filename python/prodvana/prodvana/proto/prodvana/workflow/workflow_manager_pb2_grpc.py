@@ -164,6 +164,11 @@ class WorkflowManagerStub(object):
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubReq.SerializeToString,
                 response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubResp.FromString,
                 )
+        self.ListRepoCommits = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/ListRepoCommits',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsReq.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsResp.FromString,
+                )
 
 
 class WorkflowManagerServicer(object):
@@ -349,6 +354,12 @@ class WorkflowManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListRepoCommits(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_WorkflowManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -501,6 +512,11 @@ def add_WorkflowManagerServicer_to_server(servicer, server):
                     servicer.InstallGitHub,
                     request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubReq.FromString,
                     response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubResp.SerializeToString,
+            ),
+            'ListRepoCommits': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListRepoCommits,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsReq.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1019,5 +1035,22 @@ class WorkflowManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/InstallGitHub',
             prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubReq.SerializeToString,
             prodvana_dot_workflow_dot_workflow__manager__pb2.InstallGitHubResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListRepoCommits(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/ListRepoCommits',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsReq.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.ListRepoCommitsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

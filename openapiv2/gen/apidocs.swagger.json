@@ -3119,6 +3119,55 @@
         ]
       }
     },
+    "/v1/integrations/repo/commits": {
+      "get": {
+        "operationId": "WorkflowManager_ListRepoCommits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowListRepoCommitsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startingRef",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/integrations/slack/install": {
       "get": {
         "operationId": "WorkflowManager_InstallSlack",
@@ -13095,6 +13144,21 @@
             "type": "object",
             "$ref": "#/definitions/workflowIntegration"
           }
+        }
+      }
+    },
+    "workflowListRepoCommitsResp": {
+      "type": "object",
+      "properties": {
+        "commits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
         }
       }
     },

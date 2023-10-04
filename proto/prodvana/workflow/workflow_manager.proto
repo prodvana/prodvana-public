@@ -44,6 +44,18 @@ message RegistryImage {
   reserved 1, 4;
 }
 
+message ListRepoCommitsReq {
+  string repository = 1;
+  string starting_ref = 2;
+  string page_token = 3;
+  int32 page_size = 4;
+}
+
+message ListRepoCommitsResp {
+  repeated prodvana.repo.Commit commits = 1;
+  string next_page_token = 2;
+}
+
 message CreateContainerRegistryIntegrationReq {
   string name = 6 [
     (validate.rules).string = {
@@ -573,4 +585,9 @@ service WorkflowManager {
             get: "/v1/integrations/github/install" // TODO(rohit): This should be a POST request
         };
     };
+    rpc ListRepoCommits(ListRepoCommitsReq) returns (ListRepoCommitsResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/repo/commits",
+        };
+    }
 }

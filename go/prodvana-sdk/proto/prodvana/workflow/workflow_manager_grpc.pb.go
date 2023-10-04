@@ -49,6 +49,7 @@ const (
 	WorkflowManager_UninstallHoneycomb_FullMethodName                 = "/prodvana.workflow.WorkflowManager/UninstallHoneycomb"
 	WorkflowManager_CreateGitHubApp_FullMethodName                    = "/prodvana.workflow.WorkflowManager/CreateGitHubApp"
 	WorkflowManager_InstallGitHub_FullMethodName                      = "/prodvana.workflow.WorkflowManager/InstallGitHub"
+	WorkflowManager_ListRepoCommits_FullMethodName                    = "/prodvana.workflow.WorkflowManager/ListRepoCommits"
 )
 
 // WorkflowManagerClient is the client API for WorkflowManager service.
@@ -85,6 +86,7 @@ type WorkflowManagerClient interface {
 	UninstallHoneycomb(ctx context.Context, in *UninstallHoneycombReq, opts ...grpc.CallOption) (*UninstallHoneycombResp, error)
 	CreateGitHubApp(ctx context.Context, in *CreateGitHubAppReq, opts ...grpc.CallOption) (*CreateGitHubAppResp, error)
 	InstallGitHub(ctx context.Context, in *InstallGitHubReq, opts ...grpc.CallOption) (*InstallGitHubResp, error)
+	ListRepoCommits(ctx context.Context, in *ListRepoCommitsReq, opts ...grpc.CallOption) (*ListRepoCommitsResp, error)
 }
 
 type workflowManagerClient struct {
@@ -365,6 +367,15 @@ func (c *workflowManagerClient) InstallGitHub(ctx context.Context, in *InstallGi
 	return out, nil
 }
 
+func (c *workflowManagerClient) ListRepoCommits(ctx context.Context, in *ListRepoCommitsReq, opts ...grpc.CallOption) (*ListRepoCommitsResp, error) {
+	out := new(ListRepoCommitsResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_ListRepoCommits_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowManagerServer is the server API for WorkflowManager service.
 // All implementations must embed UnimplementedWorkflowManagerServer
 // for forward compatibility
@@ -399,6 +410,7 @@ type WorkflowManagerServer interface {
 	UninstallHoneycomb(context.Context, *UninstallHoneycombReq) (*UninstallHoneycombResp, error)
 	CreateGitHubApp(context.Context, *CreateGitHubAppReq) (*CreateGitHubAppResp, error)
 	InstallGitHub(context.Context, *InstallGitHubReq) (*InstallGitHubResp, error)
+	ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error)
 	mustEmbedUnimplementedWorkflowManagerServer()
 }
 
@@ -495,6 +507,9 @@ func (UnimplementedWorkflowManagerServer) CreateGitHubApp(context.Context, *Crea
 }
 func (UnimplementedWorkflowManagerServer) InstallGitHub(context.Context, *InstallGitHubReq) (*InstallGitHubResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InstallGitHub not implemented")
+}
+func (UnimplementedWorkflowManagerServer) ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRepoCommits not implemented")
 }
 func (UnimplementedWorkflowManagerServer) mustEmbedUnimplementedWorkflowManagerServer() {}
 
@@ -1049,6 +1064,24 @@ func _WorkflowManager_InstallGitHub_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowManager_ListRepoCommits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRepoCommitsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).ListRepoCommits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_ListRepoCommits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).ListRepoCommits(ctx, req.(*ListRepoCommitsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowManager_ServiceDesc is the grpc.ServiceDesc for WorkflowManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1175,6 +1208,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InstallGitHub",
 			Handler:    _WorkflowManager_InstallGitHub_Handler,
+		},
+		{
+			MethodName: "ListRepoCommits",
+			Handler:    _WorkflowManager_ListRepoCommits_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
