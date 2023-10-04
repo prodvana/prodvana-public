@@ -42,6 +42,12 @@ message IntParameterDefinition {
 
 message SecretParameterDefinition { }
 
+message CommitParameterDefinition {
+    string repository = 1 [(validate.rules).string.min_len = 1];
+    // branch to pull commits from, defaults to `main`
+    string branch = 2;
+}
+
 message ParameterDefinition {
     // parameter name, used in substitutions
     string name = 1 [(validate.rules).string.min_len = 1];
@@ -55,10 +61,11 @@ message ParameterDefinition {
         DockerImageParameterDefinition docker_image = 4;
         IntParameterDefinition int = 5;
         SecretParameterDefinition secret = 6;
+        CommitParameterDefinition commit = 8;
     }
 
     bool required = 7;
-    // next: 8
+    // next: 9
 }
 
 message SecretParameterValue {
@@ -79,9 +86,11 @@ message ParameterValue {
         int64 int = 4;
         string docker_image_tag = 5;
         SecretParameterValue secret = 6;
+        string commit = 7;
     }
     reserved 3;
     reserved "docker_image";
+    // next tag: 8
 }
 
 message ParametersConfig {

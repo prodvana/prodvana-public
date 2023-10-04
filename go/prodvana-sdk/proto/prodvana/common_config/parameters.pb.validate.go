@@ -802,6 +802,121 @@ var _ interface {
 	ErrorName() string
 } = SecretParameterDefinitionValidationError{}
 
+// Validate checks the field values on CommitParameterDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CommitParameterDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CommitParameterDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CommitParameterDefinitionMultiError, or nil if none found.
+func (m *CommitParameterDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CommitParameterDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetRepository()) < 1 {
+		err := CommitParameterDefinitionValidationError{
+			field:  "Repository",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Branch
+
+	if len(errors) > 0 {
+		return CommitParameterDefinitionMultiError(errors)
+	}
+
+	return nil
+}
+
+// CommitParameterDefinitionMultiError is an error wrapping multiple validation
+// errors returned by CommitParameterDefinition.ValidateAll() if the
+// designated constraints aren't met.
+type CommitParameterDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CommitParameterDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CommitParameterDefinitionMultiError) AllErrors() []error { return m }
+
+// CommitParameterDefinitionValidationError is the validation error returned by
+// CommitParameterDefinition.Validate if the designated constraints aren't met.
+type CommitParameterDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CommitParameterDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CommitParameterDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CommitParameterDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CommitParameterDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CommitParameterDefinitionValidationError) ErrorName() string {
+	return "CommitParameterDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CommitParameterDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCommitParameterDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CommitParameterDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CommitParameterDefinitionValidationError{}
+
 // Validate checks the field values on ParameterDefinition with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1003,6 +1118,48 @@ func (m *ParameterDefinition) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ParameterDefinitionValidationError{
 					field:  "Secret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ParameterDefinition_Commit:
+		if v == nil {
+			err := ParameterDefinitionValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofConfigOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetCommit()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Commit",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Commit",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCommit()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ParameterDefinitionValidationError{
+					field:  "Commit",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1392,6 +1549,19 @@ func (m *ParameterValue) validate(all bool) error {
 			}
 		}
 
+	case *ParameterValue_Commit:
+		if v == nil {
+			err := ParameterValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+		// no validation rules for Commit
 	default:
 		_ = v // ensures v is used
 	}

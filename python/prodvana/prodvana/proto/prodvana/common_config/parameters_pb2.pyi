@@ -136,6 +136,24 @@ class SecretParameterDefinition(google.protobuf.message.Message):
 
 global___SecretParameterDefinition = SecretParameterDefinition
 
+class CommitParameterDefinition(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REPOSITORY_FIELD_NUMBER: builtins.int
+    BRANCH_FIELD_NUMBER: builtins.int
+    repository: builtins.str
+    branch: builtins.str
+    """branch to pull commits from, defaults to `main`"""
+    def __init__(
+        self,
+        *,
+        repository: builtins.str = ...,
+        branch: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["branch", b"branch", "repository", b"repository"]) -> None: ...
+
+global___CommitParameterDefinition = CommitParameterDefinition
+
 class ParameterDefinition(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -145,6 +163,7 @@ class ParameterDefinition(google.protobuf.message.Message):
     DOCKER_IMAGE_FIELD_NUMBER: builtins.int
     INT_FIELD_NUMBER: builtins.int
     SECRET_FIELD_NUMBER: builtins.int
+    COMMIT_FIELD_NUMBER: builtins.int
     REQUIRED_FIELD_NUMBER: builtins.int
     name: builtins.str
     """parameter name, used in substitutions"""
@@ -158,8 +177,10 @@ class ParameterDefinition(google.protobuf.message.Message):
     def int(self) -> global___IntParameterDefinition: ...
     @property
     def secret(self) -> global___SecretParameterDefinition: ...
+    @property
+    def commit(self) -> global___CommitParameterDefinition: ...
     required: builtins.bool
-    """next: 8"""
+    """next: 9"""
     def __init__(
         self,
         *,
@@ -169,11 +190,12 @@ class ParameterDefinition(google.protobuf.message.Message):
         docker_image: global___DockerImageParameterDefinition | None = ...,
         int: global___IntParameterDefinition | None = ...,
         secret: global___SecretParameterDefinition | None = ...,
+        commit: global___CommitParameterDefinition | None = ...,
         required: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "docker_image", b"docker_image", "int", b"int", "secret", b"secret", "string", b"string"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config_oneof", b"config_oneof", "description", b"description", "docker_image", b"docker_image", "int", b"int", "name", b"name", "required", b"required", "secret", b"secret", "string", b"string"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["string", "docker_image", "int", "secret"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["commit", b"commit", "config_oneof", b"config_oneof", "docker_image", b"docker_image", "int", b"int", "secret", b"secret", "string", b"string"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit", "config_oneof", b"config_oneof", "description", b"description", "docker_image", b"docker_image", "int", b"int", "name", b"name", "required", b"required", "secret", b"secret", "string", b"string"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["string", "docker_image", "int", "secret", "commit"] | None: ...
 
 global___ParameterDefinition = ParameterDefinition
 
@@ -207,12 +229,14 @@ class ParameterValue(google.protobuf.message.Message):
     INT_FIELD_NUMBER: builtins.int
     DOCKER_IMAGE_TAG_FIELD_NUMBER: builtins.int
     SECRET_FIELD_NUMBER: builtins.int
+    COMMIT_FIELD_NUMBER: builtins.int
     name: builtins.str
     string: builtins.str
     int: builtins.int
     docker_image_tag: builtins.str
     @property
     def secret(self) -> global___SecretParameterValue: ...
+    commit: builtins.str
     def __init__(
         self,
         *,
@@ -221,10 +245,11 @@ class ParameterValue(google.protobuf.message.Message):
         int: builtins.int = ...,
         docker_image_tag: builtins.str = ...,
         secret: global___SecretParameterValue | None = ...,
+        commit: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["docker_image_tag", b"docker_image_tag", "int", b"int", "name", b"name", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["string", "int", "docker_image_tag", "secret"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["commit", b"commit", "docker_image_tag", b"docker_image_tag", "int", b"int", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit", "docker_image_tag", b"docker_image_tag", "int", b"int", "name", b"name", "secret", b"secret", "string", b"string", "value_oneof", b"value_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["string", "int", "docker_image_tag", "secret", "commit"] | None: ...
 
 global___ParameterValue = ParameterValue
 

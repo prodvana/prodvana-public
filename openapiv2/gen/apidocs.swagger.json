@@ -6604,6 +6604,18 @@
         }
       }
     },
+    "common_configCommitParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string",
+          "title": "branch to pull commits from, defaults to `main`"
+        }
+      }
+    },
     "common_configConstant": {
       "type": "object",
       "properties": {
@@ -6926,9 +6938,12 @@
         "secret": {
           "$ref": "#/definitions/common_configSecretParameterDefinition"
         },
+        "commit": {
+          "$ref": "#/definitions/common_configCommitParameterDefinition"
+        },
         "required": {
           "type": "boolean",
-          "title": "next: 8"
+          "title": "next: 9"
         }
       }
     },
@@ -6950,6 +6965,9 @@
         },
         "secret": {
           "$ref": "#/definitions/common_configSecretParameterValue"
+        },
+        "commit": {
+          "type": "string"
         }
       }
     },

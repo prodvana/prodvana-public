@@ -454,6 +454,41 @@
             ],
             "title": "Cmd Probe"
         },
+        "prodvana.common_config.CommitParameterDefinition": {
+            "properties": {
+                "repository": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "branch": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "branch to pull commits from, defaults to `main`"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Commit Parameter Definition"
+        },
         "prodvana.common_config.Constant": {
             "properties": {
                 "name": {
@@ -1334,6 +1369,16 @@
                         {}
                     ]
                 },
+                "commit": {
+                    "$ref": "#/definitions/prodvana.common_config.CommitParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "required": {
                     "oneOf": [
                         {
@@ -1343,7 +1388,7 @@
                             "type": "boolean"
                         }
                     ],
-                    "description": "next: 8"
+                    "description": "next: 9"
                 }
             },
             "additionalProperties": false,
@@ -1407,6 +1452,16 @@
                             "type": "null"
                         },
                         {}
+                    ]
+                },
+                "commit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
                     ]
                 }
             },
