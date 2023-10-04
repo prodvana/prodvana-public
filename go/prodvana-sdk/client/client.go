@@ -66,9 +66,10 @@ func MakeProdvanaConnection(options ConnectionOptions) (*grpc.ClientConn, error)
 	} else {
 		cred = credentials.NewTLS(&tls.Config{ServerName: parts[0]})
 	}
-	grpcOpts := []grpc.DialOption{
+	grpcOpts := append([]grpc.DialOption{
 		grpc.WithTransportCredentials(cred),
-	}
+	}, options.ExtraDialOptions...,
+	)
 	if !options.NoAuth {
 		getToken := options.GetAuthToken
 		if getToken == nil {
