@@ -300,6 +300,63 @@ class ExtensionFetchCommand(google.protobuf.message.Message):
 
 global___ExtensionFetchCommand = ExtensionFetchCommand
 
+class ExtensionDebugCommand(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class EnvEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> prodvana.proto.prodvana.common_config.env_pb2.EnvValue: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: prodvana.proto.prodvana.common_config.env_pb2.EnvValue | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    TASK_CONFIG_FIELD_NUMBER: builtins.int
+    KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
+    POLL_INTERVAL_FIELD_NUMBER: builtins.int
+    RETRY_POLICY_FIELD_NUMBER: builtins.int
+    ENV_FIELD_NUMBER: builtins.int
+    @property
+    def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
+    @property
+    def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
+    @property
+    def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
+        """customize intervals instead of using Prodvana default
+        defaults to 5 minutes
+        """
+    @property
+    def retry_policy(self) -> global___RetryPolicy:
+        """retry policy for unexpected failures.
+        defaults to fast retrying after 30s then backing off to 10 minutes
+        """
+    @property
+    def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
+        """optional env variables to inject and override from exec_config"""
+    def __init__(
+        self,
+        *,
+        task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
+        kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
+        poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        retry_policy: global___RetryPolicy | None = ...,
+        env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
+
+global___ExtensionDebugCommand = ExtensionDebugCommand
+
 class ExtensionApplyCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -363,6 +420,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
 
     APPLY_FIELD_NUMBER: builtins.int
     FETCH_FIELD_NUMBER: builtins.int
+    DEBUG_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
@@ -372,6 +430,8 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     def apply(self) -> global___ExtensionApplyCommand: ...
     @property
     def fetch(self) -> global___ExtensionFetchCommand: ...
+    @property
+    def debug(self) -> global___ExtensionDebugCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
@@ -384,20 +444,22 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         """How long after apply ran the first time should it be restarted if the service still has not converged.
         This duration is computed from the *start* of apply run.
         Defaults to 10m.
+        next tag: 9
         """
     def __init__(
         self,
         *,
         apply: global___ExtensionApplyCommand | None = ...,
         fetch: global___ExtensionFetchCommand | None = ...,
+        debug: global___ExtensionDebugCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         type: global___ExtensionType.ValueType = ...,
         require_approval_before_apply: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 

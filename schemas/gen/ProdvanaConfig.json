@@ -3047,6 +3047,16 @@
                         {}
                     ]
                 },
+                "debug": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionDebugCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "parameters": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.ParameterDefinition"
@@ -3107,7 +3117,7 @@
                 "convergenceGracePeriod": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
-                    "description": "How long after apply ran the first time should it be restarted if the service still has not converged. This duration is computed from the *start* of apply run. Defaults to 10m.",
+                    "description": "How long after apply ran the first time should it be restarted if the service still has not converged. This duration is computed from the *start* of apply run. Defaults to 10m.  next tag: 9",
                     "format": "regex"
                 }
             },
@@ -3121,6 +3131,78 @@
                 }
             ],
             "title": "Extension Cluster Config"
+        },
+        "prodvana.environment.ExtensionDebugCommand": {
+            "properties": {
+                "taskConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetesConfig": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "pollInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "customize intervals instead of using Prodvana default defaults to 5 minutes",
+                    "format": "regex"
+                },
+                "retryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "retry policy for unexpected failures. defaults to fast retrying after 30s then backing off to 10 minutes"
+                },
+                "env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional env variables to inject and override from exec_config"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Extension Debug Command"
         },
         "prodvana.environment.ExtensionFetchCommand": {
             "properties": {

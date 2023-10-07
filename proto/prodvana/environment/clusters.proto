@@ -102,6 +102,30 @@ message ExtensionFetchCommand {
     }];
 }
 
+message ExtensionDebugCommand {
+    oneof exec_config {
+        option (validate.required) = true;
+        prodvana.common_config.TaskConfig task_config = 1;
+        prodvana.common_config.KubernetesConfig kubernetes_config = 2;
+    }
+    // customize intervals instead of using Prodvana default
+    // defaults to 5 minutes
+    google.protobuf.Duration poll_interval = 3;
+    // retry policy for unexpected failures.
+    // defaults to fast retrying after 30s then backing off to 10 minutes
+    RetryPolicy retry_policy = 4;
+
+    // optional env variables to inject and override from exec_config
+    map<string, prodvana.common_config.EnvValue> env = 5 [(validate.rules).map = {
+        keys: {
+            string: {
+                pattern: '^[a-zA-Z_]+[a-zA-Z0-9_]*$',
+            },
+        },
+        no_sparse: true,
+    }];
+}
+
 message ExtensionApplyCommand {
     oneof exec_config {
         option (validate.required) = true;
@@ -142,6 +166,7 @@ enum ExtensionType {
 message ExtensionClusterConfig {
     ExtensionApplyCommand apply = 1 [(validate.rules).message.required = true];
     ExtensionFetchCommand fetch = 2;
+    ExtensionDebugCommand debug = 8;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
@@ -151,6 +176,7 @@ message ExtensionClusterConfig {
     // This duration is computed from the *start* of apply run.
     // Defaults to 10m.
     google.protobuf.Duration convergence_grace_period = 7 [(validate.rules).duration.gt.seconds = 0];
+    // next tag: 9
 }
 
 message CompiledExtensionCommand {

@@ -3037,6 +3037,307 @@ var _ interface {
 	ErrorName() string
 } = RuntimeExtensionFetchOutputValidationError{}
 
+// Validate checks the field values on RuntimeExtensionDebugDetails with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExtensionDebugDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExtensionDebugDetails with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RuntimeExtensionDebugDetailsMultiError, or nil if none found.
+func (m *RuntimeExtensionDebugDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExtensionDebugDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for SystemMessage
+
+	// no validation rules for DebugMessage
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetStartedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+					field:  "StartedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionDebugDetailsValidationError{
+				field:  "StartedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompletedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+					field:  "CompletedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompletedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionDebugDetailsValidationError{
+				field:  "CompletedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return RuntimeExtensionDebugDetailsMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExtensionDebugDetailsMultiError is an error wrapping multiple
+// validation errors returned by RuntimeExtensionDebugDetails.ValidateAll() if
+// the designated constraints aren't met.
+type RuntimeExtensionDebugDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExtensionDebugDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExtensionDebugDetailsMultiError) AllErrors() []error { return m }
+
+// RuntimeExtensionDebugDetailsValidationError is the validation error returned
+// by RuntimeExtensionDebugDetails.Validate if the designated constraints
+// aren't met.
+type RuntimeExtensionDebugDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExtensionDebugDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExtensionDebugDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExtensionDebugDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExtensionDebugDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExtensionDebugDetailsValidationError) ErrorName() string {
+	return "RuntimeExtensionDebugDetailsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExtensionDebugDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExtensionDebugDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExtensionDebugDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExtensionDebugDetailsValidationError{}
+
+// Validate checks the field values on RuntimeExtensionDebugOutput with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExtensionDebugOutput) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExtensionDebugOutput with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RuntimeExtensionDebugOutputMultiError, or nil if none found.
+func (m *RuntimeExtensionDebugOutput) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExtensionDebugOutput) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDebugDetails()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugOutputValidationError{
+					field:  "DebugDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeExtensionDebugOutputValidationError{
+					field:  "DebugDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDebugDetails()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeExtensionDebugOutputValidationError{
+				field:  "DebugDetails",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RuntimeExtensionDebugOutputMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExtensionDebugOutputMultiError is an error wrapping multiple
+// validation errors returned by RuntimeExtensionDebugOutput.ValidateAll() if
+// the designated constraints aren't met.
+type RuntimeExtensionDebugOutputMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExtensionDebugOutputMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExtensionDebugOutputMultiError) AllErrors() []error { return m }
+
+// RuntimeExtensionDebugOutputValidationError is the validation error returned
+// by RuntimeExtensionDebugOutput.Validate if the designated constraints
+// aren't met.
+type RuntimeExtensionDebugOutputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExtensionDebugOutputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExtensionDebugOutputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExtensionDebugOutputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExtensionDebugOutputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExtensionDebugOutputValidationError) ErrorName() string {
+	return "RuntimeExtensionDebugOutputValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExtensionDebugOutputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExtensionDebugOutput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExtensionDebugOutputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExtensionDebugOutputValidationError{}
+
 // Validate checks the field values on ApplyDetails with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -8216,6 +8517,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetDebug()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Debug",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "Debug",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDebug()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "Debug",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetFetchInterval()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -8267,6 +8597,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "FetchSteadyStateInterval",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetDebugInterval()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugInterval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDebugInterval()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "DebugInterval",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -8377,6 +8736,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetDebugOutput()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDebugOutput()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "DebugOutput",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetApplyOutput()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -8457,6 +8845,35 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RuntimeObject_RuntimeExtensionValidationError{
 				field:  "ApplyRetryPolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetDebugRetryPolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RuntimeObject_RuntimeExtensionValidationError{
+					field:  "DebugRetryPolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDebugRetryPolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RuntimeObject_RuntimeExtensionValidationError{
+				field:  "DebugRetryPolicy",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
