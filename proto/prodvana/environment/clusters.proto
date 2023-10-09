@@ -124,6 +124,9 @@ message ExtensionDebugCommand {
         },
         no_sparse: true,
     }];
+
+    // exposed for internal testing. do not set
+    bool test_only_do_not_require_pvn_wrapper = 6;
 }
 
 message ExtensionApplyCommand {

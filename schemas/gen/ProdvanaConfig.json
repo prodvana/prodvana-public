@@ -3191,6 +3191,17 @@
                         }
                     ],
                     "description": "optional env variables to inject and override from exec_config"
+                },
+                "testOnlyDoNotRequirePvnWrapper": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "exposed for internal testing. do not set"
                 }
             },
             "additionalProperties": false,

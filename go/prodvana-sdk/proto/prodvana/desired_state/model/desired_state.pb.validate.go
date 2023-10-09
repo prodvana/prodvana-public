@@ -3037,6 +3037,113 @@ var _ interface {
 	ErrorName() string
 } = RuntimeExtensionFetchOutputValidationError{}
 
+// Validate checks the field values on RuntimeExtensionUserDebugOutput with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RuntimeExtensionUserDebugOutput) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RuntimeExtensionUserDebugOutput with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RuntimeExtensionUserDebugOutputMultiError, or nil if none found.
+func (m *RuntimeExtensionUserDebugOutput) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RuntimeExtensionUserDebugOutput) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for BlobId
+
+	if len(errors) > 0 {
+		return RuntimeExtensionUserDebugOutputMultiError(errors)
+	}
+
+	return nil
+}
+
+// RuntimeExtensionUserDebugOutputMultiError is an error wrapping multiple
+// validation errors returned by RuntimeExtensionUserDebugOutput.ValidateAll()
+// if the designated constraints aren't met.
+type RuntimeExtensionUserDebugOutputMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RuntimeExtensionUserDebugOutputMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RuntimeExtensionUserDebugOutputMultiError) AllErrors() []error { return m }
+
+// RuntimeExtensionUserDebugOutputValidationError is the validation error
+// returned by RuntimeExtensionUserDebugOutput.Validate if the designated
+// constraints aren't met.
+type RuntimeExtensionUserDebugOutputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RuntimeExtensionUserDebugOutputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RuntimeExtensionUserDebugOutputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RuntimeExtensionUserDebugOutputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RuntimeExtensionUserDebugOutputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RuntimeExtensionUserDebugOutputValidationError) ErrorName() string {
+	return "RuntimeExtensionUserDebugOutputValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RuntimeExtensionUserDebugOutputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRuntimeExtensionUserDebugOutput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RuntimeExtensionUserDebugOutputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RuntimeExtensionUserDebugOutputValidationError{}
+
 // Validate checks the field values on RuntimeExtensionDebugDetails with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -3061,7 +3168,39 @@ func (m *RuntimeExtensionDebugDetails) validate(all bool) error {
 
 	// no validation rules for SystemMessage
 
-	// no validation rules for DebugMessageBlobId
+	for idx, item := range m.GetDebugOutputs() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+						field:  fmt.Sprintf("DebugOutputs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RuntimeExtensionDebugDetailsValidationError{
+						field:  fmt.Sprintf("DebugOutputs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RuntimeExtensionDebugDetailsValidationError{
+					field:  fmt.Sprintf("DebugOutputs[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	// no validation rules for Status
 

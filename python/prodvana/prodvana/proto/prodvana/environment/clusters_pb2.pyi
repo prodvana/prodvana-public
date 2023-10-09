@@ -325,6 +325,7 @@ class ExtensionDebugCommand(google.protobuf.message.Message):
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
     RETRY_POLICY_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
+    TEST_ONLY_DO_NOT_REQUIRE_PVN_WRAPPER_FIELD_NUMBER: builtins.int
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
     @property
@@ -342,6 +343,8 @@ class ExtensionDebugCommand(google.protobuf.message.Message):
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to inject and override from exec_config"""
+    test_only_do_not_require_pvn_wrapper: builtins.bool
+    """exposed for internal testing. do not set"""
     def __init__(
         self,
         *,
@@ -350,9 +353,10 @@ class ExtensionDebugCommand(google.protobuf.message.Message):
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         retry_policy: global___RetryPolicy | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+        test_only_do_not_require_pvn_wrapper: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config", "test_only_do_not_require_pvn_wrapper", b"test_only_do_not_require_pvn_wrapper"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ExtensionDebugCommand = ExtensionDebugCommand

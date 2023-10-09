@@ -1239,6 +1239,8 @@ func (m *ExtensionDebugCommand) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for TestOnlyDoNotRequirePvnWrapper
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *ExtensionDebugCommand_TaskConfig:

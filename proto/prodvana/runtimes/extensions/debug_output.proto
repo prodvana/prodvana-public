@@ -1,0 +1,13 @@
+syntax = "proto3";
+package prodvana.runtimes.extensions;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions";
+
+// output format for the debug command, in json format
+message DebugOutput {
+    repeated OutputContent outputs = 1;
+}
+
+message OutputContent {
+    string name = 1;
+    string text = 2;
+}
