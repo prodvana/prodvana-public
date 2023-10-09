@@ -3061,7 +3061,7 @@ func (m *RuntimeExtensionDebugDetails) validate(all bool) error {
 
 	// no validation rules for SystemMessage
 
-	// no validation rules for DebugMessage
+	// no validation rules for DebugMessageBlobId
 
 	// no validation rules for Status
 
