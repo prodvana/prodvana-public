@@ -1,0 +1,16 @@
+syntax = "proto3";
+package prodvana.async_task;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/async_task";
+
+enum TaskStatus {
+    UNKNOWN = 0;
+    PENDING = 1;
+    RUNNING = 2;
+    SUCCESS = 3;
+    FAILED = 4;
+}
+
+message TaskResult {
+    // Will be set if task failed, otherwise may be empty.
+    bytes log = 1;
+}
