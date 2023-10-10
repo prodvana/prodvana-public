@@ -16,8 +16,8 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class DebugOutput(google.protobuf.message.Message):
-    """output format for the debug command, in json format"""
+class GetInfoOutput(google.protobuf.message.Message):
+    """output format for the get_info command, in json format"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -31,7 +31,7 @@ class DebugOutput(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["outputs", b"outputs"]) -> None: ...
 
-global___DebugOutput = DebugOutput
+global___GetInfoOutput = GetInfoOutput
 
 class OutputContent(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

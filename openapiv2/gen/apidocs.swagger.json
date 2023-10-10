@@ -6008,12 +6008,12 @@
       "properties": {
         "apply": {
           "$ref": "#/definitions/environmentCompiledExtensionCommand",
-          "description": "aggregate object will have all commands set. Fetcher and debug info will only have appropriate commands set."
+          "description": "aggregate object will have all commands set. fetch and get_info will only have appropriate commands set."
         },
         "fetch": {
           "$ref": "#/definitions/environmentCompiledExtensionCommand"
         },
-        "debug": {
+        "getInfo": {
           "$ref": "#/definitions/environmentCompiledExtensionCommand"
         },
         "fetchInterval": {
@@ -6022,7 +6022,7 @@
         "fetchSteadyStateInterval": {
           "type": "string"
         },
-        "debugInterval": {
+        "getInfoInterval": {
           "type": "string"
         },
         "serviceId": {
@@ -6051,8 +6051,8 @@
         "fetchOutput": {
           "$ref": "#/definitions/modelRuntimeExtensionFetchOutput"
         },
-        "debugOutput": {
-          "$ref": "#/definitions/modelRuntimeExtensionDebugOutput"
+        "getInfoOutput": {
+          "$ref": "#/definitions/modelRuntimeExtensionGetInfoOutput"
         },
         "applyOutput": {
           "$ref": "#/definitions/modelRuntimeExtensionApplyOutput"
@@ -6063,7 +6063,7 @@
         "applyRetryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy"
         },
-        "debugRetryPolicy": {
+        "getInfoRetryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy"
         },
         "applyRetryableExitCodes": {
@@ -8384,7 +8384,11 @@
           "$ref": "#/definitions/environmentExtensionFetchCommand"
         },
         "debug": {
-          "$ref": "#/definitions/environmentExtensionDebugCommand"
+          "$ref": "#/definitions/environmentExtensionGetInfoCommand",
+          "title": "deprecated, set this as get_info instead"
+        },
+        "getInfo": {
+          "$ref": "#/definitions/environmentExtensionGetInfoCommand"
         },
         "parameters": {
           "type": "array",
@@ -8405,37 +8409,7 @@
         },
         "convergenceGracePeriod": {
           "type": "string",
-          "description": "How long after apply ran the first time should it be restarted if the service still has not converged.\nThis duration is computed from the *start* of apply run.\nDefaults to 10m.\n\nnext tag: 9"
-        }
-      }
-    },
-    "environmentExtensionDebugCommand": {
-      "type": "object",
-      "properties": {
-        "taskConfig": {
-          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
-        },
-        "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
-        },
-        "pollInterval": {
-          "type": "string",
-          "title": "customize intervals instead of using Prodvana default\ndefaults to 5 minutes"
-        },
-        "retryPolicy": {
-          "$ref": "#/definitions/environmentRetryPolicy",
-          "title": "retry policy for unexpected failures.\ndefaults to fast retrying after 30s then backing off to 10 minutes"
-        },
-        "env": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/common_configEnvValue"
-          },
-          "title": "optional env variables to inject and override from exec_config"
-        },
-        "testOnlyDoNotRequirePvnWrapper": {
-          "type": "boolean",
-          "title": "exposed for internal testing. do not set"
+          "description": "How long after apply ran the first time should it be restarted if the service still has not converged.\nThis duration is computed from the *start* of apply run.\nDefaults to 10m.\n\nnext tag: 10"
         }
       }
     },
@@ -8470,6 +8444,36 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "title": "optional env variables to inject and override from exec_config"
+        }
+      }
+    },
+    "environmentExtensionGetInfoCommand": {
+      "type": "object",
+      "properties": {
+        "taskConfig": {
+          "$ref": "#/definitions/prodvanacommon_configTaskConfig"
+        },
+        "kubernetesConfig": {
+          "$ref": "#/definitions/common_configKubernetesConfig"
+        },
+        "pollInterval": {
+          "type": "string",
+          "title": "customize intervals instead of using Prodvana default\ndefaults to 5 minutes"
+        },
+        "retryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy",
+          "title": "retry policy for unexpected failures.\ndefaults to fast retrying after 30s then backing off to 10 minutes"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common_configEnvValue"
+          },
+          "title": "optional env variables to inject and override from exec_config"
+        },
+        "testOnlyDoNotRequirePvnWrapper": {
+          "type": "boolean",
+          "title": "exposed for internal testing. do not set"
         }
       }
     },
@@ -10260,57 +10264,6 @@
         }
       }
     },
-    "modelRuntimeExtensionDebugDetails": {
-      "type": "object",
-      "properties": {
-        "systemMessage": {
-          "type": "string",
-          "title": "system message generated by prodvana"
-        },
-        "debugOutputs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/modelRuntimeExtensionUserDebugOutput"
-          },
-          "title": "output from user process"
-        },
-        "status": {
-          "$ref": "#/definitions/modelRuntimeExtensionDebugDetailsStatus"
-        },
-        "startedTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "when the debug job started"
-        },
-        "completedTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "when the debug job completed"
-        },
-        "version": {
-          "type": "string",
-          "title": "the version of the service associated with this debug run"
-        }
-      }
-    },
-    "modelRuntimeExtensionDebugDetailsStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN",
-        "CONVERGED",
-        "FAILED"
-      ],
-      "default": "UNKNOWN"
-    },
-    "modelRuntimeExtensionDebugOutput": {
-      "type": "object",
-      "properties": {
-        "debugDetails": {
-          "$ref": "#/definitions/modelRuntimeExtensionDebugDetails"
-        }
-      }
-    },
     "modelRuntimeExtensionFetchOutput": {
       "type": "object",
       "properties": {
@@ -10328,6 +10281,68 @@
         }
       }
     },
+    "modelRuntimeExtensionGetInfoDetails": {
+      "type": "object",
+      "properties": {
+        "systemMessage": {
+          "type": "string",
+          "title": "system message generated by prodvana"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelRuntimeExtensionGetInfoOutputContent"
+          },
+          "title": "output from user process"
+        },
+        "status": {
+          "$ref": "#/definitions/modelRuntimeExtensionGetInfoDetailsStatus"
+        },
+        "startedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the debug job started"
+        },
+        "completedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "when the debug job completed"
+        },
+        "version": {
+          "type": "string",
+          "title": "the version of the service associated with this debug run"
+        }
+      }
+    },
+    "modelRuntimeExtensionGetInfoDetailsStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "CONVERGED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
+    "modelRuntimeExtensionGetInfoOutput": {
+      "type": "object",
+      "properties": {
+        "getInfoDetails": {
+          "$ref": "#/definitions/modelRuntimeExtensionGetInfoDetails"
+        }
+      }
+    },
+    "modelRuntimeExtensionGetInfoOutputContent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "blobId": {
+          "type": "string"
+        }
+      }
+    },
     "modelRuntimeExtensionMetadata": {
       "type": "object",
       "properties": {
@@ -10336,17 +10351,6 @@
           "title": "the plan this approval is for, if any"
         },
         "applyDesiredStateId": {
-          "type": "string"
-        }
-      }
-    },
-    "modelRuntimeExtensionUserDebugOutput": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "blobId": {
           "type": "string"
         }
       }

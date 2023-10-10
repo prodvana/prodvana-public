@@ -102,7 +102,7 @@ message ExtensionFetchCommand {
     }];
 }
 
-message ExtensionDebugCommand {
+message ExtensionGetInfoCommand {
     oneof exec_config {
         option (validate.required) = true;
         prodvana.common_config.TaskConfig task_config = 1;
@@ -169,7 +169,8 @@ enum ExtensionType {
 message ExtensionClusterConfig {
     ExtensionApplyCommand apply = 1 [(validate.rules).message.required = true];
     ExtensionFetchCommand fetch = 2;
-    ExtensionDebugCommand debug = 8;
+    ExtensionGetInfoCommand debug = 8; // deprecated, set this as get_info instead
+    ExtensionGetInfoCommand get_info = 9;
     repeated prodvana.common_config.ParameterDefinition parameters = 3 [(validate.rules).repeated.items.message.required = true];
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 4 [(validate.rules).message.required = true];
     ExtensionType type = 5;
@@ -179,7 +180,7 @@ message ExtensionClusterConfig {
     // This duration is computed from the *start* of apply run.
     // Defaults to 10m.
     google.protobuf.Duration convergence_grace_period = 7 [(validate.rules).duration.gt.seconds = 0];
-    // next tag: 9
+    // next tag: 10
 }
 
 message CompiledExtensionCommand {

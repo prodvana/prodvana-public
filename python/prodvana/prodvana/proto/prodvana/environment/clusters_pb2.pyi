@@ -300,7 +300,7 @@ class ExtensionFetchCommand(google.protobuf.message.Message):
 
 global___ExtensionFetchCommand = ExtensionFetchCommand
 
-class ExtensionDebugCommand(google.protobuf.message.Message):
+class ExtensionGetInfoCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class EnvEntry(google.protobuf.message.Message):
@@ -359,7 +359,7 @@ class ExtensionDebugCommand(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "task_config", b"task_config", "test_only_do_not_require_pvn_wrapper", b"test_only_do_not_require_pvn_wrapper"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
-global___ExtensionDebugCommand = ExtensionDebugCommand
+global___ExtensionGetInfoCommand = ExtensionGetInfoCommand
 
 class ExtensionApplyCommand(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -425,6 +425,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     APPLY_FIELD_NUMBER: builtins.int
     FETCH_FIELD_NUMBER: builtins.int
     DEBUG_FIELD_NUMBER: builtins.int
+    GET_INFO_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
@@ -435,7 +436,10 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     @property
     def fetch(self) -> global___ExtensionFetchCommand: ...
     @property
-    def debug(self) -> global___ExtensionDebugCommand: ...
+    def debug(self) -> global___ExtensionGetInfoCommand:
+        """deprecated, set this as get_info instead"""
+    @property
+    def get_info(self) -> global___ExtensionGetInfoCommand: ...
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition]: ...
     @property
@@ -448,22 +452,23 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         """How long after apply ran the first time should it be restarted if the service still has not converged.
         This duration is computed from the *start* of apply run.
         Defaults to 10m.
-        next tag: 9
+        next tag: 10
         """
     def __init__(
         self,
         *,
         apply: global___ExtensionApplyCommand | None = ...,
         fetch: global___ExtensionFetchCommand | None = ...,
-        debug: global___ExtensionDebugCommand | None = ...,
+        debug: global___ExtensionGetInfoCommand | None = ...,
+        get_info: global___ExtensionGetInfoCommand | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         type: global___ExtensionType.ValueType = ...,
         require_approval_before_apply: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "get_info", b"get_info", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "get_info", b"get_info", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 
