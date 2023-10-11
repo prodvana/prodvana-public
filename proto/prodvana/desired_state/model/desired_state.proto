@@ -135,7 +135,8 @@ enum Status {
     WAITING_MANUAL_APPROVAL = 10; // Waiting only for manual approval
     DELETED = 11;
     PREVIEW = 13; // status for all entities in a preview desired state. will never show up in a real desired state.
-    // next tag: 14
+    PENDING_SET_DESIRED_STATE = 14;
+    // next tag: 15
 }
 
 enum SimpleStatus {

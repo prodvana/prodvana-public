@@ -114,6 +114,8 @@ class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     DELETED: _Status.ValueType  # 11
     PREVIEW: _Status.ValueType  # 13
     """status for all entities in a preview desired state. will never show up in a real desired state."""
+    PENDING_SET_DESIRED_STATE: _Status.ValueType  # 14
+    """next tag: 15"""
 
 class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
 
@@ -135,6 +137,8 @@ WAITING_MANUAL_APPROVAL: Status.ValueType  # 10
 DELETED: Status.ValueType  # 11
 PREVIEW: Status.ValueType  # 13
 """status for all entities in a preview desired state. will never show up in a real desired state."""
+PENDING_SET_DESIRED_STATE: Status.ValueType  # 14
+"""next tag: 15"""
 global___Status = Status
 
 class _SimpleStatus:
