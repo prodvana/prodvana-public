@@ -3,6 +3,7 @@ package prodvana.desired_state;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "prodvana/async_task/task_metadata.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "prodvana/desired_state/model/entity.proto";
 import "prodvana/service/service_config.proto";
@@ -54,6 +55,14 @@ message DebugLogs {
     repeated prodvana.desired_state.model.DebugLog debug_logs = 1;
 }
 
+message PendingSetDesiredState {
+    prodvana.desired_state.model.State compiled_desired_state = 1;
+    // will never contain SUCCESS, by definition, but may contain FAILED
+    prodvana.async_task.TaskStatus task_status = 2;
+    // will only be set for FAILED
+    prodvana.async_task.TaskResult task_result = 3;
+}
+
 message DesiredStateSummary {
     prodvana.desired_state.model.EntityGraph entity_graph = 15;
     google.protobuf.Timestamp creation_timestamp = 5;
@@ -70,6 +79,8 @@ message DesiredStateSummary {
     // who set the desired state
     prodvana.version.Source source = 17;
     prodvana.version.SourceMetadata source_metadata = 18;
+    // the latest pending or failed set desired state request
+    PendingSetDesiredState pending_set_desired_state = 20;
 
 
     // fields below are deprecated
@@ -86,7 +97,7 @@ message DesiredStateSummary {
     map<string, google.protobuf.Timestamp> last_fetched_timestamps = 13;
     map<string, google.protobuf.Timestamp> last_applied_timestamps = 14;
 
-    // next tag: 19
+    // next tag: 21
 }
 
 message GetDesiredStateConvergenceReq {

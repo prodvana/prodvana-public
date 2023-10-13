@@ -6459,6 +6459,27 @@
         }
       }
     },
+    "async_taskTaskResult": {
+      "type": "object",
+      "properties": {
+        "log": {
+          "type": "string",
+          "format": "byte",
+          "description": "Will be set if task failed, otherwise may be empty."
+        }
+      }
+    },
+    "async_taskTaskStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PENDING",
+        "RUNNING",
+        "SUCCESS",
+        "FAILED"
+      ],
+      "default": "UNKNOWN"
+    },
     "authApiTokenInfo": {
       "type": "object",
       "properties": {
@@ -7544,6 +7565,10 @@
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
         },
+        "pendingSetDesiredState": {
+          "$ref": "#/definitions/desired_statePendingSetDesiredState",
+          "title": "the latest pending or failed set desired state request"
+        },
         "statuses": {
           "type": "object",
           "additionalProperties": {
@@ -7651,6 +7676,22 @@
             "type": "object",
             "$ref": "#/definitions/desired_statemodelServiceInstanceState"
           }
+        }
+      }
+    },
+    "desired_statePendingSetDesiredState": {
+      "type": "object",
+      "properties": {
+        "compiledDesiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "taskStatus": {
+          "$ref": "#/definitions/async_taskTaskStatus",
+          "title": "will never contain SUCCESS, by definition, but may contain FAILED"
+        },
+        "taskResult": {
+          "$ref": "#/definitions/async_taskTaskResult",
+          "title": "will only be set for FAILED"
         }
       }
     },

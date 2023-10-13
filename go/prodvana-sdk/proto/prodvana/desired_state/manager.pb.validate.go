@@ -18,6 +18,8 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
+	async_task "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/async_task"
+
 	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
 
 	version "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
@@ -37,6 +39,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = async_task.TaskStatus(0)
 
 	_ = model.Status(0)
 
@@ -1036,6 +1040,168 @@ var _ interface {
 	ErrorName() string
 } = DebugLogsValidationError{}
 
+// Validate checks the field values on PendingSetDesiredState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PendingSetDesiredState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PendingSetDesiredState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PendingSetDesiredStateMultiError, or nil if none found.
+func (m *PendingSetDesiredState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PendingSetDesiredState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCompiledDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PendingSetDesiredStateValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PendingSetDesiredStateValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PendingSetDesiredStateValidationError{
+				field:  "CompiledDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for TaskStatus
+
+	if all {
+		switch v := interface{}(m.GetTaskResult()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PendingSetDesiredStateValidationError{
+					field:  "TaskResult",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PendingSetDesiredStateValidationError{
+					field:  "TaskResult",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTaskResult()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PendingSetDesiredStateValidationError{
+				field:  "TaskResult",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PendingSetDesiredStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// PendingSetDesiredStateMultiError is an error wrapping multiple validation
+// errors returned by PendingSetDesiredState.ValidateAll() if the designated
+// constraints aren't met.
+type PendingSetDesiredStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PendingSetDesiredStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PendingSetDesiredStateMultiError) AllErrors() []error { return m }
+
+// PendingSetDesiredStateValidationError is the validation error returned by
+// PendingSetDesiredState.Validate if the designated constraints aren't met.
+type PendingSetDesiredStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PendingSetDesiredStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PendingSetDesiredStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PendingSetDesiredStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PendingSetDesiredStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PendingSetDesiredStateValidationError) ErrorName() string {
+	return "PendingSetDesiredStateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PendingSetDesiredStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPendingSetDesiredState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PendingSetDesiredStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PendingSetDesiredStateValidationError{}
+
 // Validate checks the field values on DesiredStateSummary with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1317,6 +1483,35 @@ func (m *DesiredStateSummary) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return DesiredStateSummaryValidationError{
 				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateSummaryValidationError{
+				field:  "PendingSetDesiredState",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
