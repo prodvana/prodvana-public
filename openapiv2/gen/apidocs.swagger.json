@@ -7528,6 +7528,15 @@
           "$ref": "#/definitions/modelState",
           "title": "compiled desired state"
         },
+        "startingState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "lastSeenState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        },
         "source": {
           "$ref": "#/definitions/versionSource",
           "title": "who set the desired state"
@@ -7535,19 +7544,12 @@
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
         },
-        "startingState": {
-          "$ref": "#/definitions/modelState",
-          "title": "fields below are deprecated"
-        },
-        "lastSeenState": {
-          "$ref": "#/definitions/modelState"
-        },
         "statuses": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/desired_statemodelStatus"
           },
-          "description": "status of the desired state, all its descendents, and the root desired state."
+          "description": "fields below are deprecated\nstatus of the desired state, all its descendents, and the root desired state."
         },
         "preconditionStatuses": {
           "type": "object",

@@ -64,13 +64,15 @@ message DesiredStateSummary {
     prodvana.desired_state.model.State input_desired_state = 16;
     // compiled desired state
     prodvana.desired_state.model.State desired_state = 3;
+    prodvana.desired_state.model.State starting_state = 1;
+    prodvana.desired_state.model.State last_seen_state = 2;
+    prodvana.desired_state.model.Status status = 19;
     // who set the desired state
     prodvana.version.Source source = 17;
     prodvana.version.SourceMetadata source_metadata = 18;
 
+
     // fields below are deprecated
-    prodvana.desired_state.model.State starting_state = 1;
-    prodvana.desired_state.model.State last_seen_state = 2;
     // status of the desired state, all its descendents, and the root desired state.
     map<string, prodvana.desired_state.model.Status> statuses = 4;
     // State of all preconditions involved in the desired state.

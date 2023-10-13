@@ -309,10 +309,11 @@ class DesiredStateSummary(google.protobuf.message.Message):
     REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
     DESIRED_STATE_FIELD_NUMBER: builtins.int
-    SOURCE_FIELD_NUMBER: builtins.int
-    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     STARTING_STATE_FIELD_NUMBER: builtins.int
     LAST_SEEN_STATE_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     STATUSES_FIELD_NUMBER: builtins.int
     PRECONDITION_STATUSES_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
@@ -336,18 +337,20 @@ class DesiredStateSummary(google.protobuf.message.Message):
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
         """compiled desired state"""
+    @property
+    def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def last_seen_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     """who set the desired state"""
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     @property
-    def starting_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State:
-        """fields below are deprecated"""
-    @property
-    def last_seen_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
-    @property
     def statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType]:
-        """status of the desired state, all its descendents, and the root desired state."""
+        """fields below are deprecated
+        status of the desired state, all its descendents, and the root desired state.
+        """
     @property
     def precondition_statuses(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState]:
         """State of all preconditions involved in the desired state.
@@ -375,10 +378,11 @@ class DesiredStateSummary(google.protobuf.message.Message):
         replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
-        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
-        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         starting_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         last_seen_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType] | None = ...,
         precondition_statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState] | None = ...,
         status_explanations: collections.abc.Mapping[builtins.str, global___StatusExplanations] | None = ...,
@@ -389,7 +393,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
         last_applied_timestamps: collections.abc.Mapping[builtins.str, google.protobuf.timestamp_pb2.Timestamp] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp", "source_metadata", b"source_metadata", "starting_state", b"starting_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "source", b"source", "source_metadata", b"source_metadata", "starting_state", b"starting_state", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanations", b"action_explanations", "creation_timestamp", b"creation_timestamp", "debug_logs", b"debug_logs", "desired_state", b"desired_state", "entity_graph", b"entity_graph", "input_desired_state", b"input_desired_state", "last_applied_timestamps", b"last_applied_timestamps", "last_fetched_timestamps", b"last_fetched_timestamps", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "last_update_timestamps", b"last_update_timestamps", "precondition_statuses", b"precondition_statuses", "replaced_timestamp", b"replaced_timestamp", "source", b"source", "source_metadata", b"source_metadata", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "statuses", b"statuses"]) -> None: ...
 
 global___DesiredStateSummary = DesiredStateSummary
 

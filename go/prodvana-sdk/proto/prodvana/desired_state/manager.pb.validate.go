@@ -18,6 +18,8 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
+	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
+
 	version "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
 )
 
@@ -35,6 +37,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = model.Status(0)
 
 	_ = version.Source(0)
 )
@@ -1228,37 +1232,6 @@ func (m *DesiredStateSummary) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Source
-
-	if all {
-		switch v := interface{}(m.GetSourceMetadata()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DesiredStateSummaryValidationError{
-					field:  "SourceMetadata",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, DesiredStateSummaryValidationError{
-					field:  "SourceMetadata",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DesiredStateSummaryValidationError{
-				field:  "SourceMetadata",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if all {
 		switch v := interface{}(m.GetStartingState()).(type) {
 		case interface{ ValidateAll() error }:
@@ -1311,6 +1284,39 @@ func (m *DesiredStateSummary) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return DesiredStateSummaryValidationError{
 				field:  "LastSeenState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Status
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateSummaryValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateSummaryValidationError{
+				field:  "SourceMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
