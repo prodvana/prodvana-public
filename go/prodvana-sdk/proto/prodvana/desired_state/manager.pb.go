@@ -291,7 +291,7 @@ type GetServiceDesiredStateConvergenceSummaryReq struct {
 
 	Application            string `protobuf:"bytes,1,opt,name=application,proto3" json:"application,omitempty"`
 	Service                string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
-	FastNoDeprecatedFields bool   `protobuf:"varint,3,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"`
+	FastNoDeprecatedFields bool   `protobuf:"varint,3,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"` // unused
 }
 
 func (x *GetServiceDesiredStateConvergenceSummaryReq) Reset() {
@@ -721,7 +721,7 @@ type GetDesiredStateConvergenceReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	DesiredStateId         string `protobuf:"bytes,1,opt,name=desired_state_id,json=desiredStateId,proto3" json:"desired_state_id,omitempty"`
-	FastNoDeprecatedFields bool   `protobuf:"varint,2,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"`
+	FastNoDeprecatedFields bool   `protobuf:"varint,2,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"` // unused
 }
 
 func (x *GetDesiredStateConvergenceReq) Reset() {
@@ -975,7 +975,7 @@ type GetServiceDesiredStateHistoryReq struct {
 	Service                string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
 	PageToken              string `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
 	PageSize               int32  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	FastNoDeprecatedFields bool   `protobuf:"varint,5,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"`
+	FastNoDeprecatedFields bool   `protobuf:"varint,5,opt,name=fast_no_deprecated_fields,json=fastNoDeprecatedFields,proto3" json:"fast_no_deprecated_fields,omitempty"` // unused
 }
 
 func (x *GetServiceDesiredStateHistoryReq) Reset() {

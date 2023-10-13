@@ -44,7 +44,7 @@ message PreviewEntityGraphResp {
 message GetServiceDesiredStateConvergenceSummaryReq {
     string application = 1 [(validate.rules).string.min_len = 1];
     string service = 2 [(validate.rules).string.min_len = 1];
-    bool fast_no_deprecated_fields = 3;
+    bool fast_no_deprecated_fields = 3; // unused
 }
 
 message StatusExplanations {
@@ -102,7 +102,7 @@ message DesiredStateSummary {
 
 message GetDesiredStateConvergenceReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
-    bool fast_no_deprecated_fields = 2;
+    bool fast_no_deprecated_fields = 2; // unused
 }
 
 message GetDesiredStateConvergenceSummaryResp {
@@ -127,7 +127,7 @@ message GetServiceDesiredStateHistoryReq {
     string service = 2 [(validate.rules).string.min_len = 1];
     string page_token = 3;
     int32 page_size = 4;
-    bool fast_no_deprecated_fields = 5;
+    bool fast_no_deprecated_fields = 5; // unused
 }
 
 message GetServiceDesiredStateHistoryResp {

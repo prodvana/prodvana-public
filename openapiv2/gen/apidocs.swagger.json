@@ -878,6 +878,7 @@
           },
           {
             "name": "fastNoDeprecatedFields",
+            "description": "unused",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -1105,6 +1106,7 @@
           },
           {
             "name": "fastNoDeprecatedFields",
+            "description": "unused",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -2537,6 +2539,7 @@
           },
           {
             "name": "fastNoDeprecatedFields",
+            "description": "unused",
             "in": "query",
             "required": false,
             "type": "boolean"

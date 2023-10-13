@@ -126,6 +126,7 @@ class GetServiceDesiredStateConvergenceSummaryReq(google.protobuf.message.Messag
     application: builtins.str
     service: builtins.str
     fast_no_deprecated_fields: builtins.bool
+    """unused"""
     def __init__(
         self,
         *,
@@ -435,6 +436,7 @@ class GetDesiredStateConvergenceReq(google.protobuf.message.Message):
     FAST_NO_DEPRECATED_FIELDS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     fast_no_deprecated_fields: builtins.bool
+    """unused"""
     def __init__(
         self,
         *,
@@ -522,6 +524,7 @@ class GetServiceDesiredStateHistoryReq(google.protobuf.message.Message):
     page_token: builtins.str
     page_size: builtins.int
     fast_no_deprecated_fields: builtins.bool
+    """unused"""
     def __init__(
         self,
         *,
