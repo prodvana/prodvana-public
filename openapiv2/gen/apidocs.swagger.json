@@ -7685,6 +7685,9 @@
     "desired_statePendingSetDesiredState": {
       "type": "object",
       "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
         "compiledDesiredState": {
           "$ref": "#/definitions/modelState"
         },
@@ -7694,6 +7697,7 @@
         },
         "taskResult": {
           "$ref": "#/definitions/async_taskTaskResult",
+          "description": "next tag: 5",
           "title": "will only be set for FAILED"
         }
       }
@@ -7746,6 +7750,10 @@
         },
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "forceAsyncSetDesiredState": {
+          "type": "boolean",
+          "title": "internal use only"
         }
       }
     },

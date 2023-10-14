@@ -142,6 +142,8 @@ func (m *SetDesiredStateReq) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ForceAsyncSetDesiredState
+
 	if len(errors) > 0 {
 		return SetDesiredStateReqMultiError(errors)
 	}
@@ -1061,6 +1063,8 @@ func (m *PendingSetDesiredState) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for DesiredStateId
 
 	if all {
 		switch v := interface{}(m.GetCompiledDesiredState()).(type) {

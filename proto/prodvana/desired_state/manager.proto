@@ -16,6 +16,8 @@ message SetDesiredStateReq {
     bool rollback = 2;
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
+    // internal use only
+    bool force_async_set_desired_state = 5;
 }
 
 message ValidateDesiredStateReq {
@@ -56,11 +58,13 @@ message DebugLogs {
 }
 
 message PendingSetDesiredState {
+    string desired_state_id = 4;
     prodvana.desired_state.model.State compiled_desired_state = 1;
     // will never contain SUCCESS, by definition, but may contain FAILED
     prodvana.async_task.TaskStatus task_status = 2;
     // will only be set for FAILED
     prodvana.async_task.TaskResult task_result = 3;
+    // next tag: 5
 }
 
 message DesiredStateSummary {

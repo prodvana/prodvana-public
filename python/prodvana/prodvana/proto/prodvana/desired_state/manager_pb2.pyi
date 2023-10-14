@@ -29,6 +29,7 @@ class SetDesiredStateReq(google.protobuf.message.Message):
     ROLLBACK_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    FORCE_ASYNC_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     rollback: builtins.bool
@@ -36,6 +37,8 @@ class SetDesiredStateReq(google.protobuf.message.Message):
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    force_async_set_desired_state: builtins.bool
+    """internal use only"""
     def __init__(
         self,
         *,
@@ -43,9 +46,10 @@ class SetDesiredStateReq(google.protobuf.message.Message):
         rollback: builtins.bool = ...,
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        force_async_set_desired_state: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "rollback", b"rollback", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "force_async_set_desired_state", b"force_async_set_desired_state", "rollback", b"rollback", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___SetDesiredStateReq = SetDesiredStateReq
 
@@ -171,25 +175,30 @@ global___DebugLogs = DebugLogs
 class PendingSetDesiredState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     COMPILED_DESIRED_STATE_FIELD_NUMBER: builtins.int
     TASK_STATUS_FIELD_NUMBER: builtins.int
     TASK_RESULT_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
     @property
     def compiled_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     task_status: prodvana.proto.prodvana.async_task.task_metadata_pb2.TaskStatus.ValueType
     """will never contain SUCCESS, by definition, but may contain FAILED"""
     @property
     def task_result(self) -> prodvana.proto.prodvana.async_task.task_metadata_pb2.TaskResult:
-        """will only be set for FAILED"""
+        """will only be set for FAILED
+        next tag: 5
+        """
     def __init__(
         self,
         *,
+        desired_state_id: builtins.str = ...,
         compiled_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         task_status: prodvana.proto.prodvana.async_task.task_metadata_pb2.TaskStatus.ValueType = ...,
         task_result: prodvana.proto.prodvana.async_task.task_metadata_pb2.TaskResult | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "task_result", b"task_result"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "task_result", b"task_result", "task_status", b"task_status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "desired_state_id", b"desired_state_id", "task_result", b"task_result", "task_status", b"task_status"]) -> None: ...
 
 global___PendingSetDesiredState = PendingSetDesiredState
 
