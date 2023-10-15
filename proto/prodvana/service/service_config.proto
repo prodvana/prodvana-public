@@ -326,7 +326,10 @@ message ServiceConfig {
         no_sparse: true,
     }];
 
-    // next tag: 34
+    // internal use
+    bool async_set_desired_state = 34;
+
+    // next tag: 35
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

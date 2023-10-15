@@ -12714,6 +12714,10 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "description": "Additional env variables that are injected to the service.\nThis can be useful for injecting and/or overriding env variables from release channel\nconfigs for Kubernetes and runtime extension configs.\nNot supported for helm configs."
+        },
+        "asyncSetDesiredState": {
+          "type": "boolean",
+          "title": "internal use"
         }
       }
     },

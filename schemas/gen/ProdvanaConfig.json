@@ -6136,6 +6136,17 @@
                         }
                     ],
                     "description": "Additional env variables that are injected to the service. This can be useful for injecting and/or overriding env variables from release channel configs for Kubernetes and runtime extension configs. Not supported for helm configs."
+                },
+                "asyncSetDesiredState": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "internal use"
                 }
             },
             "additionalProperties": false,
