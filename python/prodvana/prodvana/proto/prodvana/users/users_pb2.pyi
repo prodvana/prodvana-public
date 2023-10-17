@@ -20,11 +20,14 @@ class User(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     USER_ID_FIELD_NUMBER: builtins.int
+    API_USER_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
     FIRST_NAME_FIELD_NUMBER: builtins.int
     LAST_NAME_FIELD_NUMBER: builtins.int
     EMAILS_FIELD_NUMBER: builtins.int
     user_id: builtins.str
+    api_user: builtins.bool
+    """indicates if this user represents an api token"""
     name: builtins.str
     """user info, all optional"""
     first_name: builtins.str
@@ -35,11 +38,12 @@ class User(google.protobuf.message.Message):
         self,
         *,
         user_id: builtins.str = ...,
+        api_user: builtins.bool = ...,
         name: builtins.str = ...,
         first_name: builtins.str = ...,
         last_name: builtins.str = ...,
         emails: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["emails", b"emails", "first_name", b"first_name", "last_name", b"last_name", "name", b"name", "user_id", b"user_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["api_user", b"api_user", "emails", b"emails", "first_name", b"first_name", "last_name", b"last_name", "name", b"name", "user_id", b"user_id"]) -> None: ...
 
 global___User = User

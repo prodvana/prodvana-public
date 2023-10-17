@@ -11232,6 +11232,10 @@
         "userId": {
           "type": "string"
         },
+        "apiUser": {
+          "type": "boolean",
+          "title": "indicates if this user represents an api token"
+        },
         "name": {
           "type": "string",
           "title": "user info, all optional"

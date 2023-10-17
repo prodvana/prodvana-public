@@ -10,7 +10,7 @@ enum Source {
     REPO_FOLLOW = 4;
     // this source indicates this version was provided by Prodvana
     // this is used for things like builtin Protections or other first party provided features
-    PRODVANA = 5; 
+    PRODVANA = 5;
     // Infra as Code sources like Terraform and Pulumi
     IAC = 6;
 }
