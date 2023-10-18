@@ -1,0 +1,29 @@
+syntax = "proto3";
+package prodvana.impact_analysis;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/impact_analysis";
+
+enum ImpactCategory {
+    UNKNOWN_CATEGORY = 0;
+    BACKEND = 1;
+    FRONTEND = 2;
+    DATA_INTEGRITY = 3;
+    SECURITY = 4;
+    COST = 5;
+}
+
+enum IncidentType {
+    UNKNOWN_INCIDENT = 0;
+    OUTAGE = 1;
+    EXPENSE = 2;
+    SECURITY_BREACH = 3;
+    USER_ISSUE = 4;
+}
+
+message ImpactAnalysisResult {
+    ImpactCategory category = 1;
+    IncidentType incident_type = 2;
+    double impact_score = 3;
+    string impact_reasoning = 4;
+    double likelihood_score = 5;
+    string likelihood_reasoning = 6;
+}
