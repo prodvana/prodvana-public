@@ -9580,6 +9580,58 @@
         }
       }
     },
+    "impact_analysisImpactAnalysisResult": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "$ref": "#/definitions/impact_analysisImpactCategory"
+        },
+        "incidentType": {
+          "$ref": "#/definitions/impact_analysisIncidentType"
+        },
+        "impactScore": {
+          "type": "number",
+          "format": "double"
+        },
+        "impactReasoning": {
+          "type": "string"
+        },
+        "likelihoodScore": {
+          "type": "number",
+          "format": "double"
+        },
+        "likelihoodReasoning": {
+          "type": "string"
+        },
+        "overallScore": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "impact_analysisImpactCategory": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_CATEGORY",
+        "BACKEND",
+        "FRONTEND",
+        "DATA_INTEGRITY",
+        "SECURITY",
+        "COST"
+      ],
+      "default": "UNKNOWN_CATEGORY"
+    },
+    "impact_analysisIncidentType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_INCIDENT",
+        "OUTAGE",
+        "EXPENSE",
+        "SECURITY_BREACH",
+        "USER_ISSUE"
+      ],
+      "default": "UNKNOWN_INCIDENT"
+    },
     "insightsClass": {
       "type": "string",
       "enum": [
@@ -11854,7 +11906,10 @@
           "type": "string"
         },
         "author": {
-          "$ref": "#/definitions/prodvanarepoUser",
+          "$ref": "#/definitions/prodvanarepoUser"
+        },
+        "impactAnalysis": {
+          "$ref": "#/definitions/impact_analysisImpactAnalysisResult",
           "title": "TODO: Other fields, like author, timestamps etc"
         }
       }

@@ -26,4 +26,5 @@ message ImpactAnalysisResult {
     string impact_reasoning = 4;
     double likelihood_score = 5;
     string likelihood_reasoning = 6;
+    double overall_score = 7;
 }

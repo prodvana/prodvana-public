@@ -5,6 +5,7 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -38,11 +39,14 @@ class Commit(google.protobuf.message.Message):
     URL_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     AUTHOR_FIELD_NUMBER: builtins.int
+    IMPACT_ANALYSIS_FIELD_NUMBER: builtins.int
     commit_id: builtins.str
     url: builtins.str
     message: builtins.str
     @property
-    def author(self) -> global___User:
+    def author(self) -> global___User: ...
+    @property
+    def impact_analysis(self) -> prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2.ImpactAnalysisResult:
         """TODO: Other fields, like author, timestamps etc"""
     def __init__(
         self,
@@ -51,9 +55,10 @@ class Commit(google.protobuf.message.Message):
         url: builtins.str = ...,
         message: builtins.str = ...,
         author: global___User | None = ...,
+        impact_analysis: prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2.ImpactAnalysisResult | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["author", b"author"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["author", b"author", "commit_id", b"commit_id", "message", b"message", "url", b"url"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["author", b"author", "impact_analysis", b"impact_analysis"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["author", b"author", "commit_id", b"commit_id", "impact_analysis", b"impact_analysis", "message", b"message", "url", b"url"]) -> None: ...
 
 global___Commit = Commit
 

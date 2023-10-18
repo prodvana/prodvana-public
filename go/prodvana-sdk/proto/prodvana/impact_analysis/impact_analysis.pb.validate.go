@@ -69,6 +69,8 @@ func (m *ImpactAnalysisResult) validate(all bool) error {
 
 	// no validation rules for LikelihoodReasoning
 
+	// no validation rules for OverallScore
+
 	if len(errors) > 0 {
 		return ImpactAnalysisResultMultiError(errors)
 	}

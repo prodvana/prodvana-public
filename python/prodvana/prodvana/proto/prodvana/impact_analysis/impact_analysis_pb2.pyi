@@ -69,12 +69,14 @@ class ImpactAnalysisResult(google.protobuf.message.Message):
     IMPACT_REASONING_FIELD_NUMBER: builtins.int
     LIKELIHOOD_SCORE_FIELD_NUMBER: builtins.int
     LIKELIHOOD_REASONING_FIELD_NUMBER: builtins.int
+    OVERALL_SCORE_FIELD_NUMBER: builtins.int
     category: global___ImpactCategory.ValueType
     incident_type: global___IncidentType.ValueType
     impact_score: builtins.float
     impact_reasoning: builtins.str
     likelihood_score: builtins.float
     likelihood_reasoning: builtins.str
+    overall_score: builtins.float
     def __init__(
         self,
         *,
@@ -84,7 +86,8 @@ class ImpactAnalysisResult(google.protobuf.message.Message):
         impact_reasoning: builtins.str = ...,
         likelihood_score: builtins.float = ...,
         likelihood_reasoning: builtins.str = ...,
+        overall_score: builtins.float = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["category", b"category", "impact_reasoning", b"impact_reasoning", "impact_score", b"impact_score", "incident_type", b"incident_type", "likelihood_reasoning", b"likelihood_reasoning", "likelihood_score", b"likelihood_score"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["category", b"category", "impact_reasoning", b"impact_reasoning", "impact_score", b"impact_score", "incident_type", b"incident_type", "likelihood_reasoning", b"likelihood_reasoning", "likelihood_score", b"likelihood_score", "overall_score", b"overall_score"]) -> None: ...
 
 global___ImpactAnalysisResult = ImpactAnalysisResult

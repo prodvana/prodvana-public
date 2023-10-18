@@ -1,6 +1,7 @@
 syntax = "proto3";
 package prodvana.repo;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/repo";
+import "prodvana/impact_analysis/impact_analysis.proto";
 
 message User {
     string name = 1;
@@ -12,6 +13,7 @@ message Commit {
     string url = 2;
     string message = 3;
     User author = 4;
+    prodvana.impact_analysis.ImpactAnalysisResult impact_analysis = 5;
     // TODO: Other fields, like author, timestamps etc
 }
 
