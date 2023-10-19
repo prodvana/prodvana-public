@@ -9617,9 +9617,11 @@
         "FRONTEND",
         "DATA_INTEGRITY",
         "SECURITY",
-        "COST"
+        "COST",
+        "PRODVANA_INTERNAL_ERROR"
       ],
-      "default": "UNKNOWN_CATEGORY"
+      "default": "UNKNOWN_CATEGORY",
+      "title": "- PRODVANA_INTERNAL_ERROR: Prodvana is having trouble determining the impact of this commit"
     },
     "impact_analysisIncidentType": {
       "type": "string",

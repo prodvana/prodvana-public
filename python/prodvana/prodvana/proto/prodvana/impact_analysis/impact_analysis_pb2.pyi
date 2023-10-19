@@ -28,6 +28,8 @@ class _ImpactCategoryEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper.
     DATA_INTEGRITY: _ImpactCategory.ValueType  # 3
     SECURITY: _ImpactCategory.ValueType  # 4
     COST: _ImpactCategory.ValueType  # 5
+    PRODVANA_INTERNAL_ERROR: _ImpactCategory.ValueType  # 6
+    """Prodvana is having trouble determining the impact of this commit"""
 
 class ImpactCategory(_ImpactCategory, metaclass=_ImpactCategoryEnumTypeWrapper): ...
 
@@ -37,6 +39,8 @@ FRONTEND: ImpactCategory.ValueType  # 2
 DATA_INTEGRITY: ImpactCategory.ValueType  # 3
 SECURITY: ImpactCategory.ValueType  # 4
 COST: ImpactCategory.ValueType  # 5
+PRODVANA_INTERNAL_ERROR: ImpactCategory.ValueType  # 6
+"""Prodvana is having trouble determining the impact of this commit"""
 global___ImpactCategory = ImpactCategory
 
 class _IncidentType:

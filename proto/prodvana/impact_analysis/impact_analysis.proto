@@ -9,6 +9,8 @@ enum ImpactCategory {
     DATA_INTEGRITY = 3;
     SECURITY = 4;
     COST = 5;
+    // Prodvana is having trouble determining the impact of this commit
+    PRODVANA_INTERNAL_ERROR = 6;
 }
 
 enum IncidentType {
