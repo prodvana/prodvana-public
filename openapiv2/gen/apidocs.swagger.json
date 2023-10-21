@@ -45,6 +45,9 @@
       "name": "prodvana.protection.ProtectionManager"
     },
     {
+      "name": "prodvana.release.ReleaseManager"
+    },
+    {
       "name": "prodvana.release_channel.ReleaseChannelManager"
     },
     {
@@ -3794,7 +3797,8 @@
               "APPLICATION",
               "SERVICE",
               "RELEASE_CHANNEL",
-              "PROTECTION"
+              "PROTECTION",
+              "RELEASE"
             ],
             "default": "UNKNOWN"
           },
@@ -4336,6 +4340,108 @@
         ],
         "tags": [
           "prodvana.release_channel.ReleaseChannelManager"
+        ]
+      }
+    },
+    "/v1/releases": {
+      "get": {
+        "operationId": "ReleaseManager_ListReleases",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseListReleasesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter.services",
+            "description": "filters to releases for join(join(services, OR), join(environments, OR), AND)",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.environments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startingReleaseId",
+            "description": "newer release, inclusive",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endingReleaseId",
+            "description": "older release, exclusive",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      },
+      "post": {
+        "operationId": "ReleaseManager_RecordRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseRecordReleaseResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/releaseRecordReleaseReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
         ]
       }
     },
@@ -5855,6 +5961,24 @@
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "ListReleasesReqFilter": {
+      "type": "object",
+      "properties": {
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "filters to releases for join(join(services, OR), join(environments, OR), AND)"
+        },
+        "environments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -10788,7 +10912,8 @@
         "APPLICATION",
         "SERVICE",
         "RELEASE_CHANNEL",
-        "PROTECTION"
+        "PROTECTION",
+        "RELEASE"
       ],
       "default": "UNKNOWN"
     },
@@ -11600,6 +11725,75 @@
         },
         "contentBlobId": {
           "type": "string"
+        }
+      }
+    },
+    "releaseListReleasesResp": {
+      "type": "object",
+      "properties": {
+        "releases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/releaseRelease"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "releaseRecordReleaseReq": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/releaseReleaseConfig"
+        }
+      }
+    },
+    "releaseRecordReleaseResp": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        }
+      }
+    },
+    "releaseRelease": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/releaseReleaseConfig"
+        }
+      }
+    },
+    "releaseReleaseConfig": {
+      "type": "object",
+      "properties": {
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "must be unset on input"
+        },
+        "deploymentSystem": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string",
+          "title": "e.g. github.com/foo/bar"
+        },
+        "commitId": {
+          "type": "string",
+          "title": "commit hash"
         }
       }
     },

@@ -1,0 +1,53 @@
+syntax = "proto3";
+package prodvana.release;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
+import "google/api/annotations.proto";
+import "prodvana/object/meta.proto";
+import "prodvana/release/object.proto";
+import "validate/validate.proto";
+
+message RecordReleaseReq {
+    ReleaseConfig config = 1 [(validate.rules).message.required = true];
+}
+
+message RecordReleaseResp {
+    prodvana.object.ObjectMeta meta = 1;
+}
+
+message ListReleasesReq {
+    message Filter {
+        // filters to releases for join(join(services, OR), join(environments, OR), AND)
+        repeated string services = 1;
+        repeated string environments = 2;
+    }
+    // filters for listing releases. Multiple filters are OR'ed together.
+    repeated Filter filters = 1;
+    Filter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
+
+    string starting_release_id = 3; // newer release, inclusive
+    string ending_release_id = 4; // older release, exclusive
+
+    string page_token = 5;
+    int32 page_size = 6;
+}
+
+message ListReleasesResp {
+    repeated Release releases = 1;
+    string next_page_token = 2;
+}
+
+service ReleaseManager {
+    rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
+        option (google.api.http) = {
+            post: "/v1/releases"
+            body: "*"
+        };
+    }
+    rpc ListReleases(ListReleasesReq) returns (ListReleasesResp) {
+        option (google.api.http) = {
+            get: "/v1/releases"
+        };
+    }
+    // page tokens arguments are ignored here
+    rpc ListReleasesStream(ListReleasesReq) returns (stream ListReleasesResp) {}
+}

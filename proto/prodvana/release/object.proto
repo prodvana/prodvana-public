@@ -1,0 +1,20 @@
+syntax = "proto3";
+package prodvana.release;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
+import "google/protobuf/timestamp.proto";
+import "prodvana/object/meta.proto";
+import "validate/validate.proto";
+
+message ReleaseConfig {
+    google.protobuf.Timestamp creation_timestamp = 1; // must be unset on input
+    string deployment_system = 2 [(validate.rules).string.min_len = 1];
+    string service = 3 [(validate.rules).string.min_len = 1];
+    string environment = 4 [(validate.rules).string.min_len = 1];
+    string repository = 5; // e.g. github.com/foo/bar
+    string commit_id = 6; // commit hash
+}
+
+message Release {
+    prodvana.object.ObjectMeta meta = 1;
+    ReleaseConfig config = 2;
+}

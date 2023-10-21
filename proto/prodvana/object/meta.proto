@@ -10,6 +10,7 @@ enum ObjectType {
     SERVICE = 3;
     RELEASE_CHANNEL = 4;
     PROTECTION = 5;
+    RELEASE = 6;
 }
 
 message ObjectMeta {
