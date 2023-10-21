@@ -2514,6 +2514,7 @@
     },
     "/v1/desired_states/{desiredStateId}/summary": {
       "get": {
+        "summary": "Get the convergence summary for a desired state id.\nIf the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to PENDING_SET_DESIRED_STATE.\nIf the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to FAILED.",
         "operationId": "DesiredStateManager_GetDesiredStateConvergenceSummary",
         "responses": {
           "200": {

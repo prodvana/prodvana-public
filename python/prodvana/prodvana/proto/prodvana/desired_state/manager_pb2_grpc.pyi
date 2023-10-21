@@ -39,6 +39,12 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceSummaryResp,
     ]
+    """Get the convergence summary for a desired state id.
+    If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+    The status will be set to PENDING_SET_DESIRED_STATE.
+    If the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+    The status will be set to FAILED.
+    """
     ValidateDesiredState: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.ValidateDesiredStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.ValidateDesiredStateResp,
@@ -101,7 +107,13 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         self,
         request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceSummaryResp: ...
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceSummaryResp:
+        """Get the convergence summary for a desired state id.
+        If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+        The status will be set to PENDING_SET_DESIRED_STATE.
+        If the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+        The status will be set to FAILED.
+        """
     @abc.abstractmethod
     def ValidateDesiredState(
         self,

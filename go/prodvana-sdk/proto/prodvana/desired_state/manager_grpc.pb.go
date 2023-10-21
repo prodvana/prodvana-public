@@ -44,6 +44,11 @@ type DesiredStateManagerClient interface {
 	GetServiceLastConvergedStates(ctx context.Context, in *GetServiceLastConvergedStateReq, opts ...grpc.CallOption) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(ctx context.Context, in *GetServiceDesiredStateHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*GetDesiredStateResp, error)
+	// Get the convergence summary for a desired state id.
+	// If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+	// The status will be set to PENDING_SET_DESIRED_STATE.
+	// If the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+	// The status will be set to FAILED.
 	GetDesiredStateConvergenceSummary(ctx context.Context, in *GetDesiredStateConvergenceReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceSummaryResp, error)
 	ValidateDesiredState(ctx context.Context, in *ValidateDesiredStateReq, opts ...grpc.CallOption) (*ValidateDesiredStateResp, error)
 	SetManualApproval(ctx context.Context, in *SetManualApprovalReq, opts ...grpc.CallOption) (*SetManualApprovalResp, error)
@@ -170,6 +175,11 @@ type DesiredStateManagerServer interface {
 	GetServiceLastConvergedStates(context.Context, *GetServiceLastConvergedStateReq) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(context.Context, *GetServiceDesiredStateHistoryReq) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(context.Context, *GetDesiredStateReq) (*GetDesiredStateResp, error)
+	// Get the convergence summary for a desired state id.
+	// If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+	// The status will be set to PENDING_SET_DESIRED_STATE.
+	// If the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+	// The status will be set to FAILED.
 	GetDesiredStateConvergenceSummary(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceSummaryResp, error)
 	ValidateDesiredState(context.Context, *ValidateDesiredStateReq) (*ValidateDesiredStateResp, error)
 	SetManualApproval(context.Context, *SetManualApprovalReq) (*SetManualApprovalResp, error)

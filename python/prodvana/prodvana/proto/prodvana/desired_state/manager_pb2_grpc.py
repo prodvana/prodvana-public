@@ -113,7 +113,12 @@ class DesiredStateManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetDesiredStateConvergenceSummary(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Get the convergence summary for a desired state id.
+        If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+        The status will be set to PENDING_SET_DESIRED_STATE.
+        If the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
+        The status will be set to FAILED.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
