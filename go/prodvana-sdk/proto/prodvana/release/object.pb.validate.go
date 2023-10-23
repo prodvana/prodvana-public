@@ -201,6 +201,310 @@ var _ interface {
 	ErrorName() string
 } = ReleaseConfigValidationError{}
 
+// Validate checks the field values on ImpactAnalysisComparison with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ImpactAnalysisComparison) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ImpactAnalysisComparison with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ImpactAnalysisComparisonMultiError, or nil if none found.
+func (m *ImpactAnalysisComparison) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ImpactAnalysisComparison) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetRelevantCommits() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ImpactAnalysisComparisonValidationError{
+						field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ImpactAnalysisComparisonValidationError{
+						field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ImpactAnalysisComparisonValidationError{
+					field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ImpactAnalysisComparisonMultiError(errors)
+	}
+
+	return nil
+}
+
+// ImpactAnalysisComparisonMultiError is an error wrapping multiple validation
+// errors returned by ImpactAnalysisComparison.ValidateAll() if the designated
+// constraints aren't met.
+type ImpactAnalysisComparisonMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ImpactAnalysisComparisonMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ImpactAnalysisComparisonMultiError) AllErrors() []error { return m }
+
+// ImpactAnalysisComparisonValidationError is the validation error returned by
+// ImpactAnalysisComparison.Validate if the designated constraints aren't met.
+type ImpactAnalysisComparisonValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ImpactAnalysisComparisonValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ImpactAnalysisComparisonValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ImpactAnalysisComparisonValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ImpactAnalysisComparisonValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ImpactAnalysisComparisonValidationError) ErrorName() string {
+	return "ImpactAnalysisComparisonValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ImpactAnalysisComparisonValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sImpactAnalysisComparison.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ImpactAnalysisComparisonValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ImpactAnalysisComparisonValidationError{}
+
+// Validate checks the field values on ReleaseComparison with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseComparison) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseComparison with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseComparisonMultiError, or nil if none found.
+func (m *ReleaseComparison) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseComparison) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPrev()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseComparisonValidationError{
+					field:  "Prev",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseComparisonValidationError{
+					field:  "Prev",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPrev()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseComparisonValidationError{
+				field:  "Prev",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for PrevRepository
+
+	// no validation rules for NewRepository
+
+	// no validation rules for PrevCommitId
+
+	// no validation rules for NewCommitId
+
+	if all {
+		switch v := interface{}(m.GetImpactAnalysis()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseComparisonValidationError{
+					field:  "ImpactAnalysis",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseComparisonValidationError{
+					field:  "ImpactAnalysis",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetImpactAnalysis()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseComparisonValidationError{
+				field:  "ImpactAnalysis",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ReleaseComparisonMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseComparisonMultiError is an error wrapping multiple validation errors
+// returned by ReleaseComparison.ValidateAll() if the designated constraints
+// aren't met.
+type ReleaseComparisonMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseComparisonMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseComparisonMultiError) AllErrors() []error { return m }
+
+// ReleaseComparisonValidationError is the validation error returned by
+// ReleaseComparison.Validate if the designated constraints aren't met.
+type ReleaseComparisonValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseComparisonValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseComparisonValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseComparisonValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseComparisonValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseComparisonValidationError) ErrorName() string {
+	return "ReleaseComparisonValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseComparisonValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseComparison.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseComparisonValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseComparisonValidationError{}
+
 // Validate checks the field values on Release with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -274,6 +578,35 @@ func (m *Release) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ReleaseValidationError{
 				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetComparison()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseValidationError{
+					field:  "Comparison",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseValidationError{
+					field:  "Comparison",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetComparison()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseValidationError{
+				field:  "Comparison",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

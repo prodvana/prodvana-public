@@ -11728,6 +11728,19 @@
         }
       }
     },
+    "releaseImpactAnalysisComparison": {
+      "type": "object",
+      "properties": {
+        "relevantCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          },
+          "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
+        }
+      }
+    },
     "releaseListReleasesResp": {
       "type": "object",
       "properties": {
@@ -11767,6 +11780,33 @@
         },
         "config": {
           "$ref": "#/definitions/releaseReleaseConfig"
+        },
+        "comparison": {
+          "$ref": "#/definitions/releaseReleaseComparison",
+          "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
+        }
+      }
+    },
+    "releaseReleaseComparison": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "prevRepository": {
+          "type": "string"
+        },
+        "newRepository": {
+          "type": "string"
+        },
+        "prevCommitId": {
+          "type": "string"
+        },
+        "newCommitId": {
+          "type": "string"
+        },
+        "impactAnalysis": {
+          "$ref": "#/definitions/releaseImpactAnalysisComparison"
         }
       }
     },

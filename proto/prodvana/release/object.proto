@@ -3,6 +3,7 @@ package prodvana.release;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
 import "google/protobuf/timestamp.proto";
 import "prodvana/object/meta.proto";
+import "prodvana/repo/repo.proto";
 import "validate/validate.proto";
 
 message ReleaseConfig {
@@ -14,7 +15,23 @@ message ReleaseConfig {
     string commit_id = 6; // commit hash
 }
 
+message ImpactAnalysisComparison {
+    // commits likely to be impactful, prev_commit_id and new_commit_id have a merge base
+    repeated prodvana.repo.Commit relevant_commits = 1;
+}
+
+message ReleaseComparison {
+    prodvana.object.ObjectMeta prev = 1;
+    string prev_repository = 2;
+    string new_repository = 3;
+    string prev_commit_id = 4;
+    string new_commit_id = 5;
+    ImpactAnalysisComparison impact_analysis = 6;
+}
+
 message Release {
     prodvana.object.ObjectMeta meta = 1;
     ReleaseConfig config = 2;
+    // TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?
+    ReleaseComparison comparison = 3;
 }
