@@ -16,9 +16,9 @@ message RecordReleaseResp {
 
 message ListReleasesReq {
     message Filter {
-        // filters to releases for join(join(services, OR), join(environments, OR), AND)
+        // filters to releases for join(join(services, OR), join(release_channels, OR), AND)
         repeated string services = 1;
-        repeated string environments = 2;
+        repeated string release_channels = 2;
     }
     // filters for listing releases. Multiple filters are OR'ed together.
     repeated Filter filters = 1;

@@ -25,7 +25,7 @@ class ReleaseConfig(google.protobuf.message.Message):
     CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
     DEPLOYMENT_SYSTEM_FIELD_NUMBER: builtins.int
     SERVICE_FIELD_NUMBER: builtins.int
-    ENVIRONMENT_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
     REPOSITORY_FIELD_NUMBER: builtins.int
     COMMIT_ID_FIELD_NUMBER: builtins.int
     @property
@@ -33,7 +33,7 @@ class ReleaseConfig(google.protobuf.message.Message):
         """must be unset on input"""
     deployment_system: builtins.str
     service: builtins.str
-    environment: builtins.str
+    release_channel: builtins.str
     repository: builtins.str
     """e.g. github.com/foo/bar"""
     commit_id: builtins.str
@@ -44,12 +44,12 @@ class ReleaseConfig(google.protobuf.message.Message):
         creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         deployment_system: builtins.str = ...,
         service: builtins.str = ...,
-        environment: builtins.str = ...,
+        release_channel: builtins.str = ...,
         repository: builtins.str = ...,
         commit_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "environment", b"environment", "repository", b"repository", "service", b"service"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "release_channel", b"release_channel", "repository", b"repository", "service", b"service"]) -> None: ...
 
 global___ReleaseConfig = ReleaseConfig
 

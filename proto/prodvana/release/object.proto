@@ -10,7 +10,7 @@ message ReleaseConfig {
     google.protobuf.Timestamp creation_timestamp = 1; // must be unset on input
     string deployment_system = 2 [(validate.rules).string.min_len = 1];
     string service = 3 [(validate.rules).string.min_len = 1];
-    string environment = 4 [(validate.rules).string.min_len = 1];
+    string release_channel = 4 [(validate.rules).string.min_len = 1];
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
 }

@@ -4363,7 +4363,7 @@
         "parameters": [
           {
             "name": "filter.services",
-            "description": "filters to releases for join(join(services, OR), join(environments, OR), AND)",
+            "description": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)",
             "in": "query",
             "required": false,
             "type": "array",
@@ -4373,7 +4373,7 @@
             "collectionFormat": "multi"
           },
           {
-            "name": "filter.environments",
+            "name": "filter.releaseChannels",
             "in": "query",
             "required": false,
             "type": "array",
@@ -5972,9 +5972,9 @@
           "items": {
             "type": "string"
           },
-          "title": "filters to releases for join(join(services, OR), join(environments, OR), AND)"
+          "title": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)"
         },
-        "environments": {
+        "releaseChannels": {
           "type": "array",
           "items": {
             "type": "string"
@@ -11824,7 +11824,7 @@
         "service": {
           "type": "string"
         },
-        "environment": {
+        "releaseChannel": {
           "type": "string"
         },
         "repository": {

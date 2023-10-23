@@ -17,7 +17,7 @@ from prodvana.proto.prodvana.release import object_pb2 as prodvana_dot_release_d
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1eprodvana/release/manager.proto\x12\x10prodvana.release\x1a\x1cgoogle/api/annotations.proto\x1a\x1aprodvana/object/meta.proto\x1a\x1dprodvana/release/object.proto\x1a\x17validate/validate.proto\"M\n\x10RecordReleaseReq\x12\x39\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x1f.prodvana.release.ReleaseConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\">\n\x11RecordReleaseResp\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\"\x97\x02\n\x0fListReleasesReq\x12\x39\n\x07\x66ilters\x18\x01 \x03(\x0b\x32(.prodvana.release.ListReleasesReq.Filter\x12\x38\n\x06\x66ilter\x18\x02 \x01(\x0b\x32(.prodvana.release.ListReleasesReq.Filter\x12\x1b\n\x13starting_release_id\x18\x03 \x01(\t\x12\x19\n\x11\x65nding_release_id\x18\x04 \x01(\t\x12\x12\n\npage_token\x18\x05 \x01(\t\x12\x11\n\tpage_size\x18\x06 \x01(\x05\x1a\x30\n\x06\x46ilter\x12\x10\n\x08services\x18\x01 \x03(\t\x12\x14\n\x0c\x65nvironments\x18\x02 \x03(\t\"X\n\x10ListReleasesResp\x12+\n\x08releases\x18\x01 \x03(\x0b\x32\x19.prodvana.release.Release\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2\xd1\x02\n\x0eReleaseManager\x12q\n\rRecordRelease\x12\".prodvana.release.RecordReleaseReq\x1a#.prodvana.release.RecordReleaseResp\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0c/v1/releases:\x01*\x12k\n\x0cListReleases\x12!.prodvana.release.ListReleasesReq\x1a\".prodvana.release.ListReleasesResp\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/releases\x12_\n\x12ListReleasesStream\x12!.prodvana.release.ListReleasesReq\x1a\".prodvana.release.ListReleasesResp\"\x00\x30\x01\x42LZJgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/releaseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1eprodvana/release/manager.proto\x12\x10prodvana.release\x1a\x1cgoogle/api/annotations.proto\x1a\x1aprodvana/object/meta.proto\x1a\x1dprodvana/release/object.proto\x1a\x17validate/validate.proto\"M\n\x10RecordReleaseReq\x12\x39\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x1f.prodvana.release.ReleaseConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\">\n\x11RecordReleaseResp\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\"\x9b\x02\n\x0fListReleasesReq\x12\x39\n\x07\x66ilters\x18\x01 \x03(\x0b\x32(.prodvana.release.ListReleasesReq.Filter\x12\x38\n\x06\x66ilter\x18\x02 \x01(\x0b\x32(.prodvana.release.ListReleasesReq.Filter\x12\x1b\n\x13starting_release_id\x18\x03 \x01(\t\x12\x19\n\x11\x65nding_release_id\x18\x04 \x01(\t\x12\x12\n\npage_token\x18\x05 \x01(\t\x12\x11\n\tpage_size\x18\x06 \x01(\x05\x1a\x34\n\x06\x46ilter\x12\x10\n\x08services\x18\x01 \x03(\t\x12\x18\n\x10release_channels\x18\x02 \x03(\t\"X\n\x10ListReleasesResp\x12+\n\x08releases\x18\x01 \x03(\x0b\x32\x19.prodvana.release.Release\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2\xd1\x02\n\x0eReleaseManager\x12q\n\rRecordRelease\x12\".prodvana.release.RecordReleaseReq\x1a#.prodvana.release.RecordReleaseResp\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0c/v1/releases:\x01*\x12k\n\x0cListReleases\x12!.prodvana.release.ListReleasesReq\x1a\".prodvana.release.ListReleasesResp\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/releases\x12_\n\x12ListReleasesStream\x12!.prodvana.release.ListReleasesReq\x1a\".prodvana.release.ListReleasesResp\"\x00\x30\x01\x42LZJgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/releaseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,11 +37,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_RECORDRELEASERESP']._serialized_start=245
   _globals['_RECORDRELEASERESP']._serialized_end=307
   _globals['_LISTRELEASESREQ']._serialized_start=310
-  _globals['_LISTRELEASESREQ']._serialized_end=589
+  _globals['_LISTRELEASESREQ']._serialized_end=593
   _globals['_LISTRELEASESREQ_FILTER']._serialized_start=541
-  _globals['_LISTRELEASESREQ_FILTER']._serialized_end=589
-  _globals['_LISTRELEASESRESP']._serialized_start=591
-  _globals['_LISTRELEASESRESP']._serialized_end=679
-  _globals['_RELEASEMANAGER']._serialized_start=682
-  _globals['_RELEASEMANAGER']._serialized_end=1019
+  _globals['_LISTRELEASESREQ_FILTER']._serialized_end=593
+  _globals['_LISTRELEASESRESP']._serialized_start=595
+  _globals['_LISTRELEASESRESP']._serialized_end=683
+  _globals['_RELEASEMANAGER']._serialized_start=686
+  _globals['_RELEASEMANAGER']._serialized_end=1023
 # @@protoc_insertion_point(module_scope)

@@ -57,19 +57,19 @@ class ListReleasesReq(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         SERVICES_FIELD_NUMBER: builtins.int
-        ENVIRONMENTS_FIELD_NUMBER: builtins.int
+        RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
         @property
         def services(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-            """filters to releases for join(join(services, OR), join(environments, OR), AND)"""
+            """filters to releases for join(join(services, OR), join(release_channels, OR), AND)"""
         @property
-        def environments(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        def release_channels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
         def __init__(
             self,
             *,
             services: collections.abc.Iterable[builtins.str] | None = ...,
-            environments: collections.abc.Iterable[builtins.str] | None = ...,
+            release_channels: collections.abc.Iterable[builtins.str] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["environments", b"environments", "services", b"services"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["release_channels", b"release_channels", "services", b"services"]) -> None: ...
 
     FILTERS_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int

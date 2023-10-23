@@ -108,9 +108,9 @@ func (m *ReleaseConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetEnvironment()) < 1 {
+	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
 		err := ReleaseConfigValidationError{
-			field:  "Environment",
+			field:  "ReleaseChannel",
 			reason: "value length must be at least 1 runes",
 		}
 		if !all {
