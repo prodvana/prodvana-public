@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	ReleaseManager_RecordRelease_FullMethodName      = "/prodvana.release.ReleaseManager/RecordRelease"
+	ReleaseManager_UpdateRelease_FullMethodName      = "/prodvana.release.ReleaseManager/UpdateRelease"
 	ReleaseManager_ListReleases_FullMethodName       = "/prodvana.release.ReleaseManager/ListReleases"
 	ReleaseManager_ListReleasesStream_FullMethodName = "/prodvana.release.ReleaseManager/ListReleasesStream"
 )
@@ -29,6 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReleaseManagerClient interface {
 	RecordRelease(ctx context.Context, in *RecordReleaseReq, opts ...grpc.CallOption) (*RecordReleaseResp, error)
+	UpdateRelease(ctx context.Context, in *UpdateReleaseStatusReq, opts ...grpc.CallOption) (*UpdateReleaseStatusResp, error)
 	ListReleases(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (*ListReleasesResp, error)
 	// page tokens arguments are ignored here
 	ListReleasesStream(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error)
@@ -45,6 +47,15 @@ func NewReleaseManagerClient(cc grpc.ClientConnInterface) ReleaseManagerClient {
 func (c *releaseManagerClient) RecordRelease(ctx context.Context, in *RecordReleaseReq, opts ...grpc.CallOption) (*RecordReleaseResp, error) {
 	out := new(RecordReleaseResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_RecordRelease_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *releaseManagerClient) UpdateRelease(ctx context.Context, in *UpdateReleaseStatusReq, opts ...grpc.CallOption) (*UpdateReleaseStatusResp, error) {
+	out := new(UpdateReleaseStatusResp)
+	err := c.cc.Invoke(ctx, ReleaseManager_UpdateRelease_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,6 +108,7 @@ func (x *releaseManagerListReleasesStreamClient) Recv() (*ListReleasesResp, erro
 // for forward compatibility
 type ReleaseManagerServer interface {
 	RecordRelease(context.Context, *RecordReleaseReq) (*RecordReleaseResp, error)
+	UpdateRelease(context.Context, *UpdateReleaseStatusReq) (*UpdateReleaseStatusResp, error)
 	ListReleases(context.Context, *ListReleasesReq) (*ListReleasesResp, error)
 	// page tokens arguments are ignored here
 	ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error
@@ -109,6 +121,9 @@ type UnimplementedReleaseManagerServer struct {
 
 func (UnimplementedReleaseManagerServer) RecordRelease(context.Context, *RecordReleaseReq) (*RecordReleaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecordRelease not implemented")
+}
+func (UnimplementedReleaseManagerServer) UpdateRelease(context.Context, *UpdateReleaseStatusReq) (*UpdateReleaseStatusResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelease not implemented")
 }
 func (UnimplementedReleaseManagerServer) ListReleases(context.Context, *ListReleasesReq) (*ListReleasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReleases not implemented")
@@ -143,6 +158,24 @@ func _ReleaseManager_RecordRelease_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ReleaseManagerServer).RecordRelease(ctx, req.(*RecordReleaseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReleaseManager_UpdateRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateReleaseStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReleaseManagerServer).UpdateRelease(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReleaseManager_UpdateRelease_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReleaseManagerServer).UpdateRelease(ctx, req.(*UpdateReleaseStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -196,6 +229,10 @@ var ReleaseManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RecordRelease",
 			Handler:    _ReleaseManager_RecordRelease_Handler,
+		},
+		{
+			MethodName: "UpdateRelease",
+			Handler:    _ReleaseManager_UpdateRelease_Handler,
 		},
 		{
 			MethodName: "ListReleases",

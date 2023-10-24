@@ -123,6 +123,8 @@ func (m *ReleaseConfig) validate(all bool) error {
 
 	// no validation rules for CommitId
 
+	// no validation rules for User
+
 	if len(errors) > 0 {
 		return ReleaseConfigMultiError(errors)
 	}
@@ -200,6 +202,136 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ReleaseConfigValidationError{}
+
+// Validate checks the field values on ReleaseState with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ReleaseState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseState with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ReleaseStateMultiError, or
+// nil if none found.
+func (m *ReleaseState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetLastUpdateTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseStateValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseStateValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastUpdateTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseStateValidationError{
+				field:  "LastUpdateTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ReleaseStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseStateMultiError is an error wrapping multiple validation errors
+// returned by ReleaseState.ValidateAll() if the designated constraints aren't met.
+type ReleaseStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseStateMultiError) AllErrors() []error { return m }
+
+// ReleaseStateValidationError is the validation error returned by
+// ReleaseState.Validate if the designated constraints aren't met.
+type ReleaseStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseStateValidationError) ErrorName() string { return "ReleaseStateValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ReleaseStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseStateValidationError{}
 
 // Validate checks the field values on ImpactAnalysisComparison with the rules
 // defined in the proto definition for this message. If any rules are
@@ -607,6 +739,35 @@ func (m *Release) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ReleaseValidationError{
 				field:  "Comparison",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseValidationError{
+					field:  "State",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseValidationError{
+					field:  "State",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseValidationError{
+				field:  "State",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

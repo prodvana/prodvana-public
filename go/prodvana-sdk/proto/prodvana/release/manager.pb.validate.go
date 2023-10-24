@@ -97,6 +97,8 @@ func (m *RecordReleaseReq) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Pending
+
 	if len(errors) > 0 {
 		return RecordReleaseReqMultiError(errors)
 	}
@@ -305,6 +307,216 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RecordReleaseRespValidationError{}
+
+// Validate checks the field values on UpdateReleaseStatusReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateReleaseStatusReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateReleaseStatusReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateReleaseStatusReqMultiError, or nil if none found.
+func (m *UpdateReleaseStatusReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateReleaseStatusReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ReleaseId
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return UpdateReleaseStatusReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateReleaseStatusReqMultiError is an error wrapping multiple validation
+// errors returned by UpdateReleaseStatusReq.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateReleaseStatusReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateReleaseStatusReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateReleaseStatusReqMultiError) AllErrors() []error { return m }
+
+// UpdateReleaseStatusReqValidationError is the validation error returned by
+// UpdateReleaseStatusReq.Validate if the designated constraints aren't met.
+type UpdateReleaseStatusReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateReleaseStatusReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateReleaseStatusReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateReleaseStatusReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateReleaseStatusReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateReleaseStatusReqValidationError) ErrorName() string {
+	return "UpdateReleaseStatusReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateReleaseStatusReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateReleaseStatusReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateReleaseStatusReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateReleaseStatusReqValidationError{}
+
+// Validate checks the field values on UpdateReleaseStatusResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateReleaseStatusResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateReleaseStatusResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateReleaseStatusRespMultiError, or nil if none found.
+func (m *UpdateReleaseStatusResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateReleaseStatusResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return UpdateReleaseStatusRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateReleaseStatusRespMultiError is an error wrapping multiple validation
+// errors returned by UpdateReleaseStatusResp.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateReleaseStatusRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateReleaseStatusRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateReleaseStatusRespMultiError) AllErrors() []error { return m }
+
+// UpdateReleaseStatusRespValidationError is the validation error returned by
+// UpdateReleaseStatusResp.Validate if the designated constraints aren't met.
+type UpdateReleaseStatusRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateReleaseStatusRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateReleaseStatusRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateReleaseStatusRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateReleaseStatusRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateReleaseStatusRespValidationError) ErrorName() string {
+	return "UpdateReleaseStatusRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateReleaseStatusRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateReleaseStatusResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateReleaseStatusRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateReleaseStatusRespValidationError{}
 
 // Validate checks the field values on ListReleasesReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the

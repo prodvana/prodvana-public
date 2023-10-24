@@ -6,18 +6,39 @@ import builtins
 import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.repo.repo_pb2
 import sys
+import typing
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _ReleaseStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ReleaseStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ReleaseStatus.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    UNKNOWN_STATUS: _ReleaseStatus.ValueType  # 0
+    PENDING: _ReleaseStatus.ValueType  # 1
+    SUCCEEDED: _ReleaseStatus.ValueType  # 2
+    FAILED: _ReleaseStatus.ValueType  # 3
+
+class ReleaseStatus(_ReleaseStatus, metaclass=_ReleaseStatusEnumTypeWrapper): ...
+
+UNKNOWN_STATUS: ReleaseStatus.ValueType  # 0
+PENDING: ReleaseStatus.ValueType  # 1
+SUCCEEDED: ReleaseStatus.ValueType  # 2
+FAILED: ReleaseStatus.ValueType  # 3
+global___ReleaseStatus = ReleaseStatus
 
 class ReleaseConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -28,6 +49,7 @@ class ReleaseConfig(google.protobuf.message.Message):
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
     REPOSITORY_FIELD_NUMBER: builtins.int
     COMMIT_ID_FIELD_NUMBER: builtins.int
+    USER_FIELD_NUMBER: builtins.int
     @property
     def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """must be unset on input"""
@@ -38,6 +60,8 @@ class ReleaseConfig(google.protobuf.message.Message):
     """e.g. github.com/foo/bar"""
     commit_id: builtins.str
     """commit hash"""
+    user: builtins.str
+    """if known"""
     def __init__(
         self,
         *,
@@ -47,11 +71,31 @@ class ReleaseConfig(google.protobuf.message.Message):
         release_channel: builtins.str = ...,
         repository: builtins.str = ...,
         commit_id: builtins.str = ...,
+        user: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "release_channel", b"release_channel", "repository", b"repository", "service", b"service"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "release_channel", b"release_channel", "repository", b"repository", "service", b"service", "user", b"user"]) -> None: ...
 
 global___ReleaseConfig = ReleaseConfig
+
+class ReleaseState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
+    status: global___ReleaseStatus.ValueType
+    @property
+    def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        status: global___ReleaseStatus.ValueType = ...,
+        last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "status", b"status"]) -> None: ...
+
+global___ReleaseState = ReleaseState
 
 class ImpactAnalysisComparison(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -107,6 +151,7 @@ class Release(google.protobuf.message.Message):
     META_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
     COMPARISON_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     @property
@@ -114,14 +159,17 @@ class Release(google.protobuf.message.Message):
     @property
     def comparison(self) -> global___ReleaseComparison:
         """TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"""
+    @property
+    def state(self) -> global___ReleaseState: ...
     def __init__(
         self,
         *,
         meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
         config: global___ReleaseConfig | None = ...,
         comparison: global___ReleaseComparison | None = ...,
+        state: global___ReleaseState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta", "state", b"state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta", "state", b"state"]) -> None: ...
 
 global___Release = Release

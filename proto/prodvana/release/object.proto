@@ -6,6 +6,13 @@ import "prodvana/object/meta.proto";
 import "prodvana/repo/repo.proto";
 import "validate/validate.proto";
 
+enum ReleaseStatus {
+    UNKNOWN_STATUS = 0;
+    PENDING = 1;
+    SUCCEEDED = 2;
+    FAILED = 3;
+}
+
 message ReleaseConfig {
     google.protobuf.Timestamp creation_timestamp = 1; // must be unset on input
     string deployment_system = 2 [(validate.rules).string.min_len = 1];
@@ -13,6 +20,12 @@ message ReleaseConfig {
     string release_channel = 4 [(validate.rules).string.min_len = 1];
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
+    string user = 7; // if known
+}
+
+message ReleaseState {
+    ReleaseStatus status = 1;
+    google.protobuf.Timestamp last_update_timestamp = 2;
 }
 
 message ImpactAnalysisComparison {
@@ -34,4 +47,5 @@ message Release {
     ReleaseConfig config = 2;
     // TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?
     ReleaseComparison comparison = 3;
+    ReleaseState state = 4;
 }

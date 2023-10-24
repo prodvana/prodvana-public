@@ -8,10 +8,22 @@ import "validate/validate.proto";
 
 message RecordReleaseReq {
     ReleaseConfig config = 1 [(validate.rules).message.required = true];
+    // If true, create release with pending status that is meant to be updated later to either success or failure.
+    // By default, releases are created with status SUCCEEDED.
+    bool pending = 2;
 }
 
 message RecordReleaseResp {
     prodvana.object.ObjectMeta meta = 1;
+}
+
+message UpdateReleaseStatusReq {
+    string release_id = 1;
+    ReleaseStatus status = 2;
+}
+
+message UpdateReleaseStatusResp {
+    ReleaseStatus status = 1;
 }
 
 message ListReleasesReq {
@@ -40,6 +52,12 @@ service ReleaseManager {
     rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
         option (google.api.http) = {
             post: "/v1/releases"
+            body: "*"
+        };
+    }
+    rpc UpdateRelease(UpdateReleaseStatusReq) returns (UpdateReleaseStatusResp) {
+        option (google.api.http) = {
+            post: "/v1/releases/{release_id=*}/status"
             body: "*"
         };
     }

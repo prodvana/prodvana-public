@@ -22,15 +22,21 @@ class RecordReleaseReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CONFIG_FIELD_NUMBER: builtins.int
+    PENDING_FIELD_NUMBER: builtins.int
     @property
     def config(self) -> prodvana.proto.prodvana.release.object_pb2.ReleaseConfig: ...
+    pending: builtins.bool
+    """If true, create release with pending status that is meant to be updated later to either success or failure.
+    By default, releases are created with status SUCCEEDED.
+    """
     def __init__(
         self,
         *,
         config: prodvana.proto.prodvana.release.object_pb2.ReleaseConfig | None = ...,
+        pending: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "pending", b"pending"]) -> None: ...
 
 global___RecordReleaseReq = RecordReleaseReq
 
@@ -49,6 +55,37 @@ class RecordReleaseResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> None: ...
 
 global___RecordReleaseResp = RecordReleaseResp
+
+class UpdateReleaseStatusReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASE_ID_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    release_id: builtins.str
+    status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType
+    def __init__(
+        self,
+        *,
+        release_id: builtins.str = ...,
+        status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["release_id", b"release_id", "status", b"status"]) -> None: ...
+
+global___UpdateReleaseStatusReq = UpdateReleaseStatusReq
+
+class UpdateReleaseStatusResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType
+    def __init__(
+        self,
+        *,
+        status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["status", b"status"]) -> None: ...
+
+global___UpdateReleaseStatusResp = UpdateReleaseStatusResp
 
 class ListReleasesReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

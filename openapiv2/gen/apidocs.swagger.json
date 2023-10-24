@@ -4445,6 +4445,50 @@
         ]
       }
     },
+    "/v1/releases/{releaseId}/status": {
+      "post": {
+        "operationId": "ReleaseManager_UpdateRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseUpdateReleaseStatusResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/releaseReleaseStatus"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      }
+    },
     "/v1/secrets": {
       "post": {
         "operationId": "SecretsManager_SetSecret",
@@ -11761,6 +11805,10 @@
       "properties": {
         "config": {
           "$ref": "#/definitions/releaseReleaseConfig"
+        },
+        "pending": {
+          "type": "boolean",
+          "description": "If true, create release with pending status that is meant to be updated later to either success or failure.\nBy default, releases are created with status SUCCEEDED."
         }
       }
     },
@@ -11784,6 +11832,9 @@
         "comparison": {
           "$ref": "#/definitions/releaseReleaseComparison",
           "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
+        },
+        "state": {
+          "$ref": "#/definitions/releaseReleaseState"
         }
       }
     },
@@ -11834,6 +11885,40 @@
         "commitId": {
           "type": "string",
           "title": "commit hash"
+        },
+        "user": {
+          "type": "string",
+          "title": "if known"
+        }
+      }
+    },
+    "releaseReleaseState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/releaseReleaseStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "releaseReleaseStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STATUS",
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "default": "UNKNOWN_STATUS"
+    },
+    "releaseUpdateReleaseStatusResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/releaseReleaseStatus"
         }
       }
     },
