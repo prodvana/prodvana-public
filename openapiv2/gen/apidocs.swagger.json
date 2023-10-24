@@ -4447,7 +4447,7 @@
     },
     "/v1/releases/{releaseId}/status": {
       "post": {
-        "operationId": "ReleaseManager_UpdateRelease",
+        "operationId": "ReleaseManager_UpdateReleaseStatus",
         "responses": {
           "200": {
             "description": "A successful response.",

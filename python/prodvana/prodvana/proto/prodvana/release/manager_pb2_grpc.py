@@ -19,8 +19,8 @@ class ReleaseManagerStub(object):
                 request_serializer=prodvana_dot_release_dot_manager__pb2.RecordReleaseReq.SerializeToString,
                 response_deserializer=prodvana_dot_release_dot_manager__pb2.RecordReleaseResp.FromString,
                 )
-        self.UpdateRelease = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/UpdateRelease',
+        self.UpdateReleaseStatus = channel.unary_unary(
+                '/prodvana.release.ReleaseManager/UpdateReleaseStatus',
                 request_serializer=prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusReq.SerializeToString,
                 response_deserializer=prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusResp.FromString,
                 )
@@ -45,7 +45,7 @@ class ReleaseManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateRelease(self, request, context):
+    def UpdateReleaseStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -72,8 +72,8 @@ def add_ReleaseManagerServicer_to_server(servicer, server):
                     request_deserializer=prodvana_dot_release_dot_manager__pb2.RecordReleaseReq.FromString,
                     response_serializer=prodvana_dot_release_dot_manager__pb2.RecordReleaseResp.SerializeToString,
             ),
-            'UpdateRelease': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateRelease,
+            'UpdateReleaseStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateReleaseStatus,
                     request_deserializer=prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusReq.FromString,
                     response_serializer=prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusResp.SerializeToString,
             ),
@@ -115,7 +115,7 @@ class ReleaseManager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpdateRelease(request,
+    def UpdateReleaseStatus(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,7 +125,7 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/UpdateRelease',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/UpdateReleaseStatus',
             prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusReq.SerializeToString,
             prodvana_dot_release_dot_manager__pb2.UpdateReleaseStatusResp.FromString,
             options, channel_credentials,

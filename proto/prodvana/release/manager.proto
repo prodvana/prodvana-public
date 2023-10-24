@@ -55,7 +55,7 @@ service ReleaseManager {
             body: "*"
         };
     }
-    rpc UpdateRelease(UpdateReleaseStatusReq) returns (UpdateReleaseStatusResp) {
+    rpc UpdateReleaseStatus(UpdateReleaseStatusReq) returns (UpdateReleaseStatusResp) {
         option (google.api.http) = {
             post: "/v1/releases/{release_id=*}/status"
             body: "*"

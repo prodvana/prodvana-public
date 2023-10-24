@@ -13,7 +13,7 @@ class ReleaseManagerStub:
         prodvana.proto.prodvana.release.manager_pb2.RecordReleaseReq,
         prodvana.proto.prodvana.release.manager_pb2.RecordReleaseResp,
     ]
-    UpdateRelease: grpc.UnaryUnaryMultiCallable[
+    UpdateReleaseStatus: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.release.manager_pb2.UpdateReleaseStatusReq,
         prodvana.proto.prodvana.release.manager_pb2.UpdateReleaseStatusResp,
     ]
@@ -35,7 +35,7 @@ class ReleaseManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.release.manager_pb2.RecordReleaseResp: ...
     @abc.abstractmethod
-    def UpdateRelease(
+    def UpdateReleaseStatus(
         self,
         request: prodvana.proto.prodvana.release.manager_pb2.UpdateReleaseStatusReq,
         context: grpc.ServicerContext,
