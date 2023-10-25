@@ -3189,6 +3189,8 @@ func (m *GetDesiredStateGraphReq) validate(all bool) error {
 
 	// no validation rules for Depth
 
+	// no validation rules for IncludeDesiredStateTimestamps
+
 	if len(errors) > 0 {
 		return GetDesiredStateGraphReqMultiError(errors)
 	}
@@ -3269,6 +3271,195 @@ var _ interface {
 	ErrorName() string
 } = GetDesiredStateGraphReqValidationError{}
 
+// Validate checks the field values on DesiredStateTimestamps with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DesiredStateTimestamps) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DesiredStateTimestamps with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DesiredStateTimestampsMultiError, or nil if none found.
+func (m *DesiredStateTimestamps) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DesiredStateTimestamps) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateTimestampsValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetLastUpdateTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastUpdateTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateTimestampsValidationError{
+				field:  "LastUpdateTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetReplacedTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "ReplacedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DesiredStateTimestampsValidationError{
+					field:  "ReplacedTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReplacedTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DesiredStateTimestampsValidationError{
+				field:  "ReplacedTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DesiredStateTimestampsMultiError(errors)
+	}
+
+	return nil
+}
+
+// DesiredStateTimestampsMultiError is an error wrapping multiple validation
+// errors returned by DesiredStateTimestamps.ValidateAll() if the designated
+// constraints aren't met.
+type DesiredStateTimestampsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DesiredStateTimestampsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DesiredStateTimestampsMultiError) AllErrors() []error { return m }
+
+// DesiredStateTimestampsValidationError is the validation error returned by
+// DesiredStateTimestamps.Validate if the designated constraints aren't met.
+type DesiredStateTimestampsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DesiredStateTimestampsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DesiredStateTimestampsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DesiredStateTimestampsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DesiredStateTimestampsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DesiredStateTimestampsValidationError) ErrorName() string {
+	return "DesiredStateTimestampsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DesiredStateTimestampsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDesiredStateTimestamps.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DesiredStateTimestampsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DesiredStateTimestampsValidationError{}
+
 // Validate checks the field values on GetDesiredStateGraphResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -3290,6 +3481,35 @@ func (m *GetDesiredStateGraphResp) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphRespValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Resp.(type) {
 	case *GetDesiredStateGraphResp_EntityGraph:

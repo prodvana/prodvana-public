@@ -165,7 +165,16 @@ message GetDesiredStateGraphReq {
     // For all interesting entities, also include all children up to the given depth. 0 means no children.
     int32 depth = 4;
 
-    // next tag: 5
+    bool include_desired_state_timestamps = 5;
+
+    // next tag: 6
+}
+
+message DesiredStateTimestamps {
+    google.protobuf.Timestamp creation_timestamp = 1;
+    google.protobuf.Timestamp last_update_timestamp = 2;
+    // will only be set if desired state has been replaced
+    google.protobuf.Timestamp replaced_timestamp = 3;
 }
 
 message GetDesiredStateGraphResp {
@@ -173,6 +182,8 @@ message GetDesiredStateGraphResp {
         prodvana.desired_state.model.EntityGraph entity_graph = 1;
         PendingSetDesiredState pending_set_desired_state = 2;
     }
+
+    DesiredStateTimestamps timestamps = 3;
 }
 
 message ValidateDesiredStateResp {

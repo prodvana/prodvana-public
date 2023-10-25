@@ -606,6 +606,7 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
     TYPE_FIELD_NUMBER: builtins.int
     REQUIRED_ANNOTATIONS_FIELD_NUMBER: builtins.int
     DEPTH_FIELD_NUMBER: builtins.int
+    INCLUDE_DESIRED_STATE_TIMESTAMPS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     """Root desired state id to get the graph for."""
     type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType
@@ -619,6 +620,7 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         """Which annotations are required for an entity to be considered interesting."""
     depth: builtins.int
     """For all interesting entities, also include all children up to the given depth. 0 means no children."""
+    include_desired_state_timestamps: builtins.bool
     def __init__(
         self,
         *,
@@ -626,29 +628,59 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType = ...,
         required_annotations: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations | None = ...,
         depth: builtins.int = ...,
+        include_desired_state_timestamps: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["required_annotations", b"required_annotations"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "required_annotations", b"required_annotations", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "include_desired_state_timestamps", b"include_desired_state_timestamps", "required_annotations", b"required_annotations", "type", b"type"]) -> None: ...
 
 global___GetDesiredStateGraphReq = GetDesiredStateGraphReq
+
+class DesiredStateTimestamps(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
+    REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    @property
+    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """will only be set if desired state has been replaced"""
+    def __init__(
+        self,
+        *,
+        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "last_update_timestamp", b"last_update_timestamp", "replaced_timestamp", b"replaced_timestamp"]) -> None: ...
+
+global___DesiredStateTimestamps = DesiredStateTimestamps
 
 class GetDesiredStateGraphResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
     PENDING_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    TIMESTAMPS_FIELD_NUMBER: builtins.int
     @property
     def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
     @property
     def pending_set_desired_state(self) -> global___PendingSetDesiredState: ...
+    @property
+    def timestamps(self) -> global___DesiredStateTimestamps: ...
     def __init__(
         self,
         *,
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
         pending_set_desired_state: global___PendingSetDesiredState | None = ...,
+        timestamps: global___DesiredStateTimestamps | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp", "timestamps", b"timestamps"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp", "timestamps", b"timestamps"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["resp", b"resp"]) -> typing_extensions.Literal["entity_graph", "pending_set_desired_state"] | None: ...
 
 global___GetDesiredStateGraphResp = GetDesiredStateGraphResp
