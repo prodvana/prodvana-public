@@ -42,7 +42,7 @@ var (
 
 	_ = async_task.TaskStatus(0)
 
-	_ = model.Status(0)
+	_ = model.Type(0)
 
 	_ = version.Source(0)
 )
@@ -3122,6 +3122,341 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetDesiredStateRespValidationError{}
+
+// Validate checks the field values on GetDesiredStateGraphReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetDesiredStateGraphReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetDesiredStateGraphReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetDesiredStateGraphReqMultiError, or nil if none found.
+func (m *GetDesiredStateGraphReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDesiredStateGraphReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
+		err := GetDesiredStateGraphReqValidationError{
+			field:  "DesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetRequiredAnnotations()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphReqValidationError{
+					field:  "RequiredAnnotations",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphReqValidationError{
+					field:  "RequiredAnnotations",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRequiredAnnotations()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphReqValidationError{
+				field:  "RequiredAnnotations",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Depth
+
+	if len(errors) > 0 {
+		return GetDesiredStateGraphReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDesiredStateGraphReqMultiError is an error wrapping multiple validation
+// errors returned by GetDesiredStateGraphReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetDesiredStateGraphReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDesiredStateGraphReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDesiredStateGraphReqMultiError) AllErrors() []error { return m }
+
+// GetDesiredStateGraphReqValidationError is the validation error returned by
+// GetDesiredStateGraphReq.Validate if the designated constraints aren't met.
+type GetDesiredStateGraphReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDesiredStateGraphReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDesiredStateGraphReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDesiredStateGraphReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDesiredStateGraphReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDesiredStateGraphReqValidationError) ErrorName() string {
+	return "GetDesiredStateGraphReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDesiredStateGraphReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDesiredStateGraphReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDesiredStateGraphReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDesiredStateGraphReqValidationError{}
+
+// Validate checks the field values on GetDesiredStateGraphResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetDesiredStateGraphResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetDesiredStateGraphResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetDesiredStateGraphRespMultiError, or nil if none found.
+func (m *GetDesiredStateGraphResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDesiredStateGraphResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.Resp.(type) {
+	case *GetDesiredStateGraphResp_EntityGraph:
+		if v == nil {
+			err := GetDesiredStateGraphRespValidationError{
+				field:  "Resp",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetEntityGraph()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetDesiredStateGraphRespValidationError{
+						field:  "EntityGraph",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetDesiredStateGraphRespValidationError{
+						field:  "EntityGraph",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEntityGraph()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetDesiredStateGraphRespValidationError{
+					field:  "EntityGraph",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *GetDesiredStateGraphResp_PendingSetDesiredState:
+		if v == nil {
+			err := GetDesiredStateGraphRespValidationError{
+				field:  "Resp",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetDesiredStateGraphRespValidationError{
+						field:  "PendingSetDesiredState",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetDesiredStateGraphRespValidationError{
+						field:  "PendingSetDesiredState",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetDesiredStateGraphRespValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return GetDesiredStateGraphRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDesiredStateGraphRespMultiError is an error wrapping multiple validation
+// errors returned by GetDesiredStateGraphResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetDesiredStateGraphRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDesiredStateGraphRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDesiredStateGraphRespMultiError) AllErrors() []error { return m }
+
+// GetDesiredStateGraphRespValidationError is the validation error returned by
+// GetDesiredStateGraphResp.Validate if the designated constraints aren't met.
+type GetDesiredStateGraphRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDesiredStateGraphRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDesiredStateGraphRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDesiredStateGraphRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDesiredStateGraphRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDesiredStateGraphRespValidationError) ErrorName() string {
+	return "GetDesiredStateGraphRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDesiredStateGraphRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDesiredStateGraphResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDesiredStateGraphRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDesiredStateGraphRespValidationError{}
 
 // Validate checks the field values on ValidateDesiredStateResp with the rules
 // defined in the proto definition for this message. If any rules are

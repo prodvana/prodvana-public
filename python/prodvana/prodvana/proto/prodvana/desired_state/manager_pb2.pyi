@@ -599,6 +599,60 @@ class GetDesiredStateResp(google.protobuf.message.Message):
 
 global___GetDesiredStateResp = GetDesiredStateResp
 
+class GetDesiredStateGraphReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    REQUIRED_ANNOTATIONS_FIELD_NUMBER: builtins.int
+    DEPTH_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    """Root desired state id to get the graph for."""
+    type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType
+    """Find interesting entities in the graph.
+    Which entities are interesting is defined by the type and required_annotations fields.
+
+    Which type of entities to find. Set to UNKNOWN to find all entities.
+    """
+    @property
+    def required_annotations(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations:
+        """Which annotations are required for an entity to be considered interesting."""
+    depth: builtins.int
+    """For all interesting entities, also include all children up to the given depth. 0 means no children."""
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType = ...,
+        required_annotations: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations | None = ...,
+        depth: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["required_annotations", b"required_annotations"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "required_annotations", b"required_annotations", "type", b"type"]) -> None: ...
+
+global___GetDesiredStateGraphReq = GetDesiredStateGraphReq
+
+class GetDesiredStateGraphResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_GRAPH_FIELD_NUMBER: builtins.int
+    PENDING_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    @property
+    def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
+    @property
+    def pending_set_desired_state(self) -> global___PendingSetDesiredState: ...
+    def __init__(
+        self,
+        *,
+        entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
+        pending_set_desired_state: global___PendingSetDesiredState | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["resp", b"resp"]) -> typing_extensions.Literal["entity_graph", "pending_set_desired_state"] | None: ...
+
+global___GetDesiredStateGraphResp = GetDesiredStateGraphResp
+
 class ValidateDesiredStateResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

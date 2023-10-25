@@ -404,6 +404,76 @@ func local_request_DesiredStateManager_GetDesiredState_0(ctx context.Context, ma
 }
 
 var (
+	filter_DesiredStateManager_GetDesiredStateGraph_0 = &utilities.DoubleArray{Encoding: map[string]int{"desired_state_id": 0, "desiredStateId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_DesiredStateManager_GetDesiredStateGraph_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDesiredStateGraphReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["desired_state_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "desired_state_id")
+	}
+
+	protoReq.DesiredStateId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDesiredStateGraph_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetDesiredStateGraph(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DesiredStateManager_GetDesiredStateGraph_0(ctx context.Context, marshaler runtime.Marshaler, server DesiredStateManagerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDesiredStateGraphReq
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["desired_state_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "desired_state_id")
+	}
+
+	protoReq.DesiredStateId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDesiredStateGraph_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetDesiredStateGraph(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
 	filter_DesiredStateManager_GetDesiredStateConvergenceSummary_0 = &utilities.DoubleArray{Encoding: map[string]int{"desired_state_id": 0, "desiredStateId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
 )
 
@@ -765,6 +835,31 @@ func RegisterDesiredStateManagerHandlerServer(ctx context.Context, mux *runtime.
 
 	})
 
+	mux.Handle("GET", pattern_DesiredStateManager_GetDesiredStateGraph_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/prodvana.desired_state.DesiredStateManager/GetDesiredStateGraph", runtime.WithHTTPPathPattern("/v1/desired_states/{desired_state_id=*}/graph"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DesiredStateManager_GetDesiredStateGraph_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DesiredStateManager_GetDesiredStateGraph_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_DesiredStateManager_GetDesiredStateConvergenceSummary_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1063,6 +1158,28 @@ func RegisterDesiredStateManagerHandlerClient(ctx context.Context, mux *runtime.
 
 	})
 
+	mux.Handle("GET", pattern_DesiredStateManager_GetDesiredStateGraph_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/prodvana.desired_state.DesiredStateManager/GetDesiredStateGraph", runtime.WithHTTPPathPattern("/v1/desired_states/{desired_state_id=*}/graph"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DesiredStateManager_GetDesiredStateGraph_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DesiredStateManager_GetDesiredStateGraph_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_DesiredStateManager_GetDesiredStateConvergenceSummary_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1189,6 +1306,8 @@ var (
 
 	pattern_DesiredStateManager_GetDesiredState_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "desired_states", "desired_state_id"}, ""))
 
+	pattern_DesiredStateManager_GetDesiredStateGraph_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "desired_states", "desired_state_id", "graph"}, ""))
+
 	pattern_DesiredStateManager_GetDesiredStateConvergenceSummary_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "desired_states", "desired_state_id", "summary"}, ""))
 
 	pattern_DesiredStateManager_ValidateDesiredState_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "desired_states", "validate"}, ""))
@@ -1212,6 +1331,8 @@ var (
 	forward_DesiredStateManager_GetServiceDesiredStateHistory_0 = runtime.ForwardResponseMessage
 
 	forward_DesiredStateManager_GetDesiredState_0 = runtime.ForwardResponseMessage
+
+	forward_DesiredStateManager_GetDesiredStateGraph_0 = runtime.ForwardResponseMessage
 
 	forward_DesiredStateManager_GetDesiredStateConvergenceSummary_0 = runtime.ForwardResponseMessage
 

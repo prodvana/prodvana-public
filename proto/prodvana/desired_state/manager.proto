@@ -148,6 +148,33 @@ message GetDesiredStateResp {
     prodvana.desired_state.model.State compiled_desired_state = 2;
 }
 
+message GetDesiredStateGraphReq {
+    // Root desired state id to get the graph for.
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+
+    // NOTE: Root entity is always returned.
+
+    // Find interesting entities in the graph.
+    // Which entities are interesting is defined by the type and required_annotations fields.
+
+    // Which type of entities to find. Set to UNKNOWN to find all entities.
+    prodvana.desired_state.model.Type type = 2;
+    // Which annotations are required for an entity to be considered interesting.
+    prodvana.desired_state.model.Annotations required_annotations = 3;
+
+    // For all interesting entities, also include all children up to the given depth. 0 means no children.
+    int32 depth = 4;
+
+    // next tag: 5
+}
+
+message GetDesiredStateGraphResp {
+    oneof resp {
+        prodvana.desired_state.model.EntityGraph entity_graph = 1;
+        PendingSetDesiredState pending_set_desired_state = 2;
+    }
+}
+
 message ValidateDesiredStateResp {
     prodvana.desired_state.model.State desired_state = 1;
     prodvana.desired_state.model.State compiled_desired_state = 2;
@@ -219,6 +246,11 @@ service DesiredStateManager {
     rpc GetDesiredState(GetDesiredStateReq) returns (GetDesiredStateResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/{desired_state_id=*}"
+        };
+    }
+    rpc GetDesiredStateGraph(GetDesiredStateGraphReq) returns (GetDesiredStateGraphResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/graph"
         };
     }
     // Get the convergence summary for a desired state id.

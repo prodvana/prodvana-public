@@ -25,6 +25,7 @@ const (
 	DesiredStateManager_GetServiceLastConvergedStates_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceLastConvergedStates"
 	DesiredStateManager_GetServiceDesiredStateHistory_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateHistory"
 	DesiredStateManager_GetDesiredState_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/GetDesiredState"
+	DesiredStateManager_GetDesiredStateGraph_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/GetDesiredStateGraph"
 	DesiredStateManager_GetDesiredStateConvergenceSummary_FullMethodName        = "/prodvana.desired_state.DesiredStateManager/GetDesiredStateConvergenceSummary"
 	DesiredStateManager_ValidateDesiredState_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/ValidateDesiredState"
 	DesiredStateManager_SetManualApproval_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/SetManualApproval"
@@ -44,6 +45,7 @@ type DesiredStateManagerClient interface {
 	GetServiceLastConvergedStates(ctx context.Context, in *GetServiceLastConvergedStateReq, opts ...grpc.CallOption) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(ctx context.Context, in *GetServiceDesiredStateHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*GetDesiredStateResp, error)
+	GetDesiredStateGraph(ctx context.Context, in *GetDesiredStateGraphReq, opts ...grpc.CallOption) (*GetDesiredStateGraphResp, error)
 	// Get the convergence summary for a desired state id.
 	// If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
 	// The status will be set to PENDING_SET_DESIRED_STATE.
@@ -118,6 +120,15 @@ func (c *desiredStateManagerClient) GetDesiredState(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) GetDesiredStateGraph(ctx context.Context, in *GetDesiredStateGraphReq, opts ...grpc.CallOption) (*GetDesiredStateGraphResp, error) {
+	out := new(GetDesiredStateGraphResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetDesiredStateGraph_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *desiredStateManagerClient) GetDesiredStateConvergenceSummary(ctx context.Context, in *GetDesiredStateConvergenceReq, opts ...grpc.CallOption) (*GetDesiredStateConvergenceSummaryResp, error) {
 	out := new(GetDesiredStateConvergenceSummaryResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_GetDesiredStateConvergenceSummary_FullMethodName, in, out, opts...)
@@ -175,6 +186,7 @@ type DesiredStateManagerServer interface {
 	GetServiceLastConvergedStates(context.Context, *GetServiceLastConvergedStateReq) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(context.Context, *GetServiceDesiredStateHistoryReq) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(context.Context, *GetDesiredStateReq) (*GetDesiredStateResp, error)
+	GetDesiredStateGraph(context.Context, *GetDesiredStateGraphReq) (*GetDesiredStateGraphResp, error)
 	// Get the convergence summary for a desired state id.
 	// If the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.
 	// The status will be set to PENDING_SET_DESIRED_STATE.
@@ -209,6 +221,9 @@ func (UnimplementedDesiredStateManagerServer) GetServiceDesiredStateHistory(cont
 }
 func (UnimplementedDesiredStateManagerServer) GetDesiredState(context.Context, *GetDesiredStateReq) (*GetDesiredStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredState not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetDesiredStateGraph(context.Context, *GetDesiredStateGraphReq) (*GetDesiredStateGraphResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredStateGraph not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) GetDesiredStateConvergenceSummary(context.Context, *GetDesiredStateConvergenceReq) (*GetDesiredStateConvergenceSummaryResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredStateConvergenceSummary not implemented")
@@ -346,6 +361,24 @@ func _DesiredStateManager_GetDesiredState_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_GetDesiredStateGraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDesiredStateGraphReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetDesiredStateGraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetDesiredStateGraph_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetDesiredStateGraph(ctx, req.(*GetDesiredStateGraphReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DesiredStateManager_GetDesiredStateConvergenceSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetDesiredStateConvergenceReq)
 	if err := dec(in); err != nil {
@@ -466,6 +499,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDesiredState",
 			Handler:    _DesiredStateManager_GetDesiredState_Handler,
+		},
+		{
+			MethodName: "GetDesiredStateGraph",
+			Handler:    _DesiredStateManager_GetDesiredStateGraph_Handler,
 		},
 		{
 			MethodName: "GetDesiredStateConvergenceSummary",

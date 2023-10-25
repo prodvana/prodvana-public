@@ -44,6 +44,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateResp.FromString,
                 )
+        self.GetDesiredStateGraph = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetDesiredStateGraph',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphResp.FromString,
+                )
         self.GetDesiredStateConvergenceSummary = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetDesiredStateConvergenceSummary',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateConvergenceReq.SerializeToString,
@@ -107,6 +112,12 @@ class DesiredStateManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetDesiredState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetDesiredStateGraph(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -179,6 +190,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.GetDesiredState,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateResp.SerializeToString,
+            ),
+            'GetDesiredStateGraph': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDesiredStateGraph,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphResp.SerializeToString,
             ),
             'GetDesiredStateConvergenceSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDesiredStateConvergenceSummary,
@@ -314,6 +330,23 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetDesiredState',
             prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetDesiredStateGraph(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetDesiredStateGraph',
+            prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateGraphResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

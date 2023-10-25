@@ -35,6 +35,10 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateResp,
     ]
+    GetDesiredStateGraph: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateGraphReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateGraphResp,
+    ]
     GetDesiredStateConvergenceSummary: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateConvergenceSummaryResp,
@@ -102,6 +106,12 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateResp: ...
+    @abc.abstractmethod
+    def GetDesiredStateGraph(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateGraphReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateGraphResp: ...
     @abc.abstractmethod
     def GetDesiredStateConvergenceSummary(
         self,
