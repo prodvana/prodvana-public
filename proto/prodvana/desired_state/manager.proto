@@ -149,8 +149,16 @@ message GetDesiredStateResp {
 }
 
 message GetDesiredStateGraphReq {
+    message QueryByService {
+        string application = 1 [(validate.rules).string.min_len = 1];
+        string service = 2 [(validate.rules).string.min_len = 1];
+    }
+
     // Root desired state id to get the graph for.
-    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    oneof query {
+        string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+        QueryByService query_by_service = 6;
+    }
 
     // NOTE: Root entity is always returned.
 
@@ -167,7 +175,7 @@ message GetDesiredStateGraphReq {
 
     bool include_desired_state_timestamps = 5;
 
-    // next tag: 6
+    // next tag: 7
 }
 
 message DesiredStateTimestamps {

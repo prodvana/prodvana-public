@@ -423,7 +423,12 @@ func request_DesiredStateManager_GetDesiredStateGraph_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "desired_state_id")
 	}
 
-	protoReq.DesiredStateId, err = runtime.String(val)
+	if protoReq.Query == nil {
+		protoReq.Query = &GetDesiredStateGraphReq_DesiredStateId{}
+	} else if _, ok := protoReq.Query.(*GetDesiredStateGraphReq_DesiredStateId); !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "expect type: *GetDesiredStateGraphReq_DesiredStateId, but: %t\n", protoReq.Query)
+	}
+	protoReq.Query.(*GetDesiredStateGraphReq_DesiredStateId).DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
 	}
@@ -456,7 +461,12 @@ func local_request_DesiredStateManager_GetDesiredStateGraph_0(ctx context.Contex
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "desired_state_id")
 	}
 
-	protoReq.DesiredStateId, err = runtime.String(val)
+	if protoReq.Query == nil {
+		protoReq.Query = &GetDesiredStateGraphReq_DesiredStateId{}
+	} else if _, ok := protoReq.Query.(*GetDesiredStateGraphReq_DesiredStateId); !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "expect type: *GetDesiredStateGraphReq_DesiredStateId, but: %t\n", protoReq.Query)
+	}
+	protoReq.Query.(*GetDesiredStateGraphReq_DesiredStateId).DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
 	}
