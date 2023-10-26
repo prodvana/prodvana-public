@@ -3539,6 +3539,64 @@ func (m *GetDesiredStateGraphResp) validate(all bool) error {
 	var errors []error
 
 	if all {
+		switch v := interface{}(m.GetEntityGraph()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "EntityGraph",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "EntityGraph",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityGraph()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphRespValidationError{
+				field:  "EntityGraph",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphRespValidationError{
+				field:  "PendingSetDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -3565,93 +3623,6 @@ func (m *GetDesiredStateGraphResp) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	switch v := m.Resp.(type) {
-	case *GetDesiredStateGraphResp_EntityGraph:
-		if v == nil {
-			err := GetDesiredStateGraphRespValidationError{
-				field:  "Resp",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetEntityGraph()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GetDesiredStateGraphRespValidationError{
-						field:  "EntityGraph",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GetDesiredStateGraphRespValidationError{
-						field:  "EntityGraph",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetEntityGraph()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetDesiredStateGraphRespValidationError{
-					field:  "EntityGraph",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *GetDesiredStateGraphResp_PendingSetDesiredState:
-		if v == nil {
-			err := GetDesiredStateGraphRespValidationError{
-				field:  "Resp",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GetDesiredStateGraphRespValidationError{
-						field:  "PendingSetDesiredState",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GetDesiredStateGraphRespValidationError{
-						field:  "PendingSetDesiredState",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetDesiredStateGraphRespValidationError{
-					field:  "PendingSetDesiredState",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	default:
-		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
@@ -3884,62 +3855,35 @@ func (m *GetServiceLatestDesiredStateIdResp) validate(all bool) error {
 
 	var errors []error
 
-	switch v := m.Resp.(type) {
-	case *GetServiceLatestDesiredStateIdResp_DesiredStateId:
-		if v == nil {
-			err := GetServiceLatestDesiredStateIdRespValidationError{
-				field:  "Resp",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-		// no validation rules for DesiredStateId
-	case *GetServiceLatestDesiredStateIdResp_PendingSetDesiredState:
-		if v == nil {
-			err := GetServiceLatestDesiredStateIdRespValidationError{
-				field:  "Resp",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for DesiredStateId
 
-		if all {
-			switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
-						field:  "PendingSetDesiredState",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
-						field:  "PendingSetDesiredState",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetServiceLatestDesiredStateIdRespValidationError{
+	if all {
+		switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
 					field:  "PendingSetDesiredState",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
-	default:
-		_ = v // ensures v is used
+	} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetServiceLatestDesiredStateIdRespValidationError{
+				field:  "PendingSetDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {

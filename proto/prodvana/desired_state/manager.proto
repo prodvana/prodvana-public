@@ -188,11 +188,9 @@ message DesiredStateTimestamps {
 }
 
 message GetDesiredStateGraphResp {
-    oneof resp {
-        prodvana.desired_state.model.EntityGraph entity_graph = 1;
-        PendingSetDesiredState pending_set_desired_state = 2;
-    }
-
+    prodvana.desired_state.model.EntityGraph entity_graph = 1;
+    // will only be set if DS was queried by service and there is a pending set desired state
+    PendingSetDesiredState pending_set_desired_state = 2;
     DesiredStateTimestamps timestamps = 3;
 }
 
@@ -202,10 +200,8 @@ message GetServiceLatestDesiredStateIdReq {
 }
 
 message GetServiceLatestDesiredStateIdResp {
-    oneof resp {
-        string desired_state_id = 1;
-        PendingSetDesiredState pending_set_desired_state = 2;
-    }
+    string desired_state_id = 1;
+    PendingSetDesiredState pending_set_desired_state = 2;
 }
 
 message ValidateDesiredStateResp {
@@ -288,7 +284,8 @@ service DesiredStateManager {
     }
     rpc GetDesiredStateGraph(GetDesiredStateGraphReq) returns (GetDesiredStateGraphResp) {
         option (google.api.http) = {
-            get: "/v1/desired_states/{desired_state_id=*}/graph"
+            post: "/v1/desired_states/graph"
+            body: "*"
         };
     }
     // Get the convergence summary for a desired state id.
