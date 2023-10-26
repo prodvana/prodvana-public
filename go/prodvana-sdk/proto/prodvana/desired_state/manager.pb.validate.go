@@ -3145,8 +3145,6 @@ func (m *GetDesiredStateGraphReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Type
-
 	if all {
 		switch v := interface{}(m.GetRequiredAnnotations()).(type) {
 		case interface{ ValidateAll() error }:

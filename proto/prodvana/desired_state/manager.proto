@@ -165,8 +165,8 @@ message GetDesiredStateGraphReq {
     // Find interesting entities in the graph.
     // Which entities are interesting is defined by the type and required_annotations fields.
 
-    // Which type of entities to find. Set to UNKNOWN to find all entities.
-    prodvana.desired_state.model.Type type = 2;
+    // Which type of entities to find. Empty list to find all entities.
+    repeated prodvana.desired_state.model.Type types = 7;
     // Which annotations are required for an entity to be considered interesting.
     prodvana.desired_state.model.Annotations required_annotations = 3;
 
@@ -175,7 +175,9 @@ message GetDesiredStateGraphReq {
 
     bool include_desired_state_timestamps = 5;
 
-    // next tag: 7
+    reserved 2;
+    reserved "type";
+    // next tag: 8
 }
 
 message DesiredStateTimestamps {

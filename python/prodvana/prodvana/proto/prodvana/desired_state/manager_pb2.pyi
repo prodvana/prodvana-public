@@ -619,19 +619,20 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     QUERY_BY_SERVICE_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
+    TYPES_FIELD_NUMBER: builtins.int
     REQUIRED_ANNOTATIONS_FIELD_NUMBER: builtins.int
     DEPTH_FIELD_NUMBER: builtins.int
     INCLUDE_DESIRED_STATE_TIMESTAMPS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     @property
     def query_by_service(self) -> global___GetDesiredStateGraphReq.QueryByService: ...
-    type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType
-    """Find interesting entities in the graph.
-    Which entities are interesting is defined by the type and required_annotations fields.
+    @property
+    def types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType]:
+        """Find interesting entities in the graph.
+        Which entities are interesting is defined by the type and required_annotations fields.
 
-    Which type of entities to find. Set to UNKNOWN to find all entities.
-    """
+        Which type of entities to find. Empty list to find all entities.
+        """
     @property
     def required_annotations(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations:
         """Which annotations are required for an entity to be considered interesting."""
@@ -643,13 +644,13 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         *,
         desired_state_id: builtins.str = ...,
         query_by_service: global___GetDesiredStateGraphReq.QueryByService | None = ...,
-        type: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType = ...,
+        types: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType] | None = ...,
         required_annotations: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations | None = ...,
         depth: builtins.int = ...,
         include_desired_state_timestamps: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "include_desired_state_timestamps", b"include_desired_state_timestamps", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "include_desired_state_timestamps", b"include_desired_state_timestamps", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "types", b"types"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["query", b"query"]) -> typing_extensions.Literal["desired_state_id", "query_by_service"] | None: ...
 
 global___GetDesiredStateGraphReq = GetDesiredStateGraphReq
