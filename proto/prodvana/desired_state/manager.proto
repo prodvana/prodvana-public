@@ -169,15 +169,21 @@ message GetDesiredStateGraphReq {
     repeated prodvana.desired_state.model.Type types = 7;
     // Which annotations are required for an entity to be considered interesting.
     prodvana.desired_state.model.Annotations required_annotations = 3;
+    repeated string required_entity_names = 9;
 
     // For all interesting entities, also include all children up to the given depth. 0 means no children.
     int32 depth = 4;
+    message DepthOverrideByStatus {
+        prodvana.desired_state.model.Status status = 1;
+        int32 depth = 2;
+    }
+    repeated DepthOverrideByStatus depth_overrides_by_status = 8;
 
     bool include_desired_state_timestamps = 5;
 
     reserved 2;
     reserved "type";
-    // next tag: 8
+    // next tag: 10
 }
 
 message DesiredStateTimestamps {

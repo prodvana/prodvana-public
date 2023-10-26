@@ -617,11 +617,28 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service", b"service"]) -> None: ...
 
+    class DepthOverrideByStatus(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        STATUS_FIELD_NUMBER: builtins.int
+        DEPTH_FIELD_NUMBER: builtins.int
+        status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType
+        depth: builtins.int
+        def __init__(
+            self,
+            *,
+            status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType = ...,
+            depth: builtins.int = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "status", b"status"]) -> None: ...
+
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     QUERY_BY_SERVICE_FIELD_NUMBER: builtins.int
     TYPES_FIELD_NUMBER: builtins.int
     REQUIRED_ANNOTATIONS_FIELD_NUMBER: builtins.int
+    REQUIRED_ENTITY_NAMES_FIELD_NUMBER: builtins.int
     DEPTH_FIELD_NUMBER: builtins.int
+    DEPTH_OVERRIDES_BY_STATUS_FIELD_NUMBER: builtins.int
     INCLUDE_DESIRED_STATE_TIMESTAMPS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     @property
@@ -636,8 +653,12 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
     @property
     def required_annotations(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations:
         """Which annotations are required for an entity to be considered interesting."""
+    @property
+    def required_entity_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     depth: builtins.int
     """For all interesting entities, also include all children up to the given depth. 0 means no children."""
+    @property
+    def depth_overrides_by_status(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GetDesiredStateGraphReq.DepthOverrideByStatus]: ...
     include_desired_state_timestamps: builtins.bool
     def __init__(
         self,
@@ -646,11 +667,13 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         query_by_service: global___GetDesiredStateGraphReq.QueryByService | None = ...,
         types: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType] | None = ...,
         required_annotations: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations | None = ...,
+        required_entity_names: collections.abc.Iterable[builtins.str] | None = ...,
         depth: builtins.int = ...,
+        depth_overrides_by_status: collections.abc.Iterable[global___GetDesiredStateGraphReq.DepthOverrideByStatus] | None = ...,
         include_desired_state_timestamps: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "desired_state_id", b"desired_state_id", "include_desired_state_timestamps", b"include_desired_state_timestamps", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "types", b"types"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "depth_overrides_by_status", b"depth_overrides_by_status", "desired_state_id", b"desired_state_id", "include_desired_state_timestamps", b"include_desired_state_timestamps", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "required_entity_names", b"required_entity_names", "types", b"types"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["query", b"query"]) -> typing_extensions.Literal["desired_state_id", "query_by_service"] | None: ...
 
 global___GetDesiredStateGraphReq = GetDesiredStateGraphReq

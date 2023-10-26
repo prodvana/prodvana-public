@@ -42,7 +42,7 @@ var (
 
 	_ = async_task.TaskStatus(0)
 
-	_ = model.Type(0)
+	_ = model.Status(0)
 
 	_ = version.Source(0)
 )
@@ -3176,6 +3176,40 @@ func (m *GetDesiredStateGraphReq) validate(all bool) error {
 
 	// no validation rules for Depth
 
+	for idx, item := range m.GetDepthOverridesByStatus() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetDesiredStateGraphReqValidationError{
+						field:  fmt.Sprintf("DepthOverridesByStatus[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetDesiredStateGraphReqValidationError{
+						field:  fmt.Sprintf("DepthOverridesByStatus[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetDesiredStateGraphReqValidationError{
+					field:  fmt.Sprintf("DepthOverridesByStatus[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	// no validation rules for IncludeDesiredStateTimestamps
 
 	switch v := m.Query.(type) {
@@ -4941,3 +4975,116 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetDesiredStateGraphReq_QueryByServiceValidationError{}
+
+// Validate checks the field values on
+// GetDesiredStateGraphReq_DepthOverrideByStatus with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GetDesiredStateGraphReq_DepthOverrideByStatus) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetDesiredStateGraphReq_DepthOverrideByStatus with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// GetDesiredStateGraphReq_DepthOverrideByStatusMultiError, or nil if none found.
+func (m *GetDesiredStateGraphReq_DepthOverrideByStatus) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDesiredStateGraphReq_DepthOverrideByStatus) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	// no validation rules for Depth
+
+	if len(errors) > 0 {
+		return GetDesiredStateGraphReq_DepthOverrideByStatusMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDesiredStateGraphReq_DepthOverrideByStatusMultiError is an error wrapping
+// multiple validation errors returned by
+// GetDesiredStateGraphReq_DepthOverrideByStatus.ValidateAll() if the
+// designated constraints aren't met.
+type GetDesiredStateGraphReq_DepthOverrideByStatusMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDesiredStateGraphReq_DepthOverrideByStatusMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDesiredStateGraphReq_DepthOverrideByStatusMultiError) AllErrors() []error { return m }
+
+// GetDesiredStateGraphReq_DepthOverrideByStatusValidationError is the
+// validation error returned by
+// GetDesiredStateGraphReq_DepthOverrideByStatus.Validate if the designated
+// constraints aren't met.
+type GetDesiredStateGraphReq_DepthOverrideByStatusValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) ErrorName() string {
+	return "GetDesiredStateGraphReq_DepthOverrideByStatusValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDesiredStateGraphReq_DepthOverrideByStatusValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDesiredStateGraphReq_DepthOverrideByStatus.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDesiredStateGraphReq_DepthOverrideByStatusValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDesiredStateGraphReq_DepthOverrideByStatusValidationError{}
