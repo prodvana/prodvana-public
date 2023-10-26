@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.release;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/repo/repo.proto";
 import "validate/validate.proto";
@@ -31,8 +32,7 @@ message ReleaseState {
 message ImpactAnalysisComparison {
     // commits likely to be impactful, prev_commit_id and new_commit_id have a merge base
     repeated prodvana.repo.Commit relevant_commits = 1;
-    int64 total_commits = 2;
-    int64 unanalyzed_commits = 3;
+    int64 unanalyzed_commits = 2;
 }
 
 message ReleaseComparison {
@@ -42,6 +42,7 @@ message ReleaseComparison {
     string prev_commit_id = 4;
     string new_commit_id = 5;
     ImpactAnalysisComparison impact_analysis = 6;
+    google.protobuf.Int64Value total_commits = 7; // only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana
 }
 
 message Release {

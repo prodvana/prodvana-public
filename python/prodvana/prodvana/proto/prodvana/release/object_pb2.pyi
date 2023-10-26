@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import google.protobuf.wrappers_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.repo.repo_pb2
 import sys
@@ -101,21 +102,18 @@ class ImpactAnalysisComparison(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RELEVANT_COMMITS_FIELD_NUMBER: builtins.int
-    TOTAL_COMMITS_FIELD_NUMBER: builtins.int
     UNANALYZED_COMMITS_FIELD_NUMBER: builtins.int
     @property
     def relevant_commits(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.repo.repo_pb2.Commit]:
         """commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"""
-    total_commits: builtins.int
     unanalyzed_commits: builtins.int
     def __init__(
         self,
         *,
         relevant_commits: collections.abc.Iterable[prodvana.proto.prodvana.repo.repo_pb2.Commit] | None = ...,
-        total_commits: builtins.int = ...,
         unanalyzed_commits: builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["relevant_commits", b"relevant_commits", "total_commits", b"total_commits", "unanalyzed_commits", b"unanalyzed_commits"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["relevant_commits", b"relevant_commits", "unanalyzed_commits", b"unanalyzed_commits"]) -> None: ...
 
 global___ImpactAnalysisComparison = ImpactAnalysisComparison
 
@@ -128,6 +126,7 @@ class ReleaseComparison(google.protobuf.message.Message):
     PREV_COMMIT_ID_FIELD_NUMBER: builtins.int
     NEW_COMMIT_ID_FIELD_NUMBER: builtins.int
     IMPACT_ANALYSIS_FIELD_NUMBER: builtins.int
+    TOTAL_COMMITS_FIELD_NUMBER: builtins.int
     @property
     def prev(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     prev_repository: builtins.str
@@ -136,6 +135,9 @@ class ReleaseComparison(google.protobuf.message.Message):
     new_commit_id: builtins.str
     @property
     def impact_analysis(self) -> global___ImpactAnalysisComparison: ...
+    @property
+    def total_commits(self) -> google.protobuf.wrappers_pb2.Int64Value:
+        """only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"""
     def __init__(
         self,
         *,
@@ -145,9 +147,10 @@ class ReleaseComparison(google.protobuf.message.Message):
         prev_commit_id: builtins.str = ...,
         new_commit_id: builtins.str = ...,
         impact_analysis: global___ImpactAnalysisComparison | None = ...,
+        total_commits: google.protobuf.wrappers_pb2.Int64Value | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "prev", b"prev"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "new_commit_id", b"new_commit_id", "new_repository", b"new_repository", "prev", b"prev", "prev_commit_id", b"prev_commit_id", "prev_repository", b"prev_repository"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "prev", b"prev", "total_commits", b"total_commits"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "new_commit_id", b"new_commit_id", "new_repository", b"new_repository", "prev", b"prev", "prev_commit_id", b"prev_commit_id", "prev_repository", b"prev_repository", "total_commits", b"total_commits"]) -> None: ...
 
 global___ReleaseComparison = ReleaseComparison
 
