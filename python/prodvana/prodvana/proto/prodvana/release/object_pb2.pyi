@@ -101,15 +101,21 @@ class ImpactAnalysisComparison(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RELEVANT_COMMITS_FIELD_NUMBER: builtins.int
+    TOTAL_COMMITS_FIELD_NUMBER: builtins.int
+    UNANALYZED_COMMITS_FIELD_NUMBER: builtins.int
     @property
     def relevant_commits(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.repo.repo_pb2.Commit]:
         """commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"""
+    total_commits: builtins.int
+    unanalyzed_commits: builtins.int
     def __init__(
         self,
         *,
         relevant_commits: collections.abc.Iterable[prodvana.proto.prodvana.repo.repo_pb2.Commit] | None = ...,
+        total_commits: builtins.int = ...,
+        unanalyzed_commits: builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["relevant_commits", b"relevant_commits"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["relevant_commits", b"relevant_commits", "total_commits", b"total_commits", "unanalyzed_commits", b"unanalyzed_commits"]) -> None: ...
 
 global___ImpactAnalysisComparison = ImpactAnalysisComparison
 

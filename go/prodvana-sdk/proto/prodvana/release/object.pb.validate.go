@@ -389,6 +389,10 @@ func (m *ImpactAnalysisComparison) validate(all bool) error {
 
 	}
 
+	// no validation rules for TotalCommits
+
+	// no validation rules for UnanalyzedCommits
+
 	if len(errors) > 0 {
 		return ImpactAnalysisComparisonMultiError(errors)
 	}
