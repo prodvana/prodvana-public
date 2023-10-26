@@ -29,6 +29,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryResp.FromString,
                 )
+        self.GetServiceLatestDesiredStateId = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetServiceLatestDesiredStateId',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.FromString,
+                )
         self.GetServiceLastConvergedStates = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetServiceLastConvergedStates',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLastConvergedStateReq.SerializeToString,
@@ -94,6 +99,12 @@ class DesiredStateManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetServiceDesiredStateConvergenceSummary(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceLatestDesiredStateId(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -175,6 +186,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.GetServiceDesiredStateConvergenceSummary,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryResp.SerializeToString,
+            ),
+            'GetServiceLatestDesiredStateId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceLatestDesiredStateId,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.SerializeToString,
             ),
             'GetServiceLastConvergedStates': grpc.unary_unary_rpc_method_handler(
                     servicer.GetServiceLastConvergedStates,
@@ -279,6 +295,23 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateConvergenceSummary',
             prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateConvergenceSummaryResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetServiceLatestDesiredStateId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceLatestDesiredStateId',
+            prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

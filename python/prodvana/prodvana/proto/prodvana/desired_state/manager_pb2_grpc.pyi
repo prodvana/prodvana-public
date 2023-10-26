@@ -23,6 +23,10 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryResp,
     ]
+    GetServiceLatestDesiredStateId: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestDesiredStateIdReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestDesiredStateIdResp,
+    ]
     GetServiceLastConvergedStates: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLastConvergedStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLastConvergedStateResp,
@@ -88,6 +92,12 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceDesiredStateConvergenceSummaryResp: ...
+    @abc.abstractmethod
+    def GetServiceLatestDesiredStateId(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestDesiredStateIdReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestDesiredStateIdResp: ...
     @abc.abstractmethod
     def GetServiceLastConvergedStates(
         self,

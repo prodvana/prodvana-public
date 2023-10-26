@@ -705,6 +705,43 @@ class GetDesiredStateGraphResp(google.protobuf.message.Message):
 
 global___GetDesiredStateGraphResp = GetDesiredStateGraphResp
 
+class GetServiceLatestDesiredStateIdReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service", b"service"]) -> None: ...
+
+global___GetServiceLatestDesiredStateIdReq = GetServiceLatestDesiredStateIdReq
+
+class GetServiceLatestDesiredStateIdResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    PENDING_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    @property
+    def pending_set_desired_state(self) -> global___PendingSetDesiredState: ...
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        pending_set_desired_state: global___PendingSetDesiredState | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "pending_set_desired_state", b"pending_set_desired_state", "resp", b"resp"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["resp", b"resp"]) -> typing_extensions.Literal["desired_state_id", "pending_set_desired_state"] | None: ...
+
+global___GetServiceLatestDesiredStateIdResp = GetServiceLatestDesiredStateIdResp
+
 class ValidateDesiredStateResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

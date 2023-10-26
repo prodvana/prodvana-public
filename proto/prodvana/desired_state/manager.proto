@@ -196,6 +196,18 @@ message GetDesiredStateGraphResp {
     DesiredStateTimestamps timestamps = 3;
 }
 
+message GetServiceLatestDesiredStateIdReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetServiceLatestDesiredStateIdResp {
+    oneof resp {
+        string desired_state_id = 1;
+        PendingSetDesiredState pending_set_desired_state = 2;
+    }
+}
+
 message ValidateDesiredStateResp {
     prodvana.desired_state.model.State desired_state = 1;
     prodvana.desired_state.model.State compiled_desired_state = 2;
@@ -252,6 +264,11 @@ service DesiredStateManager {
     rpc GetServiceDesiredStateConvergenceSummary(GetServiceDesiredStateConvergenceSummaryReq) returns (GetServiceDesiredStateConvergenceSummaryResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/latest_desired_state"
+        };
+    }
+    rpc GetServiceLatestDesiredStateId(GetServiceLatestDesiredStateIdReq) returns (GetServiceLatestDesiredStateIdResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/latest_desired_state_id"
         };
     }
     rpc GetServiceLastConvergedStates(GetServiceLastConvergedStateReq) returns (GetServiceLastConvergedStateResp) {

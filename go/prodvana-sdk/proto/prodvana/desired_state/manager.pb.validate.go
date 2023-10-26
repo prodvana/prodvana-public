@@ -3734,6 +3734,296 @@ var _ interface {
 	ErrorName() string
 } = GetDesiredStateGraphRespValidationError{}
 
+// Validate checks the field values on GetServiceLatestDesiredStateIdReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetServiceLatestDesiredStateIdReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceLatestDesiredStateIdReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetServiceLatestDesiredStateIdReqMultiError, or nil if none found.
+func (m *GetServiceLatestDesiredStateIdReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceLatestDesiredStateIdReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GetServiceLatestDesiredStateIdReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := GetServiceLatestDesiredStateIdReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetServiceLatestDesiredStateIdReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceLatestDesiredStateIdReqMultiError is an error wrapping multiple
+// validation errors returned by
+// GetServiceLatestDesiredStateIdReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceLatestDesiredStateIdReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceLatestDesiredStateIdReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceLatestDesiredStateIdReqMultiError) AllErrors() []error { return m }
+
+// GetServiceLatestDesiredStateIdReqValidationError is the validation error
+// returned by GetServiceLatestDesiredStateIdReq.Validate if the designated
+// constraints aren't met.
+type GetServiceLatestDesiredStateIdReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceLatestDesiredStateIdReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceLatestDesiredStateIdReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceLatestDesiredStateIdReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceLatestDesiredStateIdReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceLatestDesiredStateIdReqValidationError) ErrorName() string {
+	return "GetServiceLatestDesiredStateIdReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceLatestDesiredStateIdReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceLatestDesiredStateIdReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceLatestDesiredStateIdReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceLatestDesiredStateIdReqValidationError{}
+
+// Validate checks the field values on GetServiceLatestDesiredStateIdResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetServiceLatestDesiredStateIdResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceLatestDesiredStateIdResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetServiceLatestDesiredStateIdRespMultiError, or nil if none found.
+func (m *GetServiceLatestDesiredStateIdResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceLatestDesiredStateIdResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.Resp.(type) {
+	case *GetServiceLatestDesiredStateIdResp_DesiredStateId:
+		if v == nil {
+			err := GetServiceLatestDesiredStateIdRespValidationError{
+				field:  "Resp",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for DesiredStateId
+	case *GetServiceLatestDesiredStateIdResp_PendingSetDesiredState:
+		if v == nil {
+			err := GetServiceLatestDesiredStateIdRespValidationError{
+				field:  "Resp",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetPendingSetDesiredState()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
+						field:  "PendingSetDesiredState",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetServiceLatestDesiredStateIdRespValidationError{
+						field:  "PendingSetDesiredState",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPendingSetDesiredState()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetServiceLatestDesiredStateIdRespValidationError{
+					field:  "PendingSetDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return GetServiceLatestDesiredStateIdRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceLatestDesiredStateIdRespMultiError is an error wrapping multiple
+// validation errors returned by
+// GetServiceLatestDesiredStateIdResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceLatestDesiredStateIdRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceLatestDesiredStateIdRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceLatestDesiredStateIdRespMultiError) AllErrors() []error { return m }
+
+// GetServiceLatestDesiredStateIdRespValidationError is the validation error
+// returned by GetServiceLatestDesiredStateIdResp.Validate if the designated
+// constraints aren't met.
+type GetServiceLatestDesiredStateIdRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceLatestDesiredStateIdRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceLatestDesiredStateIdRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceLatestDesiredStateIdRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceLatestDesiredStateIdRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceLatestDesiredStateIdRespValidationError) ErrorName() string {
+	return "GetServiceLatestDesiredStateIdRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceLatestDesiredStateIdRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceLatestDesiredStateIdResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceLatestDesiredStateIdRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceLatestDesiredStateIdRespValidationError{}
+
 // Validate checks the field values on ValidateDesiredStateResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
