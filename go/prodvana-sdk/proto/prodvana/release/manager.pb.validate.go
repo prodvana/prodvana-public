@@ -847,6 +847,8 @@ func (m *ListReleasesReq_Filter) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Application
+
 	if len(errors) > 0 {
 		return ListReleasesReq_FilterMultiError(errors)
 	}

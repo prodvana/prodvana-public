@@ -4453,6 +4453,13 @@
             "collectionFormat": "multi"
           },
           {
+            "name": "filter.application",
+            "description": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "startingReleaseId",
             "description": "newer release, inclusive",
             "in": "query",
@@ -6116,6 +6123,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "application": {
+          "type": "string",
+          "title": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)"
         }
       }
     },
@@ -12069,6 +12080,9 @@
           "type": "string"
         },
         "releaseChannel": {
+          "type": "string"
+        },
+        "application": {
           "type": "string"
         },
         "repository": {

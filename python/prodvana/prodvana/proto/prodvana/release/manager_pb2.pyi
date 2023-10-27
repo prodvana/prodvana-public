@@ -95,18 +95,25 @@ class ListReleasesReq(google.protobuf.message.Message):
 
         SERVICES_FIELD_NUMBER: builtins.int
         RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
+        APPLICATION_FIELD_NUMBER: builtins.int
         @property
         def services(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
             """filters to releases for join(join(services, OR), join(release_channels, OR), AND)"""
         @property
         def release_channels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        application: builtins.str
+        """if set, the filters on services and release channels above will be limited to this app.
+        Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
+        staging release channels across all apps.)
+        """
         def __init__(
             self,
             *,
             services: collections.abc.Iterable[builtins.str] | None = ...,
             release_channels: collections.abc.Iterable[builtins.str] | None = ...,
+            application: builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["release_channels", b"release_channels", "services", b"services"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channels", b"release_channels", "services", b"services"]) -> None: ...
 
     FILTERS_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int

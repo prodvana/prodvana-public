@@ -19,9 +19,11 @@ message ReleaseConfig {
     string deployment_system = 2 [(validate.rules).string.min_len = 1];
     string service = 3 [(validate.rules).string.min_len = 1];
     string release_channel = 4 [(validate.rules).string.min_len = 1];
+    string application = 8 [(validate.rules).string.min_len = 1];
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
     string user = 7; // if known
+    // next tag: 8
 }
 
 message ReleaseState {

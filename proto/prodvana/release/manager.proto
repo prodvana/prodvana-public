@@ -31,6 +31,10 @@ message ListReleasesReq {
         // filters to releases for join(join(services, OR), join(release_channels, OR), AND)
         repeated string services = 1;
         repeated string release_channels = 2;
+        // if set, the filters on services and release channels above will be limited to this app.
+        // Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
+        // staging release channels across all apps.)
+        string application = 3;
     }
     // filters for listing releases. Multiple filters are OR'ed together.
     repeated Filter filters = 1;
