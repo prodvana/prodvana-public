@@ -3586,6 +3586,17 @@
                         {}
                     ],
                     "description": "override apply retry policy. Default is min = 30s, max = 5m."
+                },
+                "disableDriftDetection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today.  next tag: 12"
                 }
             },
             "additionalProperties": false,

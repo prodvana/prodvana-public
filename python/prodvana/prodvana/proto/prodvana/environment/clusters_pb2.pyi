@@ -580,6 +580,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
     FETCH_RETRY_POLICY_FIELD_NUMBER: builtins.int
     APPLY_RETRY_POLICY_FIELD_NUMBER: builtins.int
+    DISABLE_DRIFT_DETECTION_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -609,6 +610,12 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     @property
     def apply_retry_policy(self) -> global___RetryPolicy:
         """override apply retry policy. Default is min = 30s, max = 5m."""
+    disable_drift_detection: builtins.bool
+    """Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected.
+    When enabled, steady state polling is turned off.
+    NOTE: Only supported in Pulumi today.
+    next tag: 12
+    """
     def __init__(
         self,
         *,
@@ -622,73 +629,12 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
         fetch_retry_policy: global___RetryPolicy | None = ...,
         apply_retry_policy: global___RetryPolicy | None = ...,
+        disable_drift_detection: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "disable_drift_detection", b"disable_drift_detection", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
-
-class PulumiRunnerConfig(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    class EnvEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> prodvana.proto.prodvana.common_config.env_pb2.EnvValue: ...
-        def __init__(
-            self,
-            *,
-            key: builtins.str = ...,
-            value: prodvana.proto.prodvana.common_config.env_pb2.EnvValue | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
-
-    PROXY_RUNTIME_FIELD_NUMBER: builtins.int
-    ENV_FIELD_NUMBER: builtins.int
-    VOLUMES_FIELD_NUMBER: builtins.int
-    PRE_RUN_FIELD_NUMBER: builtins.int
-    POLL_INTERVAL_FIELD_NUMBER: builtins.int
-    CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
-    FETCH_RETRY_POLICY_FIELD_NUMBER: builtins.int
-    @property
-    def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
-    @property
-    def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
-        """optional env variables to pass to pulumi commands, can be useful for passing secrets"""
-    @property
-    def volumes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.volumes.volumes_pb2.Volume]:
-        """optional volumes to mount into pulumi containers"""
-    @property
-    def pre_run(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IacRunnerCommand]:
-        """commands that must run before pulumi can run, e.g. gcloud auth login"""
-    @property
-    def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
-        """Poll interval for pulumi preview, defaults to 2 minutes. Polling takes a lock on pulumi state file, so increase this if you run terraform plan locally often."""
-    @property
-    def convergence_grace_period(self) -> google.protobuf.duration_pb2.Duration: ...
-    @property
-    def fetch_retry_policy(self) -> global___RetryPolicy:
-        """override default retry policy. Default is min = 1m, max = 15m."""
-    def __init__(
-        self,
-        *,
-        proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
-        env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
-        volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
-        pre_run: collections.abc.Iterable[global___IacRunnerCommand] | None = ...,
-        poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
-        convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
-        fetch_retry_policy: global___RetryPolicy | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "volumes", b"volumes"]) -> None: ...
-
-global___PulumiRunnerConfig = PulumiRunnerConfig
 
 class GKEClusterMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
