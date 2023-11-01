@@ -44,8 +44,28 @@
                         {}
                     ]
                 },
+                "delivery_extension": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "deliveryExtension": {
                     "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "release_channel": {
+                    "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -64,8 +84,28 @@
                         {}
                     ]
                 },
+                "application_metadata": {
+                    "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "applicationMetadata": {
                     "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "service_metadata": {
+                    "$ref": "#/definitions/prodvana.service.ServiceUserMetadata",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -109,9 +149,37 @@
                         }
                     ]
                 },
+                "release_channels": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "releaseChannels": {
                     "items": {
                         "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "release_channel_groups": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.release_channel.ReleaseChannelGroupGeneratorConfig"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -172,6 +240,21 @@
                     ],
                     "description": "capabilities are dependencies that services in this applications can use"
                 },
+                "capability_instances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.capability.CapabilityInstanceConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "optional capability instances that can be referenced by `capabilities`, useful to deduplication. for example, you may choose to have two database capability instances, staging and prod, and use them across release channels staging, beta, and prod, where beta and prod use the prod db."
+                },
                 "capabilityInstances": {
                     "items": {
                         "$ref": "#/definitions/prodvana.capability.CapabilityInstanceConfig"
@@ -225,6 +308,21 @@
                         }
                     ]
                 },
+                "service_links": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.Link"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Links that every service should get automatically"
+                },
                 "serviceLinks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.Link"
@@ -261,6 +359,20 @@
                         },
                         {
                             "type": "string"
+                        }
+                    ]
+                },
+                "per_release_channel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.capability.PerReleaseChannelCapabilityConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
                         }
                     ]
                 },
@@ -324,6 +436,21 @@
                     ],
                     "description": "env vars to inject"
                 },
+                "pre_push_tasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.pipelines.Task"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Tasks to inject in the pipeline, before the push of the service instance depending on this capability Custom tasks will automatically have env vars from `env` above injected. When multiple service instances reference the same capability instance, the tasks are deduped and injected before the push of the first service instance in the pipeline."
+                },
                 "prePushTasks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.pipelines.Task"
@@ -377,6 +504,16 @@
         },
         "prodvana.capability.PerReleaseChannelCapabilityConfig": {
             "properties": {
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannel": {
                     "oneOf": [
                         {
@@ -526,6 +663,17 @@
         },
         "prodvana.common_config.DockerImageParameterDefinition": {
             "properties": {
+                "default_tag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "empty not a valid value"
+                },
                 "defaultTag": {
                     "oneOf": [
                         {
@@ -536,6 +684,16 @@
                         }
                     ],
                     "description": "empty not a valid value"
+                },
+                "image_registry_info": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 },
                 "imageRegistryInfo": {
                     "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
@@ -609,6 +767,17 @@
                         }
                     ]
                 },
+                "raw_secret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value to be used for user-editable YAML and RPC calls."
+                },
                 "rawSecret": {
                     "oneOf": [
                         {
@@ -630,6 +799,17 @@
                         {}
                     ],
                     "description": "Externally stored secret."
+                },
+                "kubernetes_secret": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Kubernetes secret, only works for Kubernetes runtimes."
                 },
                 "kubernetesSecret": {
                     "$ref": "#/definitions/prodvana.common_config.KubernetesSecret",
@@ -733,6 +913,20 @@
                     ],
                     "description": "TODO(naphat) chart archive support, local charts"
                 },
+                "values_overrides": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.HelmValuesOverrides"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "valuesOverrides": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.HelmValuesOverrides"
@@ -746,6 +940,17 @@
                             "type": "array"
                         }
                     ]
+                },
+                "release_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional release name, leave blank to have Prodvana generate one. Mainly useful for migrating an existing helm release into Prodvana."
                 },
                 "releaseName": {
                     "oneOf": [
@@ -882,6 +1087,17 @@
         },
         "prodvana.common_config.ImageRegistryInfo": {
             "properties": {
+                "container_registry_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "both container_registry_id and container_registry are supported, but only set one not both"
+                },
                 "containerRegistryId": {
                     "oneOf": [
                         {
@@ -893,6 +1109,16 @@
                     ],
                     "description": "both container_registry_id and container_registry are supported, but only set one not both"
                 },
+                "container_registry": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "containerRegistry": {
                     "oneOf": [
                         {
@@ -902,6 +1128,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "image_repository": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Not the URL, everything after: username/reponame leaving it as once field because the spec considers it 1 field in theory you can have no username, or nest the repo names"
                 },
                 "imageRepository": {
                     "oneOf": [
@@ -928,6 +1165,16 @@
         },
         "prodvana.common_config.IntParameterDefinition": {
             "properties": {
+                "default_value": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
                 "defaultValue": {
                     "oneOf": [
                         {
@@ -966,6 +1213,16 @@
         },
         "prodvana.common_config.IntParameterDefinition.Changes": {
             "properties": {
+                "fixed_replica": {
+                    "$ref": "#/definitions/prodvana.common_config.FixedReplicaChange",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "fixedReplica": {
                     "$ref": "#/definitions/prodvana.common_config.FixedReplicaChange",
                     "additionalProperties": false,
@@ -1042,6 +1299,28 @@
                         {}
                     ]
                 },
+                "env_injection_mode": {
+                    "enum": [
+                        "ENV_INJECT_UNKNOWN",
+                        0,
+                        "ENV_INJECT_DISABLED",
+                        1,
+                        "ENV_INJECT_NON_SECRET_ENV",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Env Injection Mode"
+                },
                 "envInjectionMode": {
                     "enum": [
                         "ENV_INJECT_UNKNOWN",
@@ -1078,6 +1357,16 @@
         },
         "prodvana.common_config.KubernetesSecret": {
             "properties": {
+                "secret_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "secretName": {
                     "oneOf": [
                         {
@@ -1113,6 +1402,16 @@
         "prodvana.common_config.Link": {
             "properties": {
                 "url": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "display_name": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -1178,6 +1477,17 @@
                     ],
                     "description": "cannot be set in conjunction with path or tarball_blob_id Specify multiple paths. They will get concatenated."
                 },
+                "sub_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "A sub_path relative to path containing the actual config. sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`. if specified, path must also be specified and be a directory."
+                },
                 "subPath": {
                     "oneOf": [
                         {
@@ -1188,6 +1498,27 @@
                         }
                     ],
                     "description": "A sub_path relative to path containing the actual config. sub_path value can be templated, e.g. `{{.Builtins.ReleaseChannel.Name}}`. if specified, path must also be specified and be a directory."
+                },
+                "exclude_patterns": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded to Prodvana. Follows the same format as gitignore."
                 },
                 "excludePatterns": {
                     "items": {
@@ -1224,6 +1555,17 @@
         },
         "prodvana.common_config.Notification": {
             "properties": {
+                "config_override": {
+                    "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "will default to application's notification config"
+                },
                 "configOverride": {
                     "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
                     "additionalProperties": false,
@@ -1339,6 +1681,16 @@
                         {}
                     ]
                 },
+                "docker_image": {
+                    "$ref": "#/definitions/prodvana.common_config.DockerImageParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "dockerImage": {
                     "$ref": "#/definitions/prodvana.common_config.DockerImageParameterDefinition",
                     "additionalProperties": false,
@@ -1434,6 +1786,16 @@
                         }
                     ]
                 },
+                "docker_image_tag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "dockerImageTag": {
                     "oneOf": [
                         {
@@ -1520,6 +1882,17 @@
                     ],
                     "description": "If present, overrides main program config. TODO: If users need to enforce that different RCs require different images, add requires_separate_images option to ProgramConfig. This will prevent accidentally undoing separate images via the UI or autopush."
                 },
+                "image_registry_info": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+                },
                 "imageRegistryInfo": {
                     "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
                     "additionalProperties": false,
@@ -1530,6 +1903,16 @@
                         {}
                     ],
                     "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
+                },
+                "image_tag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "imageTag": {
                     "oneOf": [
@@ -1564,6 +1947,17 @@
                             "type": "integer"
                         }
                     ]
+                },
+                "target_port": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "optional, default to the same value as `port`"
                 },
                 "targetPort": {
                     "oneOf": [
@@ -1682,6 +2076,16 @@
                         }
                     ]
                 },
+                "image_tag": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "imageTag": {
                     "oneOf": [
                         {
@@ -1691,6 +2095,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "image_registry_info": {
+                    "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional, not guaranteed to be compatible with `image` (e.g. if user decides to paste in a public image string)"
                 },
                 "imageRegistryInfo": {
                     "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",
@@ -1773,6 +2188,16 @@
                         {}
                     ]
                 },
+                "health_check": {
+                    "$ref": "#/definitions/prodvana.common_config.HealthCheck",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "healthCheck": {
                     "$ref": "#/definitions/prodvana.common_config.HealthCheck",
                     "additionalProperties": false,
@@ -1798,6 +2223,17 @@
                     ],
                     "description": "empty list is ok, default from docker image will be used"
                 },
+                "template_complete": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Only set when this ServiceConfig represents a ServiceTemplate When set, this program will be added in whole to the target service's programs in full, and will not partially apply to a program with the same name in the target service's config."
+                },
                 "templateComplete": {
                     "oneOf": [
                         {
@@ -1808,6 +2244,17 @@
                         }
                     ],
                     "description": "Only set when this ServiceConfig represents a ServiceTemplate When set, this program will be added in whole to the target service's programs in full, and will not partially apply to a program with the same name in the target service's config."
+                },
+                "working_directory": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "working directory, defaults to runtime's implementation (usually the default working directory in the docker image)"
                 },
                 "workingDirectory": {
                     "oneOf": [
@@ -1835,6 +2282,17 @@
         },
         "prodvana.common_config.RemoteConfig": {
             "properties": {
+                "tarball_blob_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "A directory tarball blob id uploaded to prodvana.  TODO(naphat) git repo support?"
+                },
                 "tarballBlobId": {
                     "oneOf": [
                         {
@@ -1845,6 +2303,16 @@
                         }
                     ],
                     "description": "A directory tarball blob id uploaded to prodvana.  TODO(naphat) git repo support?"
+                },
+                "sub_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "subPath": {
                     "oneOf": [
@@ -1883,6 +2351,16 @@
                     "description": "TODO(naphat) add integration support for private repositories"
                 },
                 "chart": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "chart_version": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -1974,10 +2452,25 @@
         },
         "prodvana.common_config.RetryConfig": {
             "properties": {
+                "max_retry_duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
                 "maxRetryDuration": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "format": "regex"
+                },
+                "retry_forever": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
                 },
                 "retryForever": {
                     "oneOf": [
@@ -1987,6 +2480,16 @@
                         {
                             "type": "boolean"
                         }
+                    ]
+                },
+                "first_failure_notification": {
+                    "$ref": "#/definitions/prodvana.common_config.Notification",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 },
                 "firstFailureNotification": {
@@ -2059,6 +2562,17 @@
         },
         "prodvana.common_config.SecretParameterValue": {
             "properties": {
+                "raw_secret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value"
+                },
                 "rawSecret": {
                     "oneOf": [
                         {
@@ -2069,6 +2583,17 @@
                         }
                     ],
                     "description": "Raw secret value"
+                },
+                "secret_ref": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Existing secret reference."
                 },
                 "secretRef": {
                     "$ref": "#/definitions/prodvana.common_config.Secret",
@@ -2119,6 +2644,16 @@
         },
         "prodvana.common_config.StringParameterDefinition": {
             "properties": {
+                "default_value": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "defaultValue": {
                     "oneOf": [
                         {
@@ -2166,6 +2701,17 @@
                             "type": "array"
                         }
                     ]
+                },
+                "retry_config": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "If not set, the task will not be retried once it starts executing once."
                 },
                 "retryConfig": {
                     "$ref": "#/definitions/prodvana.common_config.RetryConfig",
@@ -2226,6 +2772,17 @@
         },
         "prodvana.delivery.CanaryProgress": {
             "properties": {
+                "canary_weight": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "weight to advance canary to, percentage 0-100"
+                },
                 "canaryWeight": {
                     "oneOf": [
                         {
@@ -2257,6 +2814,21 @@
         },
         "prodvana.delivery.DeliveryConfig": {
             "properties": {
+                "canary_progress": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.delivery.CanaryProgress"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "progression of canary as delivery occurs"
+                },
                 "canaryProgress": {
                     "items": {
                         "$ref": "#/definitions/prodvana.delivery.CanaryProgress"
@@ -2271,6 +2843,26 @@
                         }
                     ],
                     "description": "progression of canary as delivery occurs"
+                },
+                "analysis_templates": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 },
                 "analysisTemplates": {
                     "items": {
@@ -2316,8 +2908,28 @@
                         }
                     ]
                 },
+                "task_config": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2453,8 +3065,28 @@
                         {}
                     ]
                 },
+                "alb_ingress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.ALBIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "albIngress": {
                     "$ref": "#/definitions/prodvana.environment.ClusterConfig.ALBIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "argo_rollouts": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.ArgoRollouts",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2473,6 +3105,16 @@
                         {}
                     ]
                 },
+                "gke_ingress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "gkeIngress": {
                     "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
                     "additionalProperties": false,
@@ -2482,6 +3124,17 @@
                         },
                         {}
                     ]
+                },
+                "self_managed_gke_ingress": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Self-Managed GKE Ingress - exposes configuration options for GKE Ingress but does not create an ingress object for you"
                 },
                 "selfManagedGkeIngress": {
                     "$ref": "#/definitions/prodvana.environment.ClusterConfig.GKEIngress",
@@ -2493,6 +3146,34 @@
                         {}
                     ],
                     "description": "Self-Managed GKE Ingress - exposes configuration options for GKE Ingress but does not create an ingress object for you"
+                },
+                "cloud_provider": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "EKS",
+                        1,
+                        "GKE",
+                        2,
+                        "AKS",
+                        3,
+                        "ONPREM",
+                        4,
+                        "OTHER_CLOUD",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Cloud Provider"
                 },
                 "cloudProvider": {
                     "enum": [
@@ -2522,7 +3203,27 @@
                     ],
                     "title": "Cloud Provider"
                 },
+                "detected_cluster_metadata": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "detectedClusterMetadata": {
+                    "$ref": "#/definitions/prodvana.environment.ClusterMetadata",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "user_supplied_cluster_metadata": {
                     "$ref": "#/definitions/prodvana.environment.ClusterMetadata",
                     "additionalProperties": false,
                     "oneOf": [
@@ -2563,6 +3264,17 @@
                         {}
                     ]
                 },
+                "terraform_runner": {
+                    "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "terraform runner is a runtime that runs terraform via k8s jobs"
+                },
                 "terraformRunner": {
                     "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
                     "additionalProperties": false,
@@ -2573,6 +3285,17 @@
                         {}
                     ],
                     "description": "terraform runner is a runtime that runs terraform via k8s jobs"
+                },
+                "pulumi_runner": {
+                    "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "pulumi runner is a runtime that runs pulumi via k8s jobs"
                 },
                 "pulumiRunner": {
                     "$ref": "#/definitions/prodvana.environment.TerraformRunnerConfig",
@@ -2623,6 +3346,16 @@
                         }
                     ]
                 },
+                "ingress_class": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "ingressClass": {
                     "oneOf": [
                         {
@@ -2632,6 +3365,27 @@
                             "type": "string"
                         }
                     ]
+                },
+                "default_balancer_attributes": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Attributes from https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html#load-balancer-attributes that are added to all Ingresses/LBs created in this runtime."
                 },
                 "defaultBalancerAttributes": {
                     "items": {
@@ -2717,6 +3471,39 @@
                         }
                     ]
                 },
+                "arg_mapping": {
+                    "additionalProperties": {
+                        "enum": [
+                            "UNKNOWN",
+                            0,
+                            "SERVICE",
+                            1,
+                            "RELEASE_CHANNEL",
+                            2
+                        ],
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Arg Value"
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "template argument name to prodvana value to inject"
+                },
                 "argMapping": {
                     "additionalProperties": {
                         "enum": [
@@ -2775,7 +3562,27 @@
                         }
                     ]
                 },
+                "datadog_namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "datadogNamespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "api_key": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -2840,6 +3647,17 @@
                         }
                     ]
                 },
+                "container_native": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Enables container native load balancing, allowing GCP LBs to target k8s pods directly. See: https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing"
+                },
                 "containerNative": {
                     "oneOf": [
                         {
@@ -2872,6 +3690,16 @@
                         },
                         {
                             "type": "boolean"
+                        }
+                    ]
+                },
+                "kubecost_namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
                         }
                     ]
                 },
@@ -2934,8 +3762,28 @@
         },
         "prodvana.environment.ExtensionApplyCommand": {
             "properties": {
+                "task_config": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -2981,6 +3829,17 @@
                     ],
                     "description": "optional env variables to inject and override from exec_config"
                 },
+                "retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "used in conjunction with retryable_exit_codes, defaults to the convergence grace period"
+                },
                 "retryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
                     "additionalProperties": false,
@@ -2991,6 +3850,27 @@
                         {}
                     ],
                     "description": "used in conjunction with retryable_exit_codes, defaults to the convergence grace period"
+                },
+                "retryable_exit_codes": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "integer"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
                 },
                 "retryableExitCodes": {
                     "items": {
@@ -3058,6 +3938,16 @@
                     ],
                     "description": "deprecated, set this as get_info instead"
                 },
+                "get_info": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionGetInfoCommand",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "getInfo": {
                     "$ref": "#/definitions/prodvana.environment.ExtensionGetInfoCommand",
                     "additionalProperties": false,
@@ -3080,6 +3970,16 @@
                         {
                             "type": "array"
                         }
+                    ]
+                },
+                "proxy_runtime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 },
                 "proxyRuntime": {
@@ -3114,6 +4014,17 @@
                     ],
                     "title": "Extension Type"
                 },
+                "require_approval_before_apply": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Apply is potentially dangerous - require approval before each apply"
+                },
                 "requireApprovalBeforeApply": {
                     "oneOf": [
                         {
@@ -3124,6 +4035,12 @@
                         }
                     ],
                     "description": "Apply is potentially dangerous - require approval before each apply"
+                },
+                "convergence_grace_period": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after apply ran the first time should it be restarted if the service still has not converged. This duration is computed from the *start* of apply run. Defaults to 10m.  next tag: 10",
+                    "format": "regex"
                 },
                 "convergenceGracePeriod": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
@@ -3145,8 +4062,28 @@
         },
         "prodvana.environment.ExtensionFetchCommand": {
             "properties": {
+                "task_config": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3165,10 +4102,22 @@
                         {}
                     ]
                 },
+                "poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "customize intervals instead of using Prodvana default only used for fetch how often to run command after it succeeds",
+                    "format": "regex"
+                },
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "customize intervals instead of using Prodvana default only used for fetch how often to run command after it succeeds",
+                    "format": "regex"
+                },
+                "steady_state_poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "how often to fetch when in steady state (after the extension has converged)",
                     "format": "regex"
                 },
                 "steadyStatePollInterval": {
@@ -3182,6 +4131,17 @@
                     "type": "string",
                     "description": "deprecated, not used",
                     "format": "regex"
+                },
+                "retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2). if not set, regular, non-steady-state poll interval is used for fetches."
                 },
                 "retryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
@@ -3229,8 +4189,28 @@
         },
         "prodvana.environment.ExtensionGetInfoCommand": {
             "properties": {
+                "task_config": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3249,11 +4229,28 @@
                         {}
                     ]
                 },
+                "poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "customize intervals instead of using Prodvana default defaults to 5 minutes",
+                    "format": "regex"
+                },
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "customize intervals instead of using Prodvana default defaults to 5 minutes",
                     "format": "regex"
+                },
+                "retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "retry policy for unexpected failures. defaults to fast retrying after 30s then backing off to 10 minutes"
                 },
                 "retryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
@@ -3287,6 +4284,17 @@
                     ],
                     "description": "optional env variables to inject and override from exec_config"
                 },
+                "test_only_do_not_require_pvn_wrapper": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "exposed for internal testing. do not set"
+                },
                 "testOnlyDoNotRequirePvnWrapper": {
                     "oneOf": [
                         {
@@ -3312,6 +4320,20 @@
         },
         "prodvana.environment.FakeClusterConfig": {
             "properties": {
+                "crashing_programs": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.environment.FakeClusterConfig.CrashingProgramPatterns"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "crashingPrograms": {
                     "items": {
                         "$ref": "#/definitions/prodvana.environment.FakeClusterConfig.CrashingProgramPatterns"
@@ -3340,6 +4362,16 @@
         },
         "prodvana.environment.FakeClusterConfig.CrashingProgramPatterns": {
             "properties": {
+                "image_regex": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "imageRegex": {
                     "oneOf": [
                         {
@@ -3350,7 +4382,27 @@
                         }
                     ]
                 },
+                "cmd_regex": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "cmdRegex": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "log_output": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -3384,6 +4436,16 @@
         },
         "prodvana.environment.GKEClusterMetadata": {
             "properties": {
+                "project_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "projectName": {
                     "oneOf": [
                         {
@@ -3394,7 +4456,27 @@
                         }
                     ]
                 },
+                "cluster_location": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "clusterLocation": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "cluster_name": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -3452,7 +4534,17 @@
         },
         "prodvana.environment.RetryPolicy": {
             "properties": {
+                "base_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
                 "baseInterval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
+                "max_interval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "format": "regex"
@@ -3476,6 +4568,16 @@
         },
         "prodvana.environment.TerraformRunnerConfig": {
             "properties": {
+                "proxy_runtime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "proxyRuntime": {
                     "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
                     "additionalProperties": false,
@@ -3522,6 +4624,21 @@
                     ],
                     "description": "optional volumes to mount into terraform containers"
                 },
+                "pre_run": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.environment.IacRunnerCommand"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "commands that must run before terraform can run, e.g. gcloud auth login"
+                },
                 "preRun": {
                     "items": {
                         "$ref": "#/definitions/prodvana.environment.IacRunnerCommand"
@@ -3537,10 +4654,22 @@
                     ],
                     "description": "commands that must run before terraform can run, e.g. gcloud auth login"
                 },
+                "poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "Poll interval for terraform plan when not converged, defaults to 5 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.",
+                    "format": "regex"
+                },
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "Poll interval for terraform plan when not converged, defaults to 5 minutes. Polling takes a lock on terraform state file, so increase this if you run terraform plan locally often.",
+                    "format": "regex"
+                },
+                "steady_state_poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "Poll interval for terraform plan in steady state (after it has converged), defaults to 1 hour. During steady state, polling is used for drift detection. This is the min duration of time for which drift not being detected is OK.",
                     "format": "regex"
                 },
                 "steadyStatePollInterval": {
@@ -3548,6 +4677,17 @@
                     "type": "string",
                     "description": "Poll interval for terraform plan in steady state (after it has converged), defaults to 1 hour. During steady state, polling is used for drift detection. This is the min duration of time for which drift not being detected is OK.",
                     "format": "regex"
+                },
+                "require_approval_before_apply": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Require approval before every apply operation - this is on top of any release channel-level approvals."
                 },
                 "requireApprovalBeforeApply": {
                     "oneOf": [
@@ -3560,10 +4700,26 @@
                     ],
                     "description": "Require approval before every apply operation - this is on top of any release channel-level approvals."
                 },
+                "convergence_grace_period": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
                 "convergenceGracePeriod": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "format": "regex"
+                },
+                "fetch_retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "override default retry policy. Default is min = 1m, max = 15m."
                 },
                 "fetchRetryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
@@ -3576,6 +4732,17 @@
                     ],
                     "description": "override default retry policy. Default is min = 1m, max = 15m."
                 },
+                "apply_retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "override apply retry policy. Default is min = 30s, max = 5m."
+                },
                 "applyRetryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
                     "additionalProperties": false,
@@ -3586,6 +4753,17 @@
                         {}
                     ],
                     "description": "override apply retry policy. Default is min = 30s, max = 5m."
+                },
+                "disable_drift_detection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today.  next tag: 12"
                 },
                 "disableDriftDetection": {
                     "oneOf": [
@@ -3667,6 +4845,17 @@
                         {}
                     ]
                 },
+                "retry_config": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "if not set, the custom task will not be retried once it starts executing once."
+                },
                 "retryConfig": {
                     "$ref": "#/definitions/prodvana.common_config.RetryConfig",
                     "additionalProperties": false,
@@ -3689,7 +4878,27 @@
                     ],
                     "description": "TODO(naphat) is this the best interface, or do we just take runtime + namespace?"
                 },
+                "application_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "applicationId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "release_channel": {
                     "oneOf": [
                         {
                             "type": "null"
@@ -3709,6 +4918,16 @@
                         }
                     ]
                 },
+                "release_channel_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannelId": {
                     "oneOf": [
                         {
@@ -3718,6 +4937,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "final_compiled_program": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if set, treat the program as the final program, avoid any internal Prodvana compilation (e.g. setting default env from app config)"
                 },
                 "finalCompiledProgram": {
                     "oneOf": [
@@ -3812,6 +5042,17 @@
         },
         "prodvana.pipelines.PushTask": {
             "properties": {
+                "service_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "when passing as input, only specify one of service or service_id, not both"
+                },
                 "serviceId": {
                     "oneOf": [
                         {
@@ -3833,6 +5074,17 @@
                         }
                     ]
                 },
+                "release_channel_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "when passing as input, only specify one of release_channel or release_channel_id, not both"
+                },
                 "releaseChannelId": {
                     "oneOf": [
                         {
@@ -3843,6 +5095,16 @@
                         }
                     ],
                     "description": "when passing as input, only specify one of release_channel or release_channel_id, not both"
+                },
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "releaseChannel": {
                     "oneOf": [
@@ -3864,6 +5126,16 @@
                         }
                     ],
                     "description": "deprecated, set at pipeline level instead of task level"
+                },
+                "application_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "applicationId": {
                     "oneOf": [
@@ -3909,8 +5181,28 @@
                         {}
                     ]
                 },
+                "push_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.PushTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "pushTask": {
                     "$ref": "#/definitions/prodvana.pipelines.PushTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "wait_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.WaitTask",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -3929,6 +5221,16 @@
                         {}
                     ]
                 },
+                "parallel_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.ParallelTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "parallelTask": {
                     "$ref": "#/definitions/prodvana.pipelines.ParallelTask",
                     "additionalProperties": false,
@@ -3939,8 +5241,28 @@
                         {}
                     ]
                 },
+                "manual_approval_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.ManualApprovalTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "manualApprovalTask": {
                     "$ref": "#/definitions/prodvana.pipelines.ManualApprovalTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "custom_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.CustomTask",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4077,6 +5399,17 @@
                         }
                     ]
                 },
+                "task_config": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Inline task config with retry, template support."
+                },
                 "taskConfig": {
                     "$ref": "#/definitions/prodvana.common_config.TaskConfig",
                     "additionalProperties": false,
@@ -4088,6 +5421,16 @@
                     ],
                     "description": "Inline task config with retry, template support."
                 },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "kubernetesConfig": {
                     "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
@@ -4097,6 +5440,12 @@
                         },
                         {}
                     ]
+                },
+                "poll_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "customize intervals instead of using Prodvana default how often to run check even if it succeeds",
+                    "format": "regex"
                 },
                 "pollInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
@@ -4159,6 +5508,17 @@
         },
         "prodvana.protection.ProtectionLifecycle": {
             "properties": {
+                "pre_approval": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PreApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "NOTE: Type here must match CustomTaskType"
+                },
                 "preApproval": {
                     "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PreApproval",
                     "additionalProperties": false,
@@ -4169,6 +5529,17 @@
                         {}
                     ],
                     "description": "NOTE: Type here must match CustomTaskType"
+                },
+                "post_approval": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostApproval",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Approval approval = 2;"
                 },
                 "postApproval": {
                     "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostApproval",
@@ -4183,6 +5554,16 @@
                 },
                 "deployment": {
                     "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.Deployment",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "post_deployment": {
+                    "$ref": "#/definitions/prodvana.protection.ProtectionLifecycle.PostDeployment",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4240,10 +5621,22 @@
         },
         "prodvana.protection.ProtectionLifecycle.PostDeployment": {
             "properties": {
+                "delay_check_duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after the deployment completes should we start checking status? e.g, delay health checks X minutes after deployment (if deployment is noisy).",
+                    "format": "regex"
+                },
                 "delayCheckDuration": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "How long after the deployment completes should we start checking status? e.g, delay health checks X minutes after deployment (if deployment is noisy).",
+                    "format": "regex"
+                },
+                "check_duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "How long after starting should we check for?",
                     "format": "regex"
                 },
                 "checkDuration": {
@@ -4316,6 +5709,26 @@
         },
         "prodvana.release_channel.Policy": {
             "properties": {
+                "default_env": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
+                        "additionalProperties": false,
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {}
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
+                },
                 "defaultEnv": {
                     "additionalProperties": {
                         "$ref": "#/definitions/prodvana.common_config.EnvValue",
@@ -4350,8 +5763,28 @@
         },
         "prodvana.release_channel.Precondition": {
             "properties": {
+                "release_channel_stable": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.ReleaseChannelStable",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "releaseChannelStable": {
                     "$ref": "#/definitions/prodvana.release_channel.Precondition.ReleaseChannelStable",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "manual_approval": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.ManualApproval",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4370,8 +5803,28 @@
                         {}
                     ]
                 },
+                "custom_task": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "customTask": {
                     "$ref": "#/definitions/prodvana.release_channel.Precondition.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "shared_manual_approval": {
+                    "$ref": "#/definitions/prodvana.release_channel.Precondition.SharedManualApproval",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -4404,6 +5857,16 @@
         },
         "prodvana.release_channel.Precondition.CustomTask": {
             "properties": {
+                "task_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "taskName": {
                     "oneOf": [
                         {
@@ -4412,6 +5875,16 @@
                         {
                             "type": "string"
                         }
+                    ]
+                },
+                "custom_task": {
+                    "$ref": "#/definitions/prodvana.pipelines.CustomTask",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 },
                 "customTask": {
@@ -4458,6 +5931,17 @@
                         }
                     ]
                 },
+                "every_action": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "request approval on every apply action, not just the first. only works for runtime extensions, will do nothing for kubernetes services."
+                },
                 "everyAction": {
                     "oneOf": [
                         {
@@ -4483,6 +5967,16 @@
         },
         "prodvana.release_channel.Precondition.ReleaseChannelStable": {
             "properties": {
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannel": {
                     "oneOf": [
                         {
@@ -4502,6 +5996,17 @@
                             "type": "string"
                         }
                     ]
+                },
+                "allow_empty": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if selector is used, allow selector to return an empty list of release channels"
                 },
                 "allowEmpty": {
                     "oneOf": [
@@ -4632,6 +6137,16 @@
                         }
                     ]
                 },
+                "deploy_annotations": {
+                    "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "deployAnnotations": {
                     "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
                     "additionalProperties": false,
@@ -4670,6 +6185,20 @@
                         }
                     ]
                 },
+                "convergence_protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "convergenceProtections": {
                     "items": {
                         "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
@@ -4683,6 +6212,21 @@
                             "type": "array"
                         }
                     ]
+                },
+                "service_instance_protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "protections that all service instances in this release channel should get"
                 },
                 "serviceInstanceProtections": {
                     "items": {
@@ -4752,6 +6296,17 @@
                         }
                     ]
                 },
+                "runtime_selector": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "label selector for runtimes to generate release channels for. One release channel will be generated for each runtime that matches this selector. The selector will automatically be intersected with \"@type=runtime\"."
+                },
                 "runtimeSelector": {
                     "oneOf": [
                         {
@@ -4762,6 +6317,17 @@
                         }
                     ],
                     "description": "label selector for runtimes to generate release channels for. One release channel will be generated for each runtime that matches this selector. The selector will automatically be intersected with \"@type=runtime\"."
+                },
+                "allow_empty": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "By default, if the runtime selector returns an empty list of runtimes, Prodvana will error out. Set allow_empty to true to explicitly allow the selector to return an empty list."
                 },
                 "allowEmpty": {
                     "oneOf": [
@@ -4819,6 +6385,16 @@
                         }
                     ],
                     "description": "Optional identifier for this runtime connection within this release channel, useful if the release channel has multiple runtimes of the same type. Defaults to the value of `runtime``."
+                },
+                "container_orchestration": {
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 },
                 "containerOrchestration": {
                     "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
@@ -4935,6 +6511,17 @@
                     ],
                     "description": "optionally set a custom namespace. If not set, Prodvana will create and manage the namespace. If set, the namespace *must* already exist and Prodvana will not try to create or delete it."
                 },
+                "pvn_managed": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "do not set this, this is used internally by Prodvana to keep track of if a namespace is managed by Prodvana or externally."
+                },
                 "pvnManaged": {
                     "oneOf": [
                         {
@@ -4968,6 +6555,16 @@
                         {
                             "type": "string"
                         }
+                    ]
+                },
+                "container_orchestration": {
+                    "$ref": "#/definitions/prodvana.runtimes.ContainerOrchestrationRuntime",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 },
                 "containerOrchestration": {
@@ -5050,6 +6647,16 @@
                             "type": "null"
                         },
                         {}
+                    ]
+                },
+                "aws_acm_cert": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
                     ]
                 },
                 "awsAcmCert": {
@@ -5253,8 +6860,28 @@
         },
         "prodvana.service.MetricAnalysis": {
             "properties": {
+                "success_rate": {
+                    "$ref": "#/definitions/prodvana.service.MetricAnalysis.SuccessRateConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "successRate": {
                     "$ref": "#/definitions/prodvana.service.MetricAnalysis.SuccessRateConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "latency_p95": {
+                    "$ref": "#/definitions/prodvana.service.MetricAnalysis.LatencyConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -5287,6 +6914,11 @@
         },
         "prodvana.service.MetricAnalysis.LatencyConfig": {
             "properties": {
+                "max_latency": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "format": "regex"
+                },
                 "maxLatency": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
@@ -5306,6 +6938,16 @@
         },
         "prodvana.service.MetricAnalysis.SuccessRateConfig": {
             "properties": {
+                "min_threshold_percent": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
                 "minThresholdPercent": {
                     "oneOf": [
                         {
@@ -5330,6 +6972,16 @@
         },
         "prodvana.service.PerReleaseChannelConfig": {
             "properties": {
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannel": {
                     "oneOf": [
                         {
@@ -5337,6 +6989,26 @@
                         },
                         {
                             "type": "string"
+                        }
+                    ]
+                },
+                "custom_hostnames": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
                         }
                     ]
                 },
@@ -5384,6 +7056,16 @@
                         {}
                     ]
                 },
+                "delivery_config": {
+                    "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "deliveryConfig": {
                     "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
                     "additionalProperties": false,
@@ -5418,6 +7100,21 @@
                         {}
                     ]
                 },
+                "pre_push_tasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                },
                 "prePushTasks": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.TaskConfig"
@@ -5433,6 +7130,20 @@
                     ],
                     "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
                 },
+                "delivery_extensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "deliveryExtensions": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
@@ -5447,6 +7158,16 @@
                         }
                     ]
                 },
+                "runtime_specific": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "runtimeSpecific": {
                     "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
                     "additionalProperties": false,
@@ -5456,6 +7177,17 @@
                         },
                         {}
                     ]
+                },
+                "runtime_connection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
                 "runtimeConnection": {
                     "oneOf": [
@@ -5468,8 +7200,28 @@
                     ],
                     "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
+                "runtime_extension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "runtimeExtension": {
                     "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -5487,6 +7239,17 @@
                         },
                         {}
                     ]
+                },
+                "external_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, pass this as kubernetes_config instead"
                 },
                 "externalConfig": {
                     "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
@@ -5573,6 +7336,16 @@
         },
         "prodvana.service.PerReleaseChannelParameterValues": {
             "properties": {
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannel": {
                     "oneOf": [
                         {
@@ -5635,10 +7408,22 @@
         },
         "prodvana.service.ReleaseStrategyConfig": {
             "properties": {
+                "individual_stage_deadline": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "deadline in each stage before the push is rolled back. Includes the time it takes for pods to be healthy. Defaults to 10 minutes.",
+                    "format": "regex"
+                },
                 "individualStageDeadline": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "deadline in each stage before the push is rolled back. Includes the time it takes for pods to be healthy. Defaults to 10 minutes.",
+                    "format": "regex"
+                },
+                "automated_testing_duration": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "duration of the automated testing phase, before manual approval. Defaults to 30m.",
                     "format": "regex"
                 },
                 "automatedTestingDuration": {
@@ -5646,6 +7431,20 @@
                     "type": "string",
                     "description": "duration of the automated testing phase, before manual approval. Defaults to 30m.",
                     "format": "regex"
+                },
+                "metrics_analysis": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.MetricAnalysis"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 },
                 "metricsAnalysis": {
                     "items": {
@@ -5661,6 +7460,16 @@
                         }
                     ]
                 },
+                "manual_approval": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
                 "manualApproval": {
                     "oneOf": [
                         {
@@ -5671,11 +7480,28 @@
                         }
                     ]
                 },
+                "check_interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "advanced settings that do not typically need to be set. Exposed mainly for testing purposes.  defaults to 30s",
+                    "format": "regex"
+                },
                 "checkInterval": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "advanced settings that do not typically need to be set. Exposed mainly for testing purposes.  defaults to 30s",
                     "format": "regex"
+                },
+                "failure_threshold": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "defaults to 5"
                 },
                 "failureThreshold": {
                     "oneOf": [
@@ -5727,6 +7553,20 @@
         },
         "prodvana.service.RuntimeExtensionConfig": {
             "properties": {
+                "parameter_values": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "parameterValues": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.ParameterValue"
@@ -5780,6 +7620,27 @@
         },
         "prodvana.service.RuntimeSpecificConfig.K8SConfig": {
             "properties": {
+                "service_annotations": {
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "Annotations to add to the Kubernetes Service object"
+                },
                 "serviceAnnotations": {
                     "additionalProperties": {
                         "oneOf": [
@@ -5859,6 +7720,16 @@
                         {}
                     ]
                 },
+                "release_strategy": {
+                    "$ref": "#/definitions/prodvana.service.ReleaseStrategyConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "releaseStrategy": {
                     "$ref": "#/definitions/prodvana.service.ReleaseStrategyConfig",
                     "additionalProperties": false,
@@ -5867,6 +7738,20 @@
                             "type": "null"
                         },
                         {}
+                    ]
+                },
+                "per_release_channel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.PerReleaseChannelConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
                     ]
                 },
                 "perReleaseChannel": {
@@ -5897,6 +7782,16 @@
                         }
                     ]
                 },
+                "delivery_config": {
+                    "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "deliveryConfig": {
                     "$ref": "#/definitions/prodvana.delivery.DeliveryConfig",
                     "additionalProperties": false,
@@ -5921,6 +7816,16 @@
                         }
                     ]
                 },
+                "deploy_annotations": {
+                    "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "deployAnnotations": {
                     "$ref": "#/definitions/prodvana.workflow.AnnotationsConfig",
                     "additionalProperties": false,
@@ -5930,6 +7835,21 @@
                         },
                         {}
                     ]
+                },
+                "pre_push_tasks": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.TaskConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
                 },
                 "prePushTasks": {
                     "items": {
@@ -5946,9 +7866,37 @@
                     ],
                     "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
                 },
+                "delivery_extensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
                 "deliveryExtensions": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "delivery_extension_instances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionInstance"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -5974,6 +7922,16 @@
                         }
                     ]
                 },
+                "runtime_specific": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "runtimeSpecific": {
                     "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",
                     "additionalProperties": false,
@@ -5983,6 +7941,17 @@
                         },
                         {}
                     ]
+                },
+                "runtime_connection": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "which runtime connection to use in each release channel. optional if only one runtime makes sense for the service config."
                 },
                 "runtimeConnection": {
                     "oneOf": [
@@ -6008,6 +7977,17 @@
                             "type": "array"
                         }
                     ]
+                },
+                "parameter_values": {
+                    "$ref": "#/definitions/prodvana.service.ServiceParameterValues",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "only valid to set in compiled configs by Prodvana"
                 },
                 "parameterValues": {
                     "$ref": "#/definitions/prodvana.service.ServiceParameterValues",
@@ -6035,14 +8015,40 @@
                     ],
                     "description": "constants made available in template substitutions"
                 },
+                "progress_deadline": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "how long to wait before marking deployment as failed",
+                    "format": "regex"
+                },
                 "progressDeadline": {
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "description": "how long to wait before marking deployment as failed",
                     "format": "regex"
                 },
+                "runtime_extension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "runtimeExtension": {
                     "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "kubernetes_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -6060,6 +8066,17 @@
                         },
                         {}
                     ]
+                },
+                "external_config": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, pass this as kubernetes_config instead"
                 },
                 "externalConfig": {
                     "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
@@ -6081,6 +8098,30 @@
                         },
                         {}
                     ]
+                },
+                "parameters_autogen": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "NONE",
+                        1,
+                        "IMAGE",
+                        2,
+                        "IMAGE_AND_REPLICAS",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Parameters Autogen"
                 },
                 "parametersAutogen": {
                     "enum": [
@@ -6106,6 +8147,16 @@
                     ],
                     "title": "Parameters Autogen"
                 },
+                "auto_rollback": {
+                    "$ref": "#/definitions/prodvana.service.AutoRollbackConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "autoRollback": {
                     "$ref": "#/definitions/prodvana.service.AutoRollbackConfig",
                     "additionalProperties": false,
@@ -6115,6 +8166,17 @@
                         },
                         {}
                     ]
+                },
+                "no_cleanup_on_delete": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "if set, do not attempt to delete the underlying runtime objects when deleting a service"
                 },
                 "noCleanupOnDelete": {
                     "oneOf": [
@@ -6148,6 +8210,17 @@
                     ],
                     "description": "Additional env variables that are injected to the service. This can be useful for injecting and/or overriding env variables from release channel configs for Kubernetes and runtime extension configs. Not supported for helm configs."
                 },
+                "async_set_desired_state": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "internal use"
+                },
                 "asyncSetDesiredState": {
                     "oneOf": [
                         {
@@ -6176,6 +8249,20 @@
                 "parameters": {
                     "items": {
                         "$ref": "#/definitions/prodvana.common_config.ParameterValue"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "per_release_channel": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.PerReleaseChannelParameterValues"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -6239,6 +8326,16 @@
                         }
                     ]
                 },
+                "follow_repository": {
+                    "$ref": "#/definitions/prodvana.service.FollowContainerRepositorySettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "followRepository": {
                     "$ref": "#/definitions/prodvana.service.FollowContainerRepositorySettings",
                     "additionalProperties": false,
@@ -6263,7 +8360,27 @@
         },
         "prodvana.service.TLSCertificate": {
             "properties": {
+                "tls_cert": {
+                    "$ref": "#/definitions/prodvana.service.TLSSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "tlsCert": {
+                    "$ref": "#/definitions/prodvana.service.TLSSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "tls_key": {
                     "$ref": "#/definitions/prodvana.service.TLSSecret",
                     "additionalProperties": false,
                     "oneOf": [
@@ -6297,6 +8414,17 @@
         },
         "prodvana.service.TLSSecret": {
             "properties": {
+                "raw_secret": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Raw secret value to be used for user-editable YAML and RPC calls."
+                },
                 "rawSecret": {
                     "oneOf": [
                         {
@@ -6343,6 +8471,17 @@
                         {}
                     ]
                 },
+                "base_program": {
+                    "$ref": "#/definitions/prodvana.service.ProgramReference",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "optional base program to take configs from. If specified, `program` field will act like an override instead."
+                },
                 "baseProgram": {
                     "$ref": "#/definitions/prodvana.service.ProgramReference",
                     "additionalProperties": false,
@@ -6353,6 +8492,17 @@
                         {}
                     ],
                     "description": "optional base program to take configs from. If specified, `program` field will act like an override instead."
+                },
+                "retry_config": {
+                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "if not set, the task will not be retried once it starts executing once."
                 },
                 "retryConfig": {
                     "$ref": "#/definitions/prodvana.common_config.RetryConfig",
@@ -6390,6 +8540,16 @@
         },
         "prodvana.service.TaskReference": {
             "properties": {
+                "release_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "releaseChannel": {
                     "oneOf": [
                         {
@@ -6458,6 +8618,16 @@
         },
         "prodvana.volumes.VolumeMount": {
             "properties": {
+                "mount_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "mountPath": {
                     "oneOf": [
                         {
@@ -6465,6 +8635,16 @@
                         },
                         {
                             "type": "string"
+                        }
+                    ]
+                },
+                "read_only": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
                         }
                     ]
                 },
@@ -6562,6 +8742,16 @@
         },
         "prodvana.volumes.VolumeSource.SecretSource": {
             "properties": {
+                "secret_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "secretName": {
                     "oneOf": [
                         {
