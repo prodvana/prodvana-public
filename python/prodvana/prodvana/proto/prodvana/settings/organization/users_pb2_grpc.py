@@ -34,6 +34,11 @@ class UsersSettingsManagerStub(object):
                 request_serializer=prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesReq.SerializeToString,
                 response_deserializer=prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesResp.FromString,
                 )
+        self.InviteUsers = channel.unary_unary(
+                '/prodvana.settings.organization.UsersSettingsManager/InviteUsers',
+                request_serializer=prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersReq.SerializeToString,
+                response_deserializer=prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersResp.FromString,
+                )
 
 
 class UsersSettingsManagerServicer(object):
@@ -63,6 +68,12 @@ class UsersSettingsManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def InviteUsers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UsersSettingsManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -85,6 +96,11 @@ def add_UsersSettingsManagerServicer_to_server(servicer, server):
                     servicer.SetRoles,
                     request_deserializer=prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesReq.FromString,
                     response_serializer=prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesResp.SerializeToString,
+            ),
+            'InviteUsers': grpc.unary_unary_rpc_method_handler(
+                    servicer.InviteUsers,
+                    request_deserializer=prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersReq.FromString,
+                    response_serializer=prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -161,5 +177,22 @@ class UsersSettingsManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.settings.organization.UsersSettingsManager/SetRoles',
             prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesReq.SerializeToString,
             prodvana_dot_settings_dot_organization_dot_users__pb2.SetRolesResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InviteUsers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.settings.organization.UsersSettingsManager/InviteUsers',
+            prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersReq.SerializeToString,
+            prodvana_dot_settings_dot_organization_dot_users__pb2.InviteUsersResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UsersSettingsManager_GetUser_FullMethodName   = "/prodvana.settings.organization.UsersSettingsManager/GetUser"
-	UsersSettingsManager_ListUsers_FullMethodName = "/prodvana.settings.organization.UsersSettingsManager/ListUsers"
-	UsersSettingsManager_ListRoles_FullMethodName = "/prodvana.settings.organization.UsersSettingsManager/ListRoles"
-	UsersSettingsManager_SetRoles_FullMethodName  = "/prodvana.settings.organization.UsersSettingsManager/SetRoles"
+	UsersSettingsManager_GetUser_FullMethodName     = "/prodvana.settings.organization.UsersSettingsManager/GetUser"
+	UsersSettingsManager_ListUsers_FullMethodName   = "/prodvana.settings.organization.UsersSettingsManager/ListUsers"
+	UsersSettingsManager_ListRoles_FullMethodName   = "/prodvana.settings.organization.UsersSettingsManager/ListRoles"
+	UsersSettingsManager_SetRoles_FullMethodName    = "/prodvana.settings.organization.UsersSettingsManager/SetRoles"
+	UsersSettingsManager_InviteUsers_FullMethodName = "/prodvana.settings.organization.UsersSettingsManager/InviteUsers"
 )
 
 // UsersSettingsManagerClient is the client API for UsersSettingsManager service.
@@ -33,6 +34,7 @@ type UsersSettingsManagerClient interface {
 	ListUsers(ctx context.Context, in *ListUsersReq, opts ...grpc.CallOption) (*ListUsersResp, error)
 	ListRoles(ctx context.Context, in *ListRolesReq, opts ...grpc.CallOption) (*ListRolesResp, error)
 	SetRoles(ctx context.Context, in *SetRolesReq, opts ...grpc.CallOption) (*SetRolesResp, error)
+	InviteUsers(ctx context.Context, in *InviteUsersReq, opts ...grpc.CallOption) (*InviteUsersResp, error)
 }
 
 type usersSettingsManagerClient struct {
@@ -79,6 +81,15 @@ func (c *usersSettingsManagerClient) SetRoles(ctx context.Context, in *SetRolesR
 	return out, nil
 }
 
+func (c *usersSettingsManagerClient) InviteUsers(ctx context.Context, in *InviteUsersReq, opts ...grpc.CallOption) (*InviteUsersResp, error) {
+	out := new(InviteUsersResp)
+	err := c.cc.Invoke(ctx, UsersSettingsManager_InviteUsers_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsersSettingsManagerServer is the server API for UsersSettingsManager service.
 // All implementations must embed UnimplementedUsersSettingsManagerServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type UsersSettingsManagerServer interface {
 	ListUsers(context.Context, *ListUsersReq) (*ListUsersResp, error)
 	ListRoles(context.Context, *ListRolesReq) (*ListRolesResp, error)
 	SetRoles(context.Context, *SetRolesReq) (*SetRolesResp, error)
+	InviteUsers(context.Context, *InviteUsersReq) (*InviteUsersResp, error)
 	mustEmbedUnimplementedUsersSettingsManagerServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedUsersSettingsManagerServer) ListRoles(context.Context, *ListR
 }
 func (UnimplementedUsersSettingsManagerServer) SetRoles(context.Context, *SetRolesReq) (*SetRolesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRoles not implemented")
+}
+func (UnimplementedUsersSettingsManagerServer) InviteUsers(context.Context, *InviteUsersReq) (*InviteUsersResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InviteUsers not implemented")
 }
 func (UnimplementedUsersSettingsManagerServer) mustEmbedUnimplementedUsersSettingsManagerServer() {}
 
@@ -191,6 +206,24 @@ func _UsersSettingsManager_SetRoles_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UsersSettingsManager_InviteUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InviteUsersReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersSettingsManagerServer).InviteUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UsersSettingsManager_InviteUsers_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersSettingsManagerServer).InviteUsers(ctx, req.(*InviteUsersReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UsersSettingsManager_ServiceDesc is the grpc.ServiceDesc for UsersSettingsManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var UsersSettingsManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetRoles",
 			Handler:    _UsersSettingsManager_SetRoles_Handler,
+		},
+		{
+			MethodName: "InviteUsers",
+			Handler:    _UsersSettingsManager_InviteUsers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

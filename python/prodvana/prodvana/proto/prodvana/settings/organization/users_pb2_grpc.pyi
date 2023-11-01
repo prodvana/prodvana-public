@@ -24,6 +24,10 @@ class UsersSettingsManagerStub:
         prodvana.proto.prodvana.settings.organization.users_pb2.SetRolesReq,
         prodvana.proto.prodvana.settings.organization.users_pb2.SetRolesResp,
     ]
+    InviteUsers: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.settings.organization.users_pb2.InviteUsersReq,
+        prodvana.proto.prodvana.settings.organization.users_pb2.InviteUsersResp,
+    ]
 
 class UsersSettingsManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -50,5 +54,11 @@ class UsersSettingsManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.settings.organization.users_pb2.SetRolesReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.settings.organization.users_pb2.SetRolesResp: ...
+    @abc.abstractmethod
+    def InviteUsers(
+        self,
+        request: prodvana.proto.prodvana.settings.organization.users_pb2.InviteUsersReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.settings.organization.users_pb2.InviteUsersResp: ...
 
 def add_UsersSettingsManagerServicer_to_server(servicer: UsersSettingsManagerServicer, server: grpc.Server) -> None: ...

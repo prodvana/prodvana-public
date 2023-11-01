@@ -46,6 +46,18 @@ message SetRolesReq {
 
 message SetRolesResp {}
 
+message UserInvite {
+    string email = 1;
+    repeated string roles = 2;
+}
+
+message InviteUsersReq {
+    repeated UserInvite users = 1;
+}
+
+message InviteUsersResp {}
+
+
 service UsersSettingsManager {
     rpc GetUser (GetUserReq) returns (GetUserResp) {
         option (google.api.http) = {
@@ -65,6 +77,13 @@ service UsersSettingsManager {
     rpc SetRoles (SetRolesReq) returns (SetRolesResp) {
         option (google.api.http) = {
             post: "/v1/settings/organization/users/{user_id}/roles"
+        };
+    }
+
+    rpc InviteUsers(InviteUsersReq) returns (InviteUsersResp) {
+        option (google.api.http) = {
+            post: "/v1/settings/organization/users/invite"
+            body: "*"
         };
     }
 }

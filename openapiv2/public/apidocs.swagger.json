@@ -4779,6 +4779,38 @@
         ]
       }
     },
+    "/v1/settings/organization/users/invite": {
+      "post": {
+        "operationId": "UsersSettingsManager_InviteUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationInviteUsersResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/organizationInviteUsersReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.settings.organization.UsersSettingsManager"
+        ]
+      }
+    },
     "/v1/settings/organization/users/{userId}": {
       "get": {
         "operationId": "UsersSettingsManager_GetUser",
@@ -11205,6 +11237,21 @@
         }
       }
     },
+    "organizationInviteUsersReq": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/organizationUserInvite"
+          }
+        }
+      }
+    },
+    "organizationInviteUsersResp": {
+      "type": "object"
+    },
     "organizationListRolesResp": {
       "type": "object",
       "properties": {
@@ -11321,6 +11368,20 @@
     },
     "organizationSnoozeOrganizationInsightResp": {
       "type": "object"
+    },
+    "organizationUserInvite": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "pipelinesManualApprovalTask": {
       "type": "object"

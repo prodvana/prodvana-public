@@ -169,3 +169,45 @@ class SetRolesResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___SetRolesResp = SetRolesResp
+
+class UserInvite(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMAIL_FIELD_NUMBER: builtins.int
+    ROLES_FIELD_NUMBER: builtins.int
+    email: builtins.str
+    @property
+    def roles(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        email: builtins.str = ...,
+        roles: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["email", b"email", "roles", b"roles"]) -> None: ...
+
+global___UserInvite = UserInvite
+
+class InviteUsersReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USERS_FIELD_NUMBER: builtins.int
+    @property
+    def users(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UserInvite]: ...
+    def __init__(
+        self,
+        *,
+        users: collections.abc.Iterable[global___UserInvite] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["users", b"users"]) -> None: ...
+
+global___InviteUsersReq = InviteUsersReq
+
+class InviteUsersResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___InviteUsersResp = InviteUsersResp
