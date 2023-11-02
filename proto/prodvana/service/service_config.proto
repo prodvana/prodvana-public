@@ -257,12 +257,13 @@ message ServiceConfig {
     repeated PerReleaseChannelConfig per_release_channel = 9 [
         (validate.rules).repeated.items.message.required = true
     ];
+    // deprecated
     repeated CapabilityReference capabilities = 10 [(validate.rules).repeated.items.message.required = true];
     prodvana.delivery.DeliveryConfig delivery_config = 11;
     repeated prodvana.volumes.Volume volumes = 12 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 13;
 
-    // DEPRECATED: Replace with delivery_extensions once its implemented.
+    // DEPRECATED: Replace with delivery_extensions
     repeated TaskConfig pre_push_tasks = 15;
     repeated DeliveryExtensionConfig delivery_extensions = 29;
     repeated DeliveryExtensionInstance delivery_extension_instances = 30;
@@ -305,7 +306,7 @@ message ServiceConfig {
         IMAGE_AND_REPLICAS = 3;
     }
 
-    // How to autogenerate parameters, defaults to IMAGE
+    // How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs.
     ParametersAutogen parameters_autogen = 23;
 
     AutoRollbackConfig auto_rollback = 25;

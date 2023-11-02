@@ -34,12 +34,11 @@ type ApplicationConfig struct {
 	ReleaseChannels      []*release_channel.ReleaseChannelConfig               `protobuf:"bytes,2,rep,name=release_channels,json=releaseChannels,proto3" json:"release_channels,omitempty"`
 	ReleaseChannelGroups []*release_channel.ReleaseChannelGroupGeneratorConfig `protobuf:"bytes,11,rep,name=release_channel_groups,json=releaseChannelGroups,proto3" json:"release_channel_groups,omitempty"`
 	Notifications        *common_config.NotificationConfig                     `protobuf:"bytes,4,opt,name=notifications,proto3" json:"notifications,omitempty"`
-	Alerts               *workflow.AlertingConfig                              `protobuf:"bytes,5,opt,name=alerts,proto3" json:"alerts,omitempty"`
-	// capabilities are dependencies that services in this applications can use
+	// deprecated
+	Alerts *workflow.AlertingConfig `protobuf:"bytes,5,opt,name=alerts,proto3" json:"alerts,omitempty"`
+	// deprecated
 	Capabilities []*capability.CapabilityConfig `protobuf:"bytes,6,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
-	// optional capability instances that can be referenced by `capabilities`, useful to deduplication.
-	// for example, you may choose to have two database capability instances, staging and prod,
-	// and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
+	// deprecated
 	CapabilityInstances []*capability.CapabilityInstanceConfig `protobuf:"bytes,7,rep,name=capability_instances,json=capabilityInstances,proto3" json:"capability_instances,omitempty"`
 }
 

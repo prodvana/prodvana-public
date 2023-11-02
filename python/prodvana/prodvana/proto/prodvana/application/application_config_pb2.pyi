@@ -38,16 +38,14 @@ class ApplicationConfig(google.protobuf.message.Message):
     @property
     def notifications(self) -> prodvana.proto.prodvana.common_config.notification_pb2.NotificationConfig: ...
     @property
-    def alerts(self) -> prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig: ...
+    def alerts(self) -> prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig:
+        """deprecated"""
     @property
     def capabilities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.capability.capability_pb2.CapabilityConfig]:
-        """capabilities are dependencies that services in this applications can use"""
+        """deprecated"""
     @property
     def capability_instances(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig]:
-        """optional capability instances that can be referenced by `capabilities`, useful to deduplication.
-        for example, you may choose to have two database capability instances, staging and prod,
-        and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
-        """
+        """deprecated"""
     def __init__(
         self,
         *,

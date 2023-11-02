@@ -654,7 +654,8 @@ class ServiceConfig(google.protobuf.message.Message):
     @property
     def per_release_channel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PerReleaseChannelConfig]: ...
     @property
-    def capabilities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CapabilityReference]: ...
+    def capabilities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CapabilityReference]:
+        """deprecated"""
     @property
     def delivery_config(self) -> prodvana.proto.prodvana.delivery.delivery_config_pb2.DeliveryConfig: ...
     @property
@@ -663,7 +664,7 @@ class ServiceConfig(google.protobuf.message.Message):
     def deploy_annotations(self) -> prodvana.proto.prodvana.workflow.integration_config_pb2.AnnotationsConfig: ...
     @property
     def pre_push_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskConfig]:
-        """DEPRECATED: Replace with delivery_extensions once its implemented."""
+        """DEPRECATED: Replace with delivery_extensions"""
     @property
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
@@ -695,7 +696,7 @@ class ServiceConfig(google.protobuf.message.Message):
     @property
     def helm(self) -> prodvana.proto.prodvana.common_config.helm_pb2.HelmConfig: ...
     parameters_autogen: global___ServiceConfig.ParametersAutogen.ValueType
-    """How to autogenerate parameters, defaults to IMAGE"""
+    """How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs."""
     @property
     def auto_rollback(self) -> global___AutoRollbackConfig: ...
     no_cleanup_on_delete: builtins.bool

@@ -1513,11 +1513,12 @@ type ServiceConfig struct {
 	Replicas          *ReplicasConfig                `protobuf:"bytes,4,opt,name=replicas,proto3" json:"replicas,omitempty"`
 	ReleaseStrategy   *ReleaseStrategyConfig         `protobuf:"bytes,5,opt,name=release_strategy,json=releaseStrategy,proto3" json:"release_strategy,omitempty"`
 	PerReleaseChannel []*PerReleaseChannelConfig     `protobuf:"bytes,9,rep,name=per_release_channel,json=perReleaseChannel,proto3" json:"per_release_channel,omitempty"`
-	Capabilities      []*CapabilityReference         `protobuf:"bytes,10,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
-	DeliveryConfig    *delivery.DeliveryConfig       `protobuf:"bytes,11,opt,name=delivery_config,json=deliveryConfig,proto3" json:"delivery_config,omitempty"`
-	Volumes           []*volumes.Volume              `protobuf:"bytes,12,rep,name=volumes,proto3" json:"volumes,omitempty"`
-	DeployAnnotations *workflow.AnnotationsConfig    `protobuf:"bytes,13,opt,name=deploy_annotations,json=deployAnnotations,proto3" json:"deploy_annotations,omitempty"`
-	// DEPRECATED: Replace with delivery_extensions once its implemented.
+	// deprecated
+	Capabilities      []*CapabilityReference      `protobuf:"bytes,10,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
+	DeliveryConfig    *delivery.DeliveryConfig    `protobuf:"bytes,11,opt,name=delivery_config,json=deliveryConfig,proto3" json:"delivery_config,omitempty"`
+	Volumes           []*volumes.Volume           `protobuf:"bytes,12,rep,name=volumes,proto3" json:"volumes,omitempty"`
+	DeployAnnotations *workflow.AnnotationsConfig `protobuf:"bytes,13,opt,name=deploy_annotations,json=deployAnnotations,proto3" json:"deploy_annotations,omitempty"`
+	// DEPRECATED: Replace with delivery_extensions
 	PrePushTasks               []*TaskConfig                `protobuf:"bytes,15,rep,name=pre_push_tasks,json=prePushTasks,proto3" json:"pre_push_tasks,omitempty"`
 	DeliveryExtensions         []*DeliveryExtensionConfig   `protobuf:"bytes,29,rep,name=delivery_extensions,json=deliveryExtensions,proto3" json:"delivery_extensions,omitempty"`
 	DeliveryExtensionInstances []*DeliveryExtensionInstance `protobuf:"bytes,30,rep,name=delivery_extension_instances,json=deliveryExtensionInstances,proto3" json:"delivery_extension_instances,omitempty"`
@@ -1539,7 +1540,7 @@ type ServiceConfig struct {
 	//	*ServiceConfig_ExternalConfig
 	//	*ServiceConfig_Helm
 	ConfigOneof isServiceConfig_ConfigOneof `protobuf_oneof:"config_oneof"`
-	// How to autogenerate parameters, defaults to IMAGE
+	// How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs.
 	ParametersAutogen ServiceConfig_ParametersAutogen `protobuf:"varint,23,opt,name=parameters_autogen,json=parametersAutogen,proto3,enum=prodvana.service.ServiceConfig_ParametersAutogen" json:"parameters_autogen,omitempty"`
 	AutoRollback      *AutoRollbackConfig             `protobuf:"bytes,25,opt,name=auto_rollback,json=autoRollback,proto3" json:"auto_rollback,omitempty"`
 	// if set, do not attempt to delete the underlying runtime objects when deleting a service

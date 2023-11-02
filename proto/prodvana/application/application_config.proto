@@ -18,14 +18,13 @@ message ApplicationConfig {
     repeated prodvana.release_channel.ReleaseChannelConfig release_channels = 2;
     repeated prodvana.release_channel.ReleaseChannelGroupGeneratorConfig release_channel_groups = 11 [(validate.rules).repeated.items.message.required = true];
     prodvana.common_config.NotificationConfig notifications = 4;
+    // deprecated
     prodvana.workflow.AlertingConfig alerts = 5;
 
-    // capabilities are dependencies that services in this applications can use
+    // deprecated
     repeated prodvana.capability.CapabilityConfig capabilities = 6 [(validate.rules).repeated.items.message.required = true];
 
-    // optional capability instances that can be referenced by `capabilities`, useful to deduplication.
-    // for example, you may choose to have two database capability instances, staging and prod,
-    // and use them across release channels staging, beta, and prod, where beta and prod use the prod db.
+    // deprecated
     repeated prodvana.capability.CapabilityInstanceConfig capability_instances = 7 [(validate.rules).repeated.items.message.required = true];
 
     reserved 3, 8, 9, 10;
