@@ -211,3 +211,26 @@ class InviteUsersResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___InviteUsersResp = InviteUsersResp
+
+class OrganizationSupportsInvitesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___OrganizationSupportsInvitesReq = OrganizationSupportsInvitesReq
+
+class OrganizationSupportsInvitesResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SUPPORTS_INVITES_FIELD_NUMBER: builtins.int
+    supports_invites: builtins.bool
+    def __init__(
+        self,
+        *,
+        supports_invites: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["supports_invites", b"supports_invites"]) -> None: ...
+
+global___OrganizationSupportsInvitesResp = OrganizationSupportsInvitesResp

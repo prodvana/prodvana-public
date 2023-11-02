@@ -654,6 +654,91 @@ func (*InviteUsersResp) Descriptor() ([]byte, []int) {
 	return file_prodvana_settings_organization_users_proto_rawDescGZIP(), []int{12}
 }
 
+type OrganizationSupportsInvitesReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *OrganizationSupportsInvitesReq) Reset() {
+	*x = OrganizationSupportsInvitesReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_settings_organization_users_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OrganizationSupportsInvitesReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationSupportsInvitesReq) ProtoMessage() {}
+
+func (x *OrganizationSupportsInvitesReq) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_settings_organization_users_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationSupportsInvitesReq.ProtoReflect.Descriptor instead.
+func (*OrganizationSupportsInvitesReq) Descriptor() ([]byte, []int) {
+	return file_prodvana_settings_organization_users_proto_rawDescGZIP(), []int{13}
+}
+
+type OrganizationSupportsInvitesResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SupportsInvites bool `protobuf:"varint,1,opt,name=supports_invites,json=supportsInvites,proto3" json:"supports_invites,omitempty"`
+}
+
+func (x *OrganizationSupportsInvitesResp) Reset() {
+	*x = OrganizationSupportsInvitesResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_settings_organization_users_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OrganizationSupportsInvitesResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationSupportsInvitesResp) ProtoMessage() {}
+
+func (x *OrganizationSupportsInvitesResp) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_settings_organization_users_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationSupportsInvitesResp.ProtoReflect.Descriptor instead.
+func (*OrganizationSupportsInvitesResp) Descriptor() ([]byte, []int) {
+	return file_prodvana_settings_organization_users_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *OrganizationSupportsInvitesResp) GetSupportsInvites() bool {
+	if x != nil {
+		return x.SupportsInvites
+	}
+	return false
+}
+
 var File_prodvana_settings_organization_users_proto protoreflect.FileDescriptor
 
 var file_prodvana_settings_organization_users_proto_rawDesc = []byte{
@@ -716,7 +801,14 @@ var file_prodvana_settings_organization_users_proto_rawDesc = []byte{
 	0x6e, 0x67, 0x73, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e,
 	0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x52, 0x05, 0x75, 0x73, 0x65,
 	0x72, 0x73, 0x22, 0x11, 0x0a, 0x0f, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x73, 0x52, 0x65, 0x73, 0x70, 0x32, 0x9b, 0x06, 0x0a, 0x14, 0x55, 0x73, 0x65, 0x72, 0x73, 0x53,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x22, 0x20, 0x0a, 0x1e, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49, 0x6e, 0x76,
+	0x69, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x22, 0x4c, 0x0a, 0x1f, 0x4f, 0x72, 0x67, 0x61, 0x6e,
+	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49,
+	0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12, 0x29, 0x0a, 0x10, 0x73, 0x75,
+	0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x5f, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x08, 0x52, 0x0f, 0x73, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49, 0x6e,
+	0x76, 0x69, 0x74, 0x65, 0x73, 0x32, 0xf0, 0x07, 0x0a, 0x14, 0x55, 0x73, 0x65, 0x72, 0x73, 0x53,
 	0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x12, 0x95,
 	0x01, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x2a, 0x2e, 0x70, 0x72, 0x6f,
 	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x73, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2e, 0x6f,
@@ -766,13 +858,26 @@ var file_prodvana_settings_organization_users_proto_rawDesc = []byte{
 	0x22, 0x31, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2b, 0x3a, 0x01, 0x2a, 0x22, 0x26, 0x2f, 0x76, 0x31,
 	0x2f, 0x73, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69,
 	0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x73, 0x2f, 0x69, 0x6e, 0x76,
-	0x69, 0x74, 0x65, 0x42, 0x5a, 0x5a, 0x58, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76,
-	0x61, 0x6e, 0x61, 0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72,
-	0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x73, 0x65, 0x74, 0x74, 0x69, 0x6e,
-	0x67, 0x73, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x74, 0x65, 0x12, 0xd2, 0x01, 0x0a, 0x1b, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x53, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49, 0x6e, 0x76, 0x69,
+	0x74, 0x65, 0x73, 0x12, 0x3e, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x73,
+	0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x53, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73,
+	0x52, 0x65, 0x71, 0x1a, 0x3f, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x73,
+	0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x53, 0x75, 0x70, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x22, 0x32, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2c, 0x12, 0x2a, 0x2f, 0x76,
+	0x31, 0x2f, 0x73, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e,
+	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x73, 0x2f, 0x63, 0x61,
+	0x6e, 0x5f, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x42, 0x5a, 0x5a, 0x58, 0x67, 0x69, 0x74, 0x68,
+	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f,
+	0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f,
+	0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64, 0x6b, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x73,
+	0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -787,25 +892,27 @@ func file_prodvana_settings_organization_users_proto_rawDescGZIP() []byte {
 	return file_prodvana_settings_organization_users_proto_rawDescData
 }
 
-var file_prodvana_settings_organization_users_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_prodvana_settings_organization_users_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_prodvana_settings_organization_users_proto_goTypes = []interface{}{
-	(*SettingsUser)(nil),    // 0: prodvana.settings.organization.SettingsUser
-	(*GetUserReq)(nil),      // 1: prodvana.settings.organization.GetUserReq
-	(*GetUserResp)(nil),     // 2: prodvana.settings.organization.GetUserResp
-	(*ListRolesReq)(nil),    // 3: prodvana.settings.organization.ListRolesReq
-	(*RoleDefinition)(nil),  // 4: prodvana.settings.organization.RoleDefinition
-	(*ListRolesResp)(nil),   // 5: prodvana.settings.organization.ListRolesResp
-	(*ListUsersReq)(nil),    // 6: prodvana.settings.organization.ListUsersReq
-	(*ListUsersResp)(nil),   // 7: prodvana.settings.organization.ListUsersResp
-	(*SetRolesReq)(nil),     // 8: prodvana.settings.organization.SetRolesReq
-	(*SetRolesResp)(nil),    // 9: prodvana.settings.organization.SetRolesResp
-	(*UserInvite)(nil),      // 10: prodvana.settings.organization.UserInvite
-	(*InviteUsersReq)(nil),  // 11: prodvana.settings.organization.InviteUsersReq
-	(*InviteUsersResp)(nil), // 12: prodvana.settings.organization.InviteUsersResp
-	(*users.User)(nil),      // 13: prodvana.users.User
+	(*SettingsUser)(nil),                    // 0: prodvana.settings.organization.SettingsUser
+	(*GetUserReq)(nil),                      // 1: prodvana.settings.organization.GetUserReq
+	(*GetUserResp)(nil),                     // 2: prodvana.settings.organization.GetUserResp
+	(*ListRolesReq)(nil),                    // 3: prodvana.settings.organization.ListRolesReq
+	(*RoleDefinition)(nil),                  // 4: prodvana.settings.organization.RoleDefinition
+	(*ListRolesResp)(nil),                   // 5: prodvana.settings.organization.ListRolesResp
+	(*ListUsersReq)(nil),                    // 6: prodvana.settings.organization.ListUsersReq
+	(*ListUsersResp)(nil),                   // 7: prodvana.settings.organization.ListUsersResp
+	(*SetRolesReq)(nil),                     // 8: prodvana.settings.organization.SetRolesReq
+	(*SetRolesResp)(nil),                    // 9: prodvana.settings.organization.SetRolesResp
+	(*UserInvite)(nil),                      // 10: prodvana.settings.organization.UserInvite
+	(*InviteUsersReq)(nil),                  // 11: prodvana.settings.organization.InviteUsersReq
+	(*InviteUsersResp)(nil),                 // 12: prodvana.settings.organization.InviteUsersResp
+	(*OrganizationSupportsInvitesReq)(nil),  // 13: prodvana.settings.organization.OrganizationSupportsInvitesReq
+	(*OrganizationSupportsInvitesResp)(nil), // 14: prodvana.settings.organization.OrganizationSupportsInvitesResp
+	(*users.User)(nil),                      // 15: prodvana.users.User
 }
 var file_prodvana_settings_organization_users_proto_depIdxs = []int32{
-	13, // 0: prodvana.settings.organization.SettingsUser.user:type_name -> prodvana.users.User
+	15, // 0: prodvana.settings.organization.SettingsUser.user:type_name -> prodvana.users.User
 	0,  // 1: prodvana.settings.organization.GetUserResp.user:type_name -> prodvana.settings.organization.SettingsUser
 	4,  // 2: prodvana.settings.organization.ListRolesResp.roles:type_name -> prodvana.settings.organization.RoleDefinition
 	0,  // 3: prodvana.settings.organization.ListUsersResp.users:type_name -> prodvana.settings.organization.SettingsUser
@@ -815,13 +922,15 @@ var file_prodvana_settings_organization_users_proto_depIdxs = []int32{
 	3,  // 7: prodvana.settings.organization.UsersSettingsManager.ListRoles:input_type -> prodvana.settings.organization.ListRolesReq
 	8,  // 8: prodvana.settings.organization.UsersSettingsManager.SetRoles:input_type -> prodvana.settings.organization.SetRolesReq
 	11, // 9: prodvana.settings.organization.UsersSettingsManager.InviteUsers:input_type -> prodvana.settings.organization.InviteUsersReq
-	2,  // 10: prodvana.settings.organization.UsersSettingsManager.GetUser:output_type -> prodvana.settings.organization.GetUserResp
-	7,  // 11: prodvana.settings.organization.UsersSettingsManager.ListUsers:output_type -> prodvana.settings.organization.ListUsersResp
-	5,  // 12: prodvana.settings.organization.UsersSettingsManager.ListRoles:output_type -> prodvana.settings.organization.ListRolesResp
-	9,  // 13: prodvana.settings.organization.UsersSettingsManager.SetRoles:output_type -> prodvana.settings.organization.SetRolesResp
-	12, // 14: prodvana.settings.organization.UsersSettingsManager.InviteUsers:output_type -> prodvana.settings.organization.InviteUsersResp
-	10, // [10:15] is the sub-list for method output_type
-	5,  // [5:10] is the sub-list for method input_type
+	13, // 10: prodvana.settings.organization.UsersSettingsManager.OrganizationSupportsInvites:input_type -> prodvana.settings.organization.OrganizationSupportsInvitesReq
+	2,  // 11: prodvana.settings.organization.UsersSettingsManager.GetUser:output_type -> prodvana.settings.organization.GetUserResp
+	7,  // 12: prodvana.settings.organization.UsersSettingsManager.ListUsers:output_type -> prodvana.settings.organization.ListUsersResp
+	5,  // 13: prodvana.settings.organization.UsersSettingsManager.ListRoles:output_type -> prodvana.settings.organization.ListRolesResp
+	9,  // 14: prodvana.settings.organization.UsersSettingsManager.SetRoles:output_type -> prodvana.settings.organization.SetRolesResp
+	12, // 15: prodvana.settings.organization.UsersSettingsManager.InviteUsers:output_type -> prodvana.settings.organization.InviteUsersResp
+	14, // 16: prodvana.settings.organization.UsersSettingsManager.OrganizationSupportsInvites:output_type -> prodvana.settings.organization.OrganizationSupportsInvitesResp
+	11, // [11:17] is the sub-list for method output_type
+	5,  // [5:11] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name
@@ -989,6 +1098,30 @@ func file_prodvana_settings_organization_users_proto_init() {
 				return nil
 			}
 		}
+		file_prodvana_settings_organization_users_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OrganizationSupportsInvitesReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_settings_organization_users_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OrganizationSupportsInvitesResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -996,7 +1129,7 @@ func file_prodvana_settings_organization_users_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_settings_organization_users_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

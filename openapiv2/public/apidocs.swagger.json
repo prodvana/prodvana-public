@@ -4779,6 +4779,28 @@
         ]
       }
     },
+    "/v1/settings/organization/users/can_invite": {
+      "get": {
+        "operationId": "UsersSettingsManager_OrganizationSupportsInvites",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationOrganizationSupportsInvitesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.settings.organization.UsersSettingsManager"
+        ]
+      }
+    },
     "/v1/settings/organization/users/invite": {
       "post": {
         "operationId": "UsersSettingsManager_InviteUsers",
@@ -11296,6 +11318,14 @@
         },
         "userMetadata": {
           "$ref": "#/definitions/organizationOrganizationUserMetadata"
+        }
+      }
+    },
+    "organizationOrganizationSupportsInvitesResp": {
+      "type": "object",
+      "properties": {
+        "supportsInvites": {
+          "type": "boolean"
         }
       }
     },

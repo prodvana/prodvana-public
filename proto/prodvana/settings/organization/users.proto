@@ -57,6 +57,11 @@ message InviteUsersReq {
 
 message InviteUsersResp {}
 
+message OrganizationSupportsInvitesReq {}
+
+message OrganizationSupportsInvitesResp {
+    bool supports_invites = 1;
+}
 
 service UsersSettingsManager {
     rpc GetUser (GetUserReq) returns (GetUserResp) {
@@ -84,6 +89,11 @@ service UsersSettingsManager {
         option (google.api.http) = {
             post: "/v1/settings/organization/users/invite"
             body: "*"
+        };
+    }
+    rpc OrganizationSupportsInvites(OrganizationSupportsInvitesReq) returns (OrganizationSupportsInvitesResp) {
+        option (google.api.http) = {
+            get: "/v1/settings/organization/users/can_invite"
         };
     }
 }
