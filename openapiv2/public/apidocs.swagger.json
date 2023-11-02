@@ -9530,6 +9530,14 @@
         },
         "useOr": {
           "type": "boolean"
+        },
+        "beforeTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "afterTimestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

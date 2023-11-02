@@ -591,6 +591,64 @@ func (m *GetEventsReq) validate(all bool) error {
 
 	// no validation rules for UseOr
 
+	if all {
+		switch v := interface{}(m.GetBeforeTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetEventsReqValidationError{
+					field:  "BeforeTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetEventsReqValidationError{
+					field:  "BeforeTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBeforeTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetEventsReqValidationError{
+				field:  "BeforeTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAfterTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetEventsReqValidationError{
+					field:  "AfterTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetEventsReqValidationError{
+					field:  "AfterTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAfterTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetEventsReqValidationError{
+				field:  "AfterTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return GetEventsReqMultiError(errors)
 	}

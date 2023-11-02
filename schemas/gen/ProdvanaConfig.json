@@ -254,7 +254,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "optional capability instances that can be referenced by `capabilities`, useful to deduplication. for example, you may choose to have two database capability instances, staging and prod, and use them across release channels staging, beta, and prod, where beta and prod use the prod db."
+                    "description": "deprecated"
                 },
                 "capabilityInstances": {
                     "items": {
@@ -7851,7 +7851,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                    "description": "DEPRECATED: Replace with delivery_extensions"
                 },
                 "prePushTasks": {
                     "items": {
