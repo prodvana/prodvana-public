@@ -23,7 +23,13 @@ message ReleaseConfig {
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
     string user = 7; // if known
-    // next tag: 8
+
+    // The following fields only make sense if managed by Prodvana.
+    string application_id = 9;
+    string service_id = 10;
+    string release_channel_id = 11;
+    string service_version = 12;
+    // next tag: 13
 }
 
 message ReleaseState {

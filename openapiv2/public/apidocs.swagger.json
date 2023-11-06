@@ -12196,6 +12196,20 @@
         "user": {
           "type": "string",
           "title": "if known"
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "The following fields only make sense if managed by Prodvana."
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string"
+        },
+        "serviceVersion": {
+          "type": "string",
+          "title": "next tag: 13"
         }
       }
     },

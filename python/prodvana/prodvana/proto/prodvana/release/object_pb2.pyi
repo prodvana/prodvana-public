@@ -52,6 +52,10 @@ class ReleaseConfig(google.protobuf.message.Message):
     REPOSITORY_FIELD_NUMBER: builtins.int
     COMMIT_ID_FIELD_NUMBER: builtins.int
     USER_FIELD_NUMBER: builtins.int
+    APPLICATION_ID_FIELD_NUMBER: builtins.int
+    SERVICE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+    SERVICE_VERSION_FIELD_NUMBER: builtins.int
     @property
     def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """must be unset on input"""
@@ -65,6 +69,12 @@ class ReleaseConfig(google.protobuf.message.Message):
     """commit hash"""
     user: builtins.str
     """if known"""
+    application_id: builtins.str
+    """The following fields only make sense if managed by Prodvana."""
+    service_id: builtins.str
+    release_channel_id: builtins.str
+    service_version: builtins.str
+    """next tag: 13"""
     def __init__(
         self,
         *,
@@ -76,9 +86,13 @@ class ReleaseConfig(google.protobuf.message.Message):
         repository: builtins.str = ...,
         commit_id: builtins.str = ...,
         user: builtins.str = ...,
+        application_id: builtins.str = ...,
+        service_id: builtins.str = ...,
+        release_channel_id: builtins.str = ...,
+        service_version: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "release_channel", b"release_channel", "repository", b"repository", "service", b"service", "user", b"user"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "repository", b"repository", "service", b"service", "service_id", b"service_id", "service_version", b"service_version", "user", b"user"]) -> None: ...
 
 global___ReleaseConfig = ReleaseConfig
 

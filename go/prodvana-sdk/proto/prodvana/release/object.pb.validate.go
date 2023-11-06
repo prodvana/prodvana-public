@@ -136,6 +136,14 @@ func (m *ReleaseConfig) validate(all bool) error {
 
 	// no validation rules for User
 
+	// no validation rules for ApplicationId
+
+	// no validation rules for ServiceId
+
+	// no validation rules for ReleaseChannelId
+
+	// no validation rules for ServiceVersion
+
 	if len(errors) > 0 {
 		return ReleaseConfigMultiError(errors)
 	}
