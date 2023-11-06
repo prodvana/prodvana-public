@@ -25,6 +25,7 @@ const (
 	UsersSettingsManager_SetRoles_FullMethodName                    = "/prodvana.settings.organization.UsersSettingsManager/SetRoles"
 	UsersSettingsManager_InviteUsers_FullMethodName                 = "/prodvana.settings.organization.UsersSettingsManager/InviteUsers"
 	UsersSettingsManager_OrganizationSupportsInvites_FullMethodName = "/prodvana.settings.organization.UsersSettingsManager/OrganizationSupportsInvites"
+	UsersSettingsManager_RemoveUser_FullMethodName                  = "/prodvana.settings.organization.UsersSettingsManager/RemoveUser"
 )
 
 // UsersSettingsManagerClient is the client API for UsersSettingsManager service.
@@ -37,6 +38,7 @@ type UsersSettingsManagerClient interface {
 	SetRoles(ctx context.Context, in *SetRolesReq, opts ...grpc.CallOption) (*SetRolesResp, error)
 	InviteUsers(ctx context.Context, in *InviteUsersReq, opts ...grpc.CallOption) (*InviteUsersResp, error)
 	OrganizationSupportsInvites(ctx context.Context, in *OrganizationSupportsInvitesReq, opts ...grpc.CallOption) (*OrganizationSupportsInvitesResp, error)
+	RemoveUser(ctx context.Context, in *RemoveUserReq, opts ...grpc.CallOption) (*RemoveUserResp, error)
 }
 
 type usersSettingsManagerClient struct {
@@ -101,6 +103,15 @@ func (c *usersSettingsManagerClient) OrganizationSupportsInvites(ctx context.Con
 	return out, nil
 }
 
+func (c *usersSettingsManagerClient) RemoveUser(ctx context.Context, in *RemoveUserReq, opts ...grpc.CallOption) (*RemoveUserResp, error) {
+	out := new(RemoveUserResp)
+	err := c.cc.Invoke(ctx, UsersSettingsManager_RemoveUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsersSettingsManagerServer is the server API for UsersSettingsManager service.
 // All implementations must embed UnimplementedUsersSettingsManagerServer
 // for forward compatibility
@@ -111,6 +122,7 @@ type UsersSettingsManagerServer interface {
 	SetRoles(context.Context, *SetRolesReq) (*SetRolesResp, error)
 	InviteUsers(context.Context, *InviteUsersReq) (*InviteUsersResp, error)
 	OrganizationSupportsInvites(context.Context, *OrganizationSupportsInvitesReq) (*OrganizationSupportsInvitesResp, error)
+	RemoveUser(context.Context, *RemoveUserReq) (*RemoveUserResp, error)
 	mustEmbedUnimplementedUsersSettingsManagerServer()
 }
 
@@ -135,6 +147,9 @@ func (UnimplementedUsersSettingsManagerServer) InviteUsers(context.Context, *Inv
 }
 func (UnimplementedUsersSettingsManagerServer) OrganizationSupportsInvites(context.Context, *OrganizationSupportsInvitesReq) (*OrganizationSupportsInvitesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrganizationSupportsInvites not implemented")
+}
+func (UnimplementedUsersSettingsManagerServer) RemoveUser(context.Context, *RemoveUserReq) (*RemoveUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
 }
 func (UnimplementedUsersSettingsManagerServer) mustEmbedUnimplementedUsersSettingsManagerServer() {}
 
@@ -257,6 +272,24 @@ func _UsersSettingsManager_OrganizationSupportsInvites_Handler(srv interface{}, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UsersSettingsManager_RemoveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersSettingsManagerServer).RemoveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UsersSettingsManager_RemoveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersSettingsManagerServer).RemoveUser(ctx, req.(*RemoveUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UsersSettingsManager_ServiceDesc is the grpc.ServiceDesc for UsersSettingsManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -287,6 +320,10 @@ var UsersSettingsManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OrganizationSupportsInvites",
 			Handler:    _UsersSettingsManager_OrganizationSupportsInvites_Handler,
+		},
+		{
+			MethodName: "RemoveUser",
+			Handler:    _UsersSettingsManager_RemoveUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

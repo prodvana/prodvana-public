@@ -234,3 +234,26 @@ class OrganizationSupportsInvitesResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["supports_invites", b"supports_invites"]) -> None: ...
 
 global___OrganizationSupportsInvitesResp = OrganizationSupportsInvitesResp
+
+class RemoveUserReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USER_ID_FIELD_NUMBER: builtins.int
+    user_id: builtins.str
+    def __init__(
+        self,
+        *,
+        user_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["user_id", b"user_id"]) -> None: ...
+
+global___RemoveUserReq = RemoveUserReq
+
+class RemoveUserResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___RemoveUserResp = RemoveUserResp

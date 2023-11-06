@@ -63,6 +63,12 @@ message OrganizationSupportsInvitesResp {
     bool supports_invites = 1;
 }
 
+message RemoveUserReq {
+    string user_id = 1;
+}
+
+message RemoveUserResp {}
+
 service UsersSettingsManager {
     rpc GetUser (GetUserReq) returns (GetUserResp) {
         option (google.api.http) = {
@@ -94,6 +100,12 @@ service UsersSettingsManager {
     rpc OrganizationSupportsInvites(OrganizationSupportsInvitesReq) returns (OrganizationSupportsInvitesResp) {
         option (google.api.http) = {
             get: "/v1/settings/organization/users/can_invite"
+        };
+    }
+
+    rpc RemoveUser(RemoveUserReq) returns (RemoveUserResp) {
+        option (google.api.http) = {
+            delete: "/v1/settings/organization/users/{user_id}"
         };
     }
 }

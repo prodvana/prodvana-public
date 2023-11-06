@@ -4861,6 +4861,34 @@
         "tags": [
           "prodvana.settings.organization.UsersSettingsManager"
         ]
+      },
+      "delete": {
+        "operationId": "UsersSettingsManager_RemoveUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationRemoveUserResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.settings.organization.UsersSettingsManager"
+        ]
       }
     },
     "/v1/settings/organization/users/{userId}/roles": {
@@ -11365,6 +11393,9 @@
           }
         }
       }
+    },
+    "organizationRemoveUserResp": {
+      "type": "object"
     },
     "organizationRoleDefinition": {
       "type": "object",
