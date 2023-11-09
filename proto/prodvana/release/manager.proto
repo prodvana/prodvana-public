@@ -52,6 +52,23 @@ message ListReleasesResp {
     string next_page_token = 2;
 }
 
+message CompareReleaseReq {
+    message ReleaseRef {
+        // a release reference is either an existing release id or the release config of a hypothetical, not yet recorded release.
+        oneof ref {
+            option (validate.required) = true;
+            string release_id = 1;
+            ReleaseConfig config = 2;
+        }
+    }
+    ReleaseRef new_release = 1 [(validate.rules).message.required = true];
+    ReleaseRef prev_release = 2 [(validate.rules).message.required = true];
+}
+
+message CompareReleaseResp {
+    ReleaseComparison comparison = 1;
+}
+
 service ReleaseManager {
     rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
         option (google.api.http) = {
@@ -72,4 +89,11 @@ service ReleaseManager {
     }
     // page tokens arguments are ignored here
     rpc ListReleasesStream(ListReleasesReq) returns (stream ListReleasesResp) {}
+
+    rpc CompareRelease(CompareReleaseReq) returns (CompareReleaseResp) {
+        option (google.api.http) = {
+            post: "/v1/releases/compare"
+            body: "*"
+        };
+    }
 }

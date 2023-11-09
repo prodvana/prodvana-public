@@ -4522,6 +4522,38 @@
         ]
       }
     },
+    "/v1/releases/compare": {
+      "post": {
+        "operationId": "ReleaseManager_CompareRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseCompareReleaseResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/releaseCompareReleaseReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      }
+    },
     "/v1/releases/{releaseId}/status": {
       "post": {
         "operationId": "ReleaseManager_UpdateReleaseStatus",
@@ -5755,6 +5787,17 @@
         },
         "clusterArn": {
           "type": "string"
+        }
+      }
+    },
+    "CompareReleaseReqReleaseRef": {
+      "type": "object",
+      "properties": {
+        "releaseId": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/releaseReleaseConfig"
         }
       }
     },
@@ -12098,6 +12141,25 @@
         }
       }
     },
+    "releaseCompareReleaseReq": {
+      "type": "object",
+      "properties": {
+        "newRelease": {
+          "$ref": "#/definitions/CompareReleaseReqReleaseRef"
+        },
+        "prevRelease": {
+          "$ref": "#/definitions/CompareReleaseReqReleaseRef"
+        }
+      }
+    },
+    "releaseCompareReleaseResp": {
+      "type": "object",
+      "properties": {
+        "comparison": {
+          "$ref": "#/definitions/releaseReleaseComparison"
+        }
+      }
+    },
     "releaseImpactAnalysisComparison": {
       "type": "object",
       "properties": {
@@ -12208,13 +12270,16 @@
           "type": "string"
         },
         "service": {
-          "type": "string"
+          "type": "string",
+          "title": "required when recording releases from external systems"
         },
         "releaseChannel": {
-          "type": "string"
+          "type": "string",
+          "title": "required when recording releases from external systems"
         },
         "application": {
-          "type": "string"
+          "type": "string",
+          "title": "required when recording releases from external systems"
         },
         "repository": {
           "type": "string",
@@ -12229,8 +12294,7 @@
           "title": "if known"
         },
         "applicationId": {
-          "type": "string",
-          "description": "The following fields only make sense if managed by Prodvana."
+          "type": "string"
         },
         "serviceId": {
           "type": "string"

@@ -17,14 +17,18 @@ enum ReleaseStatus {
 message ReleaseConfig {
     google.protobuf.Timestamp creation_timestamp = 1; // must be unset on input
     string deployment_system = 2 [(validate.rules).string.min_len = 1];
-    string service = 3 [(validate.rules).string.min_len = 1];
-    string release_channel = 4 [(validate.rules).string.min_len = 1];
-    string application = 8 [(validate.rules).string.min_len = 1];
+    // required when recording releases from external systems
+    string service = 3;
+    // required when recording releases from external systems
+    string release_channel = 4;
+    // required when recording releases from external systems
+    string application = 8;
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
     string user = 7; // if known
 
     // The following fields only make sense if managed by Prodvana.
+
     string application_id = 9;
     string service_id = 10;
     string release_channel_id = 11;

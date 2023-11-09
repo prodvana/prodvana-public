@@ -97,38 +97,11 @@ func (m *ReleaseConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetService()) < 1 {
-		err := ReleaseConfigValidationError{
-			field:  "Service",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Service
 
-	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
-		err := ReleaseConfigValidationError{
-			field:  "ReleaseChannel",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ReleaseChannel
 
-	if utf8.RuneCountInString(m.GetApplication()) < 1 {
-		err := ReleaseConfigValidationError{
-			field:  "Application",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Application
 
 	// no validation rules for Repository
 

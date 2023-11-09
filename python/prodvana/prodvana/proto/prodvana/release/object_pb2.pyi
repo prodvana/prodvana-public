@@ -61,8 +61,11 @@ class ReleaseConfig(google.protobuf.message.Message):
         """must be unset on input"""
     deployment_system: builtins.str
     service: builtins.str
+    """required when recording releases from external systems"""
     release_channel: builtins.str
+    """required when recording releases from external systems"""
     application: builtins.str
+    """required when recording releases from external systems"""
     repository: builtins.str
     """e.g. github.com/foo/bar"""
     commit_id: builtins.str

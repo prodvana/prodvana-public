@@ -26,6 +26,10 @@ class ReleaseManagerStub:
         prodvana.proto.prodvana.release.manager_pb2.ListReleasesResp,
     ]
     """page tokens arguments are ignored here"""
+    CompareRelease: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.release.manager_pb2.CompareReleaseReq,
+        prodvana.proto.prodvana.release.manager_pb2.CompareReleaseResp,
+    ]
 
 class ReleaseManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -53,5 +57,11 @@ class ReleaseManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> collections.abc.Iterator[prodvana.proto.prodvana.release.manager_pb2.ListReleasesResp]:
         """page tokens arguments are ignored here"""
+    @abc.abstractmethod
+    def CompareRelease(
+        self,
+        request: prodvana.proto.prodvana.release.manager_pb2.CompareReleaseReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.release.manager_pb2.CompareReleaseResp: ...
 
 def add_ReleaseManagerServicer_to_server(servicer: ReleaseManagerServicer, server: grpc.Server) -> None: ...

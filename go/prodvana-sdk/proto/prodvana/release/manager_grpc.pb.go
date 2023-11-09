@@ -23,6 +23,7 @@ const (
 	ReleaseManager_UpdateReleaseStatus_FullMethodName = "/prodvana.release.ReleaseManager/UpdateReleaseStatus"
 	ReleaseManager_ListReleases_FullMethodName        = "/prodvana.release.ReleaseManager/ListReleases"
 	ReleaseManager_ListReleasesStream_FullMethodName  = "/prodvana.release.ReleaseManager/ListReleasesStream"
+	ReleaseManager_CompareRelease_FullMethodName      = "/prodvana.release.ReleaseManager/CompareRelease"
 )
 
 // ReleaseManagerClient is the client API for ReleaseManager service.
@@ -34,6 +35,7 @@ type ReleaseManagerClient interface {
 	ListReleases(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (*ListReleasesResp, error)
 	// page tokens arguments are ignored here
 	ListReleasesStream(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error)
+	CompareRelease(ctx context.Context, in *CompareReleaseReq, opts ...grpc.CallOption) (*CompareReleaseResp, error)
 }
 
 type releaseManagerClient struct {
@@ -103,6 +105,15 @@ func (x *releaseManagerListReleasesStreamClient) Recv() (*ListReleasesResp, erro
 	return m, nil
 }
 
+func (c *releaseManagerClient) CompareRelease(ctx context.Context, in *CompareReleaseReq, opts ...grpc.CallOption) (*CompareReleaseResp, error) {
+	out := new(CompareReleaseResp)
+	err := c.cc.Invoke(ctx, ReleaseManager_CompareRelease_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReleaseManagerServer is the server API for ReleaseManager service.
 // All implementations must embed UnimplementedReleaseManagerServer
 // for forward compatibility
@@ -112,6 +123,7 @@ type ReleaseManagerServer interface {
 	ListReleases(context.Context, *ListReleasesReq) (*ListReleasesResp, error)
 	// page tokens arguments are ignored here
 	ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error
+	CompareRelease(context.Context, *CompareReleaseReq) (*CompareReleaseResp, error)
 	mustEmbedUnimplementedReleaseManagerServer()
 }
 
@@ -130,6 +142,9 @@ func (UnimplementedReleaseManagerServer) ListReleases(context.Context, *ListRele
 }
 func (UnimplementedReleaseManagerServer) ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListReleasesStream not implemented")
+}
+func (UnimplementedReleaseManagerServer) CompareRelease(context.Context, *CompareReleaseReq) (*CompareReleaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompareRelease not implemented")
 }
 func (UnimplementedReleaseManagerServer) mustEmbedUnimplementedReleaseManagerServer() {}
 
@@ -219,6 +234,24 @@ func (x *releaseManagerListReleasesStreamServer) Send(m *ListReleasesResp) error
 	return x.ServerStream.SendMsg(m)
 }
 
+func _ReleaseManager_CompareRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompareReleaseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReleaseManagerServer).CompareRelease(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReleaseManager_CompareRelease_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReleaseManagerServer).CompareRelease(ctx, req.(*CompareReleaseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReleaseManager_ServiceDesc is the grpc.ServiceDesc for ReleaseManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -237,6 +270,10 @@ var ReleaseManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReleases",
 			Handler:    _ReleaseManager_ListReleases_Handler,
+		},
+		{
+			MethodName: "CompareRelease",
+			Handler:    _ReleaseManager_CompareRelease_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
