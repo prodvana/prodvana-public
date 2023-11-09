@@ -2,6 +2,7 @@ import argparse
 from typing import Iterator, Mapping, NamedTuple, Optional
 
 from prodvana.client import Client, make_channel
+from prodvana.proto.prodvana.async_task.task_metadata_pb2 import TaskStatus
 from prodvana.proto.prodvana.desired_state.manager_pb2 import (
     GetServiceDesiredStateConvergenceSummaryReq,
 )
@@ -82,6 +83,24 @@ def main() -> None:
                 application=app, service=service
             )
         )
+        if resp.summary.HasField("pending_set_desired_state"):
+            # there is a desired state that is pending to be applied, which means that the rest of the entity graph will soon be replaced.
+            if resp.summary.pending_set_desired_state.task_status == TaskStatus.FAILED:
+                print(
+                    f"Latest desired state failed to apply.\n{resp.summary.pending_set_desired_state.task_result.log.decode('utf-8')}"
+                )
+                # continue to print the rest of the graph as the pending desired state has failed
+            else:  # running
+                print("Pending new desired state:")
+                for (
+                    rc_state
+                ) in (
+                    resp.summary.pending_set_desired_state.compiled_desired_state.service.release_channels
+                ):
+                    print(
+                        f"release channel: {rc_state.release_channel}, pending version: {rc_state.versions[0].version}"
+                    )
+                return  # the rest of the graph is not really relevant as it is about to be taken over by new desired state.
         graph = {
             HashableIdentifier(type=entity.id.type, name=entity.id.name): entity
             for entity in resp.summary.entity_graph.entities
@@ -100,7 +119,7 @@ def main() -> None:
             child_id = HashableIdentifier(type=child.type, name=child.name)
             child_entity = graph[child_id]
             print(
-                f"release channel: {child_entity.desired_state.service_instance.release_channel}, status: {Status.Name(child_entity.status)}"
+                f"release channel: {child_entity.desired_state.service_instance.release_channel}, desired version: {child_entity.desired_state.service_instance.versions[0].version}, status: {Status.Name(child_entity.status)}"
             )
 
             if child_entity.status == Status.WAITING_MANUAL_APPROVAL:
