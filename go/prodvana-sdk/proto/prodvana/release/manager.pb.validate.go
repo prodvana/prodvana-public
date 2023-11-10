@@ -1162,6 +1162,8 @@ func (m *ListReleasesReq_Filter) validate(all bool) error {
 
 	// no validation rules for Application
 
+	// no validation rules for DesiredStateId
+
 	if len(errors) > 0 {
 		return ListReleasesReq_FilterMultiError(errors)
 	}

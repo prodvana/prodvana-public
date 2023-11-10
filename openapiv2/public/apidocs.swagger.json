@@ -4460,6 +4460,13 @@
             "type": "string"
           },
           {
+            "name": "filter.desiredStateId",
+            "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "startingReleaseId",
             "description": "newer release, inclusive",
             "in": "query",
@@ -6252,6 +6259,10 @@
         "application": {
           "type": "string",
           "title": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)"
+        },
+        "desiredStateId": {
+          "type": "string",
+          "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
         }
       }
     },
@@ -12307,8 +12318,11 @@
           "type": "string"
         },
         "serviceVersion": {
+          "type": "string"
+        },
+        "desiredStateId": {
           "type": "string",
-          "title": "next tag: 13"
+          "title": "next tag: 14"
         }
       }
     },

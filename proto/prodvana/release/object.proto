@@ -33,7 +33,8 @@ message ReleaseConfig {
     string service_id = 10;
     string release_channel_id = 11;
     string service_version = 12;
-    // next tag: 13
+    string desired_state_id = 13;
+    // next tag: 14
 }
 
 message ReleaseState {

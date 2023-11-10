@@ -117,6 +117,8 @@ func (m *ReleaseConfig) validate(all bool) error {
 
 	// no validation rules for ServiceVersion
 
+	// no validation rules for DesiredStateId
+
 	if len(errors) > 0 {
 		return ReleaseConfigMultiError(errors)
 	}
