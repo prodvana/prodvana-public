@@ -2703,6 +2703,12 @@
                         }
                     ]
                 },
+                "ttl": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "TTL after the job completes, defaults to 1 hour.",
+                    "format": "regex"
+                },
                 "retry_config": {
                     "$ref": "#/definitions/prodvana.common_config.RetryConfig",
                     "additionalProperties": false,

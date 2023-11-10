@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.common_config;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
 
+import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/retry.proto";
 import "prodvana/common_config/program.proto";
@@ -11,10 +12,13 @@ message TaskConfig {
     ProgramConfig program = 1 [(validate.rules).message.required = true];
     repeated prodvana.volumes.Volume volumes = 3 [(validate.rules).repeated.items.message.required = true];
 
+    // TTL after the job completes, defaults to 1 hour.
+    google.protobuf.Duration ttl = 4;
+
     // If not set, the task will not be retried once it starts executing once.
     RetryConfig retry_config = 2;
 
-    // next tag: 4
+    // next tag: 5
 }
 
 enum TaskLifecycle {
