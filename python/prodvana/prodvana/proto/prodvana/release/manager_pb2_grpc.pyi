@@ -30,6 +30,10 @@ class ReleaseManagerStub:
         prodvana.proto.prodvana.release.manager_pb2.CompareReleaseReq,
         prodvana.proto.prodvana.release.manager_pb2.CompareReleaseResp,
     ]
+    PreviewRelease: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseReq,
+        prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseResp,
+    ]
 
 class ReleaseManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -63,5 +67,11 @@ class ReleaseManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.release.manager_pb2.CompareReleaseReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.release.manager_pb2.CompareReleaseResp: ...
+    @abc.abstractmethod
+    def PreviewRelease(
+        self,
+        request: prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseResp: ...
 
 def add_ReleaseManagerServicer_to_server(servicer: ReleaseManagerServicer, server: grpc.Server) -> None: ...

@@ -825,6 +825,176 @@ var _ interface {
 	ErrorName() string
 } = ListReleasesRespValidationError{}
 
+// Validate checks the field values on ReleaseRef with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ReleaseRef) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseRef with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ReleaseRefMultiError, or
+// nil if none found.
+func (m *ReleaseRef) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseRef) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofRefPresent := false
+	switch v := m.Ref.(type) {
+	case *ReleaseRef_ReleaseId:
+		if v == nil {
+			err := ReleaseRefValidationError{
+				field:  "Ref",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofRefPresent = true
+		// no validation rules for ReleaseId
+	case *ReleaseRef_Config:
+		if v == nil {
+			err := ReleaseRefValidationError{
+				field:  "Ref",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofRefPresent = true
+
+		if all {
+			switch v := interface{}(m.GetConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReleaseRefValidationError{
+						field:  "Config",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReleaseRefValidationError{
+						field:  "Config",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReleaseRefValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofRefPresent {
+		err := ReleaseRefValidationError{
+			field:  "Ref",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReleaseRefMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseRefMultiError is an error wrapping multiple validation errors
+// returned by ReleaseRef.ValidateAll() if the designated constraints aren't met.
+type ReleaseRefMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseRefMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseRefMultiError) AllErrors() []error { return m }
+
+// ReleaseRefValidationError is the validation error returned by
+// ReleaseRef.Validate if the designated constraints aren't met.
+type ReleaseRefValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseRefValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseRefValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseRefValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseRefValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseRefValidationError) ErrorName() string { return "ReleaseRefValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ReleaseRefValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseRef.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseRefValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseRefValidationError{}
+
 // Validate checks the field values on CompareReleaseReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1138,6 +1308,308 @@ var _ interface {
 	ErrorName() string
 } = CompareReleaseRespValidationError{}
 
+// Validate checks the field values on PreviewReleaseReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PreviewReleaseReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PreviewReleaseReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PreviewReleaseReqMultiError, or nil if none found.
+func (m *PreviewReleaseReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PreviewReleaseReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetConfig() == nil {
+		err := PreviewReleaseReqValidationError{
+			field:  "Config",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PreviewReleaseReqValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PreviewReleaseReqValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PreviewReleaseReqValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetPrevRelease()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PreviewReleaseReqValidationError{
+					field:  "PrevRelease",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PreviewReleaseReqValidationError{
+					field:  "PrevRelease",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPrevRelease()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PreviewReleaseReqValidationError{
+				field:  "PrevRelease",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PreviewReleaseReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// PreviewReleaseReqMultiError is an error wrapping multiple validation errors
+// returned by PreviewReleaseReq.ValidateAll() if the designated constraints
+// aren't met.
+type PreviewReleaseReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PreviewReleaseReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PreviewReleaseReqMultiError) AllErrors() []error { return m }
+
+// PreviewReleaseReqValidationError is the validation error returned by
+// PreviewReleaseReq.Validate if the designated constraints aren't met.
+type PreviewReleaseReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PreviewReleaseReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PreviewReleaseReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PreviewReleaseReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PreviewReleaseReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PreviewReleaseReqValidationError) ErrorName() string {
+	return "PreviewReleaseReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PreviewReleaseReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPreviewReleaseReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PreviewReleaseReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PreviewReleaseReqValidationError{}
+
+// Validate checks the field values on PreviewReleaseResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PreviewReleaseResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PreviewReleaseResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PreviewReleaseRespMultiError, or nil if none found.
+func (m *PreviewReleaseResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PreviewReleaseResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRelease()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PreviewReleaseRespValidationError{
+					field:  "Release",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PreviewReleaseRespValidationError{
+					field:  "Release",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRelease()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PreviewReleaseRespValidationError{
+				field:  "Release",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PreviewReleaseRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// PreviewReleaseRespMultiError is an error wrapping multiple validation errors
+// returned by PreviewReleaseResp.ValidateAll() if the designated constraints
+// aren't met.
+type PreviewReleaseRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PreviewReleaseRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PreviewReleaseRespMultiError) AllErrors() []error { return m }
+
+// PreviewReleaseRespValidationError is the validation error returned by
+// PreviewReleaseResp.Validate if the designated constraints aren't met.
+type PreviewReleaseRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PreviewReleaseRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PreviewReleaseRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PreviewReleaseRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PreviewReleaseRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PreviewReleaseRespValidationError) ErrorName() string {
+	return "PreviewReleaseRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PreviewReleaseRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPreviewReleaseResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PreviewReleaseRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PreviewReleaseRespValidationError{}
+
 // Validate checks the field values on ListReleasesReq_Filter with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1243,177 +1715,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListReleasesReq_FilterValidationError{}
-
-// Validate checks the field values on CompareReleaseReq_ReleaseRef with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CompareReleaseReq_ReleaseRef) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on CompareReleaseReq_ReleaseRef with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// CompareReleaseReq_ReleaseRefMultiError, or nil if none found.
-func (m *CompareReleaseReq_ReleaseRef) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *CompareReleaseReq_ReleaseRef) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	oneofRefPresent := false
-	switch v := m.Ref.(type) {
-	case *CompareReleaseReq_ReleaseRef_ReleaseId:
-		if v == nil {
-			err := CompareReleaseReq_ReleaseRefValidationError{
-				field:  "Ref",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-		oneofRefPresent = true
-		// no validation rules for ReleaseId
-	case *CompareReleaseReq_ReleaseRef_Config:
-		if v == nil {
-			err := CompareReleaseReq_ReleaseRefValidationError{
-				field:  "Ref",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-		oneofRefPresent = true
-
-		if all {
-			switch v := interface{}(m.GetConfig()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CompareReleaseReq_ReleaseRefValidationError{
-						field:  "Config",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, CompareReleaseReq_ReleaseRefValidationError{
-						field:  "Config",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return CompareReleaseReq_ReleaseRefValidationError{
-					field:  "Config",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	default:
-		_ = v // ensures v is used
-	}
-	if !oneofRefPresent {
-		err := CompareReleaseReq_ReleaseRefValidationError{
-			field:  "Ref",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return CompareReleaseReq_ReleaseRefMultiError(errors)
-	}
-
-	return nil
-}
-
-// CompareReleaseReq_ReleaseRefMultiError is an error wrapping multiple
-// validation errors returned by CompareReleaseReq_ReleaseRef.ValidateAll() if
-// the designated constraints aren't met.
-type CompareReleaseReq_ReleaseRefMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m CompareReleaseReq_ReleaseRefMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m CompareReleaseReq_ReleaseRefMultiError) AllErrors() []error { return m }
-
-// CompareReleaseReq_ReleaseRefValidationError is the validation error returned
-// by CompareReleaseReq_ReleaseRef.Validate if the designated constraints
-// aren't met.
-type CompareReleaseReq_ReleaseRefValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e CompareReleaseReq_ReleaseRefValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e CompareReleaseReq_ReleaseRefValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e CompareReleaseReq_ReleaseRefValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e CompareReleaseReq_ReleaseRefValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e CompareReleaseReq_ReleaseRefValidationError) ErrorName() string {
-	return "CompareReleaseReq_ReleaseRefValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e CompareReleaseReq_ReleaseRefValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCompareReleaseReq_ReleaseRef.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = CompareReleaseReq_ReleaseRefValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = CompareReleaseReq_ReleaseRefValidationError{}

@@ -582,6 +582,18 @@ func (m *ReleaseComparison) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for PrevServiceId
+
+	// no validation rules for PrevReleaseChannelId
+
+	// no validation rules for PrevServiceVersion
+
+	// no validation rules for NewServiceId
+
+	// no validation rules for NewReleaseChannelId
+
+	// no validation rules for NewServiceVersion
+
 	if len(errors) > 0 {
 		return ReleaseComparisonMultiError(errors)
 	}

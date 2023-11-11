@@ -32,6 +32,7 @@ class _ReleaseStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     PENDING: _ReleaseStatus.ValueType  # 1
     SUCCEEDED: _ReleaseStatus.ValueType  # 2
     FAILED: _ReleaseStatus.ValueType  # 3
+    PREVIEW: _ReleaseStatus.ValueType  # 4
 
 class ReleaseStatus(_ReleaseStatus, metaclass=_ReleaseStatusEnumTypeWrapper): ...
 
@@ -39,6 +40,7 @@ UNKNOWN_STATUS: ReleaseStatus.ValueType  # 0
 PENDING: ReleaseStatus.ValueType  # 1
 SUCCEEDED: ReleaseStatus.ValueType  # 2
 FAILED: ReleaseStatus.ValueType  # 3
+PREVIEW: ReleaseStatus.ValueType  # 4
 global___ReleaseStatus = ReleaseStatus
 
 class ReleaseConfig(google.protobuf.message.Message):
@@ -150,6 +152,12 @@ class ReleaseComparison(google.protobuf.message.Message):
     NEW_COMMIT_ID_FIELD_NUMBER: builtins.int
     IMPACT_ANALYSIS_FIELD_NUMBER: builtins.int
     TOTAL_COMMITS_FIELD_NUMBER: builtins.int
+    PREV_SERVICE_ID_FIELD_NUMBER: builtins.int
+    PREV_RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+    PREV_SERVICE_VERSION_FIELD_NUMBER: builtins.int
+    NEW_SERVICE_ID_FIELD_NUMBER: builtins.int
+    NEW_RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+    NEW_SERVICE_VERSION_FIELD_NUMBER: builtins.int
     @property
     def prev(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     prev_repository: builtins.str
@@ -161,6 +169,13 @@ class ReleaseComparison(google.protobuf.message.Message):
     @property
     def total_commits(self) -> google.protobuf.wrappers_pb2.Int64Value:
         """only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"""
+    prev_service_id: builtins.str
+    """only set for Prodvana managed releases"""
+    prev_release_channel_id: builtins.str
+    prev_service_version: builtins.str
+    new_service_id: builtins.str
+    new_release_channel_id: builtins.str
+    new_service_version: builtins.str
     def __init__(
         self,
         *,
@@ -171,9 +186,15 @@ class ReleaseComparison(google.protobuf.message.Message):
         new_commit_id: builtins.str = ...,
         impact_analysis: global___ImpactAnalysisComparison | None = ...,
         total_commits: google.protobuf.wrappers_pb2.Int64Value | None = ...,
+        prev_service_id: builtins.str = ...,
+        prev_release_channel_id: builtins.str = ...,
+        prev_service_version: builtins.str = ...,
+        new_service_id: builtins.str = ...,
+        new_release_channel_id: builtins.str = ...,
+        new_service_version: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "prev", b"prev", "total_commits", b"total_commits"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "new_commit_id", b"new_commit_id", "new_repository", b"new_repository", "prev", b"prev", "prev_commit_id", b"prev_commit_id", "prev_repository", b"prev_repository", "total_commits", b"total_commits"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["impact_analysis", b"impact_analysis", "new_commit_id", b"new_commit_id", "new_release_channel_id", b"new_release_channel_id", "new_repository", b"new_repository", "new_service_id", b"new_service_id", "new_service_version", b"new_service_version", "prev", b"prev", "prev_commit_id", b"prev_commit_id", "prev_release_channel_id", b"prev_release_channel_id", "prev_repository", b"prev_repository", "prev_service_id", b"prev_service_id", "prev_service_version", b"prev_service_version", "total_commits", b"total_commits"]) -> None: ...
 
 global___ReleaseComparison = ReleaseComparison
 

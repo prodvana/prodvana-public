@@ -53,21 +53,31 @@ message ListReleasesResp {
     string next_page_token = 2;
 }
 
-message CompareReleaseReq {
-    message ReleaseRef {
-        // a release reference is either an existing release id or the release config of a hypothetical, not yet recorded release.
-        oneof ref {
-            option (validate.required) = true;
-            string release_id = 1;
-            ReleaseConfig config = 2;
-        }
+message ReleaseRef {
+    // a release reference is either an existing release id or the release config of a hypothetical, not yet recorded release.
+    oneof ref {
+        option (validate.required) = true;
+        string release_id = 1;
+        ReleaseConfig config = 2;
     }
+}
+
+message CompareReleaseReq {
     ReleaseRef new_release = 1 [(validate.rules).message.required = true];
     ReleaseRef prev_release = 2 [(validate.rules).message.required = true];
 }
 
 message CompareReleaseResp {
     ReleaseComparison comparison = 1;
+}
+
+message PreviewReleaseReq {
+    ReleaseConfig config = 1 [(validate.rules).message.required = true];
+    ReleaseRef prev_release = 2; // omit to use latest release from the same app/service/release channel
+}
+
+message PreviewReleaseResp {
+    Release release = 1;
 }
 
 service ReleaseManager {
@@ -94,6 +104,12 @@ service ReleaseManager {
     rpc CompareRelease(CompareReleaseReq) returns (CompareReleaseResp) {
         option (google.api.http) = {
             post: "/v1/releases/compare"
+            body: "*"
+        };
+    }
+    rpc PreviewRelease(PreviewReleaseReq) returns (PreviewReleaseResp) {
+        option (google.api.http) = {
+            post: "/v1/releases/preview"
             body: "*"
         };
     }

@@ -4561,6 +4561,38 @@
         ]
       }
     },
+    "/v1/releases/preview": {
+      "post": {
+        "operationId": "ReleaseManager_PreviewRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releasePreviewReleaseResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/releasePreviewReleaseReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      }
+    },
     "/v1/releases/{releaseId}/status": {
       "post": {
         "operationId": "ReleaseManager_UpdateReleaseStatus",
@@ -5794,17 +5826,6 @@
         },
         "clusterArn": {
           "type": "string"
-        }
-      }
-    },
-    "CompareReleaseReqReleaseRef": {
-      "type": "object",
-      "properties": {
-        "releaseId": {
-          "type": "string"
-        },
-        "config": {
-          "$ref": "#/definitions/releaseReleaseConfig"
         }
       }
     },
@@ -12160,10 +12181,10 @@
       "type": "object",
       "properties": {
         "newRelease": {
-          "$ref": "#/definitions/CompareReleaseReqReleaseRef"
+          "$ref": "#/definitions/releaseReleaseRef"
         },
         "prevRelease": {
-          "$ref": "#/definitions/CompareReleaseReqReleaseRef"
+          "$ref": "#/definitions/releaseReleaseRef"
         }
       }
     },
@@ -12204,6 +12225,26 @@
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "releasePreviewReleaseReq": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/releaseReleaseConfig"
+        },
+        "prevRelease": {
+          "$ref": "#/definitions/releaseReleaseRef",
+          "title": "omit to use latest release from the same app/service/release channel"
+        }
+      }
+    },
+    "releasePreviewReleaseResp": {
+      "type": "object",
+      "properties": {
+        "release": {
+          "$ref": "#/definitions/releaseRelease"
         }
       }
     },
@@ -12270,6 +12311,25 @@
           "type": "string",
           "format": "int64",
           "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
+        },
+        "prevServiceId": {
+          "type": "string",
+          "title": "only set for Prodvana managed releases"
+        },
+        "prevReleaseChannelId": {
+          "type": "string"
+        },
+        "prevServiceVersion": {
+          "type": "string"
+        },
+        "newServiceId": {
+          "type": "string"
+        },
+        "newReleaseChannelId": {
+          "type": "string"
+        },
+        "newServiceVersion": {
+          "type": "string"
         }
       }
     },
@@ -12326,6 +12386,17 @@
         }
       }
     },
+    "releaseReleaseRef": {
+      "type": "object",
+      "properties": {
+        "releaseId": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/releaseReleaseConfig"
+        }
+      }
+    },
     "releaseReleaseState": {
       "type": "object",
       "properties": {
@@ -12344,7 +12415,8 @@
         "UNKNOWN_STATUS",
         "PENDING",
         "SUCCEEDED",
-        "FAILED"
+        "FAILED",
+        "PREVIEW"
       ],
       "default": "UNKNOWN_STATUS"
     },

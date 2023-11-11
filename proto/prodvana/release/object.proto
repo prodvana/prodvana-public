@@ -12,6 +12,7 @@ enum ReleaseStatus {
     PENDING = 1;
     SUCCEEDED = 2;
     FAILED = 3;
+    PREVIEW = 4;
 }
 
 message ReleaseConfig {
@@ -56,6 +57,13 @@ message ReleaseComparison {
     string new_commit_id = 5;
     ImpactAnalysisComparison impact_analysis = 6;
     google.protobuf.Int64Value total_commits = 7; // only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana
+    // only set for Prodvana managed releases
+    string prev_service_id = 8;
+    string prev_release_channel_id = 9;
+    string prev_service_version = 10;
+    string new_service_id = 11;
+    string new_release_channel_id = 12;
+    string new_service_version = 13;
 }
 
 message Release {

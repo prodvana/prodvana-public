@@ -170,38 +170,40 @@ class ListReleasesResp(google.protobuf.message.Message):
 
 global___ListReleasesResp = ListReleasesResp
 
-class CompareReleaseReq(google.protobuf.message.Message):
+class ReleaseRef(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class ReleaseRef(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    RELEASE_ID_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
+    release_id: builtins.str
+    @property
+    def config(self) -> prodvana.proto.prodvana.release.object_pb2.ReleaseConfig: ...
+    def __init__(
+        self,
+        *,
+        release_id: builtins.str = ...,
+        config: prodvana.proto.prodvana.release.object_pb2.ReleaseConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "ref", b"ref", "release_id", b"release_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "ref", b"ref", "release_id", b"release_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["ref", b"ref"]) -> typing_extensions.Literal["release_id", "config"] | None: ...
 
-        RELEASE_ID_FIELD_NUMBER: builtins.int
-        CONFIG_FIELD_NUMBER: builtins.int
-        release_id: builtins.str
-        @property
-        def config(self) -> prodvana.proto.prodvana.release.object_pb2.ReleaseConfig: ...
-        def __init__(
-            self,
-            *,
-            release_id: builtins.str = ...,
-            config: prodvana.proto.prodvana.release.object_pb2.ReleaseConfig | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["config", b"config", "ref", b"ref", "release_id", b"release_id"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "ref", b"ref", "release_id", b"release_id"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing_extensions.Literal["ref", b"ref"]) -> typing_extensions.Literal["release_id", "config"] | None: ...
+global___ReleaseRef = ReleaseRef
+
+class CompareReleaseReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NEW_RELEASE_FIELD_NUMBER: builtins.int
     PREV_RELEASE_FIELD_NUMBER: builtins.int
     @property
-    def new_release(self) -> global___CompareReleaseReq.ReleaseRef: ...
+    def new_release(self) -> global___ReleaseRef: ...
     @property
-    def prev_release(self) -> global___CompareReleaseReq.ReleaseRef: ...
+    def prev_release(self) -> global___ReleaseRef: ...
     def __init__(
         self,
         *,
-        new_release: global___CompareReleaseReq.ReleaseRef | None = ...,
-        prev_release: global___CompareReleaseReq.ReleaseRef | None = ...,
+        new_release: global___ReleaseRef | None = ...,
+        prev_release: global___ReleaseRef | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["new_release", b"new_release", "prev_release", b"prev_release"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["new_release", b"new_release", "prev_release", b"prev_release"]) -> None: ...
@@ -223,3 +225,40 @@ class CompareReleaseResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["comparison", b"comparison"]) -> None: ...
 
 global___CompareReleaseResp = CompareReleaseResp
+
+class PreviewReleaseReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    PREV_RELEASE_FIELD_NUMBER: builtins.int
+    @property
+    def config(self) -> prodvana.proto.prodvana.release.object_pb2.ReleaseConfig: ...
+    @property
+    def prev_release(self) -> global___ReleaseRef:
+        """omit to use latest release from the same app/service/release channel"""
+    def __init__(
+        self,
+        *,
+        config: prodvana.proto.prodvana.release.object_pb2.ReleaseConfig | None = ...,
+        prev_release: global___ReleaseRef | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "prev_release", b"prev_release"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "prev_release", b"prev_release"]) -> None: ...
+
+global___PreviewReleaseReq = PreviewReleaseReq
+
+class PreviewReleaseResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASE_FIELD_NUMBER: builtins.int
+    @property
+    def release(self) -> prodvana.proto.prodvana.release.object_pb2.Release: ...
+    def __init__(
+        self,
+        *,
+        release: prodvana.proto.prodvana.release.object_pb2.Release | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["release", b"release"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["release", b"release"]) -> None: ...
+
+global___PreviewReleaseResp = PreviewReleaseResp
