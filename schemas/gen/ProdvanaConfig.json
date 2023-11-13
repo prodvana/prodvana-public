@@ -673,7 +673,7 @@
                             "type": "string"
                         }
                     ],
-                    "description": "empty not a valid value"
+                    "description": "can be omitted if parameter is required"
                 },
                 "defaultTag": {
                     "oneOf": [
@@ -684,7 +684,7 @@
                             "type": "string"
                         }
                     ],
-                    "description": "empty not a valid value"
+                    "description": "can be omitted if parameter is required"
                 },
                 "image_registry_info": {
                     "$ref": "#/definitions/prodvana.common_config.ImageRegistryInfo",

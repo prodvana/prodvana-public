@@ -20,8 +20,7 @@ message DockerImageParameterDefinition {
             ProgramChange program = 1;
         }
     }
-    // empty not a valid value
-    string default_tag = 1 [(validate.rules).string.min_len = 1];
+    string default_tag = 1;  // can be omitted if parameter is required
     prodvana.common_config.ImageRegistryInfo image_registry_info = 2 [(validate.rules).message.required = true];
     repeated Changes changes = 3 [(validate.rules).repeated.items.message.required = true];
 }

@@ -272,16 +272,7 @@ func (m *DockerImageParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetDefaultTag()) < 1 {
-		err := DockerImageParameterDefinitionValidationError{
-			field:  "DefaultTag",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for DefaultTag
 
 	if m.GetImageRegistryInfo() == nil {
 		err := DockerImageParameterDefinitionValidationError{

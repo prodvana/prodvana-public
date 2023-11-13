@@ -68,7 +68,7 @@ class DockerImageParameterDefinition(google.protobuf.message.Message):
     IMAGE_REGISTRY_INFO_FIELD_NUMBER: builtins.int
     CHANGES_FIELD_NUMBER: builtins.int
     default_tag: builtins.str
-    """empty not a valid value"""
+    """can be omitted if parameter is required"""
     @property
     def image_registry_info(self) -> prodvana.proto.prodvana.common_config.program_pb2.ImageRegistryInfo: ...
     @property

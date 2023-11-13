@@ -7160,7 +7160,7 @@
       "properties": {
         "defaultTag": {
           "type": "string",
-          "title": "empty not a valid value"
+          "title": "can be omitted if parameter is required"
         },
         "imageRegistryInfo": {
           "$ref": "#/definitions/common_configImageRegistryInfo"
