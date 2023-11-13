@@ -8003,6 +8003,9 @@
           "$ref": "#/definitions/desired_statePendingSetDesiredState",
           "title": "the latest pending or failed set desired state request"
         },
+        "setDesiredStateMetadata": {
+          "$ref": "#/definitions/desired_stateSetDesiredStateMetadata"
+        },
         "statuses": {
           "type": "object",
           "additionalProperties": {
@@ -8253,6 +8256,18 @@
     "desired_statePromoteDeliveryResp": {
       "type": "object"
     },
+    "desired_stateSetDesiredStateMetadata": {
+      "type": "object",
+      "properties": {
+        "rollback": {
+          "type": "boolean"
+        },
+        "bypassPreconditionsAndProtections": {
+          "type": "boolean"
+        }
+      },
+      "title": "metadata about the desired state, set at the time of SetDesiredState"
+    },
     "desired_stateSetDesiredStateReq": {
       "type": "object",
       "properties": {
@@ -8261,7 +8276,11 @@
         },
         "rollback": {
           "type": "boolean",
-          "title": "set if this is a rollback, which will generate a desired state with faster preconditions"
+          "description": "set if this is a rollback, purely for metadata purposes."
+        },
+        "bypassPreconditionsAndProtections": {
+          "type": "boolean",
+          "title": "generate a desired state with faster preconditions"
         },
         "source": {
           "$ref": "#/definitions/versionSource"
@@ -8325,7 +8344,11 @@
         },
         "rollback": {
           "type": "boolean",
-          "title": "set if this is a rollback, which will generate a desired state with faster preconditions"
+          "title": "set if this is a rollback, purely for metadata purposes"
+        },
+        "bypassPreconditionsAndProtections": {
+          "type": "boolean",
+          "title": "generate a desired state with faster preconditions"
         },
         "serviceInstanceConfigs": {
           "type": "array",

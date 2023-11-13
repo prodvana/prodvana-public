@@ -10,20 +10,32 @@ import "prodvana/service/service_config.proto";
 import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
+// metadata about the desired state, set at the time of SetDesiredState
+message SetDesiredStateMetadata {
+    bool rollback = 1;
+    bool bypass_preconditions_and_protections = 2;
+}
+
 message SetDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
-    // set if this is a rollback, which will generate a desired state with faster preconditions
+    // set if this is a rollback, purely for metadata purposes.
     bool rollback = 2;
+    // generate a desired state with faster preconditions
+    bool bypass_preconditions_and_protections = 6;
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
     // internal use only
     bool force_async_set_desired_state = 5;
+
+    // next tag: 7
 }
 
 message ValidateDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
-    // set if this is a rollback, which will generate a desired state with faster preconditions
+    // set if this is a rollback, purely for metadata purposes
     bool rollback = 2;
+    // generate a desired state with faster preconditions
+    bool bypass_preconditions_and_protections = 6;
     // optional, if set, use these service configs instead of fetching from db. can be useful when doing a ValidateApplyParameters followed by a ValidateDesiredState
     repeated prodvana.service.CompiledServiceInstanceConfig service_instance_configs = 3;
 
@@ -32,6 +44,8 @@ message ValidateDesiredStateReq {
 
     // assume service versions in the request are invalid and do not try to fetch them.
     bool disregard_service_versions = 5;
+
+    // next tag: 7
 }
 
 message SetDesiredStateResp {
@@ -85,7 +99,7 @@ message DesiredStateSummary {
     prodvana.version.SourceMetadata source_metadata = 18;
     // the latest pending or failed set desired state request
     PendingSetDesiredState pending_set_desired_state = 20;
-
+    SetDesiredStateMetadata set_desired_state_metadata = 21;
 
     // fields below are deprecated
     // status of the desired state, all its descendents, and the root desired state.
@@ -101,7 +115,7 @@ message DesiredStateSummary {
     map<string, google.protobuf.Timestamp> last_fetched_timestamps = 13;
     map<string, google.protobuf.Timestamp> last_applied_timestamps = 14;
 
-    // next tag: 21
+    // next tag: 22
 }
 
 message GetDesiredStateConvergenceReq {
