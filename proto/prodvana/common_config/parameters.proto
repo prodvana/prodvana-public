@@ -83,7 +83,17 @@ message ParameterValue {
         option (validate.required) = true;
         string string = 2;
         int64 int = 4;
-        string docker_image_tag = 5;
+        string docker_image_tag = 5 [(validate.rules).string = {
+            // From https://docs.docker.com/engine/reference/commandline/tag/,
+            // ... the optional TAG is a custom, human-readable manifest identifier that is
+            // typically a specific version or variant of an image. The tag must be valid ASCII
+            // and can contain lowercase and uppercase letters, digits, underscores, periods, and
+            // hyphens. It cannot start with a period or hyphen and must be no longer than 128
+            // characters.
+            //
+            // Mostly cribbed from https://gitlab.com/gitlab-org/gitlab/-/blob/b70669f1b854b048e24ecfd36041b3dc1982234c/lib/gitlab/regex.rb#L58
+           pattern: "^[A-Za-z0-9_][0-9A-Za-z_.-]*$",
+        }];
         SecretParameterValue secret = 6;
         string commit = 7;
     }
