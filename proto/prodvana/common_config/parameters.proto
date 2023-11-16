@@ -92,7 +92,9 @@ message ParameterValue {
             // characters.
             //
             // Mostly cribbed from https://gitlab.com/gitlab-org/gitlab/-/blob/b70669f1b854b048e24ecfd36041b3dc1982234c/lib/gitlab/regex.rb#L58
-           pattern: "^[A-Za-z0-9_][0-9A-Za-z_.-]*$",
+            //
+            // Edited to support both docker image tags and pinned sha256 digests.
+           pattern: "^[A-Za-z0-9_][0-9A-Za-z_.-]*$|^sha256:[0-9a-f]{64}$",
         }];
         SecretParameterValue secret = 6;
         string commit = 7;

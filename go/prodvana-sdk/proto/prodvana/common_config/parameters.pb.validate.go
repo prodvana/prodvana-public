@@ -1501,7 +1501,7 @@ func (m *ParameterValue) validate(all bool) error {
 		if !_ParameterValue_DockerImageTag_Pattern.MatchString(m.GetDockerImageTag()) {
 			err := ParameterValueValidationError{
 				field:  "DockerImageTag",
-				reason: "value does not match regex pattern \"^[A-Za-z0-9_][0-9A-Za-z_.-]*$\"",
+				reason: "value does not match regex pattern \"^[A-Za-z0-9_][0-9A-Za-z_.-]*$|^sha256:[0-9a-f]{64}$\"",
 			}
 			if !all {
 				return err
@@ -1656,7 +1656,7 @@ var _ interface {
 	ErrorName() string
 } = ParameterValueValidationError{}
 
-var _ParameterValue_DockerImageTag_Pattern = regexp.MustCompile("^[A-Za-z0-9_][0-9A-Za-z_.-]*$")
+var _ParameterValue_DockerImageTag_Pattern = regexp.MustCompile("^[A-Za-z0-9_][0-9A-Za-z_.-]*$|^sha256:[0-9a-f]{64}$")
 
 // Validate checks the field values on ParametersConfig with the rules defined
 // in the proto definition for this message. If any rules are violated, the
