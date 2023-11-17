@@ -5956,6 +5956,10 @@ func (m *ProtectionLinkState) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for AttachmentName
+
+	// no validation rules for LastSeenAttachmentStatus
+
 	// no validation rules for Status
 
 	if all {

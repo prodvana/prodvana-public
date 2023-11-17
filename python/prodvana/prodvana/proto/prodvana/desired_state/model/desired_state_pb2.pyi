@@ -1689,6 +1689,8 @@ class ProtectionLinkState(google.protobuf.message.Message):
     MANUALLY_BYPASSED: ProtectionLinkState.StopReason.ValueType  # 7
 
     META_FIELD_NUMBER: builtins.int
+    ATTACHMENT_NAME_FIELD_NUMBER: builtins.int
+    LAST_SEEN_ATTACHMENT_STATUS_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     LINK_FIELD_NUMBER: builtins.int
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -1697,7 +1699,11 @@ class ProtectionLinkState(google.protobuf.message.Message):
     FIRST_SUCCESS_TIMESTAMP_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
+    attachment_name: builtins.str
+    last_seen_attachment_status: global___Status.ValueType
+    """status of the attachment, used to compute link status"""
     status: global___ConditionStatus.ValueType
+    """status of the link"""
     @property
     def link(self) -> global___ProtectionLink:
         """Copy of ProtectionLink description. Used in FetchState to know retries, durations etc."""
@@ -1717,6 +1723,8 @@ class ProtectionLinkState(google.protobuf.message.Message):
         self,
         *,
         meta: global___Metadata | None = ...,
+        attachment_name: builtins.str = ...,
+        last_seen_attachment_status: global___Status.ValueType = ...,
         status: global___ConditionStatus.ValueType = ...,
         link: global___ProtectionLink | None = ...,
         started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
@@ -1725,7 +1733,7 @@ class ProtectionLinkState(google.protobuf.message.Message):
         first_success_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["first_success_timestamp", b"first_success_timestamp", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "stopped_timestamp", b"stopped_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["first_success_timestamp", b"first_success_timestamp", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "status", b"status", "stopped_reason", b"stopped_reason", "stopped_timestamp", b"stopped_timestamp"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_name", b"attachment_name", "first_success_timestamp", b"first_success_timestamp", "last_seen_attachment_status", b"last_seen_attachment_status", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "status", b"status", "stopped_reason", b"stopped_reason", "stopped_timestamp", b"stopped_timestamp"]) -> None: ...
 
 global___ProtectionLinkState = ProtectionLinkState
 

@@ -10886,8 +10886,16 @@
         "meta": {
           "$ref": "#/definitions/desired_statemodelMetadata"
         },
+        "attachmentName": {
+          "type": "string"
+        },
+        "lastSeenAttachmentStatus": {
+          "$ref": "#/definitions/desired_statemodelStatus",
+          "title": "status of the attachment, used to compute link status"
+        },
         "status": {
-          "$ref": "#/definitions/modelConditionStatus"
+          "$ref": "#/definitions/modelConditionStatus",
+          "title": "status of the link"
         },
         "link": {
           "$ref": "#/definitions/desired_statemodelProtectionLink",

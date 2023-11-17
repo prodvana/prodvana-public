@@ -607,7 +607,9 @@ message CustomTaskState {
 
 message ProtectionLinkState {
     Metadata meta = 1;
-    ConditionStatus status = 2;
+    string attachment_name = 8;
+    Status last_seen_attachment_status = 9;  // status of the attachment, used to compute link status
+    ConditionStatus status = 2; // status of the link
     // Copy of ProtectionLink description. Used in FetchState to know retries, durations etc.
     ProtectionLink link = 3;
 
@@ -631,6 +633,8 @@ message ProtectionLinkState {
     // Will be set the first time this attachment returned success.
     // Useful for time-based protections (post-push - check X succeeds for N mins). We make the ProtectionLink return CONVERGING till time expires.
     google.protobuf.Timestamp first_success_timestamp = 7;
+
+    // next tag: 10
 }
 
 message ProtectionAttachment {
