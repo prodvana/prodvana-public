@@ -229,6 +229,8 @@ message RuntimeSpecificConfig {
 
 message RuntimeExtensionConfig {
     repeated prodvana.common_config.ParameterValue parameter_values = 1;
+    // can only be set on a PerReleaseChannel config. If set, parameter values will be replaced instead of joined.
+    bool clear_on_per_release_channel_merge = 2;
 }
 
 message AutoRollbackConfig {

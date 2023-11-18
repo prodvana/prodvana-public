@@ -7939,6 +7939,28 @@
                             "type": "array"
                         }
                     ]
+                },
+                "clear_on_per_release_channel_merge": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "can only be set on a PerReleaseChannel config. If set, parameter values will be replaced instead of joined."
+                },
+                "clearOnPerReleaseChannelMerge": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "can only be set on a PerReleaseChannel config. If set, parameter values will be replaced instead of joined."
                 }
             },
             "additionalProperties": false,

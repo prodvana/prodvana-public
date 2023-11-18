@@ -13551,6 +13551,10 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterValue"
           }
+        },
+        "clearOnPerReleaseChannelMerge": {
+          "type": "boolean",
+          "description": "can only be set on a PerReleaseChannel config. If set, parameter values will be replaced instead of joined."
         }
       }
     },

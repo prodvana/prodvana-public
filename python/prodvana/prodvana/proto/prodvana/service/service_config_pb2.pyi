@@ -551,14 +551,18 @@ class RuntimeExtensionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PARAMETER_VALUES_FIELD_NUMBER: builtins.int
+    CLEAR_ON_PER_RELEASE_CHANNEL_MERGE_FIELD_NUMBER: builtins.int
     @property
     def parameter_values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
+    clear_on_per_release_channel_merge: builtins.bool
+    """can only be set on a PerReleaseChannel config. If set, parameter values will be replaced instead of joined."""
     def __init__(
         self,
         *,
         parameter_values: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
+        clear_on_per_release_channel_merge: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["parameter_values", b"parameter_values"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["clear_on_per_release_channel_merge", b"clear_on_per_release_channel_merge", "parameter_values", b"parameter_values"]) -> None: ...
 
 global___RuntimeExtensionConfig = RuntimeExtensionConfig
 

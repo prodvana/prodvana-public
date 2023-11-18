@@ -3428,6 +3428,8 @@ func (m *RuntimeExtensionConfig) validate(all bool) error {
 
 	}
 
+	// no validation rules for ClearOnPerReleaseChannelMerge
+
 	if len(errors) > 0 {
 		return RuntimeExtensionConfigMultiError(errors)
 	}
