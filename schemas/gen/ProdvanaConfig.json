@@ -3040,6 +3040,110 @@
             ],
             "title": "Delivery Extension Instance Ref"
         },
+        "prodvana.environment.AwsEcsConfig": {
+            "properties": {
+                "proxy_runtime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "aws_access_key_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "awsAccessKeyId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "aws_secret_access_key": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsSecretAccessKey": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "region": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "ecs_cluster": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "ecsCluster": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Aws Ecs Config"
+        },
         "prodvana.environment.ClusterConfig": {
             "properties": {
                 "name": {
@@ -3314,6 +3418,26 @@
                         {}
                     ],
                     "description": "pulumi runner is a runtime that runs pulumi via k8s jobs"
+                },
+                "aws_ecs": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsEcs": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 },
                 "labels": {
                     "items": {
@@ -4006,7 +4130,9 @@
                         "TERRAFORM",
                         1,
                         "PULUMI",
-                        2
+                        2,
+                        "AWS_ECS_EXTENSION",
+                        3
                     ],
                     "oneOf": [
                         {
@@ -6420,7 +6546,9 @@
                         "LONG_LIVED_COMPUTE",
                         1,
                         "EXTENSION",
-                        2
+                        2,
+                        "AWS_ECS",
+                        3
                     ],
                     "oneOf": [
                         {
@@ -6619,6 +6747,210 @@
                 }
             ],
             "title": "Auto Rollback Config"
+        },
+        "prodvana.service.AwsEcsConfig": {
+            "properties": {
+                "ecs_service_name_override": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to Prodvana service name"
+                },
+                "ecsServiceNameOverride": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to Prodvana service name"
+                },
+                "task_definition": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.TaskDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "taskDefinition": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.TaskDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "network_configuration": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.NetworkConfiguration",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "networkConfiguration": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.NetworkConfiguration",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Aws Ecs Config"
+        },
+        "prodvana.service.AwsEcsConfig.NetworkConfiguration": {
+            "properties": {
+                "subnets": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "security_groups": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "securityGroups": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "assign_public_ip": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "assignPublicIp": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Network Configuration"
+        },
+        "prodvana.service.AwsEcsConfig.TaskDefinition": {
+            "properties": {
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Task Definition"
         },
         "prodvana.service.CapabilityReference": {
             "properties": {
@@ -7271,6 +7603,26 @@
                 },
                 "helm": {
                     "$ref": "#/definitions/prodvana.common_config.HelmConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "aws_ecs": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsEcs": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -8099,6 +8451,26 @@
                 },
                 "helm": {
                     "$ref": "#/definitions/prodvana.common_config.HelmConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "aws_ecs": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsEcs": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

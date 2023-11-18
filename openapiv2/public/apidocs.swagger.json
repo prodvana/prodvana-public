@@ -5675,6 +5675,37 @@
       },
       "title": "deprecated"
     },
+    "AwsEcsConfigNetworkConfiguration": {
+      "type": "object",
+      "properties": {
+        "subnets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "securityGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assignPublicIp": {
+          "type": "boolean"
+        }
+      }
+    },
+    "AwsEcsConfigTaskDefinition": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        }
+      }
+    },
     "CliAuthRespUserPrompt": {
       "type": "object",
       "properties": {
@@ -8851,6 +8882,9 @@
           "$ref": "#/definitions/environmentTerraformRunnerConfig",
           "title": "pulumi runner is a runtime that runs pulumi via k8s jobs"
         },
+        "awsEcs": {
+          "$ref": "#/definitions/prodvanaenvironmentAwsEcsConfig"
+        },
         "labels": {
           "type": "array",
           "items": {
@@ -8877,9 +8911,11 @@
         "FAKE",
         "EXTENSION",
         "TERRAFORM_RUNNER",
-        "PULUMI_RUNNER"
+        "PULUMI_RUNNER",
+        "AWS_ECS"
       ],
-      "default": "UNKNOWN"
+      "default": "UNKNOWN",
+      "title": "- ECS: TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension"
     },
     "environmentCompiledExtensionCommand": {
       "type": "object",
@@ -9078,7 +9114,8 @@
       "enum": [
         "GENERIC",
         "TERRAFORM",
-        "PULUMI"
+        "PULUMI",
+        "AWS_ECS_EXTENSION"
       ],
       "default": "GENERIC"
     },
@@ -11713,6 +11750,26 @@
       "type": "object",
       "title": "TODO(naphat) list custom task instances?"
     },
+    "prodvanaenvironmentAwsEcsConfig": {
+      "type": "object",
+      "properties": {
+        "proxyRuntime": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "awsAccessKeyId": {
+          "type": "string"
+        },
+        "awsSecretAccessKey": {
+          "$ref": "#/definitions/common_configSecret"
+        },
+        "region": {
+          "type": "string"
+        },
+        "ecsCluster": {
+          "type": "string"
+        }
+      }
+    },
     "prodvanaeventsRuntimeObject": {
       "type": "object",
       "properties": {
@@ -11808,6 +11865,21 @@
         },
         "email": {
           "type": "string"
+        }
+      }
+    },
+    "prodvanaserviceAwsEcsConfig": {
+      "type": "object",
+      "properties": {
+        "ecsServiceNameOverride": {
+          "type": "string",
+          "title": "optional, defaults to Prodvana service name"
+        },
+        "taskDefinition": {
+          "$ref": "#/definitions/AwsEcsConfigTaskDefinition"
+        },
+        "networkConfiguration": {
+          "$ref": "#/definitions/AwsEcsConfigNetworkConfiguration"
         }
       }
     },
@@ -12748,7 +12820,8 @@
       "enum": [
         "UNKNOWN_CONNECTION",
         "LONG_LIVED_COMPUTE",
-        "EXTENSION"
+        "EXTENSION",
+        "AWS_ECS"
       ],
       "default": "UNKNOWN_CONNECTION"
     },
@@ -12983,6 +13056,9 @@
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
+        },
+        "awsEcs": {
+          "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
         },
         "env": {
           "type": "object",
@@ -13374,6 +13450,9 @@
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
         },
+        "awsEcs": {
+          "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -13615,6 +13694,9 @@
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
+        },
+        "awsEcs": {
+          "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
         },
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",

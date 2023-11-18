@@ -40,11 +40,12 @@ message ClusterAuth {
 enum ClusterType {
     UNKNOWN = 0;
     K8S = 1;
-    ECS = 2;
+    ECS = 2;  // TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension
     FAKE = 3;
     EXTENSION = 4;
     TERRAFORM_RUNNER = 5;
     PULUMI_RUNNER = 6;
+    AWS_ECS = 7;
 }
 
 message Cluster {
@@ -164,6 +165,7 @@ enum ExtensionType {
     GENERIC = 0;
     TERRAFORM = 1;
     PULUMI = 2;
+    AWS_ECS_EXTENSION = 3;
 }
 
 message ExtensionClusterConfig {
@@ -245,6 +247,14 @@ message ClusterMetadata {
     oneof cluster_metadata {
         GKEClusterMetadata gke = 1;
     }
+}
+
+message AwsEcsConfig {
+    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
+    string aws_access_key_id = 2 [(validate.rules).string.min_len = 1];
+    prodvana.common_config.Secret aws_secret_access_key = 3 [(validate.rules).message.required = true];
+    string region = 4 [(validate.rules).string.min_len = 1];
+    string ecs_cluster = 5 [(validate.rules).string.min_len = 1];
 }
 
 message ClusterConfig {
@@ -330,6 +340,7 @@ message ClusterConfig {
         TerraformRunnerConfig terraform_runner = 15;
         // pulumi runner is a runtime that runs pulumi via k8s jobs
         TerraformRunnerConfig pulumi_runner = 16;
+        AwsEcsConfig aws_ecs = 20;
     }
 
     reserved 1, 2, 5;
@@ -337,5 +348,5 @@ message ClusterConfig {
 
     repeated prodvana.labels.LabelDefinition labels = 17;
 
-    // next tag: 19
+    // next tag: 21
 }

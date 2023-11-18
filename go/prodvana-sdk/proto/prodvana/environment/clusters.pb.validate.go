@@ -3078,6 +3078,218 @@ var _ interface {
 	ErrorName() string
 } = ClusterMetadataValidationError{}
 
+// Validate checks the field values on AwsEcsConfig with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *AwsEcsConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AwsEcsConfig with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in AwsEcsConfigMultiError, or
+// nil if none found.
+func (m *AwsEcsConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AwsEcsConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetProxyRuntime() == nil {
+		err := AwsEcsConfigValidationError{
+			field:  "ProxyRuntime",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetProxyRuntime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AwsEcsConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AwsEcsConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProxyRuntime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AwsEcsConfigValidationError{
+				field:  "ProxyRuntime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetAwsAccessKeyId()) < 1 {
+		err := AwsEcsConfigValidationError{
+			field:  "AwsAccessKeyId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAwsSecretAccessKey() == nil {
+		err := AwsEcsConfigValidationError{
+			field:  "AwsSecretAccessKey",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAwsSecretAccessKey()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AwsEcsConfigValidationError{
+					field:  "AwsSecretAccessKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AwsEcsConfigValidationError{
+					field:  "AwsSecretAccessKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAwsSecretAccessKey()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AwsEcsConfigValidationError{
+				field:  "AwsSecretAccessKey",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetRegion()) < 1 {
+		err := AwsEcsConfigValidationError{
+			field:  "Region",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetEcsCluster()) < 1 {
+		err := AwsEcsConfigValidationError{
+			field:  "EcsCluster",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return AwsEcsConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// AwsEcsConfigMultiError is an error wrapping multiple validation errors
+// returned by AwsEcsConfig.ValidateAll() if the designated constraints aren't met.
+type AwsEcsConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AwsEcsConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AwsEcsConfigMultiError) AllErrors() []error { return m }
+
+// AwsEcsConfigValidationError is the validation error returned by
+// AwsEcsConfig.Validate if the designated constraints aren't met.
+type AwsEcsConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AwsEcsConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AwsEcsConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AwsEcsConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AwsEcsConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AwsEcsConfigValidationError) ErrorName() string { return "AwsEcsConfigValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AwsEcsConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAwsEcsConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AwsEcsConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AwsEcsConfigValidationError{}
+
 // Validate checks the field values on ClusterConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -3529,6 +3741,47 @@ func (m *ClusterConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ClusterConfigValidationError{
 					field:  "PulumiRunner",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ClusterConfig_AwsEcs:
+		if v == nil {
+			err := ClusterConfigValidationError{
+				field:  "ClusterOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetAwsEcs()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "AwsEcs",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "AwsEcs",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAwsEcs()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterConfigValidationError{
+					field:  "AwsEcs",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

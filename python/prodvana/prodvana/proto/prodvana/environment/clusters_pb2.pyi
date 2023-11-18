@@ -36,20 +36,24 @@ class _ClusterTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
     UNKNOWN: _ClusterType.ValueType  # 0
     K8S: _ClusterType.ValueType  # 1
     ECS: _ClusterType.ValueType  # 2
+    """TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension"""
     FAKE: _ClusterType.ValueType  # 3
     EXTENSION: _ClusterType.ValueType  # 4
     TERRAFORM_RUNNER: _ClusterType.ValueType  # 5
     PULUMI_RUNNER: _ClusterType.ValueType  # 6
+    AWS_ECS: _ClusterType.ValueType  # 7
 
 class ClusterType(_ClusterType, metaclass=_ClusterTypeEnumTypeWrapper): ...
 
 UNKNOWN: ClusterType.ValueType  # 0
 K8S: ClusterType.ValueType  # 1
 ECS: ClusterType.ValueType  # 2
+"""TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension"""
 FAKE: ClusterType.ValueType  # 3
 EXTENSION: ClusterType.ValueType  # 4
 TERRAFORM_RUNNER: ClusterType.ValueType  # 5
 PULUMI_RUNNER: ClusterType.ValueType  # 6
+AWS_ECS: ClusterType.ValueType  # 7
 global___ClusterType = ClusterType
 
 class _ExtensionType:
@@ -61,12 +65,14 @@ class _ExtensionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     GENERIC: _ExtensionType.ValueType  # 0
     TERRAFORM: _ExtensionType.ValueType  # 1
     PULUMI: _ExtensionType.ValueType  # 2
+    AWS_ECS_EXTENSION: _ExtensionType.ValueType  # 3
 
 class ExtensionType(_ExtensionType, metaclass=_ExtensionTypeEnumTypeWrapper): ...
 
 GENERIC: ExtensionType.ValueType  # 0
 TERRAFORM: ExtensionType.ValueType  # 1
 PULUMI: ExtensionType.ValueType  # 2
+AWS_ECS_EXTENSION: ExtensionType.ValueType  # 3
 global___ExtensionType = ExtensionType
 
 class ClusterAuth(google.protobuf.message.Message):
@@ -673,6 +679,35 @@ class ClusterMetadata(google.protobuf.message.Message):
 
 global___ClusterMetadata = ClusterMetadata
 
+class AwsEcsConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PROXY_RUNTIME_FIELD_NUMBER: builtins.int
+    AWS_ACCESS_KEY_ID_FIELD_NUMBER: builtins.int
+    AWS_SECRET_ACCESS_KEY_FIELD_NUMBER: builtins.int
+    REGION_FIELD_NUMBER: builtins.int
+    ECS_CLUSTER_FIELD_NUMBER: builtins.int
+    @property
+    def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
+    aws_access_key_id: builtins.str
+    @property
+    def aws_secret_access_key(self) -> prodvana.proto.prodvana.common_config.env_pb2.Secret: ...
+    region: builtins.str
+    ecs_cluster: builtins.str
+    def __init__(
+        self,
+        *,
+        proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
+        aws_access_key_id: builtins.str = ...,
+        aws_secret_access_key: prodvana.proto.prodvana.common_config.env_pb2.Secret | None = ...,
+        region: builtins.str = ...,
+        ecs_cluster: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["aws_secret_access_key", b"aws_secret_access_key", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["aws_access_key_id", b"aws_access_key_id", "aws_secret_access_key", b"aws_secret_access_key", "ecs_cluster", b"ecs_cluster", "proxy_runtime", b"proxy_runtime", "region", b"region"]) -> None: ...
+
+global___AwsEcsConfig = AwsEcsConfig
+
 class ClusterConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -861,6 +896,7 @@ class ClusterConfig(google.protobuf.message.Message):
     EXTENSION_FIELD_NUMBER: builtins.int
     TERRAFORM_RUNNER_FIELD_NUMBER: builtins.int
     PULUMI_RUNNER_FIELD_NUMBER: builtins.int
+    AWS_ECS_FIELD_NUMBER: builtins.int
     LABELS_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
@@ -895,6 +931,8 @@ class ClusterConfig(google.protobuf.message.Message):
     def pulumi_runner(self) -> global___TerraformRunnerConfig:
         """pulumi runner is a runtime that runs pulumi via k8s jobs"""
     @property
+    def aws_ecs(self) -> global___AwsEcsConfig: ...
+    @property
     def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
     def __init__(
         self,
@@ -913,10 +951,11 @@ class ClusterConfig(google.protobuf.message.Message):
         extension: global___ExtensionClusterConfig | None = ...,
         terraform_runner: global___TerraformRunnerConfig | None = ...,
         pulumi_runner: global___TerraformRunnerConfig | None = ...,
+        aws_ecs: global___AwsEcsConfig | None = ...,
         labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "labels", b"labels", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension", "terraform_runner", "pulumi_runner"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "aws_ecs", b"aws_ecs", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "aws_ecs", b"aws_ecs", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "kubecost", b"kubecost", "labels", b"labels", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension", "terraform_runner", "pulumi_runner", "aws_ecs"] | None: ...
 
 global___ClusterConfig = ClusterConfig

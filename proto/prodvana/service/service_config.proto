@@ -114,6 +114,7 @@ message PerReleaseChannelConfig {
         prodvana.common_config.KubernetesConfig external_config = 16;
 
         prodvana.common_config.HelmConfig helm = 15;
+        AwsEcsConfig aws_ecs = 22;
     }
 
     // Additional env variables that are injected to the service.
@@ -135,7 +136,7 @@ message PerReleaseChannelConfig {
 
     reserved 3, 4, 12;
 
-    // next tag: 22
+    // next tag: 23
 }
 
 message CapabilityReference {
@@ -234,6 +235,24 @@ message AutoRollbackConfig {
     bool disabled = 1;
 }
 
+message AwsEcsConfig {
+    message TaskDefinition {
+        oneof task_definition_oneof {
+            option (validate.required) = true;
+            string inlined = 1 [(validate.rules).string.min_len = 1];
+            prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
+        }
+    }
+    message NetworkConfiguration {
+        repeated string subnets = 1;
+        repeated string security_groups = 2;
+        bool assign_public_ip = 3;
+    }
+    string ecs_service_name_override = 1;  // optional, defaults to Prodvana service name
+    TaskDefinition task_definition = 2;
+    NetworkConfiguration network_configuration = 3;
+}
+
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -294,6 +313,7 @@ message ServiceConfig {
         prodvana.common_config.KubernetesConfig external_config = 27;
 
         prodvana.common_config.HelmConfig helm = 26;
+        AwsEcsConfig aws_ecs = 35;
     }
 
     enum ParametersAutogen {
@@ -330,7 +350,7 @@ message ServiceConfig {
     // internal use
     bool async_set_desired_state = 34;
 
-    // next tag: 35
+    // next tag: 36
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -373,6 +393,7 @@ message CompiledServiceInstanceConfig {
         RuntimeExtensionConfig runtime_extension = 22;
         prodvana.common_config.KubernetesConfig kubernetes_config = 23;
         prodvana.common_config.HelmConfig helm = 29;
+        AwsEcsConfig aws_ecs = 37;
     }
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
@@ -393,7 +414,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 37
+    // next tag: 38
 }
 
 message CompiledJobConfig {

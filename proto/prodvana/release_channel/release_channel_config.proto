@@ -95,6 +95,7 @@ enum RuntimeConnectionType {
     UNKNOWN_CONNECTION = 0;
     LONG_LIVED_COMPUTE = 1;
     EXTENSION = 2;
+    AWS_ECS = 3;
 }
 
 message ReleaseChannelRuntimeConfig {
