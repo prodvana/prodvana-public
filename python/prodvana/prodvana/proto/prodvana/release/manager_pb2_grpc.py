@@ -44,6 +44,11 @@ class ReleaseManagerStub(object):
                 request_serializer=prodvana_dot_release_dot_manager__pb2.PreviewReleaseReq.SerializeToString,
                 response_deserializer=prodvana_dot_release_dot_manager__pb2.PreviewReleaseResp.FromString,
                 )
+        self.GetLatestReleases = channel.unary_unary(
+                '/prodvana.release.ReleaseManager/GetLatestReleases',
+                request_serializer=prodvana_dot_release_dot_manager__pb2.GetLatestReleasesReq.SerializeToString,
+                response_deserializer=prodvana_dot_release_dot_manager__pb2.GetLatestReleasesResp.FromString,
+                )
 
 
 class ReleaseManagerServicer(object):
@@ -86,6 +91,13 @@ class ReleaseManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLatestReleases(self, request, context):
+        """returns the latest releases for each (application, service, release channel) tuple.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ReleaseManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -118,6 +130,11 @@ def add_ReleaseManagerServicer_to_server(servicer, server):
                     servicer.PreviewRelease,
                     request_deserializer=prodvana_dot_release_dot_manager__pb2.PreviewReleaseReq.FromString,
                     response_serializer=prodvana_dot_release_dot_manager__pb2.PreviewReleaseResp.SerializeToString,
+            ),
+            'GetLatestReleases': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLatestReleases,
+                    request_deserializer=prodvana_dot_release_dot_manager__pb2.GetLatestReleasesReq.FromString,
+                    response_serializer=prodvana_dot_release_dot_manager__pb2.GetLatestReleasesResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -228,5 +245,22 @@ class ReleaseManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/PreviewRelease',
             prodvana_dot_release_dot_manager__pb2.PreviewReleaseReq.SerializeToString,
             prodvana_dot_release_dot_manager__pb2.PreviewReleaseResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLatestReleases(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/GetLatestReleases',
+            prodvana_dot_release_dot_manager__pb2.GetLatestReleasesReq.SerializeToString,
+            prodvana_dot_release_dot_manager__pb2.GetLatestReleasesResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

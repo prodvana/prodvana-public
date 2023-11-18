@@ -34,6 +34,11 @@ class ReleaseManagerStub:
         prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseReq,
         prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseResp,
     ]
+    GetLatestReleases: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesReq,
+        prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesResp,
+    ]
+    """returns the latest releases for each (application, service, release channel) tuple."""
 
 class ReleaseManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -73,5 +78,12 @@ class ReleaseManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.release.manager_pb2.PreviewReleaseResp: ...
+    @abc.abstractmethod
+    def GetLatestReleases(
+        self,
+        request: prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesResp:
+        """returns the latest releases for each (application, service, release channel) tuple."""
 
 def add_ReleaseManagerServicer_to_server(servicer: ReleaseManagerServicer, server: grpc.Server) -> None: ...

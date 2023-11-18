@@ -518,6 +518,110 @@ var _ interface {
 	ErrorName() string
 } = UpdateReleaseStatusRespValidationError{}
 
+// Validate checks the field values on ReleaseFilter with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ReleaseFilter) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseFilter with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ReleaseFilterMultiError, or
+// nil if none found.
+func (m *ReleaseFilter) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseFilter) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Application
+
+	// no validation rules for DesiredStateId
+
+	if len(errors) > 0 {
+		return ReleaseFilterMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseFilterMultiError is an error wrapping multiple validation errors
+// returned by ReleaseFilter.ValidateAll() if the designated constraints
+// aren't met.
+type ReleaseFilterMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseFilterMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseFilterMultiError) AllErrors() []error { return m }
+
+// ReleaseFilterValidationError is the validation error returned by
+// ReleaseFilter.Validate if the designated constraints aren't met.
+type ReleaseFilterValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseFilterValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseFilterValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseFilterValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseFilterValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseFilterValidationError) ErrorName() string { return "ReleaseFilterValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ReleaseFilterValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseFilter.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseFilterValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseFilterValidationError{}
+
 // Validate checks the field values on ListReleasesReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1610,46 +1714,111 @@ var _ interface {
 	ErrorName() string
 } = PreviewReleaseRespValidationError{}
 
-// Validate checks the field values on ListReleasesReq_Filter with the rules
+// Validate checks the field values on GetLatestReleasesReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListReleasesReq_Filter) Validate() error {
+func (m *GetLatestReleasesReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListReleasesReq_Filter with the rules
+// ValidateAll checks the field values on GetLatestReleasesReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ListReleasesReq_FilterMultiError, or nil if none found.
-func (m *ListReleasesReq_Filter) ValidateAll() error {
+// GetLatestReleasesReqMultiError, or nil if none found.
+func (m *GetLatestReleasesReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListReleasesReq_Filter) validate(all bool) error {
+func (m *GetLatestReleasesReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	// no validation rules for Application
+	for idx, item := range m.GetFilters() {
+		_, _ = idx, item
 
-	// no validation rules for DesiredStateId
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetLatestReleasesReqValidationError{
+						field:  fmt.Sprintf("Filters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetLatestReleasesReqValidationError{
+						field:  fmt.Sprintf("Filters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetLatestReleasesReqValidationError{
+					field:  fmt.Sprintf("Filters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetFilter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestReleasesReqValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestReleasesReqValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFilter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestReleasesReqValidationError{
+				field:  "Filter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Status
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
 
 	if len(errors) > 0 {
-		return ListReleasesReq_FilterMultiError(errors)
+		return GetLatestReleasesReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListReleasesReq_FilterMultiError is an error wrapping multiple validation
-// errors returned by ListReleasesReq_Filter.ValidateAll() if the designated
+// GetLatestReleasesReqMultiError is an error wrapping multiple validation
+// errors returned by GetLatestReleasesReq.ValidateAll() if the designated
 // constraints aren't met.
-type ListReleasesReq_FilterMultiError []error
+type GetLatestReleasesReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListReleasesReq_FilterMultiError) Error() string {
+func (m GetLatestReleasesReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1658,11 +1827,11 @@ func (m ListReleasesReq_FilterMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListReleasesReq_FilterMultiError) AllErrors() []error { return m }
+func (m GetLatestReleasesReqMultiError) AllErrors() []error { return m }
 
-// ListReleasesReq_FilterValidationError is the validation error returned by
-// ListReleasesReq_Filter.Validate if the designated constraints aren't met.
-type ListReleasesReq_FilterValidationError struct {
+// GetLatestReleasesReqValidationError is the validation error returned by
+// GetLatestReleasesReq.Validate if the designated constraints aren't met.
+type GetLatestReleasesReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1670,24 +1839,24 @@ type ListReleasesReq_FilterValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListReleasesReq_FilterValidationError) Field() string { return e.field }
+func (e GetLatestReleasesReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListReleasesReq_FilterValidationError) Reason() string { return e.reason }
+func (e GetLatestReleasesReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListReleasesReq_FilterValidationError) Cause() error { return e.cause }
+func (e GetLatestReleasesReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListReleasesReq_FilterValidationError) Key() bool { return e.key }
+func (e GetLatestReleasesReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListReleasesReq_FilterValidationError) ErrorName() string {
-	return "ListReleasesReq_FilterValidationError"
+func (e GetLatestReleasesReqValidationError) ErrorName() string {
+	return "GetLatestReleasesReqValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListReleasesReq_FilterValidationError) Error() string {
+func (e GetLatestReleasesReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1699,14 +1868,14 @@ func (e ListReleasesReq_FilterValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListReleasesReq_Filter.%s: %s%s",
+		"invalid %sGetLatestReleasesReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListReleasesReq_FilterValidationError{}
+var _ error = GetLatestReleasesReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -1714,4 +1883,142 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListReleasesReq_FilterValidationError{}
+} = GetLatestReleasesReqValidationError{}
+
+// Validate checks the field values on GetLatestReleasesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetLatestReleasesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetLatestReleasesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetLatestReleasesRespMultiError, or nil if none found.
+func (m *GetLatestReleasesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLatestReleasesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetReleases() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetLatestReleasesRespValidationError{
+						field:  fmt.Sprintf("Releases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetLatestReleasesRespValidationError{
+						field:  fmt.Sprintf("Releases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetLatestReleasesRespValidationError{
+					field:  fmt.Sprintf("Releases[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return GetLatestReleasesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLatestReleasesRespMultiError is an error wrapping multiple validation
+// errors returned by GetLatestReleasesResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetLatestReleasesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLatestReleasesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLatestReleasesRespMultiError) AllErrors() []error { return m }
+
+// GetLatestReleasesRespValidationError is the validation error returned by
+// GetLatestReleasesResp.Validate if the designated constraints aren't met.
+type GetLatestReleasesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLatestReleasesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLatestReleasesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLatestReleasesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLatestReleasesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLatestReleasesRespValidationError) ErrorName() string {
+	return "GetLatestReleasesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLatestReleasesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLatestReleasesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLatestReleasesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLatestReleasesRespValidationError{}

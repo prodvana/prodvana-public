@@ -87,37 +87,39 @@ class UpdateReleaseStatusResp(google.protobuf.message.Message):
 
 global___UpdateReleaseStatusResp = UpdateReleaseStatusResp
 
-class ListReleasesReq(google.protobuf.message.Message):
+class ReleaseFilter(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class Filter(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    SERVICES_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
+    APPLICATION_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    @property
+    def services(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """filters to releases for join(join(services, OR), join(release_channels, OR), AND)"""
+    @property
+    def release_channels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    application: builtins.str
+    """if set, the filters on services and release channels above will be limited to this app.
+    Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
+    staging release channels across all apps.)
+    """
+    desired_state_id: builtins.str
+    """desired_state_id filter is AND'ed with everything else in the same filter object"""
+    def __init__(
+        self,
+        *,
+        services: collections.abc.Iterable[builtins.str] | None = ...,
+        release_channels: collections.abc.Iterable[builtins.str] | None = ...,
+        application: builtins.str = ...,
+        desired_state_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "desired_state_id", b"desired_state_id", "release_channels", b"release_channels", "services", b"services"]) -> None: ...
 
-        SERVICES_FIELD_NUMBER: builtins.int
-        RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
-        APPLICATION_FIELD_NUMBER: builtins.int
-        DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
-        @property
-        def services(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-            """filters to releases for join(join(services, OR), join(release_channels, OR), AND)"""
-        @property
-        def release_channels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-        application: builtins.str
-        """if set, the filters on services and release channels above will be limited to this app.
-        Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
-        staging release channels across all apps.)
-        """
-        desired_state_id: builtins.str
-        """desired_state_id filter is AND'ed with everything else in the same filter object"""
-        def __init__(
-            self,
-            *,
-            services: collections.abc.Iterable[builtins.str] | None = ...,
-            release_channels: collections.abc.Iterable[builtins.str] | None = ...,
-            application: builtins.str = ...,
-            desired_state_id: builtins.str = ...,
-        ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "desired_state_id", b"desired_state_id", "release_channels", b"release_channels", "services", b"services"]) -> None: ...
+global___ReleaseFilter = ReleaseFilter
+
+class ListReleasesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FILTERS_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int
@@ -126,10 +128,10 @@ class ListReleasesReq(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     @property
-    def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ListReleasesReq.Filter]:
+    def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReleaseFilter]:
         """filters for listing releases. Multiple filters are OR'ed together."""
     @property
-    def filter(self) -> global___ListReleasesReq.Filter:
+    def filter(self) -> global___ReleaseFilter:
         """escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR."""
     starting_release_id: builtins.str
     """newer release, inclusive"""
@@ -140,8 +142,8 @@ class ListReleasesReq(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        filters: collections.abc.Iterable[global___ListReleasesReq.Filter] | None = ...,
-        filter: global___ListReleasesReq.Filter | None = ...,
+        filters: collections.abc.Iterable[global___ReleaseFilter] | None = ...,
+        filter: global___ReleaseFilter | None = ...,
         starting_release_id: builtins.str = ...,
         ending_release_id: builtins.str = ...,
         page_token: builtins.str = ...,
@@ -262,3 +264,53 @@ class PreviewReleaseResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["release", b"release"]) -> None: ...
 
 global___PreviewReleaseResp = PreviewReleaseResp
+
+class GetLatestReleasesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FILTERS_FIELD_NUMBER: builtins.int
+    FILTER_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    @property
+    def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReleaseFilter]:
+        """filters for listing releases. Multiple filters are OR'ed together."""
+    @property
+    def filter(self) -> global___ReleaseFilter:
+        """escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR."""
+    status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType
+    """if set, only return releases with this status"""
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        filters: collections.abc.Iterable[global___ReleaseFilter] | None = ...,
+        filter: global___ReleaseFilter | None = ...,
+        status: prodvana.proto.prodvana.release.object_pb2.ReleaseStatus.ValueType = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["filter", b"filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["filter", b"filter", "filters", b"filters", "page_size", b"page_size", "page_token", b"page_token", "status", b"status"]) -> None: ...
+
+global___GetLatestReleasesReq = GetLatestReleasesReq
+
+class GetLatestReleasesResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASES_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def releases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release.object_pb2.Release]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        releases: collections.abc.Iterable[prodvana.proto.prodvana.release.object_pb2.Release] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "releases", b"releases"]) -> None: ...
+
+global___GetLatestReleasesResp = GetLatestReleasesResp

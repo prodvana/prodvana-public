@@ -26,20 +26,21 @@ message UpdateReleaseStatusResp {
     ReleaseStatus status = 1;
 }
 
+message ReleaseFilter {
+    // filters to releases for join(join(services, OR), join(release_channels, OR), AND)
+    repeated string services = 1;
+    repeated string release_channels = 2;
+    // if set, the filters on services and release channels above will be limited to this app.
+    // Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
+    // staging release channels across all apps.)
+    string application = 3;
+    string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
+}
+
 message ListReleasesReq {
-    message Filter {
-        // filters to releases for join(join(services, OR), join(release_channels, OR), AND)
-        repeated string services = 1;
-        repeated string release_channels = 2;
-        // if set, the filters on services and release channels above will be limited to this app.
-        // Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
-        // staging release channels across all apps.)
-        string application = 3;
-        string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
-    }
     // filters for listing releases. Multiple filters are OR'ed together.
-    repeated Filter filters = 1;
-    Filter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
+    repeated ReleaseFilter filters = 1;
+    ReleaseFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
 
     string starting_release_id = 3; // newer release, inclusive
     string ending_release_id = 4; // older release, exclusive
@@ -80,6 +81,21 @@ message PreviewReleaseResp {
     Release release = 1;
 }
 
+message GetLatestReleasesReq {
+    // filters for listing releases. Multiple filters are OR'ed together.
+    repeated ReleaseFilter filters = 1;
+    ReleaseFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
+
+    ReleaseStatus status = 3; // if set, only return releases with this status
+    string page_token = 4;
+    int32 page_size = 5;
+}
+
+message GetLatestReleasesResp {
+    repeated Release releases = 1;
+    string next_page_token = 2;
+}
+
 service ReleaseManager {
     rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
         option (google.api.http) = {
@@ -111,6 +127,13 @@ service ReleaseManager {
         option (google.api.http) = {
             post: "/v1/releases/preview"
             body: "*"
+        };
+    }
+
+    // returns the latest releases for each (application, service, release channel) tuple.
+    rpc GetLatestReleases(GetLatestReleasesReq) returns (GetLatestReleasesResp) {
+        option (google.api.http) = {
+            get: "/v1/releases/latest"
         };
     }
 }

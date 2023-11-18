@@ -4561,6 +4561,94 @@
         ]
       }
     },
+    "/v1/releases/latest": {
+      "get": {
+        "summary": "returns the latest releases for each (application, service, release channel) tuple.",
+        "operationId": "ReleaseManager_GetLatestReleases",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseGetLatestReleasesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter.services",
+            "description": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.releaseChannels",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.application",
+            "description": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.desiredStateId",
+            "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "if set, only return releases with this status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN_STATUS",
+              "PENDING",
+              "SUCCEEDED",
+              "FAILED",
+              "PREVIEW"
+            ],
+            "default": "UNKNOWN_STATUS"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      }
+    },
     "/v1/releases/preview": {
       "post": {
         "operationId": "ReleaseManager_PreviewRelease",
@@ -6289,32 +6377,6 @@
         },
         "name": {
           "type": "string"
-        }
-      }
-    },
-    "ListReleasesReqFilter": {
-      "type": "object",
-      "properties": {
-        "services": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)"
-        },
-        "releaseChannels": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "application": {
-          "type": "string",
-          "title": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)"
-        },
-        "desiredStateId": {
-          "type": "string",
-          "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
         }
       }
     },
@@ -12299,6 +12361,21 @@
         }
       }
     },
+    "releaseGetLatestReleasesResp": {
+      "type": "object",
+      "properties": {
+        "releases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/releaseRelease"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
     "releaseImpactAnalysisComparison": {
       "type": "object",
       "properties": {
@@ -12486,6 +12563,32 @@
         "desiredStateId": {
           "type": "string",
           "title": "next tag: 14"
+        }
+      }
+    },
+    "releaseReleaseFilter": {
+      "type": "object",
+      "properties": {
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)"
+        },
+        "releaseChannels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "application": {
+          "type": "string",
+          "title": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)"
+        },
+        "desiredStateId": {
+          "type": "string",
+          "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
         }
       }
     },

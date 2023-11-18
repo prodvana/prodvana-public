@@ -25,6 +25,7 @@ const (
 	ReleaseManager_ListReleasesStream_FullMethodName  = "/prodvana.release.ReleaseManager/ListReleasesStream"
 	ReleaseManager_CompareRelease_FullMethodName      = "/prodvana.release.ReleaseManager/CompareRelease"
 	ReleaseManager_PreviewRelease_FullMethodName      = "/prodvana.release.ReleaseManager/PreviewRelease"
+	ReleaseManager_GetLatestReleases_FullMethodName   = "/prodvana.release.ReleaseManager/GetLatestReleases"
 )
 
 // ReleaseManagerClient is the client API for ReleaseManager service.
@@ -38,6 +39,8 @@ type ReleaseManagerClient interface {
 	ListReleasesStream(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error)
 	CompareRelease(ctx context.Context, in *CompareReleaseReq, opts ...grpc.CallOption) (*CompareReleaseResp, error)
 	PreviewRelease(ctx context.Context, in *PreviewReleaseReq, opts ...grpc.CallOption) (*PreviewReleaseResp, error)
+	// returns the latest releases for each (application, service, release channel) tuple.
+	GetLatestReleases(ctx context.Context, in *GetLatestReleasesReq, opts ...grpc.CallOption) (*GetLatestReleasesResp, error)
 }
 
 type releaseManagerClient struct {
@@ -125,6 +128,15 @@ func (c *releaseManagerClient) PreviewRelease(ctx context.Context, in *PreviewRe
 	return out, nil
 }
 
+func (c *releaseManagerClient) GetLatestReleases(ctx context.Context, in *GetLatestReleasesReq, opts ...grpc.CallOption) (*GetLatestReleasesResp, error) {
+	out := new(GetLatestReleasesResp)
+	err := c.cc.Invoke(ctx, ReleaseManager_GetLatestReleases_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReleaseManagerServer is the server API for ReleaseManager service.
 // All implementations must embed UnimplementedReleaseManagerServer
 // for forward compatibility
@@ -136,6 +148,8 @@ type ReleaseManagerServer interface {
 	ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error
 	CompareRelease(context.Context, *CompareReleaseReq) (*CompareReleaseResp, error)
 	PreviewRelease(context.Context, *PreviewReleaseReq) (*PreviewReleaseResp, error)
+	// returns the latest releases for each (application, service, release channel) tuple.
+	GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error)
 	mustEmbedUnimplementedReleaseManagerServer()
 }
 
@@ -160,6 +174,9 @@ func (UnimplementedReleaseManagerServer) CompareRelease(context.Context, *Compar
 }
 func (UnimplementedReleaseManagerServer) PreviewRelease(context.Context, *PreviewReleaseReq) (*PreviewReleaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreviewRelease not implemented")
+}
+func (UnimplementedReleaseManagerServer) GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestReleases not implemented")
 }
 func (UnimplementedReleaseManagerServer) mustEmbedUnimplementedReleaseManagerServer() {}
 
@@ -285,6 +302,24 @@ func _ReleaseManager_PreviewRelease_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReleaseManager_GetLatestReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestReleasesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReleaseManagerServer).GetLatestReleases(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReleaseManager_GetLatestReleases_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReleaseManagerServer).GetLatestReleases(ctx, req.(*GetLatestReleasesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReleaseManager_ServiceDesc is the grpc.ServiceDesc for ReleaseManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -311,6 +346,10 @@ var ReleaseManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PreviewRelease",
 			Handler:    _ReleaseManager_PreviewRelease_Handler,
+		},
+		{
+			MethodName: "GetLatestReleases",
+			Handler:    _ReleaseManager_GetLatestReleases_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
