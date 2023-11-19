@@ -39,6 +39,10 @@ class ReleaseManagerStub:
         prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesResp,
     ]
     """returns the latest releases for each (application, service, release channel) tuple."""
+    CheckCommitInRelease: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.release.manager_pb2.CheckCommitInReleaseReq,
+        prodvana.proto.prodvana.release.manager_pb2.CheckCommitInReleaseResp,
+    ]
 
 class ReleaseManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -85,5 +89,11 @@ class ReleaseManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.release.manager_pb2.GetLatestReleasesResp:
         """returns the latest releases for each (application, service, release channel) tuple."""
+    @abc.abstractmethod
+    def CheckCommitInRelease(
+        self,
+        request: prodvana.proto.prodvana.release.manager_pb2.CheckCommitInReleaseReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.release.manager_pb2.CheckCommitInReleaseResp: ...
 
 def add_ReleaseManagerServicer_to_server(servicer: ReleaseManagerServicer, server: grpc.Server) -> None: ...

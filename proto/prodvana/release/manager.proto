@@ -96,6 +96,32 @@ message GetLatestReleasesResp {
     string next_page_token = 2;
 }
 
+message ReleaseServiceInstance {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string release_channel = 3 [(validate.rules).string.min_len = 1];
+}
+
+message CheckCommitInReleaseReq {
+    oneof release_oneof {
+        option (validate.required) = true;
+        string release_id = 1 [(validate.rules).string.min_len = 1];
+        ReleaseServiceInstance release_service_instance = 2 [(validate.rules).message.required = true];  // will pick latest release
+    }
+    string repository = 3 [(validate.rules).string.min_len = 1];
+    string commit = 4 [(validate.rules).string.min_len = 1];
+}
+
+message CheckCommitInReleaseResp {
+    enum Result {
+        UNKNOWN = 0;
+        INCLUDED = 1;
+        NO_RELATION = 2;
+        NOT_INCLUDED = 3;
+    }
+    Result result = 1;
+}
+
 service ReleaseManager {
     rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
         option (google.api.http) = {
@@ -134,6 +160,12 @@ service ReleaseManager {
     rpc GetLatestReleases(GetLatestReleasesReq) returns (GetLatestReleasesResp) {
         option (google.api.http) = {
             get: "/v1/releases/latest"
+        };
+    }
+
+    rpc CheckCommitInRelease(CheckCommitInReleaseReq) returns (CheckCommitInReleaseResp) {
+        option (google.api.http) = {
+            get: "/v1/releases/check_commit"
         };
     }
 }

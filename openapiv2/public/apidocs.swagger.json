@@ -4529,6 +4529,66 @@
         ]
       }
     },
+    "/v1/releases/check_commit": {
+      "get": {
+        "operationId": "ReleaseManager_CheckCommitInRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/releaseCheckCommitInReleaseResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "releaseServiceInstance.application",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "releaseServiceInstance.service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "releaseServiceInstance.releaseChannel",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.release.ReleaseManager"
+        ]
+      }
+    },
     "/v1/releases/compare": {
       "post": {
         "operationId": "ReleaseManager_CompareRelease",
@@ -5793,6 +5853,16 @@
           "$ref": "#/definitions/common_configLocalConfig"
         }
       }
+    },
+    "CheckCommitInReleaseRespResult": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "INCLUDED",
+        "NO_RELATION",
+        "NOT_INCLUDED"
+      ],
+      "default": "UNKNOWN"
     },
     "CliAuthRespUserPrompt": {
       "type": "object",
@@ -12342,6 +12412,14 @@
         }
       }
     },
+    "releaseCheckCommitInReleaseResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/CheckCommitInReleaseRespResult"
+        }
+      }
+    },
     "releaseCompareReleaseReq": {
       "type": "object",
       "properties": {
@@ -12600,6 +12678,20 @@
         },
         "config": {
           "$ref": "#/definitions/releaseReleaseConfig"
+        }
+      }
+    },
+    "releaseReleaseServiceInstance": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
         }
       }
     },

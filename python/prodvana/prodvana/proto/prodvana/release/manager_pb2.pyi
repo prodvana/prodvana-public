@@ -6,12 +6,14 @@ import builtins
 import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.release.object_pb2
 import sys
+import typing
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
@@ -314,3 +316,81 @@ class GetLatestReleasesResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "releases", b"releases"]) -> None: ...
 
 global___GetLatestReleasesResp = GetLatestReleasesResp
+
+class ReleaseServiceInstance(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    release_channel: builtins.str
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+        release_channel: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "service", b"service"]) -> None: ...
+
+global___ReleaseServiceInstance = ReleaseServiceInstance
+
+class CheckCommitInReleaseReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_SERVICE_INSTANCE_FIELD_NUMBER: builtins.int
+    REPOSITORY_FIELD_NUMBER: builtins.int
+    COMMIT_FIELD_NUMBER: builtins.int
+    release_id: builtins.str
+    @property
+    def release_service_instance(self) -> global___ReleaseServiceInstance:
+        """will pick latest release"""
+    repository: builtins.str
+    commit: builtins.str
+    def __init__(
+        self,
+        *,
+        release_id: builtins.str = ...,
+        release_service_instance: global___ReleaseServiceInstance | None = ...,
+        repository: builtins.str = ...,
+        commit: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["release_id", b"release_id", "release_oneof", b"release_oneof", "release_service_instance", b"release_service_instance"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit", "release_id", b"release_id", "release_oneof", b"release_oneof", "release_service_instance", b"release_service_instance", "repository", b"repository"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["release_oneof", b"release_oneof"]) -> typing_extensions.Literal["release_id", "release_service_instance"] | None: ...
+
+global___CheckCommitInReleaseReq = CheckCommitInReleaseReq
+
+class CheckCommitInReleaseResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Result:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckCommitInReleaseResp._Result.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: CheckCommitInReleaseResp._Result.ValueType  # 0
+        INCLUDED: CheckCommitInReleaseResp._Result.ValueType  # 1
+        NO_RELATION: CheckCommitInReleaseResp._Result.ValueType  # 2
+        NOT_INCLUDED: CheckCommitInReleaseResp._Result.ValueType  # 3
+
+    class Result(_Result, metaclass=_ResultEnumTypeWrapper): ...
+    UNKNOWN: CheckCommitInReleaseResp.Result.ValueType  # 0
+    INCLUDED: CheckCommitInReleaseResp.Result.ValueType  # 1
+    NO_RELATION: CheckCommitInReleaseResp.Result.ValueType  # 2
+    NOT_INCLUDED: CheckCommitInReleaseResp.Result.ValueType  # 3
+
+    RESULT_FIELD_NUMBER: builtins.int
+    result: global___CheckCommitInReleaseResp.Result.ValueType
+    def __init__(
+        self,
+        *,
+        result: global___CheckCommitInReleaseResp.Result.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["result", b"result"]) -> None: ...
+
+global___CheckCommitInReleaseResp = CheckCommitInReleaseResp

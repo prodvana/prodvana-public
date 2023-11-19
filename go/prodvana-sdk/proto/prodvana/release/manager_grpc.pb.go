@@ -19,13 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ReleaseManager_RecordRelease_FullMethodName       = "/prodvana.release.ReleaseManager/RecordRelease"
-	ReleaseManager_UpdateReleaseStatus_FullMethodName = "/prodvana.release.ReleaseManager/UpdateReleaseStatus"
-	ReleaseManager_ListReleases_FullMethodName        = "/prodvana.release.ReleaseManager/ListReleases"
-	ReleaseManager_ListReleasesStream_FullMethodName  = "/prodvana.release.ReleaseManager/ListReleasesStream"
-	ReleaseManager_CompareRelease_FullMethodName      = "/prodvana.release.ReleaseManager/CompareRelease"
-	ReleaseManager_PreviewRelease_FullMethodName      = "/prodvana.release.ReleaseManager/PreviewRelease"
-	ReleaseManager_GetLatestReleases_FullMethodName   = "/prodvana.release.ReleaseManager/GetLatestReleases"
+	ReleaseManager_RecordRelease_FullMethodName        = "/prodvana.release.ReleaseManager/RecordRelease"
+	ReleaseManager_UpdateReleaseStatus_FullMethodName  = "/prodvana.release.ReleaseManager/UpdateReleaseStatus"
+	ReleaseManager_ListReleases_FullMethodName         = "/prodvana.release.ReleaseManager/ListReleases"
+	ReleaseManager_ListReleasesStream_FullMethodName   = "/prodvana.release.ReleaseManager/ListReleasesStream"
+	ReleaseManager_CompareRelease_FullMethodName       = "/prodvana.release.ReleaseManager/CompareRelease"
+	ReleaseManager_PreviewRelease_FullMethodName       = "/prodvana.release.ReleaseManager/PreviewRelease"
+	ReleaseManager_GetLatestReleases_FullMethodName    = "/prodvana.release.ReleaseManager/GetLatestReleases"
+	ReleaseManager_CheckCommitInRelease_FullMethodName = "/prodvana.release.ReleaseManager/CheckCommitInRelease"
 )
 
 // ReleaseManagerClient is the client API for ReleaseManager service.
@@ -41,6 +42,7 @@ type ReleaseManagerClient interface {
 	PreviewRelease(ctx context.Context, in *PreviewReleaseReq, opts ...grpc.CallOption) (*PreviewReleaseResp, error)
 	// returns the latest releases for each (application, service, release channel) tuple.
 	GetLatestReleases(ctx context.Context, in *GetLatestReleasesReq, opts ...grpc.CallOption) (*GetLatestReleasesResp, error)
+	CheckCommitInRelease(ctx context.Context, in *CheckCommitInReleaseReq, opts ...grpc.CallOption) (*CheckCommitInReleaseResp, error)
 }
 
 type releaseManagerClient struct {
@@ -137,6 +139,15 @@ func (c *releaseManagerClient) GetLatestReleases(ctx context.Context, in *GetLat
 	return out, nil
 }
 
+func (c *releaseManagerClient) CheckCommitInRelease(ctx context.Context, in *CheckCommitInReleaseReq, opts ...grpc.CallOption) (*CheckCommitInReleaseResp, error) {
+	out := new(CheckCommitInReleaseResp)
+	err := c.cc.Invoke(ctx, ReleaseManager_CheckCommitInRelease_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReleaseManagerServer is the server API for ReleaseManager service.
 // All implementations must embed UnimplementedReleaseManagerServer
 // for forward compatibility
@@ -150,6 +161,7 @@ type ReleaseManagerServer interface {
 	PreviewRelease(context.Context, *PreviewReleaseReq) (*PreviewReleaseResp, error)
 	// returns the latest releases for each (application, service, release channel) tuple.
 	GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error)
+	CheckCommitInRelease(context.Context, *CheckCommitInReleaseReq) (*CheckCommitInReleaseResp, error)
 	mustEmbedUnimplementedReleaseManagerServer()
 }
 
@@ -177,6 +189,9 @@ func (UnimplementedReleaseManagerServer) PreviewRelease(context.Context, *Previe
 }
 func (UnimplementedReleaseManagerServer) GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLatestReleases not implemented")
+}
+func (UnimplementedReleaseManagerServer) CheckCommitInRelease(context.Context, *CheckCommitInReleaseReq) (*CheckCommitInReleaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckCommitInRelease not implemented")
 }
 func (UnimplementedReleaseManagerServer) mustEmbedUnimplementedReleaseManagerServer() {}
 
@@ -320,6 +335,24 @@ func _ReleaseManager_GetLatestReleases_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReleaseManager_CheckCommitInRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckCommitInReleaseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReleaseManagerServer).CheckCommitInRelease(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReleaseManager_CheckCommitInRelease_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReleaseManagerServer).CheckCommitInRelease(ctx, req.(*CheckCommitInReleaseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReleaseManager_ServiceDesc is the grpc.ServiceDesc for ReleaseManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +383,10 @@ var ReleaseManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLatestReleases",
 			Handler:    _ReleaseManager_GetLatestReleases_Handler,
+		},
+		{
+			MethodName: "CheckCommitInRelease",
+			Handler:    _ReleaseManager_CheckCommitInRelease_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

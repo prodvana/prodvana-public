@@ -2022,3 +2022,459 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetLatestReleasesRespValidationError{}
+
+// Validate checks the field values on ReleaseServiceInstance with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseServiceInstance) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseServiceInstance with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseServiceInstanceMultiError, or nil if none found.
+func (m *ReleaseServiceInstance) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseServiceInstance) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ReleaseServiceInstanceValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ReleaseServiceInstanceValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReleaseChannel()) < 1 {
+		err := ReleaseServiceInstanceValidationError{
+			field:  "ReleaseChannel",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReleaseServiceInstanceMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseServiceInstanceMultiError is an error wrapping multiple validation
+// errors returned by ReleaseServiceInstance.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseServiceInstanceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseServiceInstanceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseServiceInstanceMultiError) AllErrors() []error { return m }
+
+// ReleaseServiceInstanceValidationError is the validation error returned by
+// ReleaseServiceInstance.Validate if the designated constraints aren't met.
+type ReleaseServiceInstanceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseServiceInstanceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseServiceInstanceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseServiceInstanceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseServiceInstanceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseServiceInstanceValidationError) ErrorName() string {
+	return "ReleaseServiceInstanceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseServiceInstanceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseServiceInstance.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseServiceInstanceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseServiceInstanceValidationError{}
+
+// Validate checks the field values on CheckCommitInReleaseReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckCommitInReleaseReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckCommitInReleaseReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckCommitInReleaseReqMultiError, or nil if none found.
+func (m *CheckCommitInReleaseReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckCommitInReleaseReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetRepository()) < 1 {
+		err := CheckCommitInReleaseReqValidationError{
+			field:  "Repository",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCommit()) < 1 {
+		err := CheckCommitInReleaseReqValidationError{
+			field:  "Commit",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	oneofReleaseOneofPresent := false
+	switch v := m.ReleaseOneof.(type) {
+	case *CheckCommitInReleaseReq_ReleaseId:
+		if v == nil {
+			err := CheckCommitInReleaseReqValidationError{
+				field:  "ReleaseOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofReleaseOneofPresent = true
+
+		if utf8.RuneCountInString(m.GetReleaseId()) < 1 {
+			err := CheckCommitInReleaseReqValidationError{
+				field:  "ReleaseId",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *CheckCommitInReleaseReq_ReleaseServiceInstance:
+		if v == nil {
+			err := CheckCommitInReleaseReqValidationError{
+				field:  "ReleaseOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofReleaseOneofPresent = true
+
+		if m.GetReleaseServiceInstance() == nil {
+			err := CheckCommitInReleaseReqValidationError{
+				field:  "ReleaseServiceInstance",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseServiceInstance()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CheckCommitInReleaseReqValidationError{
+						field:  "ReleaseServiceInstance",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CheckCommitInReleaseReqValidationError{
+						field:  "ReleaseServiceInstance",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseServiceInstance()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CheckCommitInReleaseReqValidationError{
+					field:  "ReleaseServiceInstance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofReleaseOneofPresent {
+		err := CheckCommitInReleaseReqValidationError{
+			field:  "ReleaseOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CheckCommitInReleaseReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckCommitInReleaseReqMultiError is an error wrapping multiple validation
+// errors returned by CheckCommitInReleaseReq.ValidateAll() if the designated
+// constraints aren't met.
+type CheckCommitInReleaseReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckCommitInReleaseReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckCommitInReleaseReqMultiError) AllErrors() []error { return m }
+
+// CheckCommitInReleaseReqValidationError is the validation error returned by
+// CheckCommitInReleaseReq.Validate if the designated constraints aren't met.
+type CheckCommitInReleaseReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckCommitInReleaseReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckCommitInReleaseReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckCommitInReleaseReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckCommitInReleaseReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckCommitInReleaseReqValidationError) ErrorName() string {
+	return "CheckCommitInReleaseReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckCommitInReleaseReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckCommitInReleaseReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckCommitInReleaseReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckCommitInReleaseReqValidationError{}
+
+// Validate checks the field values on CheckCommitInReleaseResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckCommitInReleaseResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckCommitInReleaseResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckCommitInReleaseRespMultiError, or nil if none found.
+func (m *CheckCommitInReleaseResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckCommitInReleaseResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return CheckCommitInReleaseRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckCommitInReleaseRespMultiError is an error wrapping multiple validation
+// errors returned by CheckCommitInReleaseResp.ValidateAll() if the designated
+// constraints aren't met.
+type CheckCommitInReleaseRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckCommitInReleaseRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckCommitInReleaseRespMultiError) AllErrors() []error { return m }
+
+// CheckCommitInReleaseRespValidationError is the validation error returned by
+// CheckCommitInReleaseResp.Validate if the designated constraints aren't met.
+type CheckCommitInReleaseRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckCommitInReleaseRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckCommitInReleaseRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckCommitInReleaseRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckCommitInReleaseRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckCommitInReleaseRespValidationError) ErrorName() string {
+	return "CheckCommitInReleaseRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckCommitInReleaseRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckCommitInReleaseResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckCommitInReleaseRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckCommitInReleaseRespValidationError{}
