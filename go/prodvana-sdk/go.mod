@@ -1,6 +1,6 @@
 module github.com/prodvana/prodvana-public/go/prodvana-sdk
 
-go 1.20
+go 1.21
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.10.1
