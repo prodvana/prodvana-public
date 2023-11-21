@@ -224,6 +224,18 @@ message GetServiceLatestDesiredStateIdResp {
     PendingSetDesiredState pending_set_desired_state = 2;
 }
 
+message GetServiceDesiredStateIdHistoryReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string page_token = 3;
+    int32 page_size = 4;
+}
+
+message GetServiceDesiredStateIdHistoryResp {
+    repeated string desired_state_ids = 1;
+    string next_page_token = 2;
+}
+
 message ValidateDesiredStateResp {
     prodvana.desired_state.model.State desired_state = 1;
     prodvana.desired_state.model.State compiled_desired_state = 2;
@@ -285,6 +297,11 @@ service DesiredStateManager {
     rpc GetServiceLatestDesiredStateId(GetServiceLatestDesiredStateIdReq) returns (GetServiceLatestDesiredStateIdResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/latest_desired_state_id"
+        };
+    }
+    rpc GetServiceDesiredStateIdHistory(GetServiceDesiredStateIdHistoryReq) returns (GetServiceDesiredStateIdHistoryResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/desired_state_id_history"
         };
     }
     rpc GetServiceLastConvergedStates(GetServiceLastConvergedStateReq) returns (GetServiceLastConvergedStateResp) {

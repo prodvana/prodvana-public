@@ -834,6 +834,57 @@
         ]
       }
     },
+    "/v1/applications/{application}/services/{service}/desired_state_id_history": {
+      "get": {
+        "operationId": "DesiredStateManager_GetServiceDesiredStateIdHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetServiceDesiredStateIdHistoryResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/applications/{application}/services/{service}/desired_states": {
       "get": {
         "operationId": "DesiredStateManager_GetServiceDesiredStateHistory",
@@ -8336,6 +8387,20 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/desired_stateDesiredStateSummary"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "desired_stateGetServiceDesiredStateIdHistoryResp": {
+      "type": "object",
+      "properties": {
+        "desiredStateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         },
         "nextPageToken": {

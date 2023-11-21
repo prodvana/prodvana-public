@@ -4141,6 +4141,244 @@ var _ interface {
 	ErrorName() string
 } = GetServiceLatestDesiredStateIdRespValidationError{}
 
+// Validate checks the field values on GetServiceDesiredStateIdHistoryReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetServiceDesiredStateIdHistoryReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceDesiredStateIdHistoryReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetServiceDesiredStateIdHistoryReqMultiError, or nil if none found.
+func (m *GetServiceDesiredStateIdHistoryReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceDesiredStateIdHistoryReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := GetServiceDesiredStateIdHistoryReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := GetServiceDesiredStateIdHistoryReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return GetServiceDesiredStateIdHistoryReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceDesiredStateIdHistoryReqMultiError is an error wrapping multiple
+// validation errors returned by
+// GetServiceDesiredStateIdHistoryReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceDesiredStateIdHistoryReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceDesiredStateIdHistoryReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceDesiredStateIdHistoryReqMultiError) AllErrors() []error { return m }
+
+// GetServiceDesiredStateIdHistoryReqValidationError is the validation error
+// returned by GetServiceDesiredStateIdHistoryReq.Validate if the designated
+// constraints aren't met.
+type GetServiceDesiredStateIdHistoryReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceDesiredStateIdHistoryReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceDesiredStateIdHistoryReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceDesiredStateIdHistoryReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceDesiredStateIdHistoryReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceDesiredStateIdHistoryReqValidationError) ErrorName() string {
+	return "GetServiceDesiredStateIdHistoryReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceDesiredStateIdHistoryReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceDesiredStateIdHistoryReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceDesiredStateIdHistoryReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceDesiredStateIdHistoryReqValidationError{}
+
+// Validate checks the field values on GetServiceDesiredStateIdHistoryResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetServiceDesiredStateIdHistoryResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetServiceDesiredStateIdHistoryResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetServiceDesiredStateIdHistoryRespMultiError, or nil if none found.
+func (m *GetServiceDesiredStateIdHistoryResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetServiceDesiredStateIdHistoryResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return GetServiceDesiredStateIdHistoryRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetServiceDesiredStateIdHistoryRespMultiError is an error wrapping multiple
+// validation errors returned by
+// GetServiceDesiredStateIdHistoryResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetServiceDesiredStateIdHistoryRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetServiceDesiredStateIdHistoryRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetServiceDesiredStateIdHistoryRespMultiError) AllErrors() []error { return m }
+
+// GetServiceDesiredStateIdHistoryRespValidationError is the validation error
+// returned by GetServiceDesiredStateIdHistoryResp.Validate if the designated
+// constraints aren't met.
+type GetServiceDesiredStateIdHistoryRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetServiceDesiredStateIdHistoryRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetServiceDesiredStateIdHistoryRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetServiceDesiredStateIdHistoryRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetServiceDesiredStateIdHistoryRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetServiceDesiredStateIdHistoryRespValidationError) ErrorName() string {
+	return "GetServiceDesiredStateIdHistoryRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetServiceDesiredStateIdHistoryRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetServiceDesiredStateIdHistoryResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetServiceDesiredStateIdHistoryRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetServiceDesiredStateIdHistoryRespValidationError{}
+
 // Validate checks the field values on ValidateDesiredStateResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

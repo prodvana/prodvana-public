@@ -34,6 +34,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.FromString,
                 )
+        self.GetServiceDesiredStateIdHistory = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateIdHistory',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryResp.FromString,
+                )
         self.GetServiceLastConvergedStates = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetServiceLastConvergedStates',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLastConvergedStateReq.SerializeToString,
@@ -105,6 +110,12 @@ class DesiredStateManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetServiceLatestDesiredStateId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceDesiredStateIdHistory(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -191,6 +202,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.GetServiceLatestDesiredStateId,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.SerializeToString,
+            ),
+            'GetServiceDesiredStateIdHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceDesiredStateIdHistory,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryResp.SerializeToString,
             ),
             'GetServiceLastConvergedStates': grpc.unary_unary_rpc_method_handler(
                     servicer.GetServiceLastConvergedStates,
@@ -312,6 +328,23 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceLatestDesiredStateId',
             prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestDesiredStateIdResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetServiceDesiredStateIdHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateIdHistory',
+            prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetServiceDesiredStateIdHistoryResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

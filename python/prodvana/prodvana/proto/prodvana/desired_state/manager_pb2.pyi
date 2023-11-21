@@ -795,6 +795,47 @@ class GetServiceLatestDesiredStateIdResp(google.protobuf.message.Message):
 
 global___GetServiceLatestDesiredStateIdResp = GetServiceLatestDesiredStateIdResp
 
+class GetServiceDesiredStateIdHistoryReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "page_size", b"page_size", "page_token", b"page_token", "service", b"service"]) -> None: ...
+
+global___GetServiceDesiredStateIdHistoryReq = GetServiceDesiredStateIdHistoryReq
+
+class GetServiceDesiredStateIdHistoryResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_IDS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def desired_state_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        desired_state_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_ids", b"desired_state_ids", "next_page_token", b"next_page_token"]) -> None: ...
+
+global___GetServiceDesiredStateIdHistoryResp = GetServiceDesiredStateIdHistoryResp
+
 class ValidateDesiredStateResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

@@ -23,6 +23,7 @@ const (
 	DesiredStateManager_PreviewEntityGraph_FullMethodName                       = "/prodvana.desired_state.DesiredStateManager/PreviewEntityGraph"
 	DesiredStateManager_GetServiceDesiredStateConvergenceSummary_FullMethodName = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateConvergenceSummary"
 	DesiredStateManager_GetServiceLatestDesiredStateId_FullMethodName           = "/prodvana.desired_state.DesiredStateManager/GetServiceLatestDesiredStateId"
+	DesiredStateManager_GetServiceDesiredStateIdHistory_FullMethodName          = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateIdHistory"
 	DesiredStateManager_GetServiceLastConvergedStates_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceLastConvergedStates"
 	DesiredStateManager_GetServiceDesiredStateHistory_FullMethodName            = "/prodvana.desired_state.DesiredStateManager/GetServiceDesiredStateHistory"
 	DesiredStateManager_GetDesiredState_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/GetDesiredState"
@@ -44,6 +45,7 @@ type DesiredStateManagerClient interface {
 	PreviewEntityGraph(ctx context.Context, in *SetDesiredStateReq, opts ...grpc.CallOption) (*PreviewEntityGraphResp, error)
 	GetServiceDesiredStateConvergenceSummary(ctx context.Context, in *GetServiceDesiredStateConvergenceSummaryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateConvergenceSummaryResp, error)
 	GetServiceLatestDesiredStateId(ctx context.Context, in *GetServiceLatestDesiredStateIdReq, opts ...grpc.CallOption) (*GetServiceLatestDesiredStateIdResp, error)
+	GetServiceDesiredStateIdHistory(ctx context.Context, in *GetServiceDesiredStateIdHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateIdHistoryResp, error)
 	GetServiceLastConvergedStates(ctx context.Context, in *GetServiceLastConvergedStateReq, opts ...grpc.CallOption) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(ctx context.Context, in *GetServiceDesiredStateHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*GetDesiredStateResp, error)
@@ -98,6 +100,15 @@ func (c *desiredStateManagerClient) GetServiceDesiredStateConvergenceSummary(ctx
 func (c *desiredStateManagerClient) GetServiceLatestDesiredStateId(ctx context.Context, in *GetServiceLatestDesiredStateIdReq, opts ...grpc.CallOption) (*GetServiceLatestDesiredStateIdResp, error) {
 	out := new(GetServiceLatestDesiredStateIdResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_GetServiceLatestDesiredStateId_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *desiredStateManagerClient) GetServiceDesiredStateIdHistory(ctx context.Context, in *GetServiceDesiredStateIdHistoryReq, opts ...grpc.CallOption) (*GetServiceDesiredStateIdHistoryResp, error) {
+	out := new(GetServiceDesiredStateIdHistoryResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetServiceDesiredStateIdHistory_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -195,6 +206,7 @@ type DesiredStateManagerServer interface {
 	PreviewEntityGraph(context.Context, *SetDesiredStateReq) (*PreviewEntityGraphResp, error)
 	GetServiceDesiredStateConvergenceSummary(context.Context, *GetServiceDesiredStateConvergenceSummaryReq) (*GetServiceDesiredStateConvergenceSummaryResp, error)
 	GetServiceLatestDesiredStateId(context.Context, *GetServiceLatestDesiredStateIdReq) (*GetServiceLatestDesiredStateIdResp, error)
+	GetServiceDesiredStateIdHistory(context.Context, *GetServiceDesiredStateIdHistoryReq) (*GetServiceDesiredStateIdHistoryResp, error)
 	GetServiceLastConvergedStates(context.Context, *GetServiceLastConvergedStateReq) (*GetServiceLastConvergedStateResp, error)
 	GetServiceDesiredStateHistory(context.Context, *GetServiceDesiredStateHistoryReq) (*GetServiceDesiredStateHistoryResp, error)
 	GetDesiredState(context.Context, *GetDesiredStateReq) (*GetDesiredStateResp, error)
@@ -227,6 +239,9 @@ func (UnimplementedDesiredStateManagerServer) GetServiceDesiredStateConvergenceS
 }
 func (UnimplementedDesiredStateManagerServer) GetServiceLatestDesiredStateId(context.Context, *GetServiceLatestDesiredStateIdReq) (*GetServiceLatestDesiredStateIdResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceLatestDesiredStateId not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetServiceDesiredStateIdHistory(context.Context, *GetServiceDesiredStateIdHistoryReq) (*GetServiceDesiredStateIdHistoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServiceDesiredStateIdHistory not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) GetServiceLastConvergedStates(context.Context, *GetServiceLastConvergedStateReq) (*GetServiceLastConvergedStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceLastConvergedStates not implemented")
@@ -336,6 +351,24 @@ func _DesiredStateManager_GetServiceLatestDesiredStateId_Handler(srv interface{}
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DesiredStateManagerServer).GetServiceLatestDesiredStateId(ctx, req.(*GetServiceLatestDesiredStateIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DesiredStateManager_GetServiceDesiredStateIdHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceDesiredStateIdHistoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetServiceDesiredStateIdHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetServiceDesiredStateIdHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetServiceDesiredStateIdHistory(ctx, req.(*GetServiceDesiredStateIdHistoryReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -524,6 +557,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServiceLatestDesiredStateId",
 			Handler:    _DesiredStateManager_GetServiceLatestDesiredStateId_Handler,
+		},
+		{
+			MethodName: "GetServiceDesiredStateIdHistory",
+			Handler:    _DesiredStateManager_GetServiceDesiredStateIdHistory_Handler,
 		},
 		{
 			MethodName: "GetServiceLastConvergedStates",
