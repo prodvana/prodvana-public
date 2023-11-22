@@ -65,7 +65,7 @@ message ReleaseRef {
 
 message CompareReleaseReq {
     ReleaseRef new_release = 1 [(validate.rules).message.required = true];
-    ReleaseRef prev_release = 2 [(validate.rules).message.required = true];
+    ReleaseRef prev_release = 2;
 }
 
 message CompareReleaseResp {

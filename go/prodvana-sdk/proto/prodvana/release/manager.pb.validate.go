@@ -1161,17 +1161,6 @@ func (m *CompareReleaseReq) validate(all bool) error {
 		}
 	}
 
-	if m.GetPrevRelease() == nil {
-		err := CompareReleaseReqValidationError{
-			field:  "PrevRelease",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetPrevRelease()).(type) {
 		case interface{ ValidateAll() error }:
