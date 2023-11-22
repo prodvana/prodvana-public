@@ -19,13 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	OrganizationManager_GetOrganization_FullMethodName           = "/prodvana.organization.OrganizationManager/GetOrganization"
-	OrganizationManager_GetOrganizationMetrics_FullMethodName    = "/prodvana.organization.OrganizationManager/GetOrganizationMetrics"
-	OrganizationManager_GetOrganizationInsights_FullMethodName   = "/prodvana.organization.OrganizationManager/GetOrganizationInsights"
-	OrganizationManager_SnoozeOrganizationInsight_FullMethodName = "/prodvana.organization.OrganizationManager/SnoozeOrganizationInsight"
-	OrganizationManager_GetOrganizationMetadata_FullMethodName   = "/prodvana.organization.OrganizationManager/GetOrganizationMetadata"
-	OrganizationManager_SetOrganizationMetadata_FullMethodName   = "/prodvana.organization.OrganizationManager/SetOrganizationMetadata"
-	OrganizationManager_GetUser_FullMethodName                   = "/prodvana.organization.OrganizationManager/GetUser"
+	OrganizationManager_GetOrganization_FullMethodName                   = "/prodvana.organization.OrganizationManager/GetOrganization"
+	OrganizationManager_GetOrganizationMetrics_FullMethodName            = "/prodvana.organization.OrganizationManager/GetOrganizationMetrics"
+	OrganizationManager_GetOrganizationInsights_FullMethodName           = "/prodvana.organization.OrganizationManager/GetOrganizationInsights"
+	OrganizationManager_SnoozeOrganizationInsight_FullMethodName         = "/prodvana.organization.OrganizationManager/SnoozeOrganizationInsight"
+	OrganizationManager_GetOrganizationMetadata_FullMethodName           = "/prodvana.organization.OrganizationManager/GetOrganizationMetadata"
+	OrganizationManager_SetOrganizationMetadata_FullMethodName           = "/prodvana.organization.OrganizationManager/SetOrganizationMetadata"
+	OrganizationManager_GetUser_FullMethodName                           = "/prodvana.organization.OrganizationManager/GetUser"
+	OrganizationManager_GetOrganizationSubscriptionStatus_FullMethodName = "/prodvana.organization.OrganizationManager/GetOrganizationSubscriptionStatus"
 )
 
 // OrganizationManagerClient is the client API for OrganizationManager service.
@@ -41,6 +42,7 @@ type OrganizationManagerClient interface {
 	SetOrganizationMetadata(ctx context.Context, in *SetOrganizationMetadataReq, opts ...grpc.CallOption) (*SetOrganizationMetadataResp, error)
 	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
 	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
+	GetOrganizationSubscriptionStatus(ctx context.Context, in *GetOrganizationSubscriptionStatusReq, opts ...grpc.CallOption) (*GetOrganizationSubscriptionStatusResp, error)
 }
 
 type organizationManagerClient struct {
@@ -114,6 +116,15 @@ func (c *organizationManagerClient) GetUser(ctx context.Context, in *GetUserReq,
 	return out, nil
 }
 
+func (c *organizationManagerClient) GetOrganizationSubscriptionStatus(ctx context.Context, in *GetOrganizationSubscriptionStatusReq, opts ...grpc.CallOption) (*GetOrganizationSubscriptionStatusResp, error) {
+	out := new(GetOrganizationSubscriptionStatusResp)
+	err := c.cc.Invoke(ctx, OrganizationManager_GetOrganizationSubscriptionStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationManagerServer is the server API for OrganizationManager service.
 // All implementations must embed UnimplementedOrganizationManagerServer
 // for forward compatibility
@@ -127,6 +138,7 @@ type OrganizationManagerServer interface {
 	SetOrganizationMetadata(context.Context, *SetOrganizationMetadataReq) (*SetOrganizationMetadataResp, error)
 	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
 	GetUser(context.Context, *GetUserReq) (*GetUserResp, error)
+	GetOrganizationSubscriptionStatus(context.Context, *GetOrganizationSubscriptionStatusReq) (*GetOrganizationSubscriptionStatusResp, error)
 	mustEmbedUnimplementedOrganizationManagerServer()
 }
 
@@ -154,6 +166,9 @@ func (UnimplementedOrganizationManagerServer) SetOrganizationMetadata(context.Co
 }
 func (UnimplementedOrganizationManagerServer) GetUser(context.Context, *GetUserReq) (*GetUserResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (UnimplementedOrganizationManagerServer) GetOrganizationSubscriptionStatus(context.Context, *GetOrganizationSubscriptionStatusReq) (*GetOrganizationSubscriptionStatusResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationSubscriptionStatus not implemented")
 }
 func (UnimplementedOrganizationManagerServer) mustEmbedUnimplementedOrganizationManagerServer() {}
 
@@ -294,6 +309,24 @@ func _OrganizationManager_GetUser_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationManager_GetOrganizationSubscriptionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationSubscriptionStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationManagerServer).GetOrganizationSubscriptionStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationManager_GetOrganizationSubscriptionStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationManagerServer).GetOrganizationSubscriptionStatus(ctx, req.(*GetOrganizationSubscriptionStatusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationManager_ServiceDesc is the grpc.ServiceDesc for OrganizationManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -328,6 +361,10 @@ var OrganizationManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUser",
 			Handler:    _OrganizationManager_GetUser_Handler,
+		},
+		{
+			MethodName: "GetOrganizationSubscriptionStatus",
+			Handler:    _OrganizationManager_GetOrganizationSubscriptionStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

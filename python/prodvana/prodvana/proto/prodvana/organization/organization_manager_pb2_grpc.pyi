@@ -38,6 +38,10 @@ class OrganizationManagerStub:
         prodvana.proto.prodvana.organization.organization_manager_pb2.GetUserResp,
     ]
     """Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization"""
+    GetOrganizationSubscriptionStatus: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusReq,
+        prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusResp,
+    ]
 
 class OrganizationManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -84,5 +88,11 @@ class OrganizationManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.organization.organization_manager_pb2.GetUserResp:
         """Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization"""
+    @abc.abstractmethod
+    def GetOrganizationSubscriptionStatus(
+        self,
+        request: prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusResp: ...
 
 def add_OrganizationManagerServicer_to_server(servicer: OrganizationManagerServicer, server: grpc.Server) -> None: ...

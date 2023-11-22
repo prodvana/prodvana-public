@@ -4144,6 +4144,36 @@
         ]
       }
     },
+    "/v1/organization/subscription/status": {
+      "get": {
+        "operationId": "OrganizationManager_GetOrganizationSubscriptionStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationGetOrganizationSubscriptionStatusResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.organization.OrganizationManager"
+        ]
+      }
+    },
     "/v1/organization/user/{userId}": {
       "get": {
         "summary": "Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization",
@@ -11633,6 +11663,21 @@
       "properties": {
         "organization": {
           "$ref": "#/definitions/organizationOrganizationInfo"
+        }
+      }
+    },
+    "organizationGetOrganizationSubscriptionStatusResp": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "trial": {
+          "type": "boolean"
+        },
+        "trialEndTimestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

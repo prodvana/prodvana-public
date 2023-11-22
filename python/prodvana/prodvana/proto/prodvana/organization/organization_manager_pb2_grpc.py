@@ -49,6 +49,11 @@ class OrganizationManagerStub(object):
                 request_serializer=prodvana_dot_organization_dot_organization__manager__pb2.GetUserReq.SerializeToString,
                 response_deserializer=prodvana_dot_organization_dot_organization__manager__pb2.GetUserResp.FromString,
                 )
+        self.GetOrganizationSubscriptionStatus = channel.unary_unary(
+                '/prodvana.organization.OrganizationManager/GetOrganizationSubscriptionStatus',
+                request_serializer=prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusReq.SerializeToString,
+                response_deserializer=prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusResp.FromString,
+                )
 
 
 class OrganizationManagerServicer(object):
@@ -98,6 +103,12 @@ class OrganizationManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetOrganizationSubscriptionStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OrganizationManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -135,6 +146,11 @@ def add_OrganizationManagerServicer_to_server(servicer, server):
                     servicer.GetUser,
                     request_deserializer=prodvana_dot_organization_dot_organization__manager__pb2.GetUserReq.FromString,
                     response_serializer=prodvana_dot_organization_dot_organization__manager__pb2.GetUserResp.SerializeToString,
+            ),
+            'GetOrganizationSubscriptionStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOrganizationSubscriptionStatus,
+                    request_deserializer=prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusReq.FromString,
+                    response_serializer=prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -262,5 +278,22 @@ class OrganizationManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.organization.OrganizationManager/GetUser',
             prodvana_dot_organization_dot_organization__manager__pb2.GetUserReq.SerializeToString,
             prodvana_dot_organization_dot_organization__manager__pb2.GetUserResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetOrganizationSubscriptionStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.organization.OrganizationManager/GetOrganizationSubscriptionStatus',
+            prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusReq.SerializeToString,
+            prodvana_dot_organization_dot_organization__manager__pb2.GetOrganizationSubscriptionStatusResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -75,6 +75,16 @@ message GetUserResp {
     prodvana.users.User user = 1;
 }
 
+message GetOrganizationSubscriptionStatusReq {
+    string org_id = 1;
+}
+
+message GetOrganizationSubscriptionStatusResp {
+    bool active = 1;
+    bool trial = 2;
+    google.protobuf.Timestamp trial_end_timestamp = 3;
+}
+
 service OrganizationManager {
     rpc GetOrganization (GetOrganizationReq) returns (GetOrganizationResp) {
         option (google.api.http) = {
@@ -114,6 +124,12 @@ service OrganizationManager {
     rpc GetUser(GetUserReq) returns (GetUserResp) {
         option (google.api.http) = {
             get: "/v1/organization/user/{user_id=*}"
+        };
+    }
+
+    rpc GetOrganizationSubscriptionStatus(GetOrganizationSubscriptionStatusReq) returns (GetOrganizationSubscriptionStatusResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/subscription/status"
         };
     }
 }

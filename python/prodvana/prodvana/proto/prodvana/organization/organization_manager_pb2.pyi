@@ -243,3 +243,39 @@ class GetUserResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["user", b"user"]) -> None: ...
 
 global___GetUserResp = GetUserResp
+
+class GetOrganizationSubscriptionStatusReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ORG_ID_FIELD_NUMBER: builtins.int
+    org_id: builtins.str
+    def __init__(
+        self,
+        *,
+        org_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["org_id", b"org_id"]) -> None: ...
+
+global___GetOrganizationSubscriptionStatusReq = GetOrganizationSubscriptionStatusReq
+
+class GetOrganizationSubscriptionStatusResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACTIVE_FIELD_NUMBER: builtins.int
+    TRIAL_FIELD_NUMBER: builtins.int
+    TRIAL_END_TIMESTAMP_FIELD_NUMBER: builtins.int
+    active: builtins.bool
+    trial: builtins.bool
+    @property
+    def trial_end_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        active: builtins.bool = ...,
+        trial: builtins.bool = ...,
+        trial_end_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["trial_end_timestamp", b"trial_end_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "trial", b"trial", "trial_end_timestamp", b"trial_end_timestamp"]) -> None: ...
+
+global___GetOrganizationSubscriptionStatusResp = GetOrganizationSubscriptionStatusResp
