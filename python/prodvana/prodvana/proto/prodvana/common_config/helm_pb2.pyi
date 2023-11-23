@@ -87,12 +87,16 @@ class HelmConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     REMOTE_FIELD_NUMBER: builtins.int
+    LOCAL_FIELD_NUMBER: builtins.int
+    HELM_TARBALL_BLOB_ID_FIELD_NUMBER: builtins.int
     VALUES_OVERRIDES_FIELD_NUMBER: builtins.int
     RELEASE_NAME_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
     @property
-    def remote(self) -> global___RemoteHelmChart:
-        """TODO(naphat) chart archive support, local charts"""
+    def remote(self) -> global___RemoteHelmChart: ...
+    @property
+    def local(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig: ...
+    helm_tarball_blob_id: builtins.str
     @property
     def values_overrides(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HelmValuesOverrides]: ...
     release_name: builtins.str
@@ -105,12 +109,14 @@ class HelmConfig(google.protobuf.message.Message):
         self,
         *,
         remote: global___RemoteHelmChart | None = ...,
+        local: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig | None = ...,
+        helm_tarball_blob_id: builtins.str = ...,
         values_overrides: collections.abc.Iterable[global___HelmValuesOverrides] | None = ...,
         release_name: builtins.str = ...,
         namespace: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "remote", b"remote"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "namespace", b"namespace", "release_name", b"release_name", "remote", b"remote", "values_overrides", b"values_overrides"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["chart_oneof", b"chart_oneof"]) -> typing_extensions.Literal["remote"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "helm_tarball_blob_id", b"helm_tarball_blob_id", "local", b"local", "remote", b"remote"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "helm_tarball_blob_id", b"helm_tarball_blob_id", "local", b"local", "namespace", b"namespace", "release_name", b"release_name", "remote", b"remote", "values_overrides", b"values_overrides"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["chart_oneof", b"chart_oneof"]) -> typing_extensions.Literal["remote", "local", "helm_tarball_blob_id"] | None: ...
 
 global___HelmConfig = HelmConfig

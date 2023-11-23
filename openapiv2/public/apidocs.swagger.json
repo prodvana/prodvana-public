@@ -7473,8 +7473,13 @@
       "type": "object",
       "properties": {
         "remote": {
-          "$ref": "#/definitions/common_configRemoteHelmChart",
-          "title": "TODO(naphat) chart archive support, local charts"
+          "$ref": "#/definitions/common_configRemoteHelmChart"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "helmTarballBlobId": {
+          "type": "string"
         },
         "valuesOverrides": {
           "type": "array",

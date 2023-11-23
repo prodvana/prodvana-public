@@ -527,6 +527,61 @@ func (m *HelmConfig) validate(all bool) error {
 			}
 		}
 
+	case *HelmConfig_Local:
+		if v == nil {
+			err := HelmConfigValidationError{
+				field:  "ChartOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofChartOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetLocal()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, HelmConfigValidationError{
+						field:  "Local",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, HelmConfigValidationError{
+						field:  "Local",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetLocal()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HelmConfigValidationError{
+					field:  "Local",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *HelmConfig_HelmTarballBlobId:
+		if v == nil {
+			err := HelmConfigValidationError{
+				field:  "ChartOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofChartOneofPresent = true
+		// no validation rules for HelmTarballBlobId
 	default:
 		_ = v // ensures v is used
 	}

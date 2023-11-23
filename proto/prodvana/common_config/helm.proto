@@ -30,7 +30,8 @@ message HelmConfig {
     oneof chart_oneof {
         option (validate.required) = true;
         RemoteHelmChart remote = 1;
-        // TODO(naphat) chart archive support, local charts
+        LocalConfig local = 5;
+        string helm_tarball_blob_id = 6;
     }
     repeated HelmValuesOverrides values_overrides = 2;
     // optional release name, leave blank to have Prodvana generate one.
@@ -39,4 +40,6 @@ message HelmConfig {
 
     // used internally by Prodvana, do not set.
     string namespace = 4 [(validate.rules).string.max_len = 0];
+
+    // next tag: 7
 }
