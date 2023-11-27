@@ -12101,6 +12101,9 @@
         },
         "releaseChannel": {
           "$ref": "#/definitions/protectionReleaseChannelAttachment"
+        },
+        "convergence": {
+          "$ref": "#/definitions/protectionConvergenceAttachment"
         }
       }
     },
@@ -12284,6 +12287,14 @@
           "type": "string"
         },
         "version": {
+          "type": "string"
+        }
+      }
+    },
+    "protectionConvergenceAttachment": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
           "type": "string"
         }
       }
@@ -13386,6 +13397,13 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
+        },
+        "convergenceProtections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          }
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
@@ -13779,6 +13797,13 @@
           "title": "constants made available in template substitutions"
         },
         "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          }
+        },
+        "convergenceProtections": {
           "type": "array",
           "items": {
             "type": "object",

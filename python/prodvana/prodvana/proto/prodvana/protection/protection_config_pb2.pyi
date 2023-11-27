@@ -174,23 +174,41 @@ class ReleaseChannelAttachment(google.protobuf.message.Message):
 
 global___ReleaseChannelAttachment = ReleaseChannelAttachment
 
+class ConvergenceAttachment(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id"]) -> None: ...
+
+global___ConvergenceAttachment = ConvergenceAttachment
+
 class ProtectionAttachment(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SERVICE_INSTANCE_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    CONVERGENCE_FIELD_NUMBER: builtins.int
     @property
     def service_instance(self) -> global___ServiceInstanceAttachment: ...
     @property
     def release_channel(self) -> global___ReleaseChannelAttachment: ...
+    @property
+    def convergence(self) -> global___ConvergenceAttachment: ...
     def __init__(
         self,
         *,
         service_instance: global___ServiceInstanceAttachment | None = ...,
         release_channel: global___ReleaseChannelAttachment | None = ...,
+        convergence: global___ConvergenceAttachment | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["attachment", b"attachment", "release_channel", b"release_channel", "service_instance", b"service_instance"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attachment", b"attachment", "release_channel", b"release_channel", "service_instance", b"service_instance"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["attachment", b"attachment"]) -> typing_extensions.Literal["service_instance", "release_channel"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["attachment", b"attachment", "convergence", b"convergence", "release_channel", b"release_channel", "service_instance", b"service_instance"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment", b"attachment", "convergence", b"convergence", "release_channel", b"release_channel", "service_instance", b"service_instance"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["attachment", b"attachment"]) -> typing_extensions.Literal["service_instance", "release_channel", "convergence"] | None: ...
 
 global___ProtectionAttachment = ProtectionAttachment

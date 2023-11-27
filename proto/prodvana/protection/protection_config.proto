@@ -83,10 +83,15 @@ message ReleaseChannelAttachment {
     string release_channel = 2;
 }
 
+message ConvergenceAttachment {
+    string desired_state_id = 1;
+}
+
 message ProtectionAttachment {
     oneof attachment {
         option (validate.required) = true;
         ServiceInstanceAttachment service_instance = 1;
         ReleaseChannelAttachment release_channel = 2;
+        ConvergenceAttachment convergence = 3;
     }
 }

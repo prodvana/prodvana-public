@@ -350,6 +350,53 @@ func (x *ReleaseChannelAttachment) GetReleaseChannel() string {
 	return ""
 }
 
+type ConvergenceAttachment struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DesiredStateId string `protobuf:"bytes,1,opt,name=desired_state_id,json=desiredStateId,proto3" json:"desired_state_id,omitempty"`
+}
+
+func (x *ConvergenceAttachment) Reset() {
+	*x = ConvergenceAttachment{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_protection_protection_config_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ConvergenceAttachment) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvergenceAttachment) ProtoMessage() {}
+
+func (x *ConvergenceAttachment) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_protection_protection_config_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConvergenceAttachment.ProtoReflect.Descriptor instead.
+func (*ConvergenceAttachment) Descriptor() ([]byte, []int) {
+	return file_prodvana_protection_protection_config_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ConvergenceAttachment) GetDesiredStateId() string {
+	if x != nil {
+		return x.DesiredStateId
+	}
+	return ""
+}
+
 type ProtectionAttachment struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -359,13 +406,14 @@ type ProtectionAttachment struct {
 	//
 	//	*ProtectionAttachment_ServiceInstance
 	//	*ProtectionAttachment_ReleaseChannel
+	//	*ProtectionAttachment_Convergence
 	Attachment isProtectionAttachment_Attachment `protobuf_oneof:"attachment"`
 }
 
 func (x *ProtectionAttachment) Reset() {
 	*x = ProtectionAttachment{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_protection_protection_config_proto_msgTypes[4]
+		mi := &file_prodvana_protection_protection_config_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -378,7 +426,7 @@ func (x *ProtectionAttachment) String() string {
 func (*ProtectionAttachment) ProtoMessage() {}
 
 func (x *ProtectionAttachment) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_protection_protection_config_proto_msgTypes[4]
+	mi := &file_prodvana_protection_protection_config_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -391,7 +439,7 @@ func (x *ProtectionAttachment) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProtectionAttachment.ProtoReflect.Descriptor instead.
 func (*ProtectionAttachment) Descriptor() ([]byte, []int) {
-	return file_prodvana_protection_protection_config_proto_rawDescGZIP(), []int{4}
+	return file_prodvana_protection_protection_config_proto_rawDescGZIP(), []int{5}
 }
 
 func (m *ProtectionAttachment) GetAttachment() isProtectionAttachment_Attachment {
@@ -415,6 +463,13 @@ func (x *ProtectionAttachment) GetReleaseChannel() *ReleaseChannelAttachment {
 	return nil
 }
 
+func (x *ProtectionAttachment) GetConvergence() *ConvergenceAttachment {
+	if x, ok := x.GetAttachment().(*ProtectionAttachment_Convergence); ok {
+		return x.Convergence
+	}
+	return nil
+}
+
 type isProtectionAttachment_Attachment interface {
 	isProtectionAttachment_Attachment()
 }
@@ -427,9 +482,15 @@ type ProtectionAttachment_ReleaseChannel struct {
 	ReleaseChannel *ReleaseChannelAttachment `protobuf:"bytes,2,opt,name=release_channel,json=releaseChannel,proto3,oneof"`
 }
 
+type ProtectionAttachment_Convergence struct {
+	Convergence *ConvergenceAttachment `protobuf:"bytes,3,opt,name=convergence,proto3,oneof"`
+}
+
 func (*ProtectionAttachment_ServiceInstance) isProtectionAttachment_Attachment() {}
 
 func (*ProtectionAttachment_ReleaseChannel) isProtectionAttachment_Attachment() {}
+
+func (*ProtectionAttachment_Convergence) isProtectionAttachment_Attachment() {}
 
 var File_prodvana_protection_protection_config_proto protoreflect.FileDescriptor
 
@@ -546,26 +607,35 @@ var file_prodvana_protection_protection_config_proto_rawDesc = []byte{
 	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x27, 0x0a, 0x0f, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73,
 	0x65, 0x5f, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x0e, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x22,
-	0xe0, 0x01, 0x0a, 0x14, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x74,
-	0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x5b, 0x0a, 0x10, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x5f, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65,
-	0x6e, 0x74, 0x48, 0x00, 0x52, 0x0f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x49, 0x6e, 0x73,
-	0x74, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x58, 0x0a, 0x0f, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65,
-	0x5f, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2d,
-	0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x43, 0x68, 0x61, 0x6e,
-	0x6e, 0x65, 0x6c, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52,
-	0x0e, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x42,
-	0x11, 0x0a, 0x0a, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x03, 0xf8,
-	0x42, 0x01, 0x42, 0x4f, 0x5a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
-	0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61,
-	0x6e, 0x61, 0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f,
-	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f,
-	0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x41, 0x0a, 0x15, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x67, 0x65, 0x6e, 0x63, 0x65, 0x41, 0x74,
+	0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x28, 0x0a, 0x10, 0x64, 0x65, 0x73, 0x69,
+	0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x49, 0x64, 0x22, 0xb0, 0x02, 0x0a, 0x14, 0x50, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x5b, 0x0a, 0x10, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x41, 0x74, 0x74, 0x61, 0x63,
+	0x68, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x0f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x58, 0x0a, 0x0f, 0x72, 0x65, 0x6c, 0x65,
+	0x61, 0x73, 0x65, 0x5f, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x2d, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x43,
+	0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74,
+	0x48, 0x00, 0x52, 0x0e, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e,
+	0x65, 0x6c, 0x12, 0x4e, 0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x67, 0x65, 0x6e, 0x63,
+	0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61,
+	0x6e, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x67, 0x65, 0x6e, 0x63, 0x65, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d,
+	0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x0b, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x67, 0x65, 0x6e,
+	0x63, 0x65, 0x42, 0x11, 0x0a, 0x0a, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74,
+	0x12, 0x03, 0xf8, 0x42, 0x01, 0x42, 0x4f, 0x5a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f,
+	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f, 0x67, 0x6f, 0x2f,
+	0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x74,
+	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -580,44 +650,46 @@ func file_prodvana_protection_protection_config_proto_rawDescGZIP() []byte {
 	return file_prodvana_protection_protection_config_proto_rawDescData
 }
 
-var file_prodvana_protection_protection_config_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_prodvana_protection_protection_config_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_prodvana_protection_protection_config_proto_goTypes = []interface{}{
 	(*ProtectionConfig)(nil),                   // 0: prodvana.protection.ProtectionConfig
 	(*CompiledProtectionAttachmentConfig)(nil), // 1: prodvana.protection.CompiledProtectionAttachmentConfig
 	(*ServiceInstanceAttachment)(nil),          // 2: prodvana.protection.ServiceInstanceAttachment
 	(*ReleaseChannelAttachment)(nil),           // 3: prodvana.protection.ReleaseChannelAttachment
-	(*ProtectionAttachment)(nil),               // 4: prodvana.protection.ProtectionAttachment
-	nil,                                        // 5: prodvana.protection.ProtectionConfig.EnvEntry
-	nil,                                        // 6: prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry
-	(*common_config.TaskConfig)(nil),           // 7: prodvana.common_config.TaskConfig
-	(*common_config.KubernetesConfig)(nil),     // 8: prodvana.common_config.KubernetesConfig
-	(*durationpb.Duration)(nil),                // 9: google.protobuf.Duration
-	(*common_config.ParameterDefinition)(nil),  // 10: prodvana.common_config.ParameterDefinition
-	(*runtimes.RuntimeExecutionConfig)(nil),    // 11: prodvana.runtimes.RuntimeExecutionConfig
-	(*common_config.ParameterValue)(nil),       // 12: prodvana.common_config.ParameterValue
-	(*common_config.EnvValue)(nil),             // 13: prodvana.common_config.EnvValue
+	(*ConvergenceAttachment)(nil),              // 4: prodvana.protection.ConvergenceAttachment
+	(*ProtectionAttachment)(nil),               // 5: prodvana.protection.ProtectionAttachment
+	nil,                                        // 6: prodvana.protection.ProtectionConfig.EnvEntry
+	nil,                                        // 7: prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry
+	(*common_config.TaskConfig)(nil),           // 8: prodvana.common_config.TaskConfig
+	(*common_config.KubernetesConfig)(nil),     // 9: prodvana.common_config.KubernetesConfig
+	(*durationpb.Duration)(nil),                // 10: google.protobuf.Duration
+	(*common_config.ParameterDefinition)(nil),  // 11: prodvana.common_config.ParameterDefinition
+	(*runtimes.RuntimeExecutionConfig)(nil),    // 12: prodvana.runtimes.RuntimeExecutionConfig
+	(*common_config.ParameterValue)(nil),       // 13: prodvana.common_config.ParameterValue
+	(*common_config.EnvValue)(nil),             // 14: prodvana.common_config.EnvValue
 }
 var file_prodvana_protection_protection_config_proto_depIdxs = []int32{
-	7,  // 0: prodvana.protection.ProtectionConfig.task_config:type_name -> prodvana.common_config.TaskConfig
-	8,  // 1: prodvana.protection.ProtectionConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
-	9,  // 2: prodvana.protection.ProtectionConfig.poll_interval:type_name -> google.protobuf.Duration
-	9,  // 3: prodvana.protection.ProtectionConfig.timeout:type_name -> google.protobuf.Duration
-	10, // 4: prodvana.protection.ProtectionConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
-	5,  // 5: prodvana.protection.ProtectionConfig.env:type_name -> prodvana.protection.ProtectionConfig.EnvEntry
+	8,  // 0: prodvana.protection.ProtectionConfig.task_config:type_name -> prodvana.common_config.TaskConfig
+	9,  // 1: prodvana.protection.ProtectionConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
+	10, // 2: prodvana.protection.ProtectionConfig.poll_interval:type_name -> google.protobuf.Duration
+	10, // 3: prodvana.protection.ProtectionConfig.timeout:type_name -> google.protobuf.Duration
+	11, // 4: prodvana.protection.ProtectionConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
+	6,  // 5: prodvana.protection.ProtectionConfig.env:type_name -> prodvana.protection.ProtectionConfig.EnvEntry
 	0,  // 6: prodvana.protection.CompiledProtectionAttachmentConfig.config:type_name -> prodvana.protection.ProtectionConfig
-	4,  // 7: prodvana.protection.CompiledProtectionAttachmentConfig.attachment:type_name -> prodvana.protection.ProtectionAttachment
-	11, // 8: prodvana.protection.CompiledProtectionAttachmentConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
-	6,  // 9: prodvana.protection.CompiledProtectionAttachmentConfig.env:type_name -> prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry
-	12, // 10: prodvana.protection.CompiledProtectionAttachmentConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
+	5,  // 7: prodvana.protection.CompiledProtectionAttachmentConfig.attachment:type_name -> prodvana.protection.ProtectionAttachment
+	12, // 8: prodvana.protection.CompiledProtectionAttachmentConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
+	7,  // 9: prodvana.protection.CompiledProtectionAttachmentConfig.env:type_name -> prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry
+	13, // 10: prodvana.protection.CompiledProtectionAttachmentConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
 	2,  // 11: prodvana.protection.ProtectionAttachment.service_instance:type_name -> prodvana.protection.ServiceInstanceAttachment
 	3,  // 12: prodvana.protection.ProtectionAttachment.release_channel:type_name -> prodvana.protection.ReleaseChannelAttachment
-	13, // 13: prodvana.protection.ProtectionConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	13, // 14: prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	4,  // 13: prodvana.protection.ProtectionAttachment.convergence:type_name -> prodvana.protection.ConvergenceAttachment
+	14, // 14: prodvana.protection.ProtectionConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	14, // 15: prodvana.protection.CompiledProtectionAttachmentConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_protection_protection_config_proto_init() }
@@ -675,6 +747,18 @@ func file_prodvana_protection_protection_config_proto_init() {
 			}
 		}
 		file_prodvana_protection_protection_config_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ConvergenceAttachment); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_protection_protection_config_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ProtectionAttachment); i {
 			case 0:
 				return &v.state
@@ -691,9 +775,10 @@ func file_prodvana_protection_protection_config_proto_init() {
 		(*ProtectionConfig_TaskConfig)(nil),
 		(*ProtectionConfig_KubernetesConfig)(nil),
 	}
-	file_prodvana_protection_protection_config_proto_msgTypes[4].OneofWrappers = []interface{}{
+	file_prodvana_protection_protection_config_proto_msgTypes[5].OneofWrappers = []interface{}{
 		(*ProtectionAttachment_ServiceInstance)(nil),
 		(*ProtectionAttachment_ReleaseChannel)(nil),
+		(*ProtectionAttachment_Convergence)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -701,7 +786,7 @@ func file_prodvana_protection_protection_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_protection_protection_config_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

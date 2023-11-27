@@ -7709,6 +7709,34 @@
                             "type": "array"
                         }
                     ]
+                },
+                "convergence_protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergenceProtections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,

@@ -133,10 +133,11 @@ message PerReleaseChannelConfig {
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 20;
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 21;
+    repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 23;
 
     reserved 3, 4, 12;
 
-    // next tag: 23
+    // next tag: 24
 }
 
 message CapabilityReference {
@@ -412,11 +413,12 @@ message CompiledServiceInstanceConfig {
     bool no_cleanup_on_delete = 32;
 
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 34;
+    repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 38;
 
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 38
+    // next tag: 39
 }
 
 message CompiledJobConfig {
