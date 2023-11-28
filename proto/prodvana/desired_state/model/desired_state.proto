@@ -468,6 +468,7 @@ message RuntimeObject {
         FAILED = 2;
     }
     repeated Version versions = 5;
+    Version fetch_version = 29; // if set, this is the version of the fetch command that resulted in the rest of this object
     Status status = 6;
     Version rollback_version = 7;
     DeliveryState delivery = 8;
@@ -498,7 +499,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 29
+    // next tag: 30
 }
 
 enum ConditionStatus {

@@ -8875,6 +8875,10 @@
             "$ref": "#/definitions/modelVersion"
           }
         },
+        "fetchVersion": {
+          "$ref": "#/definitions/modelVersion",
+          "title": "if set, this is the version of the fetch command that resulted in the rest of this object"
+        },
         "status": {
           "$ref": "#/definitions/modelRuntimeObjectStatus"
         },

@@ -1321,6 +1321,7 @@ class RuntimeObject(google.protobuf.message.Message):
     NAME_FIELD_NUMBER: builtins.int
     GENERATE_NAME_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
+    FETCH_VERSION_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
@@ -1346,6 +1347,9 @@ class RuntimeObject(google.protobuf.message.Message):
     """if set, this runtime object will have a name that is generated at creation time, by the runtime implementation"""
     @property
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    @property
+    def fetch_version(self) -> global___Version:
+        """if set, this is the version of the fetch command that resulted in the rest of this object"""
     status: global___RuntimeObject.Status.ValueType
     @property
     def rollback_version(self) -> global___Version: ...
@@ -1391,6 +1395,7 @@ class RuntimeObject(google.protobuf.message.Message):
         name: builtins.str = ...,
         generate_name: builtins.str = ...,
         versions: collections.abc.Iterable[global___Version] | None = ...,
+        fetch_version: global___Version | None = ...,
         status: global___RuntimeObject.Status.ValueType = ...,
         rollback_version: global___Version | None = ...,
         delivery: global___DeliveryState | None = ...,
@@ -1408,8 +1413,8 @@ class RuntimeObject(google.protobuf.message.Message):
         last_completed_task_run: global___TaskRun | None = ...,
         external_links: collections.abc.Iterable[global___ExternalLink] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
