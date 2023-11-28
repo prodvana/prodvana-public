@@ -682,29 +682,45 @@ global___ClusterMetadata = ClusterMetadata
 class AwsEcsConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class AccessKey(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        AWS_ACCESS_KEY_ID_FIELD_NUMBER: builtins.int
+        AWS_SECRET_ACCESS_KEY_FIELD_NUMBER: builtins.int
+        aws_access_key_id: builtins.str
+        @property
+        def aws_secret_access_key(self) -> prodvana.proto.prodvana.common_config.env_pb2.SecretReferenceValue: ...
+        def __init__(
+            self,
+            *,
+            aws_access_key_id: builtins.str = ...,
+            aws_secret_access_key: prodvana.proto.prodvana.common_config.env_pb2.SecretReferenceValue | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["aws_secret_access_key", b"aws_secret_access_key"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["aws_access_key_id", b"aws_access_key_id", "aws_secret_access_key", b"aws_secret_access_key"]) -> None: ...
+
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
-    AWS_ACCESS_KEY_ID_FIELD_NUMBER: builtins.int
-    AWS_SECRET_ACCESS_KEY_FIELD_NUMBER: builtins.int
+    ACCESS_KEY_FIELD_NUMBER: builtins.int
     REGION_FIELD_NUMBER: builtins.int
     ECS_CLUSTER_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
-    aws_access_key_id: builtins.str
     @property
-    def aws_secret_access_key(self) -> prodvana.proto.prodvana.common_config.env_pb2.Secret: ...
+    def access_key(self) -> global___AwsEcsConfig.AccessKey:
+        """TODO(naphat) assumeRole support"""
     region: builtins.str
     ecs_cluster: builtins.str
     def __init__(
         self,
         *,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
-        aws_access_key_id: builtins.str = ...,
-        aws_secret_access_key: prodvana.proto.prodvana.common_config.env_pb2.Secret | None = ...,
+        access_key: global___AwsEcsConfig.AccessKey | None = ...,
         region: builtins.str = ...,
         ecs_cluster: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["aws_secret_access_key", b"aws_secret_access_key", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["aws_access_key_id", b"aws_access_key_id", "aws_secret_access_key", b"aws_secret_access_key", "ecs_cluster", b"ecs_cluster", "proxy_runtime", b"proxy_runtime", "region", b"region"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "ecs_cluster", b"ecs_cluster", "proxy_runtime", b"proxy_runtime", "region", b"region"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["credentials", b"credentials"]) -> typing_extensions.Literal["access_key"] | None: ...
 
 global___AwsEcsConfig = AwsEcsConfig
 

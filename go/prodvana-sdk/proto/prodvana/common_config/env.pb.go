@@ -133,6 +133,89 @@ func (*EnvValue_Secret) isEnvValue_ValueOneof() {}
 
 func (*EnvValue_KubernetesSecret) isEnvValue_ValueOneof() {}
 
+type SecretReferenceValue struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to ValueOneof:
+	//
+	//	*SecretReferenceValue_Secret
+	//	*SecretReferenceValue_KubernetesSecret
+	ValueOneof isSecretReferenceValue_ValueOneof `protobuf_oneof:"value_oneof"`
+}
+
+func (x *SecretReferenceValue) Reset() {
+	*x = SecretReferenceValue{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_common_config_env_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SecretReferenceValue) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SecretReferenceValue) ProtoMessage() {}
+
+func (x *SecretReferenceValue) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_common_config_env_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SecretReferenceValue.ProtoReflect.Descriptor instead.
+func (*SecretReferenceValue) Descriptor() ([]byte, []int) {
+	return file_prodvana_common_config_env_proto_rawDescGZIP(), []int{1}
+}
+
+func (m *SecretReferenceValue) GetValueOneof() isSecretReferenceValue_ValueOneof {
+	if m != nil {
+		return m.ValueOneof
+	}
+	return nil
+}
+
+func (x *SecretReferenceValue) GetSecret() *Secret {
+	if x, ok := x.GetValueOneof().(*SecretReferenceValue_Secret); ok {
+		return x.Secret
+	}
+	return nil
+}
+
+func (x *SecretReferenceValue) GetKubernetesSecret() *KubernetesSecret {
+	if x, ok := x.GetValueOneof().(*SecretReferenceValue_KubernetesSecret); ok {
+		return x.KubernetesSecret
+	}
+	return nil
+}
+
+type isSecretReferenceValue_ValueOneof interface {
+	isSecretReferenceValue_ValueOneof()
+}
+
+type SecretReferenceValue_Secret struct {
+	// Externally stored secret.
+	Secret *Secret `protobuf:"bytes,1,opt,name=secret,proto3,oneof"`
+}
+
+type SecretReferenceValue_KubernetesSecret struct {
+	// Kubernetes secret, only works for Kubernetes runtimes.
+	KubernetesSecret *KubernetesSecret `protobuf:"bytes,2,opt,name=kubernetes_secret,json=kubernetesSecret,proto3,oneof"`
+}
+
+func (*SecretReferenceValue_Secret) isSecretReferenceValue_ValueOneof() {}
+
+func (*SecretReferenceValue_KubernetesSecret) isSecretReferenceValue_ValueOneof() {}
+
 type Secret struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -145,7 +228,7 @@ type Secret struct {
 func (x *Secret) Reset() {
 	*x = Secret{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_common_config_env_proto_msgTypes[1]
+		mi := &file_prodvana_common_config_env_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -158,7 +241,7 @@ func (x *Secret) String() string {
 func (*Secret) ProtoMessage() {}
 
 func (x *Secret) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_common_config_env_proto_msgTypes[1]
+	mi := &file_prodvana_common_config_env_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -171,7 +254,7 @@ func (x *Secret) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Secret.ProtoReflect.Descriptor instead.
 func (*Secret) Descriptor() ([]byte, []int) {
-	return file_prodvana_common_config_env_proto_rawDescGZIP(), []int{1}
+	return file_prodvana_common_config_env_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Secret) GetKey() string {
@@ -200,7 +283,7 @@ type KubernetesSecret struct {
 func (x *KubernetesSecret) Reset() {
 	*x = KubernetesSecret{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_common_config_env_proto_msgTypes[2]
+		mi := &file_prodvana_common_config_env_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -213,7 +296,7 @@ func (x *KubernetesSecret) String() string {
 func (*KubernetesSecret) ProtoMessage() {}
 
 func (x *KubernetesSecret) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_common_config_env_proto_msgTypes[2]
+	mi := &file_prodvana_common_config_env_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -226,7 +309,7 @@ func (x *KubernetesSecret) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KubernetesSecret.ProtoReflect.Descriptor instead.
 func (*KubernetesSecret) Descriptor() ([]byte, []int) {
-	return file_prodvana_common_config_env_proto_rawDescGZIP(), []int{2}
+	return file_prodvana_common_config_env_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *KubernetesSecret) GetSecretName() string {
@@ -266,6 +349,18 @@ var file_prodvana_common_config_env_proto_rawDesc = []byte{
 	0x65, 0x73, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x48, 0x00, 0x52, 0x10, 0x6b, 0x75, 0x62, 0x65,
 	0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x42, 0x12, 0x0a, 0x0b,
 	0x76, 0x61, 0x6c, 0x75, 0x65, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x12, 0x03, 0xf8, 0x42, 0x01,
+	0x22, 0xbd, 0x01, 0x0a, 0x14, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x52, 0x65, 0x66, 0x65, 0x72,
+	0x65, 0x6e, 0x63, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x12, 0x38, 0x0a, 0x06, 0x73, 0x65, 0x63,
+	0x72, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x64,
+	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63, 0x6f, 0x6e, 0x66,
+	0x69, 0x67, 0x2e, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x48, 0x00, 0x52, 0x06, 0x73, 0x65, 0x63,
+	0x72, 0x65, 0x74, 0x12, 0x57, 0x0a, 0x11, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65,
+	0x73, 0x5f, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x28,
+	0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x4b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74,
+	0x65, 0x73, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x48, 0x00, 0x52, 0x10, 0x6b, 0x75, 0x62, 0x65,
+	0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x42, 0x12, 0x0a, 0x0b,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x12, 0x03, 0xf8, 0x42, 0x01,
 	0x22, 0x46, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x12, 0x19, 0x0a, 0x03, 0x6b, 0x65,
 	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01,
 	0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x21, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
@@ -296,20 +391,23 @@ func file_prodvana_common_config_env_proto_rawDescGZIP() []byte {
 	return file_prodvana_common_config_env_proto_rawDescData
 }
 
-var file_prodvana_common_config_env_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_prodvana_common_config_env_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_prodvana_common_config_env_proto_goTypes = []interface{}{
-	(*EnvValue)(nil),         // 0: prodvana.common_config.EnvValue
-	(*Secret)(nil),           // 1: prodvana.common_config.Secret
-	(*KubernetesSecret)(nil), // 2: prodvana.common_config.KubernetesSecret
+	(*EnvValue)(nil),             // 0: prodvana.common_config.EnvValue
+	(*SecretReferenceValue)(nil), // 1: prodvana.common_config.SecretReferenceValue
+	(*Secret)(nil),               // 2: prodvana.common_config.Secret
+	(*KubernetesSecret)(nil),     // 3: prodvana.common_config.KubernetesSecret
 }
 var file_prodvana_common_config_env_proto_depIdxs = []int32{
-	1, // 0: prodvana.common_config.EnvValue.secret:type_name -> prodvana.common_config.Secret
-	2, // 1: prodvana.common_config.EnvValue.kubernetes_secret:type_name -> prodvana.common_config.KubernetesSecret
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: prodvana.common_config.EnvValue.secret:type_name -> prodvana.common_config.Secret
+	3, // 1: prodvana.common_config.EnvValue.kubernetes_secret:type_name -> prodvana.common_config.KubernetesSecret
+	2, // 2: prodvana.common_config.SecretReferenceValue.secret:type_name -> prodvana.common_config.Secret
+	3, // 3: prodvana.common_config.SecretReferenceValue.kubernetes_secret:type_name -> prodvana.common_config.KubernetesSecret
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_common_config_env_proto_init() }
@@ -331,7 +429,7 @@ func file_prodvana_common_config_env_proto_init() {
 			}
 		}
 		file_prodvana_common_config_env_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Secret); i {
+			switch v := v.(*SecretReferenceValue); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -343,6 +441,18 @@ func file_prodvana_common_config_env_proto_init() {
 			}
 		}
 		file_prodvana_common_config_env_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Secret); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_common_config_env_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*KubernetesSecret); i {
 			case 0:
 				return &v.state
@@ -361,13 +471,17 @@ func file_prodvana_common_config_env_proto_init() {
 		(*EnvValue_Secret)(nil),
 		(*EnvValue_KubernetesSecret)(nil),
 	}
+	file_prodvana_common_config_env_proto_msgTypes[1].OneofWrappers = []interface{}{
+		(*SecretReferenceValue_Secret)(nil),
+		(*SecretReferenceValue_KubernetesSecret)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_common_config_env_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

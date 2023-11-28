@@ -250,11 +250,21 @@ message ClusterMetadata {
 }
 
 message AwsEcsConfig {
+    message AccessKey {
+        string aws_access_key_id = 1 [(validate.rules).string.min_len = 1];
+        prodvana.common_config.SecretReferenceValue aws_secret_access_key = 2 [(validate.rules).message.required = true];
+    }
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
-    string aws_access_key_id = 2 [(validate.rules).string.min_len = 1];
-    prodvana.common_config.Secret aws_secret_access_key = 3 [(validate.rules).message.required = true];
+    oneof credentials {
+        option (validate.required) = true;
+        AccessKey access_key = 6 [(validate.rules).message.required = true];
+        // TODO(naphat) assumeRole support
+    }
     string region = 4 [(validate.rules).string.min_len = 1];
     string ecs_cluster = 5 [(validate.rules).string.min_len = 1];
+    reserved 2, 3;
+    reserved "aws_access_key_id", "aws_secret_access_key";
+    // next tag: 7
 }
 
 message ClusterConfig {

@@ -3140,57 +3140,6 @@ func (m *AwsEcsConfig) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetAwsAccessKeyId()) < 1 {
-		err := AwsEcsConfigValidationError{
-			field:  "AwsAccessKeyId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if m.GetAwsSecretAccessKey() == nil {
-		err := AwsEcsConfigValidationError{
-			field:  "AwsSecretAccessKey",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetAwsSecretAccessKey()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AwsEcsConfigValidationError{
-					field:  "AwsSecretAccessKey",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AwsEcsConfigValidationError{
-					field:  "AwsSecretAccessKey",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetAwsSecretAccessKey()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AwsEcsConfigValidationError{
-				field:  "AwsSecretAccessKey",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if utf8.RuneCountInString(m.GetRegion()) < 1 {
 		err := AwsEcsConfigValidationError{
 			field:  "Region",
@@ -3206,6 +3155,75 @@ func (m *AwsEcsConfig) validate(all bool) error {
 		err := AwsEcsConfigValidationError{
 			field:  "EcsCluster",
 			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	oneofCredentialsPresent := false
+	switch v := m.Credentials.(type) {
+	case *AwsEcsConfig_AccessKey_:
+		if v == nil {
+			err := AwsEcsConfigValidationError{
+				field:  "Credentials",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofCredentialsPresent = true
+
+		if m.GetAccessKey() == nil {
+			err := AwsEcsConfigValidationError{
+				field:  "AccessKey",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetAccessKey()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AwsEcsConfigValidationError{
+						field:  "AccessKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AwsEcsConfigValidationError{
+						field:  "AccessKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAccessKey()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AwsEcsConfigValidationError{
+					field:  "AccessKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofCredentialsPresent {
+		err := AwsEcsConfigValidationError{
+			field:  "Credentials",
+			reason: "value is required",
 		}
 		if !all {
 			return err
@@ -4417,6 +4435,159 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CompiledExtensionCommand_CompiledExtensionCommandExecValidationError{}
+
+// Validate checks the field values on AwsEcsConfig_AccessKey with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AwsEcsConfig_AccessKey) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AwsEcsConfig_AccessKey with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AwsEcsConfig_AccessKeyMultiError, or nil if none found.
+func (m *AwsEcsConfig_AccessKey) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AwsEcsConfig_AccessKey) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetAwsAccessKeyId()) < 1 {
+		err := AwsEcsConfig_AccessKeyValidationError{
+			field:  "AwsAccessKeyId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAwsSecretAccessKey() == nil {
+		err := AwsEcsConfig_AccessKeyValidationError{
+			field:  "AwsSecretAccessKey",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAwsSecretAccessKey()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AwsEcsConfig_AccessKeyValidationError{
+					field:  "AwsSecretAccessKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AwsEcsConfig_AccessKeyValidationError{
+					field:  "AwsSecretAccessKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAwsSecretAccessKey()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AwsEcsConfig_AccessKeyValidationError{
+				field:  "AwsSecretAccessKey",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AwsEcsConfig_AccessKeyMultiError(errors)
+	}
+
+	return nil
+}
+
+// AwsEcsConfig_AccessKeyMultiError is an error wrapping multiple validation
+// errors returned by AwsEcsConfig_AccessKey.ValidateAll() if the designated
+// constraints aren't met.
+type AwsEcsConfig_AccessKeyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AwsEcsConfig_AccessKeyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AwsEcsConfig_AccessKeyMultiError) AllErrors() []error { return m }
+
+// AwsEcsConfig_AccessKeyValidationError is the validation error returned by
+// AwsEcsConfig_AccessKey.Validate if the designated constraints aren't met.
+type AwsEcsConfig_AccessKeyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AwsEcsConfig_AccessKeyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AwsEcsConfig_AccessKeyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AwsEcsConfig_AccessKeyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AwsEcsConfig_AccessKeyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AwsEcsConfig_AccessKeyValidationError) ErrorName() string {
+	return "AwsEcsConfig_AccessKeyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AwsEcsConfig_AccessKeyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAwsEcsConfig_AccessKey.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AwsEcsConfig_AccessKeyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AwsEcsConfig_AccessKeyValidationError{}
 
 // Validate checks the field values on ClusterConfig_Kubecost with the rules
 // defined in the proto definition for this message. If any rules are

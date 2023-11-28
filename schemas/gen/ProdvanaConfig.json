@@ -2648,6 +2648,53 @@
             ],
             "title": "Secret Parameter Value"
         },
+        "prodvana.common_config.SecretReferenceValue": {
+            "properties": {
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Externally stored secret."
+                },
+                "kubernetes_secret": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Kubernetes secret, only works for Kubernetes runtimes."
+                },
+                "kubernetesSecret": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesSecret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Kubernetes secret, only works for Kubernetes runtimes."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Secret Reference Value"
+        },
         "prodvana.common_config.StringConstant": {
             "properties": {
                 "value": {
@@ -3091,45 +3138,27 @@
                         {}
                     ]
                 },
-                "aws_access_key_id": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "awsAccessKeyId": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "aws_secret_access_key": {
-                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                "access_key": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig.AccessKey",
                     "additionalProperties": false,
                     "oneOf": [
                         {
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "TODO(naphat) assumeRole support"
                 },
-                "awsSecretAccessKey": {
-                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                "accessKey": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig.AccessKey",
                     "additionalProperties": false,
                     "oneOf": [
                         {
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "TODO(naphat) assumeRole support"
                 },
                 "region": {
                     "oneOf": [
@@ -3172,6 +3201,60 @@
                 }
             ],
             "title": "Aws Ecs Config"
+        },
+        "prodvana.environment.AwsEcsConfig.AccessKey": {
+            "properties": {
+                "aws_access_key_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "awsAccessKeyId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "aws_secret_access_key": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "awsSecretAccessKey": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Access Key"
         },
         "prodvana.environment.ClusterConfig": {
             "properties": {

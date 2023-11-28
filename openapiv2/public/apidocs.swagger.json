@@ -5904,6 +5904,17 @@
       },
       "title": "deprecated"
     },
+    "AwsEcsConfigAccessKey": {
+      "type": "object",
+      "properties": {
+        "awsAccessKeyId": {
+          "type": "string"
+        },
+        "awsSecretAccessKey": {
+          "$ref": "#/definitions/common_configSecretReferenceValue"
+        }
+      }
+    },
     "AwsEcsConfigNetworkConfiguration": {
       "type": "object",
       "properties": {
@@ -7939,6 +7950,19 @@
         "secretRef": {
           "$ref": "#/definitions/common_configSecret",
           "description": "Existing secret reference."
+        }
+      }
+    },
+    "common_configSecretReferenceValue": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "$ref": "#/definitions/common_configSecret",
+          "description": "Externally stored secret."
+        },
+        "kubernetesSecret": {
+          "$ref": "#/definitions/common_configKubernetesSecret",
+          "description": "Kubernetes secret, only works for Kubernetes runtimes."
         }
       }
     },
@@ -12003,11 +12027,9 @@
         "proxyRuntime": {
           "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
         },
-        "awsAccessKeyId": {
-          "type": "string"
-        },
-        "awsSecretAccessKey": {
-          "$ref": "#/definitions/common_configSecret"
+        "accessKey": {
+          "$ref": "#/definitions/AwsEcsConfigAccessKey",
+          "title": "TODO(naphat) assumeRole support"
         },
         "region": {
           "type": "string"

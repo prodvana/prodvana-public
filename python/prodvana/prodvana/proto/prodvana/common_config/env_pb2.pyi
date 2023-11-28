@@ -44,6 +44,29 @@ class EnvValue(google.protobuf.message.Message):
 
 global___EnvValue = EnvValue
 
+class SecretReferenceValue(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SECRET_FIELD_NUMBER: builtins.int
+    KUBERNETES_SECRET_FIELD_NUMBER: builtins.int
+    @property
+    def secret(self) -> global___Secret:
+        """Externally stored secret."""
+    @property
+    def kubernetes_secret(self) -> global___KubernetesSecret:
+        """Kubernetes secret, only works for Kubernetes runtimes."""
+    def __init__(
+        self,
+        *,
+        secret: global___Secret | None = ...,
+        kubernetes_secret: global___KubernetesSecret | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["kubernetes_secret", b"kubernetes_secret", "secret", b"secret", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["kubernetes_secret", b"kubernetes_secret", "secret", b"secret", "value_oneof", b"value_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["secret", "kubernetes_secret"] | None: ...
+
+global___SecretReferenceValue = SecretReferenceValue
+
 class Secret(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
