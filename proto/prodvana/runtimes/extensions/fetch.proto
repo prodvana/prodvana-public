@@ -1,0 +1,36 @@
+syntax = "proto3";
+package prodvana.runtimes.extensions;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions";
+
+message ExternalObjectVersion {
+    string version = 1;
+    int32 replicas = 2; // Created/running replicas, can be in any state
+    bool active = 3;
+    bool drifted = 4;
+}
+
+message ExternalObject {
+    enum Status {
+        PENDING = 0;
+        SUCCEEDED = 1;
+        FAILED = 2;
+    }
+    string name = 1;
+    string object_type = 2;
+    repeated ExternalObjectVersion versions = 3;
+    Status status = 4;
+}
+
+// output format for the fetch command, in json format
+// optional. Fetch commands can choose to implement the output, or exit 0 or 2.
+message FetchOutput {
+    repeated ExternalObject objects = 1;
+}
+
+enum FetchMode {
+    UNKNOWN_FETCH_MODE = 0;
+    // fetch will either exit 0 or 2 to indicate drift
+    EXIT_CODE = 1;
+    // fetch will return structured output via stdout
+    STRUCTURED_OUTPUT = 2;
+}

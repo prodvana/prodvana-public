@@ -6760,6 +6760,9 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "fetchMode": {
+          "$ref": "#/definitions/extensionsFetchMode"
         }
       }
     },
@@ -9328,7 +9331,7 @@
         },
         "retryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy",
-          "description": "retry policy for unexpected failures (this means exits other than 0 or 2).\nif not set, regular, non-steady-state poll interval is used for fetches."
+          "description": "retry policy for unexpected failures (this means exits other than 0 or 2 when fetch_mode = EXIT_CODE, or other than 0 for STRUCTURED_OUTPUT).\nif not set, regular, non-steady-state poll interval is used for fetches."
         },
         "env": {
           "type": "object",
@@ -9336,6 +9339,10 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "title": "optional env variables to inject and override from exec_config"
+        },
+        "fetchMode": {
+          "$ref": "#/definitions/extensionsFetchMode",
+          "title": "how to interpret the output of the command"
         }
       }
     },
@@ -10411,6 +10418,16 @@
         }
       }
     },
+    "extensionsFetchMode": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_FETCH_MODE",
+        "EXIT_CODE",
+        "STRUCTURED_OUTPUT"
+      ],
+      "default": "UNKNOWN_FETCH_MODE",
+      "title": "- EXIT_CODE: fetch will either exit 0 or 2 to indicate drift\n - STRUCTURED_OUTPUT: fetch will return structured output via stdout"
+    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -11116,8 +11133,20 @@
         "message": {
           "type": "string",
           "title": "freeform message from the convergence engine explaining the fetch result"
+        },
+        "fetchMode": {
+          "$ref": "#/definitions/extensionsFetchMode"
         }
       }
+    },
+    "modelFetchTaskStartDetails": {
+      "type": "object",
+      "properties": {
+        "fetchMode": {
+          "$ref": "#/definitions/extensionsFetchMode"
+        }
+      },
+      "title": "metadata about how a RuntimeExtension fetch task was started"
     },
     "modelIdentifier": {
       "type": "object",
@@ -11543,10 +11572,6 @@
           },
           "title": "all entities that make up the task"
         },
-        "fetchDetails": {
-          "$ref": "#/definitions/modelFetchDetails",
-          "title": "for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)"
-        },
         "retryableExitCodes": {
           "type": "array",
           "items": {
@@ -11561,6 +11586,13 @@
         "phase": {
           "$ref": "#/definitions/TaskRunPhase",
           "title": "tasks are created first in the NOT_STARTED phase"
+        },
+        "fetchDetails": {
+          "$ref": "#/definitions/modelFetchDetails",
+          "title": "for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)"
+        },
+        "fetchTaskStartDetails": {
+          "$ref": "#/definitions/modelFetchTaskStartDetails"
         }
       }
     },

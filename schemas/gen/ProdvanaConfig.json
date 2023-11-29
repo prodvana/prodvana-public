@@ -4386,7 +4386,7 @@
                         },
                         {}
                     ],
-                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2). if not set, regular, non-steady-state poll interval is used for fetches."
+                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2 when fetch_mode = EXIT_CODE, or other than 0 for STRUCTURED_OUTPUT). if not set, regular, non-steady-state poll interval is used for fetches."
                 },
                 "retryPolicy": {
                     "$ref": "#/definitions/prodvana.environment.RetryPolicy",
@@ -4397,7 +4397,7 @@
                         },
                         {}
                     ],
-                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2). if not set, regular, non-steady-state poll interval is used for fetches."
+                    "description": "retry policy for unexpected failures (this means exits other than 0 or 2 when fetch_mode = EXIT_CODE, or other than 0 for STRUCTURED_OUTPUT). if not set, regular, non-steady-state poll interval is used for fetches."
                 },
                 "env": {
                     "additionalProperties": {
@@ -4419,6 +4419,50 @@
                         }
                     ],
                     "description": "optional env variables to inject and override from exec_config"
+                },
+                "fetch_mode": {
+                    "enum": [
+                        "UNKNOWN_FETCH_MODE",
+                        0,
+                        "EXIT_CODE",
+                        1,
+                        "STRUCTURED_OUTPUT",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Fetch Mode"
+                },
+                "fetchMode": {
+                    "enum": [
+                        "UNKNOWN_FETCH_MODE",
+                        0,
+                        "EXIT_CODE",
+                        1,
+                        "STRUCTURED_OUTPUT",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Fetch Mode"
                 }
             },
             "additionalProperties": false,

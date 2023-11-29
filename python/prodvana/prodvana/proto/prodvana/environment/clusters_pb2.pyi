@@ -15,6 +15,7 @@ import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.labels.labels_pb2
+import prodvana.proto.prodvana.runtimes.extensions.fetch_pb2
 import prodvana.proto.prodvana.runtimes.runtimes_config_pb2
 import prodvana.proto.prodvana.volumes.volumes_pb2
 import sys
@@ -265,6 +266,7 @@ class ExtensionFetchCommand(google.protobuf.message.Message):
     TIMEOUT_FIELD_NUMBER: builtins.int
     RETRY_POLICY_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
+    FETCH_MODE_FIELD_NUMBER: builtins.int
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
     @property
@@ -283,12 +285,14 @@ class ExtensionFetchCommand(google.protobuf.message.Message):
         """deprecated, not used"""
     @property
     def retry_policy(self) -> global___RetryPolicy:
-        """retry policy for unexpected failures (this means exits other than 0 or 2).
+        """retry policy for unexpected failures (this means exits other than 0 or 2 when fetch_mode = EXIT_CODE, or other than 0 for STRUCTURED_OUTPUT).
         if not set, regular, non-steady-state poll interval is used for fetches.
         """
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """optional env variables to inject and override from exec_config"""
+    fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType
+    """how to interpret the output of the command"""
     def __init__(
         self,
         *,
@@ -299,9 +303,10 @@ class ExtensionFetchCommand(google.protobuf.message.Message):
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         retry_policy: global___RetryPolicy | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
+        fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "fetch_mode", b"fetch_mode", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "retry_policy", b"retry_policy", "steady_state_poll_interval", b"steady_state_poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ExtensionFetchCommand = ExtensionFetchCommand

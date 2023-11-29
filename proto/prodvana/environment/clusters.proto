@@ -10,6 +10,7 @@ import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/labels/labels.proto";
+import "prodvana/runtimes/extensions/fetch.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/volumes/volumes.proto";
 
@@ -88,7 +89,7 @@ message ExtensionFetchCommand {
     google.protobuf.Duration steady_state_poll_interval = 6;
     // deprecated, not used
     google.protobuf.Duration timeout = 4;
-    // retry policy for unexpected failures (this means exits other than 0 or 2).
+    // retry policy for unexpected failures (this means exits other than 0 or 2 when fetch_mode = EXIT_CODE, or other than 0 for STRUCTURED_OUTPUT).
     // if not set, regular, non-steady-state poll interval is used for fetches.
     RetryPolicy retry_policy = 7;
 
@@ -101,6 +102,9 @@ message ExtensionFetchCommand {
         },
         no_sparse: true,
     }];
+
+    // how to interpret the output of the command
+    prodvana.runtimes.extensions.FetchMode fetch_mode = 8;
 }
 
 message ExtensionGetInfoCommand {

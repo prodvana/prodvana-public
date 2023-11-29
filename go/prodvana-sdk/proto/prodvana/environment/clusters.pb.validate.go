@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	extensions "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = extensions.FetchMode(0)
 )
 
 // Validate checks the field values on ClusterAuth with the rules defined in
@@ -910,6 +914,8 @@ func (m *ExtensionFetchCommand) validate(all bool) error {
 
 		}
 	}
+
+	// no validation rules for FetchMode
 
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {

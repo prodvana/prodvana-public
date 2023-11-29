@@ -21,6 +21,8 @@ import (
 	common_config "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
 
 	environment "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
+
+	extensions "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions"
 )
 
 // ensure the imports are used
@@ -41,6 +43,8 @@ var (
 	_ = common_config.TaskLifecycle(0)
 
 	_ = environment.ExtensionType(0)
+
+	_ = extensions.FetchMode(0)
 )
 
 // Validate checks the field values on ProtectionLink with the rules defined in
@@ -2769,6 +2773,8 @@ func (m *FetchDetails) validate(all bool) error {
 	// no validation rules for FetcherDesiredStateId
 
 	// no validation rules for Message
+
+	// no validation rules for FetchMode
 
 	if len(errors) > 0 {
 		return FetchDetailsMultiError(errors)
@@ -7657,6 +7663,110 @@ var _ interface {
 	ErrorName() string
 } = ApplyConditionUnsatisfiedValidationError{}
 
+// Validate checks the field values on FetchTaskStartDetails with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FetchTaskStartDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FetchTaskStartDetails with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FetchTaskStartDetailsMultiError, or nil if none found.
+func (m *FetchTaskStartDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FetchTaskStartDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for FetchMode
+
+	if len(errors) > 0 {
+		return FetchTaskStartDetailsMultiError(errors)
+	}
+
+	return nil
+}
+
+// FetchTaskStartDetailsMultiError is an error wrapping multiple validation
+// errors returned by FetchTaskStartDetails.ValidateAll() if the designated
+// constraints aren't met.
+type FetchTaskStartDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FetchTaskStartDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FetchTaskStartDetailsMultiError) AllErrors() []error { return m }
+
+// FetchTaskStartDetailsValidationError is the validation error returned by
+// FetchTaskStartDetails.Validate if the designated constraints aren't met.
+type FetchTaskStartDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchTaskStartDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchTaskStartDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchTaskStartDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchTaskStartDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchTaskStartDetailsValidationError) ErrorName() string {
+	return "FetchTaskStartDetailsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchTaskStartDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchTaskStartDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchTaskStartDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchTaskStartDetailsValidationError{}
+
 // Validate checks the field values on TaskRun with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -7842,6 +7952,10 @@ func (m *TaskRun) validate(all bool) error {
 
 	}
 
+	// no validation rules for Retryable
+
+	// no validation rules for Phase
+
 	if all {
 		switch v := interface{}(m.GetFetchDetails()).(type) {
 		case interface{ ValidateAll() error }:
@@ -7871,9 +7985,34 @@ func (m *TaskRun) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Retryable
-
-	// no validation rules for Phase
+	if all {
+		switch v := interface{}(m.GetFetchTaskStartDetails()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "FetchTaskStartDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "FetchTaskStartDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFetchTaskStartDetails()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRunValidationError{
+				field:  "FetchTaskStartDetails",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TaskRunMultiError(errors)
@@ -9053,6 +9192,8 @@ func (m *RuntimeObject_RuntimeExtension) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for FetchMode
 
 	if len(errors) > 0 {
 		return RuntimeObject_RuntimeExtensionMultiError(errors)

@@ -10,6 +10,7 @@ import "prodvana/common_config/retry.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/protection/protection_reference.proto";
+import "prodvana/runtimes/extensions/fetch.proto";
 
 enum Type {
     UNKNOWN = 0;
@@ -350,6 +351,7 @@ message FetchDetails {
     string fetcher_desired_state_id = 7;
     // freeform message from the convergence engine explaining the fetch result
     string message = 8;
+    prodvana.runtimes.extensions.FetchMode fetch_mode = 9;
 }
 
 message RuntimeExtensionFetchOutput {
@@ -453,9 +455,10 @@ message RuntimeObject {
         prodvana.environment.RetryPolicy apply_retry_policy = 14;
         prodvana.environment.RetryPolicy get_info_retry_policy = 18;
         repeated int32 apply_retryable_exit_codes = 15;
+        prodvana.runtimes.extensions.FetchMode fetch_mode = 20;
         reserved 5;
         reserved "fetch_timeout";
-        // next tag: 20
+        // next tag: 21
     }
     Metadata meta = 1;
     string object_type = 2;
@@ -752,6 +755,11 @@ message ApplyConditionUnsatisfied {
     }
 }
 
+// metadata about how a RuntimeExtension fetch task was started
+message FetchTaskStartDetails {
+    prodvana.runtimes.extensions.FetchMode fetch_mode = 1;
+}
+
 message TaskRun {
     enum Phase {
         RUNNING = 0;
@@ -769,9 +777,6 @@ message TaskRun {
     // all entities that make up the task
     repeated Identifier task_entities = 9;
 
-    // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
-    FetchDetails fetch_details = 10;
-
     // if there is any intersection between these and exit_codes, and the status is FAILED, then the retryable bit below will be
     // set to true.
     repeated int32 retryable_exit_codes = 11;
@@ -779,6 +784,14 @@ message TaskRun {
 
     // tasks are created first in the NOT_STARTED phase
     Phase phase = 13;
+
+    // metadata about how the task was started
+
+    // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
+    FetchDetails fetch_details = 10;
+    FetchTaskStartDetails fetch_task_start_details = 14;
+
+    // next tag: 15
 }
 
 message TaskEntityContext {
