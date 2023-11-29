@@ -296,7 +296,7 @@ func (m *KubernetesConfig) validate(all bool) error {
 	if _, ok := _KubernetesConfig_Type_NotInLookup[m.GetType()]; ok {
 		err := KubernetesConfigValidationError{
 			field:  "Type",
-			reason: "value must not be in list [0]",
+			reason: "value must not be in list [UNKNOWN]",
 		}
 		if !all {
 			return err

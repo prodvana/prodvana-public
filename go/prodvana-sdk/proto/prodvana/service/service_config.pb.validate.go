@@ -36,7 +36,7 @@ var (
 	_ = anypb.Any{}
 	_ = sort.Sort
 
-	_ = common_config.Maturity(0)
+	_ = common_config.TaskLifecycle(0)
 )
 
 // Validate checks the field values on ReplicasConfig with the rules defined in
@@ -2812,7 +2812,7 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 	if _, ok := _DeliveryExtensionConfig_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
 		err := DeliveryExtensionConfigValidationError{
 			field:  "Lifecycle",
-			reason: "value must not be in list [0 1]",
+			reason: "value must not be in list [UNKNOWN_TASK_LIFECYCLE CONVERGENCE_START]",
 		}
 		if !all {
 			return err
@@ -3065,7 +3065,7 @@ func (m *DeliveryExtensionInstance) validate(all bool) error {
 	if _, ok := _DeliveryExtensionInstance_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
 		err := DeliveryExtensionInstanceValidationError{
 			field:  "Lifecycle",
-			reason: "value must not be in list [0 1]",
+			reason: "value must not be in list [UNKNOWN_TASK_LIFECYCLE CONVERGENCE_START]",
 		}
 		if !all {
 			return err
