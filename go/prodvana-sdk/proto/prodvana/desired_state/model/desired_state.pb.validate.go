@@ -4303,6 +4303,40 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetExternalObjects() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RuntimeObjectValidationError{
+						field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RuntimeObjectValidationError{
+						field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RuntimeObjectValidationError{
+					field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}

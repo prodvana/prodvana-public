@@ -5,8 +5,11 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 message ExternalObjectVersion {
     string version = 1;
     int32 replicas = 2; // Created/running replicas, can be in any state
+    int32 available_replicas = 5; // Replicas which have passed healthchecks for required duration.
+    int32 target_replicas = 6; // How many replicas are supposed to be spun up, if known
     bool active = 3;
     bool drifted = 4;
+    // next tag: 7
 }
 
 message ExternalObject {

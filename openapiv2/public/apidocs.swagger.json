@@ -8950,6 +8950,14 @@
             "type": "object",
             "$ref": "#/definitions/modelExternalLink"
           }
+        },
+        "externalObjects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/extensionsExternalObject"
+          },
+          "title": "external objects tracked by this runtime, not represented in entity graph but useful to display to users"
         }
       }
     },
@@ -10415,6 +10423,66 @@
             "type": "object",
             "$ref": "#/definitions/modelStatusExplanation"
           }
+        }
+      }
+    },
+    "extensionsExternalObject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "objectType": {
+          "type": "string"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/extensionsExternalObjectVersion"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/extensionsExternalObjectStatus"
+        }
+      }
+    },
+    "extensionsExternalObjectStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "default": "PENDING"
+    },
+    "extensionsExternalObjectVersion": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "replicas": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Created/running replicas, can be in any state"
+        },
+        "availableReplicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Replicas which have passed healthchecks for required duration."
+        },
+        "targetReplicas": {
+          "type": "integer",
+          "format": "int32",
+          "title": "How many replicas are supposed to be spun up, if known"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "drifted": {
+          "type": "boolean",
+          "title": "next tag: 7"
         }
       }
     },

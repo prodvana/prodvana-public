@@ -44,22 +44,31 @@ class ExternalObjectVersion(google.protobuf.message.Message):
 
     VERSION_FIELD_NUMBER: builtins.int
     REPLICAS_FIELD_NUMBER: builtins.int
+    AVAILABLE_REPLICAS_FIELD_NUMBER: builtins.int
+    TARGET_REPLICAS_FIELD_NUMBER: builtins.int
     ACTIVE_FIELD_NUMBER: builtins.int
     DRIFTED_FIELD_NUMBER: builtins.int
     version: builtins.str
     replicas: builtins.int
     """Created/running replicas, can be in any state"""
+    available_replicas: builtins.int
+    """Replicas which have passed healthchecks for required duration."""
+    target_replicas: builtins.int
+    """How many replicas are supposed to be spun up, if known"""
     active: builtins.bool
     drifted: builtins.bool
+    """next tag: 7"""
     def __init__(
         self,
         *,
         version: builtins.str = ...,
         replicas: builtins.int = ...,
+        available_replicas: builtins.int = ...,
+        target_replicas: builtins.int = ...,
         active: builtins.bool = ...,
         drifted: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "drifted", b"drifted", "replicas", b"replicas", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "drifted", b"drifted", "replicas", b"replicas", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
 
 global___ExternalObjectVersion = ExternalObjectVersion
 

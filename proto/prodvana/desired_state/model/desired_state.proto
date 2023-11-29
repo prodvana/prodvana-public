@@ -500,9 +500,11 @@ message RuntimeObject {
 
     repeated ExternalLink external_links = 28;
 
+    repeated prodvana.runtimes.extensions.ExternalObject external_objects = 30;  // external objects tracked by this runtime, not represented in entity graph but useful to display to users
+
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 30
+    // next tag: 31
 }
 
 enum ConditionStatus {

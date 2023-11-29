@@ -61,6 +61,10 @@ func (m *ExternalObjectVersion) validate(all bool) error {
 
 	// no validation rules for Replicas
 
+	// no validation rules for AvailableReplicas
+
+	// no validation rules for TargetReplicas
+
 	// no validation rules for Active
 
 	// no validation rules for Drifted
