@@ -10,6 +10,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.common_config.external_link_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
@@ -1173,41 +1174,6 @@ class RuntimeExtensionApplyOutput(google.protobuf.message.Message):
 
 global___RuntimeExtensionApplyOutput = RuntimeExtensionApplyOutput
 
-class ExternalLink(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    class _LinkType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _LinkTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExternalLink._LinkType.ValueType], builtins.type):  # noqa: F821
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        UNKNOWN: ExternalLink._LinkType.ValueType  # 0
-        DETAIL: ExternalLink._LinkType.ValueType  # 1
-        LOG: ExternalLink._LinkType.ValueType  # 2
-
-    class LinkType(_LinkType, metaclass=_LinkTypeEnumTypeWrapper): ...
-    UNKNOWN: ExternalLink.LinkType.ValueType  # 0
-    DETAIL: ExternalLink.LinkType.ValueType  # 1
-    LOG: ExternalLink.LinkType.ValueType  # 2
-
-    TYPE_FIELD_NUMBER: builtins.int
-    URL_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    type: global___ExternalLink.LinkType.ValueType
-    url: builtins.str
-    name: builtins.str
-    def __init__(
-        self,
-        *,
-        type: global___ExternalLink.LinkType.ValueType = ...,
-        url: builtins.str = ...,
-        name: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "type", b"type", "url", b"url"]) -> None: ...
-
-global___ExternalLink = ExternalLink
-
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1393,7 +1359,7 @@ class RuntimeObject(google.protobuf.message.Message):
     def last_completed_task_run(self) -> global___TaskRun:
         """For entities that run jobs/tasks multiple times, what is the most recent status we have?"""
     @property
-    def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExternalLink]: ...
+    def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink]: ...
     @property
     def external_objects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject]:
         """external objects tracked by this runtime, not represented in entity graph but useful to display to users"""
@@ -1422,7 +1388,7 @@ class RuntimeObject(google.protobuf.message.Message):
         raw_config: builtins.str = ...,
         management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
         last_completed_task_run: global___TaskRun | None = ...,
-        external_links: collections.abc.Iterable[global___ExternalLink] | None = ...,
+        external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
         external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...

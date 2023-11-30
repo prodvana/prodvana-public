@@ -7460,6 +7460,20 @@
         }
       }
     },
+    "common_configExternalLink": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ExternalLinkLinkType"
+        },
+        "url": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "common_configFixedReplicaChange": {
       "type": "object"
     },
@@ -8948,7 +8962,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/modelExternalLink"
+            "$ref": "#/definitions/common_configExternalLink"
           }
         },
         "externalObjects": {
@@ -10444,6 +10458,13 @@
         },
         "status": {
           "$ref": "#/definitions/extensionsExternalObjectStatus"
+        },
+        "externalLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configExternalLink"
+          }
         }
       }
     },
@@ -11148,20 +11169,6 @@
             "type": "object",
             "$ref": "#/definitions/modelEntity"
           }
-        }
-      }
-    },
-    "modelExternalLink": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/ExternalLinkLinkType"
-        },
-        "url": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
         }
       }
     },

@@ -1,6 +1,7 @@
 syntax = "proto3";
 package prodvana.runtimes.extensions;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions";
+import "prodvana/common_config/external_link.proto";
 
 message ExternalObjectVersion {
     string version = 1;
@@ -22,6 +23,7 @@ message ExternalObject {
     string object_type = 2;
     repeated ExternalObjectVersion versions = 3;
     Status status = 4;
+    repeated prodvana.common_config.ExternalLink external_links = 5;
 }
 
 // output format for the fetch command, in json format

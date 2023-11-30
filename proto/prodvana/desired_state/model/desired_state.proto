@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "prodvana/common_config/external_link.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
@@ -422,18 +423,6 @@ message RuntimeExtensionApplyOutput {
     ApplyDetails last_apply = 2;
 }
 
-message ExternalLink {
-    enum LinkType {
-        UNKNOWN = 0;
-        DETAIL = 1;
-        LOG = 2;
-    }
-
-    LinkType type = 1;
-    string url = 2 [(validate.rules).string.min_len = 1];
-    string name = 3 [(validate.rules).string.min_len = 1];
-}
-
 message RuntimeObject {
     message RuntimeExtension {
         // aggregate object will have all commands set. fetch and get_info will only have appropriate commands set.
@@ -498,7 +487,7 @@ message RuntimeObject {
 
     TaskRun last_completed_task_run = 27; // For entities that run jobs/tasks multiple times, what is the most recent status we have?
 
-    repeated ExternalLink external_links = 28;
+    repeated prodvana.common_config.ExternalLink external_links = 28;
 
     repeated prodvana.runtimes.extensions.ExternalObject external_objects = 30;  // external objects tracked by this runtime, not represented in entity graph but useful to display to users
 

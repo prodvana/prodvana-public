@@ -8,6 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import prodvana.proto.prodvana.common_config.external_link_pb2
 import sys
 import typing
 
@@ -94,11 +95,14 @@ class ExternalObject(google.protobuf.message.Message):
     OBJECT_TYPE_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
+    EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     name: builtins.str
     object_type: builtins.str
     @property
     def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExternalObjectVersion]: ...
     status: global___ExternalObject.Status.ValueType
+    @property
+    def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink]: ...
     def __init__(
         self,
         *,
@@ -106,8 +110,9 @@ class ExternalObject(google.protobuf.message.Message):
         object_type: builtins.str = ...,
         versions: collections.abc.Iterable[global___ExternalObjectVersion] | None = ...,
         status: global___ExternalObject.Status.ValueType = ...,
+        external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "object_type", b"object_type", "status", b"status", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["external_links", b"external_links", "name", b"name", "object_type", b"object_type", "status", b"status", "versions", b"versions"]) -> None: ...
 
 global___ExternalObject = ExternalObject
 

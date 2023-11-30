@@ -1,0 +1,16 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+import "validate/validate.proto";
+
+message ExternalLink {
+    enum LinkType {
+        UNKNOWN = 0;
+        DETAIL = 1;
+        LOG = 2;
+    }
+
+    LinkType type = 1;
+    string url = 2 [(validate.rules).string.min_len = 1];
+    string name = 3 [(validate.rules).string.min_len = 1];
+}
