@@ -47,6 +47,13 @@ message CommitParameterDefinition {
     string branch = 2;
 }
 
+// A parameter pointing to a remote blob, stored inside Prodvana's BlobsManager interface.
+// The value of the template variable will be the blob ID.
+// When combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest
+// on disk.
+message BlobParameterDefinition {
+}
+
 message ParameterDefinition {
     // parameter name, used in substitutions
     string name = 1 [(validate.rules).string.min_len = 1];
@@ -61,10 +68,11 @@ message ParameterDefinition {
         IntParameterDefinition int = 5;
         SecretParameterDefinition secret = 6;
         CommitParameterDefinition commit = 8;
+        BlobParameterDefinition blob = 9;
     }
 
     bool required = 7;
-    // next: 9
+    // next: 10
 }
 
 message SecretParameterValue {
@@ -74,6 +82,13 @@ message SecretParameterValue {
         string raw_secret = 1;
         // Existing secret reference.
         prodvana.common_config.Secret secret_ref = 2;
+    }
+}
+
+message BlobParameterValue {
+    oneof blob_oneof {
+        option (validate.required) = true;
+        string inlined = 1;
     }
 }
 
@@ -98,10 +113,11 @@ message ParameterValue {
         }];
         SecretParameterValue secret = 6;
         string commit = 7;
+        BlobParameterValue blob = 8;
     }
     reserved 3;
     reserved "docker_image";
-    // next tag: 8
+    // next tag: 9
 }
 
 message ParametersConfig {

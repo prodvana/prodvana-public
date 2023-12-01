@@ -7367,6 +7367,18 @@
         }
       }
     },
+    "common_configBlobParameterDefinition": {
+      "type": "object",
+      "description": "A parameter pointing to a remote blob, stored inside Prodvana's BlobsManager interface.\nThe value of the template variable will be the blob ID.\nWhen combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest\non disk."
+    },
+    "common_configBlobParameterValue": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "type": "string"
+        }
+      }
+    },
     "common_configCmdProbe": {
       "type": "object",
       "properties": {
@@ -7734,9 +7746,12 @@
         "commit": {
           "$ref": "#/definitions/common_configCommitParameterDefinition"
         },
+        "blob": {
+          "$ref": "#/definitions/common_configBlobParameterDefinition"
+        },
         "required": {
           "type": "boolean",
-          "title": "next: 9"
+          "title": "next: 10"
         }
       }
     },
@@ -7761,6 +7776,9 @@
         },
         "commit": {
           "type": "string"
+        },
+        "blob": {
+          "$ref": "#/definitions/common_configBlobParameterValue"
         }
       }
     },

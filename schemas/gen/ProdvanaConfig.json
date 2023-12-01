@@ -558,6 +558,43 @@
             ],
             "title": "Per Release Channel Capability Config"
         },
+        "prodvana.common_config.BlobParameterDefinition": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Blob Parameter Definition",
+            "description": "A parameter pointing to a remote blob, stored inside Prodvana's BlobsManager interface. The value of the template variable will be the blob ID. When combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest on disk."
+        },
+        "prodvana.common_config.BlobParameterValue": {
+            "properties": {
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Blob Parameter Value"
+        },
         "prodvana.common_config.CmdProbe": {
             "properties": {
                 "command": {
@@ -1761,6 +1798,16 @@
                         {}
                     ]
                 },
+                "blob": {
+                    "$ref": "#/definitions/prodvana.common_config.BlobParameterDefinition",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "required": {
                     "oneOf": [
                         {
@@ -1770,7 +1817,7 @@
                             "type": "boolean"
                         }
                     ],
-                    "description": "next: 9"
+                    "description": "next: 10"
                 }
             },
             "additionalProperties": false,
@@ -1854,6 +1901,16 @@
                         {
                             "type": "string"
                         }
+                    ]
+                },
+                "blob": {
+                    "$ref": "#/definitions/prodvana.common_config.BlobParameterValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 }
             },

@@ -908,6 +908,108 @@ var _ interface {
 	ErrorName() string
 } = CommitParameterDefinitionValidationError{}
 
+// Validate checks the field values on BlobParameterDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BlobParameterDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BlobParameterDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BlobParameterDefinitionMultiError, or nil if none found.
+func (m *BlobParameterDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BlobParameterDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return BlobParameterDefinitionMultiError(errors)
+	}
+
+	return nil
+}
+
+// BlobParameterDefinitionMultiError is an error wrapping multiple validation
+// errors returned by BlobParameterDefinition.ValidateAll() if the designated
+// constraints aren't met.
+type BlobParameterDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BlobParameterDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BlobParameterDefinitionMultiError) AllErrors() []error { return m }
+
+// BlobParameterDefinitionValidationError is the validation error returned by
+// BlobParameterDefinition.Validate if the designated constraints aren't met.
+type BlobParameterDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BlobParameterDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BlobParameterDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BlobParameterDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BlobParameterDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BlobParameterDefinitionValidationError) ErrorName() string {
+	return "BlobParameterDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BlobParameterDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBlobParameterDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BlobParameterDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BlobParameterDefinitionValidationError{}
+
 // Validate checks the field values on ParameterDefinition with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1151,6 +1253,48 @@ func (m *ParameterDefinition) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ParameterDefinitionValidationError{
 					field:  "Commit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ParameterDefinition_Blob:
+		if v == nil {
+			err := ParameterDefinitionValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofConfigOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetBlob()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Blob",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ParameterDefinitionValidationError{
+						field:  "Blob",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBlob()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ParameterDefinitionValidationError{
+					field:  "Blob",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1424,6 +1568,137 @@ var _ interface {
 	ErrorName() string
 } = SecretParameterValueValidationError{}
 
+// Validate checks the field values on BlobParameterValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BlobParameterValue) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BlobParameterValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BlobParameterValueMultiError, or nil if none found.
+func (m *BlobParameterValue) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BlobParameterValue) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofBlobOneofPresent := false
+	switch v := m.BlobOneof.(type) {
+	case *BlobParameterValue_Inlined:
+		if v == nil {
+			err := BlobParameterValueValidationError{
+				field:  "BlobOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBlobOneofPresent = true
+		// no validation rules for Inlined
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofBlobOneofPresent {
+		err := BlobParameterValueValidationError{
+			field:  "BlobOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return BlobParameterValueMultiError(errors)
+	}
+
+	return nil
+}
+
+// BlobParameterValueMultiError is an error wrapping multiple validation errors
+// returned by BlobParameterValue.ValidateAll() if the designated constraints
+// aren't met.
+type BlobParameterValueMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BlobParameterValueMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BlobParameterValueMultiError) AllErrors() []error { return m }
+
+// BlobParameterValueValidationError is the validation error returned by
+// BlobParameterValue.Validate if the designated constraints aren't met.
+type BlobParameterValueValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BlobParameterValueValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BlobParameterValueValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BlobParameterValueValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BlobParameterValueValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BlobParameterValueValidationError) ErrorName() string {
+	return "BlobParameterValueValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BlobParameterValueValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBlobParameterValue.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BlobParameterValueValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BlobParameterValueValidationError{}
+
 // Validate checks the field values on ParameterValue with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1564,6 +1839,48 @@ func (m *ParameterValue) validate(all bool) error {
 		}
 		oneofValueOneofPresent = true
 		// no validation rules for Commit
+	case *ParameterValue_Blob:
+		if v == nil {
+			err := ParameterValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+
+		if all {
+			switch v := interface{}(m.GetBlob()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ParameterValueValidationError{
+						field:  "Blob",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ParameterValueValidationError{
+						field:  "Blob",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBlob()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ParameterValueValidationError{
+					field:  "Blob",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
