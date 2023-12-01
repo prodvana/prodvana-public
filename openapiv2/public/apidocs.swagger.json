@@ -13233,6 +13233,10 @@
             "type": "object",
             "$ref": "#/definitions/labelsLabelDefinition"
           }
+        },
+        "disableAllProtections": {
+          "type": "boolean",
+          "description": "Disable all protections for this release channel - protections will not be created for any service instances in this release channel.\nThis is useful for release channels that are used for testing or are not yet in production (e.g., fast creation of new tenants)."
         }
       }
     },

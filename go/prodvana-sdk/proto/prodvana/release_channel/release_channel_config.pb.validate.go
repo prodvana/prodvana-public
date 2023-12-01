@@ -551,6 +551,8 @@ func (m *ReleaseChannelConfig) validate(all bool) error {
 
 	}
 
+	// no validation rules for DisableAllProtections
+
 	if len(errors) > 0 {
 		return ReleaseChannelConfigMultiError(errors)
 	}

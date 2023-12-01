@@ -95,6 +95,7 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
     SERVICE_INSTANCE_PROTECTIONS_FIELD_NUMBER: builtins.int
     CONSTANTS_FIELD_NUMBER: builtins.int
     LABELS_FIELD_NUMBER: builtins.int
+    DISABLE_ALL_PROTECTIONS_FIELD_NUMBER: builtins.int
     name: builtins.str
     """intentionally does not reference cluster - this allows us to copy release channels across clusters via the same config"""
     group: builtins.str
@@ -123,6 +124,10 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         """constants made available in template substitutions"""
     @property
     def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
+    disable_all_protections: builtins.bool
+    """Disable all protections for this release channel - protections will not be created for any service instances in this release channel.
+    This is useful for release channels that are used for testing or are not yet in production (e.g., fast creation of new tenants).
+    """
     def __init__(
         self,
         *,
@@ -139,9 +144,10 @@ class ReleaseChannelConfig(google.protobuf.message.Message):
         service_instance_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
         constants: collections.abc.Iterable[prodvana.proto.prodvana.common_config.constants_pb2.Constant] | None = ...,
         labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
+        disable_all_protections: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deploy_annotations", b"deploy_annotations", "policy", b"policy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "group", b"group", "labels", b"labels", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["constants", b"constants", "convergence_protections", b"convergence_protections", "deploy_annotations", b"deploy_annotations", "disable_all_protections", b"disable_all_protections", "group", b"group", "labels", b"labels", "maturity", b"maturity", "name", b"name", "order", b"order", "policy", b"policy", "preconditions", b"preconditions", "protections", b"protections", "runtimes", b"runtimes", "service_instance_protections", b"service_instance_protections"]) -> None: ...
 
 global___ReleaseChannelConfig = ReleaseChannelConfig
 
