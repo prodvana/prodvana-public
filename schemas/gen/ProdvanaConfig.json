@@ -3551,6 +3551,26 @@
                         {}
                     ]
                 },
+                "google_cloud_run": {
+                    "$ref": "#/definitions/prodvana.environment.GoogleCloudRunConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "googleCloudRun": {
+                    "$ref": "#/definitions/prodvana.environment.GoogleCloudRunConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "labels": {
                     "items": {
                         "$ref": "#/definitions/prodvana.labels.LabelDefinition"
@@ -4244,7 +4264,9 @@
                         "PULUMI",
                         2,
                         "AWS_ECS_EXTENSION",
-                        3
+                        3,
+                        "GOOGLE_CLOUD_RUN_EXTENSION",
+                        4
                     ],
                     "oneOf": [
                         {
@@ -4796,6 +4818,83 @@
                 }
             ],
             "title": "GKE Cluster Metadata"
+        },
+        "prodvana.environment.GoogleCloudRunConfig": {
+            "properties": {
+                "proxy_runtime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "service_account_json": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "TODO(naphat) support for job service account name"
+                },
+                "serviceAccountJson": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "TODO(naphat) support for job service account name"
+                },
+                "project": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "region": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "next tag: 5"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Google Cloud Run Config"
         },
         "prodvana.environment.IacRunnerCommand": {
             "properties": {
@@ -6726,7 +6825,9 @@
                         "EXTENSION",
                         2,
                         "AWS_ECS",
-                        3
+                        3,
+                        "GOOGLE_CLOUD_RUN",
+                        4
                     ],
                     "oneOf": [
                         {
@@ -7375,6 +7476,40 @@
             ],
             "title": "Follow Container Repository Settings"
         },
+        "prodvana.service.GoogleCloudRunConfig": {
+            "properties": {
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Google Cloud Run Config"
+        },
         "prodvana.service.MetricAnalysis": {
             "properties": {
                 "success_rate": {
@@ -7801,6 +7936,26 @@
                 },
                 "awsEcs": {
                     "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "google_cloud_run": {
+                    "$ref": "#/definitions/prodvana.service.GoogleCloudRunConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "googleCloudRun": {
+                    "$ref": "#/definitions/prodvana.service.GoogleCloudRunConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -8699,6 +8854,26 @@
                 },
                 "awsEcs": {
                     "$ref": "#/definitions/prodvana.service.AwsEcsConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "google_cloud_run": {
+                    "$ref": "#/definitions/prodvana.service.GoogleCloudRunConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "googleCloudRun": {
+                    "$ref": "#/definitions/prodvana.service.GoogleCloudRunConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

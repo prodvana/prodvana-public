@@ -100,6 +100,7 @@ enum RuntimeConnectionType {
     LONG_LIVED_COMPUTE = 1;
     EXTENSION = 2;
     AWS_ECS = 3;
+    GOOGLE_CLOUD_RUN = 4;
 }
 
 message ReleaseChannelRuntimeConfig {

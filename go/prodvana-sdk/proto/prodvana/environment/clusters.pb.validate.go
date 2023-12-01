@@ -3314,6 +3314,239 @@ var _ interface {
 	ErrorName() string
 } = AwsEcsConfigValidationError{}
 
+// Validate checks the field values on GoogleCloudRunConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GoogleCloudRunConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GoogleCloudRunConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GoogleCloudRunConfigMultiError, or nil if none found.
+func (m *GoogleCloudRunConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GoogleCloudRunConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetProxyRuntime() == nil {
+		err := GoogleCloudRunConfigValidationError{
+			field:  "ProxyRuntime",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetProxyRuntime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GoogleCloudRunConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GoogleCloudRunConfigValidationError{
+					field:  "ProxyRuntime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProxyRuntime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GoogleCloudRunConfigValidationError{
+				field:  "ProxyRuntime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetProject()) < 1 {
+		err := GoogleCloudRunConfigValidationError{
+			field:  "Project",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetRegion()) < 1 {
+		err := GoogleCloudRunConfigValidationError{
+			field:  "Region",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	oneofCredentialsPresent := false
+	switch v := m.Credentials.(type) {
+	case *GoogleCloudRunConfig_ServiceAccountJson:
+		if v == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "Credentials",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofCredentialsPresent = true
+
+		if m.GetServiceAccountJson() == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "ServiceAccountJson",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetServiceAccountJson()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "ServiceAccountJson",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "ServiceAccountJson",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetServiceAccountJson()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GoogleCloudRunConfigValidationError{
+					field:  "ServiceAccountJson",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofCredentialsPresent {
+		err := GoogleCloudRunConfigValidationError{
+			field:  "Credentials",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GoogleCloudRunConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// GoogleCloudRunConfigMultiError is an error wrapping multiple validation
+// errors returned by GoogleCloudRunConfig.ValidateAll() if the designated
+// constraints aren't met.
+type GoogleCloudRunConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GoogleCloudRunConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GoogleCloudRunConfigMultiError) AllErrors() []error { return m }
+
+// GoogleCloudRunConfigValidationError is the validation error returned by
+// GoogleCloudRunConfig.Validate if the designated constraints aren't met.
+type GoogleCloudRunConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GoogleCloudRunConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GoogleCloudRunConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GoogleCloudRunConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GoogleCloudRunConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GoogleCloudRunConfigValidationError) ErrorName() string {
+	return "GoogleCloudRunConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GoogleCloudRunConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGoogleCloudRunConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GoogleCloudRunConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GoogleCloudRunConfigValidationError{}
+
 // Validate checks the field values on ClusterConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -3806,6 +4039,47 @@ func (m *ClusterConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ClusterConfigValidationError{
 					field:  "AwsEcs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ClusterConfig_GoogleCloudRun:
+		if v == nil {
+			err := ClusterConfigValidationError{
+				field:  "ClusterOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGoogleCloudRun()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGoogleCloudRun()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterConfigValidationError{
+					field:  "GoogleCloudRun",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

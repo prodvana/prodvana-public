@@ -47,6 +47,7 @@ enum ClusterType {
     TERRAFORM_RUNNER = 5;
     PULUMI_RUNNER = 6;
     AWS_ECS = 7;
+    GOOGLE_CLOUD_RUN = 8;
 }
 
 message Cluster {
@@ -170,6 +171,7 @@ enum ExtensionType {
     TERRAFORM = 1;
     PULUMI = 2;
     AWS_ECS_EXTENSION = 3;
+    GOOGLE_CLOUD_RUN_EXTENSION = 4;
 }
 
 message ExtensionClusterConfig {
@@ -271,6 +273,18 @@ message AwsEcsConfig {
     // next tag: 7
 }
 
+message GoogleCloudRunConfig {
+    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
+    oneof credentials {
+        option (validate.required) = true;
+        prodvana.common_config.SecretReferenceValue service_account_json = 2 [(validate.rules).message.required = true];
+        // TODO(naphat) support for job service account name
+    }
+    string project = 3 [(validate.rules).string.min_len = 1];
+    string region = 4 [(validate.rules).string.min_len = 1];
+    // next tag: 5
+}
+
 message ClusterConfig {
     string name = 14;
 
@@ -355,6 +369,7 @@ message ClusterConfig {
         // pulumi runner is a runtime that runs pulumi via k8s jobs
         TerraformRunnerConfig pulumi_runner = 16;
         AwsEcsConfig aws_ecs = 20;
+        GoogleCloudRunConfig google_cloud_run = 21;
     }
 
     reserved 1, 2, 5;
@@ -362,5 +377,5 @@ message ClusterConfig {
 
     repeated prodvana.labels.LabelDefinition labels = 17;
 
-    // next tag: 21
+    // next tag: 22
 }

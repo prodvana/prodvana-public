@@ -115,6 +115,7 @@ message PerReleaseChannelConfig {
 
         prodvana.common_config.HelmConfig helm = 15;
         AwsEcsConfig aws_ecs = 22;
+        GoogleCloudRunConfig google_cloud_run = 24;
     }
 
     // Additional env variables that are injected to the service.
@@ -137,7 +138,7 @@ message PerReleaseChannelConfig {
 
     reserved 3, 4, 12;
 
-    // next tag: 24
+    // next tag: 25
 }
 
 message CapabilityReference {
@@ -252,8 +253,16 @@ message AwsEcsConfig {
         bool assign_public_ip = 3;
     }
     string ecs_service_name_override = 1;  // optional, defaults to Prodvana service name
-    TaskDefinition task_definition = 2;
-    NetworkConfiguration network_configuration = 3;
+    TaskDefinition task_definition = 2 [(validate.rules).message.required = true];
+    NetworkConfiguration network_configuration = 3 [(validate.rules).message.required = true];
+}
+
+message GoogleCloudRunConfig {
+    oneof spec_oneof {
+        option (validate.required) = true;
+        string inlined = 1 [(validate.rules).string.min_len = 1];
+        prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
+    }
 }
 
 message ServiceConfig {
@@ -317,6 +326,7 @@ message ServiceConfig {
 
         prodvana.common_config.HelmConfig helm = 26;
         AwsEcsConfig aws_ecs = 35;
+        GoogleCloudRunConfig google_cloud_run = 36;
     }
 
     enum ParametersAutogen {
@@ -353,7 +363,7 @@ message ServiceConfig {
     // internal use
     bool async_set_desired_state = 34;
 
-    // next tag: 36
+    // next tag: 37
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -397,6 +407,7 @@ message CompiledServiceInstanceConfig {
         prodvana.common_config.KubernetesConfig kubernetes_config = 23;
         prodvana.common_config.HelmConfig helm = 29;
         AwsEcsConfig aws_ecs = 37;
+        GoogleCloudRunConfig google_cloud_run = 39;
     }
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
@@ -418,7 +429,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 39
+    // next tag: 40
 }
 
 message CompiledJobConfig {

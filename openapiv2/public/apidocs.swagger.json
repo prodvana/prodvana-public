@@ -9170,6 +9170,9 @@
         "awsEcs": {
           "$ref": "#/definitions/prodvanaenvironmentAwsEcsConfig"
         },
+        "googleCloudRun": {
+          "$ref": "#/definitions/prodvanaenvironmentGoogleCloudRunConfig"
+        },
         "labels": {
           "type": "array",
           "items": {
@@ -9197,7 +9200,8 @@
         "EXTENSION",
         "TERRAFORM_RUNNER",
         "PULUMI_RUNNER",
-        "AWS_ECS"
+        "AWS_ECS",
+        "GOOGLE_CLOUD_RUN"
       ],
       "default": "UNKNOWN",
       "title": "- ECS: TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension"
@@ -9404,7 +9408,8 @@
         "GENERIC",
         "TERRAFORM",
         "PULUMI",
-        "AWS_ECS_EXTENSION"
+        "AWS_ECS_EXTENSION",
+        "GOOGLE_CLOUD_RUN_EXTENSION"
       ],
       "default": "GENERIC"
     },
@@ -12150,6 +12155,25 @@
         }
       }
     },
+    "prodvanaenvironmentGoogleCloudRunConfig": {
+      "type": "object",
+      "properties": {
+        "proxyRuntime": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "serviceAccountJson": {
+          "$ref": "#/definitions/common_configSecretReferenceValue",
+          "title": "TODO(naphat) support for job service account name"
+        },
+        "project": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string",
+          "title": "next tag: 5"
+        }
+      }
+    },
     "prodvanaeventsRuntimeObject": {
       "type": "object",
       "properties": {
@@ -12283,6 +12307,17 @@
         },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
+        }
+      }
+    },
+    "prodvanaserviceGoogleCloudRunConfig": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
         }
       }
     },
@@ -13279,7 +13314,8 @@
         "UNKNOWN_CONNECTION",
         "LONG_LIVED_COMPUTE",
         "EXTENSION",
-        "AWS_ECS"
+        "AWS_ECS",
+        "GOOGLE_CLOUD_RUN"
       ],
       "default": "UNKNOWN_CONNECTION"
     },
@@ -13517,6 +13553,9 @@
         },
         "awsEcs": {
           "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
+        },
+        "googleCloudRun": {
+          "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
         },
         "env": {
           "type": "object",
@@ -13918,6 +13957,9 @@
         "awsEcs": {
           "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
         },
+        "googleCloudRun": {
+          "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -14173,6 +14215,9 @@
         },
         "awsEcs": {
           "$ref": "#/definitions/prodvanaserviceAwsEcsConfig"
+        },
+        "googleCloudRun": {
+          "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
         },
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",

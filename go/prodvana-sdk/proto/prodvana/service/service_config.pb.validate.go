@@ -1812,6 +1812,47 @@ func (m *PerReleaseChannelConfig) validate(all bool) error {
 			}
 		}
 
+	case *PerReleaseChannelConfig_GoogleCloudRun:
+		if v == nil {
+			err := PerReleaseChannelConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGoogleCloudRun()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PerReleaseChannelConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGoogleCloudRun()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PerReleaseChannelConfigValidationError{
+					field:  "GoogleCloudRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -3672,6 +3713,17 @@ func (m *AwsEcsConfig) validate(all bool) error {
 
 	// no validation rules for EcsServiceNameOverride
 
+	if m.GetTaskDefinition() == nil {
+		err := AwsEcsConfigValidationError{
+			field:  "TaskDefinition",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if all {
 		switch v := interface{}(m.GetTaskDefinition()).(type) {
 		case interface{ ValidateAll() error }:
@@ -3699,6 +3751,17 @@ func (m *AwsEcsConfig) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	if m.GetNetworkConfiguration() == nil {
+		err := AwsEcsConfigValidationError{
+			field:  "NetworkConfiguration",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if all {
@@ -3806,6 +3869,201 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AwsEcsConfigValidationError{}
+
+// Validate checks the field values on GoogleCloudRunConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GoogleCloudRunConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GoogleCloudRunConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GoogleCloudRunConfigMultiError, or nil if none found.
+func (m *GoogleCloudRunConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GoogleCloudRunConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofSpecOneofPresent := false
+	switch v := m.SpecOneof.(type) {
+	case *GoogleCloudRunConfig_Inlined:
+		if v == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "SpecOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSpecOneofPresent = true
+
+		if utf8.RuneCountInString(m.GetInlined()) < 1 {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "Inlined",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *GoogleCloudRunConfig_Local:
+		if v == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "SpecOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSpecOneofPresent = true
+
+		if m.GetLocal() == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "Local",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetLocal()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "Local",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "Local",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetLocal()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GoogleCloudRunConfigValidationError{
+					field:  "Local",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofSpecOneofPresent {
+		err := GoogleCloudRunConfigValidationError{
+			field:  "SpecOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GoogleCloudRunConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// GoogleCloudRunConfigMultiError is an error wrapping multiple validation
+// errors returned by GoogleCloudRunConfig.ValidateAll() if the designated
+// constraints aren't met.
+type GoogleCloudRunConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GoogleCloudRunConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GoogleCloudRunConfigMultiError) AllErrors() []error { return m }
+
+// GoogleCloudRunConfigValidationError is the validation error returned by
+// GoogleCloudRunConfig.Validate if the designated constraints aren't met.
+type GoogleCloudRunConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GoogleCloudRunConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GoogleCloudRunConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GoogleCloudRunConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GoogleCloudRunConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GoogleCloudRunConfigValidationError) ErrorName() string {
+	return "GoogleCloudRunConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GoogleCloudRunConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGoogleCloudRunConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GoogleCloudRunConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GoogleCloudRunConfigValidationError{}
 
 // Validate checks the field values on ServiceConfig with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -4720,6 +4978,47 @@ func (m *ServiceConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ServiceConfigValidationError{
 					field:  "AwsEcs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ServiceConfig_GoogleCloudRun:
+		if v == nil {
+			err := ServiceConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGoogleCloudRun()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ServiceConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGoogleCloudRun()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ServiceConfigValidationError{
+					field:  "GoogleCloudRun",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -5715,6 +6014,47 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return CompiledServiceInstanceConfigValidationError{
 					field:  "AwsEcs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *CompiledServiceInstanceConfig_GoogleCloudRun:
+		if v == nil {
+			err := CompiledServiceInstanceConfigValidationError{
+				field:  "ConfigOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetGoogleCloudRun()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CompiledServiceInstanceConfigValidationError{
+						field:  "GoogleCloudRun",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGoogleCloudRun()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CompiledServiceInstanceConfigValidationError{
+					field:  "GoogleCloudRun",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
