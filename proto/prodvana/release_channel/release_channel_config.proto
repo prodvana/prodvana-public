@@ -52,10 +52,6 @@ message ReleaseChannelConfig {
     repeated prodvana.common_config.Constant constants = 10;
     repeated prodvana.labels.LabelDefinition labels = 13;
 
-    // Disable all protections for this release channel - protections will not be created for any service instances in this release channel.
-    // This is useful for release channels that are used for testing or are not yet in production (e.g., fast creation of new tenants).
-    bool disable_all_protections = 14;
-
     // next tag: 14
 }
 

@@ -6659,28 +6659,6 @@
                             "type": "array"
                         }
                     ]
-                },
-                "disable_all_protections": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "Disable all protections for this release channel - protections will not be created for any service instances in this release channel. This is useful for release channels that are used for testing or are not yet in production (e.g., fast creation of new tenants)."
-                },
-                "disableAllProtections": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ],
-                    "description": "Disable all protections for this release channel - protections will not be created for any service instances in this release channel. This is useful for release channels that are used for testing or are not yet in production (e.g., fast creation of new tenants)."
                 }
             },
             "additionalProperties": false,
