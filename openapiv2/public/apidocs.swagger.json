@@ -13987,7 +13987,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
-          }
+          },
+          "title": "TODO: unused today, but will be used for per-service per-RC convergence protections in the future"
         }
       }
     },
@@ -14169,6 +14170,14 @@
             "type": "object",
             "$ref": "#/definitions/serviceDeliveryExtensionInstance"
           }
+        },
+        "convergenceProtections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protectionProtectionAttachmentConfig"
+          },
+          "description": "Convergence protections applied to all release channels."
         },
         "runtimeSpecific": {
           "$ref": "#/definitions/serviceRuntimeSpecificConfig"

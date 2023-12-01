@@ -8026,7 +8026,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "TODO: unused today, but will be used for per-service per-RC convergence protections in the future"
                 },
                 "convergenceProtections": {
                     "items": {
@@ -8040,7 +8041,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "TODO: unused today, but will be used for per-service per-RC convergence protections in the future"
                 }
             },
             "additionalProperties": false,
@@ -8664,6 +8666,36 @@
                             "type": "array"
                         }
                     ]
+                },
+                "convergence_protections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Convergence protections applied to all release channels."
+                },
+                "convergenceProtections": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.ProtectionAttachmentConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Convergence protections applied to all release channels."
                 },
                 "runtime_specific": {
                     "$ref": "#/definitions/prodvana.service.RuntimeSpecificConfig",

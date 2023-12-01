@@ -295,7 +295,8 @@ class PerReleaseChannelConfig(google.protobuf.message.Message):
     @property
     def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]: ...
     @property
-    def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]: ...
+    def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]:
+        """TODO: unused today, but will be used for per-service per-RC convergence protections in the future"""
     def __init__(
         self,
         *,
@@ -726,6 +727,7 @@ class ServiceConfig(google.protobuf.message.Message):
     PRE_PUSH_TASKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSION_INSTANCES_FIELD_NUMBER: builtins.int
+    CONVERGENCE_PROTECTIONS_FIELD_NUMBER: builtins.int
     RUNTIME_SPECIFIC_FIELD_NUMBER: builtins.int
     RUNTIME_CONNECTION_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
@@ -769,6 +771,9 @@ class ServiceConfig(google.protobuf.message.Message):
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
     def delivery_extension_instances(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionInstance]: ...
+    @property
+    def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]:
+        """Convergence protections applied to all release channels."""
     @property
     def runtime_specific(self) -> global___RuntimeSpecificConfig: ...
     runtime_connection: builtins.str
@@ -830,6 +835,7 @@ class ServiceConfig(google.protobuf.message.Message):
         pre_push_tasks: collections.abc.Iterable[global___TaskConfig] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
         delivery_extension_instances: collections.abc.Iterable[global___DeliveryExtensionInstance] | None = ...,
+        convergence_protections: collections.abc.Iterable[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig] | None = ...,
         runtime_specific: global___RuntimeSpecificConfig | None = ...,
         runtime_connection: builtins.str = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
@@ -849,7 +855,7 @@ class ServiceConfig(google.protobuf.message.Message):
         async_set_desired_state: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auto_rollback", b"auto_rollback", "aws_ecs", b"aws_ecs", "config_oneof", b"config_oneof", "delivery_config", b"delivery_config", "deploy_annotations", b"deploy_annotations", "external_config", b"external_config", "google_cloud_run", b"google_cloud_run", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "parameter_values", b"parameter_values", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "async_set_desired_state", b"async_set_desired_state", "auto_rollback", b"auto_rollback", "aws_ecs", b"aws_ecs", "capabilities", b"capabilities", "config_oneof", b"config_oneof", "constants", b"constants", "delivery_config", b"delivery_config", "delivery_extension_instances", b"delivery_extension_instances", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "env", b"env", "external_config", b"external_config", "google_cloud_run", b"google_cloud_run", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "name", b"name", "no_cleanup_on_delete", b"no_cleanup_on_delete", "parameter_values", b"parameter_values", "parameters", b"parameters", "parameters_autogen", b"parameters_autogen", "per_release_channel", b"per_release_channel", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "async_set_desired_state", b"async_set_desired_state", "auto_rollback", b"auto_rollback", "aws_ecs", b"aws_ecs", "capabilities", b"capabilities", "config_oneof", b"config_oneof", "constants", b"constants", "convergence_protections", b"convergence_protections", "delivery_config", b"delivery_config", "delivery_extension_instances", b"delivery_extension_instances", "delivery_extensions", b"delivery_extensions", "deploy_annotations", b"deploy_annotations", "env", b"env", "external_config", b"external_config", "google_cloud_run", b"google_cloud_run", "helm", b"helm", "kubernetes_config", b"kubernetes_config", "name", b"name", "no_cleanup_on_delete", b"no_cleanup_on_delete", "parameter_values", b"parameter_values", "parameters", b"parameters", "parameters_autogen", b"parameters_autogen", "per_release_channel", b"per_release_channel", "pre_push_tasks", b"pre_push_tasks", "programs", b"programs", "progress_deadline", b"progress_deadline", "release_strategy", b"release_strategy", "replicas", b"replicas", "runtime_connection", b"runtime_connection", "runtime_extension", b"runtime_extension", "runtime_specific", b"runtime_specific", "volumes", b"volumes"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config_oneof", b"config_oneof"]) -> typing_extensions.Literal["runtime_extension", "kubernetes_config", "external_config", "helm", "aws_ecs", "google_cloud_run"] | None: ...
 
 global___ServiceConfig = ServiceConfig

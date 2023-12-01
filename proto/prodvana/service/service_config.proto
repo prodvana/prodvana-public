@@ -134,6 +134,7 @@ message PerReleaseChannelConfig {
     // constants made available in template substitutions
     repeated prodvana.common_config.Constant constants = 20;
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 21;
+    // TODO: unused today, but will be used for per-service per-RC convergence protections in the future
     repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 23;
 
     reserved 3, 4, 12;
@@ -299,6 +300,9 @@ message ServiceConfig {
     repeated DeliveryExtensionConfig delivery_extensions = 29;
     repeated DeliveryExtensionInstance delivery_extension_instances = 30;
 
+    // Convergence protections applied to all release channels.
+    repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 37;
+
     RuntimeSpecificConfig runtime_specific = 16;
 
     // which runtime connection to use in each release channel.
@@ -363,7 +367,7 @@ message ServiceConfig {
     // internal use
     bool async_set_desired_state = 34;
 
-    // next tag: 37
+    // next tag: 38
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
