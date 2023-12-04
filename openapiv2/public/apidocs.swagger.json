@@ -12305,6 +12305,10 @@
         },
         "networkConfiguration": {
           "$ref": "#/definitions/AwsEcsConfigNetworkConfiguration"
+        },
+        "updateTaskDefinitionOnly": {
+          "type": "boolean",
+          "description": "Only update service's task definition, but do not try to update anything else about the service.\nThis means that something else is responsible for creating the service.\n\nif set, network_configuration cannot be set"
         }
       }
     },

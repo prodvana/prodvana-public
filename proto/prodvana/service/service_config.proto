@@ -255,7 +255,10 @@ message AwsEcsConfig {
     }
     string ecs_service_name_override = 1;  // optional, defaults to Prodvana service name
     TaskDefinition task_definition = 2 [(validate.rules).message.required = true];
-    NetworkConfiguration network_configuration = 3 [(validate.rules).message.required = true];
+    NetworkConfiguration network_configuration = 3;
+    // Only update service's task definition, but do not try to update anything else about the service.
+    // This means that something else is responsible for creating the service.
+    bool update_task_definition_only = 4; // if set, network_configuration cannot be set
 }
 
 message GoogleCloudRunConfig {

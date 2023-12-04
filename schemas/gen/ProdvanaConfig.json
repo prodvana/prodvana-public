@@ -7147,6 +7147,28 @@
                         },
                         {}
                     ]
+                },
+                "update_task_definition_only": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Only update service's task definition, but do not try to update anything else about the service. This means that something else is responsible for creating the service.  if set, network_configuration cannot be set"
+                },
+                "updateTaskDefinitionOnly": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Only update service's task definition, but do not try to update anything else about the service. This means that something else is responsible for creating the service.  if set, network_configuration cannot be set"
                 }
             },
             "additionalProperties": false,

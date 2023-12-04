@@ -3753,17 +3753,6 @@ func (m *AwsEcsConfig) validate(all bool) error {
 		}
 	}
 
-	if m.GetNetworkConfiguration() == nil {
-		err := AwsEcsConfigValidationError{
-			field:  "NetworkConfiguration",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetNetworkConfiguration()).(type) {
 		case interface{ ValidateAll() error }:
@@ -3792,6 +3781,8 @@ func (m *AwsEcsConfig) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for UpdateTaskDefinitionOnly
 
 	if len(errors) > 0 {
 		return AwsEcsConfigMultiError(errors)

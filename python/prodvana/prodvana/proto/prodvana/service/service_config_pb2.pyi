@@ -633,21 +633,28 @@ class AwsEcsConfig(google.protobuf.message.Message):
     ECS_SERVICE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     TASK_DEFINITION_FIELD_NUMBER: builtins.int
     NETWORK_CONFIGURATION_FIELD_NUMBER: builtins.int
+    UPDATE_TASK_DEFINITION_ONLY_FIELD_NUMBER: builtins.int
     ecs_service_name_override: builtins.str
     """optional, defaults to Prodvana service name"""
     @property
     def task_definition(self) -> global___AwsEcsConfig.TaskDefinition: ...
     @property
     def network_configuration(self) -> global___AwsEcsConfig.NetworkConfiguration: ...
+    update_task_definition_only: builtins.bool
+    """Only update service's task definition, but do not try to update anything else about the service.
+    This means that something else is responsible for creating the service.
+    if set, network_configuration cannot be set
+    """
     def __init__(
         self,
         *,
         ecs_service_name_override: builtins.str = ...,
         task_definition: global___AwsEcsConfig.TaskDefinition | None = ...,
         network_configuration: global___AwsEcsConfig.NetworkConfiguration | None = ...,
+        update_task_definition_only: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["network_configuration", b"network_configuration", "task_definition", b"task_definition"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "network_configuration", b"network_configuration", "task_definition", b"task_definition"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "network_configuration", b"network_configuration", "task_definition", b"task_definition", "update_task_definition_only", b"update_task_definition_only"]) -> None: ...
 
 global___AwsEcsConfig = AwsEcsConfig
 
