@@ -12747,6 +12747,22 @@
         }
       }
     },
+    "releaseCommitAnalysis": {
+      "type": "object",
+      "properties": {
+        "commitsAdded": {
+          "type": "string",
+          "format": "int64"
+        },
+        "commitsRemoved": {
+          "type": "string",
+          "format": "int64"
+        },
+        "impactAnalysis": {
+          "$ref": "#/definitions/releaseImpactAnalysisComparison"
+        }
+      }
+    },
     "releaseCompareReleaseReq": {
       "type": "object",
       "properties": {
@@ -12784,13 +12800,20 @@
     "releaseImpactAnalysisComparison": {
       "type": "object",
       "properties": {
-        "relevantCommits": {
+        "relevantAddedCommits": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/repoCommit"
           },
           "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
+        },
+        "relevantRemovedCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          }
         },
         "unanalyzedCommits": {
           "type": "string",
@@ -12889,12 +12912,8 @@
         "newCommitId": {
           "type": "string"
         },
-        "impactAnalysis": {
-          "$ref": "#/definitions/releaseImpactAnalysisComparison"
-        },
-        "totalCommits": {
-          "type": "string",
-          "format": "int64",
+        "commitAnalysis": {
+          "$ref": "#/definitions/releaseCommitAnalysis",
           "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
         },
         "prevServiceId": {

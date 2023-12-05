@@ -2,7 +2,6 @@ syntax = "proto3";
 package prodvana.release;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/wrappers.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/repo/repo.proto";
 import "validate/validate.proto";
@@ -43,9 +42,16 @@ message ReleaseState {
     google.protobuf.Timestamp last_update_timestamp = 2;
 }
 
+message CommitAnalysis {
+    int64 commits_added = 1;
+    int64 commits_removed = 2;
+    ImpactAnalysisComparison impact_analysis = 3;
+}
+
 message ImpactAnalysisComparison {
     // commits likely to be impactful, prev_commit_id and new_commit_id have a merge base
-    repeated prodvana.repo.Commit relevant_commits = 1;
+    repeated prodvana.repo.Commit relevant_added_commits = 1;
+    repeated prodvana.repo.Commit relevant_removed_commits = 3;
     int64 unanalyzed_commits = 2;
 }
 
@@ -55,8 +61,7 @@ message ReleaseComparison {
     string new_repository = 3;
     string prev_commit_id = 4;
     string new_commit_id = 5;
-    ImpactAnalysisComparison impact_analysis = 6;
-    google.protobuf.Int64Value total_commits = 7; // only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana
+    CommitAnalysis commit_analysis = 14;  // only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana
     // only set for Prodvana managed releases
     string prev_service_id = 8;
     string prev_release_channel_id = 9;
@@ -64,6 +69,9 @@ message ReleaseComparison {
     string new_service_id = 11;
     string new_release_channel_id = 12;
     string new_service_version = 13;
+    reserved "impact_analysis", "total_commits";
+    reserved 6, 7;
+    // next tag: 15
 }
 
 message Release {

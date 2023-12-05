@@ -327,6 +327,139 @@ var _ interface {
 	ErrorName() string
 } = ReleaseStateValidationError{}
 
+// Validate checks the field values on CommitAnalysis with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CommitAnalysis) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CommitAnalysis with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CommitAnalysisMultiError,
+// or nil if none found.
+func (m *CommitAnalysis) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CommitAnalysis) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for CommitsAdded
+
+	// no validation rules for CommitsRemoved
+
+	if all {
+		switch v := interface{}(m.GetImpactAnalysis()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CommitAnalysisValidationError{
+					field:  "ImpactAnalysis",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CommitAnalysisValidationError{
+					field:  "ImpactAnalysis",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetImpactAnalysis()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CommitAnalysisValidationError{
+				field:  "ImpactAnalysis",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CommitAnalysisMultiError(errors)
+	}
+
+	return nil
+}
+
+// CommitAnalysisMultiError is an error wrapping multiple validation errors
+// returned by CommitAnalysis.ValidateAll() if the designated constraints
+// aren't met.
+type CommitAnalysisMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CommitAnalysisMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CommitAnalysisMultiError) AllErrors() []error { return m }
+
+// CommitAnalysisValidationError is the validation error returned by
+// CommitAnalysis.Validate if the designated constraints aren't met.
+type CommitAnalysisValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CommitAnalysisValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CommitAnalysisValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CommitAnalysisValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CommitAnalysisValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CommitAnalysisValidationError) ErrorName() string { return "CommitAnalysisValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CommitAnalysisValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCommitAnalysis.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CommitAnalysisValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CommitAnalysisValidationError{}
+
 // Validate checks the field values on ImpactAnalysisComparison with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -349,7 +482,7 @@ func (m *ImpactAnalysisComparison) validate(all bool) error {
 
 	var errors []error
 
-	for idx, item := range m.GetRelevantCommits() {
+	for idx, item := range m.GetRelevantAddedCommits() {
 		_, _ = idx, item
 
 		if all {
@@ -357,7 +490,7 @@ func (m *ImpactAnalysisComparison) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ImpactAnalysisComparisonValidationError{
-						field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+						field:  fmt.Sprintf("RelevantAddedCommits[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -365,7 +498,7 @@ func (m *ImpactAnalysisComparison) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ImpactAnalysisComparisonValidationError{
-						field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+						field:  fmt.Sprintf("RelevantAddedCommits[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -374,7 +507,41 @@ func (m *ImpactAnalysisComparison) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ImpactAnalysisComparisonValidationError{
-					field:  fmt.Sprintf("RelevantCommits[%v]", idx),
+					field:  fmt.Sprintf("RelevantAddedCommits[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetRelevantRemovedCommits() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ImpactAnalysisComparisonValidationError{
+						field:  fmt.Sprintf("RelevantRemovedCommits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ImpactAnalysisComparisonValidationError{
+						field:  fmt.Sprintf("RelevantRemovedCommits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ImpactAnalysisComparisonValidationError{
+					field:  fmt.Sprintf("RelevantRemovedCommits[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -525,11 +692,11 @@ func (m *ReleaseComparison) validate(all bool) error {
 	// no validation rules for NewCommitId
 
 	if all {
-		switch v := interface{}(m.GetImpactAnalysis()).(type) {
+		switch v := interface{}(m.GetCommitAnalysis()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, ReleaseComparisonValidationError{
-					field:  "ImpactAnalysis",
+					field:  "CommitAnalysis",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -537,45 +704,16 @@ func (m *ReleaseComparison) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, ReleaseComparisonValidationError{
-					field:  "ImpactAnalysis",
+					field:  "CommitAnalysis",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetImpactAnalysis()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetCommitAnalysis()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ReleaseComparisonValidationError{
-				field:  "ImpactAnalysis",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetTotalCommits()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReleaseComparisonValidationError{
-					field:  "TotalCommits",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ReleaseComparisonValidationError{
-					field:  "TotalCommits",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTotalCommits()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ReleaseComparisonValidationError{
-				field:  "TotalCommits",
+				field:  "CommitAnalysis",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
