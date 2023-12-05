@@ -13,6 +13,7 @@ import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.env_pb2
 import prodvana.proto.prodvana.common_config.kubernetes_config_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
+import prodvana.proto.prodvana.common_config.rollback_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.labels.labels_pb2
 import prodvana.proto.prodvana.runtimes.extensions.fetch_pb2
@@ -953,6 +954,7 @@ class ClusterConfig(google.protobuf.message.Message):
     AWS_ECS_FIELD_NUMBER: builtins.int
     GOOGLE_CLOUD_RUN_FIELD_NUMBER: builtins.int
     LABELS_FIELD_NUMBER: builtins.int
+    AUTO_ROLLBACK_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def kubecost(self) -> global___ClusterConfig.Kubecost: ...
@@ -991,6 +993,8 @@ class ClusterConfig(google.protobuf.message.Message):
     def google_cloud_run(self) -> global___GoogleCloudRunConfig: ...
     @property
     def labels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition]: ...
+    @property
+    def auto_rollback(self) -> prodvana.proto.prodvana.common_config.rollback_pb2.AutoRollbackConfig: ...
     def __init__(
         self,
         *,
@@ -1011,9 +1015,10 @@ class ClusterConfig(google.protobuf.message.Message):
         aws_ecs: global___AwsEcsConfig | None = ...,
         google_cloud_run: global___GoogleCloudRunConfig | None = ...,
         labels: collections.abc.Iterable[prodvana.proto.prodvana.labels.labels_pb2.LabelDefinition] | None = ...,
+        auto_rollback: prodvana.proto.prodvana.common_config.rollback_pb2.AutoRollbackConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "aws_ecs", b"aws_ecs", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "google_cloud_run", b"google_cloud_run", "kubecost", b"kubecost", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "aws_ecs", b"aws_ecs", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "google_cloud_run", b"google_cloud_run", "kubecost", b"kubecost", "labels", b"labels", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "auto_rollback", b"auto_rollback", "aws_ecs", b"aws_ecs", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "google_cloud_run", b"google_cloud_run", "kubecost", b"kubecost", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alb_ingress", b"alb_ingress", "argo_rollouts", b"argo_rollouts", "auto_rollback", b"auto_rollback", "aws_ecs", b"aws_ecs", "cloud_provider", b"cloud_provider", "cluster_oneof", b"cluster_oneof", "datadog", b"datadog", "detected_cluster_metadata", b"detected_cluster_metadata", "extension", b"extension", "fake", b"fake", "gke_ingress", b"gke_ingress", "google_cloud_run", b"google_cloud_run", "kubecost", b"kubecost", "labels", b"labels", "name", b"name", "pulumi_runner", b"pulumi_runner", "self_managed_gke_ingress", b"self_managed_gke_ingress", "terraform_runner", b"terraform_runner", "user_supplied_cluster_metadata", b"user_supplied_cluster_metadata"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["cluster_oneof", b"cluster_oneof"]) -> typing_extensions.Literal["fake", "extension", "terraform_runner", "pulumi_runner", "aws_ecs", "google_cloud_run"] | None: ...
 
 global___ClusterConfig = ClusterConfig

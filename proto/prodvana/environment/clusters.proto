@@ -9,6 +9,7 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/common_config/rollback.proto";
 import "prodvana/labels/labels.proto";
 import "prodvana/runtimes/extensions/fetch.proto";
 import "prodvana/runtimes/runtimes_config.proto";
@@ -377,5 +378,7 @@ message ClusterConfig {
 
     repeated prodvana.labels.LabelDefinition labels = 17;
 
-    // next tag: 22
+    prodvana.common_config.AutoRollbackConfig auto_rollback = 22;
+
+    // next tag: 23
 }

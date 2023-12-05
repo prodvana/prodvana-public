@@ -7367,6 +7367,14 @@
         }
       }
     },
+    "common_configAutoRollbackConfig": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
     "common_configBlobParameterDefinition": {
       "type": "object",
       "description": "A parameter pointing to a remote blob, stored inside Prodvana's BlobsManager interface.\nThe value of the template variable will be the blob ID.\nWhen combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest\non disk."
@@ -9197,6 +9205,9 @@
             "type": "object",
             "$ref": "#/definitions/labelsLabelDefinition"
           }
+        },
+        "autoRollback": {
+          "$ref": "#/definitions/common_configAutoRollbackConfig"
         }
       }
     },
@@ -13415,14 +13426,6 @@
         }
       }
     },
-    "serviceAutoRollbackConfig": {
-      "type": "object",
-      "properties": {
-        "disabled": {
-          "type": "boolean"
-        }
-      }
-    },
     "serviceCapabilityReference": {
       "type": "object",
       "properties": {
@@ -14255,7 +14258,7 @@
           "description": "How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs."
         },
         "autoRollback": {
-          "$ref": "#/definitions/serviceAutoRollbackConfig"
+          "$ref": "#/definitions/common_configAutoRollbackConfig"
         },
         "noCleanupOnDelete": {
           "type": "boolean",

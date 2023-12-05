@@ -558,6 +558,30 @@
             ],
             "title": "Per Release Channel Capability Config"
         },
+        "prodvana.common_config.AutoRollbackConfig": {
+            "properties": {
+                "disabled": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Auto Rollback Config"
+        },
         "prodvana.common_config.BlobParameterDefinition": {
             "additionalProperties": false,
             "oneOf": [
@@ -3640,6 +3664,26 @@
                         {
                             "type": "array"
                         }
+                    ]
+                },
+                "auto_rollback": {
+                    "$ref": "#/definitions/prodvana.common_config.AutoRollbackConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "autoRollback": {
+                    "$ref": "#/definitions/prodvana.common_config.AutoRollbackConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 }
             },
@@ -7060,30 +7104,6 @@
             ],
             "title": "Runtime Execution Config"
         },
-        "prodvana.service.AutoRollbackConfig": {
-            "properties": {
-                "disabled": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Auto Rollback Config"
-        },
         "prodvana.service.AwsEcsConfig": {
             "properties": {
                 "ecs_service_name_override": {
@@ -9042,7 +9062,7 @@
                     "title": "Parameters Autogen"
                 },
                 "auto_rollback": {
-                    "$ref": "#/definitions/prodvana.service.AutoRollbackConfig",
+                    "$ref": "#/definitions/prodvana.common_config.AutoRollbackConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -9052,7 +9072,7 @@
                     ]
                 },
                 "autoRollback": {
-                    "$ref": "#/definitions/prodvana.service.AutoRollbackConfig",
+                    "$ref": "#/definitions/prodvana.common_config.AutoRollbackConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

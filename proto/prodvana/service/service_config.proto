@@ -12,6 +12,7 @@ import "prodvana/common_config/maturity.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
 import "prodvana/common_config/retry.proto";
+import "prodvana/common_config/rollback.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/delivery_extension/config.proto";
@@ -236,10 +237,6 @@ message RuntimeExtensionConfig {
     bool clear_on_per_release_channel_merge = 2;
 }
 
-message AutoRollbackConfig {
-    bool disabled = 1;
-}
-
 message AwsEcsConfig {
     message TaskDefinition {
         oneof task_definition_oneof {
@@ -349,7 +346,7 @@ message ServiceConfig {
     // How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs.
     ParametersAutogen parameters_autogen = 23;
 
-    AutoRollbackConfig auto_rollback = 25;
+    prodvana.common_config.AutoRollbackConfig auto_rollback = 25;
 
     // if set, do not attempt to delete the underlying runtime objects when deleting a service
     bool no_cleanup_on_delete = 31;

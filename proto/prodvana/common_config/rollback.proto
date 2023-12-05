@@ -1,0 +1,7 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+message AutoRollbackConfig {
+    bool disabled = 1;
+}

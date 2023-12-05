@@ -18,6 +18,7 @@ import prodvana.proto.prodvana.common_config.maturity_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.common_config.program_pb2
 import prodvana.proto.prodvana.common_config.retry_pb2
+import prodvana.proto.prodvana.common_config.rollback_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.delivery.delivery_config_pb2
 import prodvana.proto.prodvana.delivery_extension.config_pb2
@@ -575,20 +576,6 @@ class RuntimeExtensionConfig(google.protobuf.message.Message):
 
 global___RuntimeExtensionConfig = RuntimeExtensionConfig
 
-class AutoRollbackConfig(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    DISABLED_FIELD_NUMBER: builtins.int
-    disabled: builtins.bool
-    def __init__(
-        self,
-        *,
-        disabled: builtins.bool = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["disabled", b"disabled"]) -> None: ...
-
-global___AutoRollbackConfig = AutoRollbackConfig
-
 class AwsEcsConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -814,7 +801,7 @@ class ServiceConfig(google.protobuf.message.Message):
     parameters_autogen: global___ServiceConfig.ParametersAutogen.ValueType
     """How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs."""
     @property
-    def auto_rollback(self) -> global___AutoRollbackConfig: ...
+    def auto_rollback(self) -> prodvana.proto.prodvana.common_config.rollback_pb2.AutoRollbackConfig: ...
     no_cleanup_on_delete: builtins.bool
     """if set, do not attempt to delete the underlying runtime objects when deleting a service"""
     @property
@@ -856,7 +843,7 @@ class ServiceConfig(google.protobuf.message.Message):
         aws_ecs: global___AwsEcsConfig | None = ...,
         google_cloud_run: global___GoogleCloudRunConfig | None = ...,
         parameters_autogen: global___ServiceConfig.ParametersAutogen.ValueType = ...,
-        auto_rollback: global___AutoRollbackConfig | None = ...,
+        auto_rollback: prodvana.proto.prodvana.common_config.rollback_pb2.AutoRollbackConfig | None = ...,
         no_cleanup_on_delete: builtins.bool = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         async_set_desired_state: builtins.bool = ...,
