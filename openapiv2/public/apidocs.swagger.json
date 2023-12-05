@@ -8819,6 +8819,13 @@
             "$ref": "#/definitions/desired_statemodelDeliveryExtension"
           }
         },
+        "convergenceProtectionAttachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelProtectionAttachmentDefinition"
+          }
+        },
         "targetStateSetByParent": {
           "type": "boolean",
           "description": "if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."
@@ -8879,7 +8886,8 @@
           "type": "string",
           "title": "next tag: 9"
         }
-      }
+      },
+      "description": "TODO: Rename to ProtectionAttachmentState to be consistent with other entities."
     },
     "desired_statemodelProtectionLink": {
       "type": "object",
@@ -11312,6 +11320,21 @@
         },
         "current": {
           "type": "boolean"
+        }
+      }
+    },
+    "modelProtectionAttachmentDefinition": {
+      "type": "object",
+      "properties": {
+        "protectionId": {
+          "type": "string"
+        },
+        "attachmentId": {
+          "type": "string"
+        },
+        "protectionVersion": {
+          "type": "string",
+          "title": "next tag: 4"
         }
       }
     },

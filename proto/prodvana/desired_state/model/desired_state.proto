@@ -93,6 +93,13 @@ message DeliveryExtension {
     repeated Identifier references = 3;
 }
 
+message ProtectionAttachmentDefinition {
+    string protection_id = 1;
+    string attachment_id = 2;
+    string protection_version = 3;
+    // next tag: 4
+}
+
 message Identifier {
     Type type = 1;
     // globally unique identifier
@@ -107,6 +114,7 @@ message Metadata {
     string root_desired_state_id = 5;
     repeated ProtectionLink protection_links = 6;
     repeated DeliveryExtension delivery_extensions = 8;
+    repeated ProtectionAttachmentDefinition convergence_protection_attachments = 13;
     // if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state.
     bool target_state_set_by_parent = 9;
     bool require_approval_before_apply = 10;
@@ -119,7 +127,7 @@ message Metadata {
     reserved 7;
     reserved "protections";
 
-    // next tag: 13
+    // next tag: 14
 }
 
 enum Status {
@@ -632,6 +640,7 @@ message ProtectionLinkState {
     // next tag: 10
 }
 
+// TODO: Rename to ProtectionAttachmentState to be consistent with other entities.
 message ProtectionAttachment {
     Metadata meta = 1;
     repeated Version versions = 2;

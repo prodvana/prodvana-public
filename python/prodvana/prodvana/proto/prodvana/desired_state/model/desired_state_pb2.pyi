@@ -470,6 +470,27 @@ class DeliveryExtension(google.protobuf.message.Message):
 
 global___DeliveryExtension = DeliveryExtension
 
+class ProtectionAttachmentDefinition(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PROTECTION_ID_FIELD_NUMBER: builtins.int
+    ATTACHMENT_ID_FIELD_NUMBER: builtins.int
+    PROTECTION_VERSION_FIELD_NUMBER: builtins.int
+    protection_id: builtins.str
+    attachment_id: builtins.str
+    protection_version: builtins.str
+    """next tag: 4"""
+    def __init__(
+        self,
+        *,
+        protection_id: builtins.str = ...,
+        attachment_id: builtins.str = ...,
+        protection_version: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "protection_id", b"protection_id", "protection_version", b"protection_version"]) -> None: ...
+
+global___ProtectionAttachmentDefinition = ProtectionAttachmentDefinition
+
 class Identifier(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -498,6 +519,7 @@ class Metadata(google.protobuf.message.Message):
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     PROTECTION_LINKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
+    CONVERGENCE_PROTECTION_ATTACHMENTS_FIELD_NUMBER: builtins.int
     TARGET_STATE_SET_BY_PARENT_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     APPLIES_IN_OBSERVER_MODE_FIELD_NUMBER: builtins.int
@@ -514,6 +536,8 @@ class Metadata(google.protobuf.message.Message):
     def protection_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionLink]: ...
     @property
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtension]: ...
+    @property
+    def convergence_protection_attachments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionAttachmentDefinition]: ...
     target_state_set_by_parent: builtins.bool
     """if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."""
     require_approval_before_apply: builtins.bool
@@ -534,13 +558,14 @@ class Metadata(google.protobuf.message.Message):
         root_desired_state_id: builtins.str = ...,
         protection_links: collections.abc.Iterable[global___ProtectionLink] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtension] | None = ...,
+        convergence_protection_attachments: collections.abc.Iterable[global___ProtectionAttachmentDefinition] | None = ...,
         target_state_set_by_parent: builtins.bool = ...,
         require_approval_before_apply: builtins.bool = ...,
         applies_in_observer_mode: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "convergence_grace_period", b"convergence_grace_period", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "convergence_grace_period", b"convergence_grace_period", "convergence_protection_attachments", b"convergence_protection_attachments", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
 
 global___Metadata = Metadata
 
@@ -1721,6 +1746,8 @@ class ProtectionLinkState(google.protobuf.message.Message):
 global___ProtectionLinkState = ProtectionLinkState
 
 class ProtectionAttachment(google.protobuf.message.Message):
+    """TODO: Rename to ProtectionAttachmentState to be consistent with other entities."""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     META_FIELD_NUMBER: builtins.int

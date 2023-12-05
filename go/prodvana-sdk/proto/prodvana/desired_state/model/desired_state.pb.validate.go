@@ -547,6 +547,115 @@ var _ interface {
 	ErrorName() string
 } = DeliveryExtensionValidationError{}
 
+// Validate checks the field values on ProtectionAttachmentDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionAttachmentDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionAttachmentDefinition with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ProtectionAttachmentDefinitionMultiError, or nil if none found.
+func (m *ProtectionAttachmentDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionAttachmentDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ProtectionId
+
+	// no validation rules for AttachmentId
+
+	// no validation rules for ProtectionVersion
+
+	if len(errors) > 0 {
+		return ProtectionAttachmentDefinitionMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionAttachmentDefinitionMultiError is an error wrapping multiple
+// validation errors returned by ProtectionAttachmentDefinition.ValidateAll()
+// if the designated constraints aren't met.
+type ProtectionAttachmentDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionAttachmentDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionAttachmentDefinitionMultiError) AllErrors() []error { return m }
+
+// ProtectionAttachmentDefinitionValidationError is the validation error
+// returned by ProtectionAttachmentDefinition.Validate if the designated
+// constraints aren't met.
+type ProtectionAttachmentDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionAttachmentDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionAttachmentDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionAttachmentDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionAttachmentDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionAttachmentDefinitionValidationError) ErrorName() string {
+	return "ProtectionAttachmentDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionAttachmentDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionAttachmentDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionAttachmentDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionAttachmentDefinitionValidationError{}
+
 // Validate checks the field values on Identifier with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -833,6 +942,40 @@ func (m *Metadata) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return MetadataValidationError{
 					field:  fmt.Sprintf("DeliveryExtensions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetConvergenceProtectionAttachments() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ConvergenceProtectionAttachments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ConvergenceProtectionAttachments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MetadataValidationError{
+					field:  fmt.Sprintf("ConvergenceProtectionAttachments[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
