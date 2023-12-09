@@ -1,0 +1,171 @@
+syntax = "proto3";
+package prodvana.deployment;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment";
+import "google/api/annotations.proto";
+import "prodvana/object/meta.proto";
+import "prodvana/deployment/object.proto";
+import "validate/validate.proto";
+
+message RecordDeploymentReq {
+    DeploymentConfig config = 1 [(validate.rules).message.required = true];
+    // If true, create deployment with pending status that is meant to be updated later to either success or failure.
+    // By default, deployments are created with status SUCCEEDED.
+    bool pending = 2;
+}
+
+message RecordDeploymentResp {
+    prodvana.object.ObjectMeta meta = 1;
+}
+
+message UpdateDeploymentStatusReq {
+    string deployment_id = 1;
+    DeploymentStatus status = 2;
+}
+
+message UpdateDeploymentStatusResp {
+    DeploymentStatus status = 1;
+}
+
+message DeploymentFilter {
+    // filters to deployments for join(join(services, OR), join(release_channels, OR), AND)
+    repeated string services = 1;
+    repeated string release_channels = 2;
+    // if set, the filters on services and deployment channels above will be limited to this app.
+    // Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
+    // staging deployment channels across all apps.)
+    string application = 3;
+    string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
+}
+
+message ListDeploymentsReq {
+    // filters for listing deployments. Multiple filters are OR'ed together.
+    repeated DeploymentFilter filters = 1;
+    DeploymentFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
+
+    string starting_deployment_id = 3; // newer deployment, inclusive
+    string ending_deployment_id = 4; // older deployment, exclusive
+
+    string page_token = 5;
+    int32 page_size = 6;
+}
+
+message ListDeploymentsResp {
+    repeated Deployment deployments = 1;
+    string next_page_token = 2;
+}
+
+message DeploymentRef {
+    // a deployment reference is either an existing deployment id or the deployment config of a hypothetical, not yet recorded deployment.
+    oneof ref {
+        option (validate.required) = true;
+        string deployment_id = 1;
+        DeploymentConfig config = 2;
+    }
+}
+
+message CompareDeploymentReq {
+    DeploymentRef new_deployment = 1 [(validate.rules).message.required = true];
+    DeploymentRef prev_deployment = 2;
+}
+
+message CompareDeploymentResp {
+    DeploymentComparison comparison = 1;
+}
+
+message PreviewDeploymentReq {
+    DeploymentConfig config = 1 [(validate.rules).message.required = true];
+    DeploymentRef prev_deployment = 2; // omit to use latest deployment from the same app/service/deployment channel
+}
+
+message PreviewDeploymentResp {
+    Deployment deployment = 1;
+}
+
+message GetLatestDeploymentsReq {
+    // filters for listing deployments. Multiple filters are OR'ed together.
+    repeated DeploymentFilter filters = 1;
+    DeploymentFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
+
+    DeploymentStatus status = 3; // if set, only return deployments with this status
+    string page_token = 4;
+    int32 page_size = 5;
+}
+
+message GetLatestDeploymentsResp {
+    repeated Deployment deployments = 1;
+    string next_page_token = 2;
+}
+
+message DeploymentServiceInstance {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+    string release_channel = 3 [(validate.rules).string.min_len = 1];
+}
+
+message CheckCommitInDeploymentReq {
+    oneof deployment_oneof {
+        option (validate.required) = true;
+        string deployment_id = 1 [(validate.rules).string.min_len = 1];
+        DeploymentServiceInstance deployment_service_instance = 2 [(validate.rules).message.required = true];  // will pick latest deployment
+    }
+    string repository = 3 [(validate.rules).string.min_len = 1];
+    string commit = 4 [(validate.rules).string.min_len = 1];
+}
+
+message CheckCommitInDeploymentResp {
+    enum Result {
+        UNKNOWN = 0;
+        INCLUDED = 1;
+        NO_RELATION = 2;
+        NOT_INCLUDED = 3;
+    }
+    Result result = 1;
+}
+
+service DeploymentManager {
+    rpc RecordDeployment(RecordDeploymentReq) returns (RecordDeploymentResp) {
+        option (google.api.http) = {
+            post: "/v1/deployments"
+            body: "*"
+        };
+    }
+    rpc UpdateDeploymentStatus(UpdateDeploymentStatusReq) returns (UpdateDeploymentStatusResp) {
+        option (google.api.http) = {
+            post: "/v1/deployments/{deployment_id=*}/status"
+            body: "*"
+        };
+    }
+    rpc ListDeployments(ListDeploymentsReq) returns (ListDeploymentsResp) {
+        option (google.api.http) = {
+            get: "/v1/deployments"
+        };
+    }
+    // page tokens arguments are ignored here
+    rpc ListDeploymentsStream(ListDeploymentsReq) returns (stream ListDeploymentsResp) {}
+
+    rpc CompareDeployment(CompareDeploymentReq) returns (CompareDeploymentResp) {
+        option (google.api.http) = {
+            post: "/v1/deployments/compare"
+            body: "*"
+        };
+    }
+    rpc PreviewDeployment(PreviewDeploymentReq) returns (PreviewDeploymentResp) {
+        option (google.api.http) = {
+            post: "/v1/deployments/preview"
+            body: "*"
+        };
+    }
+
+    // returns the latest deployments for each (application, service, deployment channel) tuple.
+    rpc GetLatestDeployments(GetLatestDeploymentsReq) returns (GetLatestDeploymentsResp) {
+        option (google.api.http) = {
+            get: "/v1/deployments/latest"
+        };
+    }
+
+    rpc CheckCommitInDeployment(CheckCommitInDeploymentReq) returns (CheckCommitInDeploymentResp) {
+        option (google.api.http) = {
+            get: "/v1/deployments/check_commit"
+        };
+    }
+}

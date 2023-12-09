@@ -21,28 +21,28 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class _ReleaseStatus:
+class _DeploymentStatus:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ReleaseStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ReleaseStatus.ValueType], builtins.type):  # noqa: F821
+class _DeploymentStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DeploymentStatus.ValueType], builtins.type):  # noqa: F821
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    UNKNOWN_STATUS: _ReleaseStatus.ValueType  # 0
-    PENDING: _ReleaseStatus.ValueType  # 1
-    SUCCEEDED: _ReleaseStatus.ValueType  # 2
-    FAILED: _ReleaseStatus.ValueType  # 3
-    PREVIEW: _ReleaseStatus.ValueType  # 4
+    UNKNOWN_STATUS: _DeploymentStatus.ValueType  # 0
+    PENDING: _DeploymentStatus.ValueType  # 1
+    SUCCEEDED: _DeploymentStatus.ValueType  # 2
+    FAILED: _DeploymentStatus.ValueType  # 3
+    PREVIEW: _DeploymentStatus.ValueType  # 4
 
-class ReleaseStatus(_ReleaseStatus, metaclass=_ReleaseStatusEnumTypeWrapper): ...
+class DeploymentStatus(_DeploymentStatus, metaclass=_DeploymentStatusEnumTypeWrapper): ...
 
-UNKNOWN_STATUS: ReleaseStatus.ValueType  # 0
-PENDING: ReleaseStatus.ValueType  # 1
-SUCCEEDED: ReleaseStatus.ValueType  # 2
-FAILED: ReleaseStatus.ValueType  # 3
-PREVIEW: ReleaseStatus.ValueType  # 4
-global___ReleaseStatus = ReleaseStatus
+UNKNOWN_STATUS: DeploymentStatus.ValueType  # 0
+PENDING: DeploymentStatus.ValueType  # 1
+SUCCEEDED: DeploymentStatus.ValueType  # 2
+FAILED: DeploymentStatus.ValueType  # 3
+PREVIEW: DeploymentStatus.ValueType  # 4
+global___DeploymentStatus = DeploymentStatus
 
-class ReleaseConfig(google.protobuf.message.Message):
+class DeploymentConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -63,11 +63,11 @@ class ReleaseConfig(google.protobuf.message.Message):
         """must be unset on input"""
     deployment_system: builtins.str
     service: builtins.str
-    """required when recording releases from external systems"""
+    """required when recording deployments from external systems"""
     release_channel: builtins.str
-    """required when recording releases from external systems"""
+    """required when recording deployments from external systems"""
     application: builtins.str
-    """required when recording releases from external systems"""
+    """required when recording deployments from external systems"""
     repository: builtins.str
     """e.g. github.com/foo/bar"""
     commit_id: builtins.str
@@ -101,26 +101,26 @@ class ReleaseConfig(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "desired_state_id", b"desired_state_id", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "repository", b"repository", "service", b"service", "service_id", b"service_id", "service_version", b"service_version", "user", b"user"]) -> None: ...
 
-global___ReleaseConfig = ReleaseConfig
+global___DeploymentConfig = DeploymentConfig
 
-class ReleaseState(google.protobuf.message.Message):
+class DeploymentState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     STATUS_FIELD_NUMBER: builtins.int
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
-    status: global___ReleaseStatus.ValueType
+    status: global___DeploymentStatus.ValueType
     @property
     def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
-        status: global___ReleaseStatus.ValueType = ...,
+        status: global___DeploymentStatus.ValueType = ...,
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "status", b"status"]) -> None: ...
 
-global___ReleaseState = ReleaseState
+global___DeploymentState = DeploymentState
 
 class CommitAnalysis(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -167,7 +167,7 @@ class ImpactAnalysisComparison(google.protobuf.message.Message):
 
 global___ImpactAnalysisComparison = ImpactAnalysisComparison
 
-class ReleaseComparison(google.protobuf.message.Message):
+class DeploymentComparison(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PREV_FIELD_NUMBER: builtins.int
@@ -192,7 +192,7 @@ class ReleaseComparison(google.protobuf.message.Message):
     def commit_analysis(self) -> global___CommitAnalysis:
         """only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"""
     prev_service_id: builtins.str
-    """only set for Prodvana managed releases"""
+    """only set for Prodvana managed deployments"""
     prev_release_channel_id: builtins.str
     prev_service_version: builtins.str
     new_service_id: builtins.str
@@ -217,9 +217,9 @@ class ReleaseComparison(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["commit_analysis", b"commit_analysis", "prev", b"prev"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["commit_analysis", b"commit_analysis", "new_commit_id", b"new_commit_id", "new_release_channel_id", b"new_release_channel_id", "new_repository", b"new_repository", "new_service_id", b"new_service_id", "new_service_version", b"new_service_version", "prev", b"prev", "prev_commit_id", b"prev_commit_id", "prev_release_channel_id", b"prev_release_channel_id", "prev_repository", b"prev_repository", "prev_service_id", b"prev_service_id", "prev_service_version", b"prev_service_version"]) -> None: ...
 
-global___ReleaseComparison = ReleaseComparison
+global___DeploymentComparison = DeploymentComparison
 
-class Release(google.protobuf.message.Message):
+class Deployment(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     META_FIELD_NUMBER: builtins.int
@@ -229,21 +229,21 @@ class Release(google.protobuf.message.Message):
     @property
     def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
     @property
-    def config(self) -> global___ReleaseConfig: ...
+    def config(self) -> global___DeploymentConfig: ...
     @property
-    def comparison(self) -> global___ReleaseComparison:
+    def comparison(self) -> global___DeploymentComparison:
         """TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"""
     @property
-    def state(self) -> global___ReleaseState: ...
+    def state(self) -> global___DeploymentState: ...
     def __init__(
         self,
         *,
         meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
-        config: global___ReleaseConfig | None = ...,
-        comparison: global___ReleaseComparison | None = ...,
-        state: global___ReleaseState | None = ...,
+        config: global___DeploymentConfig | None = ...,
+        comparison: global___DeploymentComparison | None = ...,
+        state: global___DeploymentState | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta", "state", b"state"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["comparison", b"comparison", "config", b"config", "meta", b"meta", "state", b"state"]) -> None: ...
 
-global___Release = Release
+global___Deployment = Deployment

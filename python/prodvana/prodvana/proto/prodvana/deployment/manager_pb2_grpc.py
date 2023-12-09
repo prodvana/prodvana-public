@@ -5,7 +5,7 @@ import grpc
 from prodvana.proto.prodvana.deployment import manager_pb2 as prodvana_dot_deployment_dot_manager__pb2
 
 
-class ReleaseManagerStub(object):
+class DeploymentManagerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,156 +14,156 @@ class ReleaseManagerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.RecordRelease = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/RecordRelease',
+        self.RecordDeployment = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/RecordDeployment',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentResp.FromString,
                 )
-        self.UpdateReleaseStatus = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/UpdateReleaseStatus',
+        self.UpdateDeploymentStatus = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/UpdateDeploymentStatus',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusResp.FromString,
                 )
-        self.ListReleases = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/ListReleases',
+        self.ListDeployments = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/ListDeployments',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.FromString,
                 )
-        self.ListReleasesStream = channel.unary_stream(
-                '/prodvana.release.ReleaseManager/ListReleasesStream',
+        self.ListDeploymentsStream = channel.unary_stream(
+                '/prodvana.deployment.DeploymentManager/ListDeploymentsStream',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.FromString,
                 )
-        self.CompareRelease = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/CompareRelease',
+        self.CompareDeployment = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/CompareDeployment',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentResp.FromString,
                 )
-        self.PreviewRelease = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/PreviewRelease',
+        self.PreviewDeployment = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/PreviewDeployment',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentResp.FromString,
                 )
-        self.GetLatestReleases = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/GetLatestReleases',
+        self.GetLatestDeployments = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/GetLatestDeployments',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsResp.FromString,
                 )
-        self.CheckCommitInRelease = channel.unary_unary(
-                '/prodvana.release.ReleaseManager/CheckCommitInRelease',
+        self.CheckCommitInDeployment = channel.unary_unary(
+                '/prodvana.deployment.DeploymentManager/CheckCommitInDeployment',
                 request_serializer=prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentReq.SerializeToString,
                 response_deserializer=prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentResp.FromString,
                 )
 
 
-class ReleaseManagerServicer(object):
+class DeploymentManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def RecordRelease(self, request, context):
+    def RecordDeployment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateReleaseStatus(self, request, context):
+    def UpdateDeploymentStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListReleases(self, request, context):
+    def ListDeployments(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListReleasesStream(self, request, context):
+    def ListDeploymentsStream(self, request, context):
         """page tokens arguments are ignored here
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CompareRelease(self, request, context):
+    def CompareDeployment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def PreviewRelease(self, request, context):
+    def PreviewDeployment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetLatestReleases(self, request, context):
-        """returns the latest releases for each (application, service, release channel) tuple.
+    def GetLatestDeployments(self, request, context):
+        """returns the latest deployments for each (application, service, deployment channel) tuple.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CheckCommitInRelease(self, request, context):
+    def CheckCommitInDeployment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ReleaseManagerServicer_to_server(servicer, server):
+def add_DeploymentManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RecordRelease': grpc.unary_unary_rpc_method_handler(
-                    servicer.RecordRelease,
+            'RecordDeployment': grpc.unary_unary_rpc_method_handler(
+                    servicer.RecordDeployment,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentResp.SerializeToString,
             ),
-            'UpdateReleaseStatus': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateReleaseStatus,
+            'UpdateDeploymentStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateDeploymentStatus,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusResp.SerializeToString,
             ),
-            'ListReleases': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListReleases,
+            'ListDeployments': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListDeployments,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.SerializeToString,
             ),
-            'ListReleasesStream': grpc.unary_stream_rpc_method_handler(
-                    servicer.ListReleasesStream,
+            'ListDeploymentsStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.ListDeploymentsStream,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.SerializeToString,
             ),
-            'CompareRelease': grpc.unary_unary_rpc_method_handler(
-                    servicer.CompareRelease,
+            'CompareDeployment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CompareDeployment,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentResp.SerializeToString,
             ),
-            'PreviewRelease': grpc.unary_unary_rpc_method_handler(
-                    servicer.PreviewRelease,
+            'PreviewDeployment': grpc.unary_unary_rpc_method_handler(
+                    servicer.PreviewDeployment,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentResp.SerializeToString,
             ),
-            'GetLatestReleases': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetLatestReleases,
+            'GetLatestDeployments': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLatestDeployments,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsResp.SerializeToString,
             ),
-            'CheckCommitInRelease': grpc.unary_unary_rpc_method_handler(
-                    servicer.CheckCommitInRelease,
+            'CheckCommitInDeployment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckCommitInDeployment,
                     request_deserializer=prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentReq.FromString,
                     response_serializer=prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'prodvana.release.ReleaseManager', rpc_method_handlers)
+            'prodvana.deployment.DeploymentManager', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class ReleaseManager(object):
+class DeploymentManager(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def RecordRelease(request,
+    def RecordDeployment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -173,14 +173,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/RecordRelease',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/RecordDeployment',
             prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.RecordDeploymentResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpdateReleaseStatus(request,
+    def UpdateDeploymentStatus(request,
             target,
             options=(),
             channel_credentials=None,
@@ -190,14 +190,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/UpdateReleaseStatus',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/UpdateDeploymentStatus',
             prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.UpdateDeploymentStatusResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListReleases(request,
+    def ListDeployments(request,
             target,
             options=(),
             channel_credentials=None,
@@ -207,14 +207,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/ListReleases',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/ListDeployments',
             prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListReleasesStream(request,
+    def ListDeploymentsStream(request,
             target,
             options=(),
             channel_credentials=None,
@@ -224,14 +224,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/prodvana.release.ReleaseManager/ListReleasesStream',
+        return grpc.experimental.unary_stream(request, target, '/prodvana.deployment.DeploymentManager/ListDeploymentsStream',
             prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.ListDeploymentsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def CompareRelease(request,
+    def CompareDeployment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -241,14 +241,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/CompareRelease',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/CompareDeployment',
             prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.CompareDeploymentResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def PreviewRelease(request,
+    def PreviewDeployment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -258,14 +258,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/PreviewRelease',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/PreviewDeployment',
             prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.PreviewDeploymentResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetLatestReleases(request,
+    def GetLatestDeployments(request,
             target,
             options=(),
             channel_credentials=None,
@@ -275,14 +275,14 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/GetLatestReleases',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/GetLatestDeployments',
             prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.GetLatestDeploymentsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def CheckCommitInRelease(request,
+    def CheckCommitInDeployment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -292,7 +292,7 @@ class ReleaseManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prodvana.release.ReleaseManager/CheckCommitInRelease',
+        return grpc.experimental.unary_unary(request, target, '/prodvana.deployment.DeploymentManager/CheckCommitInDeployment',
             prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentReq.SerializeToString,
             prodvana_dot_deployment_dot_manager__pb2.CheckCommitInDeploymentResp.FromString,
             options, channel_credentials,

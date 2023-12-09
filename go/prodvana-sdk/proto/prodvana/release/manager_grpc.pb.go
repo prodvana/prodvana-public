@@ -8,6 +8,7 @@ package release
 
 import (
 	context "context"
+	deployment "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -33,16 +34,16 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReleaseManagerClient interface {
-	RecordRelease(ctx context.Context, in *RecordReleaseReq, opts ...grpc.CallOption) (*RecordReleaseResp, error)
-	UpdateReleaseStatus(ctx context.Context, in *UpdateReleaseStatusReq, opts ...grpc.CallOption) (*UpdateReleaseStatusResp, error)
-	ListReleases(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (*ListReleasesResp, error)
+	RecordRelease(ctx context.Context, in *deployment.RecordDeploymentReq, opts ...grpc.CallOption) (*deployment.RecordDeploymentResp, error)
+	UpdateReleaseStatus(ctx context.Context, in *deployment.UpdateDeploymentStatusReq, opts ...grpc.CallOption) (*deployment.UpdateDeploymentStatusResp, error)
+	ListReleases(ctx context.Context, in *deployment.ListDeploymentsReq, opts ...grpc.CallOption) (*deployment.ListDeploymentsResp, error)
 	// page tokens arguments are ignored here
-	ListReleasesStream(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error)
-	CompareRelease(ctx context.Context, in *CompareReleaseReq, opts ...grpc.CallOption) (*CompareReleaseResp, error)
-	PreviewRelease(ctx context.Context, in *PreviewReleaseReq, opts ...grpc.CallOption) (*PreviewReleaseResp, error)
+	ListReleasesStream(ctx context.Context, in *deployment.ListDeploymentsReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error)
+	CompareRelease(ctx context.Context, in *deployment.CompareDeploymentReq, opts ...grpc.CallOption) (*deployment.CompareDeploymentResp, error)
+	PreviewRelease(ctx context.Context, in *deployment.PreviewDeploymentReq, opts ...grpc.CallOption) (*deployment.PreviewDeploymentResp, error)
 	// returns the latest releases for each (application, service, release channel) tuple.
-	GetLatestReleases(ctx context.Context, in *GetLatestReleasesReq, opts ...grpc.CallOption) (*GetLatestReleasesResp, error)
-	CheckCommitInRelease(ctx context.Context, in *CheckCommitInReleaseReq, opts ...grpc.CallOption) (*CheckCommitInReleaseResp, error)
+	GetLatestReleases(ctx context.Context, in *deployment.GetLatestDeploymentsReq, opts ...grpc.CallOption) (*deployment.GetLatestDeploymentsResp, error)
+	CheckCommitInRelease(ctx context.Context, in *deployment.CheckCommitInDeploymentReq, opts ...grpc.CallOption) (*deployment.CheckCommitInDeploymentResp, error)
 }
 
 type releaseManagerClient struct {
@@ -53,8 +54,8 @@ func NewReleaseManagerClient(cc grpc.ClientConnInterface) ReleaseManagerClient {
 	return &releaseManagerClient{cc}
 }
 
-func (c *releaseManagerClient) RecordRelease(ctx context.Context, in *RecordReleaseReq, opts ...grpc.CallOption) (*RecordReleaseResp, error) {
-	out := new(RecordReleaseResp)
+func (c *releaseManagerClient) RecordRelease(ctx context.Context, in *deployment.RecordDeploymentReq, opts ...grpc.CallOption) (*deployment.RecordDeploymentResp, error) {
+	out := new(deployment.RecordDeploymentResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_RecordRelease_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,8 +63,8 @@ func (c *releaseManagerClient) RecordRelease(ctx context.Context, in *RecordRele
 	return out, nil
 }
 
-func (c *releaseManagerClient) UpdateReleaseStatus(ctx context.Context, in *UpdateReleaseStatusReq, opts ...grpc.CallOption) (*UpdateReleaseStatusResp, error) {
-	out := new(UpdateReleaseStatusResp)
+func (c *releaseManagerClient) UpdateReleaseStatus(ctx context.Context, in *deployment.UpdateDeploymentStatusReq, opts ...grpc.CallOption) (*deployment.UpdateDeploymentStatusResp, error) {
+	out := new(deployment.UpdateDeploymentStatusResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_UpdateReleaseStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -71,8 +72,8 @@ func (c *releaseManagerClient) UpdateReleaseStatus(ctx context.Context, in *Upda
 	return out, nil
 }
 
-func (c *releaseManagerClient) ListReleases(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (*ListReleasesResp, error) {
-	out := new(ListReleasesResp)
+func (c *releaseManagerClient) ListReleases(ctx context.Context, in *deployment.ListDeploymentsReq, opts ...grpc.CallOption) (*deployment.ListDeploymentsResp, error) {
+	out := new(deployment.ListDeploymentsResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_ListReleases_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -80,7 +81,7 @@ func (c *releaseManagerClient) ListReleases(ctx context.Context, in *ListRelease
 	return out, nil
 }
 
-func (c *releaseManagerClient) ListReleasesStream(ctx context.Context, in *ListReleasesReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error) {
+func (c *releaseManagerClient) ListReleasesStream(ctx context.Context, in *deployment.ListDeploymentsReq, opts ...grpc.CallOption) (ReleaseManager_ListReleasesStreamClient, error) {
 	stream, err := c.cc.NewStream(ctx, &ReleaseManager_ServiceDesc.Streams[0], ReleaseManager_ListReleasesStream_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -96,7 +97,7 @@ func (c *releaseManagerClient) ListReleasesStream(ctx context.Context, in *ListR
 }
 
 type ReleaseManager_ListReleasesStreamClient interface {
-	Recv() (*ListReleasesResp, error)
+	Recv() (*deployment.ListDeploymentsResp, error)
 	grpc.ClientStream
 }
 
@@ -104,16 +105,16 @@ type releaseManagerListReleasesStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *releaseManagerListReleasesStreamClient) Recv() (*ListReleasesResp, error) {
-	m := new(ListReleasesResp)
+func (x *releaseManagerListReleasesStreamClient) Recv() (*deployment.ListDeploymentsResp, error) {
+	m := new(deployment.ListDeploymentsResp)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *releaseManagerClient) CompareRelease(ctx context.Context, in *CompareReleaseReq, opts ...grpc.CallOption) (*CompareReleaseResp, error) {
-	out := new(CompareReleaseResp)
+func (c *releaseManagerClient) CompareRelease(ctx context.Context, in *deployment.CompareDeploymentReq, opts ...grpc.CallOption) (*deployment.CompareDeploymentResp, error) {
+	out := new(deployment.CompareDeploymentResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_CompareRelease_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -121,8 +122,8 @@ func (c *releaseManagerClient) CompareRelease(ctx context.Context, in *CompareRe
 	return out, nil
 }
 
-func (c *releaseManagerClient) PreviewRelease(ctx context.Context, in *PreviewReleaseReq, opts ...grpc.CallOption) (*PreviewReleaseResp, error) {
-	out := new(PreviewReleaseResp)
+func (c *releaseManagerClient) PreviewRelease(ctx context.Context, in *deployment.PreviewDeploymentReq, opts ...grpc.CallOption) (*deployment.PreviewDeploymentResp, error) {
+	out := new(deployment.PreviewDeploymentResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_PreviewRelease_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -130,8 +131,8 @@ func (c *releaseManagerClient) PreviewRelease(ctx context.Context, in *PreviewRe
 	return out, nil
 }
 
-func (c *releaseManagerClient) GetLatestReleases(ctx context.Context, in *GetLatestReleasesReq, opts ...grpc.CallOption) (*GetLatestReleasesResp, error) {
-	out := new(GetLatestReleasesResp)
+func (c *releaseManagerClient) GetLatestReleases(ctx context.Context, in *deployment.GetLatestDeploymentsReq, opts ...grpc.CallOption) (*deployment.GetLatestDeploymentsResp, error) {
+	out := new(deployment.GetLatestDeploymentsResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_GetLatestReleases_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -139,8 +140,8 @@ func (c *releaseManagerClient) GetLatestReleases(ctx context.Context, in *GetLat
 	return out, nil
 }
 
-func (c *releaseManagerClient) CheckCommitInRelease(ctx context.Context, in *CheckCommitInReleaseReq, opts ...grpc.CallOption) (*CheckCommitInReleaseResp, error) {
-	out := new(CheckCommitInReleaseResp)
+func (c *releaseManagerClient) CheckCommitInRelease(ctx context.Context, in *deployment.CheckCommitInDeploymentReq, opts ...grpc.CallOption) (*deployment.CheckCommitInDeploymentResp, error) {
+	out := new(deployment.CheckCommitInDeploymentResp)
 	err := c.cc.Invoke(ctx, ReleaseManager_CheckCommitInRelease_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -152,16 +153,16 @@ func (c *releaseManagerClient) CheckCommitInRelease(ctx context.Context, in *Che
 // All implementations must embed UnimplementedReleaseManagerServer
 // for forward compatibility
 type ReleaseManagerServer interface {
-	RecordRelease(context.Context, *RecordReleaseReq) (*RecordReleaseResp, error)
-	UpdateReleaseStatus(context.Context, *UpdateReleaseStatusReq) (*UpdateReleaseStatusResp, error)
-	ListReleases(context.Context, *ListReleasesReq) (*ListReleasesResp, error)
+	RecordRelease(context.Context, *deployment.RecordDeploymentReq) (*deployment.RecordDeploymentResp, error)
+	UpdateReleaseStatus(context.Context, *deployment.UpdateDeploymentStatusReq) (*deployment.UpdateDeploymentStatusResp, error)
+	ListReleases(context.Context, *deployment.ListDeploymentsReq) (*deployment.ListDeploymentsResp, error)
 	// page tokens arguments are ignored here
-	ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error
-	CompareRelease(context.Context, *CompareReleaseReq) (*CompareReleaseResp, error)
-	PreviewRelease(context.Context, *PreviewReleaseReq) (*PreviewReleaseResp, error)
+	ListReleasesStream(*deployment.ListDeploymentsReq, ReleaseManager_ListReleasesStreamServer) error
+	CompareRelease(context.Context, *deployment.CompareDeploymentReq) (*deployment.CompareDeploymentResp, error)
+	PreviewRelease(context.Context, *deployment.PreviewDeploymentReq) (*deployment.PreviewDeploymentResp, error)
 	// returns the latest releases for each (application, service, release channel) tuple.
-	GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error)
-	CheckCommitInRelease(context.Context, *CheckCommitInReleaseReq) (*CheckCommitInReleaseResp, error)
+	GetLatestReleases(context.Context, *deployment.GetLatestDeploymentsReq) (*deployment.GetLatestDeploymentsResp, error)
+	CheckCommitInRelease(context.Context, *deployment.CheckCommitInDeploymentReq) (*deployment.CheckCommitInDeploymentResp, error)
 	mustEmbedUnimplementedReleaseManagerServer()
 }
 
@@ -169,28 +170,28 @@ type ReleaseManagerServer interface {
 type UnimplementedReleaseManagerServer struct {
 }
 
-func (UnimplementedReleaseManagerServer) RecordRelease(context.Context, *RecordReleaseReq) (*RecordReleaseResp, error) {
+func (UnimplementedReleaseManagerServer) RecordRelease(context.Context, *deployment.RecordDeploymentReq) (*deployment.RecordDeploymentResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecordRelease not implemented")
 }
-func (UnimplementedReleaseManagerServer) UpdateReleaseStatus(context.Context, *UpdateReleaseStatusReq) (*UpdateReleaseStatusResp, error) {
+func (UnimplementedReleaseManagerServer) UpdateReleaseStatus(context.Context, *deployment.UpdateDeploymentStatusReq) (*deployment.UpdateDeploymentStatusResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateReleaseStatus not implemented")
 }
-func (UnimplementedReleaseManagerServer) ListReleases(context.Context, *ListReleasesReq) (*ListReleasesResp, error) {
+func (UnimplementedReleaseManagerServer) ListReleases(context.Context, *deployment.ListDeploymentsReq) (*deployment.ListDeploymentsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReleases not implemented")
 }
-func (UnimplementedReleaseManagerServer) ListReleasesStream(*ListReleasesReq, ReleaseManager_ListReleasesStreamServer) error {
+func (UnimplementedReleaseManagerServer) ListReleasesStream(*deployment.ListDeploymentsReq, ReleaseManager_ListReleasesStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListReleasesStream not implemented")
 }
-func (UnimplementedReleaseManagerServer) CompareRelease(context.Context, *CompareReleaseReq) (*CompareReleaseResp, error) {
+func (UnimplementedReleaseManagerServer) CompareRelease(context.Context, *deployment.CompareDeploymentReq) (*deployment.CompareDeploymentResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompareRelease not implemented")
 }
-func (UnimplementedReleaseManagerServer) PreviewRelease(context.Context, *PreviewReleaseReq) (*PreviewReleaseResp, error) {
+func (UnimplementedReleaseManagerServer) PreviewRelease(context.Context, *deployment.PreviewDeploymentReq) (*deployment.PreviewDeploymentResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreviewRelease not implemented")
 }
-func (UnimplementedReleaseManagerServer) GetLatestReleases(context.Context, *GetLatestReleasesReq) (*GetLatestReleasesResp, error) {
+func (UnimplementedReleaseManagerServer) GetLatestReleases(context.Context, *deployment.GetLatestDeploymentsReq) (*deployment.GetLatestDeploymentsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLatestReleases not implemented")
 }
-func (UnimplementedReleaseManagerServer) CheckCommitInRelease(context.Context, *CheckCommitInReleaseReq) (*CheckCommitInReleaseResp, error) {
+func (UnimplementedReleaseManagerServer) CheckCommitInRelease(context.Context, *deployment.CheckCommitInDeploymentReq) (*deployment.CheckCommitInDeploymentResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckCommitInRelease not implemented")
 }
 func (UnimplementedReleaseManagerServer) mustEmbedUnimplementedReleaseManagerServer() {}
@@ -207,7 +208,7 @@ func RegisterReleaseManagerServer(s grpc.ServiceRegistrar, srv ReleaseManagerSer
 }
 
 func _ReleaseManager_RecordRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RecordReleaseReq)
+	in := new(deployment.RecordDeploymentReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -219,13 +220,13 @@ func _ReleaseManager_RecordRelease_Handler(srv interface{}, ctx context.Context,
 		FullMethod: ReleaseManager_RecordRelease_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).RecordRelease(ctx, req.(*RecordReleaseReq))
+		return srv.(ReleaseManagerServer).RecordRelease(ctx, req.(*deployment.RecordDeploymentReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_UpdateReleaseStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateReleaseStatusReq)
+	in := new(deployment.UpdateDeploymentStatusReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -237,13 +238,13 @@ func _ReleaseManager_UpdateReleaseStatus_Handler(srv interface{}, ctx context.Co
 		FullMethod: ReleaseManager_UpdateReleaseStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).UpdateReleaseStatus(ctx, req.(*UpdateReleaseStatusReq))
+		return srv.(ReleaseManagerServer).UpdateReleaseStatus(ctx, req.(*deployment.UpdateDeploymentStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_ListReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListReleasesReq)
+	in := new(deployment.ListDeploymentsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -255,13 +256,13 @@ func _ReleaseManager_ListReleases_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: ReleaseManager_ListReleases_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).ListReleases(ctx, req.(*ListReleasesReq))
+		return srv.(ReleaseManagerServer).ListReleases(ctx, req.(*deployment.ListDeploymentsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_ListReleasesStream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListReleasesReq)
+	m := new(deployment.ListDeploymentsReq)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -269,7 +270,7 @@ func _ReleaseManager_ListReleasesStream_Handler(srv interface{}, stream grpc.Ser
 }
 
 type ReleaseManager_ListReleasesStreamServer interface {
-	Send(*ListReleasesResp) error
+	Send(*deployment.ListDeploymentsResp) error
 	grpc.ServerStream
 }
 
@@ -277,12 +278,12 @@ type releaseManagerListReleasesStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *releaseManagerListReleasesStreamServer) Send(m *ListReleasesResp) error {
+func (x *releaseManagerListReleasesStreamServer) Send(m *deployment.ListDeploymentsResp) error {
 	return x.ServerStream.SendMsg(m)
 }
 
 func _ReleaseManager_CompareRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CompareReleaseReq)
+	in := new(deployment.CompareDeploymentReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -294,13 +295,13 @@ func _ReleaseManager_CompareRelease_Handler(srv interface{}, ctx context.Context
 		FullMethod: ReleaseManager_CompareRelease_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).CompareRelease(ctx, req.(*CompareReleaseReq))
+		return srv.(ReleaseManagerServer).CompareRelease(ctx, req.(*deployment.CompareDeploymentReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_PreviewRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PreviewReleaseReq)
+	in := new(deployment.PreviewDeploymentReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -312,13 +313,13 @@ func _ReleaseManager_PreviewRelease_Handler(srv interface{}, ctx context.Context
 		FullMethod: ReleaseManager_PreviewRelease_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).PreviewRelease(ctx, req.(*PreviewReleaseReq))
+		return srv.(ReleaseManagerServer).PreviewRelease(ctx, req.(*deployment.PreviewDeploymentReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_GetLatestReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLatestReleasesReq)
+	in := new(deployment.GetLatestDeploymentsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -330,13 +331,13 @@ func _ReleaseManager_GetLatestReleases_Handler(srv interface{}, ctx context.Cont
 		FullMethod: ReleaseManager_GetLatestReleases_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).GetLatestReleases(ctx, req.(*GetLatestReleasesReq))
+		return srv.(ReleaseManagerServer).GetLatestReleases(ctx, req.(*deployment.GetLatestDeploymentsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ReleaseManager_CheckCommitInRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckCommitInReleaseReq)
+	in := new(deployment.CheckCommitInDeploymentReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -348,7 +349,7 @@ func _ReleaseManager_CheckCommitInRelease_Handler(srv interface{}, ctx context.C
 		FullMethod: ReleaseManager_CheckCommitInRelease_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseManagerServer).CheckCommitInRelease(ctx, req.(*CheckCommitInReleaseReq))
+		return srv.(ReleaseManagerServer).CheckCommitInRelease(ctx, req.(*deployment.CheckCommitInDeploymentReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

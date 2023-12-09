@@ -7,93 +7,93 @@ import collections.abc
 import grpc
 import prodvana.proto.prodvana.deployment.manager_pb2
 
-class ReleaseManagerStub:
+class DeploymentManagerStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    RecordRelease: grpc.UnaryUnaryMultiCallable[
+    RecordDeployment: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.RecordDeploymentReq,
         prodvana.proto.prodvana.deployment.manager_pb2.RecordDeploymentResp,
     ]
-    UpdateReleaseStatus: grpc.UnaryUnaryMultiCallable[
+    UpdateDeploymentStatus: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.UpdateDeploymentStatusReq,
         prodvana.proto.prodvana.deployment.manager_pb2.UpdateDeploymentStatusResp,
     ]
-    ListReleases: grpc.UnaryUnaryMultiCallable[
+    ListDeployments: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsReq,
         prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsResp,
     ]
-    ListReleasesStream: grpc.UnaryStreamMultiCallable[
+    ListDeploymentsStream: grpc.UnaryStreamMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsReq,
         prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsResp,
     ]
     """page tokens arguments are ignored here"""
-    CompareRelease: grpc.UnaryUnaryMultiCallable[
+    CompareDeployment: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.CompareDeploymentReq,
         prodvana.proto.prodvana.deployment.manager_pb2.CompareDeploymentResp,
     ]
-    PreviewRelease: grpc.UnaryUnaryMultiCallable[
+    PreviewDeployment: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.PreviewDeploymentReq,
         prodvana.proto.prodvana.deployment.manager_pb2.PreviewDeploymentResp,
     ]
-    GetLatestReleases: grpc.UnaryUnaryMultiCallable[
+    GetLatestDeployments: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.GetLatestDeploymentsReq,
         prodvana.proto.prodvana.deployment.manager_pb2.GetLatestDeploymentsResp,
     ]
-    """returns the latest releases for each (application, service, release channel) tuple."""
-    CheckCommitInRelease: grpc.UnaryUnaryMultiCallable[
+    """returns the latest deployments for each (application, service, deployment channel) tuple."""
+    CheckCommitInDeployment: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.deployment.manager_pb2.CheckCommitInDeploymentReq,
         prodvana.proto.prodvana.deployment.manager_pb2.CheckCommitInDeploymentResp,
     ]
 
-class ReleaseManagerServicer(metaclass=abc.ABCMeta):
+class DeploymentManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def RecordRelease(
+    def RecordDeployment(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.RecordDeploymentReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.RecordDeploymentResp: ...
     @abc.abstractmethod
-    def UpdateReleaseStatus(
+    def UpdateDeploymentStatus(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.UpdateDeploymentStatusReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.UpdateDeploymentStatusResp: ...
     @abc.abstractmethod
-    def ListReleases(
+    def ListDeployments(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsResp: ...
     @abc.abstractmethod
-    def ListReleasesStream(
+    def ListDeploymentsStream(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsReq,
         context: grpc.ServicerContext,
     ) -> collections.abc.Iterator[prodvana.proto.prodvana.deployment.manager_pb2.ListDeploymentsResp]:
         """page tokens arguments are ignored here"""
     @abc.abstractmethod
-    def CompareRelease(
+    def CompareDeployment(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.CompareDeploymentReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.CompareDeploymentResp: ...
     @abc.abstractmethod
-    def PreviewRelease(
+    def PreviewDeployment(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.PreviewDeploymentReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.PreviewDeploymentResp: ...
     @abc.abstractmethod
-    def GetLatestReleases(
+    def GetLatestDeployments(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.GetLatestDeploymentsReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.GetLatestDeploymentsResp:
-        """returns the latest releases for each (application, service, release channel) tuple."""
+        """returns the latest deployments for each (application, service, deployment channel) tuple."""
     @abc.abstractmethod
-    def CheckCommitInRelease(
+    def CheckCommitInDeployment(
         self,
         request: prodvana.proto.prodvana.deployment.manager_pb2.CheckCommitInDeploymentReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.deployment.manager_pb2.CheckCommitInDeploymentResp: ...
 
-def add_ReleaseManagerServicer_to_server(servicer: ReleaseManagerServicer, server: grpc.Server) -> None: ...
+def add_DeploymentManagerServicer_to_server(servicer: DeploymentManagerServicer, server: grpc.Server) -> None: ...

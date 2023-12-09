@@ -2,154 +2,36 @@ syntax = "proto3";
 package prodvana.release;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
 import "google/api/annotations.proto";
-import "prodvana/object/meta.proto";
-import "prodvana/release/object.proto";
-import "validate/validate.proto";
-
-message RecordReleaseReq {
-    ReleaseConfig config = 1 [(validate.rules).message.required = true];
-    // If true, create release with pending status that is meant to be updated later to either success or failure.
-    // By default, releases are created with status SUCCEEDED.
-    bool pending = 2;
-}
-
-message RecordReleaseResp {
-    prodvana.object.ObjectMeta meta = 1;
-}
-
-message UpdateReleaseStatusReq {
-    string release_id = 1;
-    ReleaseStatus status = 2;
-}
-
-message UpdateReleaseStatusResp {
-    ReleaseStatus status = 1;
-}
-
-message ReleaseFilter {
-    // filters to releases for join(join(services, OR), join(release_channels, OR), AND)
-    repeated string services = 1;
-    repeated string release_channels = 2;
-    // if set, the filters on services and release channels above will be limited to this app.
-    // Otherwise, there is no app filter (so e.g. release_channels=['staging'] will select
-    // staging release channels across all apps.)
-    string application = 3;
-    string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
-}
-
-message ListReleasesReq {
-    // filters for listing releases. Multiple filters are OR'ed together.
-    repeated ReleaseFilter filters = 1;
-    ReleaseFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
-
-    string starting_release_id = 3; // newer release, inclusive
-    string ending_release_id = 4; // older release, exclusive
-
-    string page_token = 5;
-    int32 page_size = 6;
-}
-
-message ListReleasesResp {
-    repeated Release releases = 1;
-    string next_page_token = 2;
-}
-
-message ReleaseRef {
-    // a release reference is either an existing release id or the release config of a hypothetical, not yet recorded release.
-    oneof ref {
-        option (validate.required) = true;
-        string release_id = 1;
-        ReleaseConfig config = 2;
-    }
-}
-
-message CompareReleaseReq {
-    ReleaseRef new_release = 1 [(validate.rules).message.required = true];
-    ReleaseRef prev_release = 2;
-}
-
-message CompareReleaseResp {
-    ReleaseComparison comparison = 1;
-}
-
-message PreviewReleaseReq {
-    ReleaseConfig config = 1 [(validate.rules).message.required = true];
-    ReleaseRef prev_release = 2; // omit to use latest release from the same app/service/release channel
-}
-
-message PreviewReleaseResp {
-    Release release = 1;
-}
-
-message GetLatestReleasesReq {
-    // filters for listing releases. Multiple filters are OR'ed together.
-    repeated ReleaseFilter filters = 1;
-    ReleaseFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
-
-    ReleaseStatus status = 3; // if set, only return releases with this status
-    string page_token = 4;
-    int32 page_size = 5;
-}
-
-message GetLatestReleasesResp {
-    repeated Release releases = 1;
-    string next_page_token = 2;
-}
-
-message ReleaseServiceInstance {
-    string application = 1 [(validate.rules).string.min_len = 1];
-    string service = 2 [(validate.rules).string.min_len = 1];
-    string release_channel = 3 [(validate.rules).string.min_len = 1];
-}
-
-message CheckCommitInReleaseReq {
-    oneof release_oneof {
-        option (validate.required) = true;
-        string release_id = 1 [(validate.rules).string.min_len = 1];
-        ReleaseServiceInstance release_service_instance = 2 [(validate.rules).message.required = true];  // will pick latest release
-    }
-    string repository = 3 [(validate.rules).string.min_len = 1];
-    string commit = 4 [(validate.rules).string.min_len = 1];
-}
-
-message CheckCommitInReleaseResp {
-    enum Result {
-        UNKNOWN = 0;
-        INCLUDED = 1;
-        NO_RELATION = 2;
-        NOT_INCLUDED = 3;
-    }
-    Result result = 1;
-}
+import "prodvana/deployment/manager.proto";
 
 service ReleaseManager {
-    rpc RecordRelease(RecordReleaseReq) returns (RecordReleaseResp) {
+    rpc RecordRelease(prodvana.deployment.RecordDeploymentReq) returns (prodvana.deployment.RecordDeploymentResp) {
         option (google.api.http) = {
             post: "/v1/releases"
             body: "*"
         };
     }
-    rpc UpdateReleaseStatus(UpdateReleaseStatusReq) returns (UpdateReleaseStatusResp) {
+    rpc UpdateReleaseStatus(prodvana.deployment.UpdateDeploymentStatusReq) returns (prodvana.deployment.UpdateDeploymentStatusResp) {
         option (google.api.http) = {
-            post: "/v1/releases/{release_id=*}/status"
+            post: "/v1/releases/{deployment_id=*}/status"
             body: "*"
         };
     }
-    rpc ListReleases(ListReleasesReq) returns (ListReleasesResp) {
+    rpc ListReleases(prodvana.deployment.ListDeploymentsReq) returns (prodvana.deployment.ListDeploymentsResp) {
         option (google.api.http) = {
             get: "/v1/releases"
         };
     }
     // page tokens arguments are ignored here
-    rpc ListReleasesStream(ListReleasesReq) returns (stream ListReleasesResp) {}
+    rpc ListReleasesStream(prodvana.deployment.ListDeploymentsReq) returns (stream prodvana.deployment.ListDeploymentsResp) {}
 
-    rpc CompareRelease(CompareReleaseReq) returns (CompareReleaseResp) {
+    rpc CompareRelease(prodvana.deployment.CompareDeploymentReq) returns (prodvana.deployment.CompareDeploymentResp) {
         option (google.api.http) = {
             post: "/v1/releases/compare"
             body: "*"
         };
     }
-    rpc PreviewRelease(PreviewReleaseReq) returns (PreviewReleaseResp) {
+    rpc PreviewRelease(prodvana.deployment.PreviewDeploymentReq) returns (prodvana.deployment.PreviewDeploymentResp) {
         option (google.api.http) = {
             post: "/v1/releases/preview"
             body: "*"
@@ -157,13 +39,13 @@ service ReleaseManager {
     }
 
     // returns the latest releases for each (application, service, release channel) tuple.
-    rpc GetLatestReleases(GetLatestReleasesReq) returns (GetLatestReleasesResp) {
+    rpc GetLatestReleases(prodvana.deployment.GetLatestDeploymentsReq) returns (prodvana.deployment.GetLatestDeploymentsResp) {
         option (google.api.http) = {
             get: "/v1/releases/latest"
         };
     }
 
-    rpc CheckCommitInRelease(CheckCommitInReleaseReq) returns (CheckCommitInReleaseResp) {
+    rpc CheckCommitInRelease(prodvana.deployment.CheckCommitInDeploymentReq) returns (prodvana.deployment.CheckCommitInDeploymentResp) {
         option (google.api.http) = {
             get: "/v1/releases/check_commit"
         };

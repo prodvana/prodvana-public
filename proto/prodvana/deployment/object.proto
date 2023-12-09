@@ -1,12 +1,12 @@
 syntax = "proto3";
-package prodvana.release;
-option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release";
+package prodvana.deployment;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment";
 import "google/protobuf/timestamp.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/repo/repo.proto";
 import "validate/validate.proto";
 
-enum ReleaseStatus {
+enum DeploymentStatus {
     UNKNOWN_STATUS = 0;
     PENDING = 1;
     SUCCEEDED = 2;
@@ -14,14 +14,14 @@ enum ReleaseStatus {
     PREVIEW = 4;
 }
 
-message ReleaseConfig {
+message DeploymentConfig {
     google.protobuf.Timestamp creation_timestamp = 1; // must be unset on input
     string deployment_system = 2 [(validate.rules).string.min_len = 1];
-    // required when recording releases from external systems
+    // required when recording deployments from external systems
     string service = 3;
-    // required when recording releases from external systems
+    // required when recording deployments from external systems
     string release_channel = 4;
-    // required when recording releases from external systems
+    // required when recording deployments from external systems
     string application = 8;
     string repository = 5; // e.g. github.com/foo/bar
     string commit_id = 6; // commit hash
@@ -37,8 +37,8 @@ message ReleaseConfig {
     // next tag: 14
 }
 
-message ReleaseState {
-    ReleaseStatus status = 1;
+message DeploymentState {
+    DeploymentStatus status = 1;
     google.protobuf.Timestamp last_update_timestamp = 2;
 }
 
@@ -55,14 +55,14 @@ message ImpactAnalysisComparison {
     int64 unanalyzed_commits = 2;
 }
 
-message ReleaseComparison {
+message DeploymentComparison {
     prodvana.object.ObjectMeta prev = 1;
     string prev_repository = 2;
     string new_repository = 3;
     string prev_commit_id = 4;
     string new_commit_id = 5;
     CommitAnalysis commit_analysis = 14;  // only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana
-    // only set for Prodvana managed releases
+    // only set for Prodvana managed deployments
     string prev_service_id = 8;
     string prev_release_channel_id = 9;
     string prev_service_version = 10;
@@ -74,10 +74,10 @@ message ReleaseComparison {
     // next tag: 15
 }
 
-message Release {
+message Deployment {
     prodvana.object.ObjectMeta meta = 1;
-    ReleaseConfig config = 2;
+    DeploymentConfig config = 2;
     // TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?
-    ReleaseComparison comparison = 3;
-    ReleaseState state = 4;
+    DeploymentComparison comparison = 3;
+    DeploymentState state = 4;
 }

@@ -24,6 +24,9 @@
       "name": "prodvana.delivery_extension.DeliveryExtensionManager"
     },
     {
+      "name": "prodvana.deployment.DeploymentManager"
+    },
+    {
       "name": "prodvana.desired_state.DesiredStateManager"
     },
     {
@@ -2380,6 +2383,378 @@
         ]
       }
     },
+    "/v1/deployments": {
+      "get": {
+        "operationId": "DeploymentManager_ListDeployments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentListDeploymentsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter.services",
+            "description": "filters to deployments for join(join(services, OR), join(release_channels, OR), AND)",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.releaseChannels",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.application",
+            "description": "if set, the filters on services and deployment channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging deployment channels across all apps.)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.desiredStateId",
+            "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startingDeploymentId",
+            "description": "newer deployment, inclusive",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endingDeploymentId",
+            "description": "older deployment, exclusive",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      },
+      "post": {
+        "operationId": "DeploymentManager_RecordDeployment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/prodvanadeploymentRecordDeploymentResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/prodvanadeploymentRecordDeploymentReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
+    "/v1/deployments/check_commit": {
+      "get": {
+        "operationId": "DeploymentManager_CheckCommitInDeployment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentCheckCommitInDeploymentResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deploymentId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "deploymentServiceInstance.application",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "deploymentServiceInstance.service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "deploymentServiceInstance.releaseChannel",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
+    "/v1/deployments/compare": {
+      "post": {
+        "operationId": "DeploymentManager_CompareDeployment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentCompareDeploymentResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deploymentCompareDeploymentReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
+    "/v1/deployments/latest": {
+      "get": {
+        "summary": "returns the latest deployments for each (application, service, deployment channel) tuple.",
+        "operationId": "DeploymentManager_GetLatestDeployments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentGetLatestDeploymentsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter.services",
+            "description": "filters to deployments for join(join(services, OR), join(release_channels, OR), AND)",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.releaseChannels",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter.application",
+            "description": "if set, the filters on services and deployment channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging deployment channels across all apps.)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.desiredStateId",
+            "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "if set, only return deployments with this status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN_STATUS",
+              "PENDING",
+              "SUCCEEDED",
+              "FAILED",
+              "PREVIEW"
+            ],
+            "default": "UNKNOWN_STATUS"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
+    "/v1/deployments/preview": {
+      "post": {
+        "operationId": "DeploymentManager_PreviewDeployment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentPreviewDeploymentResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deploymentPreviewDeploymentReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
+    "/v1/deployments/{deploymentId}/status": {
+      "post": {
+        "operationId": "DeploymentManager_UpdateDeploymentStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/deploymentUpdateDeploymentStatusResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deploymentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/deploymentDeploymentStatus"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.deployment.DeploymentManager"
+        ]
+      }
+    },
     "/v1/desired_states": {
       "post": {
         "operationId": "DesiredStateManager_SetDesiredState",
@@ -4501,7 +4876,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseListReleasesResp"
+              "$ref": "#/definitions/deploymentListDeploymentsResp"
             }
           },
           "default": {
@@ -4514,7 +4889,7 @@
         "parameters": [
           {
             "name": "filter.services",
-            "description": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)",
+            "description": "filters to deployments for join(join(services, OR), join(release_channels, OR), AND)",
             "in": "query",
             "required": false,
             "type": "array",
@@ -4535,7 +4910,7 @@
           },
           {
             "name": "filter.application",
-            "description": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)",
+            "description": "if set, the filters on services and deployment channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging deployment channels across all apps.)",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4548,15 +4923,15 @@
             "type": "string"
           },
           {
-            "name": "startingReleaseId",
-            "description": "newer release, inclusive",
+            "name": "startingDeploymentId",
+            "description": "newer deployment, inclusive",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "endingReleaseId",
-            "description": "older release, exclusive",
+            "name": "endingDeploymentId",
+            "description": "older deployment, exclusive",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4585,7 +4960,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseRecordReleaseResp"
+              "$ref": "#/definitions/prodvanadeploymentRecordDeploymentResp"
             }
           },
           "default": {
@@ -4601,7 +4976,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/releaseRecordReleaseReq"
+              "$ref": "#/definitions/prodvanadeploymentRecordDeploymentReq"
             }
           }
         ],
@@ -4617,7 +4992,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseCheckCommitInReleaseResp"
+              "$ref": "#/definitions/deploymentCheckCommitInDeploymentResp"
             }
           },
           "default": {
@@ -4629,25 +5004,25 @@
         },
         "parameters": [
           {
-            "name": "releaseId",
+            "name": "deploymentId",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "releaseServiceInstance.application",
+            "name": "deploymentServiceInstance.application",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "releaseServiceInstance.service",
+            "name": "deploymentServiceInstance.service",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "releaseServiceInstance.releaseChannel",
+            "name": "deploymentServiceInstance.releaseChannel",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4677,7 +5052,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseCompareReleaseResp"
+              "$ref": "#/definitions/deploymentCompareDeploymentResp"
             }
           },
           "default": {
@@ -4693,7 +5068,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/releaseCompareReleaseReq"
+              "$ref": "#/definitions/deploymentCompareDeploymentReq"
             }
           }
         ],
@@ -4710,7 +5085,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseGetLatestReleasesResp"
+              "$ref": "#/definitions/deploymentGetLatestDeploymentsResp"
             }
           },
           "default": {
@@ -4723,7 +5098,7 @@
         "parameters": [
           {
             "name": "filter.services",
-            "description": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)",
+            "description": "filters to deployments for join(join(services, OR), join(release_channels, OR), AND)",
             "in": "query",
             "required": false,
             "type": "array",
@@ -4744,7 +5119,7 @@
           },
           {
             "name": "filter.application",
-            "description": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)",
+            "description": "if set, the filters on services and deployment channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging deployment channels across all apps.)",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4758,7 +5133,7 @@
           },
           {
             "name": "status",
-            "description": "if set, only return releases with this status",
+            "description": "if set, only return deployments with this status",
             "in": "query",
             "required": false,
             "type": "string",
@@ -4797,7 +5172,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releasePreviewReleaseResp"
+              "$ref": "#/definitions/deploymentPreviewDeploymentResp"
             }
           },
           "default": {
@@ -4813,7 +5188,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/releasePreviewReleaseReq"
+              "$ref": "#/definitions/deploymentPreviewDeploymentReq"
             }
           }
         ],
@@ -4822,14 +5197,14 @@
         ]
       }
     },
-    "/v1/releases/{releaseId}/status": {
+    "/v1/releases/{deploymentId}/status": {
       "post": {
         "operationId": "ReleaseManager_UpdateReleaseStatus",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/releaseUpdateReleaseStatusResp"
+              "$ref": "#/definitions/deploymentUpdateDeploymentStatusResp"
             }
           },
           "default": {
@@ -4841,7 +5216,7 @@
         },
         "parameters": [
           {
-            "name": "releaseId",
+            "name": "deploymentId",
             "in": "path",
             "required": true,
             "type": "string",
@@ -4855,7 +5230,7 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "$ref": "#/definitions/releaseReleaseStatus"
+                  "$ref": "#/definitions/deploymentDeploymentStatus"
                 }
               }
             }
@@ -5946,7 +6321,7 @@
         }
       }
     },
-    "CheckCommitInReleaseRespResult": {
+    "CheckCommitInDeploymentRespResult": {
       "type": "string",
       "enum": [
         "UNKNOWN",
@@ -6647,9 +7022,6 @@
         }
       }
     },
-    "ProtectionLifecycleDeployment": {
-      "type": "object"
-    },
     "ProtectionLifecyclePostApproval": {
       "type": "object"
     },
@@ -6885,15 +7257,6 @@
       ],
       "default": "UNKNOWN",
       "title": "- PROXY_APISERVER: More operations like docker registry interactions"
-    },
-    "agentRecordDeploymentResp": {
-      "type": "object",
-      "properties": {
-        "pushTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
     },
     "agentRecordNewUnknownPushResp": {
       "type": "object"
@@ -8243,6 +8606,301 @@
         },
         "compiledConfig": {
           "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig"
+        }
+      }
+    },
+    "deploymentCheckCommitInDeploymentResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/CheckCommitInDeploymentRespResult"
+        }
+      }
+    },
+    "deploymentCommitAnalysis": {
+      "type": "object",
+      "properties": {
+        "commitsAdded": {
+          "type": "string",
+          "format": "int64"
+        },
+        "commitsRemoved": {
+          "type": "string",
+          "format": "int64"
+        },
+        "impactAnalysis": {
+          "$ref": "#/definitions/deploymentImpactAnalysisComparison"
+        }
+      }
+    },
+    "deploymentCompareDeploymentReq": {
+      "type": "object",
+      "properties": {
+        "newDeployment": {
+          "$ref": "#/definitions/deploymentDeploymentRef"
+        },
+        "prevDeployment": {
+          "$ref": "#/definitions/deploymentDeploymentRef"
+        }
+      }
+    },
+    "deploymentCompareDeploymentResp": {
+      "type": "object",
+      "properties": {
+        "comparison": {
+          "$ref": "#/definitions/deploymentDeploymentComparison"
+        }
+      }
+    },
+    "deploymentDeploymentComparison": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "prevRepository": {
+          "type": "string"
+        },
+        "newRepository": {
+          "type": "string"
+        },
+        "prevCommitId": {
+          "type": "string"
+        },
+        "newCommitId": {
+          "type": "string"
+        },
+        "commitAnalysis": {
+          "$ref": "#/definitions/deploymentCommitAnalysis",
+          "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
+        },
+        "prevServiceId": {
+          "type": "string",
+          "title": "only set for Prodvana managed deployments"
+        },
+        "prevReleaseChannelId": {
+          "type": "string"
+        },
+        "prevServiceVersion": {
+          "type": "string"
+        },
+        "newServiceId": {
+          "type": "string"
+        },
+        "newReleaseChannelId": {
+          "type": "string"
+        },
+        "newServiceVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "deploymentDeploymentConfig": {
+      "type": "object",
+      "properties": {
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "must be unset on input"
+        },
+        "deploymentSystem": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "releaseChannel": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "application": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "repository": {
+          "type": "string",
+          "title": "e.g. github.com/foo/bar"
+        },
+        "commitId": {
+          "type": "string",
+          "title": "commit hash"
+        },
+        "user": {
+          "type": "string",
+          "title": "if known"
+        },
+        "applicationId": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string"
+        },
+        "serviceVersion": {
+          "type": "string"
+        },
+        "desiredStateId": {
+          "type": "string",
+          "title": "next tag: 14"
+        }
+      }
+    },
+    "deploymentDeploymentFilter": {
+      "type": "object",
+      "properties": {
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "filters to deployments for join(join(services, OR), join(release_channels, OR), AND)"
+        },
+        "releaseChannels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "application": {
+          "type": "string",
+          "title": "if set, the filters on services and deployment channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging deployment channels across all apps.)"
+        },
+        "desiredStateId": {
+          "type": "string",
+          "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
+        }
+      }
+    },
+    "deploymentDeploymentRef": {
+      "type": "object",
+      "properties": {
+        "deploymentId": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/deploymentDeploymentConfig"
+        }
+      }
+    },
+    "deploymentDeploymentServiceInstance": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        }
+      }
+    },
+    "deploymentDeploymentState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/deploymentDeploymentStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "deploymentDeploymentStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STATUS",
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED",
+        "PREVIEW"
+      ],
+      "default": "UNKNOWN_STATUS"
+    },
+    "deploymentGetLatestDeploymentsResp": {
+      "type": "object",
+      "properties": {
+        "deployments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanadeploymentDeployment"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "deploymentImpactAnalysisComparison": {
+      "type": "object",
+      "properties": {
+        "relevantAddedCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          },
+          "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
+        },
+        "relevantRemovedCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          }
+        },
+        "unanalyzedCommits": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "deploymentListDeploymentsResp": {
+      "type": "object",
+      "properties": {
+        "deployments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanadeploymentDeployment"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "deploymentPreviewDeploymentReq": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/deploymentDeploymentConfig"
+        },
+        "prevDeployment": {
+          "$ref": "#/definitions/deploymentDeploymentRef",
+          "title": "omit to use latest deployment from the same app/service/deployment channel"
+        }
+      }
+    },
+    "deploymentPreviewDeploymentResp": {
+      "type": "object",
+      "properties": {
+        "deployment": {
+          "$ref": "#/definitions/prodvanadeploymentDeployment"
+        }
+      }
+    },
+    "deploymentUpdateDeploymentStatusResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/deploymentDeploymentStatus"
         }
       }
     },
@@ -12120,6 +12778,15 @@
         }
       }
     },
+    "prodvanaagentRecordDeploymentResp": {
+      "type": "object",
+      "properties": {
+        "pushTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "prodvanacommon_configTaskConfig": {
       "type": "object",
       "properties": {
@@ -12188,6 +12855,44 @@
     "prodvanadelivery_extensionDeliveryExtensionState": {
       "type": "object",
       "title": "TODO(naphat) list custom task instances?"
+    },
+    "prodvanadeploymentDeployment": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/deploymentDeploymentConfig"
+        },
+        "comparison": {
+          "$ref": "#/definitions/deploymentDeploymentComparison",
+          "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
+        },
+        "state": {
+          "$ref": "#/definitions/deploymentDeploymentState"
+        }
+      }
+    },
+    "prodvanadeploymentRecordDeploymentReq": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/deploymentDeploymentConfig"
+        },
+        "pending": {
+          "type": "boolean",
+          "description": "If true, create deployment with pending status that is meant to be updated later to either success or failure.\nBy default, deployments are created with status SUCCEEDED."
+        }
+      }
+    },
+    "prodvanadeploymentRecordDeploymentResp": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        }
+      }
     },
     "prodvanaenvironmentAwsEcsConfig": {
       "type": "object",
@@ -12641,12 +13346,15 @@
           "title": "Approval approval = 2;"
         },
         "deployment": {
-          "$ref": "#/definitions/ProtectionLifecycleDeployment"
+          "$ref": "#/definitions/protectionProtectionLifecycleDeployment"
         },
         "postDeployment": {
           "$ref": "#/definitions/ProtectionLifecyclePostDeployment"
         }
       }
+    },
+    "protectionProtectionLifecycleDeployment": {
+      "type": "object"
     },
     "protectionProtectionReference": {
       "type": "object",
@@ -12759,339 +13467,6 @@
         },
         "contentBlobId": {
           "type": "string"
-        }
-      }
-    },
-    "releaseCheckCommitInReleaseResp": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/CheckCommitInReleaseRespResult"
-        }
-      }
-    },
-    "releaseCommitAnalysis": {
-      "type": "object",
-      "properties": {
-        "commitsAdded": {
-          "type": "string",
-          "format": "int64"
-        },
-        "commitsRemoved": {
-          "type": "string",
-          "format": "int64"
-        },
-        "impactAnalysis": {
-          "$ref": "#/definitions/releaseImpactAnalysisComparison"
-        }
-      }
-    },
-    "releaseCompareReleaseReq": {
-      "type": "object",
-      "properties": {
-        "newRelease": {
-          "$ref": "#/definitions/releaseReleaseRef"
-        },
-        "prevRelease": {
-          "$ref": "#/definitions/releaseReleaseRef"
-        }
-      }
-    },
-    "releaseCompareReleaseResp": {
-      "type": "object",
-      "properties": {
-        "comparison": {
-          "$ref": "#/definitions/releaseReleaseComparison"
-        }
-      }
-    },
-    "releaseGetLatestReleasesResp": {
-      "type": "object",
-      "properties": {
-        "releases": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/releaseRelease"
-          }
-        },
-        "nextPageToken": {
-          "type": "string"
-        }
-      }
-    },
-    "releaseImpactAnalysisComparison": {
-      "type": "object",
-      "properties": {
-        "relevantAddedCommits": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/repoCommit"
-          },
-          "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
-        },
-        "relevantRemovedCommits": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/repoCommit"
-          }
-        },
-        "unanalyzedCommits": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "releaseListReleasesResp": {
-      "type": "object",
-      "properties": {
-        "releases": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/releaseRelease"
-          }
-        },
-        "nextPageToken": {
-          "type": "string"
-        }
-      }
-    },
-    "releasePreviewReleaseReq": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "$ref": "#/definitions/releaseReleaseConfig"
-        },
-        "prevRelease": {
-          "$ref": "#/definitions/releaseReleaseRef",
-          "title": "omit to use latest release from the same app/service/release channel"
-        }
-      }
-    },
-    "releasePreviewReleaseResp": {
-      "type": "object",
-      "properties": {
-        "release": {
-          "$ref": "#/definitions/releaseRelease"
-        }
-      }
-    },
-    "releaseRecordReleaseReq": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "$ref": "#/definitions/releaseReleaseConfig"
-        },
-        "pending": {
-          "type": "boolean",
-          "description": "If true, create release with pending status that is meant to be updated later to either success or failure.\nBy default, releases are created with status SUCCEEDED."
-        }
-      }
-    },
-    "releaseRecordReleaseResp": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        }
-      }
-    },
-    "releaseRelease": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "config": {
-          "$ref": "#/definitions/releaseReleaseConfig"
-        },
-        "comparison": {
-          "$ref": "#/definitions/releaseReleaseComparison",
-          "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
-        },
-        "state": {
-          "$ref": "#/definitions/releaseReleaseState"
-        }
-      }
-    },
-    "releaseReleaseComparison": {
-      "type": "object",
-      "properties": {
-        "prev": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "prevRepository": {
-          "type": "string"
-        },
-        "newRepository": {
-          "type": "string"
-        },
-        "prevCommitId": {
-          "type": "string"
-        },
-        "newCommitId": {
-          "type": "string"
-        },
-        "commitAnalysis": {
-          "$ref": "#/definitions/releaseCommitAnalysis",
-          "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
-        },
-        "prevServiceId": {
-          "type": "string",
-          "title": "only set for Prodvana managed releases"
-        },
-        "prevReleaseChannelId": {
-          "type": "string"
-        },
-        "prevServiceVersion": {
-          "type": "string"
-        },
-        "newServiceId": {
-          "type": "string"
-        },
-        "newReleaseChannelId": {
-          "type": "string"
-        },
-        "newServiceVersion": {
-          "type": "string"
-        }
-      }
-    },
-    "releaseReleaseConfig": {
-      "type": "object",
-      "properties": {
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "must be unset on input"
-        },
-        "deploymentSystem": {
-          "type": "string"
-        },
-        "service": {
-          "type": "string",
-          "title": "required when recording releases from external systems"
-        },
-        "releaseChannel": {
-          "type": "string",
-          "title": "required when recording releases from external systems"
-        },
-        "application": {
-          "type": "string",
-          "title": "required when recording releases from external systems"
-        },
-        "repository": {
-          "type": "string",
-          "title": "e.g. github.com/foo/bar"
-        },
-        "commitId": {
-          "type": "string",
-          "title": "commit hash"
-        },
-        "user": {
-          "type": "string",
-          "title": "if known"
-        },
-        "applicationId": {
-          "type": "string"
-        },
-        "serviceId": {
-          "type": "string"
-        },
-        "releaseChannelId": {
-          "type": "string"
-        },
-        "serviceVersion": {
-          "type": "string"
-        },
-        "desiredStateId": {
-          "type": "string",
-          "title": "next tag: 14"
-        }
-      }
-    },
-    "releaseReleaseFilter": {
-      "type": "object",
-      "properties": {
-        "services": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "filters to releases for join(join(services, OR), join(release_channels, OR), AND)"
-        },
-        "releaseChannels": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "application": {
-          "type": "string",
-          "title": "if set, the filters on services and release channels above will be limited to this app.\nOtherwise, there is no app filter (so e.g. release_channels=['staging'] will select\nstaging release channels across all apps.)"
-        },
-        "desiredStateId": {
-          "type": "string",
-          "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
-        }
-      }
-    },
-    "releaseReleaseRef": {
-      "type": "object",
-      "properties": {
-        "releaseId": {
-          "type": "string"
-        },
-        "config": {
-          "$ref": "#/definitions/releaseReleaseConfig"
-        }
-      }
-    },
-    "releaseReleaseServiceInstance": {
-      "type": "object",
-      "properties": {
-        "application": {
-          "type": "string"
-        },
-        "service": {
-          "type": "string"
-        },
-        "releaseChannel": {
-          "type": "string"
-        }
-      }
-    },
-    "releaseReleaseState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/releaseReleaseStatus"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "releaseReleaseStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN_STATUS",
-        "PENDING",
-        "SUCCEEDED",
-        "FAILED",
-        "PREVIEW"
-      ],
-      "default": "UNKNOWN_STATUS"
-    },
-    "releaseUpdateReleaseStatusResp": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/releaseReleaseStatus"
         }
       }
     },
