@@ -112,6 +112,7 @@ message Metadata {
     Identifier self = 3;
     string desired_state_id = 4;
     string root_desired_state_id = 5;
+    string release_id = 14;
     repeated ProtectionLink protection_links = 6;
     repeated DeliveryExtension delivery_extensions = 8;
     repeated ProtectionAttachmentDefinition convergence_protection_attachments = 13;
@@ -127,7 +128,7 @@ message Metadata {
     reserved 7;
     reserved "protections";
 
-    // next tag: 14
+    // next tag: 15
 }
 
 enum Status {

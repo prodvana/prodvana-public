@@ -9463,6 +9463,9 @@
         "rootDesiredStateId": {
           "type": "string"
         },
+        "releaseId": {
+          "type": "string"
+        },
         "protectionLinks": {
           "type": "array",
           "items": {

@@ -882,6 +882,8 @@ func (m *Metadata) validate(all bool) error {
 
 	// no validation rules for RootDesiredStateId
 
+	// no validation rules for ReleaseId
+
 	for idx, item := range m.GetProtectionLinks() {
 		_, _ = idx, item
 
