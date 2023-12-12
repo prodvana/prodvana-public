@@ -1,0 +1,23 @@
+syntax = "proto3";
+package prodvana.desired_state.maestro;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/maestro";
+import "validate/validate.proto";
+
+enum Status {
+    UNKNOWN_STATUS = 0;
+    PENDING = 1;
+    IN_PROGRESS = 2;
+    SUCCEEDED = 3;
+    FAILED = 4;
+    SKIPPED = 5;
+}
+
+enum Strategy {
+    UNKNOWN_STRATEGY = 0;
+    IMMEDIATE = 1;
+    ON_STABLE = 2;
+}
+
+message MaestroConfig {
+    Strategy strategy = 1 [(validate.rules).enum = {not_in: [0]}];
+}

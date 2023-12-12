@@ -16,6 +16,7 @@ import "prodvana/common_config/rollback.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/delivery_extension/config.proto";
+import "prodvana/desired_state/maestro/maestro.proto";
 import "prodvana/protection/attachments.proto";
 import "prodvana/protection/protection_reference.proto";
 import "prodvana/release_channel/release_channel_config.proto";
@@ -367,7 +368,9 @@ message ServiceConfig {
     // internal use
     bool async_set_desired_state = 34;
 
-    // next tag: 38
+    prodvana.desired_state.maestro.MaestroConfig maestro = 38;
+
+    // next tag: 39
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied

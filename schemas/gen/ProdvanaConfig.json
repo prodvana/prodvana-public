@@ -3197,6 +3197,42 @@
             ],
             "title": "Delivery Extension Instance Ref"
         },
+        "prodvana.desired_state.maestro.MaestroConfig": {
+            "properties": {
+                "strategy": {
+                    "enum": [
+                        "UNKNOWN_STRATEGY",
+                        0,
+                        "IMMEDIATE",
+                        1,
+                        "ON_STABLE",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Strategy"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Maestro Config"
+        },
         "prodvana.environment.AwsEcsConfig": {
             "properties": {
                 "proxy_runtime": {
@@ -9145,6 +9181,16 @@
                         }
                     ],
                     "description": "internal use"
+                },
+                "maestro": {
+                    "$ref": "#/definitions/prodvana.desired_state.maestro.MaestroConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,

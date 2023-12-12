@@ -4699,6 +4699,35 @@ func (m *ServiceConfig) validate(all bool) error {
 
 	// no validation rules for AsyncSetDesiredState
 
+	if all {
+		switch v := interface{}(m.GetMaestro()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ServiceConfigValidationError{
+					field:  "Maestro",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ServiceConfigValidationError{
+					field:  "Maestro",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMaestro()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceConfigValidationError{
+				field:  "Maestro",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	switch v := m.ConfigOneof.(type) {
 	case *ServiceConfig_RuntimeExtension:
 		if v == nil {

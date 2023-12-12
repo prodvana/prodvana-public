@@ -11338,6 +11338,23 @@
         }
       }
     },
+    "maestroMaestroConfig": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "$ref": "#/definitions/maestroStrategy"
+        }
+      }
+    },
+    "maestroStrategy": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STRATEGY",
+        "IMMEDIATE",
+        "ON_STABLE"
+      ],
+      "default": "UNKNOWN_STRATEGY"
+    },
     "managed_resourceConfigureK8sClusterReq": {
       "type": "object",
       "properties": {
@@ -14694,6 +14711,9 @@
         "asyncSetDesiredState": {
           "type": "boolean",
           "title": "internal use"
+        },
+        "maestro": {
+          "$ref": "#/definitions/maestroMaestroConfig"
         }
       }
     },
