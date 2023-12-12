@@ -30,7 +30,7 @@ const (
 	ObjectType_SERVICE         ObjectType = 3
 	ObjectType_RELEASE_CHANNEL ObjectType = 4
 	ObjectType_PROTECTION      ObjectType = 5
-	ObjectType_RELEASE         ObjectType = 6
+	ObjectType_DEPLOYMENT         ObjectType = 6
 )
 
 // Enum value maps for ObjectType.
