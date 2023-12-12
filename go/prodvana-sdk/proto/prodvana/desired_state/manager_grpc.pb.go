@@ -33,6 +33,7 @@ const (
 	DesiredStateManager_SetManualApproval_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/SetManualApproval"
 	DesiredStateManager_PromoteDelivery_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/PromoteDelivery"
 	DesiredStateManager_BypassProtection_FullMethodName                         = "/prodvana.desired_state.DesiredStateManager/BypassProtection"
+	DesiredStateManager_ListMaestroReleases_FullMethodName                      = "/prodvana.desired_state.DesiredStateManager/ListMaestroReleases"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -60,6 +61,7 @@ type DesiredStateManagerClient interface {
 	SetManualApproval(ctx context.Context, in *SetManualApprovalReq, opts ...grpc.CallOption) (*SetManualApprovalResp, error)
 	PromoteDelivery(ctx context.Context, in *PromoteDeliveryReq, opts ...grpc.CallOption) (*PromoteDeliveryResp, error)
 	BypassProtection(ctx context.Context, in *BypassProtectionReq, opts ...grpc.CallOption) (*BypassProtectionResp, error)
+	ListMaestroReleases(ctx context.Context, in *ListMaestroReleasesReq, opts ...grpc.CallOption) (*ListMaestroReleasesResp, error)
 }
 
 type desiredStateManagerClient struct {
@@ -196,6 +198,15 @@ func (c *desiredStateManagerClient) BypassProtection(ctx context.Context, in *By
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) ListMaestroReleases(ctx context.Context, in *ListMaestroReleasesReq, opts ...grpc.CallOption) (*ListMaestroReleasesResp, error) {
+	out := new(ListMaestroReleasesResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_ListMaestroReleases_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -221,6 +232,7 @@ type DesiredStateManagerServer interface {
 	SetManualApproval(context.Context, *SetManualApprovalReq) (*SetManualApprovalResp, error)
 	PromoteDelivery(context.Context, *PromoteDeliveryReq) (*PromoteDeliveryResp, error)
 	BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error)
+	ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -269,6 +281,9 @@ func (UnimplementedDesiredStateManagerServer) PromoteDelivery(context.Context, *
 }
 func (UnimplementedDesiredStateManagerServer) BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BypassProtection not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMaestroReleases not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -535,6 +550,24 @@ func _DesiredStateManager_BypassProtection_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_ListMaestroReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMaestroReleasesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).ListMaestroReleases(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_ListMaestroReleases_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).ListMaestroReleases(ctx, req.(*ListMaestroReleasesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -597,6 +630,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BypassProtection",
 			Handler:    _DesiredStateManager_BypassProtection_Handler,
+		},
+		{
+			MethodName: "ListMaestroReleases",
+			Handler:    _DesiredStateManager_ListMaestroReleases_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2883,6 +2883,76 @@
         ]
       }
     },
+    "/v1/desired_states/maestro_releases": {
+      "get": {
+        "operationId": "DesiredStateManager_ListMaestroReleases",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateListMaestroReleasesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "entityId.type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "SERVICE",
+              "SERVICE_INSTANCE",
+              "SERVICE_GROUP",
+              "RUNTIME_OBJECT",
+              "MANUAL_APPROVAL",
+              "CUSTOM_TASK",
+              "PROTECTION_ATTACHMENT",
+              "PROTECTION_LINK",
+              "DELIVERY_EXTENSION"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "entityId.name",
+            "description": "globally unique identifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startingReleaseId",
+            "description": "optional, if not set, return releases starting from the first unfinished release.\n\ninclusive",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/preview": {
       "post": {
         "summary": "validate a SetDesiredState call and return a preview entity graph\nTODO(naphat) delete ValidateDesiredState and replace with this",
@@ -4294,6 +4364,7 @@
               "SERVICE",
               "RELEASE_CHANNEL",
               "PROTECTION",
+              "DEPLOYMENT",
               "RELEASE"
             ],
             "default": "UNKNOWN"
@@ -9191,6 +9262,21 @@
         }
       }
     },
+    "desired_stateListMaestroReleasesResp": {
+      "type": "object",
+      "properties": {
+        "maestroReleases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/maestroMaestroRelease"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
     "desired_statePendingSetDesiredState": {
       "type": "object",
       "properties": {
@@ -9366,6 +9452,18 @@
           "$ref": "#/definitions/modelState"
         }
       }
+    },
+    "desired_statemaestroStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STATUS",
+        "PENDING",
+        "IN_PROGRESS",
+        "SUCCEEDED",
+        "FAILED",
+        "SKIPPED"
+      ],
+      "default": "UNKNOWN_STATUS"
     },
     "desired_statemodelDeliveryExtension": {
       "type": "object",
@@ -11346,6 +11444,50 @@
         }
       }
     },
+    "maestroMaestroRelease": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/maestroMaestroReleaseConfig"
+        },
+        "state": {
+          "$ref": "#/definitions/maestroMaestroReleaseState"
+        }
+      }
+    },
+    "maestroMaestroReleaseConfig": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "maestroConfig": {
+          "$ref": "#/definitions/maestroMaestroConfig"
+        },
+        "desiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "maestroMaestroReleaseState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/desired_statemaestroStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "maestroStrategy": {
       "type": "string",
       "enum": [
@@ -12488,6 +12630,7 @@
         "SERVICE",
         "RELEASE_CHANNEL",
         "PROTECTION",
+        "DEPLOYMENT",
         "RELEASE"
       ],
       "default": "UNKNOWN"

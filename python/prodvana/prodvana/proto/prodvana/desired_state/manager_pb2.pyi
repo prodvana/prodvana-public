@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.async_task.task_metadata_pb2
+import prodvana.proto.prodvana.desired_state.maestro.maestro_pb2
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
 import prodvana.proto.prodvana.desired_state.model.entity_pb2
 import prodvana.proto.prodvana.service.service_config_pb2
@@ -949,3 +950,49 @@ class BypassProtectionResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___BypassProtectionResp = BypassProtectionResp
+
+class ListMaestroReleasesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    STARTING_RELEASE_ID_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    starting_release_id: builtins.str
+    """optional, if not set, return releases starting from the first unfinished release.
+    inclusive
+    """
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+        starting_release_id: builtins.str = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id", "page_size", b"page_size", "page_token", b"page_token", "starting_release_id", b"starting_release_id"]) -> None: ...
+
+global___ListMaestroReleasesReq = ListMaestroReleasesReq
+
+class ListMaestroReleasesResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MAESTRO_RELEASES_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def maestro_releases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroRelease]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        maestro_releases: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroRelease] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["maestro_releases", b"maestro_releases", "next_page_token", b"next_page_token"]) -> None: ...
+
+global___ListMaestroReleasesResp = ListMaestroReleasesResp

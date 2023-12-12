@@ -149,3 +149,541 @@ var _ interface {
 var _MaestroConfig_Strategy_NotInLookup = map[Strategy]struct{}{
 	0: {},
 }
+
+// Validate checks the field values on MaestroReleaseConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MaestroReleaseConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaestroReleaseConfig with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MaestroReleaseConfigMultiError, or nil if none found.
+func (m *MaestroReleaseConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaestroReleaseConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetMaestroConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "MaestroConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "MaestroConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMaestroConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "MaestroConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "DesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "DesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "DesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MaestroReleaseConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaestroReleaseConfigMultiError is an error wrapping multiple validation
+// errors returned by MaestroReleaseConfig.ValidateAll() if the designated
+// constraints aren't met.
+type MaestroReleaseConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaestroReleaseConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaestroReleaseConfigMultiError) AllErrors() []error { return m }
+
+// MaestroReleaseConfigValidationError is the validation error returned by
+// MaestroReleaseConfig.Validate if the designated constraints aren't met.
+type MaestroReleaseConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaestroReleaseConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaestroReleaseConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaestroReleaseConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaestroReleaseConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaestroReleaseConfigValidationError) ErrorName() string {
+	return "MaestroReleaseConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MaestroReleaseConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaestroReleaseConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaestroReleaseConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaestroReleaseConfigValidationError{}
+
+// Validate checks the field values on MaestroReleaseState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MaestroReleaseState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaestroReleaseState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MaestroReleaseStateMultiError, or nil if none found.
+func (m *MaestroReleaseState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaestroReleaseState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetLastUpdateTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseStateValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseStateValidationError{
+					field:  "LastUpdateTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastUpdateTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseStateValidationError{
+				field:  "LastUpdateTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MaestroReleaseStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaestroReleaseStateMultiError is an error wrapping multiple validation
+// errors returned by MaestroReleaseState.ValidateAll() if the designated
+// constraints aren't met.
+type MaestroReleaseStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaestroReleaseStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaestroReleaseStateMultiError) AllErrors() []error { return m }
+
+// MaestroReleaseStateValidationError is the validation error returned by
+// MaestroReleaseState.Validate if the designated constraints aren't met.
+type MaestroReleaseStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaestroReleaseStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaestroReleaseStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaestroReleaseStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaestroReleaseStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaestroReleaseStateValidationError) ErrorName() string {
+	return "MaestroReleaseStateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MaestroReleaseStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaestroReleaseState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaestroReleaseStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaestroReleaseStateValidationError{}
+
+// Validate checks the field values on MaestroRelease with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MaestroRelease) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaestroRelease with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MaestroReleaseMultiError,
+// or nil if none found.
+func (m *MaestroRelease) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaestroRelease) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetMeta()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "Meta",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "Meta",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseValidationError{
+				field:  "Meta",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "Config",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "State",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseValidationError{
+					field:  "State",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseValidationError{
+				field:  "State",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MaestroReleaseMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaestroReleaseMultiError is an error wrapping multiple validation errors
+// returned by MaestroRelease.ValidateAll() if the designated constraints
+// aren't met.
+type MaestroReleaseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaestroReleaseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaestroReleaseMultiError) AllErrors() []error { return m }
+
+// MaestroReleaseValidationError is the validation error returned by
+// MaestroRelease.Validate if the designated constraints aren't met.
+type MaestroReleaseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaestroReleaseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaestroReleaseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaestroReleaseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaestroReleaseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaestroReleaseValidationError) ErrorName() string { return "MaestroReleaseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MaestroReleaseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaestroRelease.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaestroReleaseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaestroReleaseValidationError{}

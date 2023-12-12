@@ -29,7 +29,8 @@ class _ObjectTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     SERVICE: _ObjectType.ValueType  # 3
     RELEASE_CHANNEL: _ObjectType.ValueType  # 4
     PROTECTION: _ObjectType.ValueType  # 5
-    RELEASE: _ObjectType.ValueType  # 6
+    DEPLOYMENT: _ObjectType.ValueType  # 6
+    RELEASE: _ObjectType.ValueType  # 7
 
 class ObjectType(_ObjectType, metaclass=_ObjectTypeEnumTypeWrapper): ...
 
@@ -39,7 +40,8 @@ APPLICATION: ObjectType.ValueType  # 2
 SERVICE: ObjectType.ValueType  # 3
 RELEASE_CHANNEL: ObjectType.ValueType  # 4
 PROTECTION: ObjectType.ValueType  # 5
-RELEASE: ObjectType.ValueType  # 6
+DEPLOYMENT: ObjectType.ValueType  # 6
+RELEASE: ObjectType.ValueType  # 7
 global___ObjectType = ObjectType
 
 class ObjectMeta(google.protobuf.message.Message):

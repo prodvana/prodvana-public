@@ -6,6 +6,9 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
+import prodvana.proto.prodvana.object.meta_pb2
 import sys
 import typing
 
@@ -79,3 +82,74 @@ class MaestroConfig(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["strategy", b"strategy"]) -> None: ...
 
 global___MaestroConfig = MaestroConfig
+
+class MaestroReleaseConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    MAESTRO_CONFIG_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_FIELD_NUMBER: builtins.int
+    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    @property
+    def maestro_config(self) -> global___MaestroConfig: ...
+    @property
+    def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+        maestro_config: global___MaestroConfig | None = ...,
+        desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_id", b"entity_id", "maestro_config", b"maestro_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_id", b"entity_id", "maestro_config", b"maestro_config"]) -> None: ...
+
+global___MaestroReleaseConfig = MaestroReleaseConfig
+
+class MaestroReleaseState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
+    status: global___Status.ValueType
+    @property
+    def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        status: global___Status.ValueType = ...,
+        last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "status", b"status"]) -> None: ...
+
+global___MaestroReleaseState = MaestroReleaseState
+
+class MaestroRelease(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    META_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
+    @property
+    def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
+    @property
+    def config(self) -> global___MaestroReleaseConfig: ...
+    @property
+    def state(self) -> global___MaestroReleaseState: ...
+    def __init__(
+        self,
+        *,
+        meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
+        config: global___MaestroReleaseConfig | None = ...,
+        state: global___MaestroReleaseState | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta", "state", b"state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "meta", b"meta", "state", b"state"]) -> None: ...
+
+global___MaestroRelease = MaestroRelease

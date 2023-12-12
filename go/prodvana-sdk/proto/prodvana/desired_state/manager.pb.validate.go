@@ -5225,6 +5225,292 @@ var _ interface {
 	ErrorName() string
 } = BypassProtectionRespValidationError{}
 
+// Validate checks the field values on ListMaestroReleasesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListMaestroReleasesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListMaestroReleasesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListMaestroReleasesReqMultiError, or nil if none found.
+func (m *ListMaestroReleasesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListMaestroReleasesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetEntityId() == nil {
+		err := ListMaestroReleasesReqValidationError{
+			field:  "EntityId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListMaestroReleasesReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListMaestroReleasesReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListMaestroReleasesReqValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for StartingReleaseId
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return ListMaestroReleasesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListMaestroReleasesReqMultiError is an error wrapping multiple validation
+// errors returned by ListMaestroReleasesReq.ValidateAll() if the designated
+// constraints aren't met.
+type ListMaestroReleasesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListMaestroReleasesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListMaestroReleasesReqMultiError) AllErrors() []error { return m }
+
+// ListMaestroReleasesReqValidationError is the validation error returned by
+// ListMaestroReleasesReq.Validate if the designated constraints aren't met.
+type ListMaestroReleasesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListMaestroReleasesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListMaestroReleasesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListMaestroReleasesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListMaestroReleasesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListMaestroReleasesReqValidationError) ErrorName() string {
+	return "ListMaestroReleasesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListMaestroReleasesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListMaestroReleasesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListMaestroReleasesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListMaestroReleasesReqValidationError{}
+
+// Validate checks the field values on ListMaestroReleasesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListMaestroReleasesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListMaestroReleasesResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListMaestroReleasesRespMultiError, or nil if none found.
+func (m *ListMaestroReleasesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListMaestroReleasesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetMaestroReleases() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListMaestroReleasesRespValidationError{
+						field:  fmt.Sprintf("MaestroReleases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListMaestroReleasesRespValidationError{
+						field:  fmt.Sprintf("MaestroReleases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListMaestroReleasesRespValidationError{
+					field:  fmt.Sprintf("MaestroReleases[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return ListMaestroReleasesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListMaestroReleasesRespMultiError is an error wrapping multiple validation
+// errors returned by ListMaestroReleasesResp.ValidateAll() if the designated
+// constraints aren't met.
+type ListMaestroReleasesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListMaestroReleasesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListMaestroReleasesRespMultiError) AllErrors() []error { return m }
+
+// ListMaestroReleasesRespValidationError is the validation error returned by
+// ListMaestroReleasesResp.Validate if the designated constraints aren't met.
+type ListMaestroReleasesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListMaestroReleasesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListMaestroReleasesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListMaestroReleasesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListMaestroReleasesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListMaestroReleasesRespValidationError) ErrorName() string {
+	return "ListMaestroReleasesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListMaestroReleasesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListMaestroReleasesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListMaestroReleasesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListMaestroReleasesRespValidationError{}
+
 // Validate checks the field values on GetDesiredStateGraphReq_QueryByService
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if

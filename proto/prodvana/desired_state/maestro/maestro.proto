@@ -1,7 +1,10 @@
 syntax = "proto3";
 package prodvana.desired_state.maestro;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/maestro";
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "prodvana/desired_state/model/desired_state.proto";
+import "prodvana/object/meta.proto";
 
 enum Status {
     UNKNOWN_STATUS = 0;
@@ -25,4 +28,22 @@ enum Strategy {
 
 message MaestroConfig {
     Strategy strategy = 1 [(validate.rules).enum = {not_in: [0]}];
+}
+
+message MaestroReleaseConfig {
+    prodvana.desired_state.model.Identifier entity_id = 1;
+    MaestroConfig maestro_config = 2;
+    prodvana.desired_state.model.State desired_state = 3;
+    google.protobuf.Timestamp creation_timestamp = 4;
+}
+
+message MaestroReleaseState {
+    Status status = 1;
+    google.protobuf.Timestamp last_update_timestamp = 2;
+}
+
+message MaestroRelease {
+    prodvana.object.ObjectMeta meta = 1;
+    MaestroReleaseConfig config = 2;
+    MaestroReleaseState state = 3;
 }

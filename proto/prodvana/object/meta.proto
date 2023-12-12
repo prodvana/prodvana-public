@@ -11,6 +11,7 @@ enum ObjectType {
     RELEASE_CHANNEL = 4;
     PROTECTION = 5;
     DEPLOYMENT = 6;
+    RELEASE = 7;
 }
 
 message ObjectMeta {
