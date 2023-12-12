@@ -5,10 +5,15 @@ import "validate/validate.proto";
 
 enum Status {
     UNKNOWN_STATUS = 0;
+    // Pending means this train entry has never been started and is waiting for dependencies to be met.
     PENDING = 1;
+    // Dependencies have been met and this train entry has been promoted.
     IN_PROGRESS = 2;
+    // Successfully converged.
     SUCCEEDED = 3;
+    // Promoted but failed to converge.
     FAILED = 4;
+    // This train entry was skipped - any dependencies on this entry can proceed.
     SKIPPED = 5;
 }
 

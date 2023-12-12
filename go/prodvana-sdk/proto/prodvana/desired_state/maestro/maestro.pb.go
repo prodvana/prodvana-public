@@ -25,11 +25,16 @@ type Status int32
 
 const (
 	Status_UNKNOWN_STATUS Status = 0
-	Status_PENDING        Status = 1
-	Status_IN_PROGRESS    Status = 2
-	Status_SUCCEEDED      Status = 3
-	Status_FAILED         Status = 4
-	Status_SKIPPED        Status = 5
+	// Pending means this train entry has never been started and is waiting for dependencies to be met.
+	Status_PENDING Status = 1
+	// Dependencies have been met and this train entry has been promoted.
+	Status_IN_PROGRESS Status = 2
+	// Successfully converged.
+	Status_SUCCEEDED Status = 3
+	// Promoted but failed to converge.
+	Status_FAILED Status = 4
+	// This train entry was skipped - any dependencies on this entry can proceed.
+	Status_SKIPPED Status = 5
 )
 
 // Enum value maps for Status.

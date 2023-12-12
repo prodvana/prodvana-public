@@ -24,19 +24,29 @@ class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     UNKNOWN_STATUS: _Status.ValueType  # 0
     PENDING: _Status.ValueType  # 1
+    """Pending means this train entry has never been started and is waiting for dependencies to be met."""
     IN_PROGRESS: _Status.ValueType  # 2
+    """Dependencies have been met and this train entry has been promoted."""
     SUCCEEDED: _Status.ValueType  # 3
+    """Successfully converged."""
     FAILED: _Status.ValueType  # 4
+    """Promoted but failed to converge."""
     SKIPPED: _Status.ValueType  # 5
+    """This train entry was skipped - any dependencies on this entry can proceed."""
 
 class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
 
 UNKNOWN_STATUS: Status.ValueType  # 0
 PENDING: Status.ValueType  # 1
+"""Pending means this train entry has never been started and is waiting for dependencies to be met."""
 IN_PROGRESS: Status.ValueType  # 2
+"""Dependencies have been met and this train entry has been promoted."""
 SUCCEEDED: Status.ValueType  # 3
+"""Successfully converged."""
 FAILED: Status.ValueType  # 4
+"""Promoted but failed to converge."""
 SKIPPED: Status.ValueType  # 5
+"""This train entry was skipped - any dependencies on this entry can proceed."""
 global___Status = Status
 
 class _Strategy:
