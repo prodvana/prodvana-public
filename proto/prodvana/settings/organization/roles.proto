@@ -1,0 +1,12 @@
+syntax = "proto3";
+package prodvana.settings.organization;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/settings/organization";
+import "google/protobuf/timestamp.proto";
+
+enum Role {
+    UNSPECIFIED = 0;
+    ORG_ADMIN = 1;
+    CLOUD_ADMIN = 2;
+    SERVICE_OWNER = 3;
+    VIEWER = 4;
+}
