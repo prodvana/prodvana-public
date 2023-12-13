@@ -81,6 +81,10 @@ class AuthSessionManagerStub:
         prodvana.proto.prodvana.auth.auth_manager_pb2.Empty,
     ]
     """check if user is authenticated and token is still valid"""
+    Logout: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.auth.auth_manager_pb2.LogoutReq,
+        prodvana.proto.prodvana.auth.auth_manager_pb2.LogoutResp,
+    ]
 
 class AuthSessionManagerServicer(metaclass=abc.ABCMeta):
     """unlike AuthManager, AuthSessionManager is about the current authenticated session, i.e. it requires
@@ -94,6 +98,12 @@ class AuthSessionManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.auth.auth_manager_pb2.Empty:
         """check if user is authenticated and token is still valid"""
+    @abc.abstractmethod
+    def Logout(
+        self,
+        request: prodvana.proto.prodvana.auth.auth_manager_pb2.LogoutReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.auth.auth_manager_pb2.LogoutResp: ...
 
 def add_AuthSessionManagerServicer_to_server(servicer: AuthSessionManagerServicer, server: grpc.Server) -> None: ...
 

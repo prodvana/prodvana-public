@@ -1031,6 +1031,212 @@ var _ interface {
 	ErrorName() string
 } = EmptyValidationError{}
 
+// Validate checks the field values on LogoutReq with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *LogoutReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LogoutReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in LogoutReqMultiError, or nil
+// if none found.
+func (m *LogoutReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LogoutReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ForCli
+
+	// no validation rules for RedirectUrl
+
+	// no validation rules for ProdvanaOnlyAdminOrg
+
+	if len(errors) > 0 {
+		return LogoutReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// LogoutReqMultiError is an error wrapping multiple validation errors returned
+// by LogoutReq.ValidateAll() if the designated constraints aren't met.
+type LogoutReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LogoutReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LogoutReqMultiError) AllErrors() []error { return m }
+
+// LogoutReqValidationError is the validation error returned by
+// LogoutReq.Validate if the designated constraints aren't met.
+type LogoutReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LogoutReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LogoutReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LogoutReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LogoutReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LogoutReqValidationError) ErrorName() string { return "LogoutReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LogoutReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLogoutReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LogoutReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LogoutReqValidationError{}
+
+// Validate checks the field values on LogoutResp with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *LogoutResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LogoutResp with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in LogoutRespMultiError, or
+// nil if none found.
+func (m *LogoutResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LogoutResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for LogoutUrl
+
+	if len(errors) > 0 {
+		return LogoutRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// LogoutRespMultiError is an error wrapping multiple validation errors
+// returned by LogoutResp.ValidateAll() if the designated constraints aren't met.
+type LogoutRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LogoutRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LogoutRespMultiError) AllErrors() []error { return m }
+
+// LogoutRespValidationError is the validation error returned by
+// LogoutResp.Validate if the designated constraints aren't met.
+type LogoutRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LogoutRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LogoutRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LogoutRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LogoutRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LogoutRespValidationError) ErrorName() string { return "LogoutRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LogoutRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLogoutResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LogoutRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LogoutRespValidationError{}
+
 // Validate checks the field values on CreateOrgApiTokenReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

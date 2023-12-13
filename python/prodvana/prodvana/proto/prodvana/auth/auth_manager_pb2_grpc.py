@@ -187,6 +187,11 @@ class AuthSessionManagerStub(object):
                 request_serializer=prodvana_dot_auth_dot_auth__manager__pb2.Empty.SerializeToString,
                 response_deserializer=prodvana_dot_auth_dot_auth__manager__pb2.Empty.FromString,
                 )
+        self.Logout = channel.unary_unary(
+                '/prodvana.auth.AuthSessionManager/Logout',
+                request_serializer=prodvana_dot_auth_dot_auth__manager__pb2.LogoutReq.SerializeToString,
+                response_deserializer=prodvana_dot_auth_dot_auth__manager__pb2.LogoutResp.FromString,
+                )
 
 
 class AuthSessionManagerServicer(object):
@@ -201,6 +206,12 @@ class AuthSessionManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Logout(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AuthSessionManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -208,6 +219,11 @@ def add_AuthSessionManagerServicer_to_server(servicer, server):
                     servicer.Check,
                     request_deserializer=prodvana_dot_auth_dot_auth__manager__pb2.Empty.FromString,
                     response_serializer=prodvana_dot_auth_dot_auth__manager__pb2.Empty.SerializeToString,
+            ),
+            'Logout': grpc.unary_unary_rpc_method_handler(
+                    servicer.Logout,
+                    request_deserializer=prodvana_dot_auth_dot_auth__manager__pb2.LogoutReq.FromString,
+                    response_serializer=prodvana_dot_auth_dot_auth__manager__pb2.LogoutResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -235,6 +251,23 @@ class AuthSessionManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.auth.AuthSessionManager/Check',
             prodvana_dot_auth_dot_auth__manager__pb2.Empty.SerializeToString,
             prodvana_dot_auth_dot_auth__manager__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Logout(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.auth.AuthSessionManager/Logout',
+            prodvana_dot_auth_dot_auth__manager__pb2.LogoutReq.SerializeToString,
+            prodvana_dot_auth_dot_auth__manager__pb2.LogoutResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -182,6 +182,42 @@ class Empty(google.protobuf.message.Message):
 
 global___Empty = Empty
 
+class LogoutReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FOR_CLI_FIELD_NUMBER: builtins.int
+    REDIRECT_URL_FIELD_NUMBER: builtins.int
+    PRODVANA_ONLY_ADMIN_ORG_FIELD_NUMBER: builtins.int
+    for_cli: builtins.bool
+    redirect_url: builtins.str
+    """optional redirect url after logout"""
+    prodvana_only_admin_org: builtins.bool
+    """prodvana internal use"""
+    def __init__(
+        self,
+        *,
+        for_cli: builtins.bool = ...,
+        redirect_url: builtins.str = ...,
+        prodvana_only_admin_org: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["for_cli", b"for_cli", "prodvana_only_admin_org", b"prodvana_only_admin_org", "redirect_url", b"redirect_url"]) -> None: ...
+
+global___LogoutReq = LogoutReq
+
+class LogoutResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOGOUT_URL_FIELD_NUMBER: builtins.int
+    logout_url: builtins.str
+    def __init__(
+        self,
+        *,
+        logout_url: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["logout_url", b"logout_url"]) -> None: ...
+
+global___LogoutResp = LogoutResp
+
 class CreateOrgApiTokenReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

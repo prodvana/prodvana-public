@@ -1713,6 +1713,50 @@
         ]
       }
     },
+    "/v1/auth/session/logout": {
+      "post": {
+        "operationId": "AuthSessionManager_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authLogoutResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "forCli",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "redirectUrl",
+            "description": "optional redirect url after logout",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "prodvanaOnlyAdminOrg",
+            "description": "prodvana internal use",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "prodvana.auth.AuthSessionManager"
+        ]
+      }
+    },
     "/v1/blobs/cas/{id}": {
       "get": {
         "operationId": "BlobsManager_GetCasBlob",
@@ -7704,6 +7748,14 @@
             "type": "object",
             "$ref": "#/definitions/authApiTokenInfo"
           }
+        }
+      }
+    },
+    "authLogoutResp": {
+      "type": "object",
+      "properties": {
+        "logoutUrl": {
+          "type": "string"
         }
       }
     },

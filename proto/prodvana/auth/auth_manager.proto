@@ -83,6 +83,15 @@ service AuthManager {
 
 message Empty {}
 
+message LogoutReq {
+    bool for_cli = 1;
+    string redirect_url = 2; // optional redirect url after logout
+    bool prodvana_only_admin_org = 3; // prodvana internal use
+}
+message LogoutResp {
+    string logout_url = 1;
+}
+
 // unlike AuthManager, AuthSessionManager is about the current authenticated session, i.e. it requires
 // user to be authed already
 service AuthSessionManager {
@@ -92,7 +101,13 @@ service AuthSessionManager {
             get: "/v1/auth/session/check"
         };
     };
+    rpc Logout(LogoutReq) returns (LogoutResp) {
+        option (google.api.http) = {
+            post: "/v1/auth/session/logout"
+        };
+    };
 }
+
 message CreateOrgApiTokenReq {
     string name = 1;
     string description = 2;

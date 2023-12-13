@@ -260,7 +260,8 @@ var AuthManager_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	AuthSessionManager_Check_FullMethodName = "/prodvana.auth.AuthSessionManager/Check"
+	AuthSessionManager_Check_FullMethodName  = "/prodvana.auth.AuthSessionManager/Check"
+	AuthSessionManager_Logout_FullMethodName = "/prodvana.auth.AuthSessionManager/Logout"
 )
 
 // AuthSessionManagerClient is the client API for AuthSessionManager service.
@@ -269,6 +270,7 @@ const (
 type AuthSessionManagerClient interface {
 	// check if user is authenticated and token is still valid
 	Check(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
+	Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error)
 }
 
 type authSessionManagerClient struct {
@@ -288,12 +290,22 @@ func (c *authSessionManagerClient) Check(ctx context.Context, in *Empty, opts ..
 	return out, nil
 }
 
+func (c *authSessionManagerClient) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error) {
+	out := new(LogoutResp)
+	err := c.cc.Invoke(ctx, AuthSessionManager_Logout_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthSessionManagerServer is the server API for AuthSessionManager service.
 // All implementations must embed UnimplementedAuthSessionManagerServer
 // for forward compatibility
 type AuthSessionManagerServer interface {
 	// check if user is authenticated and token is still valid
 	Check(context.Context, *Empty) (*Empty, error)
+	Logout(context.Context, *LogoutReq) (*LogoutResp, error)
 	mustEmbedUnimplementedAuthSessionManagerServer()
 }
 
@@ -303,6 +315,9 @@ type UnimplementedAuthSessionManagerServer struct {
 
 func (UnimplementedAuthSessionManagerServer) Check(context.Context, *Empty) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Check not implemented")
+}
+func (UnimplementedAuthSessionManagerServer) Logout(context.Context, *LogoutReq) (*LogoutResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
 func (UnimplementedAuthSessionManagerServer) mustEmbedUnimplementedAuthSessionManagerServer() {}
 
@@ -335,6 +350,24 @@ func _AuthSessionManager_Check_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthSessionManager_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthSessionManagerServer).Logout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthSessionManager_Logout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthSessionManagerServer).Logout(ctx, req.(*LogoutReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthSessionManager_ServiceDesc is the grpc.ServiceDesc for AuthSessionManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -345,6 +378,10 @@ var AuthSessionManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Check",
 			Handler:    _AuthSessionManager_Check_Handler,
+		},
+		{
+			MethodName: "Logout",
+			Handler:    _AuthSessionManager_Logout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
