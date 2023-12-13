@@ -9463,7 +9463,8 @@
         "FAILED",
         "SKIPPED"
       ],
-      "default": "UNKNOWN_STATUS"
+      "default": "UNKNOWN_STATUS",
+      "description": " - PENDING: Pending means this train entry has never been started and is waiting for dependencies to be met.\n - IN_PROGRESS: Dependencies have been met and this train entry has been promoted.\n - SUCCEEDED: Successfully converged.\n - FAILED: Promoted but failed to converge.\n - SKIPPED: This train entry was skipped - any dependencies on this entry can proceed."
     },
     "desired_statemodelDeliveryExtension": {
       "type": "object",
@@ -11485,6 +11486,13 @@
         "lastUpdateTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "releaseChannelStatuses": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/desired_statemaestroStatus"
+          },
+          "title": "status by release channel id"
         }
       }
     },

@@ -3,7 +3,9 @@
 isort:skip_file
 """
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
@@ -114,19 +116,39 @@ global___MaestroReleaseConfig = MaestroReleaseConfig
 class MaestroReleaseState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class ReleaseChannelStatusesEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: global___Status.ValueType
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: global___Status.ValueType = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     STATUS_FIELD_NUMBER: builtins.int
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_STATUSES_FIELD_NUMBER: builtins.int
     status: global___Status.ValueType
     @property
     def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def release_channel_statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, global___Status.ValueType]:
+        """status by release channel id"""
     def __init__(
         self,
         *,
         status: global___Status.ValueType = ...,
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        release_channel_statuses: collections.abc.Mapping[builtins.str, global___Status.ValueType] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "status", b"status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "release_channel_statuses", b"release_channel_statuses", "status", b"status"]) -> None: ...
 
 global___MaestroReleaseState = MaestroReleaseState
 
