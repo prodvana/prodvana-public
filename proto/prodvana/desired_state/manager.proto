@@ -278,11 +278,17 @@ message BypassProtectionResp {
 message ListMaestroReleasesReq {
     prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
 
-    // optional, if not set, return releases starting from the first unfinished release.
+    bool descending = 5;
+
+    // optional, if not set:
+    // - with descending=false, return releases starting from the oldest unfinished release.
+    // - with descending=true, return releases starting from the newest release.
     string starting_release_id = 2; // inclusive
 
     string page_token = 3;
     int32 page_size = 4;
+
+    // next tag: 6
 }
 
 message ListMaestroReleasesResp {

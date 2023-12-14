@@ -955,13 +955,17 @@ class ListMaestroReleasesReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ENTITY_ID_FIELD_NUMBER: builtins.int
+    DESCENDING_FIELD_NUMBER: builtins.int
     STARTING_RELEASE_ID_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     @property
     def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    descending: builtins.bool
     starting_release_id: builtins.str
-    """optional, if not set, return releases starting from the first unfinished release.
+    """optional, if not set:
+    - with descending=false, return releases starting from the oldest unfinished release.
+    - with descending=true, return releases starting from the newest release.
     inclusive
     """
     page_token: builtins.str
@@ -970,12 +974,13 @@ class ListMaestroReleasesReq(google.protobuf.message.Message):
         self,
         *,
         entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+        descending: builtins.bool = ...,
         starting_release_id: builtins.str = ...,
         page_token: builtins.str = ...,
         page_size: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id", "page_size", b"page_size", "page_token", b"page_token", "starting_release_id", b"starting_release_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["descending", b"descending", "entity_id", b"entity_id", "page_size", b"page_size", "page_token", b"page_token", "starting_release_id", b"starting_release_id"]) -> None: ...
 
 global___ListMaestroReleasesReq = ListMaestroReleasesReq
 

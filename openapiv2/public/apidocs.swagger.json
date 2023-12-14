@@ -2972,8 +2972,14 @@
             "type": "string"
           },
           {
+            "name": "descending",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
             "name": "startingReleaseId",
-            "description": "optional, if not set, return releases starting from the first unfinished release.\n\ninclusive",
+            "description": "optional, if not set:\n- with descending=false, return releases starting from the oldest unfinished release.\n- with descending=true, return releases starting from the newest release.\n\ninclusive",
             "in": "query",
             "required": false,
             "type": "string"

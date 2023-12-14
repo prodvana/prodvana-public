@@ -5287,6 +5287,8 @@ func (m *ListMaestroReleasesReq) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Descending
+
 	// no validation rules for StartingReleaseId
 
 	// no validation rules for PageToken
