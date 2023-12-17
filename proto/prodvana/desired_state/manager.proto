@@ -296,6 +296,37 @@ message ListMaestroReleasesResp {
     string next_page_token = 2;
 }
 
+message GetMaestroReleaseReq {
+    string release_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetMaestroReleaseResp {
+    prodvana.desired_state.maestro.MaestroRelease maestro_release = 1;
+}
+
+message ListCombinedReleasesReq {
+    prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
+
+    bool descending = 4;
+
+    string page_token = 2;
+    int32 page_size = 3;
+
+    // next tag: 5
+}
+
+message ListCombinedReleasesResp {
+    message Release {
+        oneof release_oneof {
+            string desired_state_id = 1;
+            string release_id = 2;
+        }
+        google.protobuf.Timestamp creation_timestamp = 3;
+    }
+    repeated Release releases = 1;
+    string next_page_token = 2;
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -384,6 +415,17 @@ service DesiredStateManager {
     rpc ListMaestroReleases(ListMaestroReleasesReq) returns (ListMaestroReleasesResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/maestro_releases"
+        };
+    }
+    rpc GetMaestroRelease(GetMaestroReleaseReq) returns (GetMaestroReleaseResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/maestro_releases/{release_id=*}"
+        };
+    }
+    // Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
+    rpc ListCombinedReleases(ListCombinedReleasesReq) returns (ListCombinedReleasesResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/combined_releases"
         };
     }
 }

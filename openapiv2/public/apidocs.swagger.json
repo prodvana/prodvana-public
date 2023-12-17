@@ -2895,6 +2895,76 @@
         ]
       }
     },
+    "/v1/desired_states/combined_releases": {
+      "get": {
+        "summary": "Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState",
+        "operationId": "DesiredStateManager_ListCombinedReleases",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateListCombinedReleasesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "entityId.type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "SERVICE",
+              "SERVICE_INSTANCE",
+              "SERVICE_GROUP",
+              "RUNTIME_OBJECT",
+              "MANUAL_APPROVAL",
+              "CUSTOM_TASK",
+              "PROTECTION_ATTACHMENT",
+              "PROTECTION_LINK",
+              "DELIVERY_EXTENSION"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "entityId.name",
+            "description": "globally unique identifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/graph": {
       "post": {
         "operationId": "DesiredStateManager_GetDesiredStateGraph",
@@ -2996,6 +3066,37 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
+    "/v1/desired_states/maestro_releases/{releaseId}": {
+      "get": {
+        "operationId": "DesiredStateManager_GetMaestroRelease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetMaestroReleaseResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
           }
         ],
         "tags": [
@@ -7003,6 +7104,21 @@
         }
       }
     },
+    "ListCombinedReleasesRespRelease": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "ListContainerRegistryIntegrationsRespContainerRegistryIntegrationInfo": {
       "type": "object",
       "properties": {
@@ -9260,6 +9376,14 @@
         }
       }
     },
+    "desired_stateGetMaestroReleaseResp": {
+      "type": "object",
+      "properties": {
+        "maestroRelease": {
+          "$ref": "#/definitions/maestroMaestroRelease"
+        }
+      }
+    },
     "desired_stateGetServiceDesiredStateConvergenceSummaryResp": {
       "type": "object",
       "properties": {
@@ -9317,6 +9441,21 @@
         },
         "pendingSetDesiredState": {
           "$ref": "#/definitions/desired_statePendingSetDesiredState"
+        }
+      }
+    },
+    "desired_stateListCombinedReleasesResp": {
+      "type": "object",
+      "properties": {
+        "releases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ListCombinedReleasesRespRelease"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
         }
       }
     },

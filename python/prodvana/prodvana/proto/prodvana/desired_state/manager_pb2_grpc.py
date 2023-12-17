@@ -89,6 +89,16 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesResp.FromString,
                 )
+        self.GetMaestroRelease = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetMaestroRelease',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseResp.FromString,
+                )
+        self.ListCombinedReleases = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/ListCombinedReleases',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
+                )
 
 
 class DesiredStateManagerServicer(object):
@@ -191,6 +201,19 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetMaestroRelease(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListCombinedReleases(self, request, context):
+        """Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DesiredStateManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -268,6 +291,16 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.ListMaestroReleases,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesResp.SerializeToString,
+            ),
+            'GetMaestroRelease': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetMaestroRelease,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseResp.SerializeToString,
+            ),
+            'ListCombinedReleases': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCombinedReleases,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -531,5 +564,39 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/ListMaestroReleases',
             prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetMaestroRelease(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetMaestroRelease',
+            prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetMaestroReleaseResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListCombinedReleases(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/ListCombinedReleases',
+            prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

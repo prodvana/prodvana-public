@@ -77,6 +77,15 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesResp,
     ]
+    GetMaestroRelease: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetMaestroReleaseReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetMaestroReleaseResp,
+    ]
+    ListCombinedReleases: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp,
+    ]
+    """Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState"""
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -178,5 +187,18 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesResp: ...
+    @abc.abstractmethod
+    def GetMaestroRelease(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetMaestroReleaseReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetMaestroReleaseResp: ...
+    @abc.abstractmethod
+    def ListCombinedReleases(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp:
+        """Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState"""
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

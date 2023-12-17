@@ -1001,3 +1001,97 @@ class ListMaestroReleasesResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["maestro_releases", b"maestro_releases", "next_page_token", b"next_page_token"]) -> None: ...
 
 global___ListMaestroReleasesResp = ListMaestroReleasesResp
+
+class GetMaestroReleaseReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELEASE_ID_FIELD_NUMBER: builtins.int
+    release_id: builtins.str
+    def __init__(
+        self,
+        *,
+        release_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["release_id", b"release_id"]) -> None: ...
+
+global___GetMaestroReleaseReq = GetMaestroReleaseReq
+
+class GetMaestroReleaseResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MAESTRO_RELEASE_FIELD_NUMBER: builtins.int
+    @property
+    def maestro_release(self) -> prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroRelease: ...
+    def __init__(
+        self,
+        *,
+        maestro_release: prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroRelease | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["maestro_release", b"maestro_release"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["maestro_release", b"maestro_release"]) -> None: ...
+
+global___GetMaestroReleaseResp = GetMaestroReleaseResp
+
+class ListCombinedReleasesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    DESCENDING_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    descending: builtins.bool
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+        descending: builtins.bool = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["descending", b"descending", "entity_id", b"entity_id", "page_size", b"page_size", "page_token", b"page_token"]) -> None: ...
+
+global___ListCombinedReleasesReq = ListCombinedReleasesReq
+
+class ListCombinedReleasesResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class Release(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+        RELEASE_ID_FIELD_NUMBER: builtins.int
+        CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+        desired_state_id: builtins.str
+        release_id: builtins.str
+        @property
+        def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+        def __init__(
+            self,
+            *,
+            desired_state_id: builtins.str = ...,
+            release_id: builtins.str = ...,
+            creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state_id", b"desired_state_id", "release_id", b"release_id", "release_oneof", b"release_oneof"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state_id", b"desired_state_id", "release_id", b"release_id", "release_oneof", b"release_oneof"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing_extensions.Literal["release_oneof", b"release_oneof"]) -> typing_extensions.Literal["desired_state_id", "release_id"] | None: ...
+
+    RELEASES_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def releases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ListCombinedReleasesResp.Release]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        releases: collections.abc.Iterable[global___ListCombinedReleasesResp.Release] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "releases", b"releases"]) -> None: ...
+
+global___ListCombinedReleasesResp = ListCombinedReleasesResp

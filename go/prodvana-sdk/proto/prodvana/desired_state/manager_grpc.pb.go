@@ -34,6 +34,8 @@ const (
 	DesiredStateManager_PromoteDelivery_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/PromoteDelivery"
 	DesiredStateManager_BypassProtection_FullMethodName                         = "/prodvana.desired_state.DesiredStateManager/BypassProtection"
 	DesiredStateManager_ListMaestroReleases_FullMethodName                      = "/prodvana.desired_state.DesiredStateManager/ListMaestroReleases"
+	DesiredStateManager_GetMaestroRelease_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/GetMaestroRelease"
+	DesiredStateManager_ListCombinedReleases_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/ListCombinedReleases"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -62,6 +64,9 @@ type DesiredStateManagerClient interface {
 	PromoteDelivery(ctx context.Context, in *PromoteDeliveryReq, opts ...grpc.CallOption) (*PromoteDeliveryResp, error)
 	BypassProtection(ctx context.Context, in *BypassProtectionReq, opts ...grpc.CallOption) (*BypassProtectionResp, error)
 	ListMaestroReleases(ctx context.Context, in *ListMaestroReleasesReq, opts ...grpc.CallOption) (*ListMaestroReleasesResp, error)
+	GetMaestroRelease(ctx context.Context, in *GetMaestroReleaseReq, opts ...grpc.CallOption) (*GetMaestroReleaseResp, error)
+	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
+	ListCombinedReleases(ctx context.Context, in *ListCombinedReleasesReq, opts ...grpc.CallOption) (*ListCombinedReleasesResp, error)
 }
 
 type desiredStateManagerClient struct {
@@ -207,6 +212,24 @@ func (c *desiredStateManagerClient) ListMaestroReleases(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) GetMaestroRelease(ctx context.Context, in *GetMaestroReleaseReq, opts ...grpc.CallOption) (*GetMaestroReleaseResp, error) {
+	out := new(GetMaestroReleaseResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetMaestroRelease_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *desiredStateManagerClient) ListCombinedReleases(ctx context.Context, in *ListCombinedReleasesReq, opts ...grpc.CallOption) (*ListCombinedReleasesResp, error) {
+	out := new(ListCombinedReleasesResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_ListCombinedReleases_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -233,6 +256,9 @@ type DesiredStateManagerServer interface {
 	PromoteDelivery(context.Context, *PromoteDeliveryReq) (*PromoteDeliveryResp, error)
 	BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error)
 	ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error)
+	GetMaestroRelease(context.Context, *GetMaestroReleaseReq) (*GetMaestroReleaseResp, error)
+	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
+	ListCombinedReleases(context.Context, *ListCombinedReleasesReq) (*ListCombinedReleasesResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -284,6 +310,12 @@ func (UnimplementedDesiredStateManagerServer) BypassProtection(context.Context, 
 }
 func (UnimplementedDesiredStateManagerServer) ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMaestroReleases not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetMaestroRelease(context.Context, *GetMaestroReleaseReq) (*GetMaestroReleaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMaestroRelease not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) ListCombinedReleases(context.Context, *ListCombinedReleasesReq) (*ListCombinedReleasesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCombinedReleases not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -568,6 +600,42 @@ func _DesiredStateManager_ListMaestroReleases_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_GetMaestroRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMaestroReleaseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetMaestroRelease(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetMaestroRelease_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetMaestroRelease(ctx, req.(*GetMaestroReleaseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DesiredStateManager_ListCombinedReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCombinedReleasesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).ListCombinedReleases(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_ListCombinedReleases_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).ListCombinedReleases(ctx, req.(*ListCombinedReleasesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -634,6 +702,14 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMaestroReleases",
 			Handler:    _DesiredStateManager_ListMaestroReleases_Handler,
+		},
+		{
+			MethodName: "GetMaestroRelease",
+			Handler:    _DesiredStateManager_GetMaestroRelease_Handler,
+		},
+		{
+			MethodName: "ListCombinedReleases",
+			Handler:    _DesiredStateManager_ListCombinedReleases_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -5513,6 +5513,536 @@ var _ interface {
 	ErrorName() string
 } = ListMaestroReleasesRespValidationError{}
 
+// Validate checks the field values on GetMaestroReleaseReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetMaestroReleaseReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetMaestroReleaseReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetMaestroReleaseReqMultiError, or nil if none found.
+func (m *GetMaestroReleaseReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetMaestroReleaseReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetReleaseId()) < 1 {
+		err := GetMaestroReleaseReqValidationError{
+			field:  "ReleaseId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetMaestroReleaseReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetMaestroReleaseReqMultiError is an error wrapping multiple validation
+// errors returned by GetMaestroReleaseReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetMaestroReleaseReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetMaestroReleaseReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetMaestroReleaseReqMultiError) AllErrors() []error { return m }
+
+// GetMaestroReleaseReqValidationError is the validation error returned by
+// GetMaestroReleaseReq.Validate if the designated constraints aren't met.
+type GetMaestroReleaseReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetMaestroReleaseReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetMaestroReleaseReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetMaestroReleaseReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetMaestroReleaseReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetMaestroReleaseReqValidationError) ErrorName() string {
+	return "GetMaestroReleaseReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetMaestroReleaseReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetMaestroReleaseReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetMaestroReleaseReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetMaestroReleaseReqValidationError{}
+
+// Validate checks the field values on GetMaestroReleaseResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetMaestroReleaseResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetMaestroReleaseResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetMaestroReleaseRespMultiError, or nil if none found.
+func (m *GetMaestroReleaseResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetMaestroReleaseResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetMaestroRelease()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetMaestroReleaseRespValidationError{
+					field:  "MaestroRelease",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetMaestroReleaseRespValidationError{
+					field:  "MaestroRelease",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMaestroRelease()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetMaestroReleaseRespValidationError{
+				field:  "MaestroRelease",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetMaestroReleaseRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetMaestroReleaseRespMultiError is an error wrapping multiple validation
+// errors returned by GetMaestroReleaseResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetMaestroReleaseRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetMaestroReleaseRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetMaestroReleaseRespMultiError) AllErrors() []error { return m }
+
+// GetMaestroReleaseRespValidationError is the validation error returned by
+// GetMaestroReleaseResp.Validate if the designated constraints aren't met.
+type GetMaestroReleaseRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetMaestroReleaseRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetMaestroReleaseRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetMaestroReleaseRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetMaestroReleaseRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetMaestroReleaseRespValidationError) ErrorName() string {
+	return "GetMaestroReleaseRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetMaestroReleaseRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetMaestroReleaseResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetMaestroReleaseRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetMaestroReleaseRespValidationError{}
+
+// Validate checks the field values on ListCombinedReleasesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListCombinedReleasesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCombinedReleasesReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListCombinedReleasesReqMultiError, or nil if none found.
+func (m *ListCombinedReleasesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCombinedReleasesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetEntityId() == nil {
+		err := ListCombinedReleasesReqValidationError{
+			field:  "EntityId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListCombinedReleasesReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListCombinedReleasesReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListCombinedReleasesReqValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Descending
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return ListCombinedReleasesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCombinedReleasesReqMultiError is an error wrapping multiple validation
+// errors returned by ListCombinedReleasesReq.ValidateAll() if the designated
+// constraints aren't met.
+type ListCombinedReleasesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCombinedReleasesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCombinedReleasesReqMultiError) AllErrors() []error { return m }
+
+// ListCombinedReleasesReqValidationError is the validation error returned by
+// ListCombinedReleasesReq.Validate if the designated constraints aren't met.
+type ListCombinedReleasesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCombinedReleasesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCombinedReleasesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCombinedReleasesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCombinedReleasesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCombinedReleasesReqValidationError) ErrorName() string {
+	return "ListCombinedReleasesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCombinedReleasesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCombinedReleasesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCombinedReleasesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCombinedReleasesReqValidationError{}
+
+// Validate checks the field values on ListCombinedReleasesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListCombinedReleasesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCombinedReleasesResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListCombinedReleasesRespMultiError, or nil if none found.
+func (m *ListCombinedReleasesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCombinedReleasesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetReleases() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListCombinedReleasesRespValidationError{
+						field:  fmt.Sprintf("Releases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListCombinedReleasesRespValidationError{
+						field:  fmt.Sprintf("Releases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListCombinedReleasesRespValidationError{
+					field:  fmt.Sprintf("Releases[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return ListCombinedReleasesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCombinedReleasesRespMultiError is an error wrapping multiple validation
+// errors returned by ListCombinedReleasesResp.ValidateAll() if the designated
+// constraints aren't met.
+type ListCombinedReleasesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCombinedReleasesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCombinedReleasesRespMultiError) AllErrors() []error { return m }
+
+// ListCombinedReleasesRespValidationError is the validation error returned by
+// ListCombinedReleasesResp.Validate if the designated constraints aren't met.
+type ListCombinedReleasesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCombinedReleasesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCombinedReleasesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCombinedReleasesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCombinedReleasesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCombinedReleasesRespValidationError) ErrorName() string {
+	return "ListCombinedReleasesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCombinedReleasesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCombinedReleasesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCombinedReleasesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCombinedReleasesRespValidationError{}
+
 // Validate checks the field values on GetDesiredStateGraphReq_QueryByService
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
@@ -5753,3 +6283,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetDesiredStateGraphReq_DepthOverrideByStatusValidationError{}
+
+// Validate checks the field values on ListCombinedReleasesResp_Release with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListCombinedReleasesResp_Release) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCombinedReleasesResp_Release with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListCombinedReleasesResp_ReleaseMultiError, or nil if none found.
+func (m *ListCombinedReleasesResp_Release) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCombinedReleasesResp_Release) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListCombinedReleasesResp_ReleaseValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListCombinedReleasesResp_ReleaseValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListCombinedReleasesResp_ReleaseValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	switch v := m.ReleaseOneof.(type) {
+	case *ListCombinedReleasesResp_Release_DesiredStateId:
+		if v == nil {
+			err := ListCombinedReleasesResp_ReleaseValidationError{
+				field:  "ReleaseOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for DesiredStateId
+	case *ListCombinedReleasesResp_Release_ReleaseId:
+		if v == nil {
+			err := ListCombinedReleasesResp_ReleaseValidationError{
+				field:  "ReleaseOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for ReleaseId
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ListCombinedReleasesResp_ReleaseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCombinedReleasesResp_ReleaseMultiError is an error wrapping multiple
+// validation errors returned by
+// ListCombinedReleasesResp_Release.ValidateAll() if the designated
+// constraints aren't met.
+type ListCombinedReleasesResp_ReleaseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCombinedReleasesResp_ReleaseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCombinedReleasesResp_ReleaseMultiError) AllErrors() []error { return m }
+
+// ListCombinedReleasesResp_ReleaseValidationError is the validation error
+// returned by ListCombinedReleasesResp_Release.Validate if the designated
+// constraints aren't met.
+type ListCombinedReleasesResp_ReleaseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCombinedReleasesResp_ReleaseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCombinedReleasesResp_ReleaseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCombinedReleasesResp_ReleaseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCombinedReleasesResp_ReleaseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCombinedReleasesResp_ReleaseValidationError) ErrorName() string {
+	return "ListCombinedReleasesResp_ReleaseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCombinedReleasesResp_ReleaseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCombinedReleasesResp_Release.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCombinedReleasesResp_ReleaseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCombinedReleasesResp_ReleaseValidationError{}
