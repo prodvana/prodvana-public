@@ -315,6 +315,18 @@ message ListCombinedReleasesReq {
     // next tag: 5
 }
 
+message ListServiceCombinedReleasesReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+
+    bool descending = 3;
+
+    string page_token = 4;
+    int32 page_size = 5;
+
+    // next tag: 6
+}
+
 message ListCombinedReleasesResp {
     message Release {
         oneof release_oneof {
@@ -440,6 +452,12 @@ service DesiredStateManager {
     rpc ListCombinedReleases(ListCombinedReleasesReq) returns (ListCombinedReleasesResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/combined_releases"
+        };
+    }
+    // Like ListCombinedReleases, but accepts an application/service names/ids instead of entity ID
+    rpc ListServiceCombinedReleases(ListServiceCombinedReleasesReq) returns (ListCombinedReleasesResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/combined_releases"
         };
     }
     // get latest desired state that was set explicitly as part of a release, as defined by

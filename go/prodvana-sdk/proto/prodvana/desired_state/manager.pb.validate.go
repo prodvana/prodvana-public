@@ -5890,6 +5890,137 @@ var _ interface {
 	ErrorName() string
 } = ListCombinedReleasesReqValidationError{}
 
+// Validate checks the field values on ListServiceCombinedReleasesReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListServiceCombinedReleasesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListServiceCombinedReleasesReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListServiceCombinedReleasesReqMultiError, or nil if none found.
+func (m *ListServiceCombinedReleasesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListServiceCombinedReleasesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ListServiceCombinedReleasesReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ListServiceCombinedReleasesReqValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Descending
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return ListServiceCombinedReleasesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListServiceCombinedReleasesReqMultiError is an error wrapping multiple
+// validation errors returned by ListServiceCombinedReleasesReq.ValidateAll()
+// if the designated constraints aren't met.
+type ListServiceCombinedReleasesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListServiceCombinedReleasesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListServiceCombinedReleasesReqMultiError) AllErrors() []error { return m }
+
+// ListServiceCombinedReleasesReqValidationError is the validation error
+// returned by ListServiceCombinedReleasesReq.Validate if the designated
+// constraints aren't met.
+type ListServiceCombinedReleasesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListServiceCombinedReleasesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListServiceCombinedReleasesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListServiceCombinedReleasesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListServiceCombinedReleasesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListServiceCombinedReleasesReqValidationError) ErrorName() string {
+	return "ListServiceCombinedReleasesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListServiceCombinedReleasesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListServiceCombinedReleasesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListServiceCombinedReleasesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListServiceCombinedReleasesReqValidationError{}
+
 // Validate checks the field values on ListCombinedReleasesResp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

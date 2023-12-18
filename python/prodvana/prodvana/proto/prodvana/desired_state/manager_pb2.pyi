@@ -1058,6 +1058,32 @@ class ListCombinedReleasesReq(google.protobuf.message.Message):
 
 global___ListCombinedReleasesReq = ListCombinedReleasesReq
 
+class ListServiceCombinedReleasesReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    DESCENDING_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    descending: builtins.bool
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+        descending: builtins.bool = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "descending", b"descending", "page_size", b"page_size", "page_token", b"page_token", "service", b"service"]) -> None: ...
+
+global___ListServiceCombinedReleasesReq = ListServiceCombinedReleasesReq
+
 class ListCombinedReleasesResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

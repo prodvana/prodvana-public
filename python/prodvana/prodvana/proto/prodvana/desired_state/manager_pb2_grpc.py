@@ -99,6 +99,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
                 )
+        self.ListServiceCombinedReleases = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/ListServiceCombinedReleases',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListServiceCombinedReleasesReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
+                )
         self.GetLatestCombinedReleaseDesiredState = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.SerializeToString,
@@ -219,6 +224,12 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListServiceCombinedReleases(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetLatestCombinedReleaseDesiredState(self, request, context):
         """get latest desired state that was set explicitly as part of a release, as defined by
         ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
@@ -314,6 +325,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
             'ListCombinedReleases': grpc.unary_unary_rpc_method_handler(
                     servicer.ListCombinedReleases,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.SerializeToString,
+            ),
+            'ListServiceCombinedReleases': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListServiceCombinedReleases,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListServiceCombinedReleasesReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.SerializeToString,
             ),
             'GetLatestCombinedReleaseDesiredState': grpc.unary_unary_rpc_method_handler(
@@ -616,6 +632,23 @@ class DesiredStateManager(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/ListCombinedReleases',
             prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListServiceCombinedReleases(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/ListServiceCombinedReleases',
+            prodvana_dot_desired__state_dot_manager__pb2.ListServiceCombinedReleasesReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
