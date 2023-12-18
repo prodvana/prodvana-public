@@ -2637,6 +2637,61 @@ func (x *GetLatestCombinedReleaseDesiredStateReq) GetEntityId() *model.Identifie
 	return nil
 }
 
+type GetServiceLatestCombinedReleaseDesiredStateReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Application string `protobuf:"bytes,1,opt,name=application,proto3" json:"application,omitempty"`
+	Service     string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
+}
+
+func (x *GetServiceLatestCombinedReleaseDesiredStateReq) Reset() {
+	*x = GetServiceLatestCombinedReleaseDesiredStateReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_desired_state_manager_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetServiceLatestCombinedReleaseDesiredStateReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceLatestCombinedReleaseDesiredStateReq) ProtoMessage() {}
+
+func (x *GetServiceLatestCombinedReleaseDesiredStateReq) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_desired_state_manager_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceLatestCombinedReleaseDesiredStateReq.ProtoReflect.Descriptor instead.
+func (*GetServiceLatestCombinedReleaseDesiredStateReq) Descriptor() ([]byte, []int) {
+	return file_prodvana_desired_state_manager_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *GetServiceLatestCombinedReleaseDesiredStateReq) GetApplication() string {
+	if x != nil {
+		return x.Application
+	}
+	return ""
+}
+
+func (x *GetServiceLatestCombinedReleaseDesiredStateReq) GetService() string {
+	if x != nil {
+		return x.Service
+	}
+	return ""
+}
+
 type GetLatestCombinedReleaseDesiredStateResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2654,7 +2709,7 @@ type GetLatestCombinedReleaseDesiredStateResp struct {
 func (x *GetLatestCombinedReleaseDesiredStateResp) Reset() {
 	*x = GetLatestCombinedReleaseDesiredStateResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_manager_proto_msgTypes[40]
+		mi := &file_prodvana_desired_state_manager_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2667,7 +2722,7 @@ func (x *GetLatestCombinedReleaseDesiredStateResp) String() string {
 func (*GetLatestCombinedReleaseDesiredStateResp) ProtoMessage() {}
 
 func (x *GetLatestCombinedReleaseDesiredStateResp) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_manager_proto_msgTypes[40]
+	mi := &file_prodvana_desired_state_manager_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2680,7 +2735,7 @@ func (x *GetLatestCombinedReleaseDesiredStateResp) ProtoReflect() protoreflect.M
 
 // Deprecated: Use GetLatestCombinedReleaseDesiredStateResp.ProtoReflect.Descriptor instead.
 func (*GetLatestCombinedReleaseDesiredStateResp) Descriptor() ([]byte, []int) {
-	return file_prodvana_desired_state_manager_proto_rawDescGZIP(), []int{40}
+	return file_prodvana_desired_state_manager_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *GetLatestCombinedReleaseDesiredStateResp) GetInputDesiredState() *model.State {
@@ -2737,7 +2792,7 @@ type GetDesiredStateGraphReq_QueryByService struct {
 func (x *GetDesiredStateGraphReq_QueryByService) Reset() {
 	*x = GetDesiredStateGraphReq_QueryByService{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_manager_proto_msgTypes[49]
+		mi := &file_prodvana_desired_state_manager_proto_msgTypes[50]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2750,7 +2805,7 @@ func (x *GetDesiredStateGraphReq_QueryByService) String() string {
 func (*GetDesiredStateGraphReq_QueryByService) ProtoMessage() {}
 
 func (x *GetDesiredStateGraphReq_QueryByService) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_manager_proto_msgTypes[49]
+	mi := &file_prodvana_desired_state_manager_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2792,7 +2847,7 @@ type GetDesiredStateGraphReq_DepthOverrideByStatus struct {
 func (x *GetDesiredStateGraphReq_DepthOverrideByStatus) Reset() {
 	*x = GetDesiredStateGraphReq_DepthOverrideByStatus{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_manager_proto_msgTypes[50]
+		mi := &file_prodvana_desired_state_manager_proto_msgTypes[51]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2805,7 +2860,7 @@ func (x *GetDesiredStateGraphReq_DepthOverrideByStatus) String() string {
 func (*GetDesiredStateGraphReq_DepthOverrideByStatus) ProtoMessage() {}
 
 func (x *GetDesiredStateGraphReq_DepthOverrideByStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_manager_proto_msgTypes[50]
+	mi := &file_prodvana_desired_state_manager_proto_msgTypes[51]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2851,7 +2906,7 @@ type ListCombinedReleasesResp_Release struct {
 func (x *ListCombinedReleasesResp_Release) Reset() {
 	*x = ListCombinedReleasesResp_Release{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_manager_proto_msgTypes[51]
+		mi := &file_prodvana_desired_state_manager_proto_msgTypes[52]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2864,7 +2919,7 @@ func (x *ListCombinedReleasesResp_Release) String() string {
 func (*ListCombinedReleasesResp_Release) ProtoMessage() {}
 
 func (x *ListCombinedReleasesResp_Release) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_manager_proto_msgTypes[51]
+	mi := &file_prodvana_desired_state_manager_proto_msgTypes[52]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3601,7 +3656,15 @@ var file_prodvana_desired_state_manager_proto_rawDesc = []byte{
 	0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65,
 	0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65,
 	0x72, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x08, 0x65, 0x6e, 0x74,
-	0x69, 0x74, 0x79, 0x49, 0x64, 0x22, 0x96, 0x04, 0x0a, 0x28, 0x47, 0x65, 0x74, 0x4c, 0x61, 0x74,
+	0x69, 0x74, 0x79, 0x49, 0x64, 0x22, 0x7e, 0x0a, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x43, 0x6f, 0x6d, 0x62, 0x69, 0x6e, 0x65,
+	0x64, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53,
+	0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x29, 0x0a, 0x0b, 0x61, 0x70, 0x70, 0x6c, 0x69,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42,
+	0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0b, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x21, 0x0a, 0x07, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x07, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x22, 0x96, 0x04, 0x0a, 0x28, 0x47, 0x65, 0x74, 0x4c, 0x61, 0x74,
 	0x65, 0x73, 0x74, 0x43, 0x6f, 0x6d, 0x62, 0x69, 0x6e, 0x65, 0x64, 0x52, 0x65, 0x6c, 0x65, 0x61,
 	0x73, 0x65, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65,
 	0x73, 0x70, 0x12, 0x53, 0x0a, 0x13, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x69,
@@ -3634,8 +3697,8 @@ var file_prodvana_desired_state_manager_proto_rawDesc = []byte{
 	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x70,
 	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x2e,
 	0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x0e,
-	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x32, 0xdf,
-	0x1c, 0x0a, 0x13, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x4d,
+	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x32, 0xff,
+	0x1e, 0x0a, 0x13, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x4d,
 	0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x12, 0x89, 0x01, 0x0a, 0x0f, 0x53, 0x65, 0x74, 0x44, 0x65,
 	0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x2a, 0x2e, 0x70, 0x72, 0x6f,
 	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74,
@@ -3865,6 +3928,24 @@ var file_prodvana_desired_state_manager_proto_rawDesc = []byte{
 	0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6d, 0x62, 0x69, 0x6e,
 	0x65, 0x64, 0x5f, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x73, 0x2f, 0x6c, 0x61, 0x74, 0x65,
 	0x73, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x9d, 0x02, 0x0a, 0x2b, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x4c,
+	0x61, 0x74, 0x65, 0x73, 0x74, 0x43, 0x6f, 0x6d, 0x62, 0x69, 0x6e, 0x65, 0x64, 0x52, 0x65, 0x6c,
+	0x65, 0x61, 0x73, 0x65, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x46, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69,
+	0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x43, 0x6f, 0x6d, 0x62, 0x69, 0x6e,
+	0x65, 0x64, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64,
+	0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x40, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76,
+	0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74,
+	0x65, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x43, 0x6f, 0x6d, 0x62, 0x69,
+	0x6e, 0x65, 0x64, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x65, 0x73, 0x69, 0x72, 0x65,
+	0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x22, 0x64, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x5e, 0x12, 0x5c, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x73, 0x2f, 0x7b, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x3d, 0x2a, 0x7d, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x7b, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3d, 0x2a, 0x7d, 0x2f, 0x63, 0x6f, 0x6d, 0x62, 0x69, 0x6e,
+	0x65, 0x64, 0x5f, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x73, 0x2f, 0x6c, 0x61, 0x74, 0x65,
+	0x73, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65,
 	0x42, 0x52, 0x5a, 0x50, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x70,
 	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61,
 	0x2d, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x76,
@@ -3885,158 +3966,159 @@ func file_prodvana_desired_state_manager_proto_rawDescGZIP() []byte {
 	return file_prodvana_desired_state_manager_proto_rawDescData
 }
 
-var file_prodvana_desired_state_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
+var file_prodvana_desired_state_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 53)
 var file_prodvana_desired_state_manager_proto_goTypes = []interface{}{
-	(*SetDesiredStateReq)(nil),                           // 0: prodvana.desired_state.SetDesiredStateReq
-	(*ValidateDesiredStateReq)(nil),                      // 1: prodvana.desired_state.ValidateDesiredStateReq
-	(*SetDesiredStateResp)(nil),                          // 2: prodvana.desired_state.SetDesiredStateResp
-	(*PreviewEntityGraphResp)(nil),                       // 3: prodvana.desired_state.PreviewEntityGraphResp
-	(*GetServiceDesiredStateConvergenceSummaryReq)(nil),  // 4: prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryReq
-	(*StatusExplanations)(nil),                           // 5: prodvana.desired_state.StatusExplanations
-	(*DebugLogs)(nil),                                    // 6: prodvana.desired_state.DebugLogs
-	(*PendingSetDesiredState)(nil),                       // 7: prodvana.desired_state.PendingSetDesiredState
-	(*DesiredStateSummary)(nil),                          // 8: prodvana.desired_state.DesiredStateSummary
-	(*GetDesiredStateConvergenceReq)(nil),                // 9: prodvana.desired_state.GetDesiredStateConvergenceReq
-	(*GetDesiredStateConvergenceSummaryResp)(nil),        // 10: prodvana.desired_state.GetDesiredStateConvergenceSummaryResp
-	(*GetServiceDesiredStateConvergenceSummaryResp)(nil), // 11: prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryResp
-	(*GetServiceLastConvergedStateReq)(nil),              // 12: prodvana.desired_state.GetServiceLastConvergedStateReq
-	(*GetServiceLastConvergedStateResp)(nil),             // 13: prodvana.desired_state.GetServiceLastConvergedStateResp
-	(*GetServiceDesiredStateHistoryReq)(nil),             // 14: prodvana.desired_state.GetServiceDesiredStateHistoryReq
-	(*GetServiceDesiredStateHistoryResp)(nil),            // 15: prodvana.desired_state.GetServiceDesiredStateHistoryResp
-	(*GetDesiredStateReq)(nil),                           // 16: prodvana.desired_state.GetDesiredStateReq
-	(*GetDesiredStateResp)(nil),                          // 17: prodvana.desired_state.GetDesiredStateResp
-	(*GetDesiredStateGraphReq)(nil),                      // 18: prodvana.desired_state.GetDesiredStateGraphReq
-	(*DesiredStateTimestamps)(nil),                       // 19: prodvana.desired_state.DesiredStateTimestamps
-	(*GetDesiredStateGraphResp)(nil),                     // 20: prodvana.desired_state.GetDesiredStateGraphResp
-	(*GetServiceLatestDesiredStateIdReq)(nil),            // 21: prodvana.desired_state.GetServiceLatestDesiredStateIdReq
-	(*GetServiceLatestDesiredStateIdResp)(nil),           // 22: prodvana.desired_state.GetServiceLatestDesiredStateIdResp
-	(*GetServiceDesiredStateIdHistoryReq)(nil),           // 23: prodvana.desired_state.GetServiceDesiredStateIdHistoryReq
-	(*GetServiceDesiredStateIdHistoryResp)(nil),          // 24: prodvana.desired_state.GetServiceDesiredStateIdHistoryResp
-	(*ValidateDesiredStateResp)(nil),                     // 25: prodvana.desired_state.ValidateDesiredStateResp
-	(*SetManualApprovalReq)(nil),                         // 26: prodvana.desired_state.SetManualApprovalReq
-	(*SetManualApprovalResp)(nil),                        // 27: prodvana.desired_state.SetManualApprovalResp
-	(*PromoteDeliveryReq)(nil),                           // 28: prodvana.desired_state.PromoteDeliveryReq
-	(*PromoteDeliveryResp)(nil),                          // 29: prodvana.desired_state.PromoteDeliveryResp
-	(*BypassProtectionReq)(nil),                          // 30: prodvana.desired_state.BypassProtectionReq
-	(*BypassProtectionResp)(nil),                         // 31: prodvana.desired_state.BypassProtectionResp
-	(*ListMaestroReleasesReq)(nil),                       // 32: prodvana.desired_state.ListMaestroReleasesReq
-	(*ListMaestroReleasesResp)(nil),                      // 33: prodvana.desired_state.ListMaestroReleasesResp
-	(*GetMaestroReleaseReq)(nil),                         // 34: prodvana.desired_state.GetMaestroReleaseReq
-	(*GetMaestroReleaseResp)(nil),                        // 35: prodvana.desired_state.GetMaestroReleaseResp
-	(*ListCombinedReleasesReq)(nil),                      // 36: prodvana.desired_state.ListCombinedReleasesReq
-	(*ListServiceCombinedReleasesReq)(nil),               // 37: prodvana.desired_state.ListServiceCombinedReleasesReq
-	(*ListCombinedReleasesResp)(nil),                     // 38: prodvana.desired_state.ListCombinedReleasesResp
-	(*GetLatestCombinedReleaseDesiredStateReq)(nil),      // 39: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateReq
-	(*GetLatestCombinedReleaseDesiredStateResp)(nil),     // 40: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp
-	nil, // 41: prodvana.desired_state.DesiredStateSummary.StatusesEntry
-	nil, // 42: prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry
-	nil, // 43: prodvana.desired_state.DesiredStateSummary.StatusExplanationsEntry
-	nil, // 44: prodvana.desired_state.DesiredStateSummary.DebugLogsEntry
-	nil, // 45: prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry
-	nil, // 46: prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry
-	nil, // 47: prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry
-	nil, // 48: prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry
-	(*GetDesiredStateGraphReq_QueryByService)(nil),        // 49: prodvana.desired_state.GetDesiredStateGraphReq.QueryByService
-	(*GetDesiredStateGraphReq_DepthOverrideByStatus)(nil), // 50: prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus
-	(*ListCombinedReleasesResp_Release)(nil),              // 51: prodvana.desired_state.ListCombinedReleasesResp.Release
-	(*model.State)(nil),                                   // 52: prodvana.desired_state.model.State
-	(version.Source)(0),                                   // 53: prodvana.version.Source
-	(*version.SourceMetadata)(nil),                        // 54: prodvana.version.SourceMetadata
-	(*service.CompiledServiceInstanceConfig)(nil),         // 55: prodvana.service.CompiledServiceInstanceConfig
-	(*model.EntityGraph)(nil),                             // 56: prodvana.desired_state.model.EntityGraph
-	(*model.StatusExplanation)(nil),                       // 57: prodvana.desired_state.model.StatusExplanation
-	(*model.DebugLog)(nil),                                // 58: prodvana.desired_state.model.DebugLog
-	(async_task.TaskStatus)(0),                            // 59: prodvana.async_task.TaskStatus
-	(*async_task.TaskResult)(nil),                         // 60: prodvana.async_task.TaskResult
-	(*timestamppb.Timestamp)(nil),                         // 61: google.protobuf.Timestamp
-	(model.Status)(0),                                     // 62: prodvana.desired_state.model.Status
-	(*model.SetDesiredStateMetadata)(nil),                 // 63: prodvana.desired_state.model.SetDesiredStateMetadata
-	(*model.ServiceInstanceState)(nil),                    // 64: prodvana.desired_state.model.ServiceInstanceState
-	(model.Type)(0),                                       // 65: prodvana.desired_state.model.Type
-	(*model.Annotations)(nil),                             // 66: prodvana.desired_state.model.Annotations
-	(*model.Identifier)(nil),                              // 67: prodvana.desired_state.model.Identifier
-	(*maestro.MaestroRelease)(nil),                        // 68: prodvana.desired_state.maestro.MaestroRelease
-	(*model.ConditionState)(nil),                          // 69: prodvana.desired_state.model.ConditionState
-	(*model.ActionExplanation)(nil),                       // 70: prodvana.desired_state.model.ActionExplanation
+	(*SetDesiredStateReq)(nil),                             // 0: prodvana.desired_state.SetDesiredStateReq
+	(*ValidateDesiredStateReq)(nil),                        // 1: prodvana.desired_state.ValidateDesiredStateReq
+	(*SetDesiredStateResp)(nil),                            // 2: prodvana.desired_state.SetDesiredStateResp
+	(*PreviewEntityGraphResp)(nil),                         // 3: prodvana.desired_state.PreviewEntityGraphResp
+	(*GetServiceDesiredStateConvergenceSummaryReq)(nil),    // 4: prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryReq
+	(*StatusExplanations)(nil),                             // 5: prodvana.desired_state.StatusExplanations
+	(*DebugLogs)(nil),                                      // 6: prodvana.desired_state.DebugLogs
+	(*PendingSetDesiredState)(nil),                         // 7: prodvana.desired_state.PendingSetDesiredState
+	(*DesiredStateSummary)(nil),                            // 8: prodvana.desired_state.DesiredStateSummary
+	(*GetDesiredStateConvergenceReq)(nil),                  // 9: prodvana.desired_state.GetDesiredStateConvergenceReq
+	(*GetDesiredStateConvergenceSummaryResp)(nil),          // 10: prodvana.desired_state.GetDesiredStateConvergenceSummaryResp
+	(*GetServiceDesiredStateConvergenceSummaryResp)(nil),   // 11: prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryResp
+	(*GetServiceLastConvergedStateReq)(nil),                // 12: prodvana.desired_state.GetServiceLastConvergedStateReq
+	(*GetServiceLastConvergedStateResp)(nil),               // 13: prodvana.desired_state.GetServiceLastConvergedStateResp
+	(*GetServiceDesiredStateHistoryReq)(nil),               // 14: prodvana.desired_state.GetServiceDesiredStateHistoryReq
+	(*GetServiceDesiredStateHistoryResp)(nil),              // 15: prodvana.desired_state.GetServiceDesiredStateHistoryResp
+	(*GetDesiredStateReq)(nil),                             // 16: prodvana.desired_state.GetDesiredStateReq
+	(*GetDesiredStateResp)(nil),                            // 17: prodvana.desired_state.GetDesiredStateResp
+	(*GetDesiredStateGraphReq)(nil),                        // 18: prodvana.desired_state.GetDesiredStateGraphReq
+	(*DesiredStateTimestamps)(nil),                         // 19: prodvana.desired_state.DesiredStateTimestamps
+	(*GetDesiredStateGraphResp)(nil),                       // 20: prodvana.desired_state.GetDesiredStateGraphResp
+	(*GetServiceLatestDesiredStateIdReq)(nil),              // 21: prodvana.desired_state.GetServiceLatestDesiredStateIdReq
+	(*GetServiceLatestDesiredStateIdResp)(nil),             // 22: prodvana.desired_state.GetServiceLatestDesiredStateIdResp
+	(*GetServiceDesiredStateIdHistoryReq)(nil),             // 23: prodvana.desired_state.GetServiceDesiredStateIdHistoryReq
+	(*GetServiceDesiredStateIdHistoryResp)(nil),            // 24: prodvana.desired_state.GetServiceDesiredStateIdHistoryResp
+	(*ValidateDesiredStateResp)(nil),                       // 25: prodvana.desired_state.ValidateDesiredStateResp
+	(*SetManualApprovalReq)(nil),                           // 26: prodvana.desired_state.SetManualApprovalReq
+	(*SetManualApprovalResp)(nil),                          // 27: prodvana.desired_state.SetManualApprovalResp
+	(*PromoteDeliveryReq)(nil),                             // 28: prodvana.desired_state.PromoteDeliveryReq
+	(*PromoteDeliveryResp)(nil),                            // 29: prodvana.desired_state.PromoteDeliveryResp
+	(*BypassProtectionReq)(nil),                            // 30: prodvana.desired_state.BypassProtectionReq
+	(*BypassProtectionResp)(nil),                           // 31: prodvana.desired_state.BypassProtectionResp
+	(*ListMaestroReleasesReq)(nil),                         // 32: prodvana.desired_state.ListMaestroReleasesReq
+	(*ListMaestroReleasesResp)(nil),                        // 33: prodvana.desired_state.ListMaestroReleasesResp
+	(*GetMaestroReleaseReq)(nil),                           // 34: prodvana.desired_state.GetMaestroReleaseReq
+	(*GetMaestroReleaseResp)(nil),                          // 35: prodvana.desired_state.GetMaestroReleaseResp
+	(*ListCombinedReleasesReq)(nil),                        // 36: prodvana.desired_state.ListCombinedReleasesReq
+	(*ListServiceCombinedReleasesReq)(nil),                 // 37: prodvana.desired_state.ListServiceCombinedReleasesReq
+	(*ListCombinedReleasesResp)(nil),                       // 38: prodvana.desired_state.ListCombinedReleasesResp
+	(*GetLatestCombinedReleaseDesiredStateReq)(nil),        // 39: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateReq
+	(*GetServiceLatestCombinedReleaseDesiredStateReq)(nil), // 40: prodvana.desired_state.GetServiceLatestCombinedReleaseDesiredStateReq
+	(*GetLatestCombinedReleaseDesiredStateResp)(nil),       // 41: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp
+	nil, // 42: prodvana.desired_state.DesiredStateSummary.StatusesEntry
+	nil, // 43: prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry
+	nil, // 44: prodvana.desired_state.DesiredStateSummary.StatusExplanationsEntry
+	nil, // 45: prodvana.desired_state.DesiredStateSummary.DebugLogsEntry
+	nil, // 46: prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry
+	nil, // 47: prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry
+	nil, // 48: prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry
+	nil, // 49: prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry
+	(*GetDesiredStateGraphReq_QueryByService)(nil),        // 50: prodvana.desired_state.GetDesiredStateGraphReq.QueryByService
+	(*GetDesiredStateGraphReq_DepthOverrideByStatus)(nil), // 51: prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus
+	(*ListCombinedReleasesResp_Release)(nil),              // 52: prodvana.desired_state.ListCombinedReleasesResp.Release
+	(*model.State)(nil),                                   // 53: prodvana.desired_state.model.State
+	(version.Source)(0),                                   // 54: prodvana.version.Source
+	(*version.SourceMetadata)(nil),                        // 55: prodvana.version.SourceMetadata
+	(*service.CompiledServiceInstanceConfig)(nil),         // 56: prodvana.service.CompiledServiceInstanceConfig
+	(*model.EntityGraph)(nil),                             // 57: prodvana.desired_state.model.EntityGraph
+	(*model.StatusExplanation)(nil),                       // 58: prodvana.desired_state.model.StatusExplanation
+	(*model.DebugLog)(nil),                                // 59: prodvana.desired_state.model.DebugLog
+	(async_task.TaskStatus)(0),                            // 60: prodvana.async_task.TaskStatus
+	(*async_task.TaskResult)(nil),                         // 61: prodvana.async_task.TaskResult
+	(*timestamppb.Timestamp)(nil),                         // 62: google.protobuf.Timestamp
+	(model.Status)(0),                                     // 63: prodvana.desired_state.model.Status
+	(*model.SetDesiredStateMetadata)(nil),                 // 64: prodvana.desired_state.model.SetDesiredStateMetadata
+	(*model.ServiceInstanceState)(nil),                    // 65: prodvana.desired_state.model.ServiceInstanceState
+	(model.Type)(0),                                       // 66: prodvana.desired_state.model.Type
+	(*model.Annotations)(nil),                             // 67: prodvana.desired_state.model.Annotations
+	(*model.Identifier)(nil),                              // 68: prodvana.desired_state.model.Identifier
+	(*maestro.MaestroRelease)(nil),                        // 69: prodvana.desired_state.maestro.MaestroRelease
+	(*model.ConditionState)(nil),                          // 70: prodvana.desired_state.model.ConditionState
+	(*model.ActionExplanation)(nil),                       // 71: prodvana.desired_state.model.ActionExplanation
 }
 var file_prodvana_desired_state_manager_proto_depIdxs = []int32{
-	52, // 0: prodvana.desired_state.SetDesiredStateReq.desired_state:type_name -> prodvana.desired_state.model.State
-	53, // 1: prodvana.desired_state.SetDesiredStateReq.source:type_name -> prodvana.version.Source
-	54, // 2: prodvana.desired_state.SetDesiredStateReq.source_metadata:type_name -> prodvana.version.SourceMetadata
-	52, // 3: prodvana.desired_state.ValidateDesiredStateReq.desired_state:type_name -> prodvana.desired_state.model.State
-	55, // 4: prodvana.desired_state.ValidateDesiredStateReq.service_instance_configs:type_name -> prodvana.service.CompiledServiceInstanceConfig
-	56, // 5: prodvana.desired_state.PreviewEntityGraphResp.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
-	57, // 6: prodvana.desired_state.StatusExplanations.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
-	58, // 7: prodvana.desired_state.DebugLogs.debug_logs:type_name -> prodvana.desired_state.model.DebugLog
-	52, // 8: prodvana.desired_state.PendingSetDesiredState.compiled_desired_state:type_name -> prodvana.desired_state.model.State
-	59, // 9: prodvana.desired_state.PendingSetDesiredState.task_status:type_name -> prodvana.async_task.TaskStatus
-	60, // 10: prodvana.desired_state.PendingSetDesiredState.task_result:type_name -> prodvana.async_task.TaskResult
-	56, // 11: prodvana.desired_state.DesiredStateSummary.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
-	61, // 12: prodvana.desired_state.DesiredStateSummary.creation_timestamp:type_name -> google.protobuf.Timestamp
-	61, // 13: prodvana.desired_state.DesiredStateSummary.last_update_timestamp:type_name -> google.protobuf.Timestamp
-	61, // 14: prodvana.desired_state.DesiredStateSummary.replaced_timestamp:type_name -> google.protobuf.Timestamp
-	52, // 15: prodvana.desired_state.DesiredStateSummary.input_desired_state:type_name -> prodvana.desired_state.model.State
-	52, // 16: prodvana.desired_state.DesiredStateSummary.desired_state:type_name -> prodvana.desired_state.model.State
-	52, // 17: prodvana.desired_state.DesiredStateSummary.starting_state:type_name -> prodvana.desired_state.model.State
-	52, // 18: prodvana.desired_state.DesiredStateSummary.last_seen_state:type_name -> prodvana.desired_state.model.State
-	62, // 19: prodvana.desired_state.DesiredStateSummary.status:type_name -> prodvana.desired_state.model.Status
-	53, // 20: prodvana.desired_state.DesiredStateSummary.source:type_name -> prodvana.version.Source
-	54, // 21: prodvana.desired_state.DesiredStateSummary.source_metadata:type_name -> prodvana.version.SourceMetadata
+	53, // 0: prodvana.desired_state.SetDesiredStateReq.desired_state:type_name -> prodvana.desired_state.model.State
+	54, // 1: prodvana.desired_state.SetDesiredStateReq.source:type_name -> prodvana.version.Source
+	55, // 2: prodvana.desired_state.SetDesiredStateReq.source_metadata:type_name -> prodvana.version.SourceMetadata
+	53, // 3: prodvana.desired_state.ValidateDesiredStateReq.desired_state:type_name -> prodvana.desired_state.model.State
+	56, // 4: prodvana.desired_state.ValidateDesiredStateReq.service_instance_configs:type_name -> prodvana.service.CompiledServiceInstanceConfig
+	57, // 5: prodvana.desired_state.PreviewEntityGraphResp.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
+	58, // 6: prodvana.desired_state.StatusExplanations.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
+	59, // 7: prodvana.desired_state.DebugLogs.debug_logs:type_name -> prodvana.desired_state.model.DebugLog
+	53, // 8: prodvana.desired_state.PendingSetDesiredState.compiled_desired_state:type_name -> prodvana.desired_state.model.State
+	60, // 9: prodvana.desired_state.PendingSetDesiredState.task_status:type_name -> prodvana.async_task.TaskStatus
+	61, // 10: prodvana.desired_state.PendingSetDesiredState.task_result:type_name -> prodvana.async_task.TaskResult
+	57, // 11: prodvana.desired_state.DesiredStateSummary.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
+	62, // 12: prodvana.desired_state.DesiredStateSummary.creation_timestamp:type_name -> google.protobuf.Timestamp
+	62, // 13: prodvana.desired_state.DesiredStateSummary.last_update_timestamp:type_name -> google.protobuf.Timestamp
+	62, // 14: prodvana.desired_state.DesiredStateSummary.replaced_timestamp:type_name -> google.protobuf.Timestamp
+	53, // 15: prodvana.desired_state.DesiredStateSummary.input_desired_state:type_name -> prodvana.desired_state.model.State
+	53, // 16: prodvana.desired_state.DesiredStateSummary.desired_state:type_name -> prodvana.desired_state.model.State
+	53, // 17: prodvana.desired_state.DesiredStateSummary.starting_state:type_name -> prodvana.desired_state.model.State
+	53, // 18: prodvana.desired_state.DesiredStateSummary.last_seen_state:type_name -> prodvana.desired_state.model.State
+	63, // 19: prodvana.desired_state.DesiredStateSummary.status:type_name -> prodvana.desired_state.model.Status
+	54, // 20: prodvana.desired_state.DesiredStateSummary.source:type_name -> prodvana.version.Source
+	55, // 21: prodvana.desired_state.DesiredStateSummary.source_metadata:type_name -> prodvana.version.SourceMetadata
 	7,  // 22: prodvana.desired_state.DesiredStateSummary.pending_set_desired_state:type_name -> prodvana.desired_state.PendingSetDesiredState
-	63, // 23: prodvana.desired_state.DesiredStateSummary.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
-	41, // 24: prodvana.desired_state.DesiredStateSummary.statuses:type_name -> prodvana.desired_state.DesiredStateSummary.StatusesEntry
-	42, // 25: prodvana.desired_state.DesiredStateSummary.precondition_statuses:type_name -> prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry
-	43, // 26: prodvana.desired_state.DesiredStateSummary.status_explanations:type_name -> prodvana.desired_state.DesiredStateSummary.StatusExplanationsEntry
-	44, // 27: prodvana.desired_state.DesiredStateSummary.debug_logs:type_name -> prodvana.desired_state.DesiredStateSummary.DebugLogsEntry
-	45, // 28: prodvana.desired_state.DesiredStateSummary.action_explanations:type_name -> prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry
-	46, // 29: prodvana.desired_state.DesiredStateSummary.last_update_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry
-	47, // 30: prodvana.desired_state.DesiredStateSummary.last_fetched_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry
-	48, // 31: prodvana.desired_state.DesiredStateSummary.last_applied_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry
+	64, // 23: prodvana.desired_state.DesiredStateSummary.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
+	42, // 24: prodvana.desired_state.DesiredStateSummary.statuses:type_name -> prodvana.desired_state.DesiredStateSummary.StatusesEntry
+	43, // 25: prodvana.desired_state.DesiredStateSummary.precondition_statuses:type_name -> prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry
+	44, // 26: prodvana.desired_state.DesiredStateSummary.status_explanations:type_name -> prodvana.desired_state.DesiredStateSummary.StatusExplanationsEntry
+	45, // 27: prodvana.desired_state.DesiredStateSummary.debug_logs:type_name -> prodvana.desired_state.DesiredStateSummary.DebugLogsEntry
+	46, // 28: prodvana.desired_state.DesiredStateSummary.action_explanations:type_name -> prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry
+	47, // 29: prodvana.desired_state.DesiredStateSummary.last_update_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry
+	48, // 30: prodvana.desired_state.DesiredStateSummary.last_fetched_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry
+	49, // 31: prodvana.desired_state.DesiredStateSummary.last_applied_timestamps:type_name -> prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry
 	8,  // 32: prodvana.desired_state.GetDesiredStateConvergenceSummaryResp.summary:type_name -> prodvana.desired_state.DesiredStateSummary
 	8,  // 33: prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryResp.summary:type_name -> prodvana.desired_state.DesiredStateSummary
-	64, // 34: prodvana.desired_state.GetServiceLastConvergedStateResp.service_instance_states:type_name -> prodvana.desired_state.model.ServiceInstanceState
+	65, // 34: prodvana.desired_state.GetServiceLastConvergedStateResp.service_instance_states:type_name -> prodvana.desired_state.model.ServiceInstanceState
 	8,  // 35: prodvana.desired_state.GetServiceDesiredStateHistoryResp.desired_states:type_name -> prodvana.desired_state.DesiredStateSummary
-	52, // 36: prodvana.desired_state.GetDesiredStateResp.desired_state:type_name -> prodvana.desired_state.model.State
-	52, // 37: prodvana.desired_state.GetDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
-	63, // 38: prodvana.desired_state.GetDesiredStateResp.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
-	61, // 39: prodvana.desired_state.GetDesiredStateResp.creation_timestamp:type_name -> google.protobuf.Timestamp
-	53, // 40: prodvana.desired_state.GetDesiredStateResp.source:type_name -> prodvana.version.Source
-	54, // 41: prodvana.desired_state.GetDesiredStateResp.source_metadata:type_name -> prodvana.version.SourceMetadata
-	49, // 42: prodvana.desired_state.GetDesiredStateGraphReq.query_by_service:type_name -> prodvana.desired_state.GetDesiredStateGraphReq.QueryByService
-	65, // 43: prodvana.desired_state.GetDesiredStateGraphReq.types:type_name -> prodvana.desired_state.model.Type
-	66, // 44: prodvana.desired_state.GetDesiredStateGraphReq.required_annotations:type_name -> prodvana.desired_state.model.Annotations
-	50, // 45: prodvana.desired_state.GetDesiredStateGraphReq.depth_overrides_by_status:type_name -> prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus
-	61, // 46: prodvana.desired_state.DesiredStateTimestamps.creation_timestamp:type_name -> google.protobuf.Timestamp
-	61, // 47: prodvana.desired_state.DesiredStateTimestamps.last_update_timestamp:type_name -> google.protobuf.Timestamp
-	61, // 48: prodvana.desired_state.DesiredStateTimestamps.replaced_timestamp:type_name -> google.protobuf.Timestamp
-	56, // 49: prodvana.desired_state.GetDesiredStateGraphResp.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
+	53, // 36: prodvana.desired_state.GetDesiredStateResp.desired_state:type_name -> prodvana.desired_state.model.State
+	53, // 37: prodvana.desired_state.GetDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
+	64, // 38: prodvana.desired_state.GetDesiredStateResp.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
+	62, // 39: prodvana.desired_state.GetDesiredStateResp.creation_timestamp:type_name -> google.protobuf.Timestamp
+	54, // 40: prodvana.desired_state.GetDesiredStateResp.source:type_name -> prodvana.version.Source
+	55, // 41: prodvana.desired_state.GetDesiredStateResp.source_metadata:type_name -> prodvana.version.SourceMetadata
+	50, // 42: prodvana.desired_state.GetDesiredStateGraphReq.query_by_service:type_name -> prodvana.desired_state.GetDesiredStateGraphReq.QueryByService
+	66, // 43: prodvana.desired_state.GetDesiredStateGraphReq.types:type_name -> prodvana.desired_state.model.Type
+	67, // 44: prodvana.desired_state.GetDesiredStateGraphReq.required_annotations:type_name -> prodvana.desired_state.model.Annotations
+	51, // 45: prodvana.desired_state.GetDesiredStateGraphReq.depth_overrides_by_status:type_name -> prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus
+	62, // 46: prodvana.desired_state.DesiredStateTimestamps.creation_timestamp:type_name -> google.protobuf.Timestamp
+	62, // 47: prodvana.desired_state.DesiredStateTimestamps.last_update_timestamp:type_name -> google.protobuf.Timestamp
+	62, // 48: prodvana.desired_state.DesiredStateTimestamps.replaced_timestamp:type_name -> google.protobuf.Timestamp
+	57, // 49: prodvana.desired_state.GetDesiredStateGraphResp.entity_graph:type_name -> prodvana.desired_state.model.EntityGraph
 	7,  // 50: prodvana.desired_state.GetDesiredStateGraphResp.pending_set_desired_state:type_name -> prodvana.desired_state.PendingSetDesiredState
 	19, // 51: prodvana.desired_state.GetDesiredStateGraphResp.timestamps:type_name -> prodvana.desired_state.DesiredStateTimestamps
 	7,  // 52: prodvana.desired_state.GetServiceLatestDesiredStateIdResp.pending_set_desired_state:type_name -> prodvana.desired_state.PendingSetDesiredState
-	52, // 53: prodvana.desired_state.ValidateDesiredStateResp.desired_state:type_name -> prodvana.desired_state.model.State
-	52, // 54: prodvana.desired_state.ValidateDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
-	67, // 55: prodvana.desired_state.ListMaestroReleasesReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
-	68, // 56: prodvana.desired_state.ListMaestroReleasesResp.maestro_releases:type_name -> prodvana.desired_state.maestro.MaestroRelease
-	68, // 57: prodvana.desired_state.GetMaestroReleaseResp.maestro_release:type_name -> prodvana.desired_state.maestro.MaestroRelease
-	67, // 58: prodvana.desired_state.ListCombinedReleasesReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
-	51, // 59: prodvana.desired_state.ListCombinedReleasesResp.releases:type_name -> prodvana.desired_state.ListCombinedReleasesResp.Release
-	67, // 60: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
-	52, // 61: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.input_desired_state:type_name -> prodvana.desired_state.model.State
-	52, // 62: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
-	63, // 63: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
-	61, // 64: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.creation_timestamp:type_name -> google.protobuf.Timestamp
-	53, // 65: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.source:type_name -> prodvana.version.Source
-	54, // 66: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.source_metadata:type_name -> prodvana.version.SourceMetadata
-	62, // 67: prodvana.desired_state.DesiredStateSummary.StatusesEntry.value:type_name -> prodvana.desired_state.model.Status
-	69, // 68: prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry.value:type_name -> prodvana.desired_state.model.ConditionState
+	53, // 53: prodvana.desired_state.ValidateDesiredStateResp.desired_state:type_name -> prodvana.desired_state.model.State
+	53, // 54: prodvana.desired_state.ValidateDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
+	68, // 55: prodvana.desired_state.ListMaestroReleasesReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
+	69, // 56: prodvana.desired_state.ListMaestroReleasesResp.maestro_releases:type_name -> prodvana.desired_state.maestro.MaestroRelease
+	69, // 57: prodvana.desired_state.GetMaestroReleaseResp.maestro_release:type_name -> prodvana.desired_state.maestro.MaestroRelease
+	68, // 58: prodvana.desired_state.ListCombinedReleasesReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
+	52, // 59: prodvana.desired_state.ListCombinedReleasesResp.releases:type_name -> prodvana.desired_state.ListCombinedReleasesResp.Release
+	68, // 60: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateReq.entity_id:type_name -> prodvana.desired_state.model.Identifier
+	53, // 61: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.input_desired_state:type_name -> prodvana.desired_state.model.State
+	53, // 62: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.compiled_desired_state:type_name -> prodvana.desired_state.model.State
+	64, // 63: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.set_desired_state_metadata:type_name -> prodvana.desired_state.model.SetDesiredStateMetadata
+	62, // 64: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.creation_timestamp:type_name -> google.protobuf.Timestamp
+	54, // 65: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.source:type_name -> prodvana.version.Source
+	55, // 66: prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp.source_metadata:type_name -> prodvana.version.SourceMetadata
+	63, // 67: prodvana.desired_state.DesiredStateSummary.StatusesEntry.value:type_name -> prodvana.desired_state.model.Status
+	70, // 68: prodvana.desired_state.DesiredStateSummary.PreconditionStatusesEntry.value:type_name -> prodvana.desired_state.model.ConditionState
 	5,  // 69: prodvana.desired_state.DesiredStateSummary.StatusExplanationsEntry.value:type_name -> prodvana.desired_state.StatusExplanations
 	6,  // 70: prodvana.desired_state.DesiredStateSummary.DebugLogsEntry.value:type_name -> prodvana.desired_state.DebugLogs
-	70, // 71: prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry.value:type_name -> prodvana.desired_state.model.ActionExplanation
-	61, // 72: prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry.value:type_name -> google.protobuf.Timestamp
-	61, // 73: prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry.value:type_name -> google.protobuf.Timestamp
-	61, // 74: prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry.value:type_name -> google.protobuf.Timestamp
-	62, // 75: prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus.status:type_name -> prodvana.desired_state.model.Status
-	61, // 76: prodvana.desired_state.ListCombinedReleasesResp.Release.creation_timestamp:type_name -> google.protobuf.Timestamp
+	71, // 71: prodvana.desired_state.DesiredStateSummary.ActionExplanationsEntry.value:type_name -> prodvana.desired_state.model.ActionExplanation
+	62, // 72: prodvana.desired_state.DesiredStateSummary.LastUpdateTimestampsEntry.value:type_name -> google.protobuf.Timestamp
+	62, // 73: prodvana.desired_state.DesiredStateSummary.LastFetchedTimestampsEntry.value:type_name -> google.protobuf.Timestamp
+	62, // 74: prodvana.desired_state.DesiredStateSummary.LastAppliedTimestampsEntry.value:type_name -> google.protobuf.Timestamp
+	63, // 75: prodvana.desired_state.GetDesiredStateGraphReq.DepthOverrideByStatus.status:type_name -> prodvana.desired_state.model.Status
+	62, // 76: prodvana.desired_state.ListCombinedReleasesResp.Release.creation_timestamp:type_name -> google.protobuf.Timestamp
 	0,  // 77: prodvana.desired_state.DesiredStateManager.SetDesiredState:input_type -> prodvana.desired_state.SetDesiredStateReq
 	0,  // 78: prodvana.desired_state.DesiredStateManager.PreviewEntityGraph:input_type -> prodvana.desired_state.SetDesiredStateReq
 	4,  // 79: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateConvergenceSummary:input_type -> prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryReq
@@ -4056,27 +4138,29 @@ var file_prodvana_desired_state_manager_proto_depIdxs = []int32{
 	36, // 93: prodvana.desired_state.DesiredStateManager.ListCombinedReleases:input_type -> prodvana.desired_state.ListCombinedReleasesReq
 	37, // 94: prodvana.desired_state.DesiredStateManager.ListServiceCombinedReleases:input_type -> prodvana.desired_state.ListServiceCombinedReleasesReq
 	39, // 95: prodvana.desired_state.DesiredStateManager.GetLatestCombinedReleaseDesiredState:input_type -> prodvana.desired_state.GetLatestCombinedReleaseDesiredStateReq
-	2,  // 96: prodvana.desired_state.DesiredStateManager.SetDesiredState:output_type -> prodvana.desired_state.SetDesiredStateResp
-	3,  // 97: prodvana.desired_state.DesiredStateManager.PreviewEntityGraph:output_type -> prodvana.desired_state.PreviewEntityGraphResp
-	11, // 98: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateConvergenceSummary:output_type -> prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryResp
-	22, // 99: prodvana.desired_state.DesiredStateManager.GetServiceLatestDesiredStateId:output_type -> prodvana.desired_state.GetServiceLatestDesiredStateIdResp
-	24, // 100: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateIdHistory:output_type -> prodvana.desired_state.GetServiceDesiredStateIdHistoryResp
-	13, // 101: prodvana.desired_state.DesiredStateManager.GetServiceLastConvergedStates:output_type -> prodvana.desired_state.GetServiceLastConvergedStateResp
-	15, // 102: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateHistory:output_type -> prodvana.desired_state.GetServiceDesiredStateHistoryResp
-	17, // 103: prodvana.desired_state.DesiredStateManager.GetDesiredState:output_type -> prodvana.desired_state.GetDesiredStateResp
-	20, // 104: prodvana.desired_state.DesiredStateManager.GetDesiredStateGraph:output_type -> prodvana.desired_state.GetDesiredStateGraphResp
-	10, // 105: prodvana.desired_state.DesiredStateManager.GetDesiredStateConvergenceSummary:output_type -> prodvana.desired_state.GetDesiredStateConvergenceSummaryResp
-	25, // 106: prodvana.desired_state.DesiredStateManager.ValidateDesiredState:output_type -> prodvana.desired_state.ValidateDesiredStateResp
-	27, // 107: prodvana.desired_state.DesiredStateManager.SetManualApproval:output_type -> prodvana.desired_state.SetManualApprovalResp
-	29, // 108: prodvana.desired_state.DesiredStateManager.PromoteDelivery:output_type -> prodvana.desired_state.PromoteDeliveryResp
-	31, // 109: prodvana.desired_state.DesiredStateManager.BypassProtection:output_type -> prodvana.desired_state.BypassProtectionResp
-	33, // 110: prodvana.desired_state.DesiredStateManager.ListMaestroReleases:output_type -> prodvana.desired_state.ListMaestroReleasesResp
-	35, // 111: prodvana.desired_state.DesiredStateManager.GetMaestroRelease:output_type -> prodvana.desired_state.GetMaestroReleaseResp
-	38, // 112: prodvana.desired_state.DesiredStateManager.ListCombinedReleases:output_type -> prodvana.desired_state.ListCombinedReleasesResp
-	38, // 113: prodvana.desired_state.DesiredStateManager.ListServiceCombinedReleases:output_type -> prodvana.desired_state.ListCombinedReleasesResp
-	40, // 114: prodvana.desired_state.DesiredStateManager.GetLatestCombinedReleaseDesiredState:output_type -> prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp
-	96, // [96:115] is the sub-list for method output_type
-	77, // [77:96] is the sub-list for method input_type
+	40, // 96: prodvana.desired_state.DesiredStateManager.GetServiceLatestCombinedReleaseDesiredState:input_type -> prodvana.desired_state.GetServiceLatestCombinedReleaseDesiredStateReq
+	2,  // 97: prodvana.desired_state.DesiredStateManager.SetDesiredState:output_type -> prodvana.desired_state.SetDesiredStateResp
+	3,  // 98: prodvana.desired_state.DesiredStateManager.PreviewEntityGraph:output_type -> prodvana.desired_state.PreviewEntityGraphResp
+	11, // 99: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateConvergenceSummary:output_type -> prodvana.desired_state.GetServiceDesiredStateConvergenceSummaryResp
+	22, // 100: prodvana.desired_state.DesiredStateManager.GetServiceLatestDesiredStateId:output_type -> prodvana.desired_state.GetServiceLatestDesiredStateIdResp
+	24, // 101: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateIdHistory:output_type -> prodvana.desired_state.GetServiceDesiredStateIdHistoryResp
+	13, // 102: prodvana.desired_state.DesiredStateManager.GetServiceLastConvergedStates:output_type -> prodvana.desired_state.GetServiceLastConvergedStateResp
+	15, // 103: prodvana.desired_state.DesiredStateManager.GetServiceDesiredStateHistory:output_type -> prodvana.desired_state.GetServiceDesiredStateHistoryResp
+	17, // 104: prodvana.desired_state.DesiredStateManager.GetDesiredState:output_type -> prodvana.desired_state.GetDesiredStateResp
+	20, // 105: prodvana.desired_state.DesiredStateManager.GetDesiredStateGraph:output_type -> prodvana.desired_state.GetDesiredStateGraphResp
+	10, // 106: prodvana.desired_state.DesiredStateManager.GetDesiredStateConvergenceSummary:output_type -> prodvana.desired_state.GetDesiredStateConvergenceSummaryResp
+	25, // 107: prodvana.desired_state.DesiredStateManager.ValidateDesiredState:output_type -> prodvana.desired_state.ValidateDesiredStateResp
+	27, // 108: prodvana.desired_state.DesiredStateManager.SetManualApproval:output_type -> prodvana.desired_state.SetManualApprovalResp
+	29, // 109: prodvana.desired_state.DesiredStateManager.PromoteDelivery:output_type -> prodvana.desired_state.PromoteDeliveryResp
+	31, // 110: prodvana.desired_state.DesiredStateManager.BypassProtection:output_type -> prodvana.desired_state.BypassProtectionResp
+	33, // 111: prodvana.desired_state.DesiredStateManager.ListMaestroReleases:output_type -> prodvana.desired_state.ListMaestroReleasesResp
+	35, // 112: prodvana.desired_state.DesiredStateManager.GetMaestroRelease:output_type -> prodvana.desired_state.GetMaestroReleaseResp
+	38, // 113: prodvana.desired_state.DesiredStateManager.ListCombinedReleases:output_type -> prodvana.desired_state.ListCombinedReleasesResp
+	38, // 114: prodvana.desired_state.DesiredStateManager.ListServiceCombinedReleases:output_type -> prodvana.desired_state.ListCombinedReleasesResp
+	41, // 115: prodvana.desired_state.DesiredStateManager.GetLatestCombinedReleaseDesiredState:output_type -> prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp
+	41, // 116: prodvana.desired_state.DesiredStateManager.GetServiceLatestCombinedReleaseDesiredState:output_type -> prodvana.desired_state.GetLatestCombinedReleaseDesiredStateResp
+	97, // [97:117] is the sub-list for method output_type
+	77, // [77:97] is the sub-list for method input_type
 	77, // [77:77] is the sub-list for extension type_name
 	77, // [77:77] is the sub-list for extension extendee
 	0,  // [0:77] is the sub-list for field type_name
@@ -4569,6 +4653,18 @@ func file_prodvana_desired_state_manager_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_manager_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetServiceLatestCombinedReleaseDesiredStateReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_desired_state_manager_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLatestCombinedReleaseDesiredStateResp); i {
 			case 0:
 				return &v.state
@@ -4580,7 +4676,7 @@ func file_prodvana_desired_state_manager_proto_init() {
 				return nil
 			}
 		}
-		file_prodvana_desired_state_manager_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+		file_prodvana_desired_state_manager_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetDesiredStateGraphReq_QueryByService); i {
 			case 0:
 				return &v.state
@@ -4592,7 +4688,7 @@ func file_prodvana_desired_state_manager_proto_init() {
 				return nil
 			}
 		}
-		file_prodvana_desired_state_manager_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+		file_prodvana_desired_state_manager_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetDesiredStateGraphReq_DepthOverrideByStatus); i {
 			case 0:
 				return &v.state
@@ -4604,7 +4700,7 @@ func file_prodvana_desired_state_manager_proto_init() {
 				return nil
 			}
 		}
-		file_prodvana_desired_state_manager_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+		file_prodvana_desired_state_manager_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListCombinedReleasesResp_Release); i {
 			case 0:
 				return &v.state
@@ -4621,7 +4717,7 @@ func file_prodvana_desired_state_manager_proto_init() {
 		(*GetDesiredStateGraphReq_DesiredStateId)(nil),
 		(*GetDesiredStateGraphReq_QueryByService_)(nil),
 	}
-	file_prodvana_desired_state_manager_proto_msgTypes[51].OneofWrappers = []interface{}{
+	file_prodvana_desired_state_manager_proto_msgTypes[52].OneofWrappers = []interface{}{
 		(*ListCombinedReleasesResp_Release_DesiredStateId)(nil),
 		(*ListCombinedReleasesResp_Release_ReleaseId)(nil),
 	}
@@ -4631,7 +4727,7 @@ func file_prodvana_desired_state_manager_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_desired_state_manager_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   52,
+			NumMessages:   53,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -343,6 +343,11 @@ message GetLatestCombinedReleaseDesiredStateReq {
     prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
 }
 
+message GetServiceLatestCombinedReleaseDesiredStateReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string service = 2 [(validate.rules).string.min_len = 1];
+}
+
 message GetLatestCombinedReleaseDesiredStateResp {
     prodvana.desired_state.model.State input_desired_state = 1;
     prodvana.desired_state.model.State compiled_desired_state = 2;
@@ -466,6 +471,11 @@ service DesiredStateManager {
     rpc GetLatestCombinedReleaseDesiredState(GetLatestCombinedReleaseDesiredStateReq) returns (GetLatestCombinedReleaseDesiredStateResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/combined_releases/latest_desired_state"
+        };
+    }
+    rpc GetServiceLatestCombinedReleaseDesiredState(GetServiceLatestCombinedReleaseDesiredStateReq) returns (GetLatestCombinedReleaseDesiredStateResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/services/{service=*}/combined_releases/latest_desired_state"
         };
     }
 }

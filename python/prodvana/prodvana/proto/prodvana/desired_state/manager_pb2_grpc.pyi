@@ -90,6 +90,7 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.ListServiceCombinedReleasesReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp,
     ]
+    """Like ListCombinedReleases, but accepts an application/service names/ids instead of entity ID"""
     GetLatestCombinedReleaseDesiredState: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp,
@@ -98,6 +99,10 @@ class DesiredStateManagerStub:
     ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
     then GetDesiredState or GetMaestroRelease depending on the type of release.
     """
+    GetServiceLatestCombinedReleaseDesiredState: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestCombinedReleaseDesiredStateReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp,
+    ]
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -217,7 +222,8 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         self,
         request: prodvana.proto.prodvana.desired_state.manager_pb2.ListServiceCombinedReleasesReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp: ...
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp:
+        """Like ListCombinedReleases, but accepts an application/service names/ids instead of entity ID"""
     @abc.abstractmethod
     def GetLatestCombinedReleaseDesiredState(
         self,
@@ -228,5 +234,11 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
         then GetDesiredState or GetMaestroRelease depending on the type of release.
         """
+    @abc.abstractmethod
+    def GetServiceLatestCombinedReleaseDesiredState(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestCombinedReleaseDesiredStateReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp: ...
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

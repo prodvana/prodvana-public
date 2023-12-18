@@ -737,6 +737,7 @@
     },
     "/v1/applications/{application}/services/{service}/combined_releases": {
       "get": {
+        "summary": "Like ListCombinedReleases, but accepts an application/service names/ids instead of entity ID",
         "operationId": "DesiredStateManager_ListServiceCombinedReleases",
         "responses": {
           "200": {
@@ -785,6 +786,44 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
+    "/v1/applications/{application}/services/{service}/combined_releases/latest_desired_state": {
+      "get": {
+        "operationId": "DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetLatestCombinedReleaseDesiredStateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
           }
         ],
         "tags": [

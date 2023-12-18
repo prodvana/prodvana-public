@@ -109,6 +109,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
                 )
+        self.GetServiceLatestCombinedReleaseDesiredState = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
+                )
 
 
 class DesiredStateManagerServicer(object):
@@ -225,7 +230,8 @@ class DesiredStateManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListServiceCombinedReleases(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Like ListCombinedReleases, but accepts an application/service names/ids instead of entity ID
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -235,6 +241,12 @@ class DesiredStateManagerServicer(object):
         ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
         then GetDesiredState or GetMaestroRelease depending on the type of release.
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceLatestCombinedReleaseDesiredState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -335,6 +347,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
             'GetLatestCombinedReleaseDesiredState': grpc.unary_unary_rpc_method_handler(
                     servicer.GetLatestCombinedReleaseDesiredState,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.SerializeToString,
+            ),
+            'GetServiceLatestCombinedReleaseDesiredState': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceLatestCombinedReleaseDesiredState,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.SerializeToString,
             ),
     }
@@ -666,6 +683,23 @@ class DesiredStateManager(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState',
             prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetServiceLatestCombinedReleaseDesiredState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState',
+            prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

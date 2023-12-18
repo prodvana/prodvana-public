@@ -1139,6 +1139,23 @@ class GetLatestCombinedReleaseDesiredStateReq(google.protobuf.message.Message):
 
 global___GetLatestCombinedReleaseDesiredStateReq = GetLatestCombinedReleaseDesiredStateReq
 
+class GetServiceLatestCombinedReleaseDesiredStateReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    SERVICE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    service: builtins.str
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        service: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "service", b"service"]) -> None: ...
+
+global___GetServiceLatestCombinedReleaseDesiredStateReq = GetServiceLatestCombinedReleaseDesiredStateReq
+
 class GetLatestCombinedReleaseDesiredStateResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
