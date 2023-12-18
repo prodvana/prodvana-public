@@ -33,8 +33,11 @@ message MaestroConfig {
 message MaestroReleaseConfig {
     prodvana.desired_state.model.Identifier entity_id = 1;
     MaestroConfig maestro_config = 2;
-    prodvana.desired_state.model.State desired_state = 3;
+    prodvana.desired_state.model.State input_desired_state = 5;
+    prodvana.desired_state.model.State compiled_desired_state = 3;
     google.protobuf.Timestamp creation_timestamp = 4;
+    prodvana.desired_state.model.SetDesiredStateMetadata set_desired_state_metadata = 6;
+    // next tag: 7
 }
 
 message MaestroReleaseState {

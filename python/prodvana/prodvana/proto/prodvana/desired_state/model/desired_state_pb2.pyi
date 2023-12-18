@@ -2185,3 +2185,22 @@ class TaskEntityContext(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["is_active", b"is_active", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
 
 global___TaskEntityContext = TaskEntityContext
+
+class SetDesiredStateMetadata(google.protobuf.message.Message):
+    """metadata about the desired state, set at the time of SetDesiredState"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ROLLBACK_FIELD_NUMBER: builtins.int
+    BYPASS_PRECONDITIONS_AND_PROTECTIONS_FIELD_NUMBER: builtins.int
+    rollback: builtins.bool
+    bypass_preconditions_and_protections: builtins.bool
+    def __init__(
+        self,
+        *,
+        rollback: builtins.bool = ...,
+        bypass_preconditions_and_protections: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bypass_preconditions_and_protections", b"bypass_preconditions_and_protections", "rollback", b"rollback"]) -> None: ...
+
+global___SetDesiredStateMetadata = SetDesiredStateMetadata

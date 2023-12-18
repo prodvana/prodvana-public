@@ -47,112 +47,6 @@ var (
 	_ = version.Source(0)
 )
 
-// Validate checks the field values on SetDesiredStateMetadata with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SetDesiredStateMetadata) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SetDesiredStateMetadata with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SetDesiredStateMetadataMultiError, or nil if none found.
-func (m *SetDesiredStateMetadata) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SetDesiredStateMetadata) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Rollback
-
-	// no validation rules for BypassPreconditionsAndProtections
-
-	if len(errors) > 0 {
-		return SetDesiredStateMetadataMultiError(errors)
-	}
-
-	return nil
-}
-
-// SetDesiredStateMetadataMultiError is an error wrapping multiple validation
-// errors returned by SetDesiredStateMetadata.ValidateAll() if the designated
-// constraints aren't met.
-type SetDesiredStateMetadataMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SetDesiredStateMetadataMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SetDesiredStateMetadataMultiError) AllErrors() []error { return m }
-
-// SetDesiredStateMetadataValidationError is the validation error returned by
-// SetDesiredStateMetadata.Validate if the designated constraints aren't met.
-type SetDesiredStateMetadataValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SetDesiredStateMetadataValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SetDesiredStateMetadataValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SetDesiredStateMetadataValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SetDesiredStateMetadataValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SetDesiredStateMetadataValidationError) ErrorName() string {
-	return "SetDesiredStateMetadataValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SetDesiredStateMetadataValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSetDesiredStateMetadata.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SetDesiredStateMetadataValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SetDesiredStateMetadataValidationError{}
-
 // Validate checks the field values on SetDesiredStateReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -539,6 +433,8 @@ func (m *SetDesiredStateResp) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for DesiredStateId
+
+	// no validation rules for ReleaseId
 
 	if len(errors) > 0 {
 		return SetDesiredStateRespMultiError(errors)
@@ -3176,6 +3072,95 @@ func (m *GetDesiredStateResp) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return GetDesiredStateRespValidationError{
 				field:  "CompiledDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSetDesiredStateMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSetDesiredStateMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateRespValidationError{
+				field:  "SetDesiredStateMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateRespValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateRespValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateRespValidationError{
+				field:  "SourceMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -6042,6 +6027,405 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListCombinedReleasesRespValidationError{}
+
+// Validate checks the field values on GetLatestCombinedReleaseDesiredStateReq
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetLatestCombinedReleaseDesiredStateReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetLatestCombinedReleaseDesiredStateReq with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// GetLatestCombinedReleaseDesiredStateReqMultiError, or nil if none found.
+func (m *GetLatestCombinedReleaseDesiredStateReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLatestCombinedReleaseDesiredStateReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetEntityId() == nil {
+		err := GetLatestCombinedReleaseDesiredStateReqValidationError{
+			field:  "EntityId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateReqValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetLatestCombinedReleaseDesiredStateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLatestCombinedReleaseDesiredStateReqMultiError is an error wrapping
+// multiple validation errors returned by
+// GetLatestCombinedReleaseDesiredStateReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetLatestCombinedReleaseDesiredStateReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLatestCombinedReleaseDesiredStateReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLatestCombinedReleaseDesiredStateReqMultiError) AllErrors() []error { return m }
+
+// GetLatestCombinedReleaseDesiredStateReqValidationError is the validation
+// error returned by GetLatestCombinedReleaseDesiredStateReq.Validate if the
+// designated constraints aren't met.
+type GetLatestCombinedReleaseDesiredStateReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) ErrorName() string {
+	return "GetLatestCombinedReleaseDesiredStateReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLatestCombinedReleaseDesiredStateReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLatestCombinedReleaseDesiredStateReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLatestCombinedReleaseDesiredStateReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLatestCombinedReleaseDesiredStateReqValidationError{}
+
+// Validate checks the field values on GetLatestCombinedReleaseDesiredStateResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetLatestCombinedReleaseDesiredStateResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetLatestCombinedReleaseDesiredStateResp with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// GetLatestCombinedReleaseDesiredStateRespMultiError, or nil if none found.
+func (m *GetLatestCombinedReleaseDesiredStateResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLatestCombinedReleaseDesiredStateResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInputDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "InputDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "InputDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInputDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateRespValidationError{
+				field:  "InputDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateRespValidationError{
+				field:  "CompiledDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSetDesiredStateMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSetDesiredStateMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateRespValidationError{
+				field:  "SetDesiredStateMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateRespValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLatestCombinedReleaseDesiredStateRespValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLatestCombinedReleaseDesiredStateRespValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetLatestCombinedReleaseDesiredStateRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLatestCombinedReleaseDesiredStateRespMultiError is an error wrapping
+// multiple validation errors returned by
+// GetLatestCombinedReleaseDesiredStateResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetLatestCombinedReleaseDesiredStateRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLatestCombinedReleaseDesiredStateRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLatestCombinedReleaseDesiredStateRespMultiError) AllErrors() []error { return m }
+
+// GetLatestCombinedReleaseDesiredStateRespValidationError is the validation
+// error returned by GetLatestCombinedReleaseDesiredStateResp.Validate if the
+// designated constraints aren't met.
+type GetLatestCombinedReleaseDesiredStateRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) ErrorName() string {
+	return "GetLatestCombinedReleaseDesiredStateRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLatestCombinedReleaseDesiredStateRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLatestCombinedReleaseDesiredStateResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLatestCombinedReleaseDesiredStateRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLatestCombinedReleaseDesiredStateRespValidationError{}
 
 // Validate checks the field values on GetDesiredStateGraphReq_QueryByService
 // with the rules defined in the proto definition for this message. If any

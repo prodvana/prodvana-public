@@ -231,11 +231,11 @@ func (m *MaestroReleaseConfig) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetDesiredState()).(type) {
+		switch v := interface{}(m.GetInputDesiredState()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, MaestroReleaseConfigValidationError{
-					field:  "DesiredState",
+					field:  "InputDesiredState",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -243,16 +243,45 @@ func (m *MaestroReleaseConfig) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, MaestroReleaseConfigValidationError{
-					field:  "DesiredState",
+					field:  "InputDesiredState",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetDesiredState()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetInputDesiredState()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return MaestroReleaseConfigValidationError{
-				field:  "DesiredState",
+				field:  "InputDesiredState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledDesiredState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "CompiledDesiredState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledDesiredState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "CompiledDesiredState",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -282,6 +311,35 @@ func (m *MaestroReleaseConfig) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return MaestroReleaseConfigValidationError{
 				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSetDesiredStateMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MaestroReleaseConfigValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSetDesiredStateMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MaestroReleaseConfigValidationError{
+				field:  "SetDesiredStateMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

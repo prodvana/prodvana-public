@@ -806,3 +806,9 @@ message TaskEntityContext {
     reserved "missing_approval", "is_not_in_grace_period";
     // next tag: 6
 }
+
+// metadata about the desired state, set at the time of SetDesiredState
+message SetDesiredStateMetadata {
+    bool rollback = 1;
+    bool bypass_preconditions_and_protections = 2;
+}

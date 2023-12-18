@@ -36,6 +36,7 @@ const (
 	DesiredStateManager_ListMaestroReleases_FullMethodName                      = "/prodvana.desired_state.DesiredStateManager/ListMaestroReleases"
 	DesiredStateManager_GetMaestroRelease_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/GetMaestroRelease"
 	DesiredStateManager_ListCombinedReleases_FullMethodName                     = "/prodvana.desired_state.DesiredStateManager/ListCombinedReleases"
+	DesiredStateManager_GetLatestCombinedReleaseDesiredState_FullMethodName     = "/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -67,6 +68,10 @@ type DesiredStateManagerClient interface {
 	GetMaestroRelease(ctx context.Context, in *GetMaestroReleaseReq, opts ...grpc.CallOption) (*GetMaestroReleaseResp, error)
 	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
 	ListCombinedReleases(ctx context.Context, in *ListCombinedReleasesReq, opts ...grpc.CallOption) (*ListCombinedReleasesResp, error)
+	// get latest desired state that was set explicitly as part of a release, as defined by
+	// ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+	// then GetDesiredState or GetMaestroRelease depending on the type of release.
+	GetLatestCombinedReleaseDesiredState(ctx context.Context, in *GetLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
 }
 
 type desiredStateManagerClient struct {
@@ -230,6 +235,15 @@ func (c *desiredStateManagerClient) ListCombinedReleases(ctx context.Context, in
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) GetLatestCombinedReleaseDesiredState(ctx context.Context, in *GetLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error) {
+	out := new(GetLatestCombinedReleaseDesiredStateResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetLatestCombinedReleaseDesiredState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -259,6 +273,10 @@ type DesiredStateManagerServer interface {
 	GetMaestroRelease(context.Context, *GetMaestroReleaseReq) (*GetMaestroReleaseResp, error)
 	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
 	ListCombinedReleases(context.Context, *ListCombinedReleasesReq) (*ListCombinedReleasesResp, error)
+	// get latest desired state that was set explicitly as part of a release, as defined by
+	// ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+	// then GetDesiredState or GetMaestroRelease depending on the type of release.
+	GetLatestCombinedReleaseDesiredState(context.Context, *GetLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -316,6 +334,9 @@ func (UnimplementedDesiredStateManagerServer) GetMaestroRelease(context.Context,
 }
 func (UnimplementedDesiredStateManagerServer) ListCombinedReleases(context.Context, *ListCombinedReleasesReq) (*ListCombinedReleasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCombinedReleases not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetLatestCombinedReleaseDesiredState(context.Context, *GetLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestCombinedReleaseDesiredState not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -636,6 +657,24 @@ func _DesiredStateManager_ListCombinedReleases_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_GetLatestCombinedReleaseDesiredState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestCombinedReleaseDesiredStateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetLatestCombinedReleaseDesiredState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetLatestCombinedReleaseDesiredState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetLatestCombinedReleaseDesiredState(ctx, req.(*GetLatestCombinedReleaseDesiredStateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -710,6 +749,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListCombinedReleases",
 			Handler:    _DesiredStateManager_ListCombinedReleases_Handler,
+		},
+		{
+			MethodName: "GetLatestCombinedReleaseDesiredState",
+			Handler:    _DesiredStateManager_GetLatestCombinedReleaseDesiredState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

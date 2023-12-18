@@ -86,6 +86,14 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp,
     ]
     """Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState"""
+    GetLatestCombinedReleaseDesiredState: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp,
+    ]
+    """get latest desired state that was set explicitly as part of a release, as defined by
+    ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+    then GetDesiredState or GetMaestroRelease depending on the type of release.
+    """
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -200,5 +208,15 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.ListCombinedReleasesResp:
         """Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState"""
+    @abc.abstractmethod
+    def GetLatestCombinedReleaseDesiredState(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp:
+        """get latest desired state that was set explicitly as part of a release, as defined by
+        ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+        then GetDesiredState or GetMaestroRelease depending on the type of release.
+        """
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

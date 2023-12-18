@@ -11,12 +11,6 @@ import "prodvana/service/service_config.proto";
 import "prodvana/version/source_metadata.proto";
 import "validate/validate.proto";
 
-// metadata about the desired state, set at the time of SetDesiredState
-message SetDesiredStateMetadata {
-    bool rollback = 1;
-    bool bypass_preconditions_and_protections = 2;
-}
-
 message SetDesiredStateReq {
     prodvana.desired_state.model.State desired_state = 1 [(validate.rules).message.required = true];
     // set if this is a rollback, purely for metadata purposes.
@@ -50,7 +44,8 @@ message ValidateDesiredStateReq {
 }
 
 message SetDesiredStateResp {
-    string desired_state_id = 1;  // unique identifier for the desired state that was just set
+    string desired_state_id = 1;  // unique identifier for the desired state that was just set, unless maestro is used
+    string release_id = 2; // release ID for maestro. If this is set, desired_state_id will not be set
 }
 
 message PreviewEntityGraphResp {
@@ -100,7 +95,7 @@ message DesiredStateSummary {
     prodvana.version.SourceMetadata source_metadata = 18;
     // the latest pending or failed set desired state request
     PendingSetDesiredState pending_set_desired_state = 20;
-    SetDesiredStateMetadata set_desired_state_metadata = 21;
+    prodvana.desired_state.model.SetDesiredStateMetadata set_desired_state_metadata = 21;
 
     // fields below are deprecated
     // status of the desired state, all its descendents, and the root desired state.
@@ -161,6 +156,11 @@ message GetDesiredStateReq {
 message GetDesiredStateResp {
     prodvana.desired_state.model.State desired_state = 1;
     prodvana.desired_state.model.State compiled_desired_state = 2;
+    prodvana.desired_state.model.SetDesiredStateMetadata set_desired_state_metadata = 3;
+    google.protobuf.Timestamp creation_timestamp = 4;
+    // who set the desired state
+    prodvana.version.Source source = 5;
+    prodvana.version.SourceMetadata source_metadata = 6;
 }
 
 message GetDesiredStateGraphReq {
@@ -327,6 +327,20 @@ message ListCombinedReleasesResp {
     string next_page_token = 2;
 }
 
+message GetLatestCombinedReleaseDesiredStateReq {
+    prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
+}
+
+message GetLatestCombinedReleaseDesiredStateResp {
+    prodvana.desired_state.model.State input_desired_state = 1;
+    prodvana.desired_state.model.State compiled_desired_state = 2;
+    prodvana.desired_state.model.SetDesiredStateMetadata set_desired_state_metadata = 3;
+    google.protobuf.Timestamp creation_timestamp = 4;
+    // who set the desired state
+    prodvana.version.Source source = 5;
+    prodvana.version.SourceMetadata source_metadata = 6;
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -426,6 +440,14 @@ service DesiredStateManager {
     rpc ListCombinedReleases(ListCombinedReleasesReq) returns (ListCombinedReleasesResp) {
         option (google.api.http) = {
             get: "/v1/desired_states/combined_releases"
+        };
+    }
+    // get latest desired state that was set explicitly as part of a release, as defined by
+    // ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+    // then GetDesiredState or GetMaestroRelease depending on the type of release.
+    rpc GetLatestCombinedReleaseDesiredState(GetLatestCombinedReleaseDesiredStateReq) returns (GetLatestCombinedReleaseDesiredStateResp) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/combined_releases/latest_desired_state"
         };
     }
 }

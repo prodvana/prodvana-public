@@ -2965,6 +2965,57 @@
         ]
       }
     },
+    "/v1/desired_states/combined_releases/latest_desired_state": {
+      "get": {
+        "summary": "get latest desired state that was set explicitly as part of a release, as defined by\nListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),\nthen GetDesiredState or GetMaestroRelease depending on the type of release.",
+        "operationId": "DesiredStateManager_GetLatestCombinedReleaseDesiredState",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetLatestCombinedReleaseDesiredStateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "entityId.type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "SERVICE",
+              "SERVICE_INSTANCE",
+              "SERVICE_GROUP",
+              "RUNTIME_OBJECT",
+              "MANUAL_APPROVAL",
+              "CUSTOM_TASK",
+              "PROTECTION_ATTACHMENT",
+              "PROTECTION_LINK",
+              "DELIVERY_EXTENSION"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "entityId.name",
+            "description": "globally unique identifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/graph": {
       "post": {
         "operationId": "DesiredStateManager_GetDesiredStateGraph",
@@ -9223,7 +9274,7 @@
           "title": "the latest pending or failed set desired state request"
         },
         "setDesiredStateMetadata": {
-          "$ref": "#/definitions/desired_stateSetDesiredStateMetadata"
+          "$ref": "#/definitions/modelSetDesiredStateMetadata"
         },
         "statuses": {
           "type": "object",
@@ -9373,6 +9424,45 @@
         },
         "compiledDesiredState": {
           "$ref": "#/definitions/modelState"
+        },
+        "setDesiredStateMetadata": {
+          "$ref": "#/definitions/modelSetDesiredStateMetadata"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource",
+          "title": "who set the desired state"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        }
+      }
+    },
+    "desired_stateGetLatestCombinedReleaseDesiredStateResp": {
+      "type": "object",
+      "properties": {
+        "inputDesiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "compiledDesiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "setDesiredStateMetadata": {
+          "$ref": "#/definitions/modelSetDesiredStateMetadata"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource",
+          "title": "who set the desired state"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
@@ -9527,18 +9617,6 @@
     "desired_statePromoteDeliveryResp": {
       "type": "object"
     },
-    "desired_stateSetDesiredStateMetadata": {
-      "type": "object",
-      "properties": {
-        "rollback": {
-          "type": "boolean"
-        },
-        "bypassPreconditionsAndProtections": {
-          "type": "boolean"
-        }
-      },
-      "title": "metadata about the desired state, set at the time of SetDesiredState"
-    },
     "desired_stateSetDesiredStateReq": {
       "type": "object",
       "properties": {
@@ -9570,7 +9648,11 @@
       "properties": {
         "desiredStateId": {
           "type": "string",
-          "title": "unique identifier for the desired state that was just set"
+          "title": "unique identifier for the desired state that was just set, unless maestro is used"
+        },
+        "releaseId": {
+          "type": "string",
+          "title": "release ID for maestro. If this is set, desired_state_id will not be set"
         }
       }
     },
@@ -11665,12 +11747,19 @@
         "maestroConfig": {
           "$ref": "#/definitions/maestroMaestroConfig"
         },
-        "desiredState": {
+        "inputDesiredState": {
+          "$ref": "#/definitions/modelState"
+        },
+        "compiledDesiredState": {
           "$ref": "#/definitions/modelState"
         },
         "creationTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "setDesiredStateMetadata": {
+          "$ref": "#/definitions/modelSetDesiredStateMetadata",
+          "title": "next tag: 7"
         }
       }
     },
@@ -12581,6 +12670,18 @@
           "description": "set internally by Prodvana in compiled desired state to track what this selector evaluated to. This includes all release channels,\nincluding ones that would be overridden by something else."
         }
       }
+    },
+    "modelSetDesiredStateMetadata": {
+      "type": "object",
+      "properties": {
+        "rollback": {
+          "type": "boolean"
+        },
+        "bypassPreconditionsAndProtections": {
+          "type": "boolean"
+        }
+      },
+      "title": "metadata about the desired state, set at the time of SetDesiredState"
     },
     "modelSignalType": {
       "type": "string",

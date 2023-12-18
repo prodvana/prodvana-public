@@ -23,25 +23,6 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class SetDesiredStateMetadata(google.protobuf.message.Message):
-    """metadata about the desired state, set at the time of SetDesiredState"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ROLLBACK_FIELD_NUMBER: builtins.int
-    BYPASS_PRECONDITIONS_AND_PROTECTIONS_FIELD_NUMBER: builtins.int
-    rollback: builtins.bool
-    bypass_preconditions_and_protections: builtins.bool
-    def __init__(
-        self,
-        *,
-        rollback: builtins.bool = ...,
-        bypass_preconditions_and_protections: builtins.bool = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bypass_preconditions_and_protections", b"bypass_preconditions_and_protections", "rollback", b"rollback"]) -> None: ...
-
-global___SetDesiredStateMetadata = SetDesiredStateMetadata
-
 class SetDesiredStateReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -118,14 +99,18 @@ class SetDesiredStateResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
-    """unique identifier for the desired state that was just set"""
+    """unique identifier for the desired state that was just set, unless maestro is used"""
+    release_id: builtins.str
+    """release ID for maestro. If this is set, desired_state_id will not be set"""
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
+        release_id: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "release_id", b"release_id"]) -> None: ...
 
 global___SetDesiredStateResp = SetDesiredStateResp
 
@@ -416,7 +401,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
     def pending_set_desired_state(self) -> global___PendingSetDesiredState:
         """the latest pending or failed set desired state request"""
     @property
-    def set_desired_state_metadata(self) -> global___SetDesiredStateMetadata: ...
+    def set_desired_state_metadata(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata: ...
     @property
     def statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType]:
         """fields below are deprecated
@@ -455,7 +440,7 @@ class DesiredStateSummary(google.protobuf.message.Message):
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         pending_set_desired_state: global___PendingSetDesiredState | None = ...,
-        set_desired_state_metadata: global___SetDesiredStateMetadata | None = ...,
+        set_desired_state_metadata: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata | None = ...,
         statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType] | None = ...,
         precondition_statuses: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConditionState] | None = ...,
         status_explanations: collections.abc.Mapping[builtins.str, global___StatusExplanations] | None = ...,
@@ -616,18 +601,34 @@ class GetDesiredStateResp(google.protobuf.message.Message):
 
     DESIRED_STATE_FIELD_NUMBER: builtins.int
     COMPILED_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    SET_DESIRED_STATE_METADATA_FIELD_NUMBER: builtins.int
+    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     @property
     def compiled_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def set_desired_state_metadata(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata: ...
+    @property
+    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    """who set the desired state"""
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
         desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         compiled_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        set_desired_state_metadata: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata | None = ...,
+        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "desired_state", b"desired_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "desired_state", b"desired_state"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___GetDesiredStateResp = GetDesiredStateResp
 
@@ -1095,3 +1096,55 @@ class ListCombinedReleasesResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "releases", b"releases"]) -> None: ...
 
 global___ListCombinedReleasesResp = ListCombinedReleasesResp
+
+class GetLatestCombinedReleaseDesiredStateReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    def __init__(
+        self,
+        *,
+        entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> None: ...
+
+global___GetLatestCombinedReleaseDesiredStateReq = GetLatestCombinedReleaseDesiredStateReq
+
+class GetLatestCombinedReleaseDesiredStateResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    COMPILED_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    SET_DESIRED_STATE_METADATA_FIELD_NUMBER: builtins.int
+    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    @property
+    def input_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def compiled_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def set_desired_state_metadata(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata: ...
+    @property
+    def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    """who set the desired state"""
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    def __init__(
+        self,
+        *,
+        input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        compiled_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        set_desired_state_metadata: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata | None = ...,
+        creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "input_desired_state", b"input_desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "input_desired_state", b"input_desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+
+global___GetLatestCombinedReleaseDesiredStateResp = GetLatestCombinedReleaseDesiredStateResp

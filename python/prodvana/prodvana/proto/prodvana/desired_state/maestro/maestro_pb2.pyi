@@ -90,26 +90,35 @@ class MaestroReleaseConfig(google.protobuf.message.Message):
 
     ENTITY_ID_FIELD_NUMBER: builtins.int
     MAESTRO_CONFIG_FIELD_NUMBER: builtins.int
-    DESIRED_STATE_FIELD_NUMBER: builtins.int
+    INPUT_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    COMPILED_DESIRED_STATE_FIELD_NUMBER: builtins.int
     CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    SET_DESIRED_STATE_METADATA_FIELD_NUMBER: builtins.int
     @property
     def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     @property
     def maestro_config(self) -> global___MaestroConfig: ...
     @property
-    def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    def input_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
+    @property
+    def compiled_desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     @property
     def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def set_desired_state_metadata(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata:
+        """next tag: 7"""
     def __init__(
         self,
         *,
         entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
         maestro_config: global___MaestroConfig | None = ...,
-        desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        input_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
+        compiled_desired_state: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        set_desired_state_metadata: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_id", b"entity_id", "maestro_config", b"maestro_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "desired_state", b"desired_state", "entity_id", b"entity_id", "maestro_config", b"maestro_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "entity_id", b"entity_id", "input_desired_state", b"input_desired_state", "maestro_config", b"maestro_config", "set_desired_state_metadata", b"set_desired_state_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "entity_id", b"entity_id", "input_desired_state", b"input_desired_state", "maestro_config", b"maestro_config", "set_desired_state_metadata", b"set_desired_state_metadata"]) -> None: ...
 
 global___MaestroReleaseConfig = MaestroReleaseConfig
 

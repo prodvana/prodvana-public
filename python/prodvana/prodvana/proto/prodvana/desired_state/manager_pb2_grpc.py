@@ -99,6 +99,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
                 )
+        self.GetLatestCombinedReleaseDesiredState = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
+                )
 
 
 class DesiredStateManagerServicer(object):
@@ -214,6 +219,15 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLatestCombinedReleaseDesiredState(self, request, context):
+        """get latest desired state that was set explicitly as part of a release, as defined by
+        ListCombinedReleases. This is a shortcut for ListCombinedReleases(descending=True, page_size=1),
+        then GetDesiredState or GetMaestroRelease depending on the type of release.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DesiredStateManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -301,6 +315,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.ListCombinedReleases,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.SerializeToString,
+            ),
+            'GetLatestCombinedReleaseDesiredState': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLatestCombinedReleaseDesiredState,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -598,5 +617,22 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/ListCombinedReleases',
             prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.ListCombinedReleasesResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLatestCombinedReleaseDesiredState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState',
+            prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
