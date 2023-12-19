@@ -9771,6 +9771,10 @@
         "forceAsyncSetDesiredState": {
           "type": "boolean",
           "title": "internal use only"
+        },
+        "maestroConfigOverride": {
+          "$ref": "#/definitions/maestroMaestroConfig",
+          "title": "optionally override maestro config for this service"
         }
       }
     },
@@ -11924,7 +11928,7 @@
       "type": "string",
       "enum": [
         "UNKNOWN_STRATEGY",
-        "IMMEDIATE",
+        "OVERWRITE",
         "ON_STABLE",
         "MAESTRO_DISABLED"
       ],

@@ -3203,7 +3203,7 @@
                     "enum": [
                         "UNKNOWN_STRATEGY",
                         0,
-                        "IMMEDIATE",
+                        "OVERWRITE",
                         1,
                         "ON_STABLE",
                         2,

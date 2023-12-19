@@ -32,6 +32,7 @@ class SetDesiredStateReq(google.protobuf.message.Message):
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
     FORCE_ASYNC_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
+    MAESTRO_CONFIG_OVERRIDE_FIELD_NUMBER: builtins.int
     @property
     def desired_state(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     rollback: builtins.bool
@@ -43,6 +44,9 @@ class SetDesiredStateReq(google.protobuf.message.Message):
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     force_async_set_desired_state: builtins.bool
     """internal use only"""
+    @property
+    def maestro_config_override(self) -> prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroConfig:
+        """optionally override maestro config for this service"""
     def __init__(
         self,
         *,
@@ -52,9 +56,10 @@ class SetDesiredStateReq(google.protobuf.message.Message):
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         force_async_set_desired_state: builtins.bool = ...,
+        maestro_config_override: prodvana.proto.prodvana.desired_state.maestro.maestro_pb2.MaestroConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bypass_preconditions_and_protections", b"bypass_preconditions_and_protections", "desired_state", b"desired_state", "force_async_set_desired_state", b"force_async_set_desired_state", "rollback", b"rollback", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["desired_state", b"desired_state", "maestro_config_override", b"maestro_config_override", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bypass_preconditions_and_protections", b"bypass_preconditions_and_protections", "desired_state", b"desired_state", "force_async_set_desired_state", b"force_async_set_desired_state", "maestro_config_override", b"maestro_config_override", "rollback", b"rollback", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___SetDesiredStateReq = SetDesiredStateReq
 

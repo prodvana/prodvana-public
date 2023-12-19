@@ -22,7 +22,10 @@ message SetDesiredStateReq {
     // internal use only
     bool force_async_set_desired_state = 5;
 
-    // next tag: 7
+    // optionally override maestro config for this service
+    prodvana.desired_state.maestro.MaestroConfig maestro_config_override = 7;
+
+    // next tag: 8
 }
 
 message ValidateDesiredStateReq {
