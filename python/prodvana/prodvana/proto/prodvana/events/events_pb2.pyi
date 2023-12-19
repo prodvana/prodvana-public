@@ -77,6 +77,7 @@ class RelatedObjects(google.protobuf.message.Message):
     RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     RUNTIME_ID_FIELD_NUMBER: builtins.int
     EXTERNAL_LOGS_FIELD_NUMBER: builtins.int
     application_id: builtins.str
@@ -84,9 +85,11 @@ class RelatedObjects(google.protobuf.message.Message):
     release_channel_id: builtins.str
     desired_state_id: builtins.str
     root_desired_state_id: builtins.str
+    release_id: builtins.str
     runtime_id: builtins.str
     @property
-    def external_logs(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]: ...
+    def external_logs(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+        """next tag: 9"""
     def __init__(
         self,
         *,
@@ -95,9 +98,10 @@ class RelatedObjects(google.protobuf.message.Message):
         release_channel_id: builtins.str = ...,
         desired_state_id: builtins.str = ...,
         root_desired_state_id: builtins.str = ...,
+        release_id: builtins.str = ...,
         runtime_id: builtins.str = ...,
         external_logs: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application_id", b"application_id", "desired_state_id", b"desired_state_id", "external_logs", b"external_logs", "release_channel_id", b"release_channel_id", "root_desired_state_id", b"root_desired_state_id", "runtime_id", b"runtime_id", "service_id", b"service_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application_id", b"application_id", "desired_state_id", b"desired_state_id", "external_logs", b"external_logs", "release_channel_id", b"release_channel_id", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "runtime_id", b"runtime_id", "service_id", b"service_id"]) -> None: ...
 
 global___RelatedObjects = RelatedObjects

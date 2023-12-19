@@ -24,6 +24,7 @@ message Lookup {
         string desired_state_id = 3;
         ServiceLookup service = 4;
         ReleaseChannelLookup release_channel = 5;
+        string release_id = 6;
     }
     // entity_id not supported yet because there is no backing index
     reserved 2;

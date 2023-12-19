@@ -21,6 +21,8 @@ message RelatedObjects {
     string release_channel_id = 3;
     string desired_state_id = 4;
     string root_desired_state_id = 5;
+    string release_id = 8;
     string runtime_id = 6;
     map<string, string> external_logs = 7;
+    // next tag: 9
 }

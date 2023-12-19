@@ -60,12 +60,14 @@ class Lookup(google.protobuf.message.Message):
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SERVICE_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     root_desired_state_id: builtins.str
     desired_state_id: builtins.str
     @property
     def service(self) -> global___ServiceLookup: ...
     @property
     def release_channel(self) -> global___ReleaseChannelLookup: ...
+    release_id: builtins.str
     def __init__(
         self,
         *,
@@ -73,10 +75,11 @@ class Lookup(google.protobuf.message.Message):
         desired_state_id: builtins.str = ...,
         service: global___ServiceLookup | None = ...,
         release_channel: global___ReleaseChannelLookup | None = ...,
+        release_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "lookup_oneof", b"lookup_oneof", "release_channel", b"release_channel", "root_desired_state_id", b"root_desired_state_id", "service", b"service"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "lookup_oneof", b"lookup_oneof", "release_channel", b"release_channel", "root_desired_state_id", b"root_desired_state_id", "service", b"service"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["lookup_oneof", b"lookup_oneof"]) -> typing_extensions.Literal["root_desired_state_id", "desired_state_id", "service", "release_channel"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "lookup_oneof", b"lookup_oneof", "release_channel", b"release_channel", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "service", b"service"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "lookup_oneof", b"lookup_oneof", "release_channel", b"release_channel", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "service", b"service"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["lookup_oneof", b"lookup_oneof"]) -> typing_extensions.Literal["root_desired_state_id", "desired_state_id", "service", "release_channel", "release_id"] | None: ...
 
 global___Lookup = Lookup
 

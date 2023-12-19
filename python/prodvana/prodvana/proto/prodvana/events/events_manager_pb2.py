@@ -18,7 +18,7 @@ from prodvana.proto.prodvana.events import events_pb2 as prodvana_dot_events_dot
 from prodvana.proto.prodvana.events import types_pb2 as prodvana_dot_events_dot_types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$prodvana/events/events_manager.proto\x12\x0fprodvana.events\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a\x1cprodvana/events/events.proto\x1a\x1bprodvana/events/types.proto\"G\n\rServiceLookup\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x18\n\x07service\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"V\n\x14ReleaseChannelLookup\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12 \n\x0frelease_channel\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\xe0\x01\n\x06Lookup\x12\x1f\n\x15root_desired_state_id\x18\x01 \x01(\tH\x00\x12\x1a\n\x10\x64\x65sired_state_id\x18\x03 \x01(\tH\x00\x12\x31\n\x07service\x18\x04 \x01(\x0b\x32\x1e.prodvana.events.ServiceLookupH\x00\x12@\n\x0frelease_channel\x18\x05 \x01(\x0b\x32%.prodvana.events.ReleaseChannelLookupH\x00\x42\x13\n\x0clookup_oneof\x12\x03\xf8\x42\x01J\x04\x08\x02\x10\x03R\tentity_id\"\xd4\x02\n\x0cGetEventsReq\x12\x39\n\x07lookups\x18\x01 \x03(\x0b\x32\x17.prodvana.events.LookupB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01\x12)\n\x05types\x18\x02 \x03(\x0e\x32\x1a.prodvana.events.EventType\x12\x12\n\npage_token\x18\x03 \x01(\t\x12\x11\n\tpage_size\x18\x04 \x01(\x05\x12\x1e\n\x16order_by_asc_timestamp\x18\x06 \x01(\x08\x12\r\n\x05useOr\x18\x07 \x01(\x08\x12\x34\n\x10\x62\x65\x66ore_timestamp\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0f\x61\x66ter_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x05\x10\x06R\x17order_by_desc_timestamp\"P\n\rGetEventsResp\x12&\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x16.prodvana.events.Event\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2r\n\rEventsManager\x12\x61\n\tGetEvents\x12\x1d.prodvana.events.GetEventsReq\x1a\x1e.prodvana.events.GetEventsResp\"\x15\x82\xd3\xe4\x93\x02\x0f\"\n/v1/events:\x01*BKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/eventsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$prodvana/events/events_manager.proto\x12\x0fprodvana.events\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a\x1cprodvana/events/events.proto\x1a\x1bprodvana/events/types.proto\"G\n\rServiceLookup\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x18\n\x07service\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"V\n\x14ReleaseChannelLookup\x12\x1c\n\x0b\x61pplication\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12 \n\x0frelease_channel\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\xf6\x01\n\x06Lookup\x12\x1f\n\x15root_desired_state_id\x18\x01 \x01(\tH\x00\x12\x1a\n\x10\x64\x65sired_state_id\x18\x03 \x01(\tH\x00\x12\x31\n\x07service\x18\x04 \x01(\x0b\x32\x1e.prodvana.events.ServiceLookupH\x00\x12@\n\x0frelease_channel\x18\x05 \x01(\x0b\x32%.prodvana.events.ReleaseChannelLookupH\x00\x12\x14\n\nrelease_id\x18\x06 \x01(\tH\x00\x42\x13\n\x0clookup_oneof\x12\x03\xf8\x42\x01J\x04\x08\x02\x10\x03R\tentity_id\"\xd4\x02\n\x0cGetEventsReq\x12\x39\n\x07lookups\x18\x01 \x03(\x0b\x32\x17.prodvana.events.LookupB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01\x12)\n\x05types\x18\x02 \x03(\x0e\x32\x1a.prodvana.events.EventType\x12\x12\n\npage_token\x18\x03 \x01(\t\x12\x11\n\tpage_size\x18\x04 \x01(\x05\x12\x1e\n\x16order_by_asc_timestamp\x18\x06 \x01(\x08\x12\r\n\x05useOr\x18\x07 \x01(\x08\x12\x34\n\x10\x62\x65\x66ore_timestamp\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0f\x61\x66ter_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x05\x10\x06R\x17order_by_desc_timestamp\"P\n\rGetEventsResp\x12&\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x16.prodvana.events.Event\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2r\n\rEventsManager\x12\x61\n\tGetEvents\x12\x1d.prodvana.events.GetEventsReq\x1a\x1e.prodvana.events.GetEventsResp\"\x15\x82\xd3\xe4\x93\x02\x0f\"\n/v1/events:\x01*BKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/eventsb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -46,11 +46,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_RELEASECHANNELLOOKUP']._serialized_start=277
   _globals['_RELEASECHANNELLOOKUP']._serialized_end=363
   _globals['_LOOKUP']._serialized_start=366
-  _globals['_LOOKUP']._serialized_end=590
-  _globals['_GETEVENTSREQ']._serialized_start=593
-  _globals['_GETEVENTSREQ']._serialized_end=933
-  _globals['_GETEVENTSRESP']._serialized_start=935
-  _globals['_GETEVENTSRESP']._serialized_end=1015
-  _globals['_EVENTSMANAGER']._serialized_start=1017
-  _globals['_EVENTSMANAGER']._serialized_end=1131
+  _globals['_LOOKUP']._serialized_end=612
+  _globals['_GETEVENTSREQ']._serialized_start=615
+  _globals['_GETEVENTSREQ']._serialized_end=955
+  _globals['_GETEVENTSRESP']._serialized_start=957
+  _globals['_GETEVENTSRESP']._serialized_end=1037
+  _globals['_EVENTSMANAGER']._serialized_start=1039
+  _globals['_EVENTSMANAGER']._serialized_end=1153
 # @@protoc_insertion_point(module_scope)

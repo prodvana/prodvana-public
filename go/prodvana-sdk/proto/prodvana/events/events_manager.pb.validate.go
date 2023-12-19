@@ -414,6 +414,19 @@ func (m *Lookup) validate(all bool) error {
 			}
 		}
 
+	case *Lookup_ReleaseId:
+		if v == nil {
+			err := LookupValidationError{
+				field:  "LookupOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofLookupOneofPresent = true
+		// no validation rules for ReleaseId
 	default:
 		_ = v // ensures v is used
 	}

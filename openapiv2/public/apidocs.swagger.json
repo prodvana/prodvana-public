@@ -11257,6 +11257,9 @@
         },
         "releaseChannel": {
           "$ref": "#/definitions/eventsReleaseChannelLookup"
+        },
+        "releaseId": {
+          "type": "string"
         }
       }
     },
@@ -11438,6 +11441,9 @@
         "rootDesiredStateId": {
           "type": "string"
         },
+        "releaseId": {
+          "type": "string"
+        },
         "runtimeId": {
           "type": "string"
         },
@@ -11445,7 +11451,8 @@
           "type": "object",
           "additionalProperties": {
             "type": "string"
-          }
+          },
+          "title": "next tag: 9"
         }
       }
     },

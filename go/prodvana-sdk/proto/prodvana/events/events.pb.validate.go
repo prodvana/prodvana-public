@@ -260,6 +260,8 @@ func (m *RelatedObjects) validate(all bool) error {
 
 	// no validation rules for RootDesiredStateId
 
+	// no validation rules for ReleaseId
+
 	// no validation rules for RuntimeId
 
 	// no validation rules for ExternalLogs
