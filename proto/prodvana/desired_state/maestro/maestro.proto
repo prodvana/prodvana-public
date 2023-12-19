@@ -24,6 +24,7 @@ enum Strategy {
     UNKNOWN_STRATEGY = 0;
     IMMEDIATE = 1;
     ON_STABLE = 2;
+    MAESTRO_DISABLED = 3;
 }
 
 message MaestroConfig {

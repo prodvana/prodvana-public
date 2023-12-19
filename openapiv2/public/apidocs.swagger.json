@@ -11925,7 +11925,8 @@
       "enum": [
         "UNKNOWN_STRATEGY",
         "IMMEDIATE",
-        "ON_STABLE"
+        "ON_STABLE",
+        "MAESTRO_DISABLED"
       ],
       "default": "UNKNOWN_STRATEGY"
     },

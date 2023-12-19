@@ -3206,7 +3206,9 @@
                         "IMMEDIATE",
                         1,
                         "ON_STABLE",
-                        2
+                        2,
+                        "MAESTRO_DISABLED",
+                        3
                     ],
                     "oneOf": [
                         {

@@ -63,12 +63,14 @@ class _StrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     UNKNOWN_STRATEGY: _Strategy.ValueType  # 0
     IMMEDIATE: _Strategy.ValueType  # 1
     ON_STABLE: _Strategy.ValueType  # 2
+    MAESTRO_DISABLED: _Strategy.ValueType  # 3
 
 class Strategy(_Strategy, metaclass=_StrategyEnumTypeWrapper): ...
 
 UNKNOWN_STRATEGY: Strategy.ValueType  # 0
 IMMEDIATE: Strategy.ValueType  # 1
 ON_STABLE: Strategy.ValueType  # 2
+MAESTRO_DISABLED: Strategy.ValueType  # 3
 global___Strategy = Strategy
 
 class MaestroConfig(google.protobuf.message.Message):
