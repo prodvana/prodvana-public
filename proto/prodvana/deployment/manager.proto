@@ -35,6 +35,7 @@ message DeploymentFilter {
     // staging deployment channels across all apps.)
     string application = 3;
     string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
+    string release_id = 5;  // release_id filter is AND'ed with everything else in the same filter object
 }
 
 message ListDeploymentsReq {

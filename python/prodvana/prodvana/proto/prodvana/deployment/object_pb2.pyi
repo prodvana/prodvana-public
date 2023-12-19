@@ -58,6 +58,7 @@ class DeploymentConfig(google.protobuf.message.Message):
     RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
     SERVICE_VERSION_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     @property
     def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """must be unset on input"""
@@ -80,7 +81,8 @@ class DeploymentConfig(google.protobuf.message.Message):
     release_channel_id: builtins.str
     service_version: builtins.str
     desired_state_id: builtins.str
-    """next tag: 14"""
+    release_id: builtins.str
+    """next tag: 15"""
     def __init__(
         self,
         *,
@@ -97,9 +99,10 @@ class DeploymentConfig(google.protobuf.message.Message):
         release_channel_id: builtins.str = ...,
         service_version: builtins.str = ...,
         desired_state_id: builtins.str = ...,
+        release_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "desired_state_id", b"desired_state_id", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "repository", b"repository", "service", b"service", "service_id", b"service_id", "service_version", b"service_version", "user", b"user"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "commit_id", b"commit_id", "creation_timestamp", b"creation_timestamp", "deployment_system", b"deployment_system", "desired_state_id", b"desired_state_id", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "release_id", b"release_id", "repository", b"repository", "service", b"service", "service_id", b"service_id", "service_version", b"service_version", "user", b"user"]) -> None: ...
 
 global___DeploymentConfig = DeploymentConfig
 

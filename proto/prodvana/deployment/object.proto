@@ -34,7 +34,8 @@ message DeploymentConfig {
     string release_channel_id = 11;
     string service_version = 12;
     string desired_state_id = 13;
-    // next tag: 14
+    string release_id = 14;
+    // next tag: 15
 }
 
 message DeploymentState {

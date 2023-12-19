@@ -17,7 +17,7 @@ from prodvana.proto.prodvana.repo import repo_pb2 as prodvana_dot_repo_dot_repo_
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n prodvana/deployment/object.proto\x12\x13prodvana.deployment\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1aprodvana/object/meta.proto\x1a\x18prodvana/repo/repo.proto\x1a\x17validate/validate.proto\"\xdd\x02\n\x10\x44\x65ploymentConfig\x12\x36\n\x12\x63reation_timestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\"\n\x11\x64\x65ployment_system\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07service\x18\x03 \x01(\t\x12\x17\n\x0frelease_channel\x18\x04 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x08 \x01(\t\x12\x12\n\nrepository\x18\x05 \x01(\t\x12\x11\n\tcommit_id\x18\x06 \x01(\t\x12\x0c\n\x04user\x18\x07 \x01(\t\x12\x16\n\x0e\x61pplication_id\x18\t \x01(\t\x12\x12\n\nservice_id\x18\n \x01(\t\x12\x1a\n\x12release_channel_id\x18\x0b \x01(\t\x12\x17\n\x0fservice_version\x18\x0c \x01(\t\x12\x18\n\x10\x64\x65sired_state_id\x18\r \x01(\t\"\x83\x01\n\x0f\x44\x65ploymentState\x12\x35\n\x06status\x18\x01 \x01(\x0e\x32%.prodvana.deployment.DeploymentStatus\x12\x39\n\x15last_update_timestamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x0e\x43ommitAnalysis\x12\x15\n\rcommits_added\x18\x01 \x01(\x03\x12\x17\n\x0f\x63ommits_removed\x18\x02 \x01(\x03\x12\x46\n\x0fimpact_analysis\x18\x03 \x01(\x0b\x32-.prodvana.deployment.ImpactAnalysisComparison\"\xa6\x01\n\x18ImpactAnalysisComparison\x12\x35\n\x16relevant_added_commits\x18\x01 \x03(\x0b\x32\x15.prodvana.repo.Commit\x12\x37\n\x18relevant_removed_commits\x18\x03 \x03(\x0b\x32\x15.prodvana.repo.Commit\x12\x1a\n\x12unanalyzed_commits\x18\x02 \x01(\x03\"\xb8\x03\n\x14\x44\x65ploymentComparison\x12)\n\x04prev\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x17\n\x0fprev_repository\x18\x02 \x01(\t\x12\x16\n\x0enew_repository\x18\x03 \x01(\t\x12\x16\n\x0eprev_commit_id\x18\x04 \x01(\t\x12\x15\n\rnew_commit_id\x18\x05 \x01(\t\x12<\n\x0f\x63ommit_analysis\x18\x0e \x01(\x0b\x32#.prodvana.deployment.CommitAnalysis\x12\x17\n\x0fprev_service_id\x18\x08 \x01(\t\x12\x1f\n\x17prev_release_channel_id\x18\t \x01(\t\x12\x1c\n\x14prev_service_version\x18\n \x01(\t\x12\x16\n\x0enew_service_id\x18\x0b \x01(\t\x12\x1e\n\x16new_release_channel_id\x18\x0c \x01(\t\x12\x1b\n\x13new_service_version\x18\r \x01(\tJ\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08R\x0fimpact_analysisR\rtotal_commits\"\xe2\x01\n\nDeployment\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x35\n\x06\x63onfig\x18\x02 \x01(\x0b\x32%.prodvana.deployment.DeploymentConfig\x12=\n\ncomparison\x18\x03 \x01(\x0b\x32).prodvana.deployment.DeploymentComparison\x12\x33\n\x05state\x18\x04 \x01(\x0b\x32$.prodvana.deployment.DeploymentState*[\n\x10\x44\x65ploymentStatus\x12\x12\n\x0eUNKNOWN_STATUS\x10\x00\x12\x0b\n\x07PENDING\x10\x01\x12\r\n\tSUCCEEDED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\x0b\n\x07PREVIEW\x10\x04\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deploymentb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n prodvana/deployment/object.proto\x12\x13prodvana.deployment\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1aprodvana/object/meta.proto\x1a\x18prodvana/repo/repo.proto\x1a\x17validate/validate.proto\"\xf1\x02\n\x10\x44\x65ploymentConfig\x12\x36\n\x12\x63reation_timestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\"\n\x11\x64\x65ployment_system\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07service\x18\x03 \x01(\t\x12\x17\n\x0frelease_channel\x18\x04 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x08 \x01(\t\x12\x12\n\nrepository\x18\x05 \x01(\t\x12\x11\n\tcommit_id\x18\x06 \x01(\t\x12\x0c\n\x04user\x18\x07 \x01(\t\x12\x16\n\x0e\x61pplication_id\x18\t \x01(\t\x12\x12\n\nservice_id\x18\n \x01(\t\x12\x1a\n\x12release_channel_id\x18\x0b \x01(\t\x12\x17\n\x0fservice_version\x18\x0c \x01(\t\x12\x18\n\x10\x64\x65sired_state_id\x18\r \x01(\t\x12\x12\n\nrelease_id\x18\x0e \x01(\t\"\x83\x01\n\x0f\x44\x65ploymentState\x12\x35\n\x06status\x18\x01 \x01(\x0e\x32%.prodvana.deployment.DeploymentStatus\x12\x39\n\x15last_update_timestamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x0e\x43ommitAnalysis\x12\x15\n\rcommits_added\x18\x01 \x01(\x03\x12\x17\n\x0f\x63ommits_removed\x18\x02 \x01(\x03\x12\x46\n\x0fimpact_analysis\x18\x03 \x01(\x0b\x32-.prodvana.deployment.ImpactAnalysisComparison\"\xa6\x01\n\x18ImpactAnalysisComparison\x12\x35\n\x16relevant_added_commits\x18\x01 \x03(\x0b\x32\x15.prodvana.repo.Commit\x12\x37\n\x18relevant_removed_commits\x18\x03 \x03(\x0b\x32\x15.prodvana.repo.Commit\x12\x1a\n\x12unanalyzed_commits\x18\x02 \x01(\x03\"\xb8\x03\n\x14\x44\x65ploymentComparison\x12)\n\x04prev\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x17\n\x0fprev_repository\x18\x02 \x01(\t\x12\x16\n\x0enew_repository\x18\x03 \x01(\t\x12\x16\n\x0eprev_commit_id\x18\x04 \x01(\t\x12\x15\n\rnew_commit_id\x18\x05 \x01(\t\x12<\n\x0f\x63ommit_analysis\x18\x0e \x01(\x0b\x32#.prodvana.deployment.CommitAnalysis\x12\x17\n\x0fprev_service_id\x18\x08 \x01(\t\x12\x1f\n\x17prev_release_channel_id\x18\t \x01(\t\x12\x1c\n\x14prev_service_version\x18\n \x01(\t\x12\x16\n\x0enew_service_id\x18\x0b \x01(\t\x12\x1e\n\x16new_release_channel_id\x18\x0c \x01(\t\x12\x1b\n\x13new_service_version\x18\r \x01(\tJ\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08R\x0fimpact_analysisR\rtotal_commits\"\xe2\x01\n\nDeployment\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12\x35\n\x06\x63onfig\x18\x02 \x01(\x0b\x32%.prodvana.deployment.DeploymentConfig\x12=\n\ncomparison\x18\x03 \x01(\x0b\x32).prodvana.deployment.DeploymentComparison\x12\x33\n\x05state\x18\x04 \x01(\x0b\x32$.prodvana.deployment.DeploymentState*[\n\x10\x44\x65ploymentStatus\x12\x12\n\x0eUNKNOWN_STATUS\x10\x00\x12\x0b\n\x07PENDING\x10\x01\x12\r\n\tSUCCEEDED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\x0b\n\x07PREVIEW\x10\x04\x42OZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deploymentb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,18 +28,18 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'ZMgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment'
   _DEPLOYMENTCONFIG.fields_by_name['deployment_system']._options = None
   _DEPLOYMENTCONFIG.fields_by_name['deployment_system']._serialized_options = b'\372B\004r\002\020\001'
-  _globals['_DEPLOYMENTSTATUS']._serialized_start=1635
-  _globals['_DEPLOYMENTSTATUS']._serialized_end=1726
+  _globals['_DEPLOYMENTSTATUS']._serialized_start=1655
+  _globals['_DEPLOYMENTSTATUS']._serialized_end=1746
   _globals['_DEPLOYMENTCONFIG']._serialized_start=170
-  _globals['_DEPLOYMENTCONFIG']._serialized_end=519
-  _globals['_DEPLOYMENTSTATE']._serialized_start=522
-  _globals['_DEPLOYMENTSTATE']._serialized_end=653
-  _globals['_COMMITANALYSIS']._serialized_start=656
-  _globals['_COMMITANALYSIS']._serialized_end=792
-  _globals['_IMPACTANALYSISCOMPARISON']._serialized_start=795
-  _globals['_IMPACTANALYSISCOMPARISON']._serialized_end=961
-  _globals['_DEPLOYMENTCOMPARISON']._serialized_start=964
-  _globals['_DEPLOYMENTCOMPARISON']._serialized_end=1404
-  _globals['_DEPLOYMENT']._serialized_start=1407
-  _globals['_DEPLOYMENT']._serialized_end=1633
+  _globals['_DEPLOYMENTCONFIG']._serialized_end=539
+  _globals['_DEPLOYMENTSTATE']._serialized_start=542
+  _globals['_DEPLOYMENTSTATE']._serialized_end=673
+  _globals['_COMMITANALYSIS']._serialized_start=676
+  _globals['_COMMITANALYSIS']._serialized_end=812
+  _globals['_IMPACTANALYSISCOMPARISON']._serialized_start=815
+  _globals['_IMPACTANALYSISCOMPARISON']._serialized_end=981
+  _globals['_DEPLOYMENTCOMPARISON']._serialized_start=984
+  _globals['_DEPLOYMENTCOMPARISON']._serialized_end=1424
+  _globals['_DEPLOYMENT']._serialized_start=1427
+  _globals['_DEPLOYMENT']._serialized_end=1653
 # @@protoc_insertion_point(module_scope)

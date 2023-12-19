@@ -2577,6 +2577,13 @@
             "type": "string"
           },
           {
+            "name": "filter.releaseId",
+            "description": "release_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "startingDeploymentId",
             "description": "newer deployment, inclusive",
             "in": "query",
@@ -2781,6 +2788,13 @@
           {
             "name": "filter.desiredStateId",
             "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.releaseId",
+            "description": "release_id filter is AND'ed with everything else in the same filter object",
             "in": "query",
             "required": false,
             "type": "string"
@@ -5292,6 +5306,13 @@
             "type": "string"
           },
           {
+            "name": "filter.releaseId",
+            "description": "release_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "startingDeploymentId",
             "description": "newer deployment, inclusive",
             "in": "query",
@@ -5496,6 +5517,13 @@
           {
             "name": "filter.desiredStateId",
             "description": "desired_state_id filter is AND'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.releaseId",
+            "description": "release_id filter is AND'ed with everything else in the same filter object",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9135,8 +9163,11 @@
           "type": "string"
         },
         "desiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
           "type": "string",
-          "title": "next tag: 14"
+          "title": "next tag: 15"
         }
       }
     },
@@ -9163,6 +9194,10 @@
         "desiredStateId": {
           "type": "string",
           "title": "desired_state_id filter is AND'ed with everything else in the same filter object"
+        },
+        "releaseId": {
+          "type": "string",
+          "title": "release_id filter is AND'ed with everything else in the same filter object"
         }
       }
     },

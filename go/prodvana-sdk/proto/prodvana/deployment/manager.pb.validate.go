@@ -546,6 +546,8 @@ func (m *DeploymentFilter) validate(all bool) error {
 
 	// no validation rules for DesiredStateId
 
+	// no validation rules for ReleaseId
+
 	if len(errors) > 0 {
 		return DeploymentFilterMultiError(errors)
 	}
