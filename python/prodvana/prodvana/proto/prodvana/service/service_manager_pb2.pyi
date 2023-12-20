@@ -258,7 +258,8 @@ class GetMaterializedConfigResp(google.protobuf.message.Message):
     def compiled_service_instance_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.service.service_config_pb2.CompiledServiceInstanceConfig]:
         """compiled config per release channel, with per-release-channel overrides applied"""
     @property
-    def version_metadata(self) -> global___ListMaterializedConfigVersionsResp.VersionMetadata: ...
+    def version_metadata(self) -> global___ListMaterializedConfigVersionsResp.VersionMetadata:
+        """next tag: 7"""
     def __init__(
         self,
         *,
@@ -717,6 +718,7 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
         PARAMETER_VALUES_FIELD_NUMBER: builtins.int
         SOURCE_FIELD_NUMBER: builtins.int
         SOURCE_METADATA_FIELD_NUMBER: builtins.int
+        APP_VERSION_FIELD_NUMBER: builtins.int
         version: builtins.str
         @property
         def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -728,6 +730,8 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
         @property
         def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+        app_version: builtins.str
+        """the app version that was used for compilation"""
         def __init__(
             self,
             *,
@@ -738,9 +742,10 @@ class ListMaterializedConfigVersionsResp(google.protobuf.message.Message):
             parameter_values: prodvana.proto.prodvana.service.parameters_pb2.ServiceParameterValues | None = ...,
             source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
             source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+            app_version: builtins.str = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "parameter_values", b"parameter_values", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "creation_timestamp", b"creation_timestamp", "parameter_values", b"parameter_values", "parameters", b"parameters", "source", b"source", "source_metadata", b"source_metadata", "version", b"version"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["app_version", b"app_version", "config_version", b"config_version", "creation_timestamp", b"creation_timestamp", "parameter_values", b"parameter_values", "parameters", b"parameters", "source", b"source", "source_metadata", b"source_metadata", "version", b"version"]) -> None: ...
 
     VERSIONS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int

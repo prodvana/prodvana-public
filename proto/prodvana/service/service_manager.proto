@@ -98,6 +98,7 @@ message GetMaterializedConfigResp {
     ServiceConfig compiled_config = 3;  // config with defaults applied
     repeated CompiledServiceInstanceConfig compiled_service_instance_configs = 4; // compiled config per release channel, with per-release-channel overrides applied
     ListMaterializedConfigVersionsResp.VersionMetadata version_metadata = 5;
+    // next tag: 6
 }
 
 message DeleteServiceReq {
@@ -238,6 +239,8 @@ message ListMaterializedConfigVersionsResp {
         ServiceParameterValues parameter_values = 4;
         prodvana.version.Source source = 5;
         prodvana.version.SourceMetadata source_metadata = 6;
+        string app_version = 8; // the app version that was used for compilation
+        // next tag: 9
     }
     repeated VersionMetadata versions = 1;
     string next_page_token = 2;

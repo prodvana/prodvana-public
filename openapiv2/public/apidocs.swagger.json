@@ -14733,7 +14733,8 @@
           "title": "compiled config per release channel, with per-release-channel overrides applied"
         },
         "versionMetadata": {
-          "$ref": "#/definitions/serviceListMaterializedConfigVersionsRespVersionMetadata"
+          "$ref": "#/definitions/serviceListMaterializedConfigVersionsRespVersionMetadata",
+          "title": "next tag: 7"
         }
       }
     },
@@ -14867,6 +14868,10 @@
         },
         "sourceMetadata": {
           "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "appVersion": {
+          "type": "string",
+          "title": "the app version that was used for compilation"
         }
       }
     },

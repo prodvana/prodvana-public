@@ -6298,6 +6298,8 @@ func (m *ListMaterializedConfigVersionsResp_VersionMetadata) validate(all bool) 
 		}
 	}
 
+	// no validation rules for AppVersion
+
 	if len(errors) > 0 {
 		return ListMaterializedConfigVersionsResp_VersionMetadataMultiError(errors)
 	}
