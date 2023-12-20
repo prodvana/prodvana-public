@@ -259,7 +259,7 @@ class GetMaterializedConfigResp(google.protobuf.message.Message):
         """compiled config per release channel, with per-release-channel overrides applied"""
     @property
     def version_metadata(self) -> global___ListMaterializedConfigVersionsResp.VersionMetadata:
-        """next tag: 7"""
+        """next tag: 6"""
     def __init__(
         self,
         *,
@@ -800,15 +800,18 @@ class ConfigureServiceResp(google.protobuf.message.Message):
 
     SERVICE_ID_FIELD_NUMBER: builtins.int
     CONFIG_VERSION_FIELD_NUMBER: builtins.int
+    CREATED_NEW_VERSION_FIELD_NUMBER: builtins.int
     service_id: builtins.str
     config_version: builtins.str
+    created_new_version: builtins.bool
     def __init__(
         self,
         *,
         service_id: builtins.str = ...,
         config_version: builtins.str = ...,
+        created_new_version: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "service_id", b"service_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config_version", b"config_version", "created_new_version", b"created_new_version", "service_id", b"service_id"]) -> None: ...
 
 global___ConfigureServiceResp = ConfigureServiceResp
 

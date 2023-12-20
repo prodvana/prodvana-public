@@ -753,6 +753,8 @@ func (m *ConfigureApplicationResp) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for CreatedNewVersion
+
 	if len(errors) > 0 {
 		return ConfigureApplicationRespMultiError(errors)
 	}

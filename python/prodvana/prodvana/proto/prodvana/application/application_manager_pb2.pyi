@@ -102,7 +102,7 @@ class ConfigureApplicationReq(google.protobuf.message.Message):
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     base_version: builtins.str
-    """optional, if this is not a new application, this is the existing version of 
+    """optional, if this is not a new application, this is the existing version of
     this application config that this configuration was based on.
     this can be used to avoid concurrent updates overwriting each other.
     NOTE: this will eventually be required for updates
@@ -125,15 +125,18 @@ class ConfigureApplicationResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     META_FIELD_NUMBER: builtins.int
+    CREATED_NEW_VERSION_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> prodvana.proto.prodvana.object.meta_pb2.ObjectMeta: ...
+    created_new_version: builtins.bool
     def __init__(
         self,
         *,
         meta: prodvana.proto.prodvana.object.meta_pb2.ObjectMeta | None = ...,
+        created_new_version: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created_new_version", b"created_new_version", "meta", b"meta"]) -> None: ...
 
 global___ConfigureApplicationResp = ConfigureApplicationResp
 

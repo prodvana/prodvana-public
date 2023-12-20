@@ -259,6 +259,7 @@ message ConfigureServiceReq {
 message ConfigureServiceResp {
     string service_id = 1;
     string config_version = 2;
+    bool created_new_version = 3;
 }
 
 message ValidateConfigureServiceResp {

@@ -35,7 +35,7 @@ message ConfigureApplicationReq {
     repeated string approved_dangerous_action_ids = 2;
     prodvana.version.Source source = 3;
     prodvana.version.SourceMetadata source_metadata = 4;
-    // optional, if this is not a new application, this is the existing version of 
+    // optional, if this is not a new application, this is the existing version of
     // this application config that this configuration was based on.
     // this can be used to avoid concurrent updates overwriting each other.
     // NOTE: this will eventually be required for updates
@@ -44,6 +44,7 @@ message ConfigureApplicationReq {
 
 message ConfigureApplicationResp {
     prodvana.object.ObjectMeta meta = 1;
+    bool created_new_version = 2;
 }
 
 message ValidateConfigureApplicationResp {

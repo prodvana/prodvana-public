@@ -7820,7 +7820,7 @@
         },
         "baseVersion": {
           "type": "string",
-          "title": "optional, if this is not a new application, this is the existing version of \nthis application config that this configuration was based on.\nthis can be used to avoid concurrent updates overwriting each other.\nNOTE: this will eventually be required for updates"
+          "title": "optional, if this is not a new application, this is the existing version of\nthis application config that this configuration was based on.\nthis can be used to avoid concurrent updates overwriting each other.\nNOTE: this will eventually be required for updates"
         }
       }
     },
@@ -7829,6 +7829,9 @@
       "properties": {
         "meta": {
           "$ref": "#/definitions/objectObjectMeta"
+        },
+        "createdNewVersion": {
+          "type": "boolean"
         }
       }
     },
@@ -14088,6 +14091,9 @@
         "version": {
           "type": "string",
           "title": "application version"
+        },
+        "createdNewVersion": {
+          "type": "boolean"
         }
       }
     },
@@ -14646,6 +14652,9 @@
         },
         "configVersion": {
           "type": "string"
+        },
+        "createdNewVersion": {
+          "type": "boolean"
         }
       }
     },
@@ -14734,7 +14743,7 @@
         },
         "versionMetadata": {
           "$ref": "#/definitions/serviceListMaterializedConfigVersionsRespVersionMetadata",
-          "title": "next tag: 7"
+          "title": "next tag: 6"
         }
       }
     },

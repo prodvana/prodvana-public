@@ -236,6 +236,8 @@ func (m *ConfigureReleaseChannelResp) validate(all bool) error {
 
 	// no validation rules for Version
 
+	// no validation rules for CreatedNewVersion
+
 	if len(errors) > 0 {
 		return ConfigureReleaseChannelRespMultiError(errors)
 	}

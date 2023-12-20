@@ -50,14 +50,17 @@ class ConfigureReleaseChannelResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VERSION_FIELD_NUMBER: builtins.int
+    CREATED_NEW_VERSION_FIELD_NUMBER: builtins.int
     version: builtins.str
     """application version"""
+    created_new_version: builtins.bool
     def __init__(
         self,
         *,
         version: builtins.str = ...,
+        created_new_version: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created_new_version", b"created_new_version", "version", b"version"]) -> None: ...
 
 global___ConfigureReleaseChannelResp = ConfigureReleaseChannelResp
 

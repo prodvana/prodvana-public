@@ -23,6 +23,7 @@ message ConfigureReleaseChannelReq {
 message ConfigureReleaseChannelResp {
 	// application version
     string version = 1;
+    bool created_new_version = 2;
 }
 
 message DeleteReleaseChannelReq {
