@@ -120,6 +120,10 @@ class WorkflowManagerStub:
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallHoneycombReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallHoneycombResp,
     ]
+    GetInstallGitHubUrl: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetInstallGitHubUrlReq,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetInstallGitHubUrlResp,
+    ]
     CreateGitHubApp: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.CreateGitHubAppReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.CreateGitHubAppResp,
@@ -302,6 +306,12 @@ class WorkflowManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallHoneycombReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallHoneycombResp: ...
+    @abc.abstractmethod
+    def GetInstallGitHubUrl(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetInstallGitHubUrlReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetInstallGitHubUrlResp: ...
     @abc.abstractmethod
     def CreateGitHubApp(
         self,

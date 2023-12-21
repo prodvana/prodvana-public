@@ -47,6 +47,7 @@ const (
 	WorkflowManager_UpdateHoneycombEnvironment_FullMethodName         = "/prodvana.workflow.WorkflowManager/UpdateHoneycombEnvironment"
 	WorkflowManager_DeleteHoneycombEnvironment_FullMethodName         = "/prodvana.workflow.WorkflowManager/DeleteHoneycombEnvironment"
 	WorkflowManager_UninstallHoneycomb_FullMethodName                 = "/prodvana.workflow.WorkflowManager/UninstallHoneycomb"
+	WorkflowManager_GetInstallGitHubUrl_FullMethodName                = "/prodvana.workflow.WorkflowManager/GetInstallGitHubUrl"
 	WorkflowManager_CreateGitHubApp_FullMethodName                    = "/prodvana.workflow.WorkflowManager/CreateGitHubApp"
 	WorkflowManager_InstallGitHub_FullMethodName                      = "/prodvana.workflow.WorkflowManager/InstallGitHub"
 	WorkflowManager_ListRepoCommits_FullMethodName                    = "/prodvana.workflow.WorkflowManager/ListRepoCommits"
@@ -84,6 +85,7 @@ type WorkflowManagerClient interface {
 	UpdateHoneycombEnvironment(ctx context.Context, in *UpdateHoneycombEnvironmentReq, opts ...grpc.CallOption) (*UpdateHoneycombEnvironmentResp, error)
 	DeleteHoneycombEnvironment(ctx context.Context, in *DeleteHoneycombEnvironmentReq, opts ...grpc.CallOption) (*DeleteHoneycombEnvironmentResp, error)
 	UninstallHoneycomb(ctx context.Context, in *UninstallHoneycombReq, opts ...grpc.CallOption) (*UninstallHoneycombResp, error)
+	GetInstallGitHubUrl(ctx context.Context, in *GetInstallGitHubUrlReq, opts ...grpc.CallOption) (*GetInstallGitHubUrlResp, error)
 	CreateGitHubApp(ctx context.Context, in *CreateGitHubAppReq, opts ...grpc.CallOption) (*CreateGitHubAppResp, error)
 	InstallGitHub(ctx context.Context, in *InstallGitHubReq, opts ...grpc.CallOption) (*InstallGitHubResp, error)
 	ListRepoCommits(ctx context.Context, in *ListRepoCommitsReq, opts ...grpc.CallOption) (*ListRepoCommitsResp, error)
@@ -349,6 +351,15 @@ func (c *workflowManagerClient) UninstallHoneycomb(ctx context.Context, in *Unin
 	return out, nil
 }
 
+func (c *workflowManagerClient) GetInstallGitHubUrl(ctx context.Context, in *GetInstallGitHubUrlReq, opts ...grpc.CallOption) (*GetInstallGitHubUrlResp, error) {
+	out := new(GetInstallGitHubUrlResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetInstallGitHubUrl_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workflowManagerClient) CreateGitHubApp(ctx context.Context, in *CreateGitHubAppReq, opts ...grpc.CallOption) (*CreateGitHubAppResp, error) {
 	out := new(CreateGitHubAppResp)
 	err := c.cc.Invoke(ctx, WorkflowManager_CreateGitHubApp_FullMethodName, in, out, opts...)
@@ -408,6 +419,7 @@ type WorkflowManagerServer interface {
 	UpdateHoneycombEnvironment(context.Context, *UpdateHoneycombEnvironmentReq) (*UpdateHoneycombEnvironmentResp, error)
 	DeleteHoneycombEnvironment(context.Context, *DeleteHoneycombEnvironmentReq) (*DeleteHoneycombEnvironmentResp, error)
 	UninstallHoneycomb(context.Context, *UninstallHoneycombReq) (*UninstallHoneycombResp, error)
+	GetInstallGitHubUrl(context.Context, *GetInstallGitHubUrlReq) (*GetInstallGitHubUrlResp, error)
 	CreateGitHubApp(context.Context, *CreateGitHubAppReq) (*CreateGitHubAppResp, error)
 	InstallGitHub(context.Context, *InstallGitHubReq) (*InstallGitHubResp, error)
 	ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error)
@@ -501,6 +513,9 @@ func (UnimplementedWorkflowManagerServer) DeleteHoneycombEnvironment(context.Con
 }
 func (UnimplementedWorkflowManagerServer) UninstallHoneycomb(context.Context, *UninstallHoneycombReq) (*UninstallHoneycombResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UninstallHoneycomb not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetInstallGitHubUrl(context.Context, *GetInstallGitHubUrlReq) (*GetInstallGitHubUrlResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInstallGitHubUrl not implemented")
 }
 func (UnimplementedWorkflowManagerServer) CreateGitHubApp(context.Context, *CreateGitHubAppReq) (*CreateGitHubAppResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGitHubApp not implemented")
@@ -1028,6 +1043,24 @@ func _WorkflowManager_UninstallHoneycomb_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowManager_GetInstallGitHubUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInstallGitHubUrlReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetInstallGitHubUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetInstallGitHubUrl_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetInstallGitHubUrl(ctx, req.(*GetInstallGitHubUrlReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkflowManager_CreateGitHubApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateGitHubAppReq)
 	if err := dec(in); err != nil {
@@ -1200,6 +1233,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UninstallHoneycomb",
 			Handler:    _WorkflowManager_UninstallHoneycomb_Handler,
+		},
+		{
+			MethodName: "GetInstallGitHubUrl",
+			Handler:    _WorkflowManager_GetInstallGitHubUrl_Handler,
 		},
 		{
 			MethodName: "CreateGitHubApp",

@@ -154,6 +154,11 @@ class WorkflowManagerStub(object):
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombReq.SerializeToString,
                 response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombResp.FromString,
                 )
+        self.GetInstallGitHubUrl = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/GetInstallGitHubUrl',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlReq.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlResp.FromString,
+                )
         self.CreateGitHubApp = channel.unary_unary(
                 '/prodvana.workflow.WorkflowManager/CreateGitHubApp',
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.CreateGitHubAppReq.SerializeToString,
@@ -342,6 +347,12 @@ class WorkflowManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetInstallGitHubUrl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def CreateGitHubApp(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -502,6 +513,11 @@ def add_WorkflowManagerServicer_to_server(servicer, server):
                     servicer.UninstallHoneycomb,
                     request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombReq.FromString,
                     response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombResp.SerializeToString,
+            ),
+            'GetInstallGitHubUrl': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetInstallGitHubUrl,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlReq.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlResp.SerializeToString,
             ),
             'CreateGitHubApp': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateGitHubApp,
@@ -1001,6 +1017,23 @@ class WorkflowManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/UninstallHoneycomb',
             prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombReq.SerializeToString,
             prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallHoneycombResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetInstallGitHubUrl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/GetInstallGitHubUrl',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlReq.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetInstallGitHubUrlResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

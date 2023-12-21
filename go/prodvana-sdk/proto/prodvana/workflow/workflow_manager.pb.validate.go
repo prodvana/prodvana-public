@@ -8072,6 +8072,216 @@ var _ interface {
 	ErrorName() string
 } = DeleteIntegrationRespValidationError{}
 
+// Validate checks the field values on GetInstallGitHubUrlReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetInstallGitHubUrlReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetInstallGitHubUrlReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetInstallGitHubUrlReqMultiError, or nil if none found.
+func (m *GetInstallGitHubUrlReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetInstallGitHubUrlReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for GithubOrg
+
+	if len(errors) > 0 {
+		return GetInstallGitHubUrlReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetInstallGitHubUrlReqMultiError is an error wrapping multiple validation
+// errors returned by GetInstallGitHubUrlReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetInstallGitHubUrlReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetInstallGitHubUrlReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetInstallGitHubUrlReqMultiError) AllErrors() []error { return m }
+
+// GetInstallGitHubUrlReqValidationError is the validation error returned by
+// GetInstallGitHubUrlReq.Validate if the designated constraints aren't met.
+type GetInstallGitHubUrlReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetInstallGitHubUrlReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetInstallGitHubUrlReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetInstallGitHubUrlReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetInstallGitHubUrlReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetInstallGitHubUrlReqValidationError) ErrorName() string {
+	return "GetInstallGitHubUrlReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetInstallGitHubUrlReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetInstallGitHubUrlReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetInstallGitHubUrlReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetInstallGitHubUrlReqValidationError{}
+
+// Validate checks the field values on GetInstallGitHubUrlResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetInstallGitHubUrlResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetInstallGitHubUrlResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetInstallGitHubUrlRespMultiError, or nil if none found.
+func (m *GetInstallGitHubUrlResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetInstallGitHubUrlResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Url
+
+	// no validation rules for Manifest
+
+	if len(errors) > 0 {
+		return GetInstallGitHubUrlRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetInstallGitHubUrlRespMultiError is an error wrapping multiple validation
+// errors returned by GetInstallGitHubUrlResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetInstallGitHubUrlRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetInstallGitHubUrlRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetInstallGitHubUrlRespMultiError) AllErrors() []error { return m }
+
+// GetInstallGitHubUrlRespValidationError is the validation error returned by
+// GetInstallGitHubUrlResp.Validate if the designated constraints aren't met.
+type GetInstallGitHubUrlRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetInstallGitHubUrlRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetInstallGitHubUrlRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetInstallGitHubUrlRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetInstallGitHubUrlRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetInstallGitHubUrlRespValidationError) ErrorName() string {
+	return "GetInstallGitHubUrlRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetInstallGitHubUrlRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetInstallGitHubUrlResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetInstallGitHubUrlRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetInstallGitHubUrlRespValidationError{}
+
 // Validate checks the field values on
 // CreateContainerRegistryIntegrationReq_ECROptions with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

@@ -429,6 +429,15 @@ message DeleteIntegrationReq {
 message DeleteIntegrationResp {
 }
 
+message GetInstallGitHubUrlReq {
+  string github_org = 1;
+}
+
+message GetInstallGitHubUrlResp {
+  string url = 1;
+  string manifest = 2;
+}
+
 service WorkflowManager {
     rpc ListIntegrations(ListIntegrationsReq) returns (ListIntegrationsResp) {
         option (google.api.http) = {
@@ -573,6 +582,11 @@ service WorkflowManager {
     rpc UninstallHoneycomb (UninstallHoneycombReq) returns (UninstallHoneycombResp) {
         option (google.api.http) = {
             delete: "/v1/integrations/honeycomb",
+        };
+    };
+    rpc GetInstallGitHubUrl (GetInstallGitHubUrlReq) returns (GetInstallGitHubUrlResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/github/install-url"
         };
     };
     rpc CreateGitHubApp (CreateGitHubAppReq) returns (CreateGitHubAppResp) {

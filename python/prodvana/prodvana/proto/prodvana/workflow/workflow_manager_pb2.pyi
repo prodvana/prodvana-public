@@ -1369,3 +1369,34 @@ class DeleteIntegrationResp(google.protobuf.message.Message):
     ) -> None: ...
 
 global___DeleteIntegrationResp = DeleteIntegrationResp
+
+class GetInstallGitHubUrlReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GITHUB_ORG_FIELD_NUMBER: builtins.int
+    github_org: builtins.str
+    def __init__(
+        self,
+        *,
+        github_org: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["github_org", b"github_org"]) -> None: ...
+
+global___GetInstallGitHubUrlReq = GetInstallGitHubUrlReq
+
+class GetInstallGitHubUrlResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    URL_FIELD_NUMBER: builtins.int
+    MANIFEST_FIELD_NUMBER: builtins.int
+    url: builtins.str
+    manifest: builtins.str
+    def __init__(
+        self,
+        *,
+        url: builtins.str = ...,
+        manifest: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["manifest", b"manifest", "url", b"url"]) -> None: ...
+
+global___GetInstallGitHubUrlResp = GetInstallGitHubUrlResp
