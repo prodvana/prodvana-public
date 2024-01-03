@@ -7167,7 +7167,7 @@
                     "description": "optional, defaults to Prodvana service name"
                 },
                 "task_definition": {
-                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.TaskDefinition",
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -7177,7 +7177,7 @@
                     ]
                 },
                 "taskDefinition": {
-                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.TaskDefinition",
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -7186,8 +7186,8 @@
                         {}
                     ]
                 },
-                "network_configuration": {
-                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.NetworkConfiguration",
+                "service_spec": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -7196,8 +7196,8 @@
                         {}
                     ]
                 },
-                "networkConfiguration": {
-                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.NetworkConfiguration",
+                "serviceSpec": {
+                    "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -7240,101 +7240,7 @@
             ],
             "title": "Aws Ecs Config"
         },
-        "prodvana.service.AwsEcsConfig.NetworkConfiguration": {
-            "properties": {
-                "subnets": {
-                    "items": {
-                        "oneOf": [
-                            {
-                                "type": "null"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                },
-                "security_groups": {
-                    "items": {
-                        "oneOf": [
-                            {
-                                "type": "null"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                },
-                "securityGroups": {
-                    "items": {
-                        "oneOf": [
-                            {
-                                "type": "null"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
-                },
-                "assign_public_ip": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
-                "assignPublicIp": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Network Configuration"
-        },
-        "prodvana.service.AwsEcsConfig.TaskDefinition": {
+        "prodvana.service.AwsEcsConfig.Spec": {
             "properties": {
                 "inlined": {
                     "oneOf": [
@@ -7366,7 +7272,7 @@
                     "type": "object"
                 }
             ],
-            "title": "Task Definition"
+            "title": "Spec"
         },
         "prodvana.service.CapabilityReference": {
             "properties": {

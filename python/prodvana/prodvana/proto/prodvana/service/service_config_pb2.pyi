@@ -580,7 +580,7 @@ global___RuntimeExtensionConfig = RuntimeExtensionConfig
 class AwsEcsConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class TaskDefinition(google.protobuf.message.Message):
+    class Spec(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         INLINED_FIELD_NUMBER: builtins.int
@@ -594,40 +594,20 @@ class AwsEcsConfig(google.protobuf.message.Message):
             inlined: builtins.str = ...,
             local: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "task_definition_oneof", b"task_definition_oneof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "task_definition_oneof", b"task_definition_oneof"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing_extensions.Literal["task_definition_oneof", b"task_definition_oneof"]) -> typing_extensions.Literal["inlined", "local"] | None: ...
-
-    class NetworkConfiguration(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        SUBNETS_FIELD_NUMBER: builtins.int
-        SECURITY_GROUPS_FIELD_NUMBER: builtins.int
-        ASSIGN_PUBLIC_IP_FIELD_NUMBER: builtins.int
-        @property
-        def subnets(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-        @property
-        def security_groups(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-        assign_public_ip: builtins.bool
-        def __init__(
-            self,
-            *,
-            subnets: collections.abc.Iterable[builtins.str] | None = ...,
-            security_groups: collections.abc.Iterable[builtins.str] | None = ...,
-            assign_public_ip: builtins.bool = ...,
-        ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["assign_public_ip", b"assign_public_ip", "security_groups", b"security_groups", "subnets", b"subnets"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "spec_oneof", b"spec_oneof"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "spec_oneof", b"spec_oneof"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing_extensions.Literal["spec_oneof", b"spec_oneof"]) -> typing_extensions.Literal["inlined", "local"] | None: ...
 
     ECS_SERVICE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     TASK_DEFINITION_FIELD_NUMBER: builtins.int
-    NETWORK_CONFIGURATION_FIELD_NUMBER: builtins.int
+    SERVICE_SPEC_FIELD_NUMBER: builtins.int
     UPDATE_TASK_DEFINITION_ONLY_FIELD_NUMBER: builtins.int
     ecs_service_name_override: builtins.str
     """optional, defaults to Prodvana service name"""
     @property
-    def task_definition(self) -> global___AwsEcsConfig.TaskDefinition: ...
+    def task_definition(self) -> global___AwsEcsConfig.Spec: ...
     @property
-    def network_configuration(self) -> global___AwsEcsConfig.NetworkConfiguration: ...
+    def service_spec(self) -> global___AwsEcsConfig.Spec: ...
     update_task_definition_only: builtins.bool
     """Only update service's task definition, but do not try to update anything else about the service.
     This means that something else is responsible for creating the service.
@@ -637,12 +617,12 @@ class AwsEcsConfig(google.protobuf.message.Message):
         self,
         *,
         ecs_service_name_override: builtins.str = ...,
-        task_definition: global___AwsEcsConfig.TaskDefinition | None = ...,
-        network_configuration: global___AwsEcsConfig.NetworkConfiguration | None = ...,
+        task_definition: global___AwsEcsConfig.Spec | None = ...,
+        service_spec: global___AwsEcsConfig.Spec | None = ...,
         update_task_definition_only: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["network_configuration", b"network_configuration", "task_definition", b"task_definition"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "network_configuration", b"network_configuration", "task_definition", b"task_definition", "update_task_definition_only", b"update_task_definition_only"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["service_spec", b"service_spec", "task_definition", b"task_definition"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "service_spec", b"service_spec", "task_definition", b"task_definition", "update_task_definition_only", b"update_task_definition_only"]) -> None: ...
 
 global___AwsEcsConfig = AwsEcsConfig
 

@@ -239,24 +239,21 @@ message RuntimeExtensionConfig {
 }
 
 message AwsEcsConfig {
-    message TaskDefinition {
-        oneof task_definition_oneof {
+    message Spec {
+        oneof spec_oneof {
             option (validate.required) = true;
             string inlined = 1 [(validate.rules).string.min_len = 1];
             prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
         }
     }
-    message NetworkConfiguration {
-        repeated string subnets = 1;
-        repeated string security_groups = 2;
-        bool assign_public_ip = 3;
-    }
     string ecs_service_name_override = 1;  // optional, defaults to Prodvana service name
-    TaskDefinition task_definition = 2 [(validate.rules).message.required = true];
-    NetworkConfiguration network_configuration = 3;
+    Spec task_definition = 2 [(validate.rules).message.required = true];
+    Spec service_spec = 5;
     // Only update service's task definition, but do not try to update anything else about the service.
     // This means that something else is responsible for creating the service.
     bool update_task_definition_only = 4; // if set, network_configuration cannot be set
+    reserved 3;
+    reserved "network_configuration";
 }
 
 message GoogleCloudRunConfig {

@@ -3650,11 +3650,11 @@ func (m *AwsEcsConfig) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetNetworkConfiguration()).(type) {
+		switch v := interface{}(m.GetServiceSpec()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, AwsEcsConfigValidationError{
-					field:  "NetworkConfiguration",
+					field:  "ServiceSpec",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -3662,16 +3662,16 @@ func (m *AwsEcsConfig) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, AwsEcsConfigValidationError{
-					field:  "NetworkConfiguration",
+					field:  "ServiceSpec",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetNetworkConfiguration()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetServiceSpec()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return AwsEcsConfigValidationError{
-				field:  "NetworkConfiguration",
+				field:  "ServiceSpec",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -6640,34 +6640,34 @@ var _ interface {
 	ErrorName() string
 } = RuntimeSpecificConfig_K8SConfigValidationError{}
 
-// Validate checks the field values on AwsEcsConfig_TaskDefinition with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AwsEcsConfig_TaskDefinition) Validate() error {
+// Validate checks the field values on AwsEcsConfig_Spec with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *AwsEcsConfig_Spec) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AwsEcsConfig_TaskDefinition with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on AwsEcsConfig_Spec with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// AwsEcsConfig_TaskDefinitionMultiError, or nil if none found.
-func (m *AwsEcsConfig_TaskDefinition) ValidateAll() error {
+// AwsEcsConfig_SpecMultiError, or nil if none found.
+func (m *AwsEcsConfig_Spec) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
+func (m *AwsEcsConfig_Spec) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	oneofTaskDefinitionOneofPresent := false
-	switch v := m.TaskDefinitionOneof.(type) {
-	case *AwsEcsConfig_TaskDefinition_Inlined:
+	oneofSpecOneofPresent := false
+	switch v := m.SpecOneof.(type) {
+	case *AwsEcsConfig_Spec_Inlined:
 		if v == nil {
-			err := AwsEcsConfig_TaskDefinitionValidationError{
-				field:  "TaskDefinitionOneof",
+			err := AwsEcsConfig_SpecValidationError{
+				field:  "SpecOneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
 			if !all {
@@ -6675,10 +6675,10 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
-		oneofTaskDefinitionOneofPresent = true
+		oneofSpecOneofPresent = true
 
 		if utf8.RuneCountInString(m.GetInlined()) < 1 {
-			err := AwsEcsConfig_TaskDefinitionValidationError{
+			err := AwsEcsConfig_SpecValidationError{
 				field:  "Inlined",
 				reason: "value length must be at least 1 runes",
 			}
@@ -6688,10 +6688,10 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-	case *AwsEcsConfig_TaskDefinition_Local:
+	case *AwsEcsConfig_Spec_Local:
 		if v == nil {
-			err := AwsEcsConfig_TaskDefinitionValidationError{
-				field:  "TaskDefinitionOneof",
+			err := AwsEcsConfig_SpecValidationError{
+				field:  "SpecOneof",
 				reason: "oneof value cannot be a typed-nil",
 			}
 			if !all {
@@ -6699,10 +6699,10 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
-		oneofTaskDefinitionOneofPresent = true
+		oneofSpecOneofPresent = true
 
 		if m.GetLocal() == nil {
-			err := AwsEcsConfig_TaskDefinitionValidationError{
+			err := AwsEcsConfig_SpecValidationError{
 				field:  "Local",
 				reason: "value is required",
 			}
@@ -6716,7 +6716,7 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 			switch v := interface{}(m.GetLocal()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, AwsEcsConfig_TaskDefinitionValidationError{
+					errors = append(errors, AwsEcsConfig_SpecValidationError{
 						field:  "Local",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -6724,7 +6724,7 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, AwsEcsConfig_TaskDefinitionValidationError{
+					errors = append(errors, AwsEcsConfig_SpecValidationError{
 						field:  "Local",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -6733,7 +6733,7 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetLocal()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return AwsEcsConfig_TaskDefinitionValidationError{
+				return AwsEcsConfig_SpecValidationError{
 					field:  "Local",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -6744,9 +6744,9 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 	default:
 		_ = v // ensures v is used
 	}
-	if !oneofTaskDefinitionOneofPresent {
-		err := AwsEcsConfig_TaskDefinitionValidationError{
-			field:  "TaskDefinitionOneof",
+	if !oneofSpecOneofPresent {
+		err := AwsEcsConfig_SpecValidationError{
+			field:  "SpecOneof",
 			reason: "value is required",
 		}
 		if !all {
@@ -6756,126 +6756,19 @@ func (m *AwsEcsConfig_TaskDefinition) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AwsEcsConfig_TaskDefinitionMultiError(errors)
+		return AwsEcsConfig_SpecMultiError(errors)
 	}
 
 	return nil
 }
 
-// AwsEcsConfig_TaskDefinitionMultiError is an error wrapping multiple
-// validation errors returned by AwsEcsConfig_TaskDefinition.ValidateAll() if
-// the designated constraints aren't met.
-type AwsEcsConfig_TaskDefinitionMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AwsEcsConfig_TaskDefinitionMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AwsEcsConfig_TaskDefinitionMultiError) AllErrors() []error { return m }
-
-// AwsEcsConfig_TaskDefinitionValidationError is the validation error returned
-// by AwsEcsConfig_TaskDefinition.Validate if the designated constraints
+// AwsEcsConfig_SpecMultiError is an error wrapping multiple validation errors
+// returned by AwsEcsConfig_Spec.ValidateAll() if the designated constraints
 // aren't met.
-type AwsEcsConfig_TaskDefinitionValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AwsEcsConfig_TaskDefinitionValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AwsEcsConfig_TaskDefinitionValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AwsEcsConfig_TaskDefinitionValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AwsEcsConfig_TaskDefinitionValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AwsEcsConfig_TaskDefinitionValidationError) ErrorName() string {
-	return "AwsEcsConfig_TaskDefinitionValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e AwsEcsConfig_TaskDefinitionValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAwsEcsConfig_TaskDefinition.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AwsEcsConfig_TaskDefinitionValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AwsEcsConfig_TaskDefinitionValidationError{}
-
-// Validate checks the field values on AwsEcsConfig_NetworkConfiguration with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the first error encountered is returned, or nil if there are
-// no violations.
-func (m *AwsEcsConfig_NetworkConfiguration) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on AwsEcsConfig_NetworkConfiguration
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the result is a list of violation errors wrapped in
-// AwsEcsConfig_NetworkConfigurationMultiError, or nil if none found.
-func (m *AwsEcsConfig_NetworkConfiguration) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *AwsEcsConfig_NetworkConfiguration) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for AssignPublicIp
-
-	if len(errors) > 0 {
-		return AwsEcsConfig_NetworkConfigurationMultiError(errors)
-	}
-
-	return nil
-}
-
-// AwsEcsConfig_NetworkConfigurationMultiError is an error wrapping multiple
-// validation errors returned by
-// AwsEcsConfig_NetworkConfiguration.ValidateAll() if the designated
-// constraints aren't met.
-type AwsEcsConfig_NetworkConfigurationMultiError []error
+type AwsEcsConfig_SpecMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AwsEcsConfig_NetworkConfigurationMultiError) Error() string {
+func (m AwsEcsConfig_SpecMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -6884,12 +6777,11 @@ func (m AwsEcsConfig_NetworkConfigurationMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AwsEcsConfig_NetworkConfigurationMultiError) AllErrors() []error { return m }
+func (m AwsEcsConfig_SpecMultiError) AllErrors() []error { return m }
 
-// AwsEcsConfig_NetworkConfigurationValidationError is the validation error
-// returned by AwsEcsConfig_NetworkConfiguration.Validate if the designated
-// constraints aren't met.
-type AwsEcsConfig_NetworkConfigurationValidationError struct {
+// AwsEcsConfig_SpecValidationError is the validation error returned by
+// AwsEcsConfig_Spec.Validate if the designated constraints aren't met.
+type AwsEcsConfig_SpecValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -6897,24 +6789,24 @@ type AwsEcsConfig_NetworkConfigurationValidationError struct {
 }
 
 // Field function returns field value.
-func (e AwsEcsConfig_NetworkConfigurationValidationError) Field() string { return e.field }
+func (e AwsEcsConfig_SpecValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AwsEcsConfig_NetworkConfigurationValidationError) Reason() string { return e.reason }
+func (e AwsEcsConfig_SpecValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AwsEcsConfig_NetworkConfigurationValidationError) Cause() error { return e.cause }
+func (e AwsEcsConfig_SpecValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AwsEcsConfig_NetworkConfigurationValidationError) Key() bool { return e.key }
+func (e AwsEcsConfig_SpecValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AwsEcsConfig_NetworkConfigurationValidationError) ErrorName() string {
-	return "AwsEcsConfig_NetworkConfigurationValidationError"
+func (e AwsEcsConfig_SpecValidationError) ErrorName() string {
+	return "AwsEcsConfig_SpecValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AwsEcsConfig_NetworkConfigurationValidationError) Error() string {
+func (e AwsEcsConfig_SpecValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -6926,14 +6818,14 @@ func (e AwsEcsConfig_NetworkConfigurationValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAwsEcsConfig_NetworkConfiguration.%s: %s%s",
+		"invalid %sAwsEcsConfig_Spec.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AwsEcsConfig_NetworkConfigurationValidationError{}
+var _ error = AwsEcsConfig_SpecValidationError{}
 
 var _ interface {
 	Field() string
@@ -6941,4 +6833,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AwsEcsConfig_NetworkConfigurationValidationError{}
+} = AwsEcsConfig_SpecValidationError{}

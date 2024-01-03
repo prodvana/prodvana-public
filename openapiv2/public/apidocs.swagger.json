@@ -6717,27 +6717,7 @@
         }
       }
     },
-    "AwsEcsConfigNetworkConfiguration": {
-      "type": "object",
-      "properties": {
-        "subnets": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "securityGroups": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "assignPublicIp": {
-          "type": "boolean"
-        }
-      }
-    },
-    "AwsEcsConfigTaskDefinition": {
+    "AwsEcsConfigSpec": {
       "type": "object",
       "properties": {
         "inlined": {
@@ -13685,10 +13665,10 @@
           "title": "optional, defaults to Prodvana service name"
         },
         "taskDefinition": {
-          "$ref": "#/definitions/AwsEcsConfigTaskDefinition"
+          "$ref": "#/definitions/AwsEcsConfigSpec"
         },
-        "networkConfiguration": {
-          "$ref": "#/definitions/AwsEcsConfigNetworkConfiguration"
+        "serviceSpec": {
+          "$ref": "#/definitions/AwsEcsConfigSpec"
         },
         "updateTaskDefinitionOnly": {
           "type": "boolean",
