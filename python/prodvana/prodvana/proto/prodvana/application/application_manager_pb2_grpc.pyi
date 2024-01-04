@@ -24,6 +24,10 @@ class ApplicationManagerStub:
         prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationConfigReq,
         prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationConfigResp,
     ]
+    ListApplicationConfigVersions: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.application.application_manager_pb2.ListApplicationConfigVersionsReq,
+        prodvana.proto.prodvana.application.application_manager_pb2.ListApplicationConfigVersionsResp,
+    ]
     GetApplication: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationReq,
         prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationResp,
@@ -79,6 +83,12 @@ class ApplicationManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationConfigReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.application.application_manager_pb2.GetApplicationConfigResp: ...
+    @abc.abstractmethod
+    def ListApplicationConfigVersions(
+        self,
+        request: prodvana.proto.prodvana.application.application_manager_pb2.ListApplicationConfigVersionsReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.application.application_manager_pb2.ListApplicationConfigVersionsResp: ...
     @abc.abstractmethod
     def GetApplication(
         self,

@@ -237,6 +237,50 @@
         ]
       }
     },
+    "/v1/applications/{application}/config/versions": {
+      "get": {
+        "operationId": "ApplicationManager_ListApplicationConfigVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/applicationListApplicationConfigVersionsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "prodvana.application.ApplicationManager"
+        ]
+      }
+    },
     "/v1/applications/{application}/insights": {
       "get": {
         "operationId": "ApplicationManager_GetApplicationInsights",
@@ -7898,6 +7942,39 @@
       "properties": {
         "application": {
           "$ref": "#/definitions/applicationApplication"
+        }
+      }
+    },
+    "applicationListApplicationConfigVersionsResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/applicationListApplicationConfigVersionsRespVersionMetadata"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "applicationListApplicationConfigVersionsRespVersionMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },

@@ -34,6 +34,11 @@ class ApplicationManagerStub(object):
                 request_serializer=prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigReq.SerializeToString,
                 response_deserializer=prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigResp.FromString,
                 )
+        self.ListApplicationConfigVersions = channel.unary_unary(
+                '/prodvana.application.ApplicationManager/ListApplicationConfigVersions',
+                request_serializer=prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsReq.SerializeToString,
+                response_deserializer=prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsResp.FromString,
+                )
         self.GetApplication = channel.unary_unary(
                 '/prodvana.application.ApplicationManager/GetApplication',
                 request_serializer=prodvana_dot_application_dot_application__manager__pb2.GetApplicationReq.SerializeToString,
@@ -93,6 +98,12 @@ class ApplicationManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetApplicationConfig(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListApplicationConfigVersions(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -163,6 +174,11 @@ def add_ApplicationManagerServicer_to_server(servicer, server):
                     servicer.GetApplicationConfig,
                     request_deserializer=prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigReq.FromString,
                     response_serializer=prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigResp.SerializeToString,
+            ),
+            'ListApplicationConfigVersions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListApplicationConfigVersions,
+                    request_deserializer=prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsReq.FromString,
+                    response_serializer=prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsResp.SerializeToString,
             ),
             'GetApplication': grpc.unary_unary_rpc_method_handler(
                     servicer.GetApplication,
@@ -274,6 +290,23 @@ class ApplicationManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.application.ApplicationManager/GetApplicationConfig',
             prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigReq.SerializeToString,
             prodvana_dot_application_dot_application__manager__pb2.GetApplicationConfigResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListApplicationConfigVersions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.application.ApplicationManager/ListApplicationConfigVersions',
+            prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsReq.SerializeToString,
+            prodvana_dot_application_dot_application__manager__pb2.ListApplicationConfigVersionsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

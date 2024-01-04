@@ -64,6 +64,23 @@ message GetApplicationConfigResp {
     ApplicationConfig compiled_config = 3;  // config with defaults applied
 }
 
+message ListApplicationConfigVersionsReq {
+    string application = 1 [(validate.rules).string.min_len = 1];
+    string page_token = 2;
+    int32 page_size = 3;
+}
+
+message ListApplicationConfigVersionsResp {
+    message VersionMetadata {
+        string version = 1;
+        google.protobuf.Timestamp creation_timestamp = 2;
+        prodvana.version.Source source = 3;
+        prodvana.version.SourceMetadata source_metadata = 4;
+    }
+    repeated VersionMetadata versions = 1;
+    string next_page_token = 2;
+}
+
 message DeleteApplicationReq {
     string application = 1 [(validate.rules).string.min_len = 1];
 }
@@ -141,6 +158,11 @@ service ApplicationManager {
     rpc GetApplicationConfig(GetApplicationConfigReq) returns (GetApplicationConfigResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/config"
+        };
+    }
+    rpc ListApplicationConfigVersions(ListApplicationConfigVersionsReq) returns (ListApplicationConfigVersionsResp) {
+        option (google.api.http) = {
+            get: "/v1/applications/{application=*}/config/versions"
         };
     }
     rpc GetApplication(GetApplicationReq) returns (GetApplicationResp) {

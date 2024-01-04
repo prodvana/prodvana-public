@@ -209,6 +209,68 @@ class GetApplicationConfigResp(google.protobuf.message.Message):
 
 global___GetApplicationConfigResp = GetApplicationConfigResp
 
+class ListApplicationConfigVersionsReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    APPLICATION_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    application: builtins.str
+    page_token: builtins.str
+    page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        application: builtins.str = ...,
+        page_token: builtins.str = ...,
+        page_size: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "page_size", b"page_size", "page_token", b"page_token"]) -> None: ...
+
+global___ListApplicationConfigVersionsReq = ListApplicationConfigVersionsReq
+
+class ListApplicationConfigVersionsResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class VersionMetadata(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        VERSION_FIELD_NUMBER: builtins.int
+        CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
+        SOURCE_FIELD_NUMBER: builtins.int
+        SOURCE_METADATA_FIELD_NUMBER: builtins.int
+        version: builtins.str
+        @property
+        def creation_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+        @property
+        def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+        def __init__(
+            self,
+            *,
+            version: builtins.str = ...,
+            creation_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+            source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+            source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["creation_timestamp", b"creation_timestamp", "source", b"source", "source_metadata", b"source_metadata", "version", b"version"]) -> None: ...
+
+    VERSIONS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ListApplicationConfigVersionsResp.VersionMetadata]: ...
+    next_page_token: builtins.str
+    def __init__(
+        self,
+        *,
+        versions: collections.abc.Iterable[global___ListApplicationConfigVersionsResp.VersionMetadata] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "versions", b"versions"]) -> None: ...
+
+global___ListApplicationConfigVersionsResp = ListApplicationConfigVersionsResp
+
 class DeleteApplicationReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

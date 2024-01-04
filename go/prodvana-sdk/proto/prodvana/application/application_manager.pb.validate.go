@@ -1309,6 +1309,267 @@ var _ interface {
 	ErrorName() string
 } = GetApplicationConfigRespValidationError{}
 
+// Validate checks the field values on ListApplicationConfigVersionsReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListApplicationConfigVersionsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListApplicationConfigVersionsReq with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListApplicationConfigVersionsReqMultiError, or nil if none found.
+func (m *ListApplicationConfigVersionsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApplicationConfigVersionsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ListApplicationConfigVersionsReqValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PageToken
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return ListApplicationConfigVersionsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListApplicationConfigVersionsReqMultiError is an error wrapping multiple
+// validation errors returned by
+// ListApplicationConfigVersionsReq.ValidateAll() if the designated
+// constraints aren't met.
+type ListApplicationConfigVersionsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApplicationConfigVersionsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApplicationConfigVersionsReqMultiError) AllErrors() []error { return m }
+
+// ListApplicationConfigVersionsReqValidationError is the validation error
+// returned by ListApplicationConfigVersionsReq.Validate if the designated
+// constraints aren't met.
+type ListApplicationConfigVersionsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApplicationConfigVersionsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListApplicationConfigVersionsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListApplicationConfigVersionsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListApplicationConfigVersionsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApplicationConfigVersionsReqValidationError) ErrorName() string {
+	return "ListApplicationConfigVersionsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApplicationConfigVersionsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApplicationConfigVersionsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApplicationConfigVersionsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApplicationConfigVersionsReqValidationError{}
+
+// Validate checks the field values on ListApplicationConfigVersionsResp with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListApplicationConfigVersionsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListApplicationConfigVersionsResp
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ListApplicationConfigVersionsRespMultiError, or nil if none found.
+func (m *ListApplicationConfigVersionsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApplicationConfigVersionsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListApplicationConfigVersionsRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListApplicationConfigVersionsRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListApplicationConfigVersionsRespValidationError{
+					field:  fmt.Sprintf("Versions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPageToken
+
+	if len(errors) > 0 {
+		return ListApplicationConfigVersionsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListApplicationConfigVersionsRespMultiError is an error wrapping multiple
+// validation errors returned by
+// ListApplicationConfigVersionsResp.ValidateAll() if the designated
+// constraints aren't met.
+type ListApplicationConfigVersionsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApplicationConfigVersionsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApplicationConfigVersionsRespMultiError) AllErrors() []error { return m }
+
+// ListApplicationConfigVersionsRespValidationError is the validation error
+// returned by ListApplicationConfigVersionsResp.Validate if the designated
+// constraints aren't met.
+type ListApplicationConfigVersionsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApplicationConfigVersionsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListApplicationConfigVersionsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListApplicationConfigVersionsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListApplicationConfigVersionsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApplicationConfigVersionsRespValidationError) ErrorName() string {
+	return "ListApplicationConfigVersionsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApplicationConfigVersionsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApplicationConfigVersionsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApplicationConfigVersionsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApplicationConfigVersionsRespValidationError{}
+
 // Validate checks the field values on DeleteApplicationReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2842,3 +3103,178 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SetApplicationMetadataRespValidationError{}
+
+// Validate checks the field values on
+// ListApplicationConfigVersionsResp_VersionMetadata with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ListApplicationConfigVersionsResp_VersionMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ListApplicationConfigVersionsResp_VersionMetadata with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// ListApplicationConfigVersionsResp_VersionMetadataMultiError, or nil if none found.
+func (m *ListApplicationConfigVersionsResp_VersionMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApplicationConfigVersionsResp_VersionMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Version
+
+	if all {
+		switch v := interface{}(m.GetCreationTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+					field:  "CreationTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreationTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+				field:  "CreationTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListApplicationConfigVersionsResp_VersionMetadataValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ListApplicationConfigVersionsResp_VersionMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListApplicationConfigVersionsResp_VersionMetadataMultiError is an error
+// wrapping multiple validation errors returned by
+// ListApplicationConfigVersionsResp_VersionMetadata.ValidateAll() if the
+// designated constraints aren't met.
+type ListApplicationConfigVersionsResp_VersionMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApplicationConfigVersionsResp_VersionMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApplicationConfigVersionsResp_VersionMetadataMultiError) AllErrors() []error { return m }
+
+// ListApplicationConfigVersionsResp_VersionMetadataValidationError is the
+// validation error returned by
+// ListApplicationConfigVersionsResp_VersionMetadata.Validate if the
+// designated constraints aren't met.
+type ListApplicationConfigVersionsResp_VersionMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) ErrorName() string {
+	return "ListApplicationConfigVersionsResp_VersionMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApplicationConfigVersionsResp_VersionMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApplicationConfigVersionsResp_VersionMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApplicationConfigVersionsResp_VersionMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApplicationConfigVersionsResp_VersionMetadataValidationError{}

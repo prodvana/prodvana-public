@@ -19,17 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ApplicationManager_ConfigureApplication_FullMethodName         = "/prodvana.application.ApplicationManager/ConfigureApplication"
-	ApplicationManager_ValidateConfigureApplication_FullMethodName = "/prodvana.application.ApplicationManager/ValidateConfigureApplication"
-	ApplicationManager_ListApplications_FullMethodName             = "/prodvana.application.ApplicationManager/ListApplications"
-	ApplicationManager_GetApplicationConfig_FullMethodName         = "/prodvana.application.ApplicationManager/GetApplicationConfig"
-	ApplicationManager_GetApplication_FullMethodName               = "/prodvana.application.ApplicationManager/GetApplication"
-	ApplicationManager_DeleteApplication_FullMethodName            = "/prodvana.application.ApplicationManager/DeleteApplication"
-	ApplicationManager_GetApplicationMetrics_FullMethodName        = "/prodvana.application.ApplicationManager/GetApplicationMetrics"
-	ApplicationManager_GetApplicationInsights_FullMethodName       = "/prodvana.application.ApplicationManager/GetApplicationInsights"
-	ApplicationManager_SnoozeApplicationInsight_FullMethodName     = "/prodvana.application.ApplicationManager/SnoozeApplicationInsight"
-	ApplicationManager_GetApplicationMetadata_FullMethodName       = "/prodvana.application.ApplicationManager/GetApplicationMetadata"
-	ApplicationManager_SetApplicationMetadata_FullMethodName       = "/prodvana.application.ApplicationManager/SetApplicationMetadata"
+	ApplicationManager_ConfigureApplication_FullMethodName          = "/prodvana.application.ApplicationManager/ConfigureApplication"
+	ApplicationManager_ValidateConfigureApplication_FullMethodName  = "/prodvana.application.ApplicationManager/ValidateConfigureApplication"
+	ApplicationManager_ListApplications_FullMethodName              = "/prodvana.application.ApplicationManager/ListApplications"
+	ApplicationManager_GetApplicationConfig_FullMethodName          = "/prodvana.application.ApplicationManager/GetApplicationConfig"
+	ApplicationManager_ListApplicationConfigVersions_FullMethodName = "/prodvana.application.ApplicationManager/ListApplicationConfigVersions"
+	ApplicationManager_GetApplication_FullMethodName                = "/prodvana.application.ApplicationManager/GetApplication"
+	ApplicationManager_DeleteApplication_FullMethodName             = "/prodvana.application.ApplicationManager/DeleteApplication"
+	ApplicationManager_GetApplicationMetrics_FullMethodName         = "/prodvana.application.ApplicationManager/GetApplicationMetrics"
+	ApplicationManager_GetApplicationInsights_FullMethodName        = "/prodvana.application.ApplicationManager/GetApplicationInsights"
+	ApplicationManager_SnoozeApplicationInsight_FullMethodName      = "/prodvana.application.ApplicationManager/SnoozeApplicationInsight"
+	ApplicationManager_GetApplicationMetadata_FullMethodName        = "/prodvana.application.ApplicationManager/GetApplicationMetadata"
+	ApplicationManager_SetApplicationMetadata_FullMethodName        = "/prodvana.application.ApplicationManager/SetApplicationMetadata"
 )
 
 // ApplicationManagerClient is the client API for ApplicationManager service.
@@ -40,6 +41,7 @@ type ApplicationManagerClient interface {
 	ValidateConfigureApplication(ctx context.Context, in *ConfigureApplicationReq, opts ...grpc.CallOption) (*ValidateConfigureApplicationResp, error)
 	ListApplications(ctx context.Context, in *ListApplicationsReq, opts ...grpc.CallOption) (*ListApplicationsResp, error)
 	GetApplicationConfig(ctx context.Context, in *GetApplicationConfigReq, opts ...grpc.CallOption) (*GetApplicationConfigResp, error)
+	ListApplicationConfigVersions(ctx context.Context, in *ListApplicationConfigVersionsReq, opts ...grpc.CallOption) (*ListApplicationConfigVersionsResp, error)
 	GetApplication(ctx context.Context, in *GetApplicationReq, opts ...grpc.CallOption) (*GetApplicationResp, error)
 	DeleteApplication(ctx context.Context, in *DeleteApplicationReq, opts ...grpc.CallOption) (*DeleteApplicationResp, error)
 	GetApplicationMetrics(ctx context.Context, in *GetApplicationMetricsReq, opts ...grpc.CallOption) (*GetApplicationMetricsResp, error)
@@ -88,6 +90,15 @@ func (c *applicationManagerClient) ListApplications(ctx context.Context, in *Lis
 func (c *applicationManagerClient) GetApplicationConfig(ctx context.Context, in *GetApplicationConfigReq, opts ...grpc.CallOption) (*GetApplicationConfigResp, error) {
 	out := new(GetApplicationConfigResp)
 	err := c.cc.Invoke(ctx, ApplicationManager_GetApplicationConfig_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *applicationManagerClient) ListApplicationConfigVersions(ctx context.Context, in *ListApplicationConfigVersionsReq, opts ...grpc.CallOption) (*ListApplicationConfigVersionsResp, error) {
+	out := new(ListApplicationConfigVersionsResp)
+	err := c.cc.Invoke(ctx, ApplicationManager_ListApplicationConfigVersions_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +176,7 @@ type ApplicationManagerServer interface {
 	ValidateConfigureApplication(context.Context, *ConfigureApplicationReq) (*ValidateConfigureApplicationResp, error)
 	ListApplications(context.Context, *ListApplicationsReq) (*ListApplicationsResp, error)
 	GetApplicationConfig(context.Context, *GetApplicationConfigReq) (*GetApplicationConfigResp, error)
+	ListApplicationConfigVersions(context.Context, *ListApplicationConfigVersionsReq) (*ListApplicationConfigVersionsResp, error)
 	GetApplication(context.Context, *GetApplicationReq) (*GetApplicationResp, error)
 	DeleteApplication(context.Context, *DeleteApplicationReq) (*DeleteApplicationResp, error)
 	GetApplicationMetrics(context.Context, *GetApplicationMetricsReq) (*GetApplicationMetricsResp, error)
@@ -191,6 +203,9 @@ func (UnimplementedApplicationManagerServer) ListApplications(context.Context, *
 }
 func (UnimplementedApplicationManagerServer) GetApplicationConfig(context.Context, *GetApplicationConfigReq) (*GetApplicationConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApplicationConfig not implemented")
+}
+func (UnimplementedApplicationManagerServer) ListApplicationConfigVersions(context.Context, *ListApplicationConfigVersionsReq) (*ListApplicationConfigVersionsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListApplicationConfigVersions not implemented")
 }
 func (UnimplementedApplicationManagerServer) GetApplication(context.Context, *GetApplicationReq) (*GetApplicationResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApplication not implemented")
@@ -294,6 +309,24 @@ func _ApplicationManager_GetApplicationConfig_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ApplicationManagerServer).GetApplicationConfig(ctx, req.(*GetApplicationConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApplicationManager_ListApplicationConfigVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListApplicationConfigVersionsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApplicationManagerServer).ListApplicationConfigVersions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApplicationManager_ListApplicationConfigVersions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApplicationManagerServer).ListApplicationConfigVersions(ctx, req.(*ListApplicationConfigVersionsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -446,6 +479,10 @@ var ApplicationManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetApplicationConfig",
 			Handler:    _ApplicationManager_GetApplicationConfig_Handler,
+		},
+		{
+			MethodName: "ListApplicationConfigVersions",
+			Handler:    _ApplicationManager_ListApplicationConfigVersions_Handler,
 		},
 		{
 			MethodName: "GetApplication",
