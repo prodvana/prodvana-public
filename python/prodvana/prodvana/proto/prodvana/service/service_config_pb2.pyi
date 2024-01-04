@@ -600,14 +600,14 @@ class AwsEcsConfig(google.protobuf.message.Message):
 
     ECS_SERVICE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     TASK_DEFINITION_FIELD_NUMBER: builtins.int
-    SERVICE_SPEC_FIELD_NUMBER: builtins.int
+    SERVICE_DEFINITION_FIELD_NUMBER: builtins.int
     UPDATE_TASK_DEFINITION_ONLY_FIELD_NUMBER: builtins.int
     ecs_service_name_override: builtins.str
     """optional, defaults to Prodvana service name"""
     @property
     def task_definition(self) -> global___AwsEcsConfig.Spec: ...
     @property
-    def service_spec(self) -> global___AwsEcsConfig.Spec: ...
+    def service_definition(self) -> global___AwsEcsConfig.Spec: ...
     update_task_definition_only: builtins.bool
     """Only update service's task definition, but do not try to update anything else about the service.
     This means that something else is responsible for creating the service.
@@ -618,11 +618,11 @@ class AwsEcsConfig(google.protobuf.message.Message):
         *,
         ecs_service_name_override: builtins.str = ...,
         task_definition: global___AwsEcsConfig.Spec | None = ...,
-        service_spec: global___AwsEcsConfig.Spec | None = ...,
+        service_definition: global___AwsEcsConfig.Spec | None = ...,
         update_task_definition_only: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["service_spec", b"service_spec", "task_definition", b"task_definition"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "service_spec", b"service_spec", "task_definition", b"task_definition", "update_task_definition_only", b"update_task_definition_only"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["service_definition", b"service_definition", "task_definition", b"task_definition"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ecs_service_name_override", b"ecs_service_name_override", "service_definition", b"service_definition", "task_definition", b"task_definition", "update_task_definition_only", b"update_task_definition_only"]) -> None: ...
 
 global___AwsEcsConfig = AwsEcsConfig
 

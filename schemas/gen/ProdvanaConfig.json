@@ -7186,7 +7186,7 @@
                         {}
                     ]
                 },
-                "service_spec": {
+                "service_definition": {
                     "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [
@@ -7196,7 +7196,7 @@
                         {}
                     ]
                 },
-                "serviceSpec": {
+                "serviceDefinition": {
                     "$ref": "#/definitions/prodvana.service.AwsEcsConfig.Spec",
                     "additionalProperties": false,
                     "oneOf": [

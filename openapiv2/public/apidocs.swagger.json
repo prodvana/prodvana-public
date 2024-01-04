@@ -13667,7 +13667,7 @@
         "taskDefinition": {
           "$ref": "#/definitions/AwsEcsConfigSpec"
         },
-        "serviceSpec": {
+        "serviceDefinition": {
           "$ref": "#/definitions/AwsEcsConfigSpec"
         },
         "updateTaskDefinitionOnly": {
