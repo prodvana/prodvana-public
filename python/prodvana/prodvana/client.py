@@ -9,6 +9,7 @@ from prodvana.proto.prodvana.desired_state import manager_pb2_grpc
 from prodvana.proto.prodvana.organization import organization_manager_pb2_grpc
 from prodvana.proto.prodvana.release_channel import release_channel_manager_pb2_grpc
 from prodvana.proto.prodvana.service import service_manager_pb2_grpc
+from prodvana.proto.prodvana.workflow import workflow_manager_pb2_grpc
 
 
 class AuthClientInterceptor(ClientInterceptor):
@@ -63,7 +64,7 @@ def make_channel(
         api_token = os.getenv("PVN_TOKEN")
     assert api_token, "Must pass either `api_token` or set env variabble PVN_TOKEN"
     server_name, _ = apiserver_addr.split(":")
-    if server_name == "localhost":  # for testing only
+    if server_name == "localhost" or server_name == "apiserver":  # for testing only
         channel = grpc.insecure_channel(apiserver_addr)
     else:
         channel = grpc.secure_channel(apiserver_addr, grpc.ssl_channel_credentials())
@@ -87,3 +88,4 @@ class Client:
         )
         self.service_manager = service_manager_pb2_grpc.ServiceManagerStub(channel)
         self.desired_state_manager = manager_pb2_grpc.DesiredStateManagerStub(channel)
+        self.workflow_manager = workflow_manager_pb2_grpc.WorkflowManagerStub(channel)

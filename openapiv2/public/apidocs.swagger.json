@@ -6936,6 +6936,29 @@
         }
       }
     },
+    "CommitDefinitionRange": {
+      "type": "object",
+      "properties": {
+        "startCommit": {
+          "type": "string",
+          "title": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+        },
+        "endCommit": {
+          "type": "string"
+        }
+      }
+    },
+    "CommitDenylistProtectionConfigCommitDefinition": {
+      "type": "object",
+      "properties": {
+        "commit": {
+          "type": "string"
+        },
+        "range": {
+          "$ref": "#/definitions/CommitDefinitionRange"
+        }
+      }
+    },
     "CompiledExtensionCommandCompiledExtensionCommandExec": {
       "type": "object",
       "properties": {
@@ -8250,6 +8273,11 @@
     },
     "common_configBlobParameterDefinition": {
       "type": "object",
+      "properties": {
+        "defaultValue": {
+          "type": "string"
+        }
+      },
       "description": "A parameter pointing to a remote blob, stored inside Prodvana's BlobsManager interface.\nThe value of the template variable will be the blob ID.\nWhen combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest\non disk."
     },
     "common_configBlobParameterValue": {
@@ -13867,6 +13895,21 @@
         }
       }
     },
+    "protectionCommitDenylistProtectionConfig": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "commits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CommitDenylistProtectionConfigCommitDefinition"
+          }
+        }
+      }
+    },
     "protectionCompiledProtectionAttachmentConfig": {
       "type": "object",
       "properties": {
@@ -14011,6 +14054,9 @@
         },
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"
+        },
+        "commitDenylist": {
+          "$ref": "#/definitions/protectionCommitDenylistProtectionConfig"
         },
         "pollInterval": {
           "type": "string",
@@ -15825,6 +15871,9 @@
         "commit": {
           "$ref": "#/definitions/repoCommit",
           "title": "will be null if the image does not have any commit attached, or commit integration is not configured"
+        },
+        "repository": {
+          "type": "string"
         }
       }
     },

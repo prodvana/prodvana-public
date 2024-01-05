@@ -16,6 +16,8 @@ def make_default_value(param_def: ParameterDefinition) -> Optional[ParameterValu
         val.docker_image_tag = param_def.docker_image.default_tag
     elif param_def.secret:
         return None  # no valid default value
+    elif param_def.commit:
+        return None  # no valid default value
     else:
         raise Exception(f"Unknown parameter definition: {param_def}")
     return val

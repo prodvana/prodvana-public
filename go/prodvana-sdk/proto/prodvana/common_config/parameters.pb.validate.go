@@ -930,6 +930,8 @@ func (m *BlobParameterDefinition) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for DefaultValue
+
 	if len(errors) > 0 {
 		return BlobParameterDefinitionMultiError(errors)
 	}

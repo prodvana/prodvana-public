@@ -617,16 +617,19 @@ class GetImageCommitInfoResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     COMMIT_FIELD_NUMBER: builtins.int
+    REPOSITORY_FIELD_NUMBER: builtins.int
     @property
     def commit(self) -> prodvana.proto.prodvana.repo.repo_pb2.Commit:
         """will be null if the image does not have any commit attached, or commit integration is not configured"""
+    repository: builtins.str
     def __init__(
         self,
         *,
         commit: prodvana.proto.prodvana.repo.repo_pb2.Commit | None = ...,
+        repository: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit", "repository", b"repository"]) -> None: ...
 
 global___GetImageCommitInfoResp = GetImageCommitInfoResp
 

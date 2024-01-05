@@ -163,9 +163,14 @@ class BlobParameterDefinition(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    DEFAULT_VALUE_FIELD_NUMBER: builtins.int
+    default_value: builtins.str
     def __init__(
         self,
+        *,
+        default_value: builtins.str = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["default_value", b"default_value"]) -> None: ...
 
 global___BlobParameterDefinition = BlobParameterDefinition
 

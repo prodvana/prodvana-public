@@ -9,6 +9,7 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
+import "prodvana/protection/builtins.proto";
 
 message ProtectionConfig {
     string name = 1 [
@@ -26,6 +27,8 @@ message ProtectionConfig {
         prodvana.common_config.TaskConfig task_config = 2;
 
         prodvana.common_config.KubernetesConfig kubernetes_config = 3;
+
+        CommitDenylistProtectionConfig commit_denylist = 8;
 
         // Other options here:
         // - Ref to external repository of protection definitions.
@@ -48,6 +51,8 @@ message ProtectionConfig {
         },
         no_sparse: true,
     }];
+
+    // next tags: 9
 }
 
 message CompiledProtectionAttachmentConfig {

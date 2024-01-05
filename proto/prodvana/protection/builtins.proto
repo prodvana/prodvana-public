@@ -1,0 +1,20 @@
+syntax = "proto3";
+package prodvana.protection;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection";
+import "validate/validate.proto";
+
+message CommitDenylistProtectionConfig {
+    message CommitDefinition {
+        message Range {
+            string start_commit = 1 [(validate.rules).string.min_len = 1]; // older commit, exclusive
+            string end_commit = 2 [(validate.rules).string.min_len = 1]; // newer commit, inclusive
+        }
+        oneof commit_oneof {
+            option (validate.required) = true;
+            string commit = 1 [(validate.rules).string.min_len = 1];
+            Range range = 2 [(validate.rules).message.required = true];
+        }
+    }
+    string repository = 1 [(validate.rules).string.min_len = 1];
+    repeated CommitDefinition commits = 2;
+}

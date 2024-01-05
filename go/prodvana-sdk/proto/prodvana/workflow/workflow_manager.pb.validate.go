@@ -3141,6 +3141,8 @@ func (m *GetImageCommitInfoResp) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Repository
+
 	if len(errors) > 0 {
 		return GetImageCommitInfoRespMultiError(errors)
 	}

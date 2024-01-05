@@ -52,6 +52,7 @@ message CommitParameterDefinition {
 // When combined with `pvn-wrapper exec --in`, this parameter type can be used to make files manifest
 // on disk.
 message BlobParameterDefinition {
+    string default_value = 1;
 }
 
 message ParameterDefinition {

@@ -210,6 +210,7 @@ message GetImageCommitInfoReq {
 message GetImageCommitInfoResp {
   // will be null if the image does not have any commit attached, or commit integration is not configured
   prodvana.repo.Commit commit = 1;
+  string repository = 2;
 }
 
 message GetProgramDefaultsReq {

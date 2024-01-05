@@ -583,6 +583,28 @@
             "title": "Auto Rollback Config"
         },
         "prodvana.common_config.BlobParameterDefinition": {
+            "properties": {
+                "default_value": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
             "additionalProperties": false,
             "oneOf": [
                 {
@@ -5864,6 +5886,134 @@
             ],
             "title": "Wait Task"
         },
+        "prodvana.protection.CommitDenylistProtectionConfig": {
+            "properties": {
+                "repository": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "commits": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.protection.CommitDenylistProtectionConfig.CommitDefinition"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Commit Denylist Protection Config"
+        },
+        "prodvana.protection.CommitDenylistProtectionConfig.CommitDefinition": {
+            "properties": {
+                "commit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "range": {
+                    "$ref": "#/definitions/prodvana.protection.CommitDenylistProtectionConfig.CommitDefinition.Range",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Commit Definition"
+        },
+        "prodvana.protection.CommitDenylistProtectionConfig.CommitDefinition.Range": {
+            "properties": {
+                "start_commit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+                },
+                "startCommit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+                },
+                "end_commit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "endCommit": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Range"
+        },
         "prodvana.protection.ProtectionAttachmentConfig": {
             "properties": {
                 "name": {
@@ -5960,6 +6110,26 @@
                 },
                 "kubernetesConfig": {
                     "$ref": "#/definitions/prodvana.common_config.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "commit_denylist": {
+                    "$ref": "#/definitions/prodvana.protection.CommitDenylistProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "commitDenylist": {
+                    "$ref": "#/definitions/prodvana.protection.CommitDenylistProtectionConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
