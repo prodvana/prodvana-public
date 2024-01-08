@@ -3626,6 +3626,17 @@
                             "type": "null"
                         },
                         {}
+                    ],
+                    "description": "deprecated, use custom which means the same thing"
+                },
+                "custom": {
+                    "$ref": "#/definitions/prodvana.environment.ExtensionClusterConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ]
                 },
                 "terraform_runner": {
@@ -8075,9 +8086,31 @@
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "deprecated, use custom_runtime"
                 },
                 "runtimeExtension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, use custom_runtime"
+                },
+                "custom_runtime": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "customRuntime": {
                     "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [
@@ -9025,9 +9058,31 @@
                             "type": "null"
                         },
                         {}
-                    ]
+                    ],
+                    "description": "deprecated, use custom_runtime below"
                 },
                 "runtimeExtension": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "deprecated, use custom_runtime below"
+                },
+                "custom_runtime": {
+                    "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "customRuntime": {
                     "$ref": "#/definitions/prodvana.service.RuntimeExtensionConfig",
                     "additionalProperties": false,
                     "oneOf": [

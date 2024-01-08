@@ -10484,6 +10484,10 @@
           "title": "only used for fake runtimes"
         },
         "extension": {
+          "$ref": "#/definitions/environmentExtensionClusterConfig",
+          "title": "deprecated, use custom which means the same thing"
+        },
+        "custom": {
           "$ref": "#/definitions/environmentExtensionClusterConfig"
         },
         "terraformRunner": {
@@ -14736,7 +14740,7 @@
           "type": "string",
           "title": "how long to wait before marking deployment as failed"
         },
-        "runtimeExtension": {
+        "customRuntime": {
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
@@ -15144,6 +15148,10 @@
           "description": "which runtime connection to use in each release channel.\noptional if only one runtime makes sense for the service config."
         },
         "runtimeExtension": {
+          "$ref": "#/definitions/serviceRuntimeExtensionConfig",
+          "title": "deprecated, use custom_runtime"
+        },
+        "customRuntime": {
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
@@ -15412,6 +15420,10 @@
           "title": "how long to wait before marking deployment as failed"
         },
         "runtimeExtension": {
+          "$ref": "#/definitions/serviceRuntimeExtensionConfig",
+          "title": "deprecated, use custom_runtime below"
+        },
+        "customRuntime": {
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {

@@ -3951,6 +3951,47 @@ func (m *ClusterConfig) validate(all bool) error {
 			}
 		}
 
+	case *ClusterConfig_Custom:
+		if v == nil {
+			err := ClusterConfigValidationError{
+				field:  "ClusterOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetCustom()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "Custom",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterConfigValidationError{
+						field:  "Custom",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCustom()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterConfigValidationError{
+					field:  "Custom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	case *ClusterConfig_TerraformRunner:
 		if v == nil {
 			err := ClusterConfigValidationError{

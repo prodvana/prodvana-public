@@ -364,7 +364,8 @@ message ClusterConfig {
     oneof cluster_oneof {
         // only used for fake runtimes
         FakeClusterConfig fake = 10;
-        ExtensionClusterConfig extension = 12;
+        ExtensionClusterConfig extension = 12; // deprecated, use custom which means the same thing
+        ExtensionClusterConfig custom = 23;
         // terraform runner is a runtime that runs terraform via k8s jobs
         TerraformRunnerConfig terraform_runner = 15;
         // pulumi runner is a runtime that runs pulumi via k8s jobs
@@ -380,5 +381,5 @@ message ClusterConfig {
 
     prodvana.common_config.AutoRollbackConfig auto_rollback = 22;
 
-    // next tag: 23
+    // next tag: 24
 }
