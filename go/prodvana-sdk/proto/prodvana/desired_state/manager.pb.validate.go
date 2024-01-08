@@ -461,9 +461,34 @@ func (m *SetDesiredStateResp) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DesiredStateId
-
-	// no validation rules for ReleaseId
+	switch v := m.IdOneof.(type) {
+	case *SetDesiredStateResp_DesiredStateId:
+		if v == nil {
+			err := SetDesiredStateRespValidationError{
+				field:  "IdOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for DesiredStateId
+	case *SetDesiredStateResp_ReleaseId:
+		if v == nil {
+			err := SetDesiredStateRespValidationError{
+				field:  "IdOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for ReleaseId
+	default:
+		_ = v // ensures v is used
+	}
 
 	if len(errors) > 0 {
 		return SetDesiredStateRespMultiError(errors)

@@ -6941,10 +6941,11 @@
       "properties": {
         "startCommit": {
           "type": "string",
-          "title": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+          "title": "older commit, exclusive"
         },
         "endCommit": {
-          "type": "string"
+          "type": "string",
+          "title": "newer commit, inclusive"
         }
       }
     },

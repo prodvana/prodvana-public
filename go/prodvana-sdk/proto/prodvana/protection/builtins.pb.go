@@ -164,9 +164,8 @@ type CommitDenylistProtectionConfig_CommitDefinition_Range struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// inclusive, order does not matter but there must be a direct path from one commit to the other
-	StartCommit string `protobuf:"bytes,1,opt,name=start_commit,json=startCommit,proto3" json:"start_commit,omitempty"`
-	EndCommit   string `protobuf:"bytes,2,opt,name=end_commit,json=endCommit,proto3" json:"end_commit,omitempty"`
+	StartCommit string `protobuf:"bytes,1,opt,name=start_commit,json=startCommit,proto3" json:"start_commit,omitempty"` // older commit, exclusive
+	EndCommit   string `protobuf:"bytes,2,opt,name=end_commit,json=endCommit,proto3" json:"end_commit,omitempty"`       // newer commit, inclusive
 }
 
 func (x *CommitDenylistProtectionConfig_CommitDefinition_Range) Reset() {

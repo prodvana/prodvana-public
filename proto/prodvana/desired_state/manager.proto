@@ -47,8 +47,10 @@ message ValidateDesiredStateReq {
 }
 
 message SetDesiredStateResp {
-    string desired_state_id = 1;  // unique identifier for the desired state that was just set, unless maestro is used
-    string release_id = 2; // release ID for maestro. If this is set, desired_state_id will not be set
+    oneof id_oneof {
+        string desired_state_id = 1;  // unique identifier for the desired state that was just set, unless maestro is used
+        string release_id = 2; // release ID for maestro. If this is set, desired_state_id will not be set
+    }
 }
 
 message PreviewEntityGraphResp {

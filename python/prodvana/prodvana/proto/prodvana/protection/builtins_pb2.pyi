@@ -28,8 +28,9 @@ class CommitDenylistProtectionConfig(google.protobuf.message.Message):
             START_COMMIT_FIELD_NUMBER: builtins.int
             END_COMMIT_FIELD_NUMBER: builtins.int
             start_commit: builtins.str
-            """inclusive, order does not matter but there must be a direct path from one commit to the other"""
+            """older commit, exclusive"""
             end_commit: builtins.str
+            """newer commit, inclusive"""
             def __init__(
                 self,
                 *,

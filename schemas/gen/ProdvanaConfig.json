@@ -5969,7 +5969,7 @@
                             "type": "string"
                         }
                     ],
-                    "description": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+                    "description": "older commit, exclusive"
                 },
                 "startCommit": {
                     "oneOf": [
@@ -5980,7 +5980,7 @@
                             "type": "string"
                         }
                     ],
-                    "description": "inclusive, order does not matter but there must be a direct path from one commit to the other"
+                    "description": "older commit, exclusive"
                 },
                 "end_commit": {
                     "oneOf": [
@@ -5990,7 +5990,8 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "newer commit, inclusive"
                 },
                 "endCommit": {
                     "oneOf": [
@@ -6000,7 +6001,8 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "newer commit, inclusive"
                 }
             },
             "additionalProperties": false,
