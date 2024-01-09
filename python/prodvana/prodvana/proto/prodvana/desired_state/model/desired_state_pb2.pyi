@@ -351,6 +351,7 @@ class Condition(google.protobuf.message.Message):
         RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
         RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
         SERVICE_VERSION_FIELD_NUMBER: builtins.int
+        INTERNAL_ONLY_SATISFIED_IN_REPLACED_DESIRED_STATE_FIELD_NUMBER: builtins.int
         application: builtins.str
         service: builtins.str
         """service name or id"""
@@ -361,6 +362,11 @@ class Condition(google.protobuf.message.Message):
         release_channel_id: builtins.str
         """release channel id, normalized. Set internally by Prodvana"""
         service_version: builtins.str
+        internal_only_satisfied_in_replaced_desired_state: builtins.bool
+        """Set internally by Prodvana. If true, this condition has already been satisfied, but the
+        dependent release channel has been replaced with a new service version.
+        If set, this condition should be considered satisfied immediately.
+        """
         def __init__(
             self,
             *,
@@ -370,8 +376,9 @@ class Condition(google.protobuf.message.Message):
             release_channel: builtins.str = ...,
             release_channel_id: builtins.str = ...,
             service_version: builtins.str = ...,
+            internal_only_satisfied_in_replaced_desired_state: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "service", b"service", "service_id", b"service_id", "service_version", b"service_version"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "internal_only_satisfied_in_replaced_desired_state", b"internal_only_satisfied_in_replaced_desired_state", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "service", b"service", "service_id", b"service_id", "service_version", b"service_version"]) -> None: ...
 
     class ManualApproval(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

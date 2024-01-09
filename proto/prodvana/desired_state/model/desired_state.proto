@@ -57,6 +57,10 @@ message Condition {
         string release_channel = 4; // release channel name or id
         string release_channel_id = 5; // release channel id, normalized. Set internally by Prodvana
         string service_version = 6;
+        // Set internally by Prodvana. If true, this condition has already been satisfied, but the
+        // dependent release channel has been replaced with a new service version.
+        // If set, this condition should be considered satisfied immediately.
+        bool internal_only_satisfied_in_replaced_desired_state = 7;
     }
 
     message ManualApproval {

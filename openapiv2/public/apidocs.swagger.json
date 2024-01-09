@@ -7017,6 +7017,10 @@
         },
         "serviceVersion": {
           "type": "string"
+        },
+        "internalOnlySatisfiedInReplacedDesiredState": {
+          "type": "boolean",
+          "description": "Set internally by Prodvana. If true, this condition has already been satisfied, but the\ndependent release channel has been replaced with a new service version.\nIf set, this condition should be considered satisfied immediately."
         }
       },
       "title": "TODO(naphat) conditions need health"

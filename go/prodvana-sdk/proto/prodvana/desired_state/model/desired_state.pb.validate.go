@@ -8451,6 +8451,8 @@ func (m *Condition_ReleaseChannelStableCondition) validate(all bool) error {
 
 	// no validation rules for ServiceVersion
 
+	// no validation rules for InternalOnlySatisfiedInReplacedDesiredState
+
 	if len(errors) > 0 {
 		return Condition_ReleaseChannelStableConditionMultiError(errors)
 	}
