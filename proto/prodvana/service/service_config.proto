@@ -96,12 +96,14 @@ message PerReleaseChannelConfig {
     repeated prodvana.volumes.Volume volumes = 8 [(validate.rules).repeated.items.message.required = true];
     ReplicasConfig replicas = 9;
 
-    // DEPRECATED: Replace with delivery_extensions once its implemented.
+    // DEPRECATED: use convergence_extensions
     repeated TaskConfig pre_push_tasks = 10 [
         (validate.rules).repeated.items.message.required = true
     ];
 
+    // DEPRECATED: use convergence_extensions
     repeated DeliveryExtensionConfig delivery_extensions = 18 [(validate.rules).repeated.items.message.required = true];
+    repeated DeliveryExtensionConfig convergence_extensions = 26 [(validate.rules).repeated.items.message.required = true];
 
     RuntimeSpecificConfig runtime_specific = 11;
 
@@ -142,7 +144,7 @@ message PerReleaseChannelConfig {
 
     reserved 3, 4, 12;
 
-    // next tag: 26
+    // next tag: 27
 }
 
 message CapabilityReference {
@@ -294,10 +296,13 @@ message ServiceConfig {
     repeated prodvana.volumes.Volume volumes = 12 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 13;
 
-    // DEPRECATED: Replace with delivery_extensions
+    // DEPRECATED: Replace with convergence_extensions
     repeated TaskConfig pre_push_tasks = 15;
+    // DEPRECATED: use convergence_extensions
     repeated DeliveryExtensionConfig delivery_extensions = 29;
     repeated DeliveryExtensionInstance delivery_extension_instances = 30;
+    repeated DeliveryExtensionConfig convergence_extensions = 40;
+    repeated DeliveryExtensionInstance convergence_extension_instances = 41;
 
     // Convergence protections applied to all release channels.
     repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 37;
@@ -369,7 +374,7 @@ message ServiceConfig {
 
     prodvana.desired_state.maestro.MaestroConfig maestro = 38;
 
-    // next tag: 40
+    // next tag: 42
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -392,10 +397,10 @@ message CompiledServiceInstanceConfig {
     repeated prodvana.volumes.Volume volumes = 14 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 15;
 
-    // DEPRECATED: Replace with delivery_extensions once its implemented.
+    // DEPRECATED: use convergence_extensions
     repeated TaskConfig pre_push_tasks = 17;
-    repeated DeliveryExtensionConfig delivery_extensions = 30;
-    repeated DeliveryExtensionInstance delivery_extension_instances = 31;
+    repeated DeliveryExtensionConfig convergence_extensions = 30;
+    repeated DeliveryExtensionInstance convergence_extension_instances = 31;
 
     RuntimeSpecificConfig runtime_specific = 19;
 

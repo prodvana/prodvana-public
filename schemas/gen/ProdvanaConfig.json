@@ -8016,7 +8016,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                    "description": "DEPRECATED: use convergence_extensions"
                 },
                 "prePushTasks": {
                     "items": {
@@ -8031,7 +8031,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+                    "description": "DEPRECATED: use convergence_extensions"
                 },
                 "delivery_extensions": {
                     "items": {
@@ -8045,9 +8045,39 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "DEPRECATED: use convergence_extensions"
                 },
                 "deliveryExtensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: use convergence_extensions"
+                },
+                "convergence_extensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergenceExtensions": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
                     },
@@ -8867,7 +8897,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "DEPRECATED: Replace with delivery_extensions"
+                    "description": "DEPRECATED: Replace with convergence_extensions"
                 },
                 "prePushTasks": {
                     "items": {
@@ -8882,7 +8912,7 @@
                             "type": "array"
                         }
                     ],
-                    "description": "DEPRECATED: Replace with delivery_extensions"
+                    "description": "DEPRECATED: Replace with convergence_extensions"
                 },
                 "delivery_extensions": {
                     "items": {
@@ -8896,7 +8926,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "DEPRECATED: use convergence_extensions"
                 },
                 "deliveryExtensions": {
                     "items": {
@@ -8910,7 +8941,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "DEPRECATED: use convergence_extensions"
                 },
                 "delivery_extension_instances": {
                     "items": {
@@ -8927,6 +8959,62 @@
                     ]
                 },
                 "deliveryExtensionInstances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionInstance"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergence_extensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergenceExtensions": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergence_extension_instances": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionInstance"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                },
+                "convergenceExtensionInstances": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionInstance"
                     },

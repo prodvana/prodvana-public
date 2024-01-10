@@ -14711,16 +14711,16 @@
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
           },
-          "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+          "title": "DEPRECATED: use convergence_extensions"
         },
-        "deliveryExtensions": {
+        "convergenceExtensions": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
           }
         },
-        "deliveryExtensionInstances": {
+        "convergenceExtensionInstances": {
           "type": "array",
           "items": {
             "type": "object",
@@ -15147,9 +15147,17 @@
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
           },
-          "description": "DEPRECATED: Replace with delivery_extensions once its implemented."
+          "title": "DEPRECATED: use convergence_extensions"
         },
         "deliveryExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+          },
+          "title": "DEPRECATED: use convergence_extensions"
+        },
+        "convergenceExtensions": {
           "type": "array",
           "items": {
             "type": "object",
@@ -15381,16 +15389,31 @@
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceTaskConfig"
           },
-          "title": "DEPRECATED: Replace with delivery_extensions"
+          "title": "DEPRECATED: Replace with convergence_extensions"
         },
         "deliveryExtensions": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
-          }
+          },
+          "title": "DEPRECATED: use convergence_extensions"
         },
         "deliveryExtensionInstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceDeliveryExtensionInstance"
+          }
+        },
+        "convergenceExtensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+          }
+        },
+        "convergenceExtensionInstances": {
           "type": "array",
           "items": {
             "type": "object",
