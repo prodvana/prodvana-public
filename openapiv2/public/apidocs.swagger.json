@@ -13904,6 +13904,14 @@
         }
       }
     },
+    "protectionBuiltinProtectionConfig": {
+      "type": "object",
+      "properties": {
+        "commitDenylist": {
+          "$ref": "#/definitions/protectionCommitDenylistProtectionConfig"
+        }
+      }
+    },
     "protectionCommitDenylistProtectionConfig": {
       "type": "object",
       "properties": {
@@ -14064,8 +14072,9 @@
         "kubernetesConfig": {
           "$ref": "#/definitions/common_configKubernetesConfig"
         },
-        "commitDenylist": {
-          "$ref": "#/definitions/protectionCommitDenylistProtectionConfig"
+        "builtin": {
+          "$ref": "#/definitions/protectionBuiltinProtectionConfig",
+          "description": "Other options here:\n - Ref to external repository of protection definitions."
         },
         "pollInterval": {
           "type": "string",

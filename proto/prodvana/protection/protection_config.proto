@@ -11,6 +11,13 @@ import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
 import "prodvana/protection/builtins.proto";
 
+message BuiltinProtectionConfig {
+    oneof builtin_oneof {
+        option (validate.required) = true;
+        CommitDenylistProtectionConfig commit_denylist = 1;
+    }
+}
+
 message ProtectionConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -28,8 +35,7 @@ message ProtectionConfig {
 
         prodvana.common_config.KubernetesConfig kubernetes_config = 3;
 
-        CommitDenylistProtectionConfig commit_denylist = 8;
-
+        BuiltinProtectionConfig builtin = 9;
         // Other options here:
         // - Ref to external repository of protection definitions.
     }
@@ -52,7 +58,10 @@ message ProtectionConfig {
         no_sparse: true,
     }];
 
-    // next tags: 9
+    reserved 8;
+    reserved "commit_denylist";
+
+    // next tags: 10
 }
 
 message CompiledProtectionAttachmentConfig {

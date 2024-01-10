@@ -23,6 +23,23 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class BuiltinProtectionConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COMMIT_DENYLIST_FIELD_NUMBER: builtins.int
+    @property
+    def commit_denylist(self) -> prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig: ...
+    def __init__(
+        self,
+        *,
+        commit_denylist: prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["builtin_oneof", b"builtin_oneof"]) -> typing_extensions.Literal["commit_denylist"] | None: ...
+
+global___BuiltinProtectionConfig = BuiltinProtectionConfig
+
 class ProtectionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -46,7 +63,7 @@ class ProtectionConfig(google.protobuf.message.Message):
     NAME_FIELD_NUMBER: builtins.int
     TASK_CONFIG_FIELD_NUMBER: builtins.int
     KUBERNETES_CONFIG_FIELD_NUMBER: builtins.int
-    COMMIT_DENYLIST_FIELD_NUMBER: builtins.int
+    BUILTIN_FIELD_NUMBER: builtins.int
     POLL_INTERVAL_FIELD_NUMBER: builtins.int
     TIMEOUT_FIELD_NUMBER: builtins.int
     PARAMETERS_FIELD_NUMBER: builtins.int
@@ -58,7 +75,10 @@ class ProtectionConfig(google.protobuf.message.Message):
     @property
     def kubernetes_config(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig: ...
     @property
-    def commit_denylist(self) -> prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig: ...
+    def builtin(self) -> global___BuiltinProtectionConfig:
+        """Other options here:
+        - Ref to external repository of protection definitions.
+        """
     @property
     def poll_interval(self) -> google.protobuf.duration_pb2.Duration:
         """customize intervals instead of using Prodvana default
@@ -78,15 +98,15 @@ class ProtectionConfig(google.protobuf.message.Message):
         name: builtins.str = ...,
         task_config: prodvana.proto.prodvana.common_config.task_pb2.TaskConfig | None = ...,
         kubernetes_config: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.KubernetesConfig | None = ...,
-        commit_denylist: prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig | None = ...,
+        builtin: global___BuiltinProtectionConfig | None = ...,
         poll_interval: google.protobuf.duration_pb2.Duration | None = ...,
         timeout: google.protobuf.duration_pb2.Duration | None = ...,
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["commit_denylist", b"commit_denylist", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["commit_denylist", b"commit_denylist", "env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config", "commit_denylist"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["builtin", b"builtin", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["builtin", b"builtin", "env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "poll_interval", b"poll_interval", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config", "builtin"] | None: ...
 
 global___ProtectionConfig = ProtectionConfig
 
