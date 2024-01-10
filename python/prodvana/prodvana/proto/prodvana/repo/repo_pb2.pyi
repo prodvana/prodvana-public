@@ -5,6 +5,7 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2
 import sys
 
@@ -40,14 +41,16 @@ class Commit(google.protobuf.message.Message):
     MESSAGE_FIELD_NUMBER: builtins.int
     AUTHOR_FIELD_NUMBER: builtins.int
     IMPACT_ANALYSIS_FIELD_NUMBER: builtins.int
+    COMMIT_TIMESTAMP_FIELD_NUMBER: builtins.int
     commit_id: builtins.str
     url: builtins.str
     message: builtins.str
     @property
     def author(self) -> global___User: ...
     @property
-    def impact_analysis(self) -> prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2.ImpactAnalysisResult:
-        """TODO: Other fields, like author, timestamps etc"""
+    def impact_analysis(self) -> prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2.ImpactAnalysisResult: ...
+    @property
+    def commit_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
@@ -56,9 +59,10 @@ class Commit(google.protobuf.message.Message):
         message: builtins.str = ...,
         author: global___User | None = ...,
         impact_analysis: prodvana.proto.prodvana.impact_analysis.impact_analysis_pb2.ImpactAnalysisResult | None = ...,
+        commit_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["author", b"author", "impact_analysis", b"impact_analysis"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["author", b"author", "commit_id", b"commit_id", "impact_analysis", b"impact_analysis", "message", b"message", "url", b"url"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["author", b"author", "commit_timestamp", b"commit_timestamp", "impact_analysis", b"impact_analysis"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["author", b"author", "commit_id", b"commit_id", "commit_timestamp", b"commit_timestamp", "impact_analysis", b"impact_analysis", "message", b"message", "url", b"url"]) -> None: ...
 
 global___Commit = Commit
 

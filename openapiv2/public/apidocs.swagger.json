@@ -14545,8 +14545,11 @@
           "$ref": "#/definitions/prodvanarepoUser"
         },
         "impactAnalysis": {
-          "$ref": "#/definitions/impact_analysisImpactAnalysisResult",
-          "title": "TODO: Other fields, like author, timestamps etc"
+          "$ref": "#/definitions/impact_analysisImpactAnalysisResult"
+        },
+        "commitTimestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
