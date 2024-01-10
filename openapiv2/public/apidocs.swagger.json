@@ -13334,6 +13334,10 @@
         },
         "userMetadata": {
           "$ref": "#/definitions/organizationOrganizationUserMetadata"
+        },
+        "uiAddress": {
+          "type": "string",
+          "title": "e.g. https://\u003cslug\u003e.runprodvana.com"
         }
       }
     },

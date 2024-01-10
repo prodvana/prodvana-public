@@ -125,6 +125,8 @@ func (m *OrganizationInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for UiAddress
+
 	if len(errors) > 0 {
 		return OrganizationInfoMultiError(errors)
 	}

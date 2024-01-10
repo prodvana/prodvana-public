@@ -17,6 +17,8 @@ message OrganizationInfo {
     prodvana.config_writeback.ConfigWritebackPath writeback_config = 3;
     string slug = 4;
     OrganizationUserMetadata user_metadata = 5;
+    // e.g. https://<slug>.runprodvana.com
+    string ui_address = 6;
 }
 
 message GetOrganizationReq {}

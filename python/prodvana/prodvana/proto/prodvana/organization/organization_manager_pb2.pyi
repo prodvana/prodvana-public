@@ -31,6 +31,7 @@ class OrganizationInfo(google.protobuf.message.Message):
     WRITEBACK_CONFIG_FIELD_NUMBER: builtins.int
     SLUG_FIELD_NUMBER: builtins.int
     USER_METADATA_FIELD_NUMBER: builtins.int
+    UI_ADDRESS_FIELD_NUMBER: builtins.int
     id: builtins.str
     display_name: builtins.str
     @property
@@ -38,6 +39,8 @@ class OrganizationInfo(google.protobuf.message.Message):
     slug: builtins.str
     @property
     def user_metadata(self) -> prodvana.proto.prodvana.organization.user_metadata_pb2.OrganizationUserMetadata: ...
+    ui_address: builtins.str
+    """e.g. https://<slug>.runprodvana.proto.prodvana.com"""
     def __init__(
         self,
         *,
@@ -46,9 +49,10 @@ class OrganizationInfo(google.protobuf.message.Message):
         writeback_config: prodvana.proto.prodvana.config_writeback.writeback_pb2.ConfigWritebackPath | None = ...,
         slug: builtins.str = ...,
         user_metadata: prodvana.proto.prodvana.organization.user_metadata_pb2.OrganizationUserMetadata | None = ...,
+        ui_address: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["user_metadata", b"user_metadata", "writeback_config", b"writeback_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["display_name", b"display_name", "id", b"id", "slug", b"slug", "user_metadata", b"user_metadata", "writeback_config", b"writeback_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["display_name", b"display_name", "id", b"id", "slug", b"slug", "ui_address", b"ui_address", "user_metadata", b"user_metadata", "writeback_config", b"writeback_config"]) -> None: ...
 
 global___OrganizationInfo = OrganizationInfo
 
