@@ -7196,6 +7196,14 @@
         }
       }
     },
+    "DeploymentRefServiceInstanceConfig": {
+      "type": "object",
+      "properties": {
+        "compiledConfig": {
+          "$ref": "#/definitions/serviceCompiledServiceInstanceConfig"
+        }
+      }
+    },
     "EphemeralSourceMedium": {
       "type": "string",
       "enum": [
@@ -9332,6 +9340,9 @@
         },
         "config": {
           "$ref": "#/definitions/deploymentDeploymentConfig"
+        },
+        "serviceInstanceConfig": {
+          "$ref": "#/definitions/DeploymentRefServiceInstanceConfig"
         }
       }
     },

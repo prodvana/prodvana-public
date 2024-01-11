@@ -10,6 +10,7 @@ import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.deployment.object_pb2
 import prodvana.proto.prodvana.object.meta_pb2
+import prodvana.proto.prodvana.service.service_config_pb2
 import sys
 import typing
 
@@ -181,20 +182,38 @@ global___ListDeploymentsResp = ListDeploymentsResp
 class DeploymentRef(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class ServiceInstanceConfig(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        COMPILED_CONFIG_FIELD_NUMBER: builtins.int
+        @property
+        def compiled_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.CompiledServiceInstanceConfig: ...
+        def __init__(
+            self,
+            *,
+            compiled_config: prodvana.proto.prodvana.service.service_config_pb2.CompiledServiceInstanceConfig | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config"]) -> None: ...
+
     DEPLOYMENT_ID_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
+    SERVICE_INSTANCE_CONFIG_FIELD_NUMBER: builtins.int
     deployment_id: builtins.str
     @property
     def config(self) -> prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig: ...
+    @property
+    def service_instance_config(self) -> global___DeploymentRef.ServiceInstanceConfig: ...
     def __init__(
         self,
         *,
         deployment_id: builtins.str = ...,
         config: prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig | None = ...,
+        service_instance_config: global___DeploymentRef.ServiceInstanceConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "deployment_id", b"deployment_id", "ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "deployment_id", b"deployment_id", "ref", b"ref"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["ref", b"ref"]) -> typing_extensions.Literal["deployment_id", "config"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "deployment_id", b"deployment_id", "ref", b"ref", "service_instance_config", b"service_instance_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "deployment_id", b"deployment_id", "ref", b"ref", "service_instance_config", b"service_instance_config"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["ref", b"ref"]) -> typing_extensions.Literal["deployment_id", "config", "service_instance_config"] | None: ...
 
 global___DeploymentRef = DeploymentRef
 

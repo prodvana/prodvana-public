@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/deployment/object.proto";
+import "prodvana/service/service_config.proto";
 import "validate/validate.proto";
 
 message RecordDeploymentReq {
@@ -56,11 +57,15 @@ message ListDeploymentsResp {
 }
 
 message DeploymentRef {
+    message ServiceInstanceConfig {
+        prodvana.service.CompiledServiceInstanceConfig compiled_config = 1 [(validate.rules).message.required = true];
+    }
     // a deployment reference is either an existing deployment id or the deployment config of a hypothetical, not yet recorded deployment.
     oneof ref {
         option (validate.required) = true;
         string deployment_id = 1;
         DeploymentConfig config = 2;
+        ServiceInstanceConfig service_instance_config = 3;
     }
 }
 

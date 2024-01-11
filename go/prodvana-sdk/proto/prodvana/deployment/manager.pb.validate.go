@@ -1016,6 +1016,48 @@ func (m *DeploymentRef) validate(all bool) error {
 			}
 		}
 
+	case *DeploymentRef_ServiceInstanceConfig_:
+		if v == nil {
+			err := DeploymentRefValidationError{
+				field:  "Ref",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofRefPresent = true
+
+		if all {
+			switch v := interface{}(m.GetServiceInstanceConfig()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeploymentRefValidationError{
+						field:  "ServiceInstanceConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeploymentRefValidationError{
+						field:  "ServiceInstanceConfig",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetServiceInstanceConfig()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeploymentRefValidationError{
+					field:  "ServiceInstanceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -2477,3 +2519,148 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CheckCommitInDeploymentRespValidationError{}
+
+// Validate checks the field values on DeploymentRef_ServiceInstanceConfig with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *DeploymentRef_ServiceInstanceConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeploymentRef_ServiceInstanceConfig
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// DeploymentRef_ServiceInstanceConfigMultiError, or nil if none found.
+func (m *DeploymentRef_ServiceInstanceConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeploymentRef_ServiceInstanceConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetCompiledConfig() == nil {
+		err := DeploymentRef_ServiceInstanceConfigValidationError{
+			field:  "CompiledConfig",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeploymentRef_ServiceInstanceConfigValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeploymentRef_ServiceInstanceConfigValidationError{
+					field:  "CompiledConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeploymentRef_ServiceInstanceConfigValidationError{
+				field:  "CompiledConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DeploymentRef_ServiceInstanceConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeploymentRef_ServiceInstanceConfigMultiError is an error wrapping multiple
+// validation errors returned by
+// DeploymentRef_ServiceInstanceConfig.ValidateAll() if the designated
+// constraints aren't met.
+type DeploymentRef_ServiceInstanceConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeploymentRef_ServiceInstanceConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeploymentRef_ServiceInstanceConfigMultiError) AllErrors() []error { return m }
+
+// DeploymentRef_ServiceInstanceConfigValidationError is the validation error
+// returned by DeploymentRef_ServiceInstanceConfig.Validate if the designated
+// constraints aren't met.
+type DeploymentRef_ServiceInstanceConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeploymentRef_ServiceInstanceConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeploymentRef_ServiceInstanceConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeploymentRef_ServiceInstanceConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeploymentRef_ServiceInstanceConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeploymentRef_ServiceInstanceConfigValidationError) ErrorName() string {
+	return "DeploymentRef_ServiceInstanceConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeploymentRef_ServiceInstanceConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeploymentRef_ServiceInstanceConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeploymentRef_ServiceInstanceConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeploymentRef_ServiceInstanceConfigValidationError{}
