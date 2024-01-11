@@ -88,13 +88,16 @@ class ServiceState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CONVERGENCE_MODE_FIELD_NUMBER: builtins.int
+    MAESTRO_ENABLED_FIELD_NUMBER: builtins.int
     convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType
+    maestro_enabled: builtins.bool
     def __init__(
         self,
         *,
         convergence_mode: prodvana.proto.prodvana.convergence.convergence_mode_pb2.ConvergenceMode.ValueType = ...,
+        maestro_enabled: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["convergence_mode", b"convergence_mode"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["convergence_mode", b"convergence_mode", "maestro_enabled", b"maestro_enabled"]) -> None: ...
 
 global___ServiceState = ServiceState
 

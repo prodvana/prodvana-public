@@ -3225,12 +3225,12 @@
                     "enum": [
                         "UNKNOWN_STRATEGY",
                         0,
-                        "OVERWRITE",
-                        1,
                         "ON_STABLE",
                         2,
                         "MAESTRO_DISABLED",
-                        3
+                        3,
+                        "OVERWRITE",
+                        4
                     ],
                     "oneOf": [
                         {

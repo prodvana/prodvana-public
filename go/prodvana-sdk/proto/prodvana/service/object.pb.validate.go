@@ -279,6 +279,8 @@ func (m *ServiceState) validate(all bool) error {
 
 	// no validation rules for ConvergenceMode
 
+	// no validation rules for MaestroEnabled
+
 	if len(errors) > 0 {
 		return ServiceStateMultiError(errors)
 	}

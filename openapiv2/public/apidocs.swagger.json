@@ -12055,9 +12055,9 @@
       "type": "string",
       "enum": [
         "UNKNOWN_STRATEGY",
-        "OVERWRITE",
         "ON_STABLE",
-        "MAESTRO_DISABLED"
+        "MAESTRO_DISABLED",
+        "OVERWRITE"
       ],
       "default": "UNKNOWN_STRATEGY"
     },
@@ -13849,6 +13849,9 @@
       "properties": {
         "convergenceMode": {
           "$ref": "#/definitions/convergenceConvergenceMode"
+        },
+        "maestroEnabled": {
+          "type": "boolean"
         }
       }
     },

@@ -32,6 +32,7 @@ message ServiceState {
     reserved 1, 2;
     reserved "ongoing_pipeline_runs", "state";
     convergence.ConvergenceMode convergence_mode = 3;
+    bool maestro_enabled = 4;
 }
 
 message Service {

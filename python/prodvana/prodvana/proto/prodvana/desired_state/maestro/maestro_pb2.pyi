@@ -61,16 +61,16 @@ class _Strategy:
 class _StrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Strategy.ValueType], builtins.type):  # noqa: F821
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     UNKNOWN_STRATEGY: _Strategy.ValueType  # 0
-    OVERWRITE: _Strategy.ValueType  # 1
     ON_STABLE: _Strategy.ValueType  # 2
     MAESTRO_DISABLED: _Strategy.ValueType  # 3
+    OVERWRITE: _Strategy.ValueType  # 4
 
 class Strategy(_Strategy, metaclass=_StrategyEnumTypeWrapper): ...
 
 UNKNOWN_STRATEGY: Strategy.ValueType  # 0
-OVERWRITE: Strategy.ValueType  # 1
 ON_STABLE: Strategy.ValueType  # 2
 MAESTRO_DISABLED: Strategy.ValueType  # 3
+OVERWRITE: Strategy.ValueType  # 4
 global___Strategy = Strategy
 
 class MaestroConfig(google.protobuf.message.Message):
