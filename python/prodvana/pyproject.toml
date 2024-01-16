@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prodvana"
-version = "0.3.16"
+version = "0.3.17"
 description = "Prodvana's client libraries"
 readme = "README.md"
 authors = []
