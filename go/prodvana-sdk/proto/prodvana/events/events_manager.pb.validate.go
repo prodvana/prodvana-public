@@ -662,6 +662,8 @@ func (m *GetEventsReq) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ExpandForRelease
+
 	if len(errors) > 0 {
 		return GetEventsReqMultiError(errors)
 	}

@@ -48,6 +48,7 @@ message GetEventsReq {
     bool useOr = 7;
     google.protobuf.Timestamp before_timestamp = 8;
     google.protobuf.Timestamp after_timestamp = 9;
+    bool expand_for_release = 10;
     reserved 5;
     reserved "order_by_desc_timestamp";
 }

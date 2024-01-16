@@ -11344,6 +11344,9 @@
         "afterTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "expandForRelease": {
+          "type": "boolean"
         }
       }
     },

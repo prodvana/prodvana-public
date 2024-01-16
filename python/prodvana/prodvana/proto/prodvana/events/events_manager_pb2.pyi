@@ -94,6 +94,7 @@ class GetEventsReq(google.protobuf.message.Message):
     USEOR_FIELD_NUMBER: builtins.int
     BEFORE_TIMESTAMP_FIELD_NUMBER: builtins.int
     AFTER_TIMESTAMP_FIELD_NUMBER: builtins.int
+    EXPAND_FOR_RELEASE_FIELD_NUMBER: builtins.int
     @property
     def lookups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Lookup]: ...
     @property
@@ -107,6 +108,7 @@ class GetEventsReq(google.protobuf.message.Message):
     def before_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def after_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    expand_for_release: builtins.bool
     def __init__(
         self,
         *,
@@ -118,9 +120,10 @@ class GetEventsReq(google.protobuf.message.Message):
         useOr: builtins.bool = ...,
         before_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         after_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        expand_for_release: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["after_timestamp", b"after_timestamp", "before_timestamp", b"before_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["after_timestamp", b"after_timestamp", "before_timestamp", b"before_timestamp", "lookups", b"lookups", "order_by_asc_timestamp", b"order_by_asc_timestamp", "page_size", b"page_size", "page_token", b"page_token", "types", b"types", "useOr", b"useOr"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["after_timestamp", b"after_timestamp", "before_timestamp", b"before_timestamp", "expand_for_release", b"expand_for_release", "lookups", b"lookups", "order_by_asc_timestamp", b"order_by_asc_timestamp", "page_size", b"page_size", "page_token", b"page_token", "types", b"types", "useOr", b"useOr"]) -> None: ...
 
 global___GetEventsReq = GetEventsReq
 
