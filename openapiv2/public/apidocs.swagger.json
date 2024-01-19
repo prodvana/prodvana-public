@@ -12021,6 +12021,20 @@
         }
       }
     },
+    "maestroMaestroReleaseChannelState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/desired_statemaestroStatus"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "entityId": {
+          "type": "string"
+        }
+      }
+    },
     "maestroMaestroReleaseConfig": {
       "type": "object",
       "properties": {
@@ -12061,7 +12075,13 @@
           "additionalProperties": {
             "$ref": "#/definitions/desired_statemaestroStatus"
           },
-          "title": "status by release channel id"
+          "description": "status by release channel id. Use release_channel_states instead."
+        },
+        "releaseChannelStates": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/maestroMaestroReleaseChannelState"
+          }
         }
       }
     },

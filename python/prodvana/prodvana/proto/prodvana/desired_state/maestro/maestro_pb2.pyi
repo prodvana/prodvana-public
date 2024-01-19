@@ -142,26 +142,67 @@ class MaestroReleaseState(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
+    class ReleaseChannelStatesEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> global___MaestroReleaseChannelState: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: global___MaestroReleaseChannelState | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     STATUS_FIELD_NUMBER: builtins.int
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_STATUSES_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_STATES_FIELD_NUMBER: builtins.int
     status: global___Status.ValueType
     @property
     def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def release_channel_statuses(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, global___Status.ValueType]:
-        """status by release channel id"""
+        """status by release channel id. Use release_channel_states instead."""
+    @property
+    def release_channel_states(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___MaestroReleaseChannelState]: ...
     def __init__(
         self,
         *,
         status: global___Status.ValueType = ...,
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         release_channel_statuses: collections.abc.Mapping[builtins.str, global___Status.ValueType] | None = ...,
+        release_channel_states: collections.abc.Mapping[builtins.str, global___MaestroReleaseChannelState] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "release_channel_statuses", b"release_channel_statuses", "status", b"status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "release_channel_states", b"release_channel_states", "release_channel_statuses", b"release_channel_statuses", "status", b"status"]) -> None: ...
 
 global___MaestroReleaseState = MaestroReleaseState
+
+class MaestroReleaseChannelState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    status: global___Status.ValueType
+    desired_state_id: builtins.str
+    entity_id: builtins.str
+    def __init__(
+        self,
+        *,
+        status: global___Status.ValueType = ...,
+        desired_state_id: builtins.str = ...,
+        entity_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "status", b"status"]) -> None: ...
+
+global___MaestroReleaseChannelState = MaestroReleaseChannelState
 
 class MaestroRelease(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
