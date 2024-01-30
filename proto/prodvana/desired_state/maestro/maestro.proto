@@ -22,9 +22,9 @@ enum Status {
 
 enum Strategy {
     UNKNOWN_STRATEGY = 0;
-    ON_STABLE = 2;
+    RELEASE_TRAIN = 2;
     MAESTRO_DISABLED = 3;
-    OVERWRITE = 4;
+    IMMEDIATE = 4;
     reserved 1;
 }
 

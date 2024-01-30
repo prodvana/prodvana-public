@@ -12089,9 +12089,9 @@
       "type": "string",
       "enum": [
         "UNKNOWN_STRATEGY",
-        "ON_STABLE",
+        "RELEASE_TRAIN",
         "MAESTRO_DISABLED",
-        "OVERWRITE"
+        "IMMEDIATE"
       ],
       "default": "UNKNOWN_STRATEGY"
     },

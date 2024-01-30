@@ -3225,11 +3225,11 @@
                     "enum": [
                         "UNKNOWN_STRATEGY",
                         0,
-                        "ON_STABLE",
+                        "RELEASE_TRAIN",
                         2,
                         "MAESTRO_DISABLED",
                         3,
-                        "OVERWRITE",
+                        "IMMEDIATE",
                         4
                     ],
                     "oneOf": [
