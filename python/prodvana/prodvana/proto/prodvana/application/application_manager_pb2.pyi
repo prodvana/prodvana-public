@@ -94,6 +94,7 @@ class ConfigureApplicationReq(google.protobuf.message.Message):
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
     BASE_VERSION_FIELD_NUMBER: builtins.int
+    FORCE_CREATE_NEW_VERSION_FIELD_NUMBER: builtins.int
     @property
     def application_config(self) -> prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig: ...
     @property
@@ -107,6 +108,8 @@ class ConfigureApplicationReq(google.protobuf.message.Message):
     this can be used to avoid concurrent updates overwriting each other.
     NOTE: this will eventually be required for updates
     """
+    force_create_new_version: builtins.bool
+    """create new version even if there are no detected changes"""
     def __init__(
         self,
         *,
@@ -115,9 +118,10 @@ class ConfigureApplicationReq(google.protobuf.message.Message):
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         base_version: builtins.str = ...,
+        force_create_new_version: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "approved_dangerous_action_ids", b"approved_dangerous_action_ids", "base_version", b"base_version", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "approved_dangerous_action_ids", b"approved_dangerous_action_ids", "base_version", b"base_version", "force_create_new_version", b"force_create_new_version", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___ConfigureApplicationReq = ConfigureApplicationReq
 

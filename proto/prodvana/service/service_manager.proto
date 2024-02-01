@@ -254,6 +254,7 @@ message ConfigureServiceReq {
     string bundle_name_override = 5;
     // skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config
     bool skip_runtime_validation = 6;
+    bool force_create_new_version = 7;  // create new version even if there are no detected changes
 }
 
 message ConfigureServiceResp {

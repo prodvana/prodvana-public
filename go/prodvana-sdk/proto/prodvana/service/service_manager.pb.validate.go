@@ -5024,6 +5024,8 @@ func (m *ConfigureServiceReq) validate(all bool) error {
 
 	// no validation rules for SkipRuntimeValidation
 
+	// no validation rules for ForceCreateNewVersion
+
 	if len(errors) > 0 {
 		return ConfigureServiceReqMultiError(errors)
 	}

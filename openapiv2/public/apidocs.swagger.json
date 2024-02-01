@@ -553,6 +553,10 @@
                 },
                 "sourceMetadata": {
                   "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "forceCreateNewVersion": {
+                  "type": "boolean",
+                  "title": "create new version even if there are no detected changes"
                 }
               }
             }
@@ -6321,6 +6325,10 @@
                 "skipRuntimeValidation": {
                   "type": "boolean",
                   "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
+                },
+                "forceCreateNewVersion": {
+                  "type": "boolean",
+                  "title": "create new version even if there are no detected changes"
                 }
               }
             }
@@ -6378,6 +6386,10 @@
                 "skipRuntimeValidation": {
                   "type": "boolean",
                   "title": "skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"
+                },
+                "forceCreateNewVersion": {
+                  "type": "boolean",
+                  "title": "create new version even if there are no detected changes"
                 }
               }
             }
@@ -7911,6 +7923,10 @@
         "baseVersion": {
           "type": "string",
           "title": "optional, if this is not a new application, this is the existing version of\nthis application config that this configuration was based on.\nthis can be used to avoid concurrent updates overwriting each other.\nNOTE: this will eventually be required for updates"
+        },
+        "forceCreateNewVersion": {
+          "type": "boolean",
+          "title": "create new version even if there are no detected changes"
         }
       }
     },

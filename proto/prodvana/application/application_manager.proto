@@ -40,6 +40,7 @@ message ConfigureApplicationReq {
     // this can be used to avoid concurrent updates overwriting each other.
     // NOTE: this will eventually be required for updates
     string base_version = 5;
+    bool force_create_new_version = 6;  // create new version even if there are no detected changes
 }
 
 message ConfigureApplicationResp {

@@ -132,6 +132,8 @@ func (m *ConfigureReleaseChannelReq) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ForceCreateNewVersion
+
 	if len(errors) > 0 {
 		return ConfigureReleaseChannelReqMultiError(errors)
 	}

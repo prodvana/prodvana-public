@@ -13,11 +13,12 @@ message ConfigureReleaseChannelReq {
     ReleaseChannelConfig release_channel = 1;
     prodvana.version.Source source = 5;
     prodvana.version.SourceMetadata source_metadata = 6;
+    bool force_create_new_version = 7;  // create new version even if there are no detected changes
 
     reserved 2, 3;
     reserved "cluster_id", "cluster_name";
 
-    // next tag: 7
+    // next tag: 8
 }
 
 message ConfigureReleaseChannelResp {

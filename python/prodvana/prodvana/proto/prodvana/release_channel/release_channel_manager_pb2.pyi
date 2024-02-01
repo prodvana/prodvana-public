@@ -27,12 +27,15 @@ class ConfigureReleaseChannelReq(google.protobuf.message.Message):
     RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    FORCE_CREATE_NEW_VERSION_FIELD_NUMBER: builtins.int
     application: builtins.str
     @property
     def release_channel(self) -> prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig: ...
     source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
     @property
     def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    force_create_new_version: builtins.bool
+    """create new version even if there are no detected changes"""
     def __init__(
         self,
         *,
@@ -40,9 +43,10 @@ class ConfigureReleaseChannelReq(google.protobuf.message.Message):
         release_channel: prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig | None = ...,
         source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        force_create_new_version: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["release_channel", b"release_channel", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "force_create_new_version", b"force_create_new_version", "release_channel", b"release_channel", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___ConfigureReleaseChannelReq = ConfigureReleaseChannelReq
 

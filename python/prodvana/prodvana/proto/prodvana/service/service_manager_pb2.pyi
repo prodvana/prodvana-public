@@ -771,6 +771,7 @@ class ConfigureServiceReq(google.protobuf.message.Message):
     SOURCE_METADATA_FIELD_NUMBER: builtins.int
     BUNDLE_NAME_OVERRIDE_FIELD_NUMBER: builtins.int
     SKIP_RUNTIME_VALIDATION_FIELD_NUMBER: builtins.int
+    FORCE_CREATE_NEW_VERSION_FIELD_NUMBER: builtins.int
     application: builtins.str
     @property
     def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
@@ -780,6 +781,8 @@ class ConfigureServiceReq(google.protobuf.message.Message):
     bundle_name_override: builtins.str
     skip_runtime_validation: builtins.bool
     """skip talking to runtimes for validation, can be useful to speed up the validation at the cost of not actually fully validating the config"""
+    force_create_new_version: builtins.bool
+    """create new version even if there are no detected changes"""
     def __init__(
         self,
         *,
@@ -789,9 +792,10 @@ class ConfigureServiceReq(google.protobuf.message.Message):
         source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
         bundle_name_override: builtins.str = ...,
         skip_runtime_validation: builtins.bool = ...,
+        force_create_new_version: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["service_config", b"service_config", "source_metadata", b"source_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "service_config", b"service_config", "skip_runtime_validation", b"skip_runtime_validation", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "bundle_name_override", b"bundle_name_override", "force_create_new_version", b"force_create_new_version", "service_config", b"service_config", "skip_runtime_validation", b"skip_runtime_validation", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___ConfigureServiceReq = ConfigureServiceReq
 

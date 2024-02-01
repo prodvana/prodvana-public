@@ -622,6 +622,8 @@ func (m *ConfigureApplicationReq) validate(all bool) error {
 
 	// no validation rules for BaseVersion
 
+	// no validation rules for ForceCreateNewVersion
+
 	if len(errors) > 0 {
 		return ConfigureApplicationReqMultiError(errors)
 	}
