@@ -521,6 +521,10 @@ message ConditionState {
     ConditionStatus status = 1;
 }
 
+message ApplyError {
+    string message = 1;
+}
+
 message ControlState {
     bool rollback = 1;
     repeated ConditionState precondition_states = 2;
@@ -543,7 +547,9 @@ message ControlState {
 
     bool observer_mode = 10;
 
-    // next tag: 11
+    ApplyError apply_error = 11;
+
+    // next tag: 12
 }
 
 enum ManualApprovalStatus {

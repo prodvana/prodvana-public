@@ -27,7 +27,9 @@ message Entity {
     repeated Identifier dependencies = 16;
     prodvana.common_config.TaskLifecycle lifecycle = 18;
     MissingApproval missing_approval = 20;
-    // next tag: 21
+
+    ApplyError apply_error = 21;
+    // next tag: 22
 }
 
 message EntityGraph {

@@ -12328,6 +12328,14 @@
         }
       }
     },
+    "modelApplyError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
     "modelCanaryProgressState": {
       "type": "object",
       "properties": {
@@ -12628,8 +12636,11 @@
           "$ref": "#/definitions/common_configTaskLifecycle"
         },
         "missingApproval": {
-          "$ref": "#/definitions/modelMissingApproval",
-          "title": "next tag: 21"
+          "$ref": "#/definitions/modelMissingApproval"
+        },
+        "applyError": {
+          "$ref": "#/definitions/modelApplyError",
+          "title": "next tag: 22"
         }
       }
     },
