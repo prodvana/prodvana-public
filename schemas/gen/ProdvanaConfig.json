@@ -1121,6 +1121,16 @@
                         {}
                     ]
                 },
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "map": {
                     "additionalProperties": {
                         "$ref": "#/definitions/prodvana.common_config.EnvValue",
@@ -1140,7 +1150,7 @@
                             "type": "object"
                         }
                     ],
-                    "description": "treat this as part of the above oneof, even though proto does not allow us to"
+                    "description": "treat this as part of the above oneof, even though proto does not allow us to  next tag: 5"
                 }
             },
             "additionalProperties": false,
@@ -7469,6 +7479,16 @@
                         },
                         {}
                     ]
+                },
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -7741,6 +7761,16 @@
                 },
                 "local": {
                     "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

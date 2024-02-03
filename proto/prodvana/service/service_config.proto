@@ -247,10 +247,11 @@ message AwsEcsConfig {
             option (validate.required) = true;
             string inlined = 1 [(validate.rules).string.min_len = 1];
             prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
+            prodvana.common_config.RemoteConfig remote = 3 [(validate.rules).message.required = true];
         }
     }
     string ecs_service_name_override = 1;  // optional, defaults to Prodvana service name
-    Spec task_definition = 2 [(validate.rules).message.required = true];
+    Spec task_definition = 2;
     Spec service_definition = 5;
     // Only update service's task definition, but do not try to update anything else about the service.
     // This means that something else is responsible for creating the service.
@@ -264,6 +265,7 @@ message GoogleCloudRunConfig {
         option (validate.required) = true;
         string inlined = 1 [(validate.rules).string.min_len = 1];
         prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
+        prodvana.common_config.RemoteConfig remote = 3 [(validate.rules).message.required = true];
     }
 }
 

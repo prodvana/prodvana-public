@@ -19,11 +19,13 @@ message HelmValuesOverrides {
     oneof override_oneof {
         string inlined = 1 [(validate.rules).string.min_len = 1];
         LocalConfig local = 2;
+        RemoteConfig remote = 4;
     }
     // treat this as part of the above oneof, even though proto does not allow us to
     map<string, EnvValue> map = 3 [(validate.rules).map = {
         no_sparse: true,
     }];
+    // next tag: 5
 }
 
 message HelmConfig {

@@ -330,6 +330,47 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 			}
 		}
 
+	case *HelmValuesOverrides_Remote:
+		if v == nil {
+			err := HelmValuesOverridesValidationError{
+				field:  "OverrideOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRemote()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, HelmValuesOverridesValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, HelmValuesOverridesValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRemote()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HelmValuesOverridesValidationError{
+					field:  "Remote",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}

@@ -63,23 +63,29 @@ class HelmValuesOverrides(google.protobuf.message.Message):
 
     INLINED_FIELD_NUMBER: builtins.int
     LOCAL_FIELD_NUMBER: builtins.int
+    REMOTE_FIELD_NUMBER: builtins.int
     MAP_FIELD_NUMBER: builtins.int
     inlined: builtins.str
     @property
     def local(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig: ...
     @property
+    def remote(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.RemoteConfig: ...
+    @property
     def map(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
-        """treat this as part of the above oneof, even though proto does not allow us to"""
+        """treat this as part of the above oneof, even though proto does not allow us to
+        next tag: 5
+        """
     def __init__(
         self,
         *,
         inlined: builtins.str = ...,
         local: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig | None = ...,
+        remote: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.RemoteConfig | None = ...,
         map: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "override_oneof", b"override_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "map", b"map", "override_oneof", b"override_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["override_oneof", b"override_oneof"]) -> typing_extensions.Literal["inlined", "local"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "override_oneof", b"override_oneof", "remote", b"remote"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "map", b"map", "override_oneof", b"override_oneof", "remote", b"remote"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["override_oneof", b"override_oneof"]) -> typing_extensions.Literal["inlined", "local", "remote"] | None: ...
 
 global___HelmValuesOverrides = HelmValuesOverrides
 

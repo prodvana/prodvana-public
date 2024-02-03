@@ -113,9 +113,10 @@ type HelmValuesOverrides struct {
 	//
 	//	*HelmValuesOverrides_Inlined
 	//	*HelmValuesOverrides_Local
+	//	*HelmValuesOverrides_Remote
 	OverrideOneof isHelmValuesOverrides_OverrideOneof `protobuf_oneof:"override_oneof"`
 	// treat this as part of the above oneof, even though proto does not allow us to
-	Map map[string]*EnvValue `protobuf:"bytes,3,rep,name=map,proto3" json:"map,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Map map[string]*EnvValue `protobuf:"bytes,3,rep,name=map,proto3" json:"map,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // next tag: 5
 }
 
 func (x *HelmValuesOverrides) Reset() {
@@ -171,6 +172,13 @@ func (x *HelmValuesOverrides) GetLocal() *LocalConfig {
 	return nil
 }
 
+func (x *HelmValuesOverrides) GetRemote() *RemoteConfig {
+	if x, ok := x.GetOverrideOneof().(*HelmValuesOverrides_Remote); ok {
+		return x.Remote
+	}
+	return nil
+}
+
 func (x *HelmValuesOverrides) GetMap() map[string]*EnvValue {
 	if x != nil {
 		return x.Map
@@ -190,9 +198,15 @@ type HelmValuesOverrides_Local struct {
 	Local *LocalConfig `protobuf:"bytes,2,opt,name=local,proto3,oneof"`
 }
 
+type HelmValuesOverrides_Remote struct {
+	Remote *RemoteConfig `protobuf:"bytes,4,opt,name=remote,proto3,oneof"`
+}
+
 func (*HelmValuesOverrides_Inlined) isHelmValuesOverrides_OverrideOneof() {}
 
 func (*HelmValuesOverrides_Local) isHelmValuesOverrides_OverrideOneof() {}
+
+func (*HelmValuesOverrides_Remote) isHelmValuesOverrides_OverrideOneof() {}
 
 type HelmConfig struct {
 	state         protoimpl.MessageState
@@ -338,14 +352,18 @@ var file_prodvana_common_config_helm_proto_rawDesc = []byte{
 	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52,
 	0x0c, 0x63, 0x68, 0x61, 0x72, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x11, 0x0a,
 	0x0a, 0x72, 0x65, 0x70, 0x6f, 0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x12, 0x03, 0xf8, 0x42, 0x01,
-	0x22, 0xb5, 0x02, 0x0a, 0x13, 0x48, 0x65, 0x6c, 0x6d, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x4f,
+	0x22, 0xf5, 0x02, 0x0a, 0x13, 0x48, 0x65, 0x6c, 0x6d, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x4f,
 	0x76, 0x65, 0x72, 0x72, 0x69, 0x64, 0x65, 0x73, 0x12, 0x23, 0x0a, 0x07, 0x69, 0x6e, 0x6c, 0x69,
 	0x6e, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02,
 	0x10, 0x01, 0x48, 0x00, 0x52, 0x07, 0x69, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x64, 0x12, 0x3b, 0x0a,
 	0x05, 0x6c, 0x6f, 0x63, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x70,
 	0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63,
 	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x43, 0x6f, 0x6e, 0x66, 0x69,
-	0x67, 0x48, 0x00, 0x52, 0x05, 0x6c, 0x6f, 0x63, 0x61, 0x6c, 0x12, 0x50, 0x0a, 0x03, 0x6d, 0x61,
+	0x67, 0x48, 0x00, 0x52, 0x05, 0x6c, 0x6f, 0x63, 0x61, 0x6c, 0x12, 0x3e, 0x0a, 0x06, 0x72, 0x65,
+	0x6d, 0x6f, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x70, 0x72, 0x6f,
+	0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63, 0x6f, 0x6e,
+	0x66, 0x69, 0x67, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x48, 0x00, 0x52, 0x06, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x12, 0x50, 0x0a, 0x03, 0x6d, 0x61,
 	0x70, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x34, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61,
 	0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67,
 	0x2e, 0x48, 0x65, 0x6c, 0x6d, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x4f, 0x76, 0x65, 0x72, 0x72,
@@ -408,20 +426,22 @@ var file_prodvana_common_config_helm_proto_goTypes = []interface{}{
 	(*HelmConfig)(nil),          // 2: prodvana.common_config.HelmConfig
 	nil,                         // 3: prodvana.common_config.HelmValuesOverrides.MapEntry
 	(*LocalConfig)(nil),         // 4: prodvana.common_config.LocalConfig
-	(*EnvValue)(nil),            // 5: prodvana.common_config.EnvValue
+	(*RemoteConfig)(nil),        // 5: prodvana.common_config.RemoteConfig
+	(*EnvValue)(nil),            // 6: prodvana.common_config.EnvValue
 }
 var file_prodvana_common_config_helm_proto_depIdxs = []int32{
 	4, // 0: prodvana.common_config.HelmValuesOverrides.local:type_name -> prodvana.common_config.LocalConfig
-	3, // 1: prodvana.common_config.HelmValuesOverrides.map:type_name -> prodvana.common_config.HelmValuesOverrides.MapEntry
-	0, // 2: prodvana.common_config.HelmConfig.remote:type_name -> prodvana.common_config.RemoteHelmChart
-	4, // 3: prodvana.common_config.HelmConfig.local:type_name -> prodvana.common_config.LocalConfig
-	1, // 4: prodvana.common_config.HelmConfig.values_overrides:type_name -> prodvana.common_config.HelmValuesOverrides
-	5, // 5: prodvana.common_config.HelmValuesOverrides.MapEntry.value:type_name -> prodvana.common_config.EnvValue
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	5, // 1: prodvana.common_config.HelmValuesOverrides.remote:type_name -> prodvana.common_config.RemoteConfig
+	3, // 2: prodvana.common_config.HelmValuesOverrides.map:type_name -> prodvana.common_config.HelmValuesOverrides.MapEntry
+	0, // 3: prodvana.common_config.HelmConfig.remote:type_name -> prodvana.common_config.RemoteHelmChart
+	4, // 4: prodvana.common_config.HelmConfig.local:type_name -> prodvana.common_config.LocalConfig
+	1, // 5: prodvana.common_config.HelmConfig.values_overrides:type_name -> prodvana.common_config.HelmValuesOverrides
+	6, // 6: prodvana.common_config.HelmValuesOverrides.MapEntry.value:type_name -> prodvana.common_config.EnvValue
+	7, // [7:7] is the sub-list for method output_type
+	7, // [7:7] is the sub-list for method input_type
+	7, // [7:7] is the sub-list for extension type_name
+	7, // [7:7] is the sub-list for extension extendee
+	0, // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_common_config_helm_proto_init() }
@@ -475,6 +495,7 @@ func file_prodvana_common_config_helm_proto_init() {
 	file_prodvana_common_config_helm_proto_msgTypes[1].OneofWrappers = []interface{}{
 		(*HelmValuesOverrides_Inlined)(nil),
 		(*HelmValuesOverrides_Local)(nil),
+		(*HelmValuesOverrides_Remote)(nil),
 	}
 	file_prodvana_common_config_helm_proto_msgTypes[2].OneofWrappers = []interface{}{
 		(*HelmConfig_Remote)(nil),

@@ -3695,17 +3695,6 @@ func (m *AwsEcsConfig) validate(all bool) error {
 
 	// no validation rules for EcsServiceNameOverride
 
-	if m.GetTaskDefinition() == nil {
-		err := AwsEcsConfigValidationError{
-			field:  "TaskDefinition",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetTaskDefinition()).(type) {
 		case interface{ ValidateAll() error }:
@@ -3938,6 +3927,59 @@ func (m *GoogleCloudRunConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return GoogleCloudRunConfigValidationError{
 					field:  "Local",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *GoogleCloudRunConfig_Remote:
+		if v == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "SpecOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSpecOneofPresent = true
+
+		if m.GetRemote() == nil {
+			err := GoogleCloudRunConfigValidationError{
+				field:  "Remote",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRemote()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GoogleCloudRunConfigValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRemote()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GoogleCloudRunConfigValidationError{
+					field:  "Remote",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -6930,6 +6972,59 @@ func (m *AwsEcsConfig_Spec) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return AwsEcsConfig_SpecValidationError{
 					field:  "Local",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *AwsEcsConfig_Spec_Remote:
+		if v == nil {
+			err := AwsEcsConfig_SpecValidationError{
+				field:  "SpecOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofSpecOneofPresent = true
+
+		if m.GetRemote() == nil {
+			err := AwsEcsConfig_SpecValidationError{
+				field:  "Remote",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRemote()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AwsEcsConfig_SpecValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AwsEcsConfig_SpecValidationError{
+						field:  "Remote",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRemote()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AwsEcsConfig_SpecValidationError{
+					field:  "Remote",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

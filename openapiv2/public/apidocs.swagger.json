@@ -6781,6 +6781,9 @@
         },
         "local": {
           "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
         }
       }
     },
@@ -8485,11 +8488,15 @@
         "local": {
           "$ref": "#/definitions/common_configLocalConfig"
         },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
+        },
         "map": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/common_configEnvValue"
           },
+          "description": "next tag: 5",
           "title": "treat this as part of the above oneof, even though proto does not allow us to"
         }
       }
@@ -13883,6 +13890,9 @@
         },
         "local": {
           "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
         }
       }
     },
