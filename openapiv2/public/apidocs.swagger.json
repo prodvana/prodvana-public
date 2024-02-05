@@ -3441,6 +3441,37 @@
         ]
       }
     },
+    "/v1/desired_states/{desiredStateId}/debug": {
+      "get": {
+        "operationId": "DesiredStateManager_GetDebugState",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/debugDumpState"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "desiredStateId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/{desiredStateId}/summary": {
       "get": {
         "summary": "Get the convergence summary for a desired state id.\nIf the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to PENDING_SET_DESIRED_STATE.\nIf the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to FAILED.",
@@ -7219,6 +7250,30 @@
         }
       }
     },
+    "EntityDumpStateChildState": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        }
+      }
+    },
+    "EntityDumpStateIOState": {
+      "type": "object",
+      "properties": {
+        "lastFetchedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastAppliedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "EphemeralSourceMedium": {
       "type": "string",
       "enum": [
@@ -9023,6 +9078,68 @@
       ],
       "default": "UNKNOWN",
       "title": "- UNKNOWN: Defaults to CONVERGE"
+    },
+    "debugDumpState": {
+      "type": "object",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/debugEntityDumpState"
+          }
+        }
+      }
+    },
+    "debugEntityDumpState": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "lastManagerUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "annotations": {
+          "$ref": "#/definitions/modelAnnotations"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        },
+        "simpleStatus": {
+          "$ref": "#/definitions/modelSimpleStatus"
+        },
+        "control": {
+          "$ref": "#/definitions/modelControlState"
+        },
+        "ioState": {
+          "$ref": "#/definitions/EntityDumpStateIOState"
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelDebugLog"
+          }
+        },
+        "desiredState": {
+          "$ref": "#/definitions/protobufAny"
+        },
+        "fetchedState": {
+          "$ref": "#/definitions/protobufAny"
+        },
+        "targetState": {
+          "$ref": "#/definitions/protobufAny"
+        },
+        "childStates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EntityDumpStateChildState"
+          }
+        }
+      }
     },
     "deliveryCanaryProgress": {
       "type": "object",
@@ -12422,6 +12539,61 @@
         "CONDITION_FAILED"
       ],
       "default": "CONDITION_UNKNOWN_STATUS"
+    },
+    "modelControlState": {
+      "type": "object",
+      "properties": {
+        "rollback": {
+          "type": "boolean"
+        },
+        "preconditionStates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConditionState"
+          }
+        },
+        "invariantStates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConditionState"
+          }
+        },
+        "paused": {
+          "type": "boolean",
+          "description": "An entity is paused if itself or any of its ancestors have paused field set.\nUnlike rollback, this field does not get propagated to children.\nDoing so would make to differentiate unpausing vs. the field not being set,\nespecially if pausing can happen at any layer."
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          },
+          "title": "explanation for current status, will have more than one in the event multiple children have the same status"
+        },
+        "actionExplanation": {
+          "$ref": "#/definitions/modelActionExplanation",
+          "title": "What is DD doing now?"
+        },
+        "lastFetchedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastAppliedTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "missingApproval": {
+          "$ref": "#/definitions/modelMissingApproval"
+        },
+        "observerMode": {
+          "type": "boolean"
+        },
+        "applyError": {
+          "$ref": "#/definitions/modelApplyError"
+        }
+      }
     },
     "modelCustomTaskExecutionState": {
       "type": "object",

@@ -4,6 +4,7 @@ isort:skip_file
 """
 import abc
 import grpc
+import prodvana.proto.prodvana.desired_state.debug.debug_pb2
 import prodvana.proto.prodvana.desired_state.manager_pb2
 
 class DesiredStateManagerStub:
@@ -102,6 +103,10 @@ class DesiredStateManagerStub:
     GetServiceLatestCombinedReleaseDesiredState: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestCombinedReleaseDesiredStateReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp,
+    ]
+    GetDebugState: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
+        prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState,
     ]
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
@@ -240,5 +245,11 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.GetServiceLatestCombinedReleaseDesiredStateReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp: ...
+    @abc.abstractmethod
+    def GetDebugState(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState: ...
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

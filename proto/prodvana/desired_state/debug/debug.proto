@@ -1,0 +1,40 @@
+syntax = "proto3";
+package prodvana.desired_state.debug;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/debug";
+import "prodvana/desired_state/model/desired_state.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+message EntityDumpState {
+    prodvana.desired_state.model.Identifier id = 1;
+    google.protobuf.Timestamp last_manager_update_timestamp = 2;
+    prodvana.desired_state.model.Annotations annotations = 3;
+    prodvana.desired_state.model.Status status = 4;
+    prodvana.desired_state.model.SimpleStatus simple_status = 11;
+    prodvana.desired_state.model.ControlState control = 5;
+
+    message IOState {
+        google.protobuf.Timestamp last_fetched_timestamp = 1;
+        google.protobuf.Timestamp last_applied_timestamp = 2;
+    }
+
+    IOState io_state = 6;
+
+    repeated prodvana.desired_state.model.DebugLog logs = 7;
+    google.protobuf.Any desired_state = 8;
+    google.protobuf.Any fetched_state = 9;
+    google.protobuf.Any target_state = 12;
+
+    message ChildState {
+        prodvana.desired_state.model.Identifier id = 1;
+        prodvana.desired_state.model.Status status = 2;
+    }
+
+    repeated ChildState child_states = 10;
+
+    // next tag: 13
+}
+
+message DumpState {
+    repeated EntityDumpState entities = 1;
+}

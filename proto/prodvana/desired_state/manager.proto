@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "prodvana/async_task/task_metadata.proto";
+import "prodvana/desired_state/debug/debug.proto";
 import "prodvana/desired_state/maestro/maestro.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "prodvana/desired_state/model/entity.proto";
@@ -481,6 +482,11 @@ service DesiredStateManager {
     rpc GetServiceLatestCombinedReleaseDesiredState(GetServiceLatestCombinedReleaseDesiredStateReq) returns (GetLatestCombinedReleaseDesiredStateResp) {
         option (google.api.http) = {
             get: "/v1/applications/{application=*}/services/{service=*}/combined_releases/latest_desired_state"
+        };
+    }
+    rpc GetDebugState(GetDesiredStateReq) returns (prodvana.desired_state.debug.DumpState) {
+        option (google.api.http) = {
+            get: "/v1/desired_states/{desired_state_id=*}/debug"
         };
     }
 }

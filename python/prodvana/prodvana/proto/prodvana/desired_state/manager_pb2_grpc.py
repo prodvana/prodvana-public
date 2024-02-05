@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from prodvana.proto.prodvana.desired_state.debug import debug_pb2 as prodvana_dot_desired__state_dot_debug_dot_debug__pb2
 from prodvana.proto.prodvana.desired_state import manager_pb2 as prodvana_dot_desired__state_dot_manager__pb2
 
 
@@ -113,6 +114,11 @@ class DesiredStateManagerStub(object):
                 '/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
+                )
+        self.GetDebugState = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetDebugState',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
                 )
 
 
@@ -251,6 +257,12 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetDebugState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DesiredStateManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -353,6 +365,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.GetServiceLatestCombinedReleaseDesiredState,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.SerializeToString,
+            ),
+            'GetDebugState': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDebugState,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -701,5 +718,22 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState',
             prodvana_dot_desired__state_dot_manager__pb2.GetServiceLatestCombinedReleaseDesiredStateReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.GetLatestCombinedReleaseDesiredStateResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetDebugState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetDebugState',
+            prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
+            prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -8,6 +8,7 @@ package desired_state
 
 import (
 	context "context"
+	debug "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/debug"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -39,6 +40,7 @@ const (
 	DesiredStateManager_ListServiceCombinedReleases_FullMethodName                 = "/prodvana.desired_state.DesiredStateManager/ListServiceCombinedReleases"
 	DesiredStateManager_GetLatestCombinedReleaseDesiredState_FullMethodName        = "/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState"
 	DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState_FullMethodName = "/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState"
+	DesiredStateManager_GetDebugState_FullMethodName                               = "/prodvana.desired_state.DesiredStateManager/GetDebugState"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -77,6 +79,7 @@ type DesiredStateManagerClient interface {
 	// then GetDesiredState or GetMaestroRelease depending on the type of release.
 	GetLatestCombinedReleaseDesiredState(ctx context.Context, in *GetLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(ctx context.Context, in *GetServiceLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
+	GetDebugState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*debug.DumpState, error)
 }
 
 type desiredStateManagerClient struct {
@@ -267,6 +270,15 @@ func (c *desiredStateManagerClient) GetServiceLatestCombinedReleaseDesiredState(
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) GetDebugState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*debug.DumpState, error) {
+	out := new(debug.DumpState)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetDebugState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -303,6 +315,7 @@ type DesiredStateManagerServer interface {
 	// then GetDesiredState or GetMaestroRelease depending on the type of release.
 	GetLatestCombinedReleaseDesiredState(context.Context, *GetLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(context.Context, *GetServiceLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
+	GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -369,6 +382,9 @@ func (UnimplementedDesiredStateManagerServer) GetLatestCombinedReleaseDesiredSta
 }
 func (UnimplementedDesiredStateManagerServer) GetServiceLatestCombinedReleaseDesiredState(context.Context, *GetServiceLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceLatestCombinedReleaseDesiredState not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDebugState not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -743,6 +759,24 @@ func _DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState_Handler(sr
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_GetDebugState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDesiredStateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetDebugState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetDebugState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetDebugState(ctx, req.(*GetDesiredStateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -829,6 +863,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServiceLatestCombinedReleaseDesiredState",
 			Handler:    _DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState_Handler,
+		},
+		{
+			MethodName: "GetDebugState",
+			Handler:    _DesiredStateManager_GetDebugState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
