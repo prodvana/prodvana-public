@@ -11969,6 +11969,10 @@
             "type": "object",
             "$ref": "#/definitions/common_configExternalLink"
           }
+        },
+        "message": {
+          "type": "string",
+          "title": "freeform message explaining the status, for example, error message"
         }
       }
     },

@@ -24,6 +24,7 @@ message ExternalObject {
     repeated ExternalObjectVersion versions = 3;
     Status status = 4;
     repeated prodvana.common_config.ExternalLink external_links = 5;
+    string message = 6;  // freeform message explaining the status, for example, error message
 }
 
 // output format for the fetch command, in json format

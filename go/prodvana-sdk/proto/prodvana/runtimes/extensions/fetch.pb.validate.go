@@ -245,6 +245,8 @@ func (m *ExternalObject) validate(all bool) error {
 
 	}
 
+	// no validation rules for Message
+
 	if len(errors) > 0 {
 		return ExternalObjectMultiError(errors)
 	}
