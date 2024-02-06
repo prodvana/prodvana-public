@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.external_link_pb2
+import prodvana.proto.prodvana.runtimes.debug_event_pb2
 import sys
 import typing
 
@@ -97,6 +98,7 @@ class ExternalObject(google.protobuf.message.Message):
     STATUS_FIELD_NUMBER: builtins.int
     EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
+    DEBUG_EVENTS_FIELD_NUMBER: builtins.int
     name: builtins.str
     object_type: builtins.str
     @property
@@ -106,6 +108,8 @@ class ExternalObject(google.protobuf.message.Message):
     def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink]: ...
     message: builtins.str
     """freeform message explaining the status, for example, error message"""
+    @property
+    def debug_events(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.debug_event_pb2.DebugEvent]: ...
     def __init__(
         self,
         *,
@@ -115,8 +119,9 @@ class ExternalObject(google.protobuf.message.Message):
         status: global___ExternalObject.Status.ValueType = ...,
         external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
         message: builtins.str = ...,
+        debug_events: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.debug_event_pb2.DebugEvent] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["external_links", b"external_links", "message", b"message", "name", b"name", "object_type", b"object_type", "status", b"status", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["debug_events", b"debug_events", "external_links", b"external_links", "message", b"message", "name", b"name", "object_type", b"object_type", "status", b"status", "versions", b"versions"]) -> None: ...
 
 global___ExternalObject = ExternalObject
 

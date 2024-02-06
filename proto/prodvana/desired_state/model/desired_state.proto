@@ -12,6 +12,7 @@ import "prodvana/common_config/task.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/protection/protection_reference.proto";
 import "prodvana/runtimes/extensions/fetch.proto";
+import "prodvana/runtimes/debug_event.proto";
 
 enum Type {
     UNKNOWN = 0;
@@ -479,7 +480,8 @@ message RuntimeObject {
     DeliveryState delivery = 8;
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
     bool desired_version_dirty_only = 20;  // when checking for whether or not to apply, only use the desired version and check if it's active and not dirty. that is, active && at desired version && dirty = hasWork, no work otherwise.
-    string message = 12; // Human readable message (typically for errors).
+    string message = 12; // Human readable message (typically for errors) explaining the status
+    repeated prodvana.runtimes.DebugEvent debug_events = 31;
     RuntimeExtension runtime_extension = 13; // additional config if this runtime object belongs to a runtime extension
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
     google.protobuf.Duration steady_state_interval = 26;
@@ -506,7 +508,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 31
+    // next tag: 32
 }
 
 enum ConditionStatus {

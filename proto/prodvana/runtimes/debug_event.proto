@@ -1,0 +1,12 @@
+syntax = "proto3";
+package prodvana.runtimes;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes";
+import "google/protobuf/timestamp.proto";
+
+// An event useful in explaining the status of the Runtime object.
+// Events are not guaranteed to be stable and may differ depending on the
+// current status of the Runtime object.
+message DebugEvent {
+    google.protobuf.Timestamp timestamp = 1;
+    string message = 2;
+}

@@ -17,6 +17,7 @@ import prodvana.proto.prodvana.common_config.retry_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
+import prodvana.proto.prodvana.runtimes.debug_event_pb2
 import prodvana.proto.prodvana.runtimes.extensions.fetch_pb2
 import sys
 import typing
@@ -1336,6 +1337,7 @@ class RuntimeObject(google.protobuf.message.Message):
     VERSION_AGNOSTIC_FIELD_NUMBER: builtins.int
     DESIRED_VERSION_DIRTY_ONLY_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
+    DEBUG_EVENTS_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
     INTERVAL_FIELD_NUMBER: builtins.int
     STEADY_STATE_INTERVAL_FIELD_NUMBER: builtins.int
@@ -1369,7 +1371,9 @@ class RuntimeObject(google.protobuf.message.Message):
     desired_version_dirty_only: builtins.bool
     """when checking for whether or not to apply, only use the desired version and check if it's active and not dirty. that is, active && at desired version && dirty = hasWork, no work otherwise."""
     message: builtins.str
-    """Human readable message (typically for errors)."""
+    """Human readable message (typically for errors) explaining the status"""
+    @property
+    def debug_events(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.debug_event_pb2.DebugEvent]: ...
     @property
     def runtime_extension(self) -> global___RuntimeObject.RuntimeExtension:
         """additional config if this runtime object belongs to a runtime extension"""
@@ -1414,6 +1418,7 @@ class RuntimeObject(google.protobuf.message.Message):
         version_agnostic: builtins.bool = ...,
         desired_version_dirty_only: builtins.bool = ...,
         message: builtins.str = ...,
+        debug_events: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.debug_event_pb2.DebugEvent] | None = ...,
         runtime_extension: global___RuntimeObject.RuntimeExtension | None = ...,
         interval: google.protobuf.duration_pb2.Duration | None = ...,
         steady_state_interval: google.protobuf.duration_pb2.Duration | None = ...,
@@ -1427,7 +1432,7 @@ class RuntimeObject(google.protobuf.message.Message):
         external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

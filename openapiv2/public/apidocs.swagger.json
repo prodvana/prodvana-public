@@ -10397,7 +10397,14 @@
         },
         "message": {
           "type": "string",
-          "description": "Human readable message (typically for errors)."
+          "title": "Human readable message (typically for errors) explaining the status"
+        },
+        "debugEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/runtimesDebugEvent"
+          }
         },
         "runtimeExtension": {
           "$ref": "#/definitions/RuntimeObjectRuntimeExtension",
@@ -11973,6 +11980,13 @@
         "message": {
           "type": "string",
           "title": "freeform message explaining the status, for example, error message"
+        },
+        "debugEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/runtimesDebugEvent"
+          }
         }
       }
     },
@@ -14826,6 +14840,19 @@
           "$ref": "#/definitions/ContainerOrchestrationRuntimeECS"
         }
       }
+    },
+    "runtimesDebugEvent": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "description": "An event useful in explaining the status of the Runtime object.\nEvents are not guaranteed to be stable and may differ depending on the\ncurrent status of the Runtime object."
     },
     "runtimesRuntimeExecutionConfig": {
       "type": "object",
