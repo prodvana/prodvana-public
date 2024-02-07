@@ -262,9 +262,19 @@ message AwsEcsConfig {
         prodvana.common_config.SecretReferenceValue aws_secret_access_key = 2 [(validate.rules).message.required = true];
     }
     prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
+
+    // the ProxyRuntime has been configured with an IAM role that has the necessary permissions
+    message InheritRole {
+        // optional, if the proxy runtime is an EKS cluster you can specify the K8S Service Account to
+        // use. If not passed, the default service account for the namespace will be used.
+        string k8s_service_account = 1;
+    }
+
     oneof credentials {
         option (validate.required) = true;
         AccessKey access_key = 6 [(validate.rules).message.required = true];
+        // the ProxyRuntime has been configured with an IAM role that has the necessary permissions
+        InheritRole inherit_role_from_runtime_env = 7;
         // TODO(naphat) assumeRole support
     }
     string region = 4 [(validate.rules).string.min_len = 1];

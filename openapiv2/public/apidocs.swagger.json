@@ -6804,6 +6804,16 @@
         }
       }
     },
+    "AwsEcsConfigInheritRole": {
+      "type": "object",
+      "properties": {
+        "k8sServiceAccount": {
+          "type": "string",
+          "description": "optional, if the proxy runtime is an EKS cluster you can specify the K8S Service Account to\nuse. If not passed, the default service account for the namespace will be used."
+        }
+      },
+      "title": "the ProxyRuntime has been configured with an IAM role that has the necessary permissions"
+    },
     "AwsEcsConfigSpec": {
       "type": "object",
       "properties": {
@@ -7013,7 +7023,7 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         }
       }
     },
@@ -8611,27 +8621,6 @@
         }
       }
     },
-    "common_configKubernetesConfig": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/common_configKubernetesConfigType"
-        },
-        "inlined": {
-          "type": "string"
-        },
-        "local": {
-          "$ref": "#/definitions/common_configLocalConfig"
-        },
-        "remote": {
-          "$ref": "#/definitions/common_configRemoteConfig"
-        },
-        "envInjectionMode": {
-          "$ref": "#/definitions/KubernetesConfigEnvInjectionMode",
-          "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
-        }
-      }
-    },
     "common_configKubernetesConfigType": {
       "type": "string",
       "enum": [
@@ -9026,6 +9015,14 @@
       "type": "object",
       "properties": {
         "defaultValue": {
+          "type": "string"
+        }
+      }
+    },
+    "common_configTaskConfigKubernetesConfig": {
+      "type": "object",
+      "properties": {
+        "serviceAccount": {
           "type": "string"
         }
       }
@@ -10764,7 +10761,7 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "timeout": {
           "type": "string",
@@ -10837,7 +10834,7 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "pollInterval": {
           "type": "string",
@@ -10875,7 +10872,7 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "pollInterval": {
           "type": "string",
@@ -13788,6 +13785,27 @@
         }
       }
     },
+    "prodvanacommon_configKubernetesConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/common_configKubernetesConfigType"
+        },
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
+        },
+        "envInjectionMode": {
+          "$ref": "#/definitions/KubernetesConfigEnvInjectionMode",
+          "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
+        }
+      }
+    },
     "prodvanacommon_configTaskConfig": {
       "type": "object",
       "properties": {
@@ -13808,6 +13826,9 @@
         "retryConfig": {
           "$ref": "#/definitions/common_configRetryConfig",
           "description": "If not set, the task will not be retried once it starts executing once."
+        },
+        "k8s": {
+          "$ref": "#/definitions/common_configTaskConfigKubernetesConfig"
         }
       }
     },
@@ -13835,7 +13856,7 @@
           "$ref": "#/definitions/prodvanacommon_configTaskConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "parameters": {
           "type": "array",
@@ -13902,8 +13923,12 @@
           "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
         },
         "accessKey": {
-          "$ref": "#/definitions/AwsEcsConfigAccessKey",
-          "title": "TODO(naphat) assumeRole support"
+          "$ref": "#/definitions/AwsEcsConfigAccessKey"
+        },
+        "inheritRoleFromRuntimeEnv": {
+          "$ref": "#/definitions/AwsEcsConfigInheritRole",
+          "description": "TODO(naphat) assumeRole support",
+          "title": "the ProxyRuntime has been configured with an IAM role that has the necessary permissions"
         },
         "region": {
           "type": "string"
@@ -14338,7 +14363,7 @@
           "description": "Inline task config with retry, template support."
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "builtin": {
           "$ref": "#/definitions/protectionBuiltinProtectionConfig",
@@ -15041,7 +15066,7 @@
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "helm": {
           "$ref": "#/definitions/common_configHelmConfig"
@@ -15460,10 +15485,10 @@
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "externalConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig",
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig",
           "title": "deprecated, pass this as kubernetes_config instead"
         },
         "helm": {
@@ -15747,10 +15772,10 @@
           "$ref": "#/definitions/serviceRuntimeExtensionConfig"
         },
         "kubernetesConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig"
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig"
         },
         "externalConfig": {
-          "$ref": "#/definitions/common_configKubernetesConfig",
+          "$ref": "#/definitions/prodvanacommon_configKubernetesConfig",
           "title": "deprecated, pass this as kubernetes_config instead"
         },
         "helm": {

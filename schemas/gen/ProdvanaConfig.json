@@ -2919,6 +2919,16 @@
                         {}
                     ],
                     "description": "If not set, the task will not be retried once it starts executing once."
+                },
+                "k8s": {
+                    "$ref": "#/definitions/prodvana.common_config.TaskConfig.KubernetesConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -2931,6 +2941,40 @@
                 }
             ],
             "title": "Task Config"
+        },
+        "prodvana.common_config.TaskConfig.KubernetesConfig": {
+            "properties": {
+                "service_account": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "serviceAccount": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Kubernetes Config"
         },
         "prodvana.common_config.TcpProbe": {
             "properties": {
@@ -3297,8 +3341,7 @@
                             "type": "null"
                         },
                         {}
-                    ],
-                    "description": "TODO(naphat) assumeRole support"
+                    ]
                 },
                 "accessKey": {
                     "$ref": "#/definitions/prodvana.environment.AwsEcsConfig.AccessKey",
@@ -3308,8 +3351,29 @@
                             "type": "null"
                         },
                         {}
+                    ]
+                },
+                "inherit_role_from_runtime_env": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig.InheritRole",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
                     ],
-                    "description": "TODO(naphat) assumeRole support"
+                    "description": "the ProxyRuntime has been configured with an IAM role that has the necessary permissions  TODO(naphat) assumeRole support"
+                },
+                "inheritRoleFromRuntimeEnv": {
+                    "$ref": "#/definitions/prodvana.environment.AwsEcsConfig.InheritRole",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "the ProxyRuntime has been configured with an IAM role that has the necessary permissions  TODO(naphat) assumeRole support"
                 },
                 "region": {
                     "oneOf": [
@@ -3406,6 +3470,43 @@
                 }
             ],
             "title": "Access Key"
+        },
+        "prodvana.environment.AwsEcsConfig.InheritRole": {
+            "properties": {
+                "k8s_service_account": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, if the proxy runtime is an EKS cluster you can specify the K8S Service Account to use. If not passed, the default service account for the namespace will be used."
+                },
+                "k8sServiceAccount": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, if the proxy runtime is an EKS cluster you can specify the K8S Service Account to use. If not passed, the default service account for the namespace will be used."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Inherit Role",
+            "description": "the ProxyRuntime has been configured with an IAM role that has the necessary permissions"
         },
         "prodvana.environment.ClusterConfig": {
             "properties": {

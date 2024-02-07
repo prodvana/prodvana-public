@@ -200,6 +200,52 @@ func (m *TaskConfig) validate(all bool) error {
 		}
 	}
 
+	switch v := m.RuntimeSpecific.(type) {
+	case *TaskConfig_K8S:
+		if v == nil {
+			err := TaskConfigValidationError{
+				field:  "RuntimeSpecific",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetK8S()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskConfigValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskConfigValidationError{
+						field:  "K8S",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetK8S()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskConfigValidationError{
+					field:  "K8S",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
 	if len(errors) > 0 {
 		return TaskConfigMultiError(errors)
 	}
@@ -276,3 +322,117 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TaskConfigValidationError{}
+
+// Validate checks the field values on TaskConfig_KubernetesConfig with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TaskConfig_KubernetesConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TaskConfig_KubernetesConfig with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TaskConfig_KubernetesConfigMultiError, or nil if none found.
+func (m *TaskConfig_KubernetesConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TaskConfig_KubernetesConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetServiceAccount()) < 1 {
+		err := TaskConfig_KubernetesConfigValidationError{
+			field:  "ServiceAccount",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return TaskConfig_KubernetesConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// TaskConfig_KubernetesConfigMultiError is an error wrapping multiple
+// validation errors returned by TaskConfig_KubernetesConfig.ValidateAll() if
+// the designated constraints aren't met.
+type TaskConfig_KubernetesConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TaskConfig_KubernetesConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TaskConfig_KubernetesConfigMultiError) AllErrors() []error { return m }
+
+// TaskConfig_KubernetesConfigValidationError is the validation error returned
+// by TaskConfig_KubernetesConfig.Validate if the designated constraints
+// aren't met.
+type TaskConfig_KubernetesConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskConfig_KubernetesConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskConfig_KubernetesConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskConfig_KubernetesConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskConfig_KubernetesConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskConfig_KubernetesConfigValidationError) ErrorName() string {
+	return "TaskConfig_KubernetesConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TaskConfig_KubernetesConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskConfig_KubernetesConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskConfig_KubernetesConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskConfig_KubernetesConfigValidationError{}

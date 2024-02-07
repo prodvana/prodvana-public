@@ -709,15 +709,37 @@ class AwsEcsConfig(google.protobuf.message.Message):
         def HasField(self, field_name: typing_extensions.Literal["aws_secret_access_key", b"aws_secret_access_key"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["aws_access_key_id", b"aws_access_key_id", "aws_secret_access_key", b"aws_secret_access_key"]) -> None: ...
 
+    class InheritRole(google.protobuf.message.Message):
+        """the ProxyRuntime has been configured with an IAM role that has the necessary permissions"""
+
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        K8S_SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
+        k8s_service_account: builtins.str
+        """optional, if the proxy runtime is an EKS cluster you can specify the K8S Service Account to
+        use. If not passed, the default service account for the namespace will be used.
+        """
+        def __init__(
+            self,
+            *,
+            k8s_service_account: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["k8s_service_account", b"k8s_service_account"]) -> None: ...
+
     PROXY_RUNTIME_FIELD_NUMBER: builtins.int
     ACCESS_KEY_FIELD_NUMBER: builtins.int
+    INHERIT_ROLE_FROM_RUNTIME_ENV_FIELD_NUMBER: builtins.int
     REGION_FIELD_NUMBER: builtins.int
     ECS_CLUSTER_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
-    def access_key(self) -> global___AwsEcsConfig.AccessKey:
-        """TODO(naphat) assumeRole support"""
+    def access_key(self) -> global___AwsEcsConfig.AccessKey: ...
+    @property
+    def inherit_role_from_runtime_env(self) -> global___AwsEcsConfig.InheritRole:
+        """the ProxyRuntime has been configured with an IAM role that has the necessary permissions
+        TODO(naphat) assumeRole support
+        """
     region: builtins.str
     ecs_cluster: builtins.str
     def __init__(
@@ -725,12 +747,13 @@ class AwsEcsConfig(google.protobuf.message.Message):
         *,
         proxy_runtime: prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig | None = ...,
         access_key: global___AwsEcsConfig.AccessKey | None = ...,
+        inherit_role_from_runtime_env: global___AwsEcsConfig.InheritRole | None = ...,
         region: builtins.str = ...,
         ecs_cluster: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "ecs_cluster", b"ecs_cluster", "proxy_runtime", b"proxy_runtime", "region", b"region"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["credentials", b"credentials"]) -> typing_extensions.Literal["access_key"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "inherit_role_from_runtime_env", b"inherit_role_from_runtime_env", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["access_key", b"access_key", "credentials", b"credentials", "ecs_cluster", b"ecs_cluster", "inherit_role_from_runtime_env", b"inherit_role_from_runtime_env", "proxy_runtime", b"proxy_runtime", "region", b"region"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["credentials", b"credentials"]) -> typing_extensions.Literal["access_key", "inherit_role_from_runtime_env"] | None: ...
 
 global___AwsEcsConfig = AwsEcsConfig
 

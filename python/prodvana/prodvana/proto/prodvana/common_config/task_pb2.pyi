@@ -60,10 +60,23 @@ global___TaskLifecycle = TaskLifecycle
 class TaskConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class KubernetesConfig(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
+        service_account: builtins.str
+        def __init__(
+            self,
+            *,
+            service_account: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["service_account", b"service_account"]) -> None: ...
+
     PROGRAM_FIELD_NUMBER: builtins.int
     VOLUMES_FIELD_NUMBER: builtins.int
     TTL_FIELD_NUMBER: builtins.int
     RETRY_CONFIG_FIELD_NUMBER: builtins.int
+    K8S_FIELD_NUMBER: builtins.int
     @property
     def program(self) -> prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig: ...
     @property
@@ -74,6 +87,8 @@ class TaskConfig(google.protobuf.message.Message):
     @property
     def retry_config(self) -> prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig:
         """If not set, the task will not be retried once it starts executing once."""
+    @property
+    def k8s(self) -> global___TaskConfig.KubernetesConfig: ...
     def __init__(
         self,
         *,
@@ -81,8 +96,10 @@ class TaskConfig(google.protobuf.message.Message):
         volumes: collections.abc.Iterable[prodvana.proto.prodvana.volumes.volumes_pb2.Volume] | None = ...,
         ttl: google.protobuf.duration_pb2.Duration | None = ...,
         retry_config: prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig | None = ...,
+        k8s: global___TaskConfig.KubernetesConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["program", b"program", "retry_config", b"retry_config", "ttl", b"ttl"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["program", b"program", "retry_config", b"retry_config", "ttl", b"ttl", "volumes", b"volumes"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["k8s", b"k8s", "program", b"program", "retry_config", b"retry_config", "runtime_specific", b"runtime_specific", "ttl", b"ttl"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["k8s", b"k8s", "program", b"program", "retry_config", b"retry_config", "runtime_specific", b"runtime_specific", "ttl", b"ttl", "volumes", b"volumes"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["runtime_specific", b"runtime_specific"]) -> typing_extensions.Literal["k8s"] | None: ...
 
 global___TaskConfig = TaskConfig
