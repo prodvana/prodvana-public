@@ -633,6 +633,40 @@ class GetImageCommitInfoResp(google.protobuf.message.Message):
 
 global___GetImageCommitInfoResp = GetImageCommitInfoResp
 
+class GetCommitInfoReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REPOSITORY_FIELD_NUMBER: builtins.int
+    COMMITID_FIELD_NUMBER: builtins.int
+    repository: builtins.str
+    commitId: builtins.str
+    def __init__(
+        self,
+        *,
+        repository: builtins.str = ...,
+        commitId: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commitId", b"commitId", "repository", b"repository"]) -> None: ...
+
+global___GetCommitInfoReq = GetCommitInfoReq
+
+class GetCommitInfoResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COMMIT_FIELD_NUMBER: builtins.int
+    @property
+    def commit(self) -> prodvana.proto.prodvana.repo.repo_pb2.Commit:
+        """will be null if commit integration is not configured"""
+    def __init__(
+        self,
+        *,
+        commit: prodvana.proto.prodvana.repo.repo_pb2.Commit | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["commit", b"commit"]) -> None: ...
+
+global___GetCommitInfoResp = GetCommitInfoResp
+
 class GetProgramDefaultsReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

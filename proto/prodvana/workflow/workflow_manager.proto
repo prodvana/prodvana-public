@@ -213,6 +213,16 @@ message GetImageCommitInfoResp {
   string repository = 2;
 }
 
+message GetCommitInfoReq {
+  string repository = 1 [(validate.rules).string.min_len = 1];
+  string commitId = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetCommitInfoResp {
+  // will be null if commit integration is not configured
+  prodvana.repo.Commit commit = 1;
+}
+
 message GetProgramDefaultsReq {
   string integration_id = 1;
   string repository = 2;
@@ -511,7 +521,7 @@ service WorkflowManager {
       option (google.api.http) = {
           get: "/v1/integrations/{integration_id=*}/image-commit-info"
       };
-  };
+    };
     rpc InstallSlack (InstallSlackReq) returns (InstallSlackResp) {
         option (google.api.http) = {
             get: "/v1/integrations/slack/install" // TODO(rohit): This should be a POST request
@@ -604,5 +614,10 @@ service WorkflowManager {
         option (google.api.http) = {
             get: "/v1/integrations/repo/commits",
         };
-    }
+    };
+    rpc GetCommitInfo(GetCommitInfoReq) returns (GetCommitInfoResp) {
+      option (google.api.http) = {
+          get: "/v1/integrations/repo/commit-info"
+      };
+    };
 }

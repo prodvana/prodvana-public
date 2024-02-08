@@ -51,6 +51,7 @@ const (
 	WorkflowManager_CreateGitHubApp_FullMethodName                    = "/prodvana.workflow.WorkflowManager/CreateGitHubApp"
 	WorkflowManager_InstallGitHub_FullMethodName                      = "/prodvana.workflow.WorkflowManager/InstallGitHub"
 	WorkflowManager_ListRepoCommits_FullMethodName                    = "/prodvana.workflow.WorkflowManager/ListRepoCommits"
+	WorkflowManager_GetCommitInfo_FullMethodName                      = "/prodvana.workflow.WorkflowManager/GetCommitInfo"
 )
 
 // WorkflowManagerClient is the client API for WorkflowManager service.
@@ -89,6 +90,7 @@ type WorkflowManagerClient interface {
 	CreateGitHubApp(ctx context.Context, in *CreateGitHubAppReq, opts ...grpc.CallOption) (*CreateGitHubAppResp, error)
 	InstallGitHub(ctx context.Context, in *InstallGitHubReq, opts ...grpc.CallOption) (*InstallGitHubResp, error)
 	ListRepoCommits(ctx context.Context, in *ListRepoCommitsReq, opts ...grpc.CallOption) (*ListRepoCommitsResp, error)
+	GetCommitInfo(ctx context.Context, in *GetCommitInfoReq, opts ...grpc.CallOption) (*GetCommitInfoResp, error)
 }
 
 type workflowManagerClient struct {
@@ -387,6 +389,15 @@ func (c *workflowManagerClient) ListRepoCommits(ctx context.Context, in *ListRep
 	return out, nil
 }
 
+func (c *workflowManagerClient) GetCommitInfo(ctx context.Context, in *GetCommitInfoReq, opts ...grpc.CallOption) (*GetCommitInfoResp, error) {
+	out := new(GetCommitInfoResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetCommitInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowManagerServer is the server API for WorkflowManager service.
 // All implementations must embed UnimplementedWorkflowManagerServer
 // for forward compatibility
@@ -423,6 +434,7 @@ type WorkflowManagerServer interface {
 	CreateGitHubApp(context.Context, *CreateGitHubAppReq) (*CreateGitHubAppResp, error)
 	InstallGitHub(context.Context, *InstallGitHubReq) (*InstallGitHubResp, error)
 	ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error)
+	GetCommitInfo(context.Context, *GetCommitInfoReq) (*GetCommitInfoResp, error)
 	mustEmbedUnimplementedWorkflowManagerServer()
 }
 
@@ -525,6 +537,9 @@ func (UnimplementedWorkflowManagerServer) InstallGitHub(context.Context, *Instal
 }
 func (UnimplementedWorkflowManagerServer) ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRepoCommits not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetCommitInfo(context.Context, *GetCommitInfoReq) (*GetCommitInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCommitInfo not implemented")
 }
 func (UnimplementedWorkflowManagerServer) mustEmbedUnimplementedWorkflowManagerServer() {}
 
@@ -1115,6 +1130,24 @@ func _WorkflowManager_ListRepoCommits_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowManager_GetCommitInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCommitInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetCommitInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetCommitInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetCommitInfo(ctx, req.(*GetCommitInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowManager_ServiceDesc is the grpc.ServiceDesc for WorkflowManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1249,6 +1282,10 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListRepoCommits",
 			Handler:    _WorkflowManager_ListRepoCommits_Handler,
+		},
+		{
+			MethodName: "GetCommitInfo",
+			Handler:    _WorkflowManager_GetCommitInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -136,6 +136,10 @@ class WorkflowManagerStub:
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsResp,
     ]
+    GetCommitInfo: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoReq,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoResp,
+    ]
 
 class WorkflowManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -330,5 +334,11 @@ class WorkflowManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.ListRepoCommitsResp: ...
+    @abc.abstractmethod
+    def GetCommitInfo(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoResp: ...
 
 def add_WorkflowManagerServicer_to_server(servicer: WorkflowManagerServicer, server: grpc.Server) -> None: ...

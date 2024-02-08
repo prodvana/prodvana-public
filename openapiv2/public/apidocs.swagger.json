@@ -4113,6 +4113,42 @@
         ]
       }
     },
+    "/v1/integrations/repo/commit-info": {
+      "get": {
+        "operationId": "WorkflowManager_GetCommitInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowGetCommitInfoResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "repository",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commitId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/integrations/repo/commits": {
       "get": {
         "operationId": "WorkflowManager_ListRepoCommits",
@@ -16187,6 +16223,15 @@
     },
     "workflowDeleteIntegrationResp": {
       "type": "object"
+    },
+    "workflowGetCommitInfoResp": {
+      "type": "object",
+      "properties": {
+        "commit": {
+          "$ref": "#/definitions/repoCommit",
+          "title": "will be null if commit integration is not configured"
+        }
+      }
     },
     "workflowGetContainerRegistryImagesRes": {
       "type": "object",

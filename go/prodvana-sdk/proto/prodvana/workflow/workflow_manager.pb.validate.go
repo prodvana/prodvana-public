@@ -3223,6 +3223,259 @@ var _ interface {
 	ErrorName() string
 } = GetImageCommitInfoRespValidationError{}
 
+// Validate checks the field values on GetCommitInfoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetCommitInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCommitInfoReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCommitInfoReqMultiError, or nil if none found.
+func (m *GetCommitInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCommitInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetRepository()) < 1 {
+		err := GetCommitInfoReqValidationError{
+			field:  "Repository",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCommitId()) < 1 {
+		err := GetCommitInfoReqValidationError{
+			field:  "CommitId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetCommitInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCommitInfoReqMultiError is an error wrapping multiple validation errors
+// returned by GetCommitInfoReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetCommitInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCommitInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCommitInfoReqMultiError) AllErrors() []error { return m }
+
+// GetCommitInfoReqValidationError is the validation error returned by
+// GetCommitInfoReq.Validate if the designated constraints aren't met.
+type GetCommitInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCommitInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCommitInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCommitInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCommitInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCommitInfoReqValidationError) ErrorName() string { return "GetCommitInfoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetCommitInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCommitInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCommitInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCommitInfoReqValidationError{}
+
+// Validate checks the field values on GetCommitInfoResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetCommitInfoResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCommitInfoResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCommitInfoRespMultiError, or nil if none found.
+func (m *GetCommitInfoResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCommitInfoResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCommit()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetCommitInfoRespValidationError{
+					field:  "Commit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetCommitInfoRespValidationError{
+					field:  "Commit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCommit()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetCommitInfoRespValidationError{
+				field:  "Commit",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetCommitInfoRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCommitInfoRespMultiError is an error wrapping multiple validation errors
+// returned by GetCommitInfoResp.ValidateAll() if the designated constraints
+// aren't met.
+type GetCommitInfoRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCommitInfoRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCommitInfoRespMultiError) AllErrors() []error { return m }
+
+// GetCommitInfoRespValidationError is the validation error returned by
+// GetCommitInfoResp.Validate if the designated constraints aren't met.
+type GetCommitInfoRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCommitInfoRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCommitInfoRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCommitInfoRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCommitInfoRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCommitInfoRespValidationError) ErrorName() string {
+	return "GetCommitInfoRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCommitInfoRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCommitInfoResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCommitInfoRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCommitInfoRespValidationError{}
+
 // Validate checks the field values on GetProgramDefaultsReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
