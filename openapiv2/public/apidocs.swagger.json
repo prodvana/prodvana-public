@@ -7452,6 +7452,42 @@
       "default": "ENV_INJECT_UNKNOWN",
       "title": "- ENV_INJECT_DISABLED: disables env injection entirely\n - ENV_INJECT_NON_SECRET_ENV: inject non-secret env values from the Release Channel"
     },
+    "KubernetesPatchReplace": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "title": "json6902 path"
+        },
+        "string": {
+          "type": "string"
+        },
+        "intAsString": {
+          "type": "string"
+        }
+      }
+    },
+    "KubernetesPatchTarget": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string",
+          "title": "omit any of these fields to match all values"
+        },
+        "version": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      }
+    },
     "ListClustersRespClusterInfo": {
       "type": "object",
       "properties": {
@@ -8665,6 +8701,18 @@
         "KUSTOMIZE"
       ],
       "default": "UNKNOWN"
+    },
+    "common_configKubernetesPatch": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "$ref": "#/definitions/KubernetesPatchTarget",
+          "description": "filter to a specific Kubernetes object. Omit to apply to all objects."
+        },
+        "replace": {
+          "$ref": "#/definitions/KubernetesPatchReplace"
+        }
+      }
     },
     "common_configKubernetesSecret": {
       "type": "object",
@@ -13839,6 +13887,13 @@
         "envInjectionMode": {
           "$ref": "#/definitions/KubernetesConfigEnvInjectionMode",
           "title": "Defaults to ENV_INJECT_NON_SECRET_ENV"
+        },
+        "patches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common_configKubernetesPatch"
+          }
         }
       }
     },

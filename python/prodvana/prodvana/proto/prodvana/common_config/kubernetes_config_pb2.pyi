@@ -123,6 +123,7 @@ class KubernetesConfig(google.protobuf.message.Message):
     LOCAL_FIELD_NUMBER: builtins.int
     REMOTE_FIELD_NUMBER: builtins.int
     ENV_INJECTION_MODE_FIELD_NUMBER: builtins.int
+    PATCHES_FIELD_NUMBER: builtins.int
     type: global___KubernetesConfig.Type.ValueType
     inlined: builtins.str
     @property
@@ -131,6 +132,8 @@ class KubernetesConfig(google.protobuf.message.Message):
     def remote(self) -> global___RemoteConfig: ...
     env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType
     """Defaults to ENV_INJECT_NON_SECRET_ENV"""
+    @property
+    def patches(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___KubernetesPatch]: ...
     def __init__(
         self,
         *,
@@ -139,9 +142,78 @@ class KubernetesConfig(google.protobuf.message.Message):
         local: global___LocalConfig | None = ...,
         remote: global___RemoteConfig | None = ...,
         env_injection_mode: global___KubernetesConfig.EnvInjectionMode.ValueType = ...,
+        patches: collections.abc.Iterable[global___KubernetesPatch] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "remote", b"remote", "source_oneof", b"source_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env_injection_mode", b"env_injection_mode", "inlined", b"inlined", "local", b"local", "remote", b"remote", "source_oneof", b"source_oneof", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env_injection_mode", b"env_injection_mode", "inlined", b"inlined", "local", b"local", "patches", b"patches", "remote", b"remote", "source_oneof", b"source_oneof", "type", b"type"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["source_oneof", b"source_oneof"]) -> typing_extensions.Literal["inlined", "local", "remote"] | None: ...
 
 global___KubernetesConfig = KubernetesConfig
+
+class KubernetesPatch(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class Target(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        GROUP_FIELD_NUMBER: builtins.int
+        VERSION_FIELD_NUMBER: builtins.int
+        KIND_FIELD_NUMBER: builtins.int
+        NAME_FIELD_NUMBER: builtins.int
+        NAMESPACE_FIELD_NUMBER: builtins.int
+        group: builtins.str
+        """omit any of these fields to match all values"""
+        version: builtins.str
+        kind: builtins.str
+        name: builtins.str
+        namespace: builtins.str
+        def __init__(
+            self,
+            *,
+            group: builtins.str = ...,
+            version: builtins.str = ...,
+            kind: builtins.str = ...,
+            name: builtins.str = ...,
+            namespace: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["group", b"group", "kind", b"kind", "name", b"name", "namespace", b"namespace", "version", b"version"]) -> None: ...
+
+    class Replace(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        PATH_FIELD_NUMBER: builtins.int
+        STRING_FIELD_NUMBER: builtins.int
+        INT_AS_STRING_FIELD_NUMBER: builtins.int
+        path: builtins.str
+        """json6902 path"""
+        string: builtins.str
+        int_as_string: builtins.str
+        def __init__(
+            self,
+            *,
+            path: builtins.str = ...,
+            string: builtins.str = ...,
+            int_as_string: builtins.str = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["int_as_string", b"int_as_string", "string", b"string", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["int_as_string", b"int_as_string", "path", b"path", "string", b"string", "value_oneof", b"value_oneof"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["string", "int_as_string"] | None: ...
+
+    TARGET_FIELD_NUMBER: builtins.int
+    REPLACE_FIELD_NUMBER: builtins.int
+    @property
+    def target(self) -> global___KubernetesPatch.Target:
+        """filter to a specific Kubernetes object. Omit to apply to all objects."""
+    @property
+    def replace(self) -> global___KubernetesPatch.Replace: ...
+    def __init__(
+        self,
+        *,
+        target: global___KubernetesPatch.Target | None = ...,
+        replace: global___KubernetesPatch.Replace | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["patch_oneof", b"patch_oneof", "replace", b"replace", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["patch_oneof", b"patch_oneof", "replace", b"replace", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["patch_oneof", b"patch_oneof"]) -> typing_extensions.Literal["replace"] | None: ...
+
+global___KubernetesPatch = KubernetesPatch

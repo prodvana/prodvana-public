@@ -1465,6 +1465,20 @@
                         }
                     ],
                     "title": "Env Injection Mode"
+                },
+                "patches": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.common_config.KubernetesPatch"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -1477,6 +1491,161 @@
                 }
             ],
             "title": "Kubernetes Config"
+        },
+        "prodvana.common_config.KubernetesPatch": {
+            "properties": {
+                "target": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesPatch.Target",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "filter to a specific Kubernetes object. Omit to apply to all objects."
+                },
+                "replace": {
+                    "$ref": "#/definitions/prodvana.common_config.KubernetesPatch.Replace",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Kubernetes Patch"
+        },
+        "prodvana.common_config.KubernetesPatch.Replace": {
+            "properties": {
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "json6902 path"
+                },
+                "string": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "int_as_string": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "intAsString": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Replace"
+        },
+        "prodvana.common_config.KubernetesPatch.Target": {
+            "properties": {
+                "group": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "omit any of these fields to match all values"
+                },
+                "version": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "kind": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "namespace": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Target"
         },
         "prodvana.common_config.KubernetesSecret": {
             "properties": {

@@ -62,5 +62,31 @@ message KubernetesConfig {
     // Defaults to ENV_INJECT_NON_SECRET_ENV
     EnvInjectionMode env_injection_mode = 4;
 
-    // next tag: 6
+    repeated KubernetesPatch patches = 6 [(validate.rules).repeated.items.message.required = true];
+
+    // next tag: 7
+}
+
+message KubernetesPatch {
+    message Target {
+        // omit any of these fields to match all values
+        string group = 1;
+        string version = 2;
+        string kind = 3;
+        string name = 4;
+        string namespace = 5;
+    }
+    message Replace {
+        string path = 1;  // json6902 path
+        oneof value_oneof {
+            option (validate.required) = true;
+            string string = 2;
+            string int_as_string = 3;
+        }
+    }
+    Target target = 1;  // filter to a specific Kubernetes object. Omit to apply to all objects.
+    oneof patch_oneof {
+        option (validate.required) = true;
+        Replace replace = 2 [(validate.rules).message.required = true];
+    }
 }
