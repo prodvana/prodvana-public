@@ -13409,6 +13409,10 @@
             "$ref": "#/definitions/modelVersion"
           }
         },
+        "createdTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
         "startedTimestamp": {
           "type": "string",
           "format": "date-time"
@@ -13416,6 +13420,9 @@
         "completedTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "startedByProcessId": {
+          "type": "string"
         },
         "outputBlobIds": {
           "type": "array",

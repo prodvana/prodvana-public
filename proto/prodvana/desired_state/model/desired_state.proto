@@ -782,8 +782,10 @@ message TaskRun {
     repeated StatusExplanation status_explanations = 2;
     string version = 3;
     repeated Version seen_versions = 4;
-    google.protobuf.Timestamp started_timestamp = 5;
+    google.protobuf.Timestamp created_timestamp = 5;
+    google.protobuf.Timestamp started_timestamp = 15;
     google.protobuf.Timestamp completed_timestamp = 6;
+    string started_by_process_id = 16;
     // these fields are only populated for completed tasks
     repeated string output_blob_ids = 7;
     repeated int32 exit_codes = 8;
@@ -804,7 +806,7 @@ message TaskRun {
     FetchDetails fetch_details = 10;
     FetchTaskStartDetails fetch_task_start_details = 14;
 
-    // next tag: 15
+    // next tag: 17
 }
 
 message TaskEntityContext {

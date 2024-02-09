@@ -2123,8 +2123,10 @@ class TaskRun(google.protobuf.message.Message):
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     SEEN_VERSIONS_FIELD_NUMBER: builtins.int
+    CREATED_TIMESTAMP_FIELD_NUMBER: builtins.int
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
     COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    STARTED_BY_PROCESS_ID_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
     TASK_ENTITIES_FIELD_NUMBER: builtins.int
@@ -2140,9 +2142,12 @@ class TaskRun(google.protobuf.message.Message):
     @property
     def seen_versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
     @property
+    def created_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    started_by_process_id: builtins.str
     @property
     def output_blob_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """these fields are only populated for completed tasks"""
@@ -2174,8 +2179,10 @@ class TaskRun(google.protobuf.message.Message):
         status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         version: builtins.str = ...,
         seen_versions: collections.abc.Iterable[global___Version] | None = ...,
+        created_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        started_by_process_id: builtins.str = ...,
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         task_entities: collections.abc.Iterable[global___Identifier] | None = ...,
@@ -2185,8 +2192,8 @@ class TaskRun(google.protobuf.message.Message):
         fetch_details: global___FetchDetails | None = ...,
         fetch_task_start_details: global___FetchTaskStartDetails | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 
