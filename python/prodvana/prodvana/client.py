@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Sequence, Tuple
 
 import grpc
 from grpc_interceptor import ClientCallDetails, ClientInterceptor
@@ -43,6 +43,7 @@ def make_channel(
     org: Optional[str] = None,
     apiserver_addr: Optional[str] = None,
     api_token: Optional[str] = None,
+    options: Optional[Sequence[Tuple[str, Any]]] = None,
 ) -> grpc.Channel:
     """
     Make a new connection to Prodvana API.
@@ -65,9 +66,11 @@ def make_channel(
     assert api_token, "Must pass either `api_token` or set env variabble PVN_TOKEN"
     server_name, _ = apiserver_addr.split(":")
     if server_name == "localhost" or server_name == "apiserver":  # for testing only
-        channel = grpc.insecure_channel(apiserver_addr)
+        channel = grpc.insecure_channel(apiserver_addr, options=options)
     else:
-        channel = grpc.secure_channel(apiserver_addr, grpc.ssl_channel_credentials())
+        channel = grpc.secure_channel(
+            apiserver_addr, grpc.ssl_channel_credentials(), options=options
+        )
     # use of an interceptor here instead of grpc.access_token_call_credentials is needed
     # because that function does not work with insecure_channel, see
     # https://groups.google.com/g/grpc-io/c/fFXbIXphudw
