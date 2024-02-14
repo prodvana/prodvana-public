@@ -2,9 +2,7 @@ import argparse
 
 from prodvana.client import Client, make_channel
 from prodvana.proto.prodvana.common_config.parameters_pb2 import ParameterValue
-from prodvana.proto.prodvana.desired_state.manager_pb2 import (
-    GetDesiredStateConvergenceReq,
-)
+from prodvana.proto.prodvana.desired_state.manager_pb2 import GetDesiredStateGraphReq
 from prodvana.proto.prodvana.service.service_manager_pb2 import GetMaterializedConfigReq
 
 
@@ -36,15 +34,15 @@ def main() -> None:
     with make_channel(org=args.org, api_token=args.api_token) as channel:
         client = Client(channel=channel)
 
-        resp = client.desired_state_manager.GetDesiredStateConvergenceSummary(
-            GetDesiredStateConvergenceReq(
+        resp = client.desired_state_manager.GetDesiredStateGraph(
+            GetDesiredStateGraphReq(
                 desired_state_id=ds_id,
             )
         )
 
         svc_entity = [
             entity
-            for entity in resp.summary.entity_graph.entities
+            for entity in resp.entity_graph.entities
             if entity.desired_state_id == ds_id
         ][0]
         starting_state = svc_entity.starting_state.service

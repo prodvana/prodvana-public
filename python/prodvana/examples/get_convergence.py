@@ -3,9 +3,7 @@ from typing import Iterator, Mapping, NamedTuple, Optional
 
 from prodvana.client import Client, make_channel
 from prodvana.proto.prodvana.async_task.task_metadata_pb2 import TaskStatus
-from prodvana.proto.prodvana.desired_state.manager_pb2 import (
-    GetServiceDesiredStateConvergenceSummaryReq,
-)
+from prodvana.proto.prodvana.desired_state.manager_pb2 import GetDesiredStateGraphReq
 from prodvana.proto.prodvana.desired_state.model.desired_state_pb2 import (
     SignalType,
     Status,
@@ -78,16 +76,20 @@ def main() -> None:
     service = args.service
     with make_channel(org=args.org, api_token=args.api_token) as channel:
         client = Client(channel=channel)
-        resp = client.desired_state_manager.GetServiceDesiredStateConvergenceSummary(
-            GetServiceDesiredStateConvergenceSummaryReq(
-                application=app, service=service
+        resp = client.desired_state_manager.GetDesiredStateGraph(
+            GetDesiredStateGraphReq(
+                query_by_service=GetDesiredStateGraphReq.QueryByService(
+                    application=app,
+                    service=service,
+                ),
+                types=[Type.SERVICE_INSTANCE],
             )
         )
-        if resp.summary.HasField("pending_set_desired_state"):
+        if resp.HasField("pending_set_desired_state"):
             # there is a desired state that is pending to be applied, which means that the rest of the entity graph will soon be replaced.
-            if resp.summary.pending_set_desired_state.task_status == TaskStatus.FAILED:
+            if resp.pending_set_desired_state.task_status == TaskStatus.FAILED:
                 print(
-                    f"Latest desired state failed to apply.\n{resp.summary.pending_set_desired_state.task_result.log.decode('utf-8')}"
+                    f"Latest desired state failed to apply.\n{resp.pending_set_desired_state.task_result.log.decode('utf-8')}"
                 )
                 # continue to print the rest of the graph as the pending desired state has failed
             else:  # running
@@ -95,7 +97,7 @@ def main() -> None:
                 for (
                     rc_state
                 ) in (
-                    resp.summary.pending_set_desired_state.compiled_desired_state.service.release_channels
+                    resp.pending_set_desired_state.compiled_desired_state.service.release_channels
                 ):
                     print(
                         f"release channel: {rc_state.release_channel}, pending version: {rc_state.versions[0].version}"
@@ -103,12 +105,12 @@ def main() -> None:
                 return  # the rest of the graph is not really relevant as it is about to be taken over by new desired state.
         graph = {
             HashableIdentifier(type=entity.id.type, name=entity.id.name): entity
-            for entity in resp.summary.entity_graph.entities
+            for entity in resp.entity_graph.entities
         }
         svc_entity = graph[
             HashableIdentifier(
-                type=resp.summary.entity_graph.root.type,
-                name=resp.summary.entity_graph.root.name,
+                type=resp.entity_graph.root.type,
+                name=resp.entity_graph.root.name,
             )
         ]
         print(f"status: {Status.Name(svc_entity.status)}")
