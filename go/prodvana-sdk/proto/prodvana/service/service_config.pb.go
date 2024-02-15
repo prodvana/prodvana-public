@@ -1310,7 +1310,6 @@ type DeliveryExtensionInstance struct {
 	//	*DeliveryExtensionInstance_Ref
 	Definition isDeliveryExtensionInstance_Definition `protobuf_oneof:"definition"`
 	Name       string                                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Lifecycle  common_config.TaskLifecycle            `protobuf:"varint,4,opt,name=lifecycle,proto3,enum=prodvana.common_config.TaskLifecycle" json:"lifecycle,omitempty"`
 }
 
 func (x *DeliveryExtensionInstance) Reset() {
@@ -1371,13 +1370,6 @@ func (x *DeliveryExtensionInstance) GetName() string {
 		return x.Name
 	}
 	return ""
-}
-
-func (x *DeliveryExtensionInstance) GetLifecycle() common_config.TaskLifecycle {
-	if x != nil {
-		return x.Lifecycle
-	}
-	return common_config.TaskLifecycle(0)
 }
 
 type isDeliveryExtensionInstance_Definition interface {
@@ -3074,7 +3066,7 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x67, 0x2e, 0x54, 0x61, 0x73, 0x6b, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x42,
 	0x0a, 0xfa, 0x42, 0x07, 0x82, 0x01, 0x04, 0x20, 0x00, 0x20, 0x01, 0x52, 0x09, 0x6c, 0x69, 0x66,
 	0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x42, 0x11, 0x0a, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69,
-	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0xbd, 0x02, 0x0a, 0x19, 0x44, 0x65,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0xfd, 0x01, 0x0a, 0x19, 0x44, 0x65,
 	0x6c, 0x69, 0x76, 0x65, 0x72, 0x79, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x49,
 	0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x50, 0x0a, 0x07, 0x69, 0x6e, 0x6c, 0x69, 0x6e,
 	0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x34, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76,
@@ -3088,13 +3080,9 @@ var file_prodvana_service_service_config_proto_rawDesc = []byte{
 	0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x52, 0x65,
 	0x66, 0x48, 0x00, 0x52, 0x03, 0x72, 0x65, 0x66, 0x12, 0x1b, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52,
-	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x4f, 0x0a, 0x09, 0x6c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63,
-	0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x25, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76,
-	0x61, 0x6e, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69,
-	0x67, 0x2e, 0x54, 0x61, 0x73, 0x6b, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x42,
-	0x0a, 0xfa, 0x42, 0x07, 0x82, 0x01, 0x04, 0x20, 0x00, 0x20, 0x01, 0x52, 0x09, 0x6c, 0x69, 0x66,
-	0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x42, 0x11, 0x0a, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69,
-	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0xc1, 0x02, 0x0a, 0x15, 0x52, 0x75,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x42, 0x11, 0x0a, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x4a, 0x04, 0x08, 0x04, 0x10, 0x05, 0x52, 0x09,
+	0x6c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x22, 0xc1, 0x02, 0x0a, 0x15, 0x52, 0x75,
 	0x6e, 0x74, 0x69, 0x6d, 0x65, 0x53, 0x70, 0x65, 0x63, 0x69, 0x66, 0x69, 0x63, 0x43, 0x6f, 0x6e,
 	0x66, 0x69, 0x67, 0x12, 0x45, 0x0a, 0x03, 0x6b, 0x38, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x31, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76,
@@ -3673,85 +3661,84 @@ var file_prodvana_service_service_config_proto_depIdxs = []int32{
 	46,  // 38: prodvana.service.DeliveryExtensionConfig.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
 	44,  // 39: prodvana.service.DeliveryExtensionInstance.inlined:type_name -> prodvana.delivery_extension.DeliveryExtensionConfig
 	45,  // 40: prodvana.service.DeliveryExtensionInstance.ref:type_name -> prodvana.delivery_extension.DeliveryExtensionInstanceRef
-	46,  // 41: prodvana.service.DeliveryExtensionInstance.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
-	26,  // 42: prodvana.service.RuntimeSpecificConfig.k8s:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig
-	47,  // 43: prodvana.service.RuntimeExtensionConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
-	28,  // 44: prodvana.service.AwsEcsConfig.task_definition:type_name -> prodvana.service.AwsEcsConfig.Spec
-	28,  // 45: prodvana.service.AwsEcsConfig.service_definition:type_name -> prodvana.service.AwsEcsConfig.Spec
-	48,  // 46: prodvana.service.GoogleCloudRunConfig.local:type_name -> prodvana.common_config.LocalConfig
-	49,  // 47: prodvana.service.GoogleCloudRunConfig.remote:type_name -> prodvana.common_config.RemoteConfig
-	41,  // 48: prodvana.service.ServiceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	1,   // 49: prodvana.service.ServiceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
-	3,   // 50: prodvana.service.ServiceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
-	7,   // 51: prodvana.service.ServiceConfig.per_release_channel:type_name -> prodvana.service.PerReleaseChannelConfig
-	8,   // 52: prodvana.service.ServiceConfig.capabilities:type_name -> prodvana.service.CapabilityReference
-	34,  // 53: prodvana.service.ServiceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
-	35,  // 54: prodvana.service.ServiceConfig.volumes:type_name -> prodvana.volumes.Volume
-	50,  // 55: prodvana.service.ServiceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
-	12,  // 56: prodvana.service.ServiceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
-	14,  // 57: prodvana.service.ServiceConfig.delivery_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
-	15,  // 58: prodvana.service.ServiceConfig.delivery_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
-	14,  // 59: prodvana.service.ServiceConfig.convergence_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
-	15,  // 60: prodvana.service.ServiceConfig.convergence_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
-	39,  // 61: prodvana.service.ServiceConfig.convergence_protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
-	16,  // 62: prodvana.service.ServiceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
-	51,  // 63: prodvana.service.ServiceConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
-	52,  // 64: prodvana.service.ServiceConfig.parameter_values:type_name -> prodvana.service.ServiceParameterValues
-	38,  // 65: prodvana.service.ServiceConfig.constants:type_name -> prodvana.common_config.Constant
-	31,  // 66: prodvana.service.ServiceConfig.progress_deadline:type_name -> google.protobuf.Duration
-	17,  // 67: prodvana.service.ServiceConfig.runtime_extension:type_name -> prodvana.service.RuntimeExtensionConfig
-	17,  // 68: prodvana.service.ServiceConfig.custom_runtime:type_name -> prodvana.service.RuntimeExtensionConfig
-	36,  // 69: prodvana.service.ServiceConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
-	36,  // 70: prodvana.service.ServiceConfig.external_config:type_name -> prodvana.common_config.KubernetesConfig
-	37,  // 71: prodvana.service.ServiceConfig.helm:type_name -> prodvana.common_config.HelmConfig
-	18,  // 72: prodvana.service.ServiceConfig.aws_ecs:type_name -> prodvana.service.AwsEcsConfig
-	19,  // 73: prodvana.service.ServiceConfig.google_cloud_run:type_name -> prodvana.service.GoogleCloudRunConfig
-	0,   // 74: prodvana.service.ServiceConfig.parameters_autogen:type_name -> prodvana.service.ServiceConfig.ParametersAutogen
-	53,  // 75: prodvana.service.ServiceConfig.auto_rollback:type_name -> prodvana.common_config.AutoRollbackConfig
-	29,  // 76: prodvana.service.ServiceConfig.env:type_name -> prodvana.service.ServiceConfig.EnvEntry
-	54,  // 77: prodvana.service.ServiceConfig.maestro:type_name -> prodvana.desired_state.maestro.MaestroConfig
-	41,  // 78: prodvana.service.CompiledServiceInstanceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	1,   // 79: prodvana.service.CompiledServiceInstanceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
-	55,  // 80: prodvana.service.CompiledServiceInstanceConfig.maturity:type_name -> prodvana.common_config.Maturity
-	3,   // 81: prodvana.service.CompiledServiceInstanceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
-	6,   // 82: prodvana.service.CompiledServiceInstanceConfig.cert:type_name -> prodvana.service.Certificate
-	56,  // 83: prodvana.service.CompiledServiceInstanceConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
-	57,  // 84: prodvana.service.CompiledServiceInstanceConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
-	9,   // 85: prodvana.service.CompiledServiceInstanceConfig.capabilities:type_name -> prodvana.service.CompiledCapabilityConfig
-	34,  // 86: prodvana.service.CompiledServiceInstanceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
-	35,  // 87: prodvana.service.CompiledServiceInstanceConfig.volumes:type_name -> prodvana.volumes.Volume
-	50,  // 88: prodvana.service.CompiledServiceInstanceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
-	12,  // 89: prodvana.service.CompiledServiceInstanceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
-	14,  // 90: prodvana.service.CompiledServiceInstanceConfig.convergence_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
-	15,  // 91: prodvana.service.CompiledServiceInstanceConfig.convergence_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
-	16,  // 92: prodvana.service.CompiledServiceInstanceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
-	51,  // 93: prodvana.service.CompiledServiceInstanceConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
-	47,  // 94: prodvana.service.CompiledServiceInstanceConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
-	38,  // 95: prodvana.service.CompiledServiceInstanceConfig.constants:type_name -> prodvana.common_config.Constant
-	31,  // 96: prodvana.service.CompiledServiceInstanceConfig.progress_deadline:type_name -> google.protobuf.Duration
-	17,  // 97: prodvana.service.CompiledServiceInstanceConfig.custom_runtime:type_name -> prodvana.service.RuntimeExtensionConfig
-	36,  // 98: prodvana.service.CompiledServiceInstanceConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
-	37,  // 99: prodvana.service.CompiledServiceInstanceConfig.helm:type_name -> prodvana.common_config.HelmConfig
-	18,  // 100: prodvana.service.CompiledServiceInstanceConfig.aws_ecs:type_name -> prodvana.service.AwsEcsConfig
-	19,  // 101: prodvana.service.CompiledServiceInstanceConfig.google_cloud_run:type_name -> prodvana.service.GoogleCloudRunConfig
-	30,  // 102: prodvana.service.CompiledServiceInstanceConfig.env:type_name -> prodvana.service.CompiledServiceInstanceConfig.EnvEntry
-	39,  // 103: prodvana.service.CompiledServiceInstanceConfig.protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
-	39,  // 104: prodvana.service.CompiledServiceInstanceConfig.convergence_protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
-	41,  // 105: prodvana.service.CompiledJobConfig.programs:type_name -> prodvana.common_config.ProgramConfig
-	56,  // 106: prodvana.service.CompiledJobConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
-	57,  // 107: prodvana.service.CompiledJobConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
-	31,  // 108: prodvana.service.MetricAnalysis.LatencyConfig.max_latency:type_name -> google.protobuf.Duration
-	58,  // 109: prodvana.service.PerReleaseChannelConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	27,  // 110: prodvana.service.RuntimeSpecificConfig.K8SConfig.service_annotations:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig.ServiceAnnotationsEntry
-	48,  // 111: prodvana.service.AwsEcsConfig.Spec.local:type_name -> prodvana.common_config.LocalConfig
-	49,  // 112: prodvana.service.AwsEcsConfig.Spec.remote:type_name -> prodvana.common_config.RemoteConfig
-	58,  // 113: prodvana.service.ServiceConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	58,  // 114: prodvana.service.CompiledServiceInstanceConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
-	115, // [115:115] is the sub-list for method output_type
-	115, // [115:115] is the sub-list for method input_type
-	115, // [115:115] is the sub-list for extension type_name
-	115, // [115:115] is the sub-list for extension extendee
-	0,   // [0:115] is the sub-list for field type_name
+	26,  // 41: prodvana.service.RuntimeSpecificConfig.k8s:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig
+	47,  // 42: prodvana.service.RuntimeExtensionConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
+	28,  // 43: prodvana.service.AwsEcsConfig.task_definition:type_name -> prodvana.service.AwsEcsConfig.Spec
+	28,  // 44: prodvana.service.AwsEcsConfig.service_definition:type_name -> prodvana.service.AwsEcsConfig.Spec
+	48,  // 45: prodvana.service.GoogleCloudRunConfig.local:type_name -> prodvana.common_config.LocalConfig
+	49,  // 46: prodvana.service.GoogleCloudRunConfig.remote:type_name -> prodvana.common_config.RemoteConfig
+	41,  // 47: prodvana.service.ServiceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	1,   // 48: prodvana.service.ServiceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
+	3,   // 49: prodvana.service.ServiceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
+	7,   // 50: prodvana.service.ServiceConfig.per_release_channel:type_name -> prodvana.service.PerReleaseChannelConfig
+	8,   // 51: prodvana.service.ServiceConfig.capabilities:type_name -> prodvana.service.CapabilityReference
+	34,  // 52: prodvana.service.ServiceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
+	35,  // 53: prodvana.service.ServiceConfig.volumes:type_name -> prodvana.volumes.Volume
+	50,  // 54: prodvana.service.ServiceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
+	12,  // 55: prodvana.service.ServiceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
+	14,  // 56: prodvana.service.ServiceConfig.delivery_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
+	15,  // 57: prodvana.service.ServiceConfig.delivery_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
+	14,  // 58: prodvana.service.ServiceConfig.convergence_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
+	15,  // 59: prodvana.service.ServiceConfig.convergence_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
+	39,  // 60: prodvana.service.ServiceConfig.convergence_protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
+	16,  // 61: prodvana.service.ServiceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
+	51,  // 62: prodvana.service.ServiceConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
+	52,  // 63: prodvana.service.ServiceConfig.parameter_values:type_name -> prodvana.service.ServiceParameterValues
+	38,  // 64: prodvana.service.ServiceConfig.constants:type_name -> prodvana.common_config.Constant
+	31,  // 65: prodvana.service.ServiceConfig.progress_deadline:type_name -> google.protobuf.Duration
+	17,  // 66: prodvana.service.ServiceConfig.runtime_extension:type_name -> prodvana.service.RuntimeExtensionConfig
+	17,  // 67: prodvana.service.ServiceConfig.custom_runtime:type_name -> prodvana.service.RuntimeExtensionConfig
+	36,  // 68: prodvana.service.ServiceConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
+	36,  // 69: prodvana.service.ServiceConfig.external_config:type_name -> prodvana.common_config.KubernetesConfig
+	37,  // 70: prodvana.service.ServiceConfig.helm:type_name -> prodvana.common_config.HelmConfig
+	18,  // 71: prodvana.service.ServiceConfig.aws_ecs:type_name -> prodvana.service.AwsEcsConfig
+	19,  // 72: prodvana.service.ServiceConfig.google_cloud_run:type_name -> prodvana.service.GoogleCloudRunConfig
+	0,   // 73: prodvana.service.ServiceConfig.parameters_autogen:type_name -> prodvana.service.ServiceConfig.ParametersAutogen
+	53,  // 74: prodvana.service.ServiceConfig.auto_rollback:type_name -> prodvana.common_config.AutoRollbackConfig
+	29,  // 75: prodvana.service.ServiceConfig.env:type_name -> prodvana.service.ServiceConfig.EnvEntry
+	54,  // 76: prodvana.service.ServiceConfig.maestro:type_name -> prodvana.desired_state.maestro.MaestroConfig
+	41,  // 77: prodvana.service.CompiledServiceInstanceConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	1,   // 78: prodvana.service.CompiledServiceInstanceConfig.replicas:type_name -> prodvana.service.ReplicasConfig
+	55,  // 79: prodvana.service.CompiledServiceInstanceConfig.maturity:type_name -> prodvana.common_config.Maturity
+	3,   // 80: prodvana.service.CompiledServiceInstanceConfig.release_strategy:type_name -> prodvana.service.ReleaseStrategyConfig
+	6,   // 81: prodvana.service.CompiledServiceInstanceConfig.cert:type_name -> prodvana.service.Certificate
+	56,  // 82: prodvana.service.CompiledServiceInstanceConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
+	57,  // 83: prodvana.service.CompiledServiceInstanceConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
+	9,   // 84: prodvana.service.CompiledServiceInstanceConfig.capabilities:type_name -> prodvana.service.CompiledCapabilityConfig
+	34,  // 85: prodvana.service.CompiledServiceInstanceConfig.delivery_config:type_name -> prodvana.delivery.DeliveryConfig
+	35,  // 86: prodvana.service.CompiledServiceInstanceConfig.volumes:type_name -> prodvana.volumes.Volume
+	50,  // 87: prodvana.service.CompiledServiceInstanceConfig.deploy_annotations:type_name -> prodvana.workflow.AnnotationsConfig
+	12,  // 88: prodvana.service.CompiledServiceInstanceConfig.pre_push_tasks:type_name -> prodvana.service.TaskConfig
+	14,  // 89: prodvana.service.CompiledServiceInstanceConfig.convergence_extensions:type_name -> prodvana.service.DeliveryExtensionConfig
+	15,  // 90: prodvana.service.CompiledServiceInstanceConfig.convergence_extension_instances:type_name -> prodvana.service.DeliveryExtensionInstance
+	16,  // 91: prodvana.service.CompiledServiceInstanceConfig.runtime_specific:type_name -> prodvana.service.RuntimeSpecificConfig
+	51,  // 92: prodvana.service.CompiledServiceInstanceConfig.parameters:type_name -> prodvana.common_config.ParameterDefinition
+	47,  // 93: prodvana.service.CompiledServiceInstanceConfig.parameter_values:type_name -> prodvana.common_config.ParameterValue
+	38,  // 94: prodvana.service.CompiledServiceInstanceConfig.constants:type_name -> prodvana.common_config.Constant
+	31,  // 95: prodvana.service.CompiledServiceInstanceConfig.progress_deadline:type_name -> google.protobuf.Duration
+	17,  // 96: prodvana.service.CompiledServiceInstanceConfig.custom_runtime:type_name -> prodvana.service.RuntimeExtensionConfig
+	36,  // 97: prodvana.service.CompiledServiceInstanceConfig.kubernetes_config:type_name -> prodvana.common_config.KubernetesConfig
+	37,  // 98: prodvana.service.CompiledServiceInstanceConfig.helm:type_name -> prodvana.common_config.HelmConfig
+	18,  // 99: prodvana.service.CompiledServiceInstanceConfig.aws_ecs:type_name -> prodvana.service.AwsEcsConfig
+	19,  // 100: prodvana.service.CompiledServiceInstanceConfig.google_cloud_run:type_name -> prodvana.service.GoogleCloudRunConfig
+	30,  // 101: prodvana.service.CompiledServiceInstanceConfig.env:type_name -> prodvana.service.CompiledServiceInstanceConfig.EnvEntry
+	39,  // 102: prodvana.service.CompiledServiceInstanceConfig.protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
+	39,  // 103: prodvana.service.CompiledServiceInstanceConfig.convergence_protections:type_name -> prodvana.protection.ProtectionAttachmentConfig
+	41,  // 104: prodvana.service.CompiledJobConfig.programs:type_name -> prodvana.common_config.ProgramConfig
+	56,  // 105: prodvana.service.CompiledJobConfig.runtime:type_name -> prodvana.release_channel.ReleaseChannelRuntimeConfig
+	57,  // 106: prodvana.service.CompiledJobConfig.runtime_execution:type_name -> prodvana.runtimes.RuntimeExecutionConfig
+	31,  // 107: prodvana.service.MetricAnalysis.LatencyConfig.max_latency:type_name -> google.protobuf.Duration
+	58,  // 108: prodvana.service.PerReleaseChannelConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	27,  // 109: prodvana.service.RuntimeSpecificConfig.K8SConfig.service_annotations:type_name -> prodvana.service.RuntimeSpecificConfig.K8SConfig.ServiceAnnotationsEntry
+	48,  // 110: prodvana.service.AwsEcsConfig.Spec.local:type_name -> prodvana.common_config.LocalConfig
+	49,  // 111: prodvana.service.AwsEcsConfig.Spec.remote:type_name -> prodvana.common_config.RemoteConfig
+	58,  // 112: prodvana.service.ServiceConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	58,  // 113: prodvana.service.CompiledServiceInstanceConfig.EnvEntry.value:type_name -> prodvana.common_config.EnvValue
+	114, // [114:114] is the sub-list for method output_type
+	114, // [114:114] is the sub-list for method input_type
+	114, // [114:114] is the sub-list for extension type_name
+	114, // [114:114] is the sub-list for extension extendee
+	0,   // [0:114] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_service_service_config_proto_init() }

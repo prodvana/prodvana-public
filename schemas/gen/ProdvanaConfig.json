@@ -7950,36 +7950,6 @@
                             "type": "string"
                         }
                     ]
-                },
-                "lifecycle": {
-                    "enum": [
-                        "UNKNOWN_TASK_LIFECYCLE",
-                        0,
-                        "CONVERGENCE_START",
-                        1,
-                        "PRE_APPROVAL",
-                        2,
-                        "APPROVAL",
-                        3,
-                        "POST_APPROVAL",
-                        4,
-                        "DEPLOYMENT",
-                        5,
-                        "POST_DEPLOYMENT",
-                        6
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Task Lifecycle"
                 }
             },
             "additionalProperties": false,

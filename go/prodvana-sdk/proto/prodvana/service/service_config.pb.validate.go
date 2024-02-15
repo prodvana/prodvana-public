@@ -3189,17 +3189,6 @@ func (m *DeliveryExtensionInstance) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if _, ok := _DeliveryExtensionInstance_Lifecycle_NotInLookup[m.GetLifecycle()]; ok {
-		err := DeliveryExtensionInstanceValidationError{
-			field:  "Lifecycle",
-			reason: "value must not be in list [UNKNOWN_TASK_LIFECYCLE CONVERGENCE_START]",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	oneofDefinitionPresent := false
 	switch v := m.Definition.(type) {
 	case *DeliveryExtensionInstance_Inlined:
@@ -3379,11 +3368,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeliveryExtensionInstanceValidationError{}
-
-var _DeliveryExtensionInstance_Lifecycle_NotInLookup = map[common_config.TaskLifecycle]struct{}{
-	0: {},
-	1: {},
-}
 
 // Validate checks the field values on RuntimeSpecificConfig with the rules
 // defined in the proto definition for this message. If any rules are

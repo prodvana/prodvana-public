@@ -15232,9 +15232,6 @@
         },
         "name": {
           "type": "string"
-        },
-        "lifecycle": {
-          "$ref": "#/definitions/common_configTaskLifecycle"
         }
       }
     },

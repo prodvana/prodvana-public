@@ -493,7 +493,6 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
     INLINED_FIELD_NUMBER: builtins.int
     REF_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
-    LIFECYCLE_FIELD_NUMBER: builtins.int
     @property
     def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig:
         """Inline definition of the delivery extension."""
@@ -501,17 +500,15 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
     def ref(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef:
         """Reference to a delivery extension defined externally."""
     name: builtins.str
-    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     def __init__(
         self,
         *,
         inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
         ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
         name: builtins.str = ...,
-        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "lifecycle", b"lifecycle", "name", b"name", "ref", b"ref"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "name", b"name", "ref", b"ref"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["definition", b"definition"]) -> typing_extensions.Literal["inlined", "ref"] | None: ...
 
 global___DeliveryExtensionInstance = DeliveryExtensionInstance
