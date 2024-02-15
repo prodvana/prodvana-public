@@ -7621,6 +7621,50 @@
         }
       }
     },
+    "NotificationsConvergenceExtensionFailure": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "$ref": "#/definitions/modelIdentifier"
+        }
+      }
+    },
+    "NotificationsDelayedConvergence": {
+      "type": "object",
+      "title": "- Runtime extension fetch has not completed a long time after it was started"
+    },
+    "NotificationsProgramFailures": {
+      "type": "object",
+      "properties": {
+        "failureCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Either k8s errors or runtime extension apply errors"
+        },
+        "mostRecentFailure": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NotificationsProtectionFailure": {
+      "type": "object",
+      "properties": {
+        "protectionId": {
+          "$ref": "#/definitions/modelIdentifier"
+        }
+      }
+    },
+    "NotificationsRuntimeFailure": {
+      "type": "object",
+      "properties": {
+        "failureType": {
+          "$ref": "#/definitions/RuntimeFailureFailureType",
+          "title": "TODO: Indicate event id if possible"
+        }
+      },
+      "title": "Info to convey:\n - Extension Fetch couldn't be started - kubernetes errors?\n - Extension Fetch ran but failed\n - K8s apply error\n - Extension Apply couldn't be applied"
+    },
     "ParallelTaskTaskTrack": {
       "type": "object",
       "properties": {
@@ -7706,6 +7750,17 @@
         "FAILED",
         "DELETED",
         "MANUALLY_BYPASSED"
+      ],
+      "default": "UNKNOWN"
+    },
+    "RuntimeFailureFailureType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "EXTENSION_FETCH_INVOKE_ERROR",
+        "EXTENSION_FETCH_RESULT_ERROR",
+        "RUNTIME_APPLY_ERROR",
+        "EXTENSION_APPLY_INVOKE_ERROR"
       ],
       "default": "UNKNOWN"
     },
@@ -12691,6 +12746,9 @@
         },
         "applyError": {
           "$ref": "#/definitions/modelApplyError"
+        },
+        "notificationInfo": {
+          "$ref": "#/definitions/modelNotificationInfo"
         }
       }
     },
@@ -12917,8 +12975,10 @@
           "$ref": "#/definitions/modelMissingApproval"
         },
         "applyError": {
-          "$ref": "#/definitions/modelApplyError",
-          "title": "next tag: 22"
+          "$ref": "#/definitions/modelApplyError"
+        },
+        "notifications": {
+          "$ref": "#/definitions/modelNotifications"
         }
       }
     },
@@ -13043,6 +13103,52 @@
         },
         "current": {
           "type": "boolean"
+        }
+      }
+    },
+    "modelNotificationInfo": {
+      "type": "object",
+      "properties": {
+        "failureCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mostRecentFailure": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "modelNotifications": {
+      "type": "object",
+      "properties": {
+        "programFailures": {
+          "$ref": "#/definitions/NotificationsProgramFailures"
+        },
+        "runtimeFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/NotificationsRuntimeFailure"
+          }
+        },
+        "protectionFailure": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/NotificationsProtectionFailure"
+          }
+        },
+        "convergenceExtensionFailure": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/NotificationsConvergenceExtensionFailure"
+          }
+        },
+        "delayedConvergence": {
+          "$ref": "#/definitions/NotificationsDelayedConvergence",
+          "title": "TODO: Link to next action?"
         }
       }
     },

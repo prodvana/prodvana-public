@@ -4674,6 +4674,137 @@ var _ interface {
 	ErrorName() string
 } = ApplyErrorValidationError{}
 
+// Validate checks the field values on NotificationInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *NotificationInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on NotificationInfo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// NotificationInfoMultiError, or nil if none found.
+func (m *NotificationInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *NotificationInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for FailureCount
+
+	if all {
+		switch v := interface{}(m.GetMostRecentFailure()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, NotificationInfoValidationError{
+					field:  "MostRecentFailure",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, NotificationInfoValidationError{
+					field:  "MostRecentFailure",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMostRecentFailure()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return NotificationInfoValidationError{
+				field:  "MostRecentFailure",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return NotificationInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// NotificationInfoMultiError is an error wrapping multiple validation errors
+// returned by NotificationInfo.ValidateAll() if the designated constraints
+// aren't met.
+type NotificationInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m NotificationInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m NotificationInfoMultiError) AllErrors() []error { return m }
+
+// NotificationInfoValidationError is the validation error returned by
+// NotificationInfo.Validate if the designated constraints aren't met.
+type NotificationInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NotificationInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NotificationInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NotificationInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NotificationInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NotificationInfoValidationError) ErrorName() string { return "NotificationInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e NotificationInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNotificationInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NotificationInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NotificationInfoValidationError{}
+
 // Validate checks the field values on ControlState with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -4943,6 +5074,35 @@ func (m *ControlState) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ControlStateValidationError{
 				field:  "ApplyError",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetNotificationInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "NotificationInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "NotificationInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNotificationInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ControlStateValidationError{
+				field:  "NotificationInfo",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

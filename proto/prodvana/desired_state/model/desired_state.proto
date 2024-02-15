@@ -527,6 +527,11 @@ message ApplyError {
     string message = 1;
 }
 
+message NotificationInfo {
+    int32 failure_count = 1;
+    google.protobuf.Timestamp most_recent_failure = 2;
+}
+
 message ControlState {
     bool rollback = 1;
     repeated ConditionState precondition_states = 2;
@@ -551,7 +556,9 @@ message ControlState {
 
     ApplyError apply_error = 11;
 
-    // next tag: 12
+    NotificationInfo notification_info = 12;
+
+    // next tag: 13
 }
 
 enum ManualApprovalStatus {

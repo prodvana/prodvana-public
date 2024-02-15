@@ -5,6 +5,52 @@ import "prodvana/common_config/task.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "google/protobuf/timestamp.proto";
 
+message Notifications {
+    message ProgramFailures {
+        // Either k8s errors or runtime extension apply errors
+        int32 failure_count = 1;
+        google.protobuf.Timestamp most_recent_failure = 2;
+    }
+
+    message RuntimeFailure {
+        // Info to convey:
+        // - Extension Fetch couldn't be started - kubernetes errors?
+        // - Extension Fetch ran but failed
+        // - K8s apply error
+        // - Extension Apply couldn't be applied
+
+        enum FailureType {
+            UNKNOWN = 0;
+            EXTENSION_FETCH_INVOKE_ERROR = 1;
+            EXTENSION_FETCH_RESULT_ERROR = 2;
+            RUNTIME_APPLY_ERROR = 3;
+            EXTENSION_APPLY_INVOKE_ERROR = 4;
+        }
+
+        FailureType failure_type = 1;
+        // TODO: Indicate event id if possible
+    }
+
+    message ProtectionFailure {
+        Identifier protection_id = 1;
+    }
+
+    message ConvergenceExtensionFailure {
+        Identifier extension_id = 1;
+    }
+
+    message DelayedConvergence {
+        // - Runtime extension fetch has not completed a long time after it was started
+    }
+
+    ProgramFailures program_failures = 1;
+    repeated RuntimeFailure runtime_failures = 2;
+    repeated ProtectionFailure protection_failure = 3;
+    repeated ConvergenceExtensionFailure convergence_extension_failure = 4;
+    DelayedConvergence delayed_convergence = 5;
+    // TODO: Link to next action?
+}
+
 message Entity {
     Identifier id = 1;
     string desired_state_id = 2;
@@ -29,7 +75,10 @@ message Entity {
     MissingApproval missing_approval = 20;
 
     ApplyError apply_error = 21;
-    // next tag: 22
+
+    Notifications notifications = 22;
+
+    // next tag: 23
 }
 
 message EntityGraph {

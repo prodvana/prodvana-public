@@ -1464,6 +1464,25 @@ class ApplyError(google.protobuf.message.Message):
 
 global___ApplyError = ApplyError
 
+class NotificationInfo(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FAILURE_COUNT_FIELD_NUMBER: builtins.int
+    MOST_RECENT_FAILURE_FIELD_NUMBER: builtins.int
+    failure_count: builtins.int
+    @property
+    def most_recent_failure(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        failure_count: builtins.int = ...,
+        most_recent_failure: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure"]) -> None: ...
+
+global___NotificationInfo = NotificationInfo
+
 class ControlState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1478,6 +1497,7 @@ class ControlState(google.protobuf.message.Message):
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     OBSERVER_MODE_FIELD_NUMBER: builtins.int
     APPLY_ERROR_FIELD_NUMBER: builtins.int
+    NOTIFICATION_INFO_FIELD_NUMBER: builtins.int
     rollback: builtins.bool
     @property
     def precondition_states(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConditionState]: ...
@@ -1504,6 +1524,8 @@ class ControlState(google.protobuf.message.Message):
     observer_mode: builtins.bool
     @property
     def apply_error(self) -> global___ApplyError: ...
+    @property
+    def notification_info(self) -> global___NotificationInfo: ...
     def __init__(
         self,
         *,
@@ -1518,9 +1540,10 @@ class ControlState(google.protobuf.message.Message):
         missing_approval: global___MissingApproval | None = ...,
         observer_mode: builtins.bool = ...,
         apply_error: global___ApplyError | None = ...,
+        notification_info: global___NotificationInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
 
 global___ControlState = ControlState
 
