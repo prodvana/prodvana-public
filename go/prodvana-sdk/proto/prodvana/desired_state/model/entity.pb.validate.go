@@ -1240,6 +1240,8 @@ func (m *Notifications_RuntimeFailure) validate(all bool) error {
 
 	// no validation rules for FailureType
 
+	// no validation rules for Message
+
 	if len(errors) > 0 {
 		return Notifications_RuntimeFailureMultiError(errors)
 	}

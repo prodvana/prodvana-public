@@ -7659,7 +7659,10 @@
       "type": "object",
       "properties": {
         "failureType": {
-          "$ref": "#/definitions/RuntimeFailureFailureType",
+          "$ref": "#/definitions/RuntimeFailureFailureType"
+        },
+        "message": {
+          "type": "string",
           "title": "TODO: Indicate event id if possible"
         }
       },
@@ -13116,6 +13119,12 @@
         "mostRecentFailure": {
           "type": "string",
           "format": "date-time"
+        },
+        "runtimeFetchInvokeError": {
+          "$ref": "#/definitions/modelApplyError"
+        },
+        "runtimeApplyInvokeError": {
+          "$ref": "#/definitions/modelApplyError"
         }
       }
     },

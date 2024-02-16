@@ -530,6 +530,9 @@ message ApplyError {
 message NotificationInfo {
     int32 failure_count = 1;
     google.protobuf.Timestamp most_recent_failure = 2;
+
+    ApplyError runtime_fetch_invoke_error = 11;
+    ApplyError runtime_apply_invoke_error = 12;
 }
 
 message ControlState {

@@ -1469,17 +1469,25 @@ class NotificationInfo(google.protobuf.message.Message):
 
     FAILURE_COUNT_FIELD_NUMBER: builtins.int
     MOST_RECENT_FAILURE_FIELD_NUMBER: builtins.int
+    RUNTIME_FETCH_INVOKE_ERROR_FIELD_NUMBER: builtins.int
+    RUNTIME_APPLY_INVOKE_ERROR_FIELD_NUMBER: builtins.int
     failure_count: builtins.int
     @property
     def most_recent_failure(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def runtime_fetch_invoke_error(self) -> global___ApplyError: ...
+    @property
+    def runtime_apply_invoke_error(self) -> global___ApplyError: ...
     def __init__(
         self,
         *,
         failure_count: builtins.int = ...,
         most_recent_failure: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        runtime_fetch_invoke_error: global___ApplyError | None = ...,
+        runtime_apply_invoke_error: global___ApplyError | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
 
 global___NotificationInfo = NotificationInfo
 

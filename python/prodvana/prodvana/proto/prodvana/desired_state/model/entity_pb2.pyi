@@ -72,14 +72,17 @@ class Notifications(google.protobuf.message.Message):
         EXTENSION_APPLY_INVOKE_ERROR: Notifications.RuntimeFailure.FailureType.ValueType  # 4
 
         FAILURE_TYPE_FIELD_NUMBER: builtins.int
+        MESSAGE_FIELD_NUMBER: builtins.int
         failure_type: global___Notifications.RuntimeFailure.FailureType.ValueType
+        message: builtins.str
         """TODO: Indicate event id if possible"""
         def __init__(
             self,
             *,
             failure_type: global___Notifications.RuntimeFailure.FailureType.ValueType = ...,
+            message: builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["failure_type", b"failure_type"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["failure_type", b"failure_type", "message", b"message"]) -> None: ...
 
     class ProtectionFailure(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

@@ -28,6 +28,7 @@ message Notifications {
         }
 
         FailureType failure_type = 1;
+        string message = 2;
         // TODO: Indicate event id if possible
     }
 
