@@ -7,6 +7,7 @@ from grpc_interceptor import ClientCallDetails, ClientInterceptor
 from prodvana.proto.prodvana.application import application_manager_pb2_grpc
 from prodvana.proto.prodvana.desired_state import manager_pb2_grpc
 from prodvana.proto.prodvana.organization import organization_manager_pb2_grpc
+from prodvana.proto.prodvana.release import manager_pb2_grpc as release_manager_pb2_grpc
 from prodvana.proto.prodvana.release_channel import release_channel_manager_pb2_grpc
 from prodvana.proto.prodvana.service import service_manager_pb2_grpc
 from prodvana.proto.prodvana.workflow import workflow_manager_pb2_grpc
@@ -92,3 +93,4 @@ class Client:
         self.service_manager = service_manager_pb2_grpc.ServiceManagerStub(channel)
         self.desired_state_manager = manager_pb2_grpc.DesiredStateManagerStub(channel)
         self.workflow_manager = workflow_manager_pb2_grpc.WorkflowManagerStub(channel)
+        self.release_manager = release_manager_pb2_grpc.ReleaseManagerStub(channel)
