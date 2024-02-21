@@ -5603,7 +5603,7 @@
                             "type": "boolean"
                         }
                     ],
-                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today.  next tag: 12"
+                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today."
                 },
                 "disableDriftDetection": {
                     "oneOf": [
@@ -5614,7 +5614,29 @@
                             "type": "boolean"
                         }
                     ],
-                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today.  next tag: 12"
+                    "description": "Skip drift detection. This is useful for faster convergence on updates, but can lead to drift going undetected. When enabled, steady state polling is turned off. NOTE: Only supported in Pulumi today."
+                },
+                "task_resources": {
+                    "$ref": "#/definitions/prodvana.common_config.ResourceRequirements",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Resource constraints for the  runner's Fetch and Apply commands."
+                },
+                "taskResources": {
+                    "$ref": "#/definitions/prodvana.common_config.ResourceRequirements",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Resource constraints for the  runner's Fetch and Apply commands."
                 }
             },
             "additionalProperties": false,

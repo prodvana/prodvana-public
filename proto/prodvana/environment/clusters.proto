@@ -9,6 +9,7 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
+import "prodvana/common_config/program.proto";
 import "prodvana/common_config/rollback.proto";
 import "prodvana/labels/labels.proto";
 import "prodvana/runtimes/extensions/fetch.proto";
@@ -241,7 +242,11 @@ message TerraformRunnerConfig {
     // When enabled, steady state polling is turned off.
     // NOTE: Only supported in Pulumi today.
     bool disable_drift_detection = 11;
-    // next tag: 12
+
+    // Resource constraints for the  runner's Fetch and Apply commands.
+    prodvana.common_config.ResourceRequirements task_resources = 12;
+
+    // next tag: 13
 }
 
 message GKEClusterMetadata {
