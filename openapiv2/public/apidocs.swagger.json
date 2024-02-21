@@ -12635,7 +12635,7 @@
         "UNKNOWN",
         "PENDING",
         "SCALING_UP",
-        "PAUSED",
+        "PAUSED_PREVIEW",
         "SCALING_DOWN",
         "COMPLETED",
         "ABORTED"

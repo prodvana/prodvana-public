@@ -911,7 +911,7 @@ class BlueGreenProgressState(google.protobuf.message.Message):
         UNKNOWN: BlueGreenProgressState._Status.ValueType  # 0
         PENDING: BlueGreenProgressState._Status.ValueType  # 1
         SCALING_UP: BlueGreenProgressState._Status.ValueType  # 2
-        PAUSED: BlueGreenProgressState._Status.ValueType  # 3
+        PAUSED_PREVIEW: BlueGreenProgressState._Status.ValueType  # 3
         SCALING_DOWN: BlueGreenProgressState._Status.ValueType  # 4
         COMPLETED: BlueGreenProgressState._Status.ValueType  # 5
         ABORTED: BlueGreenProgressState._Status.ValueType  # 6
@@ -920,7 +920,7 @@ class BlueGreenProgressState(google.protobuf.message.Message):
     UNKNOWN: BlueGreenProgressState.Status.ValueType  # 0
     PENDING: BlueGreenProgressState.Status.ValueType  # 1
     SCALING_UP: BlueGreenProgressState.Status.ValueType  # 2
-    PAUSED: BlueGreenProgressState.Status.ValueType  # 3
+    PAUSED_PREVIEW: BlueGreenProgressState.Status.ValueType  # 3
     SCALING_DOWN: BlueGreenProgressState.Status.ValueType  # 4
     COMPLETED: BlueGreenProgressState.Status.ValueType  # 5
     ABORTED: BlueGreenProgressState.Status.ValueType  # 6
