@@ -12621,6 +12621,27 @@
         }
       }
     },
+    "modelBlueGreenProgressState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelBlueGreenProgressStateStatus"
+        }
+      }
+    },
+    "modelBlueGreenProgressStateStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PENDING",
+        "SCALING_UP",
+        "PAUSED",
+        "SCALING_DOWN",
+        "COMPLETED",
+        "ABORTED"
+      ],
+      "default": "UNKNOWN"
+    },
     "modelCanaryProgressState": {
       "type": "object",
       "properties": {
@@ -12880,6 +12901,9 @@
         "generation": {
           "type": "string",
           "description": "string unique to each PD controller convergence,\ne.g. when Argo Rollouts starts a new rollout, this will change."
+        },
+        "blueGreenProgress": {
+          "$ref": "#/definitions/modelBlueGreenProgressState"
         }
       }
     },

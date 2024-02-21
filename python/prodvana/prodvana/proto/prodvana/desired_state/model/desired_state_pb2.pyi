@@ -899,6 +899,43 @@ class CanaryProgressState(google.protobuf.message.Message):
 
 global___CanaryProgressState = CanaryProgressState
 
+class BlueGreenProgressState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Status:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BlueGreenProgressState._Status.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: BlueGreenProgressState._Status.ValueType  # 0
+        PENDING: BlueGreenProgressState._Status.ValueType  # 1
+        SCALING_UP: BlueGreenProgressState._Status.ValueType  # 2
+        PAUSED: BlueGreenProgressState._Status.ValueType  # 3
+        SCALING_DOWN: BlueGreenProgressState._Status.ValueType  # 4
+        COMPLETED: BlueGreenProgressState._Status.ValueType  # 5
+        ABORTED: BlueGreenProgressState._Status.ValueType  # 6
+
+    class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
+    UNKNOWN: BlueGreenProgressState.Status.ValueType  # 0
+    PENDING: BlueGreenProgressState.Status.ValueType  # 1
+    SCALING_UP: BlueGreenProgressState.Status.ValueType  # 2
+    PAUSED: BlueGreenProgressState.Status.ValueType  # 3
+    SCALING_DOWN: BlueGreenProgressState.Status.ValueType  # 4
+    COMPLETED: BlueGreenProgressState.Status.ValueType  # 5
+    ABORTED: BlueGreenProgressState.Status.ValueType  # 6
+
+    STATUS_FIELD_NUMBER: builtins.int
+    status: global___BlueGreenProgressState.Status.ValueType
+    def __init__(
+        self,
+        *,
+        status: global___BlueGreenProgressState.Status.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["status", b"status"]) -> None: ...
+
+global___BlueGreenProgressState = BlueGreenProgressState
+
 class DeliveryState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -927,6 +964,7 @@ class DeliveryState(google.protobuf.message.Message):
     CANARY_PROGRESS_FIELD_NUMBER: builtins.int
     FIRST_RUN_FIELD_NUMBER: builtins.int
     GENERATION_FIELD_NUMBER: builtins.int
+    BLUE_GREEN_PROGRESS_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     status: global___DeliveryState.Status.ValueType
     """overall delivery status"""
@@ -940,6 +978,8 @@ class DeliveryState(google.protobuf.message.Message):
     """string unique to each PD controller convergence,
     e.g. when Argo Rollouts starts a new rollout, this will change.
     """
+    @property
+    def blue_green_progress(self) -> global___BlueGreenProgressState: ...
     def __init__(
         self,
         *,
@@ -949,8 +989,10 @@ class DeliveryState(google.protobuf.message.Message):
         canary_progress: collections.abc.Iterable[global___CanaryProgressState] | None = ...,
         first_run: builtins.bool = ...,
         generation: builtins.str = ...,
+        blue_green_progress: global___BlueGreenProgressState | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["canary_progress", b"canary_progress", "desired_state_id", b"desired_state_id", "first_run", b"first_run", "generation", b"generation", "message", b"message", "status", b"status"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["blue_green_progress", b"blue_green_progress"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blue_green_progress", b"blue_green_progress", "canary_progress", b"canary_progress", "desired_state_id", b"desired_state_id", "first_run", b"first_run", "generation", b"generation", "message", b"message", "status", b"status"]) -> None: ...
 
 global___DeliveryState = DeliveryState
 

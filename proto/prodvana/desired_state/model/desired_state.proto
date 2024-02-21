@@ -320,6 +320,20 @@ message CanaryProgressState {
     google.protobuf.Timestamp pause_start_timestamp = 4;
 }
 
+message BlueGreenProgressState {
+    enum Status {
+        UNKNOWN = 0;
+        PENDING = 1;
+        SCALING_UP = 2;
+        PAUSED_PREVIEW = 3;
+        SCALING_DOWN = 4;
+        COMPLETED = 5;
+        ABORTED = 6;
+    }
+
+    Status status = 1;
+}
+
 message DeliveryState {
     enum Status {
         STATUS_UNKNOWN = 0;
@@ -340,9 +354,11 @@ message DeliveryState {
     // e.g. when Argo Rollouts starts a new rollout, this will change.
     string generation = 14;
 
-    reserved 1, 2, 3,  4, 5, 7, 9, 10;
+    BlueGreenProgressState blue_green_progress = 15;
 
-    // next: 14
+    reserved 1, 2, 3, 4, 5, 7, 9, 10;
+
+    // next: 16
 }
 
 message FetchDetails {
