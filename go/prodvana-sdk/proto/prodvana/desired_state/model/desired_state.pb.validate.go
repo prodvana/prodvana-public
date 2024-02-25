@@ -10118,6 +10118,8 @@ func (m *Signal_DeliveryPromotionConfig) validate(all bool) error {
 
 	// no validation rules for Full
 
+	// no validation rules for Reject
+
 	if len(errors) > 0 {
 		return Signal_DeliveryPromotionConfigMultiError(errors)
 	}

@@ -4845,6 +4845,8 @@ func (m *PromoteDeliveryReq) validate(all bool) error {
 
 	// no validation rules for Full
 
+	// no validation rules for Reject
+
 	if utf8.RuneCountInString(m.GetSource()) < 1 {
 		err := PromoteDeliveryReqValidationError{
 			field:  "Source",

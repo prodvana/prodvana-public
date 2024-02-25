@@ -267,7 +267,10 @@ message PromoteDeliveryReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
     int64 stage = 2;
     bool full = 3;
+    bool reject = 5;
     string source = 4 [(validate.rules).string.min_len = 1];
+
+    // next tag: 6
 }
 
 message PromoteDeliveryResp {

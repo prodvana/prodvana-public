@@ -1957,17 +1957,20 @@ class Signal(google.protobuf.message.Message):
 
         STAGE_FIELD_NUMBER: builtins.int
         FULL_FIELD_NUMBER: builtins.int
+        REJECT_FIELD_NUMBER: builtins.int
         stage: builtins.int
         """which canary progress stage to promote"""
         full: builtins.bool
         """when true, indicates delivery should be promoted fully, e.g. 100%"""
+        reject: builtins.bool
         def __init__(
             self,
             *,
             stage: builtins.int = ...,
             full: builtins.bool = ...,
+            reject: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["full", b"full", "stage", b"stage"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["full", b"full", "reject", b"reject", "stage", b"stage"]) -> None: ...
 
     class ProtectionBypass(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

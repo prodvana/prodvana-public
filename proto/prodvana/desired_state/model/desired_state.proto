@@ -727,6 +727,8 @@ message Signal {
         int64 stage = 1;
         // when true, indicates delivery should be promoted fully, e.g. 100%
         bool full = 2;
+
+        bool reject = 3;
     }
 
     message ProtectionBypass {

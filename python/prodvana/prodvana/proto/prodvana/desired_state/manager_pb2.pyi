@@ -907,10 +907,12 @@ class PromoteDeliveryReq(google.protobuf.message.Message):
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     STAGE_FIELD_NUMBER: builtins.int
     FULL_FIELD_NUMBER: builtins.int
+    REJECT_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     stage: builtins.int
     full: builtins.bool
+    reject: builtins.bool
     source: builtins.str
     def __init__(
         self,
@@ -918,9 +920,10 @@ class PromoteDeliveryReq(google.protobuf.message.Message):
         desired_state_id: builtins.str = ...,
         stage: builtins.int = ...,
         full: builtins.bool = ...,
+        reject: builtins.bool = ...,
         source: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "full", b"full", "source", b"source", "stage", b"stage"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "full", b"full", "reject", b"reject", "source", b"source", "stage", b"stage"]) -> None: ...
 
 global___PromoteDeliveryReq = PromoteDeliveryReq
 
