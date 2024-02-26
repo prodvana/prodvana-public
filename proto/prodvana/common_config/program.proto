@@ -43,9 +43,7 @@ message ResourceList {
 
 message ResourceRequirements {
     ResourceList requests = 1;
-
-    // We are leaving this out because for the moment we don't think users should be allowed to specify limit
-    // ResourceList limits = 2;
+    ResourceList limits = 2;
 }
 
 message HttpProbe {

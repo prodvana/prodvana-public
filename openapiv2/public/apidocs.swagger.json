@@ -9075,6 +9075,9 @@
       "properties": {
         "requests": {
           "$ref": "#/definitions/common_configResourceList"
+        },
+        "limits": {
+          "$ref": "#/definitions/common_configResourceList"
         }
       }
     },

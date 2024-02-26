@@ -16,7 +16,7 @@ from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$prodvana/common_config/program.proto\x12\x16prodvana.common_config\x1a prodvana/common_config/env.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\"\xf5\x01\n\nPortConfig\x12\x19\n\x04port\x18\x01 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03(\x00\x12 \n\x0btarget_port\x18\x02 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03(\x00\x12\x10\n\x08\x65xternal\x18\x03 \x01(\x08\x12=\n\x08protocol\x18\x04 \x01(\x0e\x32+.prodvana.common_config.PortConfig.Protocol\x12\x0b\n\x03tls\x18\x05 \x01(\x08\"L\n\x08Protocol\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x08\n\x04HTTP\x10\x01\x12\t\n\x05HTTP2\x10\x02\x12\x08\n\x04GRPC\x10\x03\x12\x07\n\x03TCP\x10\x04\"\x04\x08\x05\x10\x05*\x05HTTPS\"+\n\x0cResourceList\x12\x0e\n\x06memory\x18\x01 \x01(\t\x12\x0b\n\x03\x63pu\x18\x02 \x01(\t\"N\n\x14ResourceRequirements\x12\x36\n\x08requests\x18\x01 \x01(\x0b\x32$.prodvana.common_config.ResourceList\"A\n\tHttpProbe\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x19\n\x04port\x18\x02 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03 \x00\x12\x0b\n\x03tls\x18\x03 \x01(\x08\"\x1b\n\x08\x43mdProbe\x12\x0f\n\x07\x63ommand\x18\x01 \x03(\t\"3\n\x08TcpProbe\x12\x19\n\x04port\x18\x01 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03 \x00\x12\x0c\n\x04host\x18\x02 \x01(\t\"\x8c\x02\n\x0bHealthCheck\x12\x31\n\x04http\x18\x01 \x01(\x0b\x32!.prodvana.common_config.HttpProbeH\x00\x12/\n\x03\x63md\x18\x02 \x01(\x0b\x32 .prodvana.common_config.CmdProbeH\x00\x12/\n\x03tcp\x18\x03 \x01(\x0b\x32 .prodvana.common_config.TcpProbeH\x00\x12(\n\x05\x64\x65lay\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12)\n\x06period\x18\x05 \x01(\x0b\x32\x19.google.protobuf.DurationB\x13\n\x0cprobe_config\x12\x03\xf8\x42\x01\"q\n\x11ImageRegistryInfo\x12\x1d\n\x15\x63ontainer_registry_id\x18\x01 \x01(\t\x12\x1a\n\x12\x63ontainer_registry\x18\x02 \x01(\t\x12!\n\x10image_repository\x18\x07 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"w\n\x0cImageDetails\x12J\n\rregistry_info\x18\x01 \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1b\n\nidentifier\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x8c\x05\n\rProgramConfig\x12:\n\x04name\x18\x01 \x01(\tB,\xfa\x42)r\'\x10\x00\x18?2!^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\x12\r\n\x05image\x18\x02 \x01(\t\x12\x11\n\timage_tag\x18\x0e \x01(\t\x12\x46\n\x13image_registry_info\x18\t \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfo\x12\x0b\n\x03\x63md\x18\x03 \x03(\t\x12\x12\n\nentrypoint\x18\x04 \x03(\t\x12\x64\n\x03\x65nv\x18\x05 \x03(\x0b\x32..prodvana.common_config.ProgramConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12?\n\tresources\x18\x06 \x01(\x0b\x32,.prodvana.common_config.ResourceRequirements\x12\x39\n\x0chealth_check\x18\x07 \x01(\x0b\x32#.prodvana.common_config.HealthCheck\x12@\n\x05ports\x18\x08 \x03(\x0b\x32\".prodvana.common_config.PortConfigB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12\x19\n\x11template_complete\x18\n \x01(\x08\x12\x19\n\x11working_directory\x18\x0f \x01(\t\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01J\x04\x08\x0b\x10\x0cR\x06\x63ommit\"\x8a\x03\n\x1ePerReleaseChannelProgramConfig\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12u\n\x03\x65nv\x18\x02 \x03(\x0b\x32?.prodvana.common_config.PerReleaseChannelProgramConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12\r\n\x05image\x18\x03 \x01(\t\x12\x46\n\x13image_registry_info\x18\x04 \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfo\x12\x11\n\timage_tag\x18\x05 \x01(\t\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$prodvana/common_config/program.proto\x12\x16prodvana.common_config\x1a prodvana/common_config/env.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x17validate/validate.proto\"\xf5\x01\n\nPortConfig\x12\x19\n\x04port\x18\x01 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03(\x00\x12 \n\x0btarget_port\x18\x02 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03(\x00\x12\x10\n\x08\x65xternal\x18\x03 \x01(\x08\x12=\n\x08protocol\x18\x04 \x01(\x0e\x32+.prodvana.common_config.PortConfig.Protocol\x12\x0b\n\x03tls\x18\x05 \x01(\x08\"L\n\x08Protocol\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x08\n\x04HTTP\x10\x01\x12\t\n\x05HTTP2\x10\x02\x12\x08\n\x04GRPC\x10\x03\x12\x07\n\x03TCP\x10\x04\"\x04\x08\x05\x10\x05*\x05HTTPS\"+\n\x0cResourceList\x12\x0e\n\x06memory\x18\x01 \x01(\t\x12\x0b\n\x03\x63pu\x18\x02 \x01(\t\"\x84\x01\n\x14ResourceRequirements\x12\x36\n\x08requests\x18\x01 \x01(\x0b\x32$.prodvana.common_config.ResourceList\x12\x34\n\x06limits\x18\x02 \x01(\x0b\x32$.prodvana.common_config.ResourceList\"A\n\tHttpProbe\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x19\n\x04port\x18\x02 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03 \x00\x12\x0b\n\x03tls\x18\x03 \x01(\x08\"\x1b\n\x08\x43mdProbe\x12\x0f\n\x07\x63ommand\x18\x01 \x03(\t\"3\n\x08TcpProbe\x12\x19\n\x04port\x18\x01 \x01(\x05\x42\x0b\xfa\x42\x08\x1a\x06\x18\xff\xff\x03 \x00\x12\x0c\n\x04host\x18\x02 \x01(\t\"\x8c\x02\n\x0bHealthCheck\x12\x31\n\x04http\x18\x01 \x01(\x0b\x32!.prodvana.common_config.HttpProbeH\x00\x12/\n\x03\x63md\x18\x02 \x01(\x0b\x32 .prodvana.common_config.CmdProbeH\x00\x12/\n\x03tcp\x18\x03 \x01(\x0b\x32 .prodvana.common_config.TcpProbeH\x00\x12(\n\x05\x64\x65lay\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12)\n\x06period\x18\x05 \x01(\x0b\x32\x19.google.protobuf.DurationB\x13\n\x0cprobe_config\x12\x03\xf8\x42\x01\"q\n\x11ImageRegistryInfo\x12\x1d\n\x15\x63ontainer_registry_id\x18\x01 \x01(\t\x12\x1a\n\x12\x63ontainer_registry\x18\x02 \x01(\t\x12!\n\x10image_repository\x18\x07 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"w\n\x0cImageDetails\x12J\n\rregistry_info\x18\x01 \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1b\n\nidentifier\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"\x8c\x05\n\rProgramConfig\x12:\n\x04name\x18\x01 \x01(\tB,\xfa\x42)r\'\x10\x00\x18?2!^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$\x12\r\n\x05image\x18\x02 \x01(\t\x12\x11\n\timage_tag\x18\x0e \x01(\t\x12\x46\n\x13image_registry_info\x18\t \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfo\x12\x0b\n\x03\x63md\x18\x03 \x03(\t\x12\x12\n\nentrypoint\x18\x04 \x03(\t\x12\x64\n\x03\x65nv\x18\x05 \x03(\x0b\x32..prodvana.common_config.ProgramConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12?\n\tresources\x18\x06 \x01(\x0b\x32,.prodvana.common_config.ResourceRequirements\x12\x39\n\x0chealth_check\x18\x07 \x01(\x0b\x32#.prodvana.common_config.HealthCheck\x12@\n\x05ports\x18\x08 \x03(\x0b\x32\".prodvana.common_config.PortConfigB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\x12\x19\n\x11template_complete\x18\n \x01(\x08\x12\x19\n\x11working_directory\x18\x0f \x01(\t\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01J\x04\x08\x0b\x10\x0cR\x06\x63ommit\"\x8a\x03\n\x1ePerReleaseChannelProgramConfig\x12\x39\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$\x12u\n\x03\x65nv\x18\x02 \x03(\x0b\x32?.prodvana.common_config.PerReleaseChannelProgramConfig.EnvEntryB\'\xfa\x42$\x9a\x01!\x18\x01\"\x1dr\x1b\x32\x19^[a-zA-Z_]+[a-zA-Z0-9_]*$\x12\r\n\x05image\x18\x03 \x01(\t\x12\x46\n\x13image_registry_info\x18\x04 \x01(\x0b\x32).prodvana.common_config.ImageRegistryInfo\x12\x11\n\timage_tag\x18\x05 \x01(\t\x1aL\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .prodvana.common_config.EnvValue:\x02\x38\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -61,26 +61,26 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_PORTCONFIG_PROTOCOL']._serialized_end=401
   _globals['_RESOURCELIST']._serialized_start=403
   _globals['_RESOURCELIST']._serialized_end=446
-  _globals['_RESOURCEREQUIREMENTS']._serialized_start=448
-  _globals['_RESOURCEREQUIREMENTS']._serialized_end=526
-  _globals['_HTTPPROBE']._serialized_start=528
-  _globals['_HTTPPROBE']._serialized_end=593
-  _globals['_CMDPROBE']._serialized_start=595
-  _globals['_CMDPROBE']._serialized_end=622
-  _globals['_TCPPROBE']._serialized_start=624
-  _globals['_TCPPROBE']._serialized_end=675
-  _globals['_HEALTHCHECK']._serialized_start=678
-  _globals['_HEALTHCHECK']._serialized_end=946
-  _globals['_IMAGEREGISTRYINFO']._serialized_start=948
-  _globals['_IMAGEREGISTRYINFO']._serialized_end=1061
-  _globals['_IMAGEDETAILS']._serialized_start=1063
-  _globals['_IMAGEDETAILS']._serialized_end=1182
-  _globals['_PROGRAMCONFIG']._serialized_start=1185
-  _globals['_PROGRAMCONFIG']._serialized_end=1837
-  _globals['_PROGRAMCONFIG_ENVENTRY']._serialized_start=1747
-  _globals['_PROGRAMCONFIG_ENVENTRY']._serialized_end=1823
-  _globals['_PERRELEASECHANNELPROGRAMCONFIG']._serialized_start=1840
-  _globals['_PERRELEASECHANNELPROGRAMCONFIG']._serialized_end=2234
-  _globals['_PERRELEASECHANNELPROGRAMCONFIG_ENVENTRY']._serialized_start=1747
-  _globals['_PERRELEASECHANNELPROGRAMCONFIG_ENVENTRY']._serialized_end=1823
+  _globals['_RESOURCEREQUIREMENTS']._serialized_start=449
+  _globals['_RESOURCEREQUIREMENTS']._serialized_end=581
+  _globals['_HTTPPROBE']._serialized_start=583
+  _globals['_HTTPPROBE']._serialized_end=648
+  _globals['_CMDPROBE']._serialized_start=650
+  _globals['_CMDPROBE']._serialized_end=677
+  _globals['_TCPPROBE']._serialized_start=679
+  _globals['_TCPPROBE']._serialized_end=730
+  _globals['_HEALTHCHECK']._serialized_start=733
+  _globals['_HEALTHCHECK']._serialized_end=1001
+  _globals['_IMAGEREGISTRYINFO']._serialized_start=1003
+  _globals['_IMAGEREGISTRYINFO']._serialized_end=1116
+  _globals['_IMAGEDETAILS']._serialized_start=1118
+  _globals['_IMAGEDETAILS']._serialized_end=1237
+  _globals['_PROGRAMCONFIG']._serialized_start=1240
+  _globals['_PROGRAMCONFIG']._serialized_end=1892
+  _globals['_PROGRAMCONFIG_ENVENTRY']._serialized_start=1802
+  _globals['_PROGRAMCONFIG_ENVENTRY']._serialized_end=1878
+  _globals['_PERRELEASECHANNELPROGRAMCONFIG']._serialized_start=1895
+  _globals['_PERRELEASECHANNELPROGRAMCONFIG']._serialized_end=2289
+  _globals['_PERRELEASECHANNELPROGRAMCONFIG_ENVENTRY']._serialized_start=1802
+  _globals['_PERRELEASECHANNELPROGRAMCONFIG_ENVENTRY']._serialized_end=1878
 # @@protoc_insertion_point(module_scope)
