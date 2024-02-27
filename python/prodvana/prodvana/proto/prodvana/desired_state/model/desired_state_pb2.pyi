@@ -1910,6 +1910,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     LAST_COMPLETED_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_APPLIED_VERSION_FIELD_NUMBER: builtins.int
+    ATTEMPTS_FIELD_NUMBER: builtins.int
     REFERENCES_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     @property
@@ -1925,10 +1926,15 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     @property
     def last_completed_status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
     last_completed_applied_version: builtins.str
+    attempts: builtins.int
+    """In desired/target state, this refers to the max number of attempts to run the extension. 0 means no limit.
+    In current state, this refers to total number of attempts to run the extension (unsuccessful attempts
+    because 1 successful attempt will stop the extension).
+    """
     @property
     def references(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]: ...
     status: global___ConditionStatus.ValueType
-    """next tag: 14"""
+    """next tag: 15"""
     def __init__(
         self,
         *,
@@ -1941,11 +1947,12 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         last_completed_status: global___SimpleStatus.ValueType = ...,
         last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         last_completed_applied_version: builtins.str = ...,
+        attempts: builtins.int = ...,
         references: collections.abc.Iterable[global___Identifier] | None = ...,
         status: global___ConditionStatus.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "references", b"references", "status", b"status", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attempts", b"attempts", "extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "references", b"references", "status", b"status", "versions", b"versions"]) -> None: ...
 
 global___DeliveryExtensionState = DeliveryExtensionState
 

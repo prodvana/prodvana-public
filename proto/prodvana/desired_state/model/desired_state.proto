@@ -705,10 +705,15 @@ message DeliveryExtensionState {
     repeated StatusExplanation last_completed_status_explanations = 8;
     string last_completed_applied_version = 9;
 
+    // In desired/target state, this refers to the max number of attempts to run the extension. 0 means no limit.
+    // In current state, this refers to total number of attempts to run the extension (unsuccessful attempts
+    // because 1 successful attempt will stop the extension).
+    int32 attempts = 14;
+
     repeated Identifier references = 12;
 
     ConditionStatus status = 13;
-    // next tag: 14
+    // next tag: 15
 }
 
 enum SignalType {

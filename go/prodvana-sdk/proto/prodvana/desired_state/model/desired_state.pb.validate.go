@@ -7194,6 +7194,8 @@ func (m *DeliveryExtensionState) validate(all bool) error {
 
 	// no validation rules for LastCompletedAppliedVersion
 
+	// no validation rules for Attempts
+
 	for idx, item := range m.GetReferences() {
 		_, _ = idx, item
 

@@ -8,6 +8,7 @@ import "prodvana/common_config/env.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/runtimes/runtimes_config.proto";
+import "prodvana/environment/clusters.proto";
 
 enum Type {
     UNKNOWN_TYPE = 0;
@@ -47,7 +48,7 @@ message DeliveryExtensionConfig {
         no_sparse: true,
     }];
 
-    // next tag: 6
+    prodvana.environment.RetryPolicy retry_policy = 6;
 }
 
 message DeliveryExtensionInstanceRef {

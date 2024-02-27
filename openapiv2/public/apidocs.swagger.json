@@ -10356,6 +10356,11 @@
         "lastCompletedAppliedVersion": {
           "type": "string"
         },
+        "attempts": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In desired/target state, this refers to the max number of attempts to run the extension. 0 means no limit.\nIn current state, this refers to total number of attempts to run the extension (unsuccessful attempts\nbecause 1 successful attempt will stop the extension)."
+        },
         "references": {
           "type": "array",
           "items": {
@@ -10365,7 +10370,7 @@
         },
         "status": {
           "$ref": "#/definitions/modelConditionStatus",
-          "title": "next tag: 14"
+          "title": "next tag: 15"
         }
       }
     },
@@ -11263,6 +11268,11 @@
         },
         "maxInterval": {
           "type": "string"
+        },
+        "maxAttempts": {
+          "type": "integer",
+          "format": "int32",
+          "title": "0 means no limit on retries"
         }
       }
     },
@@ -14118,6 +14128,9 @@
             "$ref": "#/definitions/common_configEnvValue"
           },
           "title": "optional env variables to inject and override from exec_config"
+        },
+        "retryPolicy": {
+          "$ref": "#/definitions/environmentRetryPolicy"
         }
       }
     },

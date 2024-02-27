@@ -3401,6 +3401,26 @@
                         }
                     ],
                     "description": "optional env variables to inject and override from exec_config"
+                },
+                "retry_policy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "retryPolicy": {
+                    "$ref": "#/definitions/prodvana.environment.RetryPolicy",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -5403,6 +5423,28 @@
                     "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
                     "type": "string",
                     "format": "regex"
+                },
+                "max_attempts": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "0 means no limit on retries"
+                },
+                "maxAttempts": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "0 means no limit on retries"
                 }
             },
             "additionalProperties": false,

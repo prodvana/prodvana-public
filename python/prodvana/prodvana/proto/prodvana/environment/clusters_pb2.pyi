@@ -230,18 +230,22 @@ class RetryPolicy(google.protobuf.message.Message):
 
     BASE_INTERVAL_FIELD_NUMBER: builtins.int
     MAX_INTERVAL_FIELD_NUMBER: builtins.int
+    MAX_ATTEMPTS_FIELD_NUMBER: builtins.int
     @property
     def base_interval(self) -> google.protobuf.duration_pb2.Duration: ...
     @property
     def max_interval(self) -> google.protobuf.duration_pb2.Duration: ...
+    max_attempts: builtins.int
+    """0 means no limit on retries"""
     def __init__(
         self,
         *,
         base_interval: google.protobuf.duration_pb2.Duration | None = ...,
         max_interval: google.protobuf.duration_pb2.Duration | None = ...,
+        max_attempts: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["base_interval", b"base_interval", "max_interval", b"max_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["base_interval", b"base_interval", "max_interval", b"max_interval"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["base_interval", b"base_interval", "max_attempts", b"max_attempts", "max_interval", b"max_interval"]) -> None: ...
 
 global___RetryPolicy = RetryPolicy
 
