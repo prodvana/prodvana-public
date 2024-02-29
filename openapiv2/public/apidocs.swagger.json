@@ -10367,10 +10367,6 @@
             "type": "object",
             "$ref": "#/definitions/modelIdentifier"
           }
-        },
-        "status": {
-          "$ref": "#/definitions/modelConditionStatus",
-          "title": "next tag: 15"
         }
       }
     },

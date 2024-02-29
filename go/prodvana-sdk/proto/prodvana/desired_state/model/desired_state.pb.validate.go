@@ -7230,8 +7230,6 @@ func (m *DeliveryExtensionState) validate(all bool) error {
 
 	}
 
-	// no validation rules for Status
-
 	if len(errors) > 0 {
 		return DeliveryExtensionStateMultiError(errors)
 	}

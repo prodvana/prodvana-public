@@ -712,7 +712,8 @@ message DeliveryExtensionState {
 
     repeated Identifier references = 12;
 
-    ConditionStatus status = 13;
+    reserved 13;
+    reserved "status";
     // next tag: 15
 }
 
