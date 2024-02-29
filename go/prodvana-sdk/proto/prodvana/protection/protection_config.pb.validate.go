@@ -72,6 +72,17 @@ func (m *BuiltinProtectionConfig) validate(all bool) error {
 		}
 		oneofBuiltinOneofPresent = true
 
+		if m.GetCommitDenylist() == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "CommitDenylist",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 		if all {
 			switch v := interface{}(m.GetCommitDenylist()).(type) {
 			case interface{ ValidateAll() error }:
@@ -95,6 +106,59 @@ func (m *BuiltinProtectionConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return BuiltinProtectionConfigValidationError{
 					field:  "CommitDenylist",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *BuiltinProtectionConfig_AllowedTimes:
+		if v == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "BuiltinOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBuiltinOneofPresent = true
+
+		if m.GetAllowedTimes() == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "AllowedTimes",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetAllowedTimes()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AllowedTimes",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AllowedTimes",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAllowedTimes()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BuiltinProtectionConfigValidationError{
+					field:  "AllowedTimes",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

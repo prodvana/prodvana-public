@@ -14,7 +14,8 @@ import "prodvana/protection/builtins.proto";
 message BuiltinProtectionConfig {
     oneof builtin_oneof {
         option (validate.required) = true;
-        CommitDenylistProtectionConfig commit_denylist = 1;
+        CommitDenylistProtectionConfig commit_denylist = 1 [(validate.rules).message.required = true];
+        AllowedTimesProtectionConfig allowed_times = 2 [(validate.rules).message.required = true];
     }
 }
 
