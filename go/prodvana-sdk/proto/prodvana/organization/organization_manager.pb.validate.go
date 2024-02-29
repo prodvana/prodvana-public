@@ -2187,3 +2187,717 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetOrganizationSubscriptionStatusRespValidationError{}
+
+// Validate checks the field values on OrganizationSettings with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OrganizationSettings) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OrganizationSettings with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OrganizationSettingsMultiError, or nil if none found.
+func (m *OrganizationSettings) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OrganizationSettings) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for EnableAiIntegration
+
+	if len(errors) > 0 {
+		return OrganizationSettingsMultiError(errors)
+	}
+
+	return nil
+}
+
+// OrganizationSettingsMultiError is an error wrapping multiple validation
+// errors returned by OrganizationSettings.ValidateAll() if the designated
+// constraints aren't met.
+type OrganizationSettingsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OrganizationSettingsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OrganizationSettingsMultiError) AllErrors() []error { return m }
+
+// OrganizationSettingsValidationError is the validation error returned by
+// OrganizationSettings.Validate if the designated constraints aren't met.
+type OrganizationSettingsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OrganizationSettingsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OrganizationSettingsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OrganizationSettingsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OrganizationSettingsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OrganizationSettingsValidationError) ErrorName() string {
+	return "OrganizationSettingsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OrganizationSettingsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOrganizationSettings.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OrganizationSettingsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OrganizationSettingsValidationError{}
+
+// Validate checks the field values on OrganizationSettingsDelta with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OrganizationSettingsDelta) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OrganizationSettingsDelta with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OrganizationSettingsDeltaMultiError, or nil if none found.
+func (m *OrganizationSettingsDelta) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OrganizationSettingsDelta) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetEnableAiIntegration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OrganizationSettingsDeltaValidationError{
+					field:  "EnableAiIntegration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OrganizationSettingsDeltaValidationError{
+					field:  "EnableAiIntegration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnableAiIntegration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OrganizationSettingsDeltaValidationError{
+				field:  "EnableAiIntegration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return OrganizationSettingsDeltaMultiError(errors)
+	}
+
+	return nil
+}
+
+// OrganizationSettingsDeltaMultiError is an error wrapping multiple validation
+// errors returned by OrganizationSettingsDelta.ValidateAll() if the
+// designated constraints aren't met.
+type OrganizationSettingsDeltaMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OrganizationSettingsDeltaMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OrganizationSettingsDeltaMultiError) AllErrors() []error { return m }
+
+// OrganizationSettingsDeltaValidationError is the validation error returned by
+// OrganizationSettingsDelta.Validate if the designated constraints aren't met.
+type OrganizationSettingsDeltaValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OrganizationSettingsDeltaValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OrganizationSettingsDeltaValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OrganizationSettingsDeltaValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OrganizationSettingsDeltaValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OrganizationSettingsDeltaValidationError) ErrorName() string {
+	return "OrganizationSettingsDeltaValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OrganizationSettingsDeltaValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOrganizationSettingsDelta.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OrganizationSettingsDeltaValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OrganizationSettingsDeltaValidationError{}
+
+// Validate checks the field values on GetOrganizationSettingsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOrganizationSettingsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOrganizationSettingsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOrganizationSettingsReqMultiError, or nil if none found.
+func (m *GetOrganizationSettingsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOrganizationSettingsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetOrganizationSettingsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOrganizationSettingsReqMultiError is an error wrapping multiple
+// validation errors returned by GetOrganizationSettingsReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetOrganizationSettingsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOrganizationSettingsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOrganizationSettingsReqMultiError) AllErrors() []error { return m }
+
+// GetOrganizationSettingsReqValidationError is the validation error returned
+// by GetOrganizationSettingsReq.Validate if the designated constraints aren't met.
+type GetOrganizationSettingsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOrganizationSettingsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOrganizationSettingsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOrganizationSettingsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOrganizationSettingsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOrganizationSettingsReqValidationError) ErrorName() string {
+	return "GetOrganizationSettingsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOrganizationSettingsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOrganizationSettingsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOrganizationSettingsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOrganizationSettingsReqValidationError{}
+
+// Validate checks the field values on GetOrganizationSettingsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOrganizationSettingsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOrganizationSettingsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOrganizationSettingsRespMultiError, or nil if none found.
+func (m *GetOrganizationSettingsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOrganizationSettingsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetOrganizationSettingsRespValidationError{
+					field:  "Settings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetOrganizationSettingsRespValidationError{
+					field:  "Settings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetOrganizationSettingsRespValidationError{
+				field:  "Settings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetOrganizationSettingsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOrganizationSettingsRespMultiError is an error wrapping multiple
+// validation errors returned by GetOrganizationSettingsResp.ValidateAll() if
+// the designated constraints aren't met.
+type GetOrganizationSettingsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOrganizationSettingsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOrganizationSettingsRespMultiError) AllErrors() []error { return m }
+
+// GetOrganizationSettingsRespValidationError is the validation error returned
+// by GetOrganizationSettingsResp.Validate if the designated constraints
+// aren't met.
+type GetOrganizationSettingsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOrganizationSettingsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOrganizationSettingsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOrganizationSettingsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOrganizationSettingsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOrganizationSettingsRespValidationError) ErrorName() string {
+	return "GetOrganizationSettingsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOrganizationSettingsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOrganizationSettingsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOrganizationSettingsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOrganizationSettingsRespValidationError{}
+
+// Validate checks the field values on SetOrganizationSettingsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetOrganizationSettingsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetOrganizationSettingsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetOrganizationSettingsReqMultiError, or nil if none found.
+func (m *SetOrganizationSettingsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetOrganizationSettingsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetSettings() == nil {
+		err := SetOrganizationSettingsReqValidationError{
+			field:  "Settings",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SetOrganizationSettingsReqValidationError{
+					field:  "Settings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SetOrganizationSettingsReqValidationError{
+					field:  "Settings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SetOrganizationSettingsReqValidationError{
+				field:  "Settings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SetOrganizationSettingsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetOrganizationSettingsReqMultiError is an error wrapping multiple
+// validation errors returned by SetOrganizationSettingsReq.ValidateAll() if
+// the designated constraints aren't met.
+type SetOrganizationSettingsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetOrganizationSettingsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetOrganizationSettingsReqMultiError) AllErrors() []error { return m }
+
+// SetOrganizationSettingsReqValidationError is the validation error returned
+// by SetOrganizationSettingsReq.Validate if the designated constraints aren't met.
+type SetOrganizationSettingsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetOrganizationSettingsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetOrganizationSettingsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetOrganizationSettingsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetOrganizationSettingsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetOrganizationSettingsReqValidationError) ErrorName() string {
+	return "SetOrganizationSettingsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetOrganizationSettingsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetOrganizationSettingsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetOrganizationSettingsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetOrganizationSettingsReqValidationError{}
+
+// Validate checks the field values on SetOrganizationSettingsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetOrganizationSettingsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetOrganizationSettingsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetOrganizationSettingsRespMultiError, or nil if none found.
+func (m *SetOrganizationSettingsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetOrganizationSettingsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SetOrganizationSettingsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetOrganizationSettingsRespMultiError is an error wrapping multiple
+// validation errors returned by SetOrganizationSettingsResp.ValidateAll() if
+// the designated constraints aren't met.
+type SetOrganizationSettingsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetOrganizationSettingsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetOrganizationSettingsRespMultiError) AllErrors() []error { return m }
+
+// SetOrganizationSettingsRespValidationError is the validation error returned
+// by SetOrganizationSettingsResp.Validate if the designated constraints
+// aren't met.
+type SetOrganizationSettingsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetOrganizationSettingsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetOrganizationSettingsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetOrganizationSettingsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetOrganizationSettingsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetOrganizationSettingsRespValidationError) ErrorName() string {
+	return "SetOrganizationSettingsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetOrganizationSettingsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetOrganizationSettingsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetOrganizationSettingsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetOrganizationSettingsRespValidationError{}

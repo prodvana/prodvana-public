@@ -9,6 +9,7 @@ import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import google.protobuf.wrappers_pb2
 import prodvana.proto.prodvana.config_writeback.writeback_pb2
 import prodvana.proto.prodvana.insights.insights_pb2
 import prodvana.proto.prodvana.metrics.metrics_pb2
@@ -283,3 +284,85 @@ class GetOrganizationSubscriptionStatusResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "trial", b"trial", "trial_end_timestamp", b"trial_end_timestamp"]) -> None: ...
 
 global___GetOrganizationSubscriptionStatusResp = GetOrganizationSubscriptionStatusResp
+
+class OrganizationSettings(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLE_AI_INTEGRATION_FIELD_NUMBER: builtins.int
+    enable_ai_integration: builtins.bool
+    def __init__(
+        self,
+        *,
+        enable_ai_integration: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["enable_ai_integration", b"enable_ai_integration"]) -> None: ...
+
+global___OrganizationSettings = OrganizationSettings
+
+class OrganizationSettingsDelta(google.protobuf.message.Message):
+    """a mirror of the OrganizationSettings message, but with only the fields that have changed"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLE_AI_INTEGRATION_FIELD_NUMBER: builtins.int
+    @property
+    def enable_ai_integration(self) -> google.protobuf.wrappers_pb2.BoolValue: ...
+    def __init__(
+        self,
+        *,
+        enable_ai_integration: google.protobuf.wrappers_pb2.BoolValue | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["enable_ai_integration", b"enable_ai_integration"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["enable_ai_integration", b"enable_ai_integration"]) -> None: ...
+
+global___OrganizationSettingsDelta = OrganizationSettingsDelta
+
+class GetOrganizationSettingsReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___GetOrganizationSettingsReq = GetOrganizationSettingsReq
+
+class GetOrganizationSettingsResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SETTINGS_FIELD_NUMBER: builtins.int
+    @property
+    def settings(self) -> global___OrganizationSettings: ...
+    def __init__(
+        self,
+        *,
+        settings: global___OrganizationSettings | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["settings", b"settings"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["settings", b"settings"]) -> None: ...
+
+global___GetOrganizationSettingsResp = GetOrganizationSettingsResp
+
+class SetOrganizationSettingsReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SETTINGS_FIELD_NUMBER: builtins.int
+    @property
+    def settings(self) -> global___OrganizationSettingsDelta: ...
+    def __init__(
+        self,
+        *,
+        settings: global___OrganizationSettingsDelta | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["settings", b"settings"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["settings", b"settings"]) -> None: ...
+
+global___SetOrganizationSettingsReq = SetOrganizationSettingsReq
+
+class SetOrganizationSettingsResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___SetOrganizationSettingsResp = SetOrganizationSettingsResp

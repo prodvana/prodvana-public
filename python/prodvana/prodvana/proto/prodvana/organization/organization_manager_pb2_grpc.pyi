@@ -42,6 +42,14 @@ class OrganizationManagerStub:
         prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusReq,
         prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusResp,
     ]
+    GetOrganizationSettings: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSettingsReq,
+        prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSettingsResp,
+    ]
+    SetOrganizationSettings: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.organization.organization_manager_pb2.SetOrganizationSettingsReq,
+        prodvana.proto.prodvana.organization.organization_manager_pb2.SetOrganizationSettingsResp,
+    ]
 
 class OrganizationManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -94,5 +102,17 @@ class OrganizationManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSubscriptionStatusResp: ...
+    @abc.abstractmethod
+    def GetOrganizationSettings(
+        self,
+        request: prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSettingsReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.organization.organization_manager_pb2.GetOrganizationSettingsResp: ...
+    @abc.abstractmethod
+    def SetOrganizationSettings(
+        self,
+        request: prodvana.proto.prodvana.organization.organization_manager_pb2.SetOrganizationSettingsReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.organization.organization_manager_pb2.SetOrganizationSettingsResp: ...
 
 def add_OrganizationManagerServicer_to_server(servicer: OrganizationManagerServicer, server: grpc.Server) -> None: ...

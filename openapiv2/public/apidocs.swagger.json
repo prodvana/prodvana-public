@@ -5047,6 +5047,58 @@
         ]
       }
     },
+    "/v1/organization/settings": {
+      "get": {
+        "operationId": "OrganizationManager_GetOrganizationSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationGetOrganizationSettingsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.organization.OrganizationManager"
+        ]
+      },
+      "post": {
+        "operationId": "OrganizationManager_SetOrganizationSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/organizationSetOrganizationSettingsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/organizationSetOrganizationSettingsReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.organization.OrganizationManager"
+        ]
+      }
+    },
     "/v1/organization/subscription/status": {
       "get": {
         "operationId": "OrganizationManager_GetOrganizationSubscriptionStatus",
@@ -13761,6 +13813,14 @@
         }
       }
     },
+    "organizationGetOrganizationSettingsResp": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "$ref": "#/definitions/organizationOrganizationSettings"
+        }
+      }
+    },
     "organizationGetOrganizationSubscriptionStatusResp": {
       "type": "object",
       "properties": {
@@ -13842,6 +13902,23 @@
         }
       }
     },
+    "organizationOrganizationSettings": {
+      "type": "object",
+      "properties": {
+        "enableAiIntegration": {
+          "type": "boolean"
+        }
+      }
+    },
+    "organizationOrganizationSettingsDelta": {
+      "type": "object",
+      "properties": {
+        "enableAiIntegration": {
+          "type": "boolean"
+        }
+      },
+      "title": "a mirror of the OrganizationSettings message, but with only the fields that have changed"
+    },
     "organizationOrganizationSupportsInvitesResp": {
       "type": "object",
       "properties": {
@@ -13901,6 +13978,17 @@
       }
     },
     "organizationSetOrganizationMetadataResp": {
+      "type": "object"
+    },
+    "organizationSetOrganizationSettingsReq": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "$ref": "#/definitions/organizationOrganizationSettingsDelta"
+        }
+      }
+    },
+    "organizationSetOrganizationSettingsResp": {
       "type": "object"
     },
     "organizationSetRolesResp": {

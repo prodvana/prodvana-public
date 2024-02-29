@@ -27,6 +27,8 @@ const (
 	OrganizationManager_SetOrganizationMetadata_FullMethodName           = "/prodvana.organization.OrganizationManager/SetOrganizationMetadata"
 	OrganizationManager_GetUser_FullMethodName                           = "/prodvana.organization.OrganizationManager/GetUser"
 	OrganizationManager_GetOrganizationSubscriptionStatus_FullMethodName = "/prodvana.organization.OrganizationManager/GetOrganizationSubscriptionStatus"
+	OrganizationManager_GetOrganizationSettings_FullMethodName           = "/prodvana.organization.OrganizationManager/GetOrganizationSettings"
+	OrganizationManager_SetOrganizationSettings_FullMethodName           = "/prodvana.organization.OrganizationManager/SetOrganizationSettings"
 )
 
 // OrganizationManagerClient is the client API for OrganizationManager service.
@@ -43,6 +45,8 @@ type OrganizationManagerClient interface {
 	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
 	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
 	GetOrganizationSubscriptionStatus(ctx context.Context, in *GetOrganizationSubscriptionStatusReq, opts ...grpc.CallOption) (*GetOrganizationSubscriptionStatusResp, error)
+	GetOrganizationSettings(ctx context.Context, in *GetOrganizationSettingsReq, opts ...grpc.CallOption) (*GetOrganizationSettingsResp, error)
+	SetOrganizationSettings(ctx context.Context, in *SetOrganizationSettingsReq, opts ...grpc.CallOption) (*SetOrganizationSettingsResp, error)
 }
 
 type organizationManagerClient struct {
@@ -125,6 +129,24 @@ func (c *organizationManagerClient) GetOrganizationSubscriptionStatus(ctx contex
 	return out, nil
 }
 
+func (c *organizationManagerClient) GetOrganizationSettings(ctx context.Context, in *GetOrganizationSettingsReq, opts ...grpc.CallOption) (*GetOrganizationSettingsResp, error) {
+	out := new(GetOrganizationSettingsResp)
+	err := c.cc.Invoke(ctx, OrganizationManager_GetOrganizationSettings_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationManagerClient) SetOrganizationSettings(ctx context.Context, in *SetOrganizationSettingsReq, opts ...grpc.CallOption) (*SetOrganizationSettingsResp, error) {
+	out := new(SetOrganizationSettingsResp)
+	err := c.cc.Invoke(ctx, OrganizationManager_SetOrganizationSettings_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationManagerServer is the server API for OrganizationManager service.
 // All implementations must embed UnimplementedOrganizationManagerServer
 // for forward compatibility
@@ -139,6 +161,8 @@ type OrganizationManagerServer interface {
 	// Get a user in an organization, will return NOT_FOUND if the user is eitehr missing or not in an organization
 	GetUser(context.Context, *GetUserReq) (*GetUserResp, error)
 	GetOrganizationSubscriptionStatus(context.Context, *GetOrganizationSubscriptionStatusReq) (*GetOrganizationSubscriptionStatusResp, error)
+	GetOrganizationSettings(context.Context, *GetOrganizationSettingsReq) (*GetOrganizationSettingsResp, error)
+	SetOrganizationSettings(context.Context, *SetOrganizationSettingsReq) (*SetOrganizationSettingsResp, error)
 	mustEmbedUnimplementedOrganizationManagerServer()
 }
 
@@ -169,6 +193,12 @@ func (UnimplementedOrganizationManagerServer) GetUser(context.Context, *GetUserR
 }
 func (UnimplementedOrganizationManagerServer) GetOrganizationSubscriptionStatus(context.Context, *GetOrganizationSubscriptionStatusReq) (*GetOrganizationSubscriptionStatusResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationSubscriptionStatus not implemented")
+}
+func (UnimplementedOrganizationManagerServer) GetOrganizationSettings(context.Context, *GetOrganizationSettingsReq) (*GetOrganizationSettingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationSettings not implemented")
+}
+func (UnimplementedOrganizationManagerServer) SetOrganizationSettings(context.Context, *SetOrganizationSettingsReq) (*SetOrganizationSettingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetOrganizationSettings not implemented")
 }
 func (UnimplementedOrganizationManagerServer) mustEmbedUnimplementedOrganizationManagerServer() {}
 
@@ -327,6 +357,42 @@ func _OrganizationManager_GetOrganizationSubscriptionStatus_Handler(srv interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationManager_GetOrganizationSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationSettingsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationManagerServer).GetOrganizationSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationManager_GetOrganizationSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationManagerServer).GetOrganizationSettings(ctx, req.(*GetOrganizationSettingsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationManager_SetOrganizationSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetOrganizationSettingsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationManagerServer).SetOrganizationSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationManager_SetOrganizationSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationManagerServer).SetOrganizationSettings(ctx, req.(*SetOrganizationSettingsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationManager_ServiceDesc is the grpc.ServiceDesc for OrganizationManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -365,6 +431,14 @@ var OrganizationManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrganizationSubscriptionStatus",
 			Handler:    _OrganizationManager_GetOrganizationSubscriptionStatus_Handler,
+		},
+		{
+			MethodName: "GetOrganizationSettings",
+			Handler:    _OrganizationManager_GetOrganizationSettings_Handler,
+		},
+		{
+			MethodName: "SetOrganizationSettings",
+			Handler:    _OrganizationManager_SetOrganizationSettings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

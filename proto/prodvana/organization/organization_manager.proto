@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 import "prodvana/config_writeback/writeback.proto";
 import "prodvana/insights/insights.proto";
 import "prodvana/metrics/metrics.proto";
@@ -87,6 +88,29 @@ message GetOrganizationSubscriptionStatusResp {
     google.protobuf.Timestamp trial_end_timestamp = 3;
 }
 
+message OrganizationSettings {
+    bool enable_ai_integration = 1;
+}
+
+// a mirror of the OrganizationSettings message, but with only the fields that have changed
+message OrganizationSettingsDelta {
+    google.protobuf.BoolValue enable_ai_integration = 1;
+}
+
+message GetOrganizationSettingsReq {
+}
+
+message GetOrganizationSettingsResp {
+    OrganizationSettings settings = 1;
+}
+
+message SetOrganizationSettingsReq {
+    OrganizationSettingsDelta settings = 1 [(validate.rules).message.required = true];
+}
+
+message SetOrganizationSettingsResp {
+}
+
 service OrganizationManager {
     rpc GetOrganization (GetOrganizationReq) returns (GetOrganizationResp) {
         option (google.api.http) = {
@@ -132,6 +156,19 @@ service OrganizationManager {
     rpc GetOrganizationSubscriptionStatus(GetOrganizationSubscriptionStatusReq) returns (GetOrganizationSubscriptionStatusResp) {
         option (google.api.http) = {
             get: "/v1/organization/subscription/status"
+        };
+    }
+
+    rpc GetOrganizationSettings(GetOrganizationSettingsReq) returns (GetOrganizationSettingsResp) {
+        option (google.api.http) = {
+            get: "/v1/organization/settings"
+        };
+    }
+
+    rpc SetOrganizationSettings(SetOrganizationSettingsReq) returns (SetOrganizationSettingsResp) {
+        option (google.api.http) = {
+            post: "/v1/organization/settings"
+            body: "*"
         };
     }
 }
