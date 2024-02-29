@@ -5433,7 +5433,7 @@
                             "type": "integer"
                         }
                     ],
-                    "description": "0 means no limit on retries"
+                    "description": "\u003c= 0 means no limit on retries"
                 },
                 "maxAttempts": {
                     "oneOf": [
@@ -5444,7 +5444,7 @@
                             "type": "integer"
                         }
                     ],
-                    "description": "0 means no limit on retries"
+                    "description": "\u003c= 0 means no limit on retries"
                 }
             },
             "additionalProperties": false,

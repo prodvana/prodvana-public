@@ -634,16 +634,7 @@ func (m *RetryPolicy) validate(all bool) error {
 		}
 	}
 
-	if m.GetMaxAttempts() < 0 {
-		err := RetryPolicyValidationError{
-			field:  "MaxAttempts",
-			reason: "value must be greater than or equal to 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for MaxAttempts
 
 	if len(errors) > 0 {
 		return RetryPolicyMultiError(errors)

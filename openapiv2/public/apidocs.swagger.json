@@ -11268,7 +11268,7 @@
         "maxAttempts": {
           "type": "integer",
           "format": "int32",
-          "title": "0 means no limit on retries"
+          "title": "\u003c= 0 means no limit on retries"
         }
       }
     },

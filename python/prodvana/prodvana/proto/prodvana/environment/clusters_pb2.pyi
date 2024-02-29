@@ -236,7 +236,7 @@ class RetryPolicy(google.protobuf.message.Message):
     @property
     def max_interval(self) -> google.protobuf.duration_pb2.Duration: ...
     max_attempts: builtins.int
-    """0 means no limit on retries"""
+    """<= 0 means no limit on retries"""
     def __init__(
         self,
         *,
