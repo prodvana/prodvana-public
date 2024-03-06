@@ -72,6 +72,7 @@ message Entity {
     google.protobuf.Timestamp last_applied_timestamp = 15;  // when prodvana last applied state for this entity, best effort
 
     repeated Identifier dependencies = 16;
+    repeated Identifier direct_dependencies = 23;
     prodvana.common_config.TaskLifecycle lifecycle = 18;
     MissingApproval missing_approval = 20;
 
@@ -79,7 +80,7 @@ message Entity {
 
     Notifications notifications = 22;
 
-    // next tag: 23
+    // next tag: 24
 }
 
 message EntityGraph {

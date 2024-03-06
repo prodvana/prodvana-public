@@ -13063,6 +13063,13 @@
             "$ref": "#/definitions/modelIdentifier"
           }
         },
+        "directDependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          }
+        },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
         },
