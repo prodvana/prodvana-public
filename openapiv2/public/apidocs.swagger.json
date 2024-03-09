@@ -10995,8 +10995,8 @@
           "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
         },
         "maxConcurrency": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "optional, if set, do not run more than this many apply commands concurrently"
         }
       }

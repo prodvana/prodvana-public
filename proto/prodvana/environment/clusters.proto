@@ -165,7 +165,7 @@ message ExtensionApplyCommand {
     repeated int32 retryable_exit_codes = 8;
 
     // optional, if set, do not run more than this many apply commands concurrently
-    int64 max_concurrency = 9;
+    int32 max_concurrency = 9;
 
     // reserved fields from before fetch and apply definitions were split.
     reserved 3, 6;

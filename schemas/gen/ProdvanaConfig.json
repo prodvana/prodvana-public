@@ -4641,10 +4641,10 @@
                 "max_concurrency": {
                     "oneOf": [
                         {
-                            "type": "string"
+                            "type": "null"
                         },
                         {
-                            "type": "null"
+                            "type": "integer"
                         }
                     ],
                     "description": "optional, if set, do not run more than this many apply commands concurrently"
@@ -4652,10 +4652,10 @@
                 "maxConcurrency": {
                     "oneOf": [
                         {
-                            "type": "string"
+                            "type": "null"
                         },
                         {
-                            "type": "null"
+                            "type": "integer"
                         }
                     ],
                     "description": "optional, if set, do not run more than this many apply commands concurrently"
