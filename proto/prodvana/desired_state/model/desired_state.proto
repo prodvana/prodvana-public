@@ -111,6 +111,10 @@ message Identifier {
     string name = 2;
 }
 
+message ConcurrencyLimit {
+    string limit_id = 1;
+}
+
 message Metadata {
     repeated Condition preconditions = 1;
     repeated Condition invariants = 2;
@@ -121,6 +125,7 @@ message Metadata {
     repeated ProtectionLink protection_links = 6;
     repeated DeliveryExtension delivery_extensions = 8;
     repeated ProtectionAttachmentDefinition convergence_protection_attachments = 13;
+    repeated ConcurrencyLimit concurrency_limits = 15;
     // if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state.
     bool target_state_set_by_parent = 9;
     bool require_approval_before_apply = 10;
@@ -133,7 +138,7 @@ message Metadata {
     reserved 7;
     reserved "protections";
 
-    // next tag: 15
+    // next tag: 16
 }
 
 enum Status {
@@ -549,6 +554,7 @@ message NotificationInfo {
 
     ApplyError runtime_fetch_invoke_error = 11;
     ApplyError runtime_apply_invoke_error = 12;
+    repeated ConcurrencyLimitExceeded concurrency_limit_exceeded_errors = 13;
 }
 
 message ControlState {
@@ -783,6 +789,13 @@ message MissingApproval {
     // next tag: 6
 }
 
+message ConcurrencyLimitExceeded {
+    // apply cannot run due to a concurrency limit
+    Identifier entity_id = 1; // entity being blocked
+    repeated Identifier blocking_ids = 2; // list of entities that are blocking this entity
+    string limit_description = 3;
+}
+
 message ApplyConditionUnsatisfied {
     message InternalMissingApproval {
         string desired_state_id = 1;
@@ -795,9 +808,11 @@ message ApplyConditionUnsatisfied {
         repeated string generator_desired_state_ids = 5;
     }
 
+
     oneof reason {
         // Cannot apply because this entity requires additional approval.
         InternalMissingApproval missing_approval = 1;
+        ConcurrencyLimitExceeded concurrency_limit_exceeded = 2;
         // TODO: Add reasons like paused entities.
     }
 }
@@ -805,6 +820,11 @@ message ApplyConditionUnsatisfied {
 // metadata about how a RuntimeExtension fetch task was started
 message FetchTaskStartDetails {
     prodvana.runtimes.extensions.FetchMode fetch_mode = 1;
+}
+
+message ConcurrencyLease {
+    string limit_id = 1;
+    string lease_id = 2;
 }
 
 message TaskRun {
@@ -840,7 +860,10 @@ message TaskRun {
     FetchDetails fetch_details = 10;
     FetchTaskStartDetails fetch_task_start_details = 14;
 
-    // next tag: 17
+    // if set, the entity who started this task has a concurrency limit that needs to be renewed and released
+    repeated ConcurrencyLease concurrency_leases = 17;
+
+    // next tag: 18
 }
 
 message TaskEntityContext {

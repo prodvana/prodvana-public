@@ -126,6 +126,7 @@ class Notifications(google.protobuf.message.Message):
     PROTECTION_FAILURE_FIELD_NUMBER: builtins.int
     CONVERGENCE_EXTENSION_FAILURE_FIELD_NUMBER: builtins.int
     DELAYED_CONVERGENCE_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LIMIT_EXCEEDED_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def program_failures(self) -> global___Notifications.ProgramFailures: ...
     @property
@@ -135,7 +136,9 @@ class Notifications(google.protobuf.message.Message):
     @property
     def convergence_extension_failure(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Notifications.ConvergenceExtensionFailure]: ...
     @property
-    def delayed_convergence(self) -> global___Notifications.DelayedConvergence:
+    def delayed_convergence(self) -> global___Notifications.DelayedConvergence: ...
+    @property
+    def concurrency_limit_exceeded_errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConcurrencyLimitExceeded]:
         """TODO: Link to next action?"""
     def __init__(
         self,
@@ -145,9 +148,10 @@ class Notifications(google.protobuf.message.Message):
         protection_failure: collections.abc.Iterable[global___Notifications.ProtectionFailure] | None = ...,
         convergence_extension_failure: collections.abc.Iterable[global___Notifications.ConvergenceExtensionFailure] | None = ...,
         delayed_convergence: global___Notifications.DelayedConvergence | None = ...,
+        concurrency_limit_exceeded_errors: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConcurrencyLimitExceeded] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delayed_convergence", b"delayed_convergence", "program_failures", b"program_failures"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["convergence_extension_failure", b"convergence_extension_failure", "delayed_convergence", b"delayed_convergence", "program_failures", b"program_failures", "protection_failure", b"protection_failure", "runtime_failures", b"runtime_failures"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "convergence_extension_failure", b"convergence_extension_failure", "delayed_convergence", b"delayed_convergence", "program_failures", b"program_failures", "protection_failure", b"protection_failure", "runtime_failures", b"runtime_failures"]) -> None: ...
 
 global___Notifications = Notifications
 

@@ -1577,6 +1577,8 @@ func (m *ExtensionApplyCommand) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for MaxConcurrency
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *ExtensionApplyCommand_TaskConfig:

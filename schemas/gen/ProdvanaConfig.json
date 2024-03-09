@@ -4637,6 +4637,28 @@
                         }
                     ],
                     "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
+                },
+                "max_concurrency": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "optional, if set, do not run more than this many apply commands concurrently"
+                },
+                "maxConcurrency": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "optional, if set, do not run more than this many apply commands concurrently"
                 }
             },
             "additionalProperties": false,

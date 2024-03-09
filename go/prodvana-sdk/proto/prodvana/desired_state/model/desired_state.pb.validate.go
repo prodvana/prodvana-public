@@ -759,6 +759,108 @@ var _ interface {
 	ErrorName() string
 } = IdentifierValidationError{}
 
+// Validate checks the field values on ConcurrencyLimit with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ConcurrencyLimit) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConcurrencyLimit with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ConcurrencyLimitMultiError, or nil if none found.
+func (m *ConcurrencyLimit) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConcurrencyLimit) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for LimitId
+
+	if len(errors) > 0 {
+		return ConcurrencyLimitMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConcurrencyLimitMultiError is an error wrapping multiple validation errors
+// returned by ConcurrencyLimit.ValidateAll() if the designated constraints
+// aren't met.
+type ConcurrencyLimitMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConcurrencyLimitMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConcurrencyLimitMultiError) AllErrors() []error { return m }
+
+// ConcurrencyLimitValidationError is the validation error returned by
+// ConcurrencyLimit.Validate if the designated constraints aren't met.
+type ConcurrencyLimitValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConcurrencyLimitValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConcurrencyLimitValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConcurrencyLimitValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConcurrencyLimitValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConcurrencyLimitValidationError) ErrorName() string { return "ConcurrencyLimitValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ConcurrencyLimitValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConcurrencyLimit.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConcurrencyLimitValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConcurrencyLimitValidationError{}
+
 // Validate checks the field values on Metadata with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -978,6 +1080,40 @@ func (m *Metadata) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return MetadataValidationError{
 					field:  fmt.Sprintf("ConvergenceProtectionAttachments[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetConcurrencyLimits() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ConcurrencyLimits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MetadataValidationError{
+						field:  fmt.Sprintf("ConcurrencyLimits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MetadataValidationError{
+					field:  fmt.Sprintf("ConcurrencyLimits[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -4918,6 +5054,40 @@ func (m *NotificationInfo) validate(all bool) error {
 		}
 	}
 
+	for idx, item := range m.GetConcurrencyLimitExceededErrors() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, NotificationInfoValidationError{
+						field:  fmt.Sprintf("ConcurrencyLimitExceededErrors[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, NotificationInfoValidationError{
+						field:  fmt.Sprintf("ConcurrencyLimitExceededErrors[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return NotificationInfoValidationError{
+					field:  fmt.Sprintf("ConcurrencyLimitExceededErrors[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return NotificationInfoMultiError(errors)
 	}
@@ -8086,6 +8256,173 @@ var _ interface {
 	ErrorName() string
 } = MissingApprovalValidationError{}
 
+// Validate checks the field values on ConcurrencyLimitExceeded with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ConcurrencyLimitExceeded) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConcurrencyLimitExceeded with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ConcurrencyLimitExceededMultiError, or nil if none found.
+func (m *ConcurrencyLimitExceeded) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConcurrencyLimitExceeded) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceededValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceededValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ConcurrencyLimitExceededValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetBlockingIds() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ConcurrencyLimitExceededValidationError{
+						field:  fmt.Sprintf("BlockingIds[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ConcurrencyLimitExceededValidationError{
+						field:  fmt.Sprintf("BlockingIds[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConcurrencyLimitExceededValidationError{
+					field:  fmt.Sprintf("BlockingIds[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for LimitDescription
+
+	if len(errors) > 0 {
+		return ConcurrencyLimitExceededMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConcurrencyLimitExceededMultiError is an error wrapping multiple validation
+// errors returned by ConcurrencyLimitExceeded.ValidateAll() if the designated
+// constraints aren't met.
+type ConcurrencyLimitExceededMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConcurrencyLimitExceededMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConcurrencyLimitExceededMultiError) AllErrors() []error { return m }
+
+// ConcurrencyLimitExceededValidationError is the validation error returned by
+// ConcurrencyLimitExceeded.Validate if the designated constraints aren't met.
+type ConcurrencyLimitExceededValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConcurrencyLimitExceededValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConcurrencyLimitExceededValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConcurrencyLimitExceededValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConcurrencyLimitExceededValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConcurrencyLimitExceededValidationError) ErrorName() string {
+	return "ConcurrencyLimitExceededValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ConcurrencyLimitExceededValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConcurrencyLimitExceeded.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConcurrencyLimitExceededValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConcurrencyLimitExceededValidationError{}
+
 // Validate checks the field values on ApplyConditionUnsatisfied with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -8144,6 +8481,47 @@ func (m *ApplyConditionUnsatisfied) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ApplyConditionUnsatisfiedValidationError{
 					field:  "MissingApproval",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *ApplyConditionUnsatisfied_ConcurrencyLimitExceeded:
+		if v == nil {
+			err := ApplyConditionUnsatisfiedValidationError{
+				field:  "Reason",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetConcurrencyLimitExceeded()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplyConditionUnsatisfiedValidationError{
+						field:  "ConcurrencyLimitExceeded",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplyConditionUnsatisfiedValidationError{
+						field:  "ConcurrencyLimitExceeded",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetConcurrencyLimitExceeded()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplyConditionUnsatisfiedValidationError{
+					field:  "ConcurrencyLimitExceeded",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -8337,6 +8715,110 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FetchTaskStartDetailsValidationError{}
+
+// Validate checks the field values on ConcurrencyLease with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ConcurrencyLease) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConcurrencyLease with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ConcurrencyLeaseMultiError, or nil if none found.
+func (m *ConcurrencyLease) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConcurrencyLease) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for LimitId
+
+	// no validation rules for LeaseId
+
+	if len(errors) > 0 {
+		return ConcurrencyLeaseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConcurrencyLeaseMultiError is an error wrapping multiple validation errors
+// returned by ConcurrencyLease.ValidateAll() if the designated constraints
+// aren't met.
+type ConcurrencyLeaseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConcurrencyLeaseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConcurrencyLeaseMultiError) AllErrors() []error { return m }
+
+// ConcurrencyLeaseValidationError is the validation error returned by
+// ConcurrencyLease.Validate if the designated constraints aren't met.
+type ConcurrencyLeaseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConcurrencyLeaseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConcurrencyLeaseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConcurrencyLeaseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConcurrencyLeaseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConcurrencyLeaseValidationError) ErrorName() string { return "ConcurrencyLeaseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ConcurrencyLeaseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConcurrencyLease.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConcurrencyLeaseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConcurrencyLeaseValidationError{}
 
 // Validate checks the field values on TaskRun with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -8614,6 +9096,40 @@ func (m *TaskRun) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	for idx, item := range m.GetConcurrencyLeases() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("ConcurrencyLeases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("ConcurrencyLeases[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskRunValidationError{
+					field:  fmt.Sprintf("ConcurrencyLeases[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {

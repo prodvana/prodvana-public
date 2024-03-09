@@ -49,6 +49,7 @@ message Notifications {
     repeated ProtectionFailure protection_failure = 3;
     repeated ConvergenceExtensionFailure convergence_extension_failure = 4;
     DelayedConvergence delayed_convergence = 5;
+    repeated ConcurrencyLimitExceeded concurrency_limit_exceeded_errors = 6;
     // TODO: Link to next action?
 }
 

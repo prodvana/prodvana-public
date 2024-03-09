@@ -517,6 +517,20 @@ class Identifier(google.protobuf.message.Message):
 
 global___Identifier = Identifier
 
+class ConcurrencyLimit(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LIMIT_ID_FIELD_NUMBER: builtins.int
+    limit_id: builtins.str
+    def __init__(
+        self,
+        *,
+        limit_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["limit_id", b"limit_id"]) -> None: ...
+
+global___ConcurrencyLimit = ConcurrencyLimit
+
 class Metadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -529,6 +543,7 @@ class Metadata(google.protobuf.message.Message):
     PROTECTION_LINKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     CONVERGENCE_PROTECTION_ATTACHMENTS_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LIMITS_FIELD_NUMBER: builtins.int
     TARGET_STATE_SET_BY_PARENT_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     APPLIES_IN_OBSERVER_MODE_FIELD_NUMBER: builtins.int
@@ -548,6 +563,8 @@ class Metadata(google.protobuf.message.Message):
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtension]: ...
     @property
     def convergence_protection_attachments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionAttachmentDefinition]: ...
+    @property
+    def concurrency_limits(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimit]: ...
     target_state_set_by_parent: builtins.bool
     """if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."""
     require_approval_before_apply: builtins.bool
@@ -570,13 +587,14 @@ class Metadata(google.protobuf.message.Message):
         protection_links: collections.abc.Iterable[global___ProtectionLink] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtension] | None = ...,
         convergence_protection_attachments: collections.abc.Iterable[global___ProtectionAttachmentDefinition] | None = ...,
+        concurrency_limits: collections.abc.Iterable[global___ConcurrencyLimit] | None = ...,
         target_state_set_by_parent: builtins.bool = ...,
         require_approval_before_apply: builtins.bool = ...,
         applies_in_observer_mode: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "convergence_grace_period", b"convergence_grace_period", "convergence_protection_attachments", b"convergence_protection_attachments", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "release_id", b"release_id", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "concurrency_limits", b"concurrency_limits", "convergence_grace_period", b"convergence_grace_period", "convergence_protection_attachments", b"convergence_protection_attachments", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "release_id", b"release_id", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
 
 global___Metadata = Metadata
 
@@ -1513,6 +1531,7 @@ class NotificationInfo(google.protobuf.message.Message):
     MOST_RECENT_FAILURE_FIELD_NUMBER: builtins.int
     RUNTIME_FETCH_INVOKE_ERROR_FIELD_NUMBER: builtins.int
     RUNTIME_APPLY_INVOKE_ERROR_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LIMIT_EXCEEDED_ERRORS_FIELD_NUMBER: builtins.int
     failure_count: builtins.int
     @property
     def most_recent_failure(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -1520,6 +1539,8 @@ class NotificationInfo(google.protobuf.message.Message):
     def runtime_fetch_invoke_error(self) -> global___ApplyError: ...
     @property
     def runtime_apply_invoke_error(self) -> global___ApplyError: ...
+    @property
+    def concurrency_limit_exceeded_errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded]: ...
     def __init__(
         self,
         *,
@@ -1527,9 +1548,10 @@ class NotificationInfo(google.protobuf.message.Message):
         most_recent_failure: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         runtime_fetch_invoke_error: global___ApplyError | None = ...,
         runtime_apply_invoke_error: global___ApplyError | None = ...,
+        concurrency_limit_exceeded_errors: collections.abc.Iterable[global___ConcurrencyLimitExceeded] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
 
 global___NotificationInfo = NotificationInfo
 
@@ -2115,6 +2137,33 @@ class MissingApproval(google.protobuf.message.Message):
 
 global___MissingApproval = MissingApproval
 
+class ConcurrencyLimitExceeded(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    BLOCKING_IDS_FIELD_NUMBER: builtins.int
+    LIMIT_DESCRIPTION_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> global___Identifier:
+        """apply cannot run due to a concurrency limit
+        entity being blocked
+        """
+    @property
+    def blocking_ids(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]:
+        """list of entities that are blocking this entity"""
+    limit_description: builtins.str
+    def __init__(
+        self,
+        *,
+        entity_id: global___Identifier | None = ...,
+        blocking_ids: collections.abc.Iterable[global___Identifier] | None = ...,
+        limit_description: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blocking_ids", b"blocking_ids", "entity_id", b"entity_id", "limit_description", b"limit_description"]) -> None: ...
+
+global___ConcurrencyLimitExceeded = ConcurrencyLimitExceeded
+
 class ApplyConditionUnsatisfied(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2150,19 +2199,22 @@ class ApplyConditionUnsatisfied(google.protobuf.message.Message):
         def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "generator_desired_state_ids", b"generator_desired_state_ids", "runtime_extension", b"runtime_extension", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
 
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LIMIT_EXCEEDED_FIELD_NUMBER: builtins.int
     @property
     def missing_approval(self) -> global___ApplyConditionUnsatisfied.InternalMissingApproval:
-        """Cannot apply because this entity requires additional approval.
-        TODO: Add reasons like paused entities.
-        """
+        """Cannot apply because this entity requires additional approval."""
+    @property
+    def concurrency_limit_exceeded(self) -> global___ConcurrencyLimitExceeded:
+        """TODO: Add reasons like paused entities."""
     def __init__(
         self,
         *,
         missing_approval: global___ApplyConditionUnsatisfied.InternalMissingApproval | None = ...,
+        concurrency_limit_exceeded: global___ConcurrencyLimitExceeded | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["missing_approval", b"missing_approval", "reason", b"reason"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["reason", b"reason"]) -> typing_extensions.Literal["missing_approval"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded", b"concurrency_limit_exceeded", "missing_approval", b"missing_approval", "reason", b"reason"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded", b"concurrency_limit_exceeded", "missing_approval", b"missing_approval", "reason", b"reason"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["reason", b"reason"]) -> typing_extensions.Literal["missing_approval", "concurrency_limit_exceeded"] | None: ...
 
 global___ApplyConditionUnsatisfied = ApplyConditionUnsatisfied
 
@@ -2181,6 +2233,23 @@ class FetchTaskStartDetails(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["fetch_mode", b"fetch_mode"]) -> None: ...
 
 global___FetchTaskStartDetails = FetchTaskStartDetails
+
+class ConcurrencyLease(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LIMIT_ID_FIELD_NUMBER: builtins.int
+    LEASE_ID_FIELD_NUMBER: builtins.int
+    limit_id: builtins.str
+    lease_id: builtins.str
+    def __init__(
+        self,
+        *,
+        limit_id: builtins.str = ...,
+        lease_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["lease_id", b"lease_id", "limit_id", b"limit_id"]) -> None: ...
+
+global___ConcurrencyLease = ConcurrencyLease
 
 class TaskRun(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2214,6 +2283,7 @@ class TaskRun(google.protobuf.message.Message):
     PHASE_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
     FETCH_TASK_START_DETAILS_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LEASES_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
     @property
     def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
@@ -2251,6 +2321,9 @@ class TaskRun(google.protobuf.message.Message):
         """
     @property
     def fetch_task_start_details(self) -> global___FetchTaskStartDetails: ...
+    @property
+    def concurrency_leases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLease]:
+        """if set, the entity who started this task has a concurrency limit that needs to be renewed and released"""
     def __init__(
         self,
         *,
@@ -2270,9 +2343,10 @@ class TaskRun(google.protobuf.message.Message):
         phase: global___TaskRun.Phase.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
         fetch_task_start_details: global___FetchTaskStartDetails | None = ...,
+        concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

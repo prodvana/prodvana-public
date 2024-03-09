@@ -408,6 +408,7 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
     ENV_FIELD_NUMBER: builtins.int
     RETRY_POLICY_FIELD_NUMBER: builtins.int
     RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
+    MAX_CONCURRENCY_FIELD_NUMBER: builtins.int
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
     @property
@@ -424,6 +425,8 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
     @property
     def retryable_exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """if set and the apply command returns these exit codes, retry the command without marking the result as failing."""
+    max_concurrency: builtins.int
+    """optional, if set, do not run more than this many apply commands concurrently"""
     def __init__(
         self,
         *,
@@ -433,9 +436,10 @@ class ExtensionApplyCommand(google.protobuf.message.Message):
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         retry_policy: global___RetryPolicy | None = ...,
         retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+        max_concurrency: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "retry_policy", b"retry_policy", "task_config", b"task_config", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "retry_policy", b"retry_policy", "retryable_exit_codes", b"retryable_exit_codes", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "max_concurrency", b"max_concurrency", "retry_policy", b"retry_policy", "retryable_exit_codes", b"retryable_exit_codes", "task_config", b"task_config", "timeout", b"timeout"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___ExtensionApplyCommand = ExtensionApplyCommand

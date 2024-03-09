@@ -10472,6 +10472,13 @@
             "$ref": "#/definitions/modelProtectionAttachmentDefinition"
           }
         },
+        "concurrencyLimits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConcurrencyLimit"
+          }
+        },
         "targetStateSetByParent": {
           "type": "boolean",
           "description": "if true, the entity does not set its own target state. instead, the target state will be set when the parent decides to set target state."
@@ -10986,6 +10993,11 @@
             "format": "int32"
           },
           "description": "if set and the apply command returns these exit codes, retry the command without marking the result as failing."
+        },
+        "maxConcurrency": {
+          "type": "string",
+          "format": "int64",
+          "title": "optional, if set, do not run more than this many apply commands concurrently"
         }
       }
     },
@@ -12738,6 +12750,46 @@
       ],
       "default": "UNKNOWN"
     },
+    "modelConcurrencyLease": {
+      "type": "object",
+      "properties": {
+        "limitId": {
+          "type": "string"
+        },
+        "leaseId": {
+          "type": "string"
+        }
+      }
+    },
+    "modelConcurrencyLimit": {
+      "type": "object",
+      "properties": {
+        "limitId": {
+          "type": "string"
+        }
+      }
+    },
+    "modelConcurrencyLimitExceeded": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "$ref": "#/definitions/modelIdentifier",
+          "description": "entity being blocked",
+          "title": "apply cannot run due to a concurrency limit"
+        },
+        "blockingIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelIdentifier"
+          },
+          "title": "list of entities that are blocking this entity"
+        },
+        "limitDescription": {
+          "type": "string"
+        }
+      }
+    },
     "modelCondition": {
       "type": "object",
       "properties": {
@@ -13224,6 +13276,13 @@
         },
         "runtimeApplyInvokeError": {
           "$ref": "#/definitions/modelApplyError"
+        },
+        "concurrencyLimitExceededErrors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConcurrencyLimitExceeded"
+          }
         }
       }
     },
@@ -13255,7 +13314,14 @@
           }
         },
         "delayedConvergence": {
-          "$ref": "#/definitions/NotificationsDelayedConvergence",
+          "$ref": "#/definitions/NotificationsDelayedConvergence"
+        },
+        "concurrencyLimitExceededErrors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConcurrencyLimitExceeded"
+          },
           "title": "TODO: Link to next action?"
         }
       }
@@ -13681,6 +13747,14 @@
         },
         "fetchTaskStartDetails": {
           "$ref": "#/definitions/modelFetchTaskStartDetails"
+        },
+        "concurrencyLeases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelConcurrencyLease"
+          },
+          "title": "if set, the entity who started this task has a concurrency limit that needs to be renewed and released"
         }
       }
     },
