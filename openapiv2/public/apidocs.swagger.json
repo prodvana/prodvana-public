@@ -15557,6 +15557,9 @@
             "type": "object",
             "$ref": "#/definitions/protectionProtectionAttachmentConfig"
           }
+        },
+        "bundleName": {
+          "type": "string"
         }
       },
       "title": "a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied"
@@ -16265,6 +16268,10 @@
         },
         "maestro": {
           "$ref": "#/definitions/maestroMaestroConfig"
+        },
+        "bundleName": {
+          "type": "string",
+          "description": "optional, customize the name of the bundle that will be created for this service.\nBy default, the bundle name is generated based on input parameters, such as commit hash.\nThe bundle name cannot be different per Release Channel. Doing so is an error.\nIf the generated bundle name already exists, a number will be appended to resolve conflict."
         }
       }
     },

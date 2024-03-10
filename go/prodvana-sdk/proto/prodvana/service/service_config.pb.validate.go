@@ -4908,6 +4908,8 @@ func (m *ServiceConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for BundleName
+
 	switch v := m.ConfigOneof.(type) {
 	case *ServiceConfig_RuntimeExtension:
 		if v == nil {
@@ -6025,6 +6027,8 @@ func (m *CompiledServiceInstanceConfig) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for BundleName
 
 	switch v := m.ConfigOneof.(type) {
 	case *CompiledServiceInstanceConfig_CustomRuntime:

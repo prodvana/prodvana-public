@@ -377,7 +377,13 @@ message ServiceConfig {
 
     prodvana.desired_state.maestro.MaestroConfig maestro = 38;
 
-    // next tag: 42
+    // optional, customize the name of the bundle that will be created for this service.
+    // By default, the bundle name is generated based on input parameters, such as commit hash.
+    // The bundle name cannot be different per Release Channel. Doing so is an error.
+    // If the generated bundle name already exists, a number will be appended to resolve conflict.
+    string bundle_name = 42;
+
+    // next tag: 43
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -440,10 +446,12 @@ message CompiledServiceInstanceConfig {
     repeated prodvana.protection.ProtectionAttachmentConfig protections = 34;
     repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 38;
 
+    string bundle_name = 40;
+
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 40
+    // next tag: 41
 }
 
 message CompiledJobConfig {

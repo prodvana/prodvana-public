@@ -9900,6 +9900,28 @@
                         },
                         {}
                     ]
+                },
+                "bundle_name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, customize the name of the bundle that will be created for this service. By default, the bundle name is generated based on input parameters, such as commit hash. The bundle name cannot be different per Release Channel. Doing so is an error. If the generated bundle name already exists, a number will be appended to resolve conflict."
+                },
+                "bundleName": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, customize the name of the bundle that will be created for this service. By default, the bundle name is generated based on input parameters, such as commit hash. The bundle name cannot be different per Release Channel. Doing so is an error. If the generated bundle name already exists, a number will be appended to resolve conflict."
                 }
             },
             "additionalProperties": false,
