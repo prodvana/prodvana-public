@@ -1769,6 +1769,8 @@ func (m *ServiceInstanceState) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for DeploymentOwnedByChildren
+
 	switch v := m.AutorollbackOneof.(type) {
 	case *ServiceInstanceState_RollbackVersion:
 		if v == nil {
@@ -4661,6 +4663,8 @@ func (m *RuntimeObject) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for Rollback
 
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)

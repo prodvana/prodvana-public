@@ -10666,6 +10666,9 @@
             "$ref": "#/definitions/extensionsExternalObject"
           },
           "title": "external objects tracked by this runtime, not represented in entity graph but useful to display to users"
+        },
+        "rollback": {
+          "type": "boolean"
         }
       }
     },
@@ -10712,6 +10715,10 @@
         },
         "delivery": {
           "$ref": "#/definitions/modelDeliveryState"
+        },
+        "deploymentOwnedByChildren": {
+          "type": "boolean",
+          "description": "used internally by prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself."
         }
       }
     },

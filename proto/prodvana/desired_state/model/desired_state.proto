@@ -258,6 +258,8 @@ message ServiceInstanceState {
     bool rollback = 7;
     DeliveryState delivery = 10;
 
+    bool deployment_owned_by_children = 12; // used internally by prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself.
+
     // next tag: 12
 }
 
@@ -526,10 +528,11 @@ message RuntimeObject {
     repeated prodvana.common_config.ExternalLink external_links = 28;
 
     repeated prodvana.runtimes.extensions.ExternalObject external_objects = 30;  // external objects tracked by this runtime, not represented in entity graph but useful to display to users
+    bool rollback = 32;
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 32
+    // next tag: 33
 }
 
 enum ConditionStatus {

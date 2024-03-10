@@ -710,6 +710,7 @@ class ServiceInstanceState(google.protobuf.message.Message):
     COMPUTE_ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
+    DEPLOYMENT_OWNED_BY_CHILDREN_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     application: builtins.str
@@ -731,6 +732,8 @@ class ServiceInstanceState(google.protobuf.message.Message):
     rollback: builtins.bool
     @property
     def delivery(self) -> global___DeliveryState: ...
+    deployment_owned_by_children: builtins.bool
+    """used internally by prodvana.proto.prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself."""
     def __init__(
         self,
         *,
@@ -745,9 +748,10 @@ class ServiceInstanceState(google.protobuf.message.Message):
         compute_rollback_version: builtins.bool = ...,
         rollback: builtins.bool = ...,
         delivery: global___DeliveryState | None = ...,
+        deployment_owned_by_children: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "deployment_owned_by_children", b"deployment_owned_by_children", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof"]) -> typing_extensions.Literal["rollback_version", "compute_rollback_version"] | None: ...
 
 global___ServiceInstanceState = ServiceInstanceState
@@ -1409,6 +1413,7 @@ class RuntimeObject(google.protobuf.message.Message):
     LAST_COMPLETED_TASK_RUN_FIELD_NUMBER: builtins.int
     EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     EXTERNAL_OBJECTS_FIELD_NUMBER: builtins.int
+    ROLLBACK_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -1462,6 +1467,7 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def external_objects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject]:
         """external objects tracked by this runtime, not represented in entity graph but useful to display to users"""
+    rollback: builtins.bool
     def __init__(
         self,
         *,
@@ -1490,9 +1496,10 @@ class RuntimeObject(google.protobuf.message.Message):
         last_completed_task_run: global___TaskRun | None = ...,
         external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
         external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
+        rollback: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
