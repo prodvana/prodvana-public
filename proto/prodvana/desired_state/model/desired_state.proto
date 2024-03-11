@@ -793,10 +793,22 @@ message MissingApproval {
 }
 
 message ConcurrencyLimitExceeded {
+    message Blocker {
+        Identifier entity_id = 1;
+        string desired_state_id = 2;
+        string root_desired_state_id = 3;
+        string release_id = 4;
+        // time since this blocker has held on to its lease. This is *not* the time since this entity has been blocked.
+        google.protobuf.Timestamp held_since_timestamp = 5;
+    }
     // apply cannot run due to a concurrency limit
     Identifier entity_id = 1; // entity being blocked
-    repeated Identifier blocking_ids = 2; // list of entities that are blocking this entity
+    repeated Blocker blockers = 4; // list of entities that are blocking this entity
     string limit_description = 3;
+
+    // next tag: 5
+    reserved 2;
+    reserved "blocking_ids";
 }
 
 message ApplyConditionUnsatisfied {

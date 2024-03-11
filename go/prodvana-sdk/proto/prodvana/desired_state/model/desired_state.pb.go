@@ -4956,9 +4956,9 @@ type ConcurrencyLimitExceeded struct {
 	unknownFields protoimpl.UnknownFields
 
 	// apply cannot run due to a concurrency limit
-	EntityId         *Identifier   `protobuf:"bytes,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`          // entity being blocked
-	BlockingIds      []*Identifier `protobuf:"bytes,2,rep,name=blocking_ids,json=blockingIds,proto3" json:"blocking_ids,omitempty"` // list of entities that are blocking this entity
-	LimitDescription string        `protobuf:"bytes,3,opt,name=limit_description,json=limitDescription,proto3" json:"limit_description,omitempty"`
+	EntityId         *Identifier                         `protobuf:"bytes,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"` // entity being blocked
+	Blockers         []*ConcurrencyLimitExceeded_Blocker `protobuf:"bytes,4,rep,name=blockers,proto3" json:"blockers,omitempty"`                 // list of entities that are blocking this entity
+	LimitDescription string                              `protobuf:"bytes,3,opt,name=limit_description,json=limitDescription,proto3" json:"limit_description,omitempty"`
 }
 
 func (x *ConcurrencyLimitExceeded) Reset() {
@@ -5000,9 +5000,9 @@ func (x *ConcurrencyLimitExceeded) GetEntityId() *Identifier {
 	return nil
 }
 
-func (x *ConcurrencyLimitExceeded) GetBlockingIds() []*Identifier {
+func (x *ConcurrencyLimitExceeded) GetBlockers() []*ConcurrencyLimitExceeded_Blocker {
 	if x != nil {
-		return x.BlockingIds
+		return x.Blockers
 	}
 	return nil
 }
@@ -6202,6 +6202,86 @@ func (x *Signal_RuntimeExtensionApproval) GetPlanBlobId() string {
 	return ""
 }
 
+type ConcurrencyLimitExceeded_Blocker struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	EntityId           *Identifier `protobuf:"bytes,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
+	DesiredStateId     string      `protobuf:"bytes,2,opt,name=desired_state_id,json=desiredStateId,proto3" json:"desired_state_id,omitempty"`
+	RootDesiredStateId string      `protobuf:"bytes,3,opt,name=root_desired_state_id,json=rootDesiredStateId,proto3" json:"root_desired_state_id,omitempty"`
+	ReleaseId          string      `protobuf:"bytes,4,opt,name=release_id,json=releaseId,proto3" json:"release_id,omitempty"`
+	// time since this blocker has held on to its lease. This is *not* the time since this entity has been blocked.
+	HeldSinceTimestamp *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=held_since_timestamp,json=heldSinceTimestamp,proto3" json:"held_since_timestamp,omitempty"`
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) Reset() {
+	*x = ConcurrencyLimitExceeded_Blocker{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[58]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConcurrencyLimitExceeded_Blocker) ProtoMessage() {}
+
+func (x *ConcurrencyLimitExceeded_Blocker) ProtoReflect() protoreflect.Message {
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[58]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConcurrencyLimitExceeded_Blocker.ProtoReflect.Descriptor instead.
+func (*ConcurrencyLimitExceeded_Blocker) Descriptor() ([]byte, []int) {
+	return file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP(), []int{42, 0}
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) GetEntityId() *Identifier {
+	if x != nil {
+		return x.EntityId
+	}
+	return nil
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) GetDesiredStateId() string {
+	if x != nil {
+		return x.DesiredStateId
+	}
+	return ""
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) GetRootDesiredStateId() string {
+	if x != nil {
+		return x.RootDesiredStateId
+	}
+	return ""
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) GetReleaseId() string {
+	if x != nil {
+		return x.ReleaseId
+	}
+	return ""
+}
+
+func (x *ConcurrencyLimitExceeded_Blocker) GetHeldSinceTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.HeldSinceTimestamp
+	}
+	return nil
+}
+
 type ApplyConditionUnsatisfied_InternalMissingApproval struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6220,7 +6300,7 @@ type ApplyConditionUnsatisfied_InternalMissingApproval struct {
 func (x *ApplyConditionUnsatisfied_InternalMissingApproval) Reset() {
 	*x = ApplyConditionUnsatisfied_InternalMissingApproval{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[58]
+		mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[59]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6233,7 +6313,7 @@ func (x *ApplyConditionUnsatisfied_InternalMissingApproval) String() string {
 func (*ApplyConditionUnsatisfied_InternalMissingApproval) ProtoMessage() {}
 
 func (x *ApplyConditionUnsatisfied_InternalMissingApproval) ProtoReflect() protoreflect.Message {
-	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[58]
+	mi := &file_prodvana_desired_state_model_desired_state_proto_msgTypes[59]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7543,20 +7623,40 @@ var file_prodvana_desired_state_model_desired_state_proto_rawDesc = []byte{
 	0x61, 0x74, 0x61, 0x52, 0x10, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x74, 0x65,
 	0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74,
 	0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x22,
-	0xdb, 0x01, 0x0a, 0x18, 0x43, 0x6f, 0x6e, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x4c,
+	0x9b, 0x04, 0x0a, 0x18, 0x43, 0x6f, 0x6e, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x4c,
 	0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12, 0x45, 0x0a, 0x09,
 	0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
 	0x28, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72,
 	0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x49,
 	0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x79, 0x49, 0x64, 0x12, 0x4b, 0x0a, 0x0c, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x69, 0x6e, 0x67, 0x5f,
-	0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x70, 0x72, 0x6f, 0x64,
-	0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61,
-	0x74, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66,
-	0x69, 0x65, 0x72, 0x52, 0x0b, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x69, 0x6e, 0x67, 0x49, 0x64, 0x73,
-	0x12, 0x2b, 0x0a, 0x11, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x10, 0x6c, 0x69, 0x6d,
-	0x69, 0x74, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xe6, 0x04,
+	0x79, 0x49, 0x64, 0x12, 0x5a, 0x0a, 0x08, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x18,
+	0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x3e, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61,
+	0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x2e, 0x6d,
+	0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x43, 0x6f, 0x6e, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79,
+	0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x2e, 0x42, 0x6c,
+	0x6f, 0x63, 0x6b, 0x65, 0x72, 0x52, 0x08, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x12,
+	0x2b, 0x0a, 0x11, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x10, 0x6c, 0x69, 0x6d, 0x69,
+	0x74, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x9a, 0x02, 0x0a,
+	0x07, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x12, 0x45, 0x0a, 0x09, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x70, 0x72,
+	0x6f, 0x64, 0x76, 0x61, 0x6e, 0x61, 0x2e, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73,
+	0x74, 0x61, 0x74, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x49, 0x64, 0x65, 0x6e, 0x74,
+	0x69, 0x66, 0x69, 0x65, 0x72, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x49, 0x64, 0x12,
+	0x28, 0x0a, 0x10, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x64, 0x65, 0x73, 0x69, 0x72,
+	0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x49, 0x64, 0x12, 0x31, 0x0a, 0x15, 0x72, 0x6f, 0x6f,
+	0x74, 0x5f, 0x64, 0x65, 0x73, 0x69, 0x72, 0x65, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x5f,
+	0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x12, 0x72, 0x6f, 0x6f, 0x74, 0x44, 0x65,
+	0x73, 0x69, 0x72, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a,
+	0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x09, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x49, 0x64, 0x12, 0x4c, 0x0a, 0x14, 0x68,
+	0x65, 0x6c, 0x64, 0x5f, 0x73, 0x69, 0x6e, 0x63, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x6d, 0x70, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67,
+	0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65,
+	0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x12, 0x68, 0x65, 0x6c, 0x64, 0x53, 0x69, 0x6e, 0x63, 0x65,
+	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x4a, 0x04, 0x08, 0x02, 0x10, 0x03, 0x52,
+	0x0c, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x69, 0x6e, 0x67, 0x5f, 0x69, 0x64, 0x73, 0x22, 0xe6, 0x04,
 	0x0a, 0x19, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e,
 	0x55, 0x6e, 0x73, 0x61, 0x74, 0x69, 0x73, 0x66, 0x69, 0x65, 0x64, 0x12, 0x7c, 0x0a, 0x10, 0x6d,
 	0x69, 0x73, 0x73, 0x69, 0x6e, 0x67, 0x5f, 0x61, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x18,
@@ -7828,7 +7928,7 @@ func file_prodvana_desired_state_model_desired_state_proto_rawDescGZIP() []byte 
 }
 
 var file_prodvana_desired_state_model_desired_state_proto_enumTypes = make([]protoimpl.EnumInfo, 20)
-var file_prodvana_desired_state_model_desired_state_proto_msgTypes = make([]protoimpl.MessageInfo, 59)
+var file_prodvana_desired_state_model_desired_state_proto_msgTypes = make([]protoimpl.MessageInfo, 60)
 var file_prodvana_desired_state_model_desired_state_proto_goTypes = []interface{}{
 	(Type)(0),                                                  // 0: prodvana.desired_state.model.Type
 	(CustomTaskType)(0),                                        // 1: prodvana.desired_state.model.CustomTaskType
@@ -7908,29 +8008,30 @@ var file_prodvana_desired_state_model_desired_state_proto_goTypes = []interface{
 	(*Signal_DeliveryPromotionConfig)(nil),                     // 75: prodvana.desired_state.model.Signal.DeliveryPromotionConfig
 	(*Signal_ProtectionBypass)(nil),                            // 76: prodvana.desired_state.model.Signal.ProtectionBypass
 	(*Signal_RuntimeExtensionApproval)(nil),                    // 77: prodvana.desired_state.model.Signal.RuntimeExtensionApproval
-	(*ApplyConditionUnsatisfied_InternalMissingApproval)(nil),  // 78: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval
-	(*protection.ProtectionLifecycle)(nil),                     // 79: prodvana.protection.ProtectionLifecycle
-	(common_config.TaskLifecycle)(0),                           // 80: prodvana.common_config.TaskLifecycle
-	(*durationpb.Duration)(nil),                                // 81: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),                              // 82: google.protobuf.Timestamp
-	(extensions.FetchMode)(0),                                  // 83: prodvana.runtimes.extensions.FetchMode
-	(*runtimes.DebugEvent)(nil),                                // 84: prodvana.runtimes.DebugEvent
-	(*common_config.ExternalLink)(nil),                         // 85: prodvana.common_config.ExternalLink
-	(*extensions.ExternalObject)(nil),                          // 86: prodvana.runtimes.extensions.ExternalObject
-	(*common_config.ProgramConfig)(nil),                        // 87: prodvana.common_config.ProgramConfig
-	(*common_config.RetryConfig)(nil),                          // 88: prodvana.common_config.RetryConfig
-	(*environment.CompiledExtensionCommand)(nil),               // 89: prodvana.environment.CompiledExtensionCommand
-	(*common_config.ParameterDefinition)(nil),                  // 90: prodvana.common_config.ParameterDefinition
-	(*common_config.ParameterValue)(nil),                       // 91: prodvana.common_config.ParameterValue
-	(environment.ExtensionType)(0),                             // 92: prodvana.environment.ExtensionType
-	(*environment.RetryPolicy)(nil),                            // 93: prodvana.environment.RetryPolicy
+	(*ConcurrencyLimitExceeded_Blocker)(nil),                   // 78: prodvana.desired_state.model.ConcurrencyLimitExceeded.Blocker
+	(*ApplyConditionUnsatisfied_InternalMissingApproval)(nil),  // 79: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval
+	(*protection.ProtectionLifecycle)(nil),                     // 80: prodvana.protection.ProtectionLifecycle
+	(common_config.TaskLifecycle)(0),                           // 81: prodvana.common_config.TaskLifecycle
+	(*durationpb.Duration)(nil),                                // 82: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),                              // 83: google.protobuf.Timestamp
+	(extensions.FetchMode)(0),                                  // 84: prodvana.runtimes.extensions.FetchMode
+	(*runtimes.DebugEvent)(nil),                                // 85: prodvana.runtimes.DebugEvent
+	(*common_config.ExternalLink)(nil),                         // 86: prodvana.common_config.ExternalLink
+	(*extensions.ExternalObject)(nil),                          // 87: prodvana.runtimes.extensions.ExternalObject
+	(*common_config.ProgramConfig)(nil),                        // 88: prodvana.common_config.ProgramConfig
+	(*common_config.RetryConfig)(nil),                          // 89: prodvana.common_config.RetryConfig
+	(*environment.CompiledExtensionCommand)(nil),               // 90: prodvana.environment.CompiledExtensionCommand
+	(*common_config.ParameterDefinition)(nil),                  // 91: prodvana.common_config.ParameterDefinition
+	(*common_config.ParameterValue)(nil),                       // 92: prodvana.common_config.ParameterValue
+	(environment.ExtensionType)(0),                             // 93: prodvana.environment.ExtensionType
+	(*environment.RetryPolicy)(nil),                            // 94: prodvana.environment.RetryPolicy
 }
 var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
-	79,  // 0: prodvana.desired_state.model.ProtectionLink.lifecycle:type_name -> prodvana.protection.ProtectionLifecycle
+	80,  // 0: prodvana.desired_state.model.ProtectionLink.lifecycle:type_name -> prodvana.protection.ProtectionLifecycle
 	69,  // 1: prodvana.desired_state.model.Condition.rc_cond:type_name -> prodvana.desired_state.model.Condition.ReleaseChannelStableCondition
 	70,  // 2: prodvana.desired_state.model.Condition.manual_approval:type_name -> prodvana.desired_state.model.Condition.ManualApproval
 	71,  // 3: prodvana.desired_state.model.Condition.custom_task:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition
-	80,  // 4: prodvana.desired_state.model.DeliveryExtension.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
+	81,  // 4: prodvana.desired_state.model.DeliveryExtension.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
 	24,  // 5: prodvana.desired_state.model.DeliveryExtension.references:type_name -> prodvana.desired_state.model.Identifier
 	0,   // 6: prodvana.desired_state.model.Identifier.type:type_name -> prodvana.desired_state.model.Type
 	21,  // 7: prodvana.desired_state.model.Metadata.preconditions:type_name -> prodvana.desired_state.model.Condition
@@ -7940,12 +8041,12 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	22,  // 11: prodvana.desired_state.model.Metadata.delivery_extensions:type_name -> prodvana.desired_state.model.DeliveryExtension
 	23,  // 12: prodvana.desired_state.model.Metadata.convergence_protection_attachments:type_name -> prodvana.desired_state.model.ProtectionAttachmentDefinition
 	25,  // 13: prodvana.desired_state.model.Metadata.concurrency_limits:type_name -> prodvana.desired_state.model.ConcurrencyLimit
-	81,  // 14: prodvana.desired_state.model.Metadata.convergence_grace_period:type_name -> google.protobuf.Duration
+	82,  // 14: prodvana.desired_state.model.Metadata.convergence_grace_period:type_name -> google.protobuf.Duration
 	24,  // 15: prodvana.desired_state.model.StatusExplanation.subject:type_name -> prodvana.desired_state.model.Identifier
 	4,   // 16: prodvana.desired_state.model.StatusExplanation.reason:type_name -> prodvana.desired_state.model.StatusReason
-	82,  // 17: prodvana.desired_state.model.ActionExplanation.ts:type_name -> google.protobuf.Timestamp
+	83,  // 17: prodvana.desired_state.model.ActionExplanation.ts:type_name -> google.protobuf.Timestamp
 	5,   // 18: prodvana.desired_state.model.ActionExplanation.action_type:type_name -> prodvana.desired_state.model.ActionType
-	82,  // 19: prodvana.desired_state.model.Version.push_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 19: prodvana.desired_state.model.Version.push_timestamp:type_name -> google.protobuf.Timestamp
 	26,  // 20: prodvana.desired_state.model.ServiceInstanceState.meta:type_name -> prodvana.desired_state.model.Metadata
 	29,  // 21: prodvana.desired_state.model.ServiceInstanceState.versions:type_name -> prodvana.desired_state.model.Version
 	29,  // 22: prodvana.desired_state.model.ServiceInstanceState.rollback_version:type_name -> prodvana.desired_state.model.Version
@@ -7962,26 +8063,26 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	53,  // 33: prodvana.desired_state.model.ServiceGroupState.custom_tasks:type_name -> prodvana.desired_state.model.CustomTaskState
 	56,  // 34: prodvana.desired_state.model.ServiceGroupState.delivery_extensions:type_name -> prodvana.desired_state.model.DeliveryExtensionState
 	10,  // 35: prodvana.desired_state.model.CanaryProgressState.status:type_name -> prodvana.desired_state.model.CanaryProgressState.Status
-	81,  // 36: prodvana.desired_state.model.CanaryProgressState.duration:type_name -> google.protobuf.Duration
-	82,  // 37: prodvana.desired_state.model.CanaryProgressState.pause_start_timestamp:type_name -> google.protobuf.Timestamp
+	82,  // 36: prodvana.desired_state.model.CanaryProgressState.duration:type_name -> google.protobuf.Duration
+	83,  // 37: prodvana.desired_state.model.CanaryProgressState.pause_start_timestamp:type_name -> google.protobuf.Timestamp
 	11,  // 38: prodvana.desired_state.model.BlueGreenProgressState.status:type_name -> prodvana.desired_state.model.BlueGreenProgressState.Status
 	12,  // 39: prodvana.desired_state.model.DeliveryState.status:type_name -> prodvana.desired_state.model.DeliveryState.Status
 	34,  // 40: prodvana.desired_state.model.DeliveryState.canary_progress:type_name -> prodvana.desired_state.model.CanaryProgressState
 	35,  // 41: prodvana.desired_state.model.DeliveryState.blue_green_progress:type_name -> prodvana.desired_state.model.BlueGreenProgressState
-	82,  // 42: prodvana.desired_state.model.FetchDetails.started_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 43: prodvana.desired_state.model.FetchDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 42: prodvana.desired_state.model.FetchDetails.started_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 43: prodvana.desired_state.model.FetchDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
 	13,  // 44: prodvana.desired_state.model.FetchDetails.fetch_status:type_name -> prodvana.desired_state.model.FetchDetails.FetchStatus
-	83,  // 45: prodvana.desired_state.model.FetchDetails.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
+	84,  // 45: prodvana.desired_state.model.FetchDetails.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
 	37,  // 46: prodvana.desired_state.model.RuntimeExtensionFetchOutput.ongoing_fetch:type_name -> prodvana.desired_state.model.FetchDetails
 	37,  // 47: prodvana.desired_state.model.RuntimeExtensionFetchOutput.last_successful_fetch:type_name -> prodvana.desired_state.model.FetchDetails
 	37,  // 48: prodvana.desired_state.model.RuntimeExtensionFetchOutput.last_failed_fetch:type_name -> prodvana.desired_state.model.FetchDetails
 	39,  // 49: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.contents:type_name -> prodvana.desired_state.model.RuntimeExtensionGetInfoOutputContent
 	14,  // 50: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.status:type_name -> prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.Status
-	82,  // 51: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.started_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 52: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 51: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.started_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 52: prodvana.desired_state.model.RuntimeExtensionGetInfoDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
 	40,  // 53: prodvana.desired_state.model.RuntimeExtensionGetInfoOutput.get_info_details:type_name -> prodvana.desired_state.model.RuntimeExtensionGetInfoDetails
-	82,  // 54: prodvana.desired_state.model.ApplyDetails.started_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 55: prodvana.desired_state.model.ApplyDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 54: prodvana.desired_state.model.ApplyDetails.started_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 55: prodvana.desired_state.model.ApplyDetails.completed_timestamp:type_name -> google.protobuf.Timestamp
 	15,  // 56: prodvana.desired_state.model.ApplyDetails.apply_status:type_name -> prodvana.desired_state.model.ApplyDetails.ApplyStatus
 	37,  // 57: prodvana.desired_state.model.ApplyDetails.fetch_details:type_name -> prodvana.desired_state.model.FetchDetails
 	42,  // 58: prodvana.desired_state.model.RuntimeExtensionApplyOutput.ongoing_apply:type_name -> prodvana.desired_state.model.ApplyDetails
@@ -7992,16 +8093,16 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	16,  // 63: prodvana.desired_state.model.RuntimeObject.status:type_name -> prodvana.desired_state.model.RuntimeObject.Status
 	29,  // 64: prodvana.desired_state.model.RuntimeObject.rollback_version:type_name -> prodvana.desired_state.model.Version
 	36,  // 65: prodvana.desired_state.model.RuntimeObject.delivery:type_name -> prodvana.desired_state.model.DeliveryState
-	84,  // 66: prodvana.desired_state.model.RuntimeObject.debug_events:type_name -> prodvana.runtimes.DebugEvent
+	85,  // 66: prodvana.desired_state.model.RuntimeObject.debug_events:type_name -> prodvana.runtimes.DebugEvent
 	73,  // 67: prodvana.desired_state.model.RuntimeObject.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeObject.RuntimeExtension
-	81,  // 68: prodvana.desired_state.model.RuntimeObject.interval:type_name -> google.protobuf.Duration
-	81,  // 69: prodvana.desired_state.model.RuntimeObject.steady_state_interval:type_name -> google.protobuf.Duration
+	82,  // 68: prodvana.desired_state.model.RuntimeObject.interval:type_name -> google.protobuf.Duration
+	82,  // 69: prodvana.desired_state.model.RuntimeObject.steady_state_interval:type_name -> google.protobuf.Duration
 	17,  // 70: prodvana.desired_state.model.RuntimeObject.management_status:type_name -> prodvana.desired_state.model.RuntimeObject.ManagementStatus
 	66,  // 71: prodvana.desired_state.model.RuntimeObject.last_completed_task_run:type_name -> prodvana.desired_state.model.TaskRun
-	85,  // 72: prodvana.desired_state.model.RuntimeObject.external_links:type_name -> prodvana.common_config.ExternalLink
-	86,  // 73: prodvana.desired_state.model.RuntimeObject.external_objects:type_name -> prodvana.runtimes.extensions.ExternalObject
+	86,  // 72: prodvana.desired_state.model.RuntimeObject.external_links:type_name -> prodvana.common_config.ExternalLink
+	87,  // 73: prodvana.desired_state.model.RuntimeObject.external_objects:type_name -> prodvana.runtimes.extensions.ExternalObject
 	6,   // 74: prodvana.desired_state.model.ConditionState.status:type_name -> prodvana.desired_state.model.ConditionStatus
-	82,  // 75: prodvana.desired_state.model.NotificationInfo.most_recent_failure:type_name -> google.protobuf.Timestamp
+	83,  // 75: prodvana.desired_state.model.NotificationInfo.most_recent_failure:type_name -> google.protobuf.Timestamp
 	46,  // 76: prodvana.desired_state.model.NotificationInfo.runtime_fetch_invoke_error:type_name -> prodvana.desired_state.model.ApplyError
 	46,  // 77: prodvana.desired_state.model.NotificationInfo.runtime_apply_invoke_error:type_name -> prodvana.desired_state.model.ApplyError
 	62,  // 78: prodvana.desired_state.model.NotificationInfo.concurrency_limit_exceeded_errors:type_name -> prodvana.desired_state.model.ConcurrencyLimitExceeded
@@ -8009,8 +8110,8 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	45,  // 80: prodvana.desired_state.model.ControlState.invariant_states:type_name -> prodvana.desired_state.model.ConditionState
 	27,  // 81: prodvana.desired_state.model.ControlState.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	28,  // 82: prodvana.desired_state.model.ControlState.action_explanation:type_name -> prodvana.desired_state.model.ActionExplanation
-	82,  // 83: prodvana.desired_state.model.ControlState.last_fetched_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 84: prodvana.desired_state.model.ControlState.last_applied_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 83: prodvana.desired_state.model.ControlState.last_fetched_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 84: prodvana.desired_state.model.ControlState.last_applied_timestamp:type_name -> google.protobuf.Timestamp
 	61,  // 85: prodvana.desired_state.model.ControlState.missing_approval:type_name -> prodvana.desired_state.model.MissingApproval
 	46,  // 86: prodvana.desired_state.model.ControlState.apply_error:type_name -> prodvana.desired_state.model.ApplyError
 	47,  // 87: prodvana.desired_state.model.ControlState.notification_info:type_name -> prodvana.desired_state.model.NotificationInfo
@@ -8027,29 +8128,29 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	56,  // 98: prodvana.desired_state.model.State.delivery_extension:type_name -> prodvana.desired_state.model.DeliveryExtensionState
 	74,  // 99: prodvana.desired_state.model.Annotations.annotations:type_name -> prodvana.desired_state.model.Annotations.Annotation
 	8,   // 100: prodvana.desired_state.model.CustomTaskExecutionState.status:type_name -> prodvana.desired_state.model.CustomTaskStatus
-	82,  // 101: prodvana.desired_state.model.CustomTaskExecutionState.latest_attempt_end_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 101: prodvana.desired_state.model.CustomTaskExecutionState.latest_attempt_end_timestamp:type_name -> google.protobuf.Timestamp
 	26,  // 102: prodvana.desired_state.model.CustomTaskState.meta:type_name -> prodvana.desired_state.model.Metadata
-	87,  // 103: prodvana.desired_state.model.CustomTaskState.program:type_name -> prodvana.common_config.ProgramConfig
+	88,  // 103: prodvana.desired_state.model.CustomTaskState.program:type_name -> prodvana.common_config.ProgramConfig
 	52,  // 104: prodvana.desired_state.model.CustomTaskState.task_state:type_name -> prodvana.desired_state.model.CustomTaskExecutionState
-	88,  // 105: prodvana.desired_state.model.CustomTaskState.retry_config:type_name -> prodvana.common_config.RetryConfig
+	89,  // 105: prodvana.desired_state.model.CustomTaskState.retry_config:type_name -> prodvana.common_config.RetryConfig
 	26,  // 106: prodvana.desired_state.model.ProtectionLinkState.meta:type_name -> prodvana.desired_state.model.Metadata
 	2,   // 107: prodvana.desired_state.model.ProtectionLinkState.last_seen_attachment_status:type_name -> prodvana.desired_state.model.Status
 	6,   // 108: prodvana.desired_state.model.ProtectionLinkState.status:type_name -> prodvana.desired_state.model.ConditionStatus
 	20,  // 109: prodvana.desired_state.model.ProtectionLinkState.link:type_name -> prodvana.desired_state.model.ProtectionLink
-	82,  // 110: prodvana.desired_state.model.ProtectionLinkState.started_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 111: prodvana.desired_state.model.ProtectionLinkState.stopped_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 110: prodvana.desired_state.model.ProtectionLinkState.started_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 111: prodvana.desired_state.model.ProtectionLinkState.stopped_timestamp:type_name -> google.protobuf.Timestamp
 	18,  // 112: prodvana.desired_state.model.ProtectionLinkState.stopped_reason:type_name -> prodvana.desired_state.model.ProtectionLinkState.StopReason
-	82,  // 113: prodvana.desired_state.model.ProtectionLinkState.first_success_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 113: prodvana.desired_state.model.ProtectionLinkState.first_success_timestamp:type_name -> google.protobuf.Timestamp
 	26,  // 114: prodvana.desired_state.model.ProtectionAttachment.meta:type_name -> prodvana.desired_state.model.Metadata
 	29,  // 115: prodvana.desired_state.model.ProtectionAttachment.versions:type_name -> prodvana.desired_state.model.Version
 	29,  // 116: prodvana.desired_state.model.ProtectionAttachment.last_completed_versions:type_name -> prodvana.desired_state.model.Version
-	82,  // 117: prodvana.desired_state.model.ProtectionAttachment.last_completed_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 117: prodvana.desired_state.model.ProtectionAttachment.last_completed_timestamp:type_name -> google.protobuf.Timestamp
 	3,   // 118: prodvana.desired_state.model.ProtectionAttachment.last_completed_status:type_name -> prodvana.desired_state.model.SimpleStatus
 	27,  // 119: prodvana.desired_state.model.ProtectionAttachment.last_completed_status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	26,  // 120: prodvana.desired_state.model.DeliveryExtensionState.meta:type_name -> prodvana.desired_state.model.Metadata
 	29,  // 121: prodvana.desired_state.model.DeliveryExtensionState.versions:type_name -> prodvana.desired_state.model.Version
-	80,  // 122: prodvana.desired_state.model.DeliveryExtensionState.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
-	82,  // 123: prodvana.desired_state.model.DeliveryExtensionState.last_completed_timestamp:type_name -> google.protobuf.Timestamp
+	81,  // 122: prodvana.desired_state.model.DeliveryExtensionState.lifecycle:type_name -> prodvana.common_config.TaskLifecycle
+	83,  // 123: prodvana.desired_state.model.DeliveryExtensionState.last_completed_timestamp:type_name -> google.protobuf.Timestamp
 	3,   // 124: prodvana.desired_state.model.DeliveryExtensionState.last_completed_status:type_name -> prodvana.desired_state.model.SimpleStatus
 	27,  // 125: prodvana.desired_state.model.DeliveryExtensionState.last_completed_status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	24,  // 126: prodvana.desired_state.model.DeliveryExtensionState.references:type_name -> prodvana.desired_state.model.Identifier
@@ -8057,22 +8158,22 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	75,  // 128: prodvana.desired_state.model.Signal.delivery_promotion:type_name -> prodvana.desired_state.model.Signal.DeliveryPromotionConfig
 	76,  // 129: prodvana.desired_state.model.Signal.protection_bypass:type_name -> prodvana.desired_state.model.Signal.ProtectionBypass
 	77,  // 130: prodvana.desired_state.model.Signal.runtime_extension_approval:type_name -> prodvana.desired_state.model.Signal.RuntimeExtensionApproval
-	82,  // 131: prodvana.desired_state.model.DebugLog.ts:type_name -> google.protobuf.Timestamp
+	83,  // 131: prodvana.desired_state.model.DebugLog.ts:type_name -> google.protobuf.Timestamp
 	38,  // 132: prodvana.desired_state.model.RuntimeExtensionMetadata.output:type_name -> prodvana.desired_state.model.RuntimeExtensionFetchOutput
 	59,  // 133: prodvana.desired_state.model.ManualApprovalConfig.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
 	9,   // 134: prodvana.desired_state.model.MissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
 	59,  // 135: prodvana.desired_state.model.MissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
 	24,  // 136: prodvana.desired_state.model.ConcurrencyLimitExceeded.entity_id:type_name -> prodvana.desired_state.model.Identifier
-	24,  // 137: prodvana.desired_state.model.ConcurrencyLimitExceeded.blocking_ids:type_name -> prodvana.desired_state.model.Identifier
-	78,  // 138: prodvana.desired_state.model.ApplyConditionUnsatisfied.missing_approval:type_name -> prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval
+	78,  // 137: prodvana.desired_state.model.ConcurrencyLimitExceeded.blockers:type_name -> prodvana.desired_state.model.ConcurrencyLimitExceeded.Blocker
+	79,  // 138: prodvana.desired_state.model.ApplyConditionUnsatisfied.missing_approval:type_name -> prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval
 	62,  // 139: prodvana.desired_state.model.ApplyConditionUnsatisfied.concurrency_limit_exceeded:type_name -> prodvana.desired_state.model.ConcurrencyLimitExceeded
-	83,  // 140: prodvana.desired_state.model.FetchTaskStartDetails.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
+	84,  // 140: prodvana.desired_state.model.FetchTaskStartDetails.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
 	3,   // 141: prodvana.desired_state.model.TaskRun.status:type_name -> prodvana.desired_state.model.SimpleStatus
 	27,  // 142: prodvana.desired_state.model.TaskRun.status_explanations:type_name -> prodvana.desired_state.model.StatusExplanation
 	29,  // 143: prodvana.desired_state.model.TaskRun.seen_versions:type_name -> prodvana.desired_state.model.Version
-	82,  // 144: prodvana.desired_state.model.TaskRun.created_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 145: prodvana.desired_state.model.TaskRun.started_timestamp:type_name -> google.protobuf.Timestamp
-	82,  // 146: prodvana.desired_state.model.TaskRun.completed_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 144: prodvana.desired_state.model.TaskRun.created_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 145: prodvana.desired_state.model.TaskRun.started_timestamp:type_name -> google.protobuf.Timestamp
+	83,  // 146: prodvana.desired_state.model.TaskRun.completed_timestamp:type_name -> google.protobuf.Timestamp
 	24,  // 147: prodvana.desired_state.model.TaskRun.task_entities:type_name -> prodvana.desired_state.model.Identifier
 	19,  // 148: prodvana.desired_state.model.TaskRun.phase:type_name -> prodvana.desired_state.model.TaskRun.Phase
 	37,  // 149: prodvana.desired_state.model.TaskRun.fetch_details:type_name -> prodvana.desired_state.model.FetchDetails
@@ -8082,30 +8183,32 @@ var file_prodvana_desired_state_model_desired_state_proto_depIdxs = []int32{
 	66,  // 153: prodvana.desired_state.model.TaskEntityContext.last_run:type_name -> prodvana.desired_state.model.TaskRun
 	72,  // 154: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.protection:type_name -> prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection
 	1,   // 155: prodvana.desired_state.model.Condition.CustomTaskSuccessfulCondition.Protection.task_type:type_name -> prodvana.desired_state.model.CustomTaskType
-	89,  // 156: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply:type_name -> prodvana.environment.CompiledExtensionCommand
-	89,  // 157: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch:type_name -> prodvana.environment.CompiledExtensionCommand
-	89,  // 158: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info:type_name -> prodvana.environment.CompiledExtensionCommand
-	81,  // 159: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_interval:type_name -> google.protobuf.Duration
-	81,  // 160: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_steady_state_interval:type_name -> google.protobuf.Duration
-	81,  // 161: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info_interval:type_name -> google.protobuf.Duration
-	90,  // 162: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameters:type_name -> prodvana.common_config.ParameterDefinition
-	91,  // 163: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameter_values:type_name -> prodvana.common_config.ParameterValue
-	92,  // 164: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.type:type_name -> prodvana.environment.ExtensionType
+	90,  // 156: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply:type_name -> prodvana.environment.CompiledExtensionCommand
+	90,  // 157: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch:type_name -> prodvana.environment.CompiledExtensionCommand
+	90,  // 158: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info:type_name -> prodvana.environment.CompiledExtensionCommand
+	82,  // 159: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_interval:type_name -> google.protobuf.Duration
+	82,  // 160: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_steady_state_interval:type_name -> google.protobuf.Duration
+	82,  // 161: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info_interval:type_name -> google.protobuf.Duration
+	91,  // 162: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameters:type_name -> prodvana.common_config.ParameterDefinition
+	92,  // 163: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.parameter_values:type_name -> prodvana.common_config.ParameterValue
+	93,  // 164: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.type:type_name -> prodvana.environment.ExtensionType
 	38,  // 165: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_output:type_name -> prodvana.desired_state.model.RuntimeExtensionFetchOutput
 	41,  // 166: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info_output:type_name -> prodvana.desired_state.model.RuntimeExtensionGetInfoOutput
 	43,  // 167: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_output:type_name -> prodvana.desired_state.model.RuntimeExtensionApplyOutput
-	93,  // 168: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_retry_policy:type_name -> prodvana.environment.RetryPolicy
-	93,  // 169: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_retry_policy:type_name -> prodvana.environment.RetryPolicy
-	93,  // 170: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info_retry_policy:type_name -> prodvana.environment.RetryPolicy
-	83,  // 171: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
-	82,  // 172: prodvana.desired_state.model.Signal.RuntimeExtensionApproval.timestamp:type_name -> google.protobuf.Timestamp
-	9,   // 173: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
-	59,  // 174: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
-	175, // [175:175] is the sub-list for method output_type
-	175, // [175:175] is the sub-list for method input_type
-	175, // [175:175] is the sub-list for extension type_name
-	175, // [175:175] is the sub-list for extension extendee
-	0,   // [0:175] is the sub-list for field type_name
+	94,  // 168: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_retry_policy:type_name -> prodvana.environment.RetryPolicy
+	94,  // 169: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.apply_retry_policy:type_name -> prodvana.environment.RetryPolicy
+	94,  // 170: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.get_info_retry_policy:type_name -> prodvana.environment.RetryPolicy
+	84,  // 171: prodvana.desired_state.model.RuntimeObject.RuntimeExtension.fetch_mode:type_name -> prodvana.runtimes.extensions.FetchMode
+	83,  // 172: prodvana.desired_state.model.Signal.RuntimeExtensionApproval.timestamp:type_name -> google.protobuf.Timestamp
+	24,  // 173: prodvana.desired_state.model.ConcurrencyLimitExceeded.Blocker.entity_id:type_name -> prodvana.desired_state.model.Identifier
+	83,  // 174: prodvana.desired_state.model.ConcurrencyLimitExceeded.Blocker.held_since_timestamp:type_name -> google.protobuf.Timestamp
+	9,   // 175: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval.signal_type:type_name -> prodvana.desired_state.model.SignalType
+	59,  // 176: prodvana.desired_state.model.ApplyConditionUnsatisfied.InternalMissingApproval.runtime_extension:type_name -> prodvana.desired_state.model.RuntimeExtensionMetadata
+	177, // [177:177] is the sub-list for method output_type
+	177, // [177:177] is the sub-list for method input_type
+	177, // [177:177] is the sub-list for extension type_name
+	177, // [177:177] is the sub-list for extension extendee
+	0,   // [0:177] is the sub-list for field type_name
 }
 
 func init() { file_prodvana_desired_state_model_desired_state_proto_init() }
@@ -8811,6 +8914,18 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			}
 		}
 		file_prodvana_desired_state_model_desired_state_proto_msgTypes[58].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ConcurrencyLimitExceeded_Blocker); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_prodvana_desired_state_model_desired_state_proto_msgTypes[59].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ApplyConditionUnsatisfied_InternalMissingApproval); i {
 			case 0:
 				return &v.state
@@ -8870,7 +8985,7 @@ func file_prodvana_desired_state_model_desired_state_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_prodvana_desired_state_model_desired_state_proto_rawDesc,
 			NumEnums:      20,
-			NumMessages:   59,
+			NumMessages:   60,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

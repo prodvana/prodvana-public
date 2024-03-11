@@ -2147,8 +2147,36 @@ global___MissingApproval = MissingApproval
 class ConcurrencyLimitExceeded(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class Blocker(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        ENTITY_ID_FIELD_NUMBER: builtins.int
+        DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+        ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+        RELEASE_ID_FIELD_NUMBER: builtins.int
+        HELD_SINCE_TIMESTAMP_FIELD_NUMBER: builtins.int
+        @property
+        def entity_id(self) -> global___Identifier: ...
+        desired_state_id: builtins.str
+        root_desired_state_id: builtins.str
+        release_id: builtins.str
+        @property
+        def held_since_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+            """time since this blocker has held on to its lease. This is *not* the time since this entity has been blocked."""
+        def __init__(
+            self,
+            *,
+            entity_id: global___Identifier | None = ...,
+            desired_state_id: builtins.str = ...,
+            root_desired_state_id: builtins.str = ...,
+            release_id: builtins.str = ...,
+            held_since_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id", "held_since_timestamp", b"held_since_timestamp"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "held_since_timestamp", b"held_since_timestamp", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id"]) -> None: ...
+
     ENTITY_ID_FIELD_NUMBER: builtins.int
-    BLOCKING_IDS_FIELD_NUMBER: builtins.int
+    BLOCKERS_FIELD_NUMBER: builtins.int
     LIMIT_DESCRIPTION_FIELD_NUMBER: builtins.int
     @property
     def entity_id(self) -> global___Identifier:
@@ -2156,18 +2184,18 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
         entity being blocked
         """
     @property
-    def blocking_ids(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]:
+    def blockers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded.Blocker]:
         """list of entities that are blocking this entity"""
     limit_description: builtins.str
     def __init__(
         self,
         *,
         entity_id: global___Identifier | None = ...,
-        blocking_ids: collections.abc.Iterable[global___Identifier] | None = ...,
+        blockers: collections.abc.Iterable[global___ConcurrencyLimitExceeded.Blocker] | None = ...,
         limit_description: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blocking_ids", b"blocking_ids", "entity_id", b"entity_id", "limit_description", b"limit_description"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blockers", b"blockers", "entity_id", b"entity_id", "limit_description", b"limit_description"]) -> None: ...
 
 global___ConcurrencyLimitExceeded = ConcurrencyLimitExceeded
 

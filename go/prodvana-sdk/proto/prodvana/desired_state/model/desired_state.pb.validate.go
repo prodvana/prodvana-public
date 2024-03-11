@@ -8311,7 +8311,7 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 		}
 	}
 
-	for idx, item := range m.GetBlockingIds() {
+	for idx, item := range m.GetBlockers() {
 		_, _ = idx, item
 
 		if all {
@@ -8319,7 +8319,7 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ConcurrencyLimitExceededValidationError{
-						field:  fmt.Sprintf("BlockingIds[%v]", idx),
+						field:  fmt.Sprintf("Blockers[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -8327,7 +8327,7 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ConcurrencyLimitExceededValidationError{
-						field:  fmt.Sprintf("BlockingIds[%v]", idx),
+						field:  fmt.Sprintf("Blockers[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -8336,7 +8336,7 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ConcurrencyLimitExceededValidationError{
-					field:  fmt.Sprintf("BlockingIds[%v]", idx),
+					field:  fmt.Sprintf("Blockers[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -10958,6 +10958,175 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Signal_RuntimeExtensionApprovalValidationError{}
+
+// Validate checks the field values on ConcurrencyLimitExceeded_Blocker with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ConcurrencyLimitExceeded_Blocker) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConcurrencyLimitExceeded_Blocker with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ConcurrencyLimitExceeded_BlockerMultiError, or nil if none found.
+func (m *ConcurrencyLimitExceeded_Blocker) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConcurrencyLimitExceeded_Blocker) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceeded_BlockerValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceeded_BlockerValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ConcurrencyLimitExceeded_BlockerValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for DesiredStateId
+
+	// no validation rules for RootDesiredStateId
+
+	// no validation rules for ReleaseId
+
+	if all {
+		switch v := interface{}(m.GetHeldSinceTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceeded_BlockerValidationError{
+					field:  "HeldSinceTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ConcurrencyLimitExceeded_BlockerValidationError{
+					field:  "HeldSinceTimestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHeldSinceTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ConcurrencyLimitExceeded_BlockerValidationError{
+				field:  "HeldSinceTimestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ConcurrencyLimitExceeded_BlockerMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConcurrencyLimitExceeded_BlockerMultiError is an error wrapping multiple
+// validation errors returned by
+// ConcurrencyLimitExceeded_Blocker.ValidateAll() if the designated
+// constraints aren't met.
+type ConcurrencyLimitExceeded_BlockerMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConcurrencyLimitExceeded_BlockerMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConcurrencyLimitExceeded_BlockerMultiError) AllErrors() []error { return m }
+
+// ConcurrencyLimitExceeded_BlockerValidationError is the validation error
+// returned by ConcurrencyLimitExceeded_Blocker.Validate if the designated
+// constraints aren't met.
+type ConcurrencyLimitExceeded_BlockerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConcurrencyLimitExceeded_BlockerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConcurrencyLimitExceeded_BlockerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConcurrencyLimitExceeded_BlockerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConcurrencyLimitExceeded_BlockerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConcurrencyLimitExceeded_BlockerValidationError) ErrorName() string {
+	return "ConcurrencyLimitExceeded_BlockerValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ConcurrencyLimitExceeded_BlockerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConcurrencyLimitExceeded_Blocker.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConcurrencyLimitExceeded_BlockerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConcurrencyLimitExceeded_BlockerValidationError{}
 
 // Validate checks the field values on
 // ApplyConditionUnsatisfied_InternalMissingApproval with the rules defined in

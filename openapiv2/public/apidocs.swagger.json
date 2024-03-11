@@ -7115,6 +7115,28 @@
         }
       }
     },
+    "ConcurrencyLimitExceededBlocker": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "rootDesiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
+          "type": "string"
+        },
+        "heldSinceTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "time since this blocker has held on to its lease. This is *not* the time since this entity has been blocked."
+        }
+      }
+    },
     "ConditionCustomTaskSuccessfulCondition": {
       "type": "object",
       "properties": {
@@ -12784,11 +12806,11 @@
           "description": "entity being blocked",
           "title": "apply cannot run due to a concurrency limit"
         },
-        "blockingIds": {
+        "blockers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/modelIdentifier"
+            "$ref": "#/definitions/ConcurrencyLimitExceededBlocker"
           },
           "title": "list of entities that are blocking this entity"
         },
