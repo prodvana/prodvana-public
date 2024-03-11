@@ -208,63 +208,7 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 
 	var errors []error
 
-	{
-		sorted_keys := make([]string, len(m.GetMap()))
-		i := 0
-		for key := range m.GetMap() {
-			sorted_keys[i] = key
-			i++
-		}
-		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
-		for _, key := range sorted_keys {
-			val := m.GetMap()[key]
-			_ = val
-
-			if val == nil {
-				err := HelmValuesOverridesValidationError{
-					field:  fmt.Sprintf("Map[%v]", key),
-					reason: "value cannot be sparse, all pairs must be non-nil",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-			// no validation rules for Map[key]
-
-			if all {
-				switch v := interface{}(val).(type) {
-				case interface{ ValidateAll() error }:
-					if err := v.ValidateAll(); err != nil {
-						errors = append(errors, HelmValuesOverridesValidationError{
-							field:  fmt.Sprintf("Map[%v]", key),
-							reason: "embedded message failed validation",
-							cause:  err,
-						})
-					}
-				case interface{ Validate() error }:
-					if err := v.Validate(); err != nil {
-						errors = append(errors, HelmValuesOverridesValidationError{
-							field:  fmt.Sprintf("Map[%v]", key),
-							reason: "embedded message failed validation",
-							cause:  err,
-						})
-					}
-				}
-			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-				if err := v.Validate(); err != nil {
-					return HelmValuesOverridesValidationError{
-						field:  fmt.Sprintf("Map[%v]", key),
-						reason: "embedded message failed validation",
-						cause:  err,
-					}
-				}
-			}
-
-		}
-	}
-
+	oneofOverrideOneofPresent := false
 	switch v := m.OverrideOneof.(type) {
 	case *HelmValuesOverrides_Inlined:
 		if v == nil {
@@ -277,6 +221,7 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
+		oneofOverrideOneofPresent = true
 
 		if utf8.RuneCountInString(m.GetInlined()) < 1 {
 			err := HelmValuesOverridesValidationError{
@@ -300,6 +245,7 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
+		oneofOverrideOneofPresent = true
 
 		if all {
 			switch v := interface{}(m.GetLocal()).(type) {
@@ -341,6 +287,7 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
+		oneofOverrideOneofPresent = true
 
 		if all {
 			switch v := interface{}(m.GetRemote()).(type) {
@@ -373,6 +320,16 @@ func (m *HelmValuesOverrides) validate(all bool) error {
 
 	default:
 		_ = v // ensures v is used
+	}
+	if !oneofOverrideOneofPresent {
+		err := HelmValuesOverridesValidationError{
+			field:  "OverrideOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

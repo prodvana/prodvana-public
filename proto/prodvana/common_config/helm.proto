@@ -2,7 +2,6 @@ syntax = "proto3";
 package prodvana.common_config;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
 import "validate/validate.proto";
-import "prodvana/common_config/env.proto";
 import "prodvana/common_config/kubernetes_config.proto";
 
 message RemoteHelmChart {
@@ -17,14 +16,13 @@ message RemoteHelmChart {
 
 message HelmValuesOverrides {
     oneof override_oneof {
+        option (validate.required) = true;
         string inlined = 1 [(validate.rules).string.min_len = 1];
         LocalConfig local = 2;
         RemoteConfig remote = 4;
     }
-    // treat this as part of the above oneof, even though proto does not allow us to
-    map<string, EnvValue> map = 3 [(validate.rules).map = {
-        no_sparse: true,
-    }];
+    reserved 3;
+    reserved "map";
     // next tag: 5
 }
 

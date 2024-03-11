@@ -1130,27 +1130,6 @@
                         },
                         {}
                     ]
-                },
-                "map": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/prodvana.common_config.EnvValue",
-                        "additionalProperties": false,
-                        "oneOf": [
-                            {
-                                "type": "null"
-                            },
-                            {}
-                        ]
-                    },
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "object"
-                        }
-                    ],
-                    "description": "treat this as part of the above oneof, even though proto does not allow us to  next tag: 5"
                 }
             },
             "additionalProperties": false,
