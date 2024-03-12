@@ -57,6 +57,7 @@ message Entity {
     Identifier id = 1;
     string desired_state_id = 2;
     string root_desired_state_id = 3;
+    string release_id = 24;
     Annotations annotations = 4;
     Status status = 5;
     SimpleStatus simple_status = 17;
@@ -81,7 +82,7 @@ message Entity {
 
     Notifications notifications = 22;
 
-    // next tag: 24
+    // next tag: 25
 }
 
 message EntityGraph {

@@ -872,6 +872,8 @@ class SetManualApprovalReq(google.protobuf.message.Message):
     TOPIC_FIELD_NUMBER: builtins.int
     REJECT_FIELD_NUMBER: builtins.int
     SIGNAL_TYPE_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     topic: builtins.str
     """string application = 2 [(prodvana.proto.validate.rules).string.min_len = 1];
@@ -880,6 +882,9 @@ class SetManualApprovalReq(google.protobuf.message.Message):
     """
     reject: builtins.bool
     signal_type: builtins.str
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
@@ -887,8 +892,11 @@ class SetManualApprovalReq(google.protobuf.message.Message):
         topic: builtins.str = ...,
         reject: builtins.bool = ...,
         signal_type: builtins.str = ...,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "reject", b"reject", "signal_type", b"signal_type", "topic", b"topic"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "reject", b"reject", "signal_type", b"signal_type", "source", b"source", "source_metadata", b"source_metadata", "topic", b"topic"]) -> None: ...
 
 global___SetManualApprovalReq = SetManualApprovalReq
 
@@ -909,11 +917,16 @@ class PromoteDeliveryReq(google.protobuf.message.Message):
     FULL_FIELD_NUMBER: builtins.int
     REJECT_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
+    CALL_SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     stage: builtins.int
     full: builtins.bool
     reject: builtins.bool
     source: builtins.str
+    call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
@@ -922,8 +935,11 @@ class PromoteDeliveryReq(google.protobuf.message.Message):
         full: builtins.bool = ...,
         reject: builtins.bool = ...,
         source: builtins.str = ...,
+        call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "full", b"full", "reject", b"reject", "source", b"source", "stage", b"stage"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_source", b"call_source", "desired_state_id", b"desired_state_id", "full", b"full", "reject", b"reject", "source", b"source", "source_metadata", b"source_metadata", "stage", b"stage"]) -> None: ...
 
 global___PromoteDeliveryReq = PromoteDeliveryReq
 
@@ -941,15 +957,23 @@ class BypassProtectionReq(google.protobuf.message.Message):
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     SOURCE_FIELD_NUMBER: builtins.int
+    CALL_SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     source: builtins.str
+    call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
         source: builtins.str = ...,
+        call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "source", b"source"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_source", b"call_source", "desired_state_id", b"desired_state_id", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___BypassProtectionReq = BypassProtectionReq
 

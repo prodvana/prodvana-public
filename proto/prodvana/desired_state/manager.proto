@@ -256,8 +256,12 @@ message SetManualApprovalReq {
     string topic = 2 [(validate.rules).string.min_len =1];
     bool reject = 3;
     string signal_type = 5;
+    prodvana.version.Source source = 6;
+    prodvana.version.SourceMetadata source_metadata = 7;
 
     reserved 4;
+
+    // next tag: 8
 }
 
 message SetManualApprovalResp {
@@ -270,7 +274,10 @@ message PromoteDeliveryReq {
     bool reject = 5;
     string source = 4 [(validate.rules).string.min_len = 1];
 
-    // next tag: 6
+    prodvana.version.Source call_source = 6;
+    prodvana.version.SourceMetadata source_metadata = 7;
+
+    // next tag: 8
 }
 
 message PromoteDeliveryResp {
@@ -279,6 +286,8 @@ message PromoteDeliveryResp {
 message BypassProtectionReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
     string source = 2 [(validate.rules).string.min_len = 1];
+    prodvana.version.Source call_source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
 }
 
 message BypassProtectionResp {

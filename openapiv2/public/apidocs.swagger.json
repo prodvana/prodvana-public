@@ -9677,6 +9677,12 @@
         },
         "source": {
           "type": "string"
+        },
+        "callSource": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
@@ -10083,6 +10089,12 @@
         },
         "source": {
           "type": "string"
+        },
+        "callSource": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
@@ -10147,6 +10159,12 @@
         },
         "signalType": {
           "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },
@@ -13111,6 +13129,9 @@
           "type": "string"
         },
         "rootDesiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
           "type": "string"
         },
         "annotations": {

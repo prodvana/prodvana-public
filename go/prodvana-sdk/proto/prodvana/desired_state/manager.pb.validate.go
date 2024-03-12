@@ -4626,6 +4626,37 @@ func (m *SetManualApprovalReq) validate(all bool) error {
 
 	// no validation rules for SignalType
 
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SetManualApprovalReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SetManualApprovalReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SetManualApprovalReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return SetManualApprovalReqMultiError(errors)
 	}
@@ -4858,6 +4889,37 @@ func (m *PromoteDeliveryReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CallSource
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PromoteDeliveryReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PromoteDeliveryReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PromoteDeliveryReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return PromoteDeliveryReqMultiError(errors)
 	}
@@ -5082,6 +5144,37 @@ func (m *BypassProtectionReq) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	// no validation rules for CallSource
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BypassProtectionReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BypassProtectionReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BypassProtectionReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {

@@ -387,6 +387,8 @@ func (m *Entity) validate(all bool) error {
 
 	// no validation rules for RootDesiredStateId
 
+	// no validation rules for ReleaseId
+
 	if all {
 		switch v := interface{}(m.GetAnnotations()).(type) {
 		case interface{ ValidateAll() error }:
