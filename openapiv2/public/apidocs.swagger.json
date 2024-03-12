@@ -2946,7 +2946,7 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "$ref": "#/definitions/deploymentDeploymentStatus"
+                  "$ref": "#/definitions/modelDeploymentStatus"
                 }
               }
             }
@@ -5824,7 +5824,7 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "$ref": "#/definitions/deploymentDeploymentStatus"
+                  "$ref": "#/definitions/modelDeploymentStatus"
                 }
               }
             }
@@ -9516,22 +9516,6 @@
         }
       }
     },
-    "deploymentCommitAnalysis": {
-      "type": "object",
-      "properties": {
-        "commitsAdded": {
-          "type": "string",
-          "format": "int64"
-        },
-        "commitsRemoved": {
-          "type": "string",
-          "format": "int64"
-        },
-        "impactAnalysis": {
-          "$ref": "#/definitions/deploymentImpactAnalysisComparison"
-        }
-      }
-    },
     "deploymentCompareDeploymentReq": {
       "type": "object",
       "properties": {
@@ -9547,106 +9531,7 @@
       "type": "object",
       "properties": {
         "comparison": {
-          "$ref": "#/definitions/deploymentDeploymentComparison"
-        }
-      }
-    },
-    "deploymentDeploymentComparison": {
-      "type": "object",
-      "properties": {
-        "prev": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "prevRepository": {
-          "type": "string"
-        },
-        "newRepository": {
-          "type": "string"
-        },
-        "prevCommitId": {
-          "type": "string"
-        },
-        "newCommitId": {
-          "type": "string"
-        },
-        "commitAnalysis": {
-          "$ref": "#/definitions/deploymentCommitAnalysis",
-          "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
-        },
-        "prevServiceId": {
-          "type": "string",
-          "title": "only set for Prodvana managed deployments"
-        },
-        "prevReleaseChannelId": {
-          "type": "string"
-        },
-        "prevServiceVersion": {
-          "type": "string"
-        },
-        "newServiceId": {
-          "type": "string"
-        },
-        "newReleaseChannelId": {
-          "type": "string"
-        },
-        "newServiceVersion": {
-          "type": "string"
-        }
-      }
-    },
-    "deploymentDeploymentConfig": {
-      "type": "object",
-      "properties": {
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "title": "must be unset on input"
-        },
-        "deploymentSystem": {
-          "type": "string"
-        },
-        "service": {
-          "type": "string",
-          "title": "required when recording deployments from external systems"
-        },
-        "releaseChannel": {
-          "type": "string",
-          "title": "required when recording deployments from external systems"
-        },
-        "application": {
-          "type": "string",
-          "title": "required when recording deployments from external systems"
-        },
-        "repository": {
-          "type": "string",
-          "title": "e.g. github.com/foo/bar"
-        },
-        "commitId": {
-          "type": "string",
-          "title": "commit hash"
-        },
-        "user": {
-          "type": "string",
-          "title": "if known"
-        },
-        "applicationId": {
-          "type": "string"
-        },
-        "serviceId": {
-          "type": "string"
-        },
-        "releaseChannelId": {
-          "type": "string"
-        },
-        "serviceVersion": {
-          "type": "string"
-        },
-        "desiredStateId": {
-          "type": "string"
-        },
-        "releaseId": {
-          "type": "string",
-          "title": "next tag: 15"
+          "$ref": "#/definitions/modelDeploymentComparison"
         }
       }
     },
@@ -9687,7 +9572,7 @@
           "type": "string"
         },
         "config": {
-          "$ref": "#/definitions/deploymentDeploymentConfig"
+          "$ref": "#/definitions/modelDeploymentConfig"
         },
         "serviceInstanceConfig": {
           "$ref": "#/definitions/DeploymentRefServiceInstanceConfig"
@@ -9708,29 +9593,6 @@
         }
       }
     },
-    "deploymentDeploymentState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/deploymentDeploymentStatus"
-        },
-        "lastUpdateTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "deploymentDeploymentStatus": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN_STATUS",
-        "PENDING",
-        "SUCCEEDED",
-        "FAILED",
-        "PREVIEW"
-      ],
-      "default": "UNKNOWN_STATUS"
-    },
     "deploymentGetLatestDeploymentsResp": {
       "type": "object",
       "properties": {
@@ -9738,35 +9600,11 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanadeploymentDeployment"
+            "$ref": "#/definitions/deploymentmodelDeployment"
           }
         },
         "nextPageToken": {
           "type": "string"
-        }
-      }
-    },
-    "deploymentImpactAnalysisComparison": {
-      "type": "object",
-      "properties": {
-        "relevantAddedCommits": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/repoCommit"
-          },
-          "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
-        },
-        "relevantRemovedCommits": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/repoCommit"
-          }
-        },
-        "unanalyzedCommits": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
@@ -9777,7 +9615,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanadeploymentDeployment"
+            "$ref": "#/definitions/deploymentmodelDeployment"
           }
         },
         "nextPageToken": {
@@ -9789,7 +9627,7 @@
       "type": "object",
       "properties": {
         "config": {
-          "$ref": "#/definitions/deploymentDeploymentConfig"
+          "$ref": "#/definitions/modelDeploymentConfig"
         },
         "prevDeployment": {
           "$ref": "#/definitions/deploymentDeploymentRef",
@@ -9801,7 +9639,7 @@
       "type": "object",
       "properties": {
         "deployment": {
-          "$ref": "#/definitions/prodvanadeploymentDeployment"
+          "$ref": "#/definitions/deploymentmodelDeployment"
         }
       }
     },
@@ -9809,7 +9647,25 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/deploymentDeploymentStatus"
+          "$ref": "#/definitions/modelDeploymentStatus"
+        }
+      }
+    },
+    "deploymentmodelDeployment": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/modelDeploymentConfig"
+        },
+        "comparison": {
+          "$ref": "#/definitions/modelDeploymentComparison",
+          "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
+        },
+        "state": {
+          "$ref": "#/definitions/modelDeploymentState"
         }
       }
     },
@@ -11543,6 +11399,25 @@
         }
       }
     },
+    "eventsDeploymentCreatedEvent": {
+      "type": "object",
+      "properties": {
+        "deployment": {
+          "$ref": "#/definitions/deploymentmodelDeployment"
+        }
+      }
+    },
+    "eventsDeploymentUpdatedEvent": {
+      "type": "object",
+      "properties": {
+        "deployment": {
+          "$ref": "#/definitions/deploymentmodelDeployment"
+        },
+        "oldStatus": {
+          "$ref": "#/definitions/modelDeploymentStatus"
+        }
+      }
+    },
     "eventsDesiredStateStatusChangeEvent": {
       "type": "object",
       "properties": {
@@ -11665,6 +11540,12 @@
         },
         "auditLogDebug": {
           "$ref": "#/definitions/eventsAuditLogDebugEvent"
+        },
+        "deploymentCreated": {
+          "$ref": "#/definitions/eventsDeploymentCreatedEvent"
+        },
+        "deploymentUpdated": {
+          "$ref": "#/definitions/eventsDeploymentUpdatedEvent"
         }
       }
     },
@@ -11689,7 +11570,9 @@
         "OBJECT_DELETED",
         "OBJECT_MODIFIED",
         "KUBECTL_CMD",
-        "AUDIT_LOG_DEBUG"
+        "AUDIT_LOG_DEBUG",
+        "DEPLOYMENT_CREATED",
+        "DEPLOYMENT_UPDATED"
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available.\n - AUDIT_LOG_DEBUG: a generic event type for submitting an audit log only event\nwithout creating an explicit event type for it.\nThis should only be used for short lived logs. If the log will\nbe around for a long time, it should be elevated to a proper event type."
@@ -12771,6 +12654,22 @@
       ],
       "default": "UNKNOWN"
     },
+    "modelCommitAnalysis": {
+      "type": "object",
+      "properties": {
+        "commitsAdded": {
+          "type": "string",
+          "format": "int64"
+        },
+        "commitsRemoved": {
+          "type": "string",
+          "format": "int64"
+        },
+        "impactAnalysis": {
+          "$ref": "#/definitions/modelImpactAnalysisComparison"
+        }
+      }
+    },
     "modelConcurrencyLease": {
       "type": "object",
       "properties": {
@@ -13055,6 +12954,128 @@
       ],
       "default": "STATUS_UNKNOWN"
     },
+    "modelDeploymentComparison": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "prevRepository": {
+          "type": "string"
+        },
+        "newRepository": {
+          "type": "string"
+        },
+        "prevCommitId": {
+          "type": "string"
+        },
+        "newCommitId": {
+          "type": "string"
+        },
+        "commitAnalysis": {
+          "$ref": "#/definitions/modelCommitAnalysis",
+          "title": "only set if the previous commit is set and is from the same repo, and the repo is linked to prodvana"
+        },
+        "prevServiceId": {
+          "type": "string",
+          "title": "only set for Prodvana managed deployments"
+        },
+        "prevReleaseChannelId": {
+          "type": "string"
+        },
+        "prevServiceVersion": {
+          "type": "string"
+        },
+        "newServiceId": {
+          "type": "string"
+        },
+        "newReleaseChannelId": {
+          "type": "string"
+        },
+        "newServiceVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "modelDeploymentConfig": {
+      "type": "object",
+      "properties": {
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "must be unset on input"
+        },
+        "deploymentSystem": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "releaseChannel": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "application": {
+          "type": "string",
+          "title": "required when recording deployments from external systems"
+        },
+        "repository": {
+          "type": "string",
+          "title": "e.g. github.com/foo/bar"
+        },
+        "commitId": {
+          "type": "string",
+          "title": "commit hash"
+        },
+        "user": {
+          "type": "string",
+          "title": "if known"
+        },
+        "applicationId": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string"
+        },
+        "serviceVersion": {
+          "type": "string"
+        },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
+          "type": "string",
+          "title": "next tag: 15"
+        }
+      }
+    },
+    "modelDeploymentState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelDeploymentStatus"
+        },
+        "lastUpdateTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "modelDeploymentStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STATUS",
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED",
+        "PREVIEW"
+      ],
+      "default": "UNKNOWN_STATUS"
+    },
     "modelEntity": {
       "type": "object",
       "properties": {
@@ -13232,6 +13253,30 @@
         "name": {
           "type": "string",
           "title": "globally unique identifier"
+        }
+      }
+    },
+    "modelImpactAnalysisComparison": {
+      "type": "object",
+      "properties": {
+        "relevantAddedCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          },
+          "title": "commits likely to be impactful, prev_commit_id and new_commit_id have a merge base"
+        },
+        "relevantRemovedCommits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/repoCommit"
+          }
+        },
+        "unanalyzedCommits": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -14324,29 +14369,11 @@
       "type": "object",
       "title": "TODO(naphat) list custom task instances?"
     },
-    "prodvanadeploymentDeployment": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "config": {
-          "$ref": "#/definitions/deploymentDeploymentConfig"
-        },
-        "comparison": {
-          "$ref": "#/definitions/deploymentDeploymentComparison",
-          "title": "TODO(naphat) should this really be part of the proto here, or should it be a separate endpoint so we can request arbitrary comparison?"
-        },
-        "state": {
-          "$ref": "#/definitions/deploymentDeploymentState"
-        }
-      }
-    },
     "prodvanadeploymentRecordDeploymentReq": {
       "type": "object",
       "properties": {
         "config": {
-          "$ref": "#/definitions/deploymentDeploymentConfig"
+          "$ref": "#/definitions/modelDeploymentConfig"
         },
         "pending": {
           "type": "boolean",

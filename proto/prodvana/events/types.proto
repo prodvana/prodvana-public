@@ -3,6 +3,7 @@ package prodvana.events;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/events";
 
 import "prodvana/pvn_wrapper/output.proto";
+import "prodvana/deployment/model/object.proto";
 import "prodvana/desired_state/model/desired_state.proto";
 import "google/protobuf/any.proto";
 
@@ -40,6 +41,9 @@ enum EventType {
     // This should only be used for short lived logs. If the log will
     // be around for a long time, it should be elevated to a proper event type.
     AUDIT_LOG_DEBUG = 19;
+
+    DEPLOYMENT_CREATED = 20;
+    DEPLOYMENT_UPDATED = 21;
 
     reserved 5;
 }
@@ -276,6 +280,15 @@ message ObjectModifiedEvent {
     }
 }
 
+message DeploymentCreatedEvent {
+    prodvana.deployment.model.Deployment deployment = 1;
+}
+
+message DeploymentUpdatedEvent {
+    prodvana.deployment.model.Deployment deployment = 1;
+    prodvana.deployment.model.DeploymentStatus old_status = 2;
+}
+
 message KubectlCmdEvent {
     string runtime = 1;
     repeated string args = 2;
@@ -306,6 +319,8 @@ message EventDetails {
         ObjectModifiedEvent object_modified = 17;
         KubectlCmdEvent kubectl_cmd = 18;
         AuditLogDebugEvent audit_log_debug = 19;
+        DeploymentCreatedEvent deployment_created = 20;
+        DeploymentUpdatedEvent deployment_updated = 21;
     }
     reserved 5;
 }

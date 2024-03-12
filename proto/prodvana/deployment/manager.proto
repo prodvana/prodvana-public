@@ -3,12 +3,12 @@ package prodvana.deployment;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment";
 import "google/api/annotations.proto";
 import "prodvana/object/meta.proto";
-import "prodvana/deployment/object.proto";
+import "prodvana/deployment/model/object.proto";
 import "prodvana/service/service_config.proto";
 import "validate/validate.proto";
 
 message RecordDeploymentReq {
-    DeploymentConfig config = 1 [(validate.rules).message.required = true];
+    prodvana.deployment.model.DeploymentConfig config = 1 [(validate.rules).message.required = true];
     // If true, create deployment with pending status that is meant to be updated later to either success or failure.
     // By default, deployments are created with status SUCCEEDED.
     bool pending = 2;
@@ -20,11 +20,11 @@ message RecordDeploymentResp {
 
 message UpdateDeploymentStatusReq {
     string deployment_id = 1;
-    DeploymentStatus status = 2;
+    prodvana.deployment.model.DeploymentStatus status = 2;
 }
 
 message UpdateDeploymentStatusResp {
-    DeploymentStatus status = 1;
+    prodvana.deployment.model.DeploymentStatus status = 1;
 }
 
 message DeploymentFilter {
@@ -52,7 +52,7 @@ message ListDeploymentsReq {
 }
 
 message ListDeploymentsResp {
-    repeated Deployment deployments = 1;
+    repeated prodvana.deployment.model.Deployment deployments = 1;
     string next_page_token = 2;
 }
 
@@ -64,7 +64,7 @@ message DeploymentRef {
     oneof ref {
         option (validate.required) = true;
         string deployment_id = 1;
-        DeploymentConfig config = 2;
+        prodvana.deployment.model.DeploymentConfig config = 2;
         ServiceInstanceConfig service_instance_config = 3;
     }
 }
@@ -75,16 +75,16 @@ message CompareDeploymentReq {
 }
 
 message CompareDeploymentResp {
-    DeploymentComparison comparison = 1;
+    prodvana.deployment.model.DeploymentComparison comparison = 1;
 }
 
 message PreviewDeploymentReq {
-    DeploymentConfig config = 1 [(validate.rules).message.required = true];
+    prodvana.deployment.model.DeploymentConfig config = 1 [(validate.rules).message.required = true];
     DeploymentRef prev_deployment = 2; // omit to use latest deployment from the same app/service/deployment channel
 }
 
 message PreviewDeploymentResp {
-    Deployment deployment = 1;
+    prodvana.deployment.model.Deployment deployment = 1;
 }
 
 message GetLatestDeploymentsReq {
@@ -92,13 +92,13 @@ message GetLatestDeploymentsReq {
     repeated DeploymentFilter filters = 1;
     DeploymentFilter filter = 2; // escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR.
 
-    DeploymentStatus status = 3; // if set, only return deployments with this status
+    prodvana.deployment.model.DeploymentStatus status = 3; // if set, only return deployments with this status
     string page_token = 4;
     int32 page_size = 5;
 }
 
 message GetLatestDeploymentsResp {
-    repeated Deployment deployments = 1;
+    repeated prodvana.deployment.model.Deployment deployments = 1;
     string next_page_token = 2;
 }
 

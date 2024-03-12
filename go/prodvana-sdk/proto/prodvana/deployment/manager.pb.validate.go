@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment/model"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = model.DeploymentStatus(0)
 )
 
 // Validate checks the field values on RecordDeploymentReq with the rules

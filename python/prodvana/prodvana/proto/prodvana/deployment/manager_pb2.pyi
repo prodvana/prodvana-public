@@ -8,7 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import prodvana.proto.prodvana.deployment.object_pb2
+import prodvana.proto.prodvana.deployment.model.object_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.service.service_config_pb2
 import sys
@@ -27,7 +27,7 @@ class RecordDeploymentReq(google.protobuf.message.Message):
     CONFIG_FIELD_NUMBER: builtins.int
     PENDING_FIELD_NUMBER: builtins.int
     @property
-    def config(self) -> prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig: ...
+    def config(self) -> prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig: ...
     pending: builtins.bool
     """If true, create deployment with pending status that is meant to be updated later to either success or failure.
     By default, deployments are created with status SUCCEEDED.
@@ -35,7 +35,7 @@ class RecordDeploymentReq(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        config: prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig | None = ...,
+        config: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig | None = ...,
         pending: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config"]) -> builtins.bool: ...
@@ -65,12 +65,12 @@ class UpdateDeploymentStatusReq(google.protobuf.message.Message):
     DEPLOYMENT_ID_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     deployment_id: builtins.str
-    status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType
+    status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType
     def __init__(
         self,
         *,
         deployment_id: builtins.str = ...,
-        status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType = ...,
+        status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["deployment_id", b"deployment_id", "status", b"status"]) -> None: ...
 
@@ -80,11 +80,11 @@ class UpdateDeploymentStatusResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     STATUS_FIELD_NUMBER: builtins.int
-    status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType
+    status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType
     def __init__(
         self,
         *,
-        status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType = ...,
+        status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["status", b"status"]) -> None: ...
 
@@ -167,12 +167,12 @@ class ListDeploymentsResp(google.protobuf.message.Message):
     DEPLOYMENTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
-    def deployments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.deployment.object_pb2.Deployment]: ...
+    def deployments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.deployment.model.object_pb2.Deployment]: ...
     next_page_token: builtins.str
     def __init__(
         self,
         *,
-        deployments: collections.abc.Iterable[prodvana.proto.prodvana.deployment.object_pb2.Deployment] | None = ...,
+        deployments: collections.abc.Iterable[prodvana.proto.prodvana.deployment.model.object_pb2.Deployment] | None = ...,
         next_page_token: builtins.str = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["deployments", b"deployments", "next_page_token", b"next_page_token"]) -> None: ...
@@ -201,14 +201,14 @@ class DeploymentRef(google.protobuf.message.Message):
     SERVICE_INSTANCE_CONFIG_FIELD_NUMBER: builtins.int
     deployment_id: builtins.str
     @property
-    def config(self) -> prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig: ...
+    def config(self) -> prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig: ...
     @property
     def service_instance_config(self) -> global___DeploymentRef.ServiceInstanceConfig: ...
     def __init__(
         self,
         *,
         deployment_id: builtins.str = ...,
-        config: prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig | None = ...,
+        config: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig | None = ...,
         service_instance_config: global___DeploymentRef.ServiceInstanceConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "deployment_id", b"deployment_id", "ref", b"ref", "service_instance_config", b"service_instance_config"]) -> builtins.bool: ...
@@ -242,11 +242,11 @@ class CompareDeploymentResp(google.protobuf.message.Message):
 
     COMPARISON_FIELD_NUMBER: builtins.int
     @property
-    def comparison(self) -> prodvana.proto.prodvana.deployment.object_pb2.DeploymentComparison: ...
+    def comparison(self) -> prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentComparison: ...
     def __init__(
         self,
         *,
-        comparison: prodvana.proto.prodvana.deployment.object_pb2.DeploymentComparison | None = ...,
+        comparison: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentComparison | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["comparison", b"comparison"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["comparison", b"comparison"]) -> None: ...
@@ -259,14 +259,14 @@ class PreviewDeploymentReq(google.protobuf.message.Message):
     CONFIG_FIELD_NUMBER: builtins.int
     PREV_DEPLOYMENT_FIELD_NUMBER: builtins.int
     @property
-    def config(self) -> prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig: ...
+    def config(self) -> prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig: ...
     @property
     def prev_deployment(self) -> global___DeploymentRef:
         """omit to use latest deployment from the same app/service/deployment channel"""
     def __init__(
         self,
         *,
-        config: prodvana.proto.prodvana.deployment.object_pb2.DeploymentConfig | None = ...,
+        config: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentConfig | None = ...,
         prev_deployment: global___DeploymentRef | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "prev_deployment", b"prev_deployment"]) -> builtins.bool: ...
@@ -279,11 +279,11 @@ class PreviewDeploymentResp(google.protobuf.message.Message):
 
     DEPLOYMENT_FIELD_NUMBER: builtins.int
     @property
-    def deployment(self) -> prodvana.proto.prodvana.deployment.object_pb2.Deployment: ...
+    def deployment(self) -> prodvana.proto.prodvana.deployment.model.object_pb2.Deployment: ...
     def __init__(
         self,
         *,
-        deployment: prodvana.proto.prodvana.deployment.object_pb2.Deployment | None = ...,
+        deployment: prodvana.proto.prodvana.deployment.model.object_pb2.Deployment | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deployment", b"deployment"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["deployment", b"deployment"]) -> None: ...
@@ -304,7 +304,7 @@ class GetLatestDeploymentsReq(google.protobuf.message.Message):
     @property
     def filter(self) -> global___DeploymentFilter:
         """escape hatch to support openAPI, which cannot handle repeated list of messages on GET requests. This is joined to the filters list with an OR."""
-    status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType
+    status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType
     """if set, only return deployments with this status"""
     page_token: builtins.str
     page_size: builtins.int
@@ -313,7 +313,7 @@ class GetLatestDeploymentsReq(google.protobuf.message.Message):
         *,
         filters: collections.abc.Iterable[global___DeploymentFilter] | None = ...,
         filter: global___DeploymentFilter | None = ...,
-        status: prodvana.proto.prodvana.deployment.object_pb2.DeploymentStatus.ValueType = ...,
+        status: prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType = ...,
         page_token: builtins.str = ...,
         page_size: builtins.int = ...,
     ) -> None: ...
@@ -328,12 +328,12 @@ class GetLatestDeploymentsResp(google.protobuf.message.Message):
     DEPLOYMENTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
-    def deployments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.deployment.object_pb2.Deployment]: ...
+    def deployments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.deployment.model.object_pb2.Deployment]: ...
     next_page_token: builtins.str
     def __init__(
         self,
         *,
-        deployments: collections.abc.Iterable[prodvana.proto.prodvana.deployment.object_pb2.Deployment] | None = ...,
+        deployments: collections.abc.Iterable[prodvana.proto.prodvana.deployment.model.object_pb2.Deployment] | None = ...,
         next_page_token: builtins.str = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["deployments", b"deployments", "next_page_token", b"next_page_token"]) -> None: ...

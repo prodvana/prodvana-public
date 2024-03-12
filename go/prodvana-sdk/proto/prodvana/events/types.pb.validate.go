@@ -19,6 +19,8 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 
 	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
+
+	model1 "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment/model"
 )
 
 // ensure the imports are used
@@ -37,6 +39,8 @@ var (
 	_ = sort.Sort
 
 	_ = model.Status(0)
+
+	_ = model1.DeploymentStatus(0)
 )
 
 // Validate checks the field values on SetDesiredStateEvent with the rules
@@ -4117,6 +4121,270 @@ var _ interface {
 	ErrorName() string
 } = ObjectModifiedEventValidationError{}
 
+// Validate checks the field values on DeploymentCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeploymentCreatedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeploymentCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeploymentCreatedEventMultiError, or nil if none found.
+func (m *DeploymentCreatedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeploymentCreatedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDeployment()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeploymentCreatedEventValidationError{
+					field:  "Deployment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeploymentCreatedEventValidationError{
+					field:  "Deployment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDeployment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeploymentCreatedEventValidationError{
+				field:  "Deployment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DeploymentCreatedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeploymentCreatedEventMultiError is an error wrapping multiple validation
+// errors returned by DeploymentCreatedEvent.ValidateAll() if the designated
+// constraints aren't met.
+type DeploymentCreatedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeploymentCreatedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeploymentCreatedEventMultiError) AllErrors() []error { return m }
+
+// DeploymentCreatedEventValidationError is the validation error returned by
+// DeploymentCreatedEvent.Validate if the designated constraints aren't met.
+type DeploymentCreatedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeploymentCreatedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeploymentCreatedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeploymentCreatedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeploymentCreatedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeploymentCreatedEventValidationError) ErrorName() string {
+	return "DeploymentCreatedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeploymentCreatedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeploymentCreatedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeploymentCreatedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeploymentCreatedEventValidationError{}
+
+// Validate checks the field values on DeploymentUpdatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeploymentUpdatedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeploymentUpdatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeploymentUpdatedEventMultiError, or nil if none found.
+func (m *DeploymentUpdatedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeploymentUpdatedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDeployment()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeploymentUpdatedEventValidationError{
+					field:  "Deployment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeploymentUpdatedEventValidationError{
+					field:  "Deployment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDeployment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeploymentUpdatedEventValidationError{
+				field:  "Deployment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for OldStatus
+
+	if len(errors) > 0 {
+		return DeploymentUpdatedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeploymentUpdatedEventMultiError is an error wrapping multiple validation
+// errors returned by DeploymentUpdatedEvent.ValidateAll() if the designated
+// constraints aren't met.
+type DeploymentUpdatedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeploymentUpdatedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeploymentUpdatedEventMultiError) AllErrors() []error { return m }
+
+// DeploymentUpdatedEventValidationError is the validation error returned by
+// DeploymentUpdatedEvent.Validate if the designated constraints aren't met.
+type DeploymentUpdatedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeploymentUpdatedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeploymentUpdatedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeploymentUpdatedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeploymentUpdatedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeploymentUpdatedEventValidationError) ErrorName() string {
+	return "DeploymentUpdatedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeploymentUpdatedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeploymentUpdatedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeploymentUpdatedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeploymentUpdatedEventValidationError{}
+
 // Validate checks the field values on KubectlCmdEvent with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -5080,6 +5348,88 @@ func (m *EventDetails) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return EventDetailsValidationError{
 					field:  "AuditLogDebug",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_DeploymentCreated:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetDeploymentCreated()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "DeploymentCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "DeploymentCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetDeploymentCreated()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "DeploymentCreated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_DeploymentUpdated:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetDeploymentUpdated()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "DeploymentUpdated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "DeploymentUpdated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetDeploymentUpdated()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "DeploymentUpdated",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

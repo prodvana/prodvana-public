@@ -1,6 +1,6 @@
 syntax = "proto3";
-package prodvana.deployment;
-option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment";
+package prodvana.deployment.model;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/deployment/model";
 import "google/protobuf/timestamp.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/repo/repo.proto";
