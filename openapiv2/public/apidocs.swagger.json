@@ -11479,8 +11479,12 @@
         "relatedObjects": {
           "$ref": "#/definitions/eventsRelatedObjects"
         },
-        "actor": {
-          "type": "string"
+        "source": {
+          "$ref": "#/definitions/versionSource",
+          "title": "source of the event if known"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
         }
       }
     },

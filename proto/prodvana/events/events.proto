@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "google/protobuf/timestamp.proto";
 import "prodvana/events/types.proto";
+import "prodvana/version/source_metadata.proto";
 
 message Event {
     string id = 1;
@@ -12,7 +13,11 @@ message Event {
     EventDetails details = 4;
     google.protobuf.Timestamp timestamp = 5;
     RelatedObjects related_objects = 6;
-    string actor = 7;
+    prodvana.version.Source source = 8; // source of the event if known
+    prodvana.version.SourceMetadata source_metadata = 9;
+    reserved 7;
+    reserved "actor";
+    // next tag: 10
 }
 
 message RelatedObjects {
