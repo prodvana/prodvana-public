@@ -4593,6 +4593,170 @@ var _ interface {
 	ErrorName() string
 } = AuditLogDebugEventValidationError{}
 
+// Validate checks the field values on ReleaseCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseCreatedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseCreatedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseCreatedEventMultiError, or nil if none found.
+func (m *ReleaseCreatedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseCreatedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseCreatedEventValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseCreatedEventValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseCreatedEventValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ReleaseId
+
+	if all {
+		switch v := interface{}(m.GetDesired()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseCreatedEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseCreatedEventValidationError{
+					field:  "Desired",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDesired()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseCreatedEventValidationError{
+				field:  "Desired",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for IsRollback
+
+	if len(errors) > 0 {
+		return ReleaseCreatedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseCreatedEventMultiError is an error wrapping multiple validation
+// errors returned by ReleaseCreatedEvent.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseCreatedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseCreatedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseCreatedEventMultiError) AllErrors() []error { return m }
+
+// ReleaseCreatedEventValidationError is the validation error returned by
+// ReleaseCreatedEvent.Validate if the designated constraints aren't met.
+type ReleaseCreatedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseCreatedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseCreatedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseCreatedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseCreatedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseCreatedEventValidationError) ErrorName() string {
+	return "ReleaseCreatedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseCreatedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseCreatedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseCreatedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseCreatedEventValidationError{}
+
 // Validate checks the field values on EventDetails with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -5430,6 +5594,47 @@ func (m *EventDetails) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return EventDetailsValidationError{
 					field:  "DeploymentUpdated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *EventDetails_ReleaseCreated:
+		if v == nil {
+			err := EventDetailsValidationError{
+				field:  "Details",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetReleaseCreated()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ReleaseCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventDetailsValidationError{
+						field:  "ReleaseCreated",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetReleaseCreated()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventDetailsValidationError{
+					field:  "ReleaseCreated",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

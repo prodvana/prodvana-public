@@ -11546,6 +11546,9 @@
         },
         "deploymentUpdated": {
           "$ref": "#/definitions/eventsDeploymentUpdatedEvent"
+        },
+        "releaseCreated": {
+          "$ref": "#/definitions/eventsReleaseCreatedEvent"
         }
       }
     },
@@ -11572,7 +11575,8 @@
         "KUBECTL_CMD",
         "AUDIT_LOG_DEBUG",
         "DEPLOYMENT_CREATED",
-        "DEPLOYMENT_UPDATED"
+        "DEPLOYMENT_UPDATED",
+        "RELEASE_CREATED"
       ],
       "default": "UNKNOWN",
       "description": " - SET_DESIRED_STATE: when a user sets a new desired state\n - SET_TARGET_STATE: when dyanmic delivery sets a new target state as part of convergence. A desired state convergence\ninvolves a series of SET_TARGET_STATE event, one per each entity managed as part of convergence.\n - APPLY_TARGET_STATE: When dynamic delivery materializes a target state to physical infrastructure as part of convergence.\nEach SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.\n - RUNTIME_UPDATE: generic runtime events when more specific event types are not available.\n - AUDIT_LOG_DEBUG: a generic event type for submitting an audit log only event\nwithout creating an explicit event type for it.\nThis should only be used for short lived logs. If the log will\nbe around for a long time, it should be elevated to a proper event type."
@@ -11928,6 +11932,23 @@
         },
         "releaseChannel": {
           "type": "string"
+        }
+      }
+    },
+    "eventsReleaseCreatedEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "releaseId": {
+          "type": "string"
+        },
+        "desired": {
+          "$ref": "#/definitions/modelState"
+        },
+        "isRollback": {
+          "type": "boolean"
         }
       }
     },

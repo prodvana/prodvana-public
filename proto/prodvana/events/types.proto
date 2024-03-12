@@ -45,6 +45,8 @@ enum EventType {
     DEPLOYMENT_CREATED = 20;
     DEPLOYMENT_UPDATED = 21;
 
+    RELEASE_CREATED = 22;
+
     reserved 5;
 }
 
@@ -299,6 +301,15 @@ message AuditLogDebugEvent {
     map<string, string> details = 1;
 }
 
+message ReleaseCreatedEvent {
+    prodvana.desired_state.model.Identifier id = 1;
+    string release_id = 2;
+    prodvana.desired_state.model.State desired = 3;
+    bool is_rollback = 4;
+
+    // next tag: 5
+}
+
 message EventDetails {
     oneof details {
         SetDesiredStateEvent set_desired_state = 1;
@@ -321,6 +332,7 @@ message EventDetails {
         AuditLogDebugEvent audit_log_debug = 19;
         DeploymentCreatedEvent deployment_created = 20;
         DeploymentUpdatedEvent deployment_updated = 21;
+        ReleaseCreatedEvent release_created = 22;
     }
     reserved 5;
 }
