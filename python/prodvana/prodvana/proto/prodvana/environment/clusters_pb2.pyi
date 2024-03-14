@@ -607,6 +607,7 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     APPLY_RETRY_POLICY_FIELD_NUMBER: builtins.int
     DISABLE_DRIFT_DETECTION_FIELD_NUMBER: builtins.int
     TASK_RESOURCES_FIELD_NUMBER: builtins.int
+    SERVICE_ACCOUNT_FIELD_NUMBER: builtins.int
     @property
     def proxy_runtime(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
     @property
@@ -644,6 +645,8 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
     @property
     def task_resources(self) -> prodvana.proto.prodvana.common_config.program_pb2.ResourceRequirements:
         """Resource constraints for the  runner's Fetch and Apply commands."""
+    service_account: builtins.str
+    """optionally override what service account is used for terraform"""
     def __init__(
         self,
         *,
@@ -659,9 +662,10 @@ class TerraformRunnerConfig(google.protobuf.message.Message):
         apply_retry_policy: global___RetryPolicy | None = ...,
         disable_drift_detection: builtins.bool = ...,
         task_resources: prodvana.proto.prodvana.common_config.program_pb2.ResourceRequirements | None = ...,
+        service_account: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "proxy_runtime", b"proxy_runtime", "steady_state_poll_interval", b"steady_state_poll_interval", "task_resources", b"task_resources"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "disable_drift_detection", b"disable_drift_detection", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "steady_state_poll_interval", b"steady_state_poll_interval", "task_resources", b"task_resources", "volumes", b"volumes"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_retry_policy", b"apply_retry_policy", "convergence_grace_period", b"convergence_grace_period", "disable_drift_detection", b"disable_drift_detection", "env", b"env", "fetch_retry_policy", b"fetch_retry_policy", "poll_interval", b"poll_interval", "pre_run", b"pre_run", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "service_account", b"service_account", "steady_state_poll_interval", b"steady_state_poll_interval", "task_resources", b"task_resources", "volumes", b"volumes"]) -> None: ...
 
 global___TerraformRunnerConfig = TerraformRunnerConfig
 

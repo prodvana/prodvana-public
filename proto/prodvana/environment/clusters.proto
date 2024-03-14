@@ -251,6 +251,9 @@ message TerraformRunnerConfig {
     // Resource constraints for the  runner's Fetch and Apply commands.
     prodvana.common_config.ResourceRequirements task_resources = 12;
 
+    // optionally override what service account is used for terraform
+    string service_account = 13;
+
     // next tag: 13
 }
 

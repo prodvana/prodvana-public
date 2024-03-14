@@ -2783,6 +2783,8 @@ func (m *TerraformRunnerConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ServiceAccount
+
 	if len(errors) > 0 {
 		return TerraformRunnerConfigMultiError(errors)
 	}

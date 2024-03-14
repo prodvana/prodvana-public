@@ -11309,6 +11309,10 @@
         "taskResources": {
           "$ref": "#/definitions/common_configResourceRequirements",
           "description": "Resource constraints for the  runner's Fetch and Apply commands."
+        },
+        "serviceAccount": {
+          "type": "string",
+          "title": "optionally override what service account is used for terraform"
         }
       }
     },

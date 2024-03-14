@@ -5690,6 +5690,28 @@
                         {}
                     ],
                     "description": "Resource constraints for the  runner's Fetch and Apply commands."
+                },
+                "service_account": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optionally override what service account is used for terraform"
+                },
+                "serviceAccount": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optionally override what service account is used for terraform"
                 }
             },
             "additionalProperties": false,
