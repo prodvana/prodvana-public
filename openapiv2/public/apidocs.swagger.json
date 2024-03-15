@@ -8745,6 +8745,10 @@
         "namespace": {
           "type": "string",
           "description": "used internally by Prodvana, do not set."
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Run helm install/upgrade with --force flag. Use this with caution.\nPrimarily useful for migrating an existing helm release into Prodvana."
         }
       }
     },

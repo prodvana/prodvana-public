@@ -1086,6 +1086,17 @@
                         }
                     ],
                     "description": "used internally by Prodvana, do not set."
+                },
+                "force": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "Run helm install/upgrade with --force flag. Use this with caution. Primarily useful for migrating an existing helm release into Prodvana."
                 }
             },
             "additionalProperties": false,

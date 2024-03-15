@@ -41,5 +41,9 @@ message HelmConfig {
     // used internally by Prodvana, do not set.
     string namespace = 4 [(validate.rules).string.max_len = 0];
 
-    // next tag: 7
+    // Run helm install/upgrade with --force flag. Use this with caution.
+    // Primarily useful for migrating an existing helm release into Prodvana.
+    bool force = 7;
+
+    // next tag: 8
 }

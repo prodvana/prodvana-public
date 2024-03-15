@@ -481,6 +481,8 @@ func (m *HelmConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for Force
+
 	oneofChartOneofPresent := false
 	switch v := m.ChartOneof.(type) {
 	case *HelmConfig_Remote:
