@@ -8884,6 +8884,13 @@
             "type": "string"
           },
           "description": "Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded\nto Prodvana.\nFollows the same format as gitignore."
+        },
+        "includePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "If set, only include files that match this pattern. If not set, include all files not explicitly excluded."
         }
       }
     },

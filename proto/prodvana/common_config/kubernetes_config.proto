@@ -21,6 +21,9 @@ message LocalConfig {
     // Follows the same format as gitignore.
     repeated string exclude_patterns = 5;
 
+    // If set, only include files that match this pattern. If not set, include all files not explicitly excluded.
+    repeated string include_patterns = 6;
+
     reserved 4;
     reserved "tarball_blob_id";
 

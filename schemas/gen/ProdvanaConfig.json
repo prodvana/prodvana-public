@@ -1811,6 +1811,48 @@
                         }
                     ],
                     "description": "Used in conjunction with sub_path to exclude sub paths from being tarball'ed and uploaded to Prodvana. Follows the same format as gitignore."
+                },
+                "include_patterns": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "If set, only include files that match this pattern. If not set, include all files not explicitly excluded."
+                },
+                "includePatterns": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "If set, only include files that match this pattern. If not set, include all files not explicitly excluded."
                 }
             },
             "additionalProperties": false,
