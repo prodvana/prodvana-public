@@ -481,7 +481,7 @@ func (m *HelmConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Force
+	// no validation rules for FixupOwnership
 
 	oneofChartOneofPresent := false
 	switch v := m.ChartOneof.(type) {

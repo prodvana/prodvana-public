@@ -41,9 +41,13 @@ message HelmConfig {
     // used internally by Prodvana, do not set.
     string namespace = 4 [(validate.rules).string.max_len = 0];
 
-    // Run helm install/upgrade with --force flag. Use this with caution.
-    // Primarily useful for migrating an existing helm release into Prodvana.
-    bool force = 7;
+    // Before running helm commands, first fixup labels and annotations of the Kubernetes objects
+    // to match the expected state. This is useful for migrating an existing Kubernetes object to be managed
+    // by Helm.
+    bool fixup_ownership = 8;
 
-    // next tag: 8
+    reserved 7;
+    reserved "force";
+
+    // next tag: 9
 }

@@ -8746,9 +8746,9 @@
           "type": "string",
           "description": "used internally by Prodvana, do not set."
         },
-        "force": {
+        "fixupOwnership": {
           "type": "boolean",
-          "description": "Run helm install/upgrade with --force flag. Use this with caution.\nPrimarily useful for migrating an existing helm release into Prodvana."
+          "description": "Before running helm commands, first fixup labels and annotations of the Kubernetes objects\nto match the expected state. This is useful for migrating an existing Kubernetes object to be managed\nby Helm."
         }
       }
     },

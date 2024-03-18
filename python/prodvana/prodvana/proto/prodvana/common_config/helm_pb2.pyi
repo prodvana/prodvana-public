@@ -73,7 +73,7 @@ class HelmConfig(google.protobuf.message.Message):
     VALUES_OVERRIDES_FIELD_NUMBER: builtins.int
     RELEASE_NAME_FIELD_NUMBER: builtins.int
     NAMESPACE_FIELD_NUMBER: builtins.int
-    FORCE_FIELD_NUMBER: builtins.int
+    FIXUP_OWNERSHIP_FIELD_NUMBER: builtins.int
     @property
     def remote(self) -> global___RemoteHelmChart: ...
     @property
@@ -87,9 +87,10 @@ class HelmConfig(google.protobuf.message.Message):
     """
     namespace: builtins.str
     """used internally by Prodvana, do not set."""
-    force: builtins.bool
-    """Run helm install/upgrade with --force flag. Use this with caution.
-    Primarily useful for migrating an existing helm release into Prodvana.
+    fixup_ownership: builtins.bool
+    """Before running helm commands, first fixup labels and annotations of the Kubernetes objects
+    to match the expected state. This is useful for migrating an existing Kubernetes object to be managed
+    by Helm.
     """
     def __init__(
         self,
@@ -100,10 +101,10 @@ class HelmConfig(google.protobuf.message.Message):
         values_overrides: collections.abc.Iterable[global___HelmValuesOverrides] | None = ...,
         release_name: builtins.str = ...,
         namespace: builtins.str = ...,
-        force: builtins.bool = ...,
+        fixup_ownership: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "helm_tarball_blob_id", b"helm_tarball_blob_id", "local", b"local", "remote", b"remote"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "force", b"force", "helm_tarball_blob_id", b"helm_tarball_blob_id", "local", b"local", "namespace", b"namespace", "release_name", b"release_name", "remote", b"remote", "values_overrides", b"values_overrides"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["chart_oneof", b"chart_oneof", "fixup_ownership", b"fixup_ownership", "helm_tarball_blob_id", b"helm_tarball_blob_id", "local", b"local", "namespace", b"namespace", "release_name", b"release_name", "remote", b"remote", "values_overrides", b"values_overrides"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["chart_oneof", b"chart_oneof"]) -> typing_extensions.Literal["remote", "local", "helm_tarball_blob_id"] | None: ...
 
 global___HelmConfig = HelmConfig
