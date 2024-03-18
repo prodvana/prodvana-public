@@ -201,10 +201,12 @@ message GetDesiredStateGraphReq {
     repeated DepthOverrideByStatus depth_overrides_by_status = 8;
 
     bool include_desired_state_timestamps = 5;
+    bool include_parents = 10;
 
     reserved 2;
     reserved "type";
-    // next tag: 10
+
+    // next tag: 11
 }
 
 message DesiredStateTimestamps {

@@ -9884,6 +9884,9 @@
         },
         "includeDesiredStateTimestamps": {
           "type": "boolean"
+        },
+        "includeParents": {
+          "type": "boolean"
         }
       }
     },
@@ -13144,6 +13147,9 @@
           "type": "string"
         },
         "rootDesiredStateId": {
+          "type": "string"
+        },
+        "parentDesiredStateId": {
           "type": "string"
         },
         "releaseId": {

@@ -161,6 +161,7 @@ class Entity(google.protobuf.message.Message):
     ID_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    PARENT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     RELEASE_ID_FIELD_NUMBER: builtins.int
     ANNOTATIONS_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
@@ -186,6 +187,7 @@ class Entity(google.protobuf.message.Message):
     def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     desired_state_id: builtins.str
     root_desired_state_id: builtins.str
+    parent_desired_state_id: builtins.str
     release_id: builtins.str
     @property
     def annotations(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations: ...
@@ -235,6 +237,7 @@ class Entity(google.protobuf.message.Message):
         id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
         desired_state_id: builtins.str = ...,
         root_desired_state_id: builtins.str = ...,
+        parent_desired_state_id: builtins.str = ...,
         release_id: builtins.str = ...,
         annotations: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Annotations | None = ...,
         status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType = ...,
@@ -258,7 +261,7 @@ class Entity(google.protobuf.message.Message):
         notifications: global___Notifications | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "desired_state", b"desired_state", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
 
 global___Entity = Entity
 

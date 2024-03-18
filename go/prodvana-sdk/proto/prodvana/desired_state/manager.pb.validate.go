@@ -3390,6 +3390,8 @@ func (m *GetDesiredStateGraphReq) validate(all bool) error {
 
 	// no validation rules for IncludeDesiredStateTimestamps
 
+	// no validation rules for IncludeParents
+
 	switch v := m.Query.(type) {
 	case *GetDesiredStateGraphReq_DesiredStateId:
 		if v == nil {

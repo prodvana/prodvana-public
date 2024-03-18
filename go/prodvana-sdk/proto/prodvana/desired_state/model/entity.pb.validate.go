@@ -387,6 +387,8 @@ func (m *Entity) validate(all bool) error {
 
 	// no validation rules for RootDesiredStateId
 
+	// no validation rules for ParentDesiredStateId
+
 	// no validation rules for ReleaseId
 
 	if all {
