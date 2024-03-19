@@ -27,6 +27,7 @@ class Output(google.protobuf.message.Message):
     START_TIMESTAMP_NS_FIELD_NUMBER: builtins.int
     DURATION_NS_FIELD_NUMBER: builtins.int
     FILES_FIELD_NUMBER: builtins.int
+    HOSTNAME_FIELD_NUMBER: builtins.int
     exit_code: builtins.int
     """Exit code of wrapped process. -1 if process failed to execute."""
     exec_error: builtins.str
@@ -41,6 +42,7 @@ class Output(google.protobuf.message.Message):
     """Total execution duration of the process, in ns."""
     @property
     def files(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OutputFile]: ...
+    hostname: builtins.str
     def __init__(
         self,
         *,
@@ -52,8 +54,9 @@ class Output(google.protobuf.message.Message):
         start_timestamp_ns: builtins.int = ...,
         duration_ns: builtins.int = ...,
         files: collections.abc.Iterable[global___OutputFile] | None = ...,
+        hostname: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["duration_ns", b"duration_ns", "exec_error", b"exec_error", "exit_code", b"exit_code", "files", b"files", "start_timestamp_ns", b"start_timestamp_ns", "stderr_blob_id", b"stderr_blob_id", "stdout_blob_id", b"stdout_blob_id", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["duration_ns", b"duration_ns", "exec_error", b"exec_error", "exit_code", b"exit_code", "files", b"files", "hostname", b"hostname", "start_timestamp_ns", b"start_timestamp_ns", "stderr_blob_id", b"stderr_blob_id", "stdout_blob_id", b"stdout_blob_id", "version", b"version"]) -> None: ...
 
 global___Output = Output
 

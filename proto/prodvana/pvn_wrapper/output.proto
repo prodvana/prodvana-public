@@ -11,6 +11,7 @@ message Output {
     int64 start_timestamp_ns = 6;  // Timestamp when the process began executing, in ns.
     int64 duration_ns = 7;  // Total execution duration of the process, in ns.
     repeated OutputFile files = 8;
+    string hostname = 9;
 }
 
 message OutputFile {

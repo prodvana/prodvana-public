@@ -15090,6 +15090,9 @@
             "type": "object",
             "$ref": "#/definitions/pvn_wrapperOutputFile"
           }
+        },
+        "hostname": {
+          "type": "string"
         }
       }
     },
