@@ -48,6 +48,9 @@
       "name": "prodvana.protection.ProtectionManager"
     },
     {
+      "name": "prodvana.pvn_wrapper.JobManager"
+    },
+    {
       "name": "prodvana.release.ReleaseManager"
     },
     {
@@ -15100,6 +15103,9 @@
           "type": "string"
         }
       }
+    },
+    "pvn_wrapperReportJobResultResp": {
+      "type": "object"
     },
     "release_channelConfigureReleaseChannelResp": {
       "type": "object",

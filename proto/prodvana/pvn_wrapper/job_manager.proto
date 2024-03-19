@@ -1,0 +1,17 @@
+syntax = "proto3";
+package prodvana.pvn_wrapper;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/pvn_wrapper";
+
+import "prodvana/pvn_wrapper/output.proto";
+
+message ReportJobResultReq {
+    string job_id = 1;
+    prodvana.pvn_wrapper.Output output = 2;
+}
+
+message ReportJobResultResp {
+}
+
+service JobManager {
+    rpc ReportJobResult(ReportJobResultReq) returns (ReportJobResultResp);
+}
