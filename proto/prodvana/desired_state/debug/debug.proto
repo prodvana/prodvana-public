@@ -32,7 +32,12 @@ message EntityDumpState {
 
     repeated ChildState child_states = 10;
 
-    // next tag: 13
+    bool absent = 13;
+    bool deleted = 14;
+    bool observer = 15;
+    bool stale = 16;
+
+    // next tag: 17
 }
 
 message DumpState {

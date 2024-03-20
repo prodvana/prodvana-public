@@ -9360,6 +9360,18 @@
             "type": "object",
             "$ref": "#/definitions/EntityDumpStateChildState"
           }
+        },
+        "absent": {
+          "type": "boolean"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "observer": {
+          "type": "boolean"
+        },
+        "stale": {
+          "type": "boolean"
         }
       }
     },

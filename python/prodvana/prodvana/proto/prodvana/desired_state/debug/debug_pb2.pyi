@@ -69,6 +69,10 @@ class EntityDumpState(google.protobuf.message.Message):
     FETCHED_STATE_FIELD_NUMBER: builtins.int
     TARGET_STATE_FIELD_NUMBER: builtins.int
     CHILD_STATES_FIELD_NUMBER: builtins.int
+    ABSENT_FIELD_NUMBER: builtins.int
+    DELETED_FIELD_NUMBER: builtins.int
+    OBSERVER_FIELD_NUMBER: builtins.int
+    STALE_FIELD_NUMBER: builtins.int
     @property
     def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     @property
@@ -91,6 +95,10 @@ class EntityDumpState(google.protobuf.message.Message):
     def target_state(self) -> google.protobuf.any_pb2.Any: ...
     @property
     def child_states(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityDumpState.ChildState]: ...
+    absent: builtins.bool
+    deleted: builtins.bool
+    observer: builtins.bool
+    stale: builtins.bool
     def __init__(
         self,
         *,
@@ -106,9 +114,13 @@ class EntityDumpState(google.protobuf.message.Message):
         fetched_state: google.protobuf.any_pb2.Any | None = ...,
         target_state: google.protobuf.any_pb2.Any | None = ...,
         child_states: collections.abc.Iterable[global___EntityDumpState.ChildState] | None = ...,
+        absent: builtins.bool = ...,
+        deleted: builtins.bool = ...,
+        observer: builtins.bool = ...,
+        stale: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["annotations", b"annotations", "control", b"control", "desired_state", b"desired_state", "fetched_state", b"fetched_state", "id", b"id", "io_state", b"io_state", "last_manager_update_timestamp", b"last_manager_update_timestamp", "target_state", b"target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["annotations", b"annotations", "child_states", b"child_states", "control", b"control", "desired_state", b"desired_state", "fetched_state", b"fetched_state", "id", b"id", "io_state", b"io_state", "last_manager_update_timestamp", b"last_manager_update_timestamp", "logs", b"logs", "simple_status", b"simple_status", "status", b"status", "target_state", b"target_state"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["absent", b"absent", "annotations", b"annotations", "child_states", b"child_states", "control", b"control", "deleted", b"deleted", "desired_state", b"desired_state", "fetched_state", b"fetched_state", "id", b"id", "io_state", b"io_state", "last_manager_update_timestamp", b"last_manager_update_timestamp", "logs", b"logs", "observer", b"observer", "simple_status", b"simple_status", "stale", b"stale", "status", b"status", "target_state", b"target_state"]) -> None: ...
 
 global___EntityDumpState = EntityDumpState
 

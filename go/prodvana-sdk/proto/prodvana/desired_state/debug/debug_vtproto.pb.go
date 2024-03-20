@@ -72,6 +72,10 @@ func (m *EntityDumpState) CloneVT() *EntityDumpState {
 	r.DesiredState = (*anypb.Any)((*anypb1.Any)(m.DesiredState).CloneVT())
 	r.FetchedState = (*anypb.Any)((*anypb1.Any)(m.FetchedState).CloneVT())
 	r.TargetState = (*anypb.Any)((*anypb1.Any)(m.TargetState).CloneVT())
+	r.Absent = m.Absent
+	r.Deleted = m.Deleted
+	r.Observer = m.Observer
+	r.Stale = m.Stale
 	if rhs := m.Logs; rhs != nil {
 		tmpContainer := make([]*model.DebugLog, len(rhs))
 		for k, v := range rhs {
@@ -232,6 +236,18 @@ func (this *EntityDumpState) EqualVT(that *EntityDumpState) bool {
 		return false
 	}
 	if !(*anypb1.Any)(this.TargetState).EqualVT((*anypb1.Any)(that.TargetState)) {
+		return false
+	}
+	if this.Absent != that.Absent {
+		return false
+	}
+	if this.Deleted != that.Deleted {
+		return false
+	}
+	if this.Observer != that.Observer {
+		return false
+	}
+	if this.Stale != that.Stale {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

@@ -365,6 +365,14 @@ func (m *EntityDumpState) validate(all bool) error {
 
 	}
 
+	// no validation rules for Absent
+
+	// no validation rules for Deleted
+
+	// no validation rules for Observer
+
+	// no validation rules for Stale
+
 	if len(errors) > 0 {
 		return EntityDumpStateMultiError(errors)
 	}
