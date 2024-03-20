@@ -97,6 +97,7 @@ func (m *MaestroReleaseChannelState) CloneVT() *MaestroReleaseChannelState {
 	r.Status = m.Status
 	r.DesiredStateId = m.DesiredStateId
 	r.EntityId = m.EntityId
+	r.RootDesiredStateId = m.RootDesiredStateId
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -247,6 +248,9 @@ func (this *MaestroReleaseChannelState) EqualVT(that *MaestroReleaseChannelState
 		return false
 	}
 	if this.EntityId != that.EntityId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

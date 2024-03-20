@@ -53,6 +53,7 @@ message MaestroReleaseChannelState {
     Status status = 1;
     string desired_state_id = 2;
     string entity_id = 3;
+    string root_desired_state_id = 4;
 }
 
 message MaestroRelease {

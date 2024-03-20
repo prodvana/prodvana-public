@@ -190,17 +190,20 @@ class MaestroReleaseChannelState(google.protobuf.message.Message):
     STATUS_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ENTITY_ID_FIELD_NUMBER: builtins.int
+    ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     status: global___Status.ValueType
     desired_state_id: builtins.str
     entity_id: builtins.str
+    root_desired_state_id: builtins.str
     def __init__(
         self,
         *,
         status: global___Status.ValueType = ...,
         desired_state_id: builtins.str = ...,
         entity_id: builtins.str = ...,
+        root_desired_state_id: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "status", b"status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "root_desired_state_id", b"root_desired_state_id", "status", b"status"]) -> None: ...
 
 global___MaestroReleaseChannelState = MaestroReleaseChannelState
 

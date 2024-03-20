@@ -635,6 +635,8 @@ func (m *MaestroReleaseChannelState) validate(all bool) error {
 
 	// no validation rules for EntityId
 
+	// no validation rules for RootDesiredStateId
+
 	if len(errors) > 0 {
 		return MaestroReleaseChannelStateMultiError(errors)
 	}
