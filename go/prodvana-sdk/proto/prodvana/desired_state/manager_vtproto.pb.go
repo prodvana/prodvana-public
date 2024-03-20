@@ -543,6 +543,11 @@ func (m *GetDesiredStateGraphReq) CloneVT() *GetDesiredStateGraphReq {
 		}
 		r.DepthOverridesByStatus = tmpContainer
 	}
+	if rhs := m.ExcludeDependencyType; rhs != nil {
+		tmpContainer := make([]model.DependencyType, len(rhs))
+		copy(tmpContainer, rhs)
+		r.ExcludeDependencyType = tmpContainer
+	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -1898,6 +1903,15 @@ func (this *GetDesiredStateGraphReq) EqualVT(that *GetDesiredStateGraphReq) bool
 	}
 	if this.IncludeParents != that.IncludeParents {
 		return false
+	}
+	if len(this.ExcludeDependencyType) != len(that.ExcludeDependencyType) {
+		return false
+	}
+	for i, vx := range this.ExcludeDependencyType {
+		vy := that.ExcludeDependencyType[i]
+		if vx != vy {
+			return false
+		}
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

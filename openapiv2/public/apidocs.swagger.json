@@ -9890,6 +9890,12 @@
         },
         "includeParents": {
           "type": "boolean"
+        },
+        "excludeDependencyType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelDependencyType"
+          }
         }
       }
     },
@@ -13021,6 +13027,29 @@
       ],
       "default": "STATUS_UNKNOWN"
     },
+    "modelDependency": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/modelDependencyType"
+        },
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        }
+      }
+    },
+    "modelDependencyType": {
+      "type": "string",
+      "enum": [
+        "DEPENDENCY_UNKNOWN",
+        "DEPENDENCY_CHILD",
+        "DEPENDENCY_PROTECTION_ATTACHMENT",
+        "DEPENDENCY_RELEASE_CHANNEL",
+        "DEPENDENCY_PRECONDITION",
+        "DEPENDENCY_DELIVERY_EXTENSION"
+      ],
+      "default": "DEPENDENCY_UNKNOWN"
+    },
     "modelDeploymentComparison": {
       "type": "object",
       "properties": {
@@ -13235,6 +13264,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/modelIdentifier"
+          }
+        },
+        "dependenciesWithType": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelDependency"
           }
         },
         "lifecycle": {

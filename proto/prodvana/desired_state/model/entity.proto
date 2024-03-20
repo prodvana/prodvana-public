@@ -53,6 +53,20 @@ message Notifications {
     // TODO: Link to next action?
 }
 
+enum DependencyType {
+    DEPENDENCY_UNKNOWN = 0;
+    DEPENDENCY_CHILD = 1;
+    DEPENDENCY_PROTECTION_ATTACHMENT = 2;
+    DEPENDENCY_RELEASE_CHANNEL = 3;
+    DEPENDENCY_PRECONDITION = 4;
+    DEPENDENCY_DELIVERY_EXTENSION = 5;
+}
+
+message Dependency {
+    DependencyType type = 1;
+    Identifier id = 2;
+}
+
 message Entity {
     Identifier id = 1;
     string desired_state_id = 2;
@@ -76,6 +90,7 @@ message Entity {
 
     repeated Identifier dependencies = 16;
     repeated Identifier direct_dependencies = 23;
+    repeated Dependency dependencies_with_type = 26;
     prodvana.common_config.TaskLifecycle lifecycle = 18;
     MissingApproval missing_approval = 20;
 

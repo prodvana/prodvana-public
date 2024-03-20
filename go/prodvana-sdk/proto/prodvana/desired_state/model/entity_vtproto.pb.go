@@ -150,6 +150,24 @@ func (m *Notifications) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *Dependency) CloneVT() *Dependency {
+	if m == nil {
+		return (*Dependency)(nil)
+	}
+	r := new(Dependency)
+	r.Type = m.Type
+	r.Id = m.Id.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *Dependency) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *Entity) CloneVT() *Entity {
 	if m == nil {
 		return (*Entity)(nil)
@@ -209,6 +227,13 @@ func (m *Entity) CloneVT() *Entity {
 			tmpContainer[k] = v.CloneVT()
 		}
 		r.DirectDependencies = tmpContainer
+	}
+	if rhs := m.DependenciesWithType; rhs != nil {
+		tmpContainer := make([]*Dependency, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.DependenciesWithType = tmpContainer
 	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
@@ -433,6 +458,28 @@ func (this *Notifications) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Dependency) EqualVT(that *Dependency) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !this.Id.EqualVT(that.Id) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Dependency) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Dependency)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (this *Entity) EqualVT(that *Entity) bool {
 	if this == that {
 		return true
@@ -583,6 +630,23 @@ func (this *Entity) EqualVT(that *Entity) bool {
 	}
 	if this.ParentDesiredStateId != that.ParentDesiredStateId {
 		return false
+	}
+	if len(this.DependenciesWithType) != len(that.DependenciesWithType) {
+		return false
+	}
+	for i, vx := range this.DependenciesWithType {
+		vy := that.DependenciesWithType[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Dependency{}
+			}
+			if q == nil {
+				q = &Dependency{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

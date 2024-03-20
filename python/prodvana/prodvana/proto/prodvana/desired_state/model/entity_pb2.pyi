@@ -21,6 +21,29 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _DependencyType:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _DependencyTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DependencyType.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    DEPENDENCY_UNKNOWN: _DependencyType.ValueType  # 0
+    DEPENDENCY_CHILD: _DependencyType.ValueType  # 1
+    DEPENDENCY_PROTECTION_ATTACHMENT: _DependencyType.ValueType  # 2
+    DEPENDENCY_RELEASE_CHANNEL: _DependencyType.ValueType  # 3
+    DEPENDENCY_PRECONDITION: _DependencyType.ValueType  # 4
+    DEPENDENCY_DELIVERY_EXTENSION: _DependencyType.ValueType  # 5
+
+class DependencyType(_DependencyType, metaclass=_DependencyTypeEnumTypeWrapper): ...
+
+DEPENDENCY_UNKNOWN: DependencyType.ValueType  # 0
+DEPENDENCY_CHILD: DependencyType.ValueType  # 1
+DEPENDENCY_PROTECTION_ATTACHMENT: DependencyType.ValueType  # 2
+DEPENDENCY_RELEASE_CHANNEL: DependencyType.ValueType  # 3
+DEPENDENCY_PRECONDITION: DependencyType.ValueType  # 4
+DEPENDENCY_DELIVERY_EXTENSION: DependencyType.ValueType  # 5
+global___DependencyType = DependencyType
+
 class Notifications(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -155,6 +178,25 @@ class Notifications(google.protobuf.message.Message):
 
 global___Notifications = Notifications
 
+class Dependency(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TYPE_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    type: global___DependencyType.ValueType
+    @property
+    def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    def __init__(
+        self,
+        *,
+        type: global___DependencyType.ValueType = ...,
+        id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["id", b"id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "type", b"type"]) -> None: ...
+
+global___Dependency = Dependency
+
 class Entity(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -179,6 +221,7 @@ class Entity(google.protobuf.message.Message):
     LAST_APPLIED_TIMESTAMP_FIELD_NUMBER: builtins.int
     DEPENDENCIES_FIELD_NUMBER: builtins.int
     DIRECT_DEPENDENCIES_FIELD_NUMBER: builtins.int
+    DEPENDENCIES_WITH_TYPE_FIELD_NUMBER: builtins.int
     LIFECYCLE_FIELD_NUMBER: builtins.int
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     APPLY_ERROR_FIELD_NUMBER: builtins.int
@@ -224,6 +267,8 @@ class Entity(google.protobuf.message.Message):
     def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier]: ...
     @property
     def direct_dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier]: ...
+    @property
+    def dependencies_with_type(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Dependency]: ...
     lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     @property
     def missing_approval(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.MissingApproval: ...
@@ -255,13 +300,14 @@ class Entity(google.protobuf.message.Message):
         last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         dependencies: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier] | None = ...,
         direct_dependencies: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier] | None = ...,
+        dependencies_with_type: collections.abc.Iterable[global___Dependency] | None = ...,
         lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
         missing_approval: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.MissingApproval | None = ...,
         apply_error: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ApplyError | None = ...,
         notifications: global___Notifications | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "desired_state", b"desired_state", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "dependencies_with_type", b"dependencies_with_type", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
 
 global___Entity = Entity
 

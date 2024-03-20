@@ -203,10 +203,12 @@ message GetDesiredStateGraphReq {
     bool include_desired_state_timestamps = 5;
     bool include_parents = 10;
 
+    repeated prodvana.desired_state.model.DependencyType exclude_dependency_type = 11;
+
     reserved 2;
     reserved "type";
 
-    // next tag: 11
+    // next tag: 12
 }
 
 message DesiredStateTimestamps {
