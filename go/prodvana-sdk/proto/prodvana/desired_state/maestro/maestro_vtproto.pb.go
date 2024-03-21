@@ -64,6 +64,7 @@ func (m *MaestroReleaseState) CloneVT() *MaestroReleaseState {
 	r := new(MaestroReleaseState)
 	r.Status = m.Status
 	r.LastUpdateTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastUpdateTimestamp).CloneVT())
+	r.SharedRootDesiredStateId = m.SharedRootDesiredStateId
 	if rhs := m.ReleaseChannelStatuses; rhs != nil {
 		tmpContainer := make(map[string]Status, len(rhs))
 		for k, v := range rhs {
@@ -224,6 +225,9 @@ func (this *MaestroReleaseState) EqualVT(that *MaestroReleaseState) bool {
 				return false
 			}
 		}
+	}
+	if this.SharedRootDesiredStateId != that.SharedRootDesiredStateId {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

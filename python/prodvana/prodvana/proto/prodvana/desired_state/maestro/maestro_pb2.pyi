@@ -163,6 +163,7 @@ class MaestroReleaseState(google.protobuf.message.Message):
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_STATUSES_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_STATES_FIELD_NUMBER: builtins.int
+    SHARED_ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     status: global___Status.ValueType
     @property
     def last_update_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -171,6 +172,7 @@ class MaestroReleaseState(google.protobuf.message.Message):
         """status by release channel id. Use release_channel_states instead."""
     @property
     def release_channel_states(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___MaestroReleaseChannelState]: ...
+    shared_root_desired_state_id: builtins.str
     def __init__(
         self,
         *,
@@ -178,9 +180,10 @@ class MaestroReleaseState(google.protobuf.message.Message):
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         release_channel_statuses: collections.abc.Mapping[builtins.str, global___Status.ValueType] | None = ...,
         release_channel_states: collections.abc.Mapping[builtins.str, global___MaestroReleaseChannelState] | None = ...,
+        shared_root_desired_state_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "release_channel_states", b"release_channel_states", "release_channel_statuses", b"release_channel_statuses", "status", b"status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last_update_timestamp", b"last_update_timestamp", "release_channel_states", b"release_channel_states", "release_channel_statuses", b"release_channel_statuses", "shared_root_desired_state_id", b"shared_root_desired_state_id", "status", b"status"]) -> None: ...
 
 global___MaestroReleaseState = MaestroReleaseState
 

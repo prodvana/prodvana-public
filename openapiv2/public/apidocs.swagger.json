@@ -12448,6 +12448,9 @@
           "additionalProperties": {
             "$ref": "#/definitions/maestroMaestroReleaseChannelState"
           }
+        },
+        "sharedRootDesiredStateId": {
+          "type": "string"
         }
       }
     },

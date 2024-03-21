@@ -527,6 +527,8 @@ func (m *MaestroReleaseState) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for SharedRootDesiredStateId
+
 	if len(errors) > 0 {
 		return MaestroReleaseStateMultiError(errors)
 	}

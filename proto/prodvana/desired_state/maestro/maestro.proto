@@ -47,6 +47,7 @@ message MaestroReleaseState {
     google.protobuf.Timestamp last_update_timestamp = 2;
     map<string, Status> release_channel_statuses = 3;  // status by release channel id. Use release_channel_states instead.
     map<string, MaestroReleaseChannelState> release_channel_states = 4;
+    string shared_root_desired_state_id = 5;
 }
 
 message MaestroReleaseChannelState {
