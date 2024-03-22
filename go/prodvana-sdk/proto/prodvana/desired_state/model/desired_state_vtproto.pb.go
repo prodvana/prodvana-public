@@ -4141,6 +4141,15 @@ func (this *RuntimeExtensionFetchOutput) StableEqualVT(that *RuntimeExtensionFet
 	} else if this == nil || that == nil {
 		return false
 	}
+	if !this.OngoingFetch.StableEqualVT(that.OngoingFetch) {
+		return false
+	}
+	if !this.LastSuccessfulFetch.StableEqualVT(that.LastSuccessfulFetch) {
+		return false
+	}
+	if !this.LastFailedFetch.StableEqualVT(that.LastFailedFetch) {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -4367,6 +4376,9 @@ func (this *ApplyDetails) StableEqualVT(that *ApplyDetails) bool {
 		return false
 	}
 	if this.ApplyStatus != that.ApplyStatus {
+		return false
+	}
+	if !this.FetchDetails.StableEqualVT(that.FetchDetails) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
