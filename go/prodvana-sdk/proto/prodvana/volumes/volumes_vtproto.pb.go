@@ -124,6 +124,122 @@ func (m *Volume) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *VolumeSource_SecretSource) StableEqualVT(that *VolumeSource_SecretSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SecretName != that.SecretName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VolumeSource_SecretSource) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VolumeSource_SecretSource)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *VolumeSource_EphemeralSource) StableEqualVT(that *VolumeSource_EphemeralSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Medium != that.Medium {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VolumeSource_EphemeralSource) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VolumeSource_EphemeralSource)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *VolumeSource) StableEqualVT(that *VolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Source == nil && that.Source != nil {
+		return false
+	} else if this.Source != nil {
+		if that.Source == nil {
+			return false
+		}
+		if !this.Source.(interface {
+			StableEqualVT(isVolumeSource_Source) bool
+		}).StableEqualVT(that.Source) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VolumeSource) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VolumeSource)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *VolumeSource_Secret) StableEqualVT(thatIface isVolumeSource_Source) bool {
+	that, ok := thatIface.(*VolumeSource_Secret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Secret, that.Secret; p != q {
+		if p == nil {
+			p = &VolumeSource_SecretSource{}
+		}
+		if q == nil {
+			q = &VolumeSource_SecretSource{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *VolumeSource_Ephemeral) StableEqualVT(thatIface isVolumeSource_Source) bool {
+	that, ok := thatIface.(*VolumeSource_Ephemeral)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ephemeral, that.Ephemeral; p != q {
+		if p == nil {
+			p = &VolumeSource_EphemeralSource{}
+		}
+		if q == nil {
+			q = &VolumeSource_EphemeralSource{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *VolumeSource_SecretSource) EqualVT(that *VolumeSource_SecretSource) bool {
 	if this == that {
 		return true
@@ -240,6 +356,28 @@ func (this *VolumeSource_Ephemeral) EqualVT(thatIface isVolumeSource_Source) boo
 	return true
 }
 
+func (this *VolumeMount) StableEqualVT(that *VolumeMount) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.MountPath != that.MountPath {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VolumeMount) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VolumeMount)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *VolumeMount) EqualVT(that *VolumeMount) bool {
 	if this == that {
 		return true
@@ -261,6 +399,31 @@ func (this *VolumeMount) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Volume) StableEqualVT(that *Volume) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if !this.Source.StableEqualVT(that.Source) {
+		return false
+	}
+	if !this.Mount.StableEqualVT(that.Mount) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Volume) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Volume)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Volume) EqualVT(that *Volume) bool {
 	if this == that {

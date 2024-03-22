@@ -50,6 +50,44 @@ func (m *NotificationConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *NotificationConfig_Slack) StableEqualVT(that *NotificationConfig_Slack) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Channel != that.Channel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NotificationConfig_Slack) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NotificationConfig_Slack)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *NotificationConfig) StableEqualVT(that *NotificationConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Slack.StableEqualVT(that.Slack) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NotificationConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NotificationConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *NotificationConfig_Slack) EqualVT(that *NotificationConfig_Slack) bool {
 	if this == that {
 		return true

@@ -34,6 +34,28 @@ func (m *EfficiencyStat) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *EfficiencyStat) StableEqualVT(that *EfficiencyStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SavedLines != that.SavedLines {
+		return false
+	}
+	if this.MaterializedLines != that.MaterializedLines {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EfficiencyStat) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EfficiencyStat)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *EfficiencyStat) EqualVT(that *EfficiencyStat) bool {
 	if this == that {
 		return true

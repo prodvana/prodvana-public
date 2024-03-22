@@ -154,6 +154,57 @@ func (m *HelmConfig_HelmTarballBlobId) CloneVT() isHelmConfig_ChartOneof {
 	return r
 }
 
+func (this *RemoteHelmChart) StableEqualVT(that *RemoteHelmChart) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RepoOneof == nil && that.RepoOneof != nil {
+		return false
+	} else if this.RepoOneof != nil {
+		if that.RepoOneof == nil {
+			return false
+		}
+		if !this.RepoOneof.(interface {
+			StableEqualVT(isRemoteHelmChart_RepoOneof) bool
+		}).StableEqualVT(that.RepoOneof) {
+			return false
+		}
+	}
+	if this.Chart != that.Chart {
+		return false
+	}
+	if this.ChartVersion != that.ChartVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RemoteHelmChart) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RemoteHelmChart)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RemoteHelmChart_Repo) StableEqualVT(thatIface isRemoteHelmChart_RepoOneof) bool {
+	that, ok := thatIface.(*RemoteHelmChart_Repo)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Repo != that.Repo {
+		return false
+	}
+	return true
+}
+
 func (this *RemoteHelmChart) EqualVT(that *RemoteHelmChart) bool {
 	if this == that {
 		return true
@@ -201,6 +252,101 @@ func (this *RemoteHelmChart_Repo) EqualVT(thatIface isRemoteHelmChart_RepoOneof)
 	}
 	if this.Repo != that.Repo {
 		return false
+	}
+	return true
+}
+
+func (this *HelmValuesOverrides) StableEqualVT(that *HelmValuesOverrides) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.OverrideOneof == nil && that.OverrideOneof != nil {
+		return false
+	} else if this.OverrideOneof != nil {
+		if that.OverrideOneof == nil {
+			return false
+		}
+		if !this.OverrideOneof.(interface {
+			StableEqualVT(isHelmValuesOverrides_OverrideOneof) bool
+		}).StableEqualVT(that.OverrideOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HelmValuesOverrides) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HelmValuesOverrides)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *HelmValuesOverrides_Inlined) StableEqualVT(thatIface isHelmValuesOverrides_OverrideOneof) bool {
+	that, ok := thatIface.(*HelmValuesOverrides_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Inlined != that.Inlined {
+		return false
+	}
+	return true
+}
+
+func (this *HelmValuesOverrides_Local) StableEqualVT(thatIface isHelmValuesOverrides_OverrideOneof) bool {
+	that, ok := thatIface.(*HelmValuesOverrides_Local)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Local, that.Local; p != q {
+		if p == nil {
+			p = &LocalConfig{}
+		}
+		if q == nil {
+			q = &LocalConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *HelmValuesOverrides_Remote) StableEqualVT(thatIface isHelmValuesOverrides_OverrideOneof) bool {
+	that, ok := thatIface.(*HelmValuesOverrides_Remote)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Remote, that.Remote; p != q {
+		if p == nil {
+			p = &RemoteConfig{}
+		}
+		if q == nil {
+			q = &RemoteConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
 	}
 	return true
 }
@@ -296,6 +442,127 @@ func (this *HelmValuesOverrides_Remote) EqualVT(thatIface isHelmValuesOverrides_
 		if !p.EqualVT(q) {
 			return false
 		}
+	}
+	return true
+}
+
+func (this *HelmConfig) StableEqualVT(that *HelmConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ChartOneof == nil && that.ChartOneof != nil {
+		return false
+	} else if this.ChartOneof != nil {
+		if that.ChartOneof == nil {
+			return false
+		}
+		if !this.ChartOneof.(interface {
+			StableEqualVT(isHelmConfig_ChartOneof) bool
+		}).StableEqualVT(that.ChartOneof) {
+			return false
+		}
+	}
+	if len(this.ValuesOverrides) != len(that.ValuesOverrides) {
+		return false
+	}
+	for i, vx := range this.ValuesOverrides {
+		vy := that.ValuesOverrides[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HelmValuesOverrides{}
+			}
+			if q == nil {
+				q = &HelmValuesOverrides{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ReleaseName != that.ReleaseName {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.FixupOwnership != that.FixupOwnership {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HelmConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HelmConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *HelmConfig_Remote) StableEqualVT(thatIface isHelmConfig_ChartOneof) bool {
+	that, ok := thatIface.(*HelmConfig_Remote)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Remote, that.Remote; p != q {
+		if p == nil {
+			p = &RemoteHelmChart{}
+		}
+		if q == nil {
+			q = &RemoteHelmChart{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *HelmConfig_Local) StableEqualVT(thatIface isHelmConfig_ChartOneof) bool {
+	that, ok := thatIface.(*HelmConfig_Local)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Local, that.Local; p != q {
+		if p == nil {
+			p = &LocalConfig{}
+		}
+		if q == nil {
+			q = &LocalConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *HelmConfig_HelmTarballBlobId) StableEqualVT(thatIface isHelmConfig_ChartOneof) bool {
+	that, ok := thatIface.(*HelmConfig_HelmTarballBlobId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.HelmTarballBlobId != that.HelmTarballBlobId {
+		return false
 	}
 	return true
 }

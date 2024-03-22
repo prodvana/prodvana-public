@@ -83,6 +83,140 @@ func (m *Insight_Organization) CloneVT() isInsight_SubjectOneof {
 	return r
 }
 
+func (this *Insight_Subject) StableEqualVT(that *Insight_Subject) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Insight_Subject) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Insight_Subject)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Insight) StableEqualVT(that *Insight) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SubjectOneof == nil && that.SubjectOneof != nil {
+		return false
+	} else if this.SubjectOneof != nil {
+		if that.SubjectOneof == nil {
+			return false
+		}
+		if !this.SubjectOneof.(interface {
+			StableEqualVT(isInsight_SubjectOneof) bool
+		}).StableEqualVT(that.SubjectOneof) {
+			return false
+		}
+	}
+	if this.Title != that.Title {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if this.Class != that.Class {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Insight) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Insight)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Insight_Service) StableEqualVT(thatIface isInsight_SubjectOneof) bool {
+	that, ok := thatIface.(*Insight_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &Insight_Subject{}
+		}
+		if q == nil {
+			q = &Insight_Subject{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Insight_Application) StableEqualVT(thatIface isInsight_SubjectOneof) bool {
+	that, ok := thatIface.(*Insight_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &Insight_Subject{}
+		}
+		if q == nil {
+			q = &Insight_Subject{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Insight_Organization) StableEqualVT(thatIface isInsight_SubjectOneof) bool {
+	that, ok := thatIface.(*Insight_Organization)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Organization, that.Organization; p != q {
+		if p == nil {
+			p = &Insight_Subject{}
+		}
+		if q == nil {
+			q = &Insight_Subject{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Insight_Subject) EqualVT(that *Insight_Subject) bool {
 	if this == that {
 		return true

@@ -35,6 +35,31 @@ func (m *Protection) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Protection) StableEqualVT(that *Protection) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Builtin != that.Builtin {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Protection) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Protection)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Protection) EqualVT(that *Protection) bool {
 	if this == that {
 		return true

@@ -567,6 +567,25 @@ func (m *ReportClusterMetadataResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *HeartbeatReq) StableEqualVT(that *HeartbeatReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HeartbeatReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HeartbeatReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *HeartbeatReq) EqualVT(that *HeartbeatReq) bool {
 	if this == that {
 		return true
@@ -586,6 +605,22 @@ func (this *HeartbeatReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *HeartbeatResp) StableEqualVT(that *HeartbeatResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HeartbeatResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HeartbeatResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *HeartbeatResp) EqualVT(that *HeartbeatResp) bool {
 	if this == that {
 		return true
@@ -601,6 +636,34 @@ func (this *HeartbeatResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordNewUnknownPushReq) StableEqualVT(that *RecordNewUnknownPushReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordNewUnknownPushReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordNewUnknownPushReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordNewUnknownPushReq) EqualVT(that *RecordNewUnknownPushReq) bool {
 	if this == that {
@@ -630,6 +693,22 @@ func (this *RecordNewUnknownPushReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordNewUnknownPushResp) StableEqualVT(that *RecordNewUnknownPushResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordNewUnknownPushResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordNewUnknownPushResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordNewUnknownPushResp) EqualVT(that *RecordNewUnknownPushResp) bool {
 	if this == that {
 		return true
@@ -645,6 +724,37 @@ func (this *RecordNewUnknownPushResp) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordPushStartReq) StableEqualVT(that *RecordPushStartReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.StartTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.StartTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushStartReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushStartReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordPushStartReq) EqualVT(that *RecordPushStartReq) bool {
 	if this == that {
@@ -677,6 +787,22 @@ func (this *RecordPushStartReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordPushStartResp) StableEqualVT(that *RecordPushStartResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushStartResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushStartResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordPushStartResp) EqualVT(that *RecordPushStartResp) bool {
 	if this == that {
 		return true
@@ -692,6 +818,34 @@ func (this *RecordPushStartResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordPushOngoingReq) StableEqualVT(that *RecordPushOngoingReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushOngoingReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushOngoingReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordPushOngoingReq) EqualVT(that *RecordPushOngoingReq) bool {
 	if this == that {
@@ -721,6 +875,22 @@ func (this *RecordPushOngoingReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordPushOngoingResp) StableEqualVT(that *RecordPushOngoingResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushOngoingResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushOngoingResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordPushOngoingResp) EqualVT(that *RecordPushOngoingResp) bool {
 	if this == that {
 		return true
@@ -736,6 +906,37 @@ func (this *RecordPushOngoingResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordPushCompleteReq) StableEqualVT(that *RecordPushCompleteReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushCompleteReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushCompleteReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordPushCompleteReq) EqualVT(that *RecordPushCompleteReq) bool {
 	if this == that {
@@ -768,6 +969,22 @@ func (this *RecordPushCompleteReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordPushCompleteResp) StableEqualVT(that *RecordPushCompleteResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPushCompleteResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPushCompleteResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordPushCompleteResp) EqualVT(that *RecordPushCompleteResp) bool {
 	if this == that {
 		return true
@@ -783,6 +1000,34 @@ func (this *RecordPushCompleteResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ConfirmPushApprovalReq) StableEqualVT(that *ConfirmPushApprovalReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfirmPushApprovalReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfirmPushApprovalReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ConfirmPushApprovalReq) EqualVT(that *ConfirmPushApprovalReq) bool {
 	if this == that {
@@ -812,6 +1057,25 @@ func (this *ConfirmPushApprovalReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfirmPushApprovalResp) StableEqualVT(that *ConfirmPushApprovalResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Approved != that.Approved {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfirmPushApprovalResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfirmPushApprovalResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfirmPushApprovalResp) EqualVT(that *ConfirmPushApprovalResp) bool {
 	if this == that {
 		return true
@@ -830,6 +1094,31 @@ func (this *ConfirmPushApprovalResp) EqualMessageVT(thatMsg proto.Message) bool 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordPodReq) StableEqualVT(that *RecordPodReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Pod) != string(that.Pod) {
+		return false
+	}
+	if this.Action != that.Action {
+		return false
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPodReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPodReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordPodReq) EqualVT(that *RecordPodReq) bool {
 	if this == that {
@@ -856,6 +1145,22 @@ func (this *RecordPodReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordPodResp) StableEqualVT(that *RecordPodResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPodResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPodResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordPodResp) EqualVT(that *RecordPodResp) bool {
 	if this == that {
 		return true
@@ -871,6 +1176,34 @@ func (this *RecordPodResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordPodsReq) StableEqualVT(that *RecordPodsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Pods) != len(that.Pods) {
+		return false
+	}
+	for i, vx := range this.Pods {
+		vy := that.Pods[i]
+		if string(vx) != string(vy) {
+			return false
+		}
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPodsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPodsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordPodsReq) EqualVT(that *RecordPodsReq) bool {
 	if this == that {
@@ -900,6 +1233,22 @@ func (this *RecordPodsReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordPodsResp) StableEqualVT(that *RecordPodsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordPodsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordPodsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordPodsResp) EqualVT(that *RecordPodsResp) bool {
 	if this == that {
 		return true
@@ -915,6 +1264,28 @@ func (this *RecordPodsResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordDeploymentReq) StableEqualVT(that *RecordDeploymentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Deployment) != string(that.Deployment) {
+		return false
+	}
+	if this.Action != that.Action {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordDeploymentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordDeploymentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordDeploymentReq) EqualVT(that *RecordDeploymentReq) bool {
 	if this == that {
@@ -938,6 +1309,25 @@ func (this *RecordDeploymentReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordDeploymentResp) StableEqualVT(that *RecordDeploymentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.PushTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.PushTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordDeploymentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordDeploymentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordDeploymentResp) EqualVT(that *RecordDeploymentResp) bool {
 	if this == that {
 		return true
@@ -956,6 +1346,28 @@ func (this *RecordDeploymentResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RecordRolloutReq) StableEqualVT(that *RecordRolloutReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Rollout) != string(that.Rollout) {
+		return false
+	}
+	if this.Action != that.Action {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordRolloutReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordRolloutReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RecordRolloutReq) EqualVT(that *RecordRolloutReq) bool {
 	if this == that {
@@ -979,6 +1391,25 @@ func (this *RecordRolloutReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordRolloutResp) StableEqualVT(that *RecordRolloutResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.PushTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.PushTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordRolloutResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordRolloutResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordRolloutResp) EqualVT(that *RecordRolloutResp) bool {
 	if this == that {
 		return true
@@ -998,6 +1429,71 @@ func (this *RecordRolloutResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ProxyAPIServerReq) StableEqualVT(that *ProxyAPIServerReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Msg == nil && that.Msg != nil {
+		return false
+	} else if this.Msg != nil {
+		if that.Msg == nil {
+			return false
+		}
+		if !this.Msg.(interface {
+			StableEqualVT(isProxyAPIServerReq_Msg) bool
+		}).StableEqualVT(that.Msg) {
+			return false
+		}
+	}
+	if this.ConnId != that.ConnId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProxyAPIServerReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProxyAPIServerReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProxyAPIServerReq_RuntimeId) StableEqualVT(thatIface isProxyAPIServerReq_Msg) bool {
+	that, ok := thatIface.(*ProxyAPIServerReq_RuntimeId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	return true
+}
+
+func (this *ProxyAPIServerReq_Blob) StableEqualVT(thatIface isProxyAPIServerReq_Msg) bool {
+	that, ok := thatIface.(*ProxyAPIServerReq_Blob)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if string(this.Blob) != string(that.Blob) {
+		return false
+	}
+	return true
+}
+
 func (this *ProxyAPIServerReq) EqualVT(that *ProxyAPIServerReq) bool {
 	if this == that {
 		return true
@@ -1048,6 +1544,68 @@ func (this *ProxyAPIServerReq_RuntimeId) EqualVT(thatIface isProxyAPIServerReq_M
 
 func (this *ProxyAPIServerReq_Blob) EqualVT(thatIface isProxyAPIServerReq_Msg) bool {
 	that, ok := thatIface.(*ProxyAPIServerReq_Blob)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if string(this.Blob) != string(that.Blob) {
+		return false
+	}
+	return true
+}
+
+func (this *ProxyAPIServerResp) StableEqualVT(that *ProxyAPIServerResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Msg == nil && that.Msg != nil {
+		return false
+	} else if this.Msg != nil {
+		if that.Msg == nil {
+			return false
+		}
+		if !this.Msg.(interface {
+			StableEqualVT(isProxyAPIServerResp_Msg) bool
+		}).StableEqualVT(that.Msg) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProxyAPIServerResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProxyAPIServerResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProxyAPIServerResp_Type_) StableEqualVT(thatIface isProxyAPIServerResp_Msg) bool {
+	that, ok := thatIface.(*ProxyAPIServerResp_Type_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return true
+}
+
+func (this *ProxyAPIServerResp_Blob) StableEqualVT(thatIface isProxyAPIServerResp_Msg) bool {
+	that, ok := thatIface.(*ProxyAPIServerResp_Blob)
 	if !ok {
 		return false
 	}
@@ -1125,6 +1683,28 @@ func (this *ProxyAPIServerResp_Blob) EqualVT(thatIface isProxyAPIServerResp_Msg)
 	return true
 }
 
+func (this *DebugInfo) StableEqualVT(that *DebugInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	if this.TcptracerouteOut != that.TcptracerouteOut {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DebugInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DebugInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DebugInfo) EqualVT(that *DebugInfo) bool {
 	if this == that {
 		return true
@@ -1146,6 +1726,28 @@ func (this *DebugInfo) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReportDebugInfoReq) StableEqualVT(that *ReportDebugInfoReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	if !this.Info.StableEqualVT(that.Info) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportDebugInfoReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportDebugInfoReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReportDebugInfoReq) EqualVT(that *ReportDebugInfoReq) bool {
 	if this == that {
@@ -1169,6 +1771,22 @@ func (this *ReportDebugInfoReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ReportDebugInfoResp) StableEqualVT(that *ReportDebugInfoResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportDebugInfoResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportDebugInfoResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReportDebugInfoResp) EqualVT(that *ReportDebugInfoResp) bool {
 	if this == that {
 		return true
@@ -1184,6 +1802,31 @@ func (this *ReportDebugInfoResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReportClusterMetadataReq) StableEqualVT(that *ReportClusterMetadataReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	if !this.ClusterMetadata.StableEqualVT(that.ClusterMetadata) {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportClusterMetadataReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportClusterMetadataReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReportClusterMetadataReq) EqualVT(that *ReportClusterMetadataReq) bool {
 	if this == that {
@@ -1209,6 +1852,22 @@ func (this *ReportClusterMetadataReq) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReportClusterMetadataResp) StableEqualVT(that *ReportClusterMetadataResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportClusterMetadataResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportClusterMetadataResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReportClusterMetadataResp) EqualVT(that *ReportClusterMetadataResp) bool {
 	if this == that {

@@ -1065,6 +1065,43 @@ func (m *GetLatestCombinedReleaseDesiredStateResp) CloneMessageVT() proto.Messag
 	return m.CloneVT()
 }
 
+func (this *SetDesiredStateReq) StableEqualVT(that *SetDesiredStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if this.Rollback != that.Rollback {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.ForceAsyncSetDesiredState != that.ForceAsyncSetDesiredState {
+		return false
+	}
+	if this.BypassPreconditionsAndProtections != that.BypassPreconditionsAndProtections {
+		return false
+	}
+	if !this.MaestroConfigOverride.StableEqualVT(that.MaestroConfigOverride) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetDesiredStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetDesiredStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetDesiredStateReq) EqualVT(that *SetDesiredStateReq) bool {
 	if this == that {
 		return true
@@ -1101,6 +1138,54 @@ func (this *SetDesiredStateReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ValidateDesiredStateReq) StableEqualVT(that *ValidateDesiredStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if this.Rollback != that.Rollback {
+		return false
+	}
+	if len(this.ServiceInstanceConfigs) != len(that.ServiceInstanceConfigs) {
+		return false
+	}
+	for i, vx := range this.ServiceInstanceConfigs {
+		vy := that.ServiceInstanceConfigs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &service.CompiledServiceInstanceConfig{}
+			}
+			if q == nil {
+				q = &service.CompiledServiceInstanceConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.LabelExpansionOnly != that.LabelExpansionOnly {
+		return false
+	}
+	if this.DisregardServiceVersions != that.DisregardServiceVersions {
+		return false
+	}
+	if this.BypassPreconditionsAndProtections != that.BypassPreconditionsAndProtections {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateDesiredStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateDesiredStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ValidateDesiredStateReq) EqualVT(that *ValidateDesiredStateReq) bool {
 	if this == that {
@@ -1150,6 +1235,68 @@ func (this *ValidateDesiredStateReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *SetDesiredStateResp) StableEqualVT(that *SetDesiredStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IdOneof == nil && that.IdOneof != nil {
+		return false
+	} else if this.IdOneof != nil {
+		if that.IdOneof == nil {
+			return false
+		}
+		if !this.IdOneof.(interface {
+			StableEqualVT(isSetDesiredStateResp_IdOneof) bool
+		}).StableEqualVT(that.IdOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetDesiredStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetDesiredStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *SetDesiredStateResp_DesiredStateId) StableEqualVT(thatIface isSetDesiredStateResp_IdOneof) bool {
+	that, ok := thatIface.(*SetDesiredStateResp_DesiredStateId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return true
+}
+
+func (this *SetDesiredStateResp_ReleaseId) StableEqualVT(thatIface isSetDesiredStateResp_IdOneof) bool {
+	that, ok := thatIface.(*SetDesiredStateResp_ReleaseId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return true
+}
+
 func (this *SetDesiredStateResp) EqualVT(that *SetDesiredStateResp) bool {
 	if this == that {
 		return true
@@ -1212,6 +1359,28 @@ func (this *SetDesiredStateResp_ReleaseId) EqualVT(thatIface isSetDesiredStateRe
 	return true
 }
 
+func (this *PreviewEntityGraphResp) StableEqualVT(that *PreviewEntityGraphResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityGraph.StableEqualVT(that.EntityGraph) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PreviewEntityGraphResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PreviewEntityGraphResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PreviewEntityGraphResp) EqualVT(that *PreviewEntityGraphResp) bool {
 	if this == that {
 		return true
@@ -1233,6 +1402,31 @@ func (this *PreviewEntityGraphResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceDesiredStateConvergenceSummaryReq) StableEqualVT(that *GetServiceDesiredStateConvergenceSummaryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.FastNoDeprecatedFields != that.FastNoDeprecatedFields {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateConvergenceSummaryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateConvergenceSummaryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceDesiredStateConvergenceSummaryReq) EqualVT(that *GetServiceDesiredStateConvergenceSummaryReq) bool {
 	if this == that {
@@ -1258,6 +1452,39 @@ func (this *GetServiceDesiredStateConvergenceSummaryReq) EqualMessageVT(thatMsg 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *StatusExplanations) StableEqualVT(that *StatusExplanations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy := that.StatusExplanations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.StatusExplanation{}
+			}
+			if q == nil {
+				q = &model.StatusExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StatusExplanations) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StatusExplanations)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *StatusExplanations) EqualVT(that *StatusExplanations) bool {
 	if this == that {
@@ -1292,6 +1519,39 @@ func (this *StatusExplanations) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DebugLogs) StableEqualVT(that *DebugLogs) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DebugLogs) != len(that.DebugLogs) {
+		return false
+	}
+	for i, vx := range this.DebugLogs {
+		vy := that.DebugLogs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.DebugLog{}
+			}
+			if q == nil {
+				q = &model.DebugLog{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DebugLogs) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DebugLogs)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DebugLogs) EqualVT(that *DebugLogs) bool {
 	if this == that {
 		return true
@@ -1325,6 +1585,34 @@ func (this *DebugLogs) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PendingSetDesiredState) StableEqualVT(that *PendingSetDesiredState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.CompiledDesiredState.StableEqualVT(that.CompiledDesiredState) {
+		return false
+	}
+	if this.TaskStatus != that.TaskStatus {
+		return false
+	}
+	if !this.TaskResult.StableEqualVT(that.TaskResult) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PendingSetDesiredState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PendingSetDesiredState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PendingSetDesiredState) EqualVT(that *PendingSetDesiredState) bool {
 	if this == that {
 		return true
@@ -1352,6 +1640,213 @@ func (this *PendingSetDesiredState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DesiredStateSummary) StableEqualVT(that *DesiredStateSummary) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.StartingState.StableEqualVT(that.StartingState) {
+		return false
+	}
+	if !this.LastSeenState.StableEqualVT(that.LastSeenState) {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if len(this.Statuses) != len(that.Statuses) {
+		return false
+	}
+	for i, vx := range this.Statuses {
+		vy, ok := that.Statuses[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ReplacedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ReplacedTimestamp)) {
+		return false
+	}
+	if len(this.PreconditionStatuses) != len(that.PreconditionStatuses) {
+		return false
+	}
+	for i, vx := range this.PreconditionStatuses {
+		vy, ok := that.PreconditionStatuses[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.ConditionState{}
+			}
+			if q == nil {
+				q = &model.ConditionState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy, ok := that.StatusExplanations[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &StatusExplanations{}
+			}
+			if q == nil {
+				q = &StatusExplanations{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.DebugLogs) != len(that.DebugLogs) {
+		return false
+	}
+	for i, vx := range this.DebugLogs {
+		vy, ok := that.DebugLogs[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DebugLogs{}
+			}
+			if q == nil {
+				q = &DebugLogs{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ActionExplanations) != len(that.ActionExplanations) {
+		return false
+	}
+	for i, vx := range this.ActionExplanations {
+		vy, ok := that.ActionExplanations[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.ActionExplanation{}
+			}
+			if q == nil {
+				q = &model.ActionExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.LastUpdateTimestamps) != len(that.LastUpdateTimestamps) {
+		return false
+	}
+	for i, vx := range this.LastUpdateTimestamps {
+		vy, ok := that.LastUpdateTimestamps[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &timestamppb.Timestamp{}
+			}
+			if q == nil {
+				q = &timestamppb.Timestamp{}
+			}
+			if !(*timestamppb1.Timestamp)(p).StableEqualVT((*timestamppb1.Timestamp)(q)) {
+				return false
+			}
+		}
+	}
+	if len(this.LastFetchedTimestamps) != len(that.LastFetchedTimestamps) {
+		return false
+	}
+	for i, vx := range this.LastFetchedTimestamps {
+		vy, ok := that.LastFetchedTimestamps[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &timestamppb.Timestamp{}
+			}
+			if q == nil {
+				q = &timestamppb.Timestamp{}
+			}
+			if !(*timestamppb1.Timestamp)(p).StableEqualVT((*timestamppb1.Timestamp)(q)) {
+				return false
+			}
+		}
+	}
+	if len(this.LastAppliedTimestamps) != len(that.LastAppliedTimestamps) {
+		return false
+	}
+	for i, vx := range this.LastAppliedTimestamps {
+		vy, ok := that.LastAppliedTimestamps[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &timestamppb.Timestamp{}
+			}
+			if q == nil {
+				q = &timestamppb.Timestamp{}
+			}
+			if !(*timestamppb1.Timestamp)(p).StableEqualVT((*timestamppb1.Timestamp)(q)) {
+				return false
+			}
+		}
+	}
+	if !this.EntityGraph.StableEqualVT(that.EntityGraph) {
+		return false
+	}
+	if !this.InputDesiredState.StableEqualVT(that.InputDesiredState) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !this.PendingSetDesiredState.StableEqualVT(that.PendingSetDesiredState) {
+		return false
+	}
+	if !this.SetDesiredStateMetadata.StableEqualVT(that.SetDesiredStateMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DesiredStateSummary) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DesiredStateSummary)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DesiredStateSummary) EqualVT(that *DesiredStateSummary) bool {
 	if this == that {
@@ -1560,6 +2055,28 @@ func (this *DesiredStateSummary) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDesiredStateConvergenceReq) StableEqualVT(that *GetDesiredStateConvergenceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.FastNoDeprecatedFields != that.FastNoDeprecatedFields {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateConvergenceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateConvergenceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDesiredStateConvergenceReq) EqualVT(that *GetDesiredStateConvergenceReq) bool {
 	if this == that {
 		return true
@@ -1582,6 +2099,25 @@ func (this *GetDesiredStateConvergenceReq) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDesiredStateConvergenceSummaryResp) StableEqualVT(that *GetDesiredStateConvergenceSummaryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Summary.StableEqualVT(that.Summary) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateConvergenceSummaryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateConvergenceSummaryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDesiredStateConvergenceSummaryResp) EqualVT(that *GetDesiredStateConvergenceSummaryResp) bool {
 	if this == that {
 		return true
@@ -1601,6 +2137,25 @@ func (this *GetDesiredStateConvergenceSummaryResp) EqualMessageVT(thatMsg proto.
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceDesiredStateConvergenceSummaryResp) StableEqualVT(that *GetServiceDesiredStateConvergenceSummaryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Summary.StableEqualVT(that.Summary) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateConvergenceSummaryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateConvergenceSummaryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceDesiredStateConvergenceSummaryResp) EqualVT(that *GetServiceDesiredStateConvergenceSummaryResp) bool {
 	if this == that {
 		return true
@@ -1619,6 +2174,28 @@ func (this *GetServiceDesiredStateConvergenceSummaryResp) EqualMessageVT(thatMsg
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceLastConvergedStateReq) StableEqualVT(that *GetServiceLastConvergedStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceLastConvergedStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceLastConvergedStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceLastConvergedStateReq) EqualVT(that *GetServiceLastConvergedStateReq) bool {
 	if this == that {
@@ -1641,6 +2218,39 @@ func (this *GetServiceLastConvergedStateReq) EqualMessageVT(thatMsg proto.Messag
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceLastConvergedStateResp) StableEqualVT(that *GetServiceLastConvergedStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ServiceInstanceStates) != len(that.ServiceInstanceStates) {
+		return false
+	}
+	for i, vx := range this.ServiceInstanceStates {
+		vy := that.ServiceInstanceStates[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.ServiceInstanceState{}
+			}
+			if q == nil {
+				q = &model.ServiceInstanceState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceLastConvergedStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceLastConvergedStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceLastConvergedStateResp) EqualVT(that *GetServiceLastConvergedStateResp) bool {
 	if this == that {
@@ -1675,6 +2285,37 @@ func (this *GetServiceLastConvergedStateResp) EqualMessageVT(thatMsg proto.Messa
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceDesiredStateHistoryReq) StableEqualVT(that *GetServiceDesiredStateHistoryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	if this.FastNoDeprecatedFields != that.FastNoDeprecatedFields {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateHistoryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateHistoryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceDesiredStateHistoryReq) EqualVT(that *GetServiceDesiredStateHistoryReq) bool {
 	if this == that {
 		return true
@@ -1705,6 +2346,42 @@ func (this *GetServiceDesiredStateHistoryReq) EqualMessageVT(thatMsg proto.Messa
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceDesiredStateHistoryResp) StableEqualVT(that *GetServiceDesiredStateHistoryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DesiredStates) != len(that.DesiredStates) {
+		return false
+	}
+	for i, vx := range this.DesiredStates {
+		vy := that.DesiredStates[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DesiredStateSummary{}
+			}
+			if q == nil {
+				q = &DesiredStateSummary{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateHistoryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateHistoryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceDesiredStateHistoryResp) EqualVT(that *GetServiceDesiredStateHistoryResp) bool {
 	if this == that {
@@ -1742,6 +2419,25 @@ func (this *GetServiceDesiredStateHistoryResp) EqualMessageVT(thatMsg proto.Mess
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDesiredStateReq) StableEqualVT(that *GetDesiredStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDesiredStateReq) EqualVT(that *GetDesiredStateReq) bool {
 	if this == that {
 		return true
@@ -1760,6 +2456,40 @@ func (this *GetDesiredStateReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetDesiredStateResp) StableEqualVT(that *GetDesiredStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if !this.CompiledDesiredState.StableEqualVT(that.CompiledDesiredState) {
+		return false
+	}
+	if !this.SetDesiredStateMetadata.StableEqualVT(that.SetDesiredStateMetadata) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetDesiredStateResp) EqualVT(that *GetDesiredStateResp) bool {
 	if this == that {
@@ -1795,6 +2525,176 @@ func (this *GetDesiredStateResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDesiredStateGraphReq_QueryByService) StableEqualVT(that *GetDesiredStateGraphReq_QueryByService) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateGraphReq_QueryByService) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateGraphReq_QueryByService)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetDesiredStateGraphReq_DepthOverrideByStatus) StableEqualVT(that *GetDesiredStateGraphReq_DepthOverrideByStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.Depth != that.Depth {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateGraphReq_DepthOverrideByStatus) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateGraphReq_DepthOverrideByStatus)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetDesiredStateGraphReq) StableEqualVT(that *GetDesiredStateGraphReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Query == nil && that.Query != nil {
+		return false
+	} else if this.Query != nil {
+		if that.Query == nil {
+			return false
+		}
+		if !this.Query.(interface {
+			StableEqualVT(isGetDesiredStateGraphReq_Query) bool
+		}).StableEqualVT(that.Query) {
+			return false
+		}
+	}
+	if !this.RequiredAnnotations.StableEqualVT(that.RequiredAnnotations) {
+		return false
+	}
+	if this.Depth != that.Depth {
+		return false
+	}
+	if this.IncludeDesiredStateTimestamps != that.IncludeDesiredStateTimestamps {
+		return false
+	}
+	if len(this.Types) != len(that.Types) {
+		return false
+	}
+	for i, vx := range this.Types {
+		vy := that.Types[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.DepthOverridesByStatus) != len(that.DepthOverridesByStatus) {
+		return false
+	}
+	for i, vx := range this.DepthOverridesByStatus {
+		vy := that.DepthOverridesByStatus[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &GetDesiredStateGraphReq_DepthOverrideByStatus{}
+			}
+			if q == nil {
+				q = &GetDesiredStateGraphReq_DepthOverrideByStatus{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.RequiredEntityNames) != len(that.RequiredEntityNames) {
+		return false
+	}
+	for i, vx := range this.RequiredEntityNames {
+		vy := that.RequiredEntityNames[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.IncludeParents != that.IncludeParents {
+		return false
+	}
+	if len(this.ExcludeDependencyType) != len(that.ExcludeDependencyType) {
+		return false
+	}
+	for i, vx := range this.ExcludeDependencyType {
+		vy := that.ExcludeDependencyType[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateGraphReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateGraphReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetDesiredStateGraphReq_DesiredStateId) StableEqualVT(thatIface isGetDesiredStateGraphReq_Query) bool {
+	that, ok := thatIface.(*GetDesiredStateGraphReq_DesiredStateId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return true
+}
+
+func (this *GetDesiredStateGraphReq_QueryByService_) StableEqualVT(thatIface isGetDesiredStateGraphReq_Query) bool {
+	that, ok := thatIface.(*GetDesiredStateGraphReq_QueryByService_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.QueryByService, that.QueryByService; p != q {
+		if p == nil {
+			p = &GetDesiredStateGraphReq_QueryByService{}
+		}
+		if q == nil {
+			q = &GetDesiredStateGraphReq_QueryByService{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *GetDesiredStateGraphReq_QueryByService) EqualVT(that *GetDesiredStateGraphReq_QueryByService) bool {
 	if this == that {
 		return true
@@ -1965,6 +2865,31 @@ func (this *GetDesiredStateGraphReq_QueryByService_) EqualVT(thatIface isGetDesi
 	return true
 }
 
+func (this *DesiredStateTimestamps) StableEqualVT(that *DesiredStateTimestamps) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ReplacedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ReplacedTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DesiredStateTimestamps) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DesiredStateTimestamps)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DesiredStateTimestamps) EqualVT(that *DesiredStateTimestamps) bool {
 	if this == that {
 		return true
@@ -1989,6 +2914,31 @@ func (this *DesiredStateTimestamps) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetDesiredStateGraphResp) StableEqualVT(that *GetDesiredStateGraphResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityGraph.StableEqualVT(that.EntityGraph) {
+		return false
+	}
+	if !this.PendingSetDesiredState.StableEqualVT(that.PendingSetDesiredState) {
+		return false
+	}
+	if !this.Timestamps.StableEqualVT(that.Timestamps) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDesiredStateGraphResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDesiredStateGraphResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetDesiredStateGraphResp) EqualVT(that *GetDesiredStateGraphResp) bool {
 	if this == that {
@@ -2015,6 +2965,28 @@ func (this *GetDesiredStateGraphResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceLatestDesiredStateIdReq) StableEqualVT(that *GetServiceLatestDesiredStateIdReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceLatestDesiredStateIdReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceLatestDesiredStateIdReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceLatestDesiredStateIdReq) EqualVT(that *GetServiceLatestDesiredStateIdReq) bool {
 	if this == that {
 		return true
@@ -2037,6 +3009,28 @@ func (this *GetServiceLatestDesiredStateIdReq) EqualMessageVT(thatMsg proto.Mess
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceLatestDesiredStateIdResp) StableEqualVT(that *GetServiceLatestDesiredStateIdResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if !this.PendingSetDesiredState.StableEqualVT(that.PendingSetDesiredState) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceLatestDesiredStateIdResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceLatestDesiredStateIdResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceLatestDesiredStateIdResp) EqualVT(that *GetServiceLatestDesiredStateIdResp) bool {
 	if this == that {
 		return true
@@ -2058,6 +3052,34 @@ func (this *GetServiceLatestDesiredStateIdResp) EqualMessageVT(thatMsg proto.Mes
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceDesiredStateIdHistoryReq) StableEqualVT(that *GetServiceDesiredStateIdHistoryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateIdHistoryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateIdHistoryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceDesiredStateIdHistoryReq) EqualVT(that *GetServiceDesiredStateIdHistoryReq) bool {
 	if this == that {
@@ -2087,6 +3109,34 @@ func (this *GetServiceDesiredStateIdHistoryReq) EqualMessageVT(thatMsg proto.Mes
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceDesiredStateIdHistoryResp) StableEqualVT(that *GetServiceDesiredStateIdHistoryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DesiredStateIds) != len(that.DesiredStateIds) {
+		return false
+	}
+	for i, vx := range this.DesiredStateIds {
+		vy := that.DesiredStateIds[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceDesiredStateIdHistoryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceDesiredStateIdHistoryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceDesiredStateIdHistoryResp) EqualVT(that *GetServiceDesiredStateIdHistoryResp) bool {
 	if this == that {
 		return true
@@ -2115,6 +3165,28 @@ func (this *GetServiceDesiredStateIdHistoryResp) EqualMessageVT(thatMsg proto.Me
 	}
 	return this.EqualVT(that)
 }
+func (this *ValidateDesiredStateResp) StableEqualVT(that *ValidateDesiredStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if !this.CompiledDesiredState.StableEqualVT(that.CompiledDesiredState) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateDesiredStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateDesiredStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ValidateDesiredStateResp) EqualVT(that *ValidateDesiredStateResp) bool {
 	if this == that {
 		return true
@@ -2136,6 +3208,40 @@ func (this *ValidateDesiredStateResp) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SetManualApprovalReq) StableEqualVT(that *SetManualApprovalReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.Topic != that.Topic {
+		return false
+	}
+	if this.Reject != that.Reject {
+		return false
+	}
+	if this.SignalType != that.SignalType {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetManualApprovalReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetManualApprovalReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SetManualApprovalReq) EqualVT(that *SetManualApprovalReq) bool {
 	if this == that {
@@ -2171,6 +3277,22 @@ func (this *SetManualApprovalReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SetManualApprovalResp) StableEqualVT(that *SetManualApprovalResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetManualApprovalResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetManualApprovalResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetManualApprovalResp) EqualVT(that *SetManualApprovalResp) bool {
 	if this == that {
 		return true
@@ -2186,6 +3308,43 @@ func (this *SetManualApprovalResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PromoteDeliveryReq) StableEqualVT(that *PromoteDeliveryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.Stage != that.Stage {
+		return false
+	}
+	if this.Full != that.Full {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if this.Reject != that.Reject {
+		return false
+	}
+	if this.CallSource != that.CallSource {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PromoteDeliveryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PromoteDeliveryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PromoteDeliveryReq) EqualVT(that *PromoteDeliveryReq) bool {
 	if this == that {
@@ -2224,6 +3383,22 @@ func (this *PromoteDeliveryReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PromoteDeliveryResp) StableEqualVT(that *PromoteDeliveryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PromoteDeliveryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PromoteDeliveryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PromoteDeliveryResp) EqualVT(that *PromoteDeliveryResp) bool {
 	if this == that {
 		return true
@@ -2239,6 +3414,34 @@ func (this *PromoteDeliveryResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *BypassProtectionReq) StableEqualVT(that *BypassProtectionReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if this.CallSource != that.CallSource {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *BypassProtectionReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*BypassProtectionReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *BypassProtectionReq) EqualVT(that *BypassProtectionReq) bool {
 	if this == that {
@@ -2268,6 +3471,22 @@ func (this *BypassProtectionReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *BypassProtectionResp) StableEqualVT(that *BypassProtectionResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *BypassProtectionResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*BypassProtectionResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *BypassProtectionResp) EqualVT(that *BypassProtectionResp) bool {
 	if this == that {
 		return true
@@ -2283,6 +3502,37 @@ func (this *BypassProtectionResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListMaestroReleasesReq) StableEqualVT(that *ListMaestroReleasesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.StableEqualVT(that.EntityId) {
+		return false
+	}
+	if this.StartingReleaseId != that.StartingReleaseId {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	if this.Descending != that.Descending {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListMaestroReleasesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListMaestroReleasesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListMaestroReleasesReq) EqualVT(that *ListMaestroReleasesReq) bool {
 	if this == that {
@@ -2314,6 +3564,42 @@ func (this *ListMaestroReleasesReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListMaestroReleasesResp) StableEqualVT(that *ListMaestroReleasesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.MaestroReleases) != len(that.MaestroReleases) {
+		return false
+	}
+	for i, vx := range this.MaestroReleases {
+		vy := that.MaestroReleases[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &maestro.MaestroRelease{}
+			}
+			if q == nil {
+				q = &maestro.MaestroRelease{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListMaestroReleasesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListMaestroReleasesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListMaestroReleasesResp) EqualVT(that *ListMaestroReleasesResp) bool {
 	if this == that {
@@ -2351,6 +3637,25 @@ func (this *ListMaestroReleasesResp) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetMaestroReleaseReq) StableEqualVT(that *GetMaestroReleaseReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetMaestroReleaseReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetMaestroReleaseReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetMaestroReleaseReq) EqualVT(that *GetMaestroReleaseReq) bool {
 	if this == that {
 		return true
@@ -2370,6 +3675,25 @@ func (this *GetMaestroReleaseReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetMaestroReleaseResp) StableEqualVT(that *GetMaestroReleaseResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.MaestroRelease.StableEqualVT(that.MaestroRelease) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetMaestroReleaseResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetMaestroReleaseResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetMaestroReleaseResp) EqualVT(that *GetMaestroReleaseResp) bool {
 	if this == that {
 		return true
@@ -2388,6 +3712,34 @@ func (this *GetMaestroReleaseResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListCombinedReleasesReq) StableEqualVT(that *ListCombinedReleasesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.StableEqualVT(that.EntityId) {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	if this.Descending != that.Descending {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListCombinedReleasesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListCombinedReleasesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListCombinedReleasesReq) EqualVT(that *ListCombinedReleasesReq) bool {
 	if this == that {
@@ -2416,6 +3768,37 @@ func (this *ListCombinedReleasesReq) EqualMessageVT(thatMsg proto.Message) bool 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServiceCombinedReleasesReq) StableEqualVT(that *ListServiceCombinedReleasesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.Descending != that.Descending {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceCombinedReleasesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceCombinedReleasesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServiceCombinedReleasesReq) EqualVT(that *ListServiceCombinedReleasesReq) bool {
 	if this == that {
@@ -2447,6 +3830,107 @@ func (this *ListServiceCombinedReleasesReq) EqualMessageVT(thatMsg proto.Message
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListCombinedReleasesResp_Release) StableEqualVT(that *ListCombinedReleasesResp_Release) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseOneof == nil && that.ReleaseOneof != nil {
+		return false
+	} else if this.ReleaseOneof != nil {
+		if that.ReleaseOneof == nil {
+			return false
+		}
+		if !this.ReleaseOneof.(interface {
+			StableEqualVT(isListCombinedReleasesResp_Release_ReleaseOneof) bool
+		}).StableEqualVT(that.ReleaseOneof) {
+			return false
+		}
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListCombinedReleasesResp_Release) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListCombinedReleasesResp_Release)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListCombinedReleasesResp_Release_DesiredStateId) StableEqualVT(thatIface isListCombinedReleasesResp_Release_ReleaseOneof) bool {
+	that, ok := thatIface.(*ListCombinedReleasesResp_Release_DesiredStateId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return true
+}
+
+func (this *ListCombinedReleasesResp_Release_ReleaseId) StableEqualVT(thatIface isListCombinedReleasesResp_Release_ReleaseOneof) bool {
+	that, ok := thatIface.(*ListCombinedReleasesResp_Release_ReleaseId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return true
+}
+
+func (this *ListCombinedReleasesResp) StableEqualVT(that *ListCombinedReleasesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Releases) != len(that.Releases) {
+		return false
+	}
+	for i, vx := range this.Releases {
+		vy := that.Releases[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListCombinedReleasesResp_Release{}
+			}
+			if q == nil {
+				q = &ListCombinedReleasesResp_Release{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListCombinedReleasesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListCombinedReleasesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListCombinedReleasesResp_Release) EqualVT(that *ListCombinedReleasesResp_Release) bool {
 	if this == that {
@@ -2549,6 +4033,25 @@ func (this *ListCombinedReleasesResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *GetLatestCombinedReleaseDesiredStateReq) StableEqualVT(that *GetLatestCombinedReleaseDesiredStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.StableEqualVT(that.EntityId) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLatestCombinedReleaseDesiredStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLatestCombinedReleaseDesiredStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetLatestCombinedReleaseDesiredStateReq) EqualVT(that *GetLatestCombinedReleaseDesiredStateReq) bool {
 	if this == that {
 		return true
@@ -2567,6 +4070,28 @@ func (this *GetLatestCombinedReleaseDesiredStateReq) EqualMessageVT(thatMsg prot
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceLatestCombinedReleaseDesiredStateReq) StableEqualVT(that *GetServiceLatestCombinedReleaseDesiredStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceLatestCombinedReleaseDesiredStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceLatestCombinedReleaseDesiredStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceLatestCombinedReleaseDesiredStateReq) EqualVT(that *GetServiceLatestCombinedReleaseDesiredStateReq) bool {
 	if this == that {
@@ -2589,6 +4114,40 @@ func (this *GetServiceLatestCombinedReleaseDesiredStateReq) EqualMessageVT(thatM
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetLatestCombinedReleaseDesiredStateResp) StableEqualVT(that *GetLatestCombinedReleaseDesiredStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.InputDesiredState.StableEqualVT(that.InputDesiredState) {
+		return false
+	}
+	if !this.CompiledDesiredState.StableEqualVT(that.CompiledDesiredState) {
+		return false
+	}
+	if !this.SetDesiredStateMetadata.StableEqualVT(that.SetDesiredStateMetadata) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLatestCombinedReleaseDesiredStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLatestCombinedReleaseDesiredStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetLatestCombinedReleaseDesiredStateResp) EqualVT(that *GetLatestCombinedReleaseDesiredStateResp) bool {
 	if this == that {

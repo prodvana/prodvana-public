@@ -33,6 +33,25 @@ func (m *AutoRollbackConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *AutoRollbackConfig) StableEqualVT(that *AutoRollbackConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Disabled != that.Disabled {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AutoRollbackConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AutoRollbackConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AutoRollbackConfig) EqualVT(that *AutoRollbackConfig) bool {
 	if this == that {
 		return true

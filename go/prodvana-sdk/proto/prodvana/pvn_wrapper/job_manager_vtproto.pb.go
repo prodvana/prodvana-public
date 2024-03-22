@@ -50,6 +50,28 @@ func (m *ReportJobResultResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ReportJobResultReq) StableEqualVT(that *ReportJobResultReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.JobId != that.JobId {
+		return false
+	}
+	if !this.Output.StableEqualVT(that.Output) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportJobResultReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportJobResultReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReportJobResultReq) EqualVT(that *ReportJobResultReq) bool {
 	if this == that {
 		return true
@@ -71,6 +93,22 @@ func (this *ReportJobResultReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReportJobResultResp) StableEqualVT(that *ReportJobResultResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReportJobResultResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReportJobResultResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReportJobResultResp) EqualVT(that *ReportJobResultResp) bool {
 	if this == that {

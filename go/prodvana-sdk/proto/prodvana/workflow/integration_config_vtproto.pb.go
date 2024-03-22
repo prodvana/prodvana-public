@@ -142,6 +142,44 @@ func (m *IntegrationConfig_PagerdutyConfig) CloneVT() isIntegrationConfig_Config
 	return r
 }
 
+func (this *AlertingConfig_PagerDuty) StableEqualVT(that *AlertingConfig_PagerDuty) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AlertingConfig_PagerDuty) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AlertingConfig_PagerDuty)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AlertingConfig) StableEqualVT(that *AlertingConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Pagerduty.StableEqualVT(that.Pagerduty) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AlertingConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AlertingConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AlertingConfig_PagerDuty) EqualVT(that *AlertingConfig_PagerDuty) bool {
 	if this == that {
 		return true
@@ -179,6 +217,47 @@ func (this *AlertingConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *AnnotationsConfig_Honeycomb) StableEqualVT(that *AnnotationsConfig_Honeycomb) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Environment != that.Environment {
+		return false
+	}
+	if this.Dataset != that.Dataset {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig_Honeycomb) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig_Honeycomb)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AnnotationsConfig) StableEqualVT(that *AnnotationsConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Honeycomb.StableEqualVT(that.Honeycomb) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *AnnotationsConfig_Honeycomb) EqualVT(that *AnnotationsConfig_Honeycomb) bool {
 	if this == that {
@@ -221,6 +300,28 @@ func (this *AnnotationsConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *TokenConfig) StableEqualVT(that *TokenConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TokenSecretKey != that.TokenSecretKey {
+		return false
+	}
+	if this.TokenSecretVersion != that.TokenSecretVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TokenConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TokenConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TokenConfig) EqualVT(that *TokenConfig) bool {
 	if this == that {
 		return true
@@ -243,6 +344,84 @@ func (this *TokenConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *IntegrationConfig) StableEqualVT(that *IntegrationConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isIntegrationConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IntegrationConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IntegrationConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *IntegrationConfig_SlackConfig) StableEqualVT(thatIface isIntegrationConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*IntegrationConfig_SlackConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SlackConfig, that.SlackConfig; p != q {
+		if p == nil {
+			p = &TokenConfig{}
+		}
+		if q == nil {
+			q = &TokenConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *IntegrationConfig_PagerdutyConfig) StableEqualVT(thatIface isIntegrationConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*IntegrationConfig_PagerdutyConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PagerdutyConfig, that.PagerdutyConfig; p != q {
+		if p == nil {
+			p = &TokenConfig{}
+		}
+		if q == nil {
+			q = &TokenConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *IntegrationConfig) EqualVT(that *IntegrationConfig) bool {
 	if this == that {
 		return true

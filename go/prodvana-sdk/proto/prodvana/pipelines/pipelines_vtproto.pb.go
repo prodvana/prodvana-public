@@ -278,6 +278,43 @@ func (m *PipelineTemplate) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *PushTask) StableEqualVT(that *PushTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.Rollback != that.Rollback {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PushTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PushTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PushTask) EqualVT(that *PushTask) bool {
 	if this == that {
 		return true
@@ -315,6 +352,25 @@ func (this *PushTask) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *WaitTask) StableEqualVT(that *WaitTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Duration).StableEqualVT((*durationpb1.Duration)(that.Duration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *WaitTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*WaitTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *WaitTask) EqualVT(that *WaitTask) bool {
 	if this == that {
 		return true
@@ -333,6 +389,72 @@ func (this *WaitTask) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ParallelTask_TaskTrack) StableEqualVT(that *ParallelTask_TaskTrack) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Tasks) != len(that.Tasks) {
+		return false
+	}
+	for i, vx := range this.Tasks {
+		vy := that.Tasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Task{}
+			}
+			if q == nil {
+				q = &Task{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ParallelTask_TaskTrack) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ParallelTask_TaskTrack)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ParallelTask) StableEqualVT(that *ParallelTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Tracks) != len(that.Tracks) {
+		return false
+	}
+	for i, vx := range this.Tracks {
+		vy := that.Tracks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ParallelTask_TaskTrack{}
+			}
+			if q == nil {
+				q = &ParallelTask_TaskTrack{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ParallelTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ParallelTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ParallelTask_TaskTrack) EqualVT(that *ParallelTask_TaskTrack) bool {
 	if this == that {
@@ -400,6 +522,22 @@ func (this *ParallelTask) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ManualApprovalTask) StableEqualVT(that *ManualApprovalTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManualApprovalTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManualApprovalTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ManualApprovalTask) EqualVT(that *ManualApprovalTask) bool {
 	if this == that {
 		return true
@@ -415,6 +553,46 @@ func (this *ManualApprovalTask) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CustomTask) StableEqualVT(that *CustomTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Program.StableEqualVT(that.Program) {
+		return false
+	}
+	if !this.RetryConfig.StableEqualVT(that.RetryConfig) {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if this.FinalCompiledProgram != that.FinalCompiledProgram {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CustomTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CustomTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CustomTask) EqualVT(that *CustomTask) bool {
 	if this == that {
@@ -456,6 +634,179 @@ func (this *CustomTask) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Task_Metadata) StableEqualVT(that *Task_Metadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Task_Metadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Task_Metadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Task) StableEqualVT(that *Task) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TaskOneof == nil && that.TaskOneof != nil {
+		return false
+	} else if this.TaskOneof != nil {
+		if that.TaskOneof == nil {
+			return false
+		}
+		if !this.TaskOneof.(interface{ StableEqualVT(isTask_TaskOneof) bool }).StableEqualVT(that.TaskOneof) {
+			return false
+		}
+	}
+	if !this.Metadata.StableEqualVT(that.Metadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Task) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Task)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Task_PushTask) StableEqualVT(thatIface isTask_TaskOneof) bool {
+	that, ok := thatIface.(*Task_PushTask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PushTask, that.PushTask; p != q {
+		if p == nil {
+			p = &PushTask{}
+		}
+		if q == nil {
+			q = &PushTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Task_WaitTask) StableEqualVT(thatIface isTask_TaskOneof) bool {
+	that, ok := thatIface.(*Task_WaitTask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.WaitTask, that.WaitTask; p != q {
+		if p == nil {
+			p = &WaitTask{}
+		}
+		if q == nil {
+			q = &WaitTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Task_ParallelTask) StableEqualVT(thatIface isTask_TaskOneof) bool {
+	that, ok := thatIface.(*Task_ParallelTask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ParallelTask, that.ParallelTask; p != q {
+		if p == nil {
+			p = &ParallelTask{}
+		}
+		if q == nil {
+			q = &ParallelTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Task_ManualApprovalTask) StableEqualVT(thatIface isTask_TaskOneof) bool {
+	that, ok := thatIface.(*Task_ManualApprovalTask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ManualApprovalTask, that.ManualApprovalTask; p != q {
+		if p == nil {
+			p = &ManualApprovalTask{}
+		}
+		if q == nil {
+			q = &ManualApprovalTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Task_CustomTask) StableEqualVT(thatIface isTask_TaskOneof) bool {
+	that, ok := thatIface.(*Task_CustomTask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomTask, that.CustomTask; p != q {
+		if p == nil {
+			p = &CustomTask{}
+		}
+		if q == nil {
+			q = &CustomTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Task_Metadata) EqualVT(that *Task_Metadata) bool {
 	if this == that {
 		return true
@@ -629,6 +980,48 @@ func (this *Task_CustomTask) EqualVT(thatIface isTask_TaskOneof) bool {
 	return true
 }
 
+func (this *PipelineConfig) StableEqualVT(that *PipelineConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Tasks) != len(that.Tasks) {
+		return false
+	}
+	for i, vx := range this.Tasks {
+		vy := that.Tasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Task{}
+			}
+			if q == nil {
+				q = &Task{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Rollback != that.Rollback {
+		return false
+	}
+	if !this.Notifications.StableEqualVT(that.Notifications) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PipelineConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PipelineConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PipelineConfig) EqualVT(that *PipelineConfig) bool {
 	if this == that {
 		return true
@@ -670,6 +1063,48 @@ func (this *PipelineConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PipelineTemplate) StableEqualVT(that *PipelineTemplate) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.NameSuffix != that.NameSuffix {
+		return false
+	}
+	if len(this.Tasks) != len(that.Tasks) {
+		return false
+	}
+	for i, vx := range this.Tasks {
+		vy := that.Tasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Task{}
+			}
+			if q == nil {
+				q = &Task{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Rollback != that.Rollback {
+		return false
+	}
+	if !this.Notifications.StableEqualVT(that.Notifications) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PipelineTemplate) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PipelineTemplate)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PipelineTemplate) EqualVT(that *PipelineTemplate) bool {
 	if this == that {

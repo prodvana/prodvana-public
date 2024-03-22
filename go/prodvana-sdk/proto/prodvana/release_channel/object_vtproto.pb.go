@@ -78,6 +78,34 @@ func (m *ReleaseChannel) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ReleaseChannelProtectionAttachment) StableEqualVT(that *ReleaseChannelProtectionAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Protection != that.Protection {
+		return false
+	}
+	if this.Attachment != that.Attachment {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.AttachmentId != that.AttachmentId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelProtectionAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelProtectionAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReleaseChannelProtectionAttachment) EqualVT(that *ReleaseChannelProtectionAttachment) bool {
 	if this == that {
 		return true
@@ -105,6 +133,39 @@ func (this *ReleaseChannelProtectionAttachment) EqualMessageVT(thatMsg proto.Mes
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseChannelState) StableEqualVT(that *ReleaseChannelState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ProtectionAttachments) != len(that.ProtectionAttachments) {
+		return false
+	}
+	for i, vx := range this.ProtectionAttachments {
+		vy := that.ProtectionAttachments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ReleaseChannelProtectionAttachment{}
+			}
+			if q == nil {
+				q = &ReleaseChannelProtectionAttachment{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseChannelState) EqualVT(that *ReleaseChannelState) bool {
 	if this == that {
@@ -138,6 +199,31 @@ func (this *ReleaseChannelState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseChannel) StableEqualVT(that *ReleaseChannel) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannel) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannel)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseChannel) EqualVT(that *ReleaseChannel) bool {
 	if this == that {

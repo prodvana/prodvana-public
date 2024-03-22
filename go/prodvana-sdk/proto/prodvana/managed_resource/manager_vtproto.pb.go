@@ -349,6 +349,155 @@ func (m *DeleteManagedResourceResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ConfigureK8SClusterReq_GcpOptions) StableEqualVT(that *ConfigureK8SClusterReq_GcpOptions) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Project != that.Project {
+		return false
+	}
+	if this.Credentials != that.Credentials {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureK8SClusterReq_GcpOptions) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureK8SClusterReq_GcpOptions)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ConfigureK8SClusterReq_EKSOptions) StableEqualVT(that *ConfigureK8SClusterReq_EKSOptions) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AccessKey != that.AccessKey {
+		return false
+	}
+	if this.SecretKey != that.SecretKey {
+		return false
+	}
+	if this.AccountId != that.AccountId {
+		return false
+	}
+	if this.RoleArn != that.RoleArn {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureK8SClusterReq_EKSOptions) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureK8SClusterReq_EKSOptions)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ConfigureK8SClusterReq) StableEqualVT(that *ConfigureK8SClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CloudProviderOneof == nil && that.CloudProviderOneof != nil {
+		return false
+	} else if this.CloudProviderOneof != nil {
+		if that.CloudProviderOneof == nil {
+			return false
+		}
+		if !this.CloudProviderOneof.(interface {
+			StableEqualVT(isConfigureK8SClusterReq_CloudProviderOneof) bool
+		}).StableEqualVT(that.CloudProviderOneof) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.InstanceType != that.InstanceType {
+		return false
+	}
+	if len(this.NodepoolZones) != len(that.NodepoolZones) {
+		return false
+	}
+	for i, vx := range this.NodepoolZones {
+		vy := that.NodepoolZones[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.NodeCountPerZone != that.NodeCountPerZone {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureK8SClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureK8SClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ConfigureK8SClusterReq_GcpOptions_) StableEqualVT(thatIface isConfigureK8SClusterReq_CloudProviderOneof) bool {
+	that, ok := thatIface.(*ConfigureK8SClusterReq_GcpOptions_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.GcpOptions, that.GcpOptions; p != q {
+		if p == nil {
+			p = &ConfigureK8SClusterReq_GcpOptions{}
+		}
+		if q == nil {
+			q = &ConfigureK8SClusterReq_GcpOptions{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ConfigureK8SClusterReq_EksOptions) StableEqualVT(thatIface isConfigureK8SClusterReq_CloudProviderOneof) bool {
+	that, ok := thatIface.(*ConfigureK8SClusterReq_EksOptions)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.EksOptions, that.EksOptions; p != q {
+		if p == nil {
+			p = &ConfigureK8SClusterReq_EKSOptions{}
+		}
+		if q == nil {
+			q = &ConfigureK8SClusterReq_EKSOptions{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ConfigureK8SClusterReq_GcpOptions) EqualVT(that *ConfigureK8SClusterReq_GcpOptions) bool {
 	if this == that {
 		return true
@@ -498,6 +647,34 @@ func (this *ConfigureK8SClusterReq_EksOptions) EqualVT(thatIface isConfigureK8SC
 	return true
 }
 
+func (this *ConfigureK8SClusterResp) StableEqualVT(that *ConfigureK8SClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.RunId).StableEqualVT((*timestamppb1.Timestamp)(that.RunId)) {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.ArchiveUrl != that.ArchiveUrl {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureK8SClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureK8SClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureK8SClusterResp) EqualVT(that *ConfigureK8SClusterResp) bool {
 	if this == that {
 		return true
@@ -525,6 +702,68 @@ func (this *ConfigureK8SClusterResp) EqualMessageVT(thatMsg proto.Message) bool 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ManagedResource_Run) StableEqualVT(that *ManagedResource_Run) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.Terminal != that.Terminal {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManagedResource_Run) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManagedResource_Run)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ManagedResource) StableEqualVT(that *ManagedResource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !this.LatestRun.StableEqualVT(that.LatestRun) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManagedResource) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManagedResource)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ManagedResource_Run) EqualVT(that *ManagedResource_Run) bool {
 	if this == that {
@@ -588,6 +827,25 @@ func (this *ManagedResource) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetManagedResourceReq) StableEqualVT(that *GetManagedResourceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ManagedResource != that.ManagedResource {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetManagedResourceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetManagedResourceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetManagedResourceReq) EqualVT(that *GetManagedResourceReq) bool {
 	if this == that {
 		return true
@@ -606,6 +864,25 @@ func (this *GetManagedResourceReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetManagedResourceResp) StableEqualVT(that *GetManagedResourceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ManagedResource.StableEqualVT(that.ManagedResource) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetManagedResourceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetManagedResourceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetManagedResourceResp) EqualVT(that *GetManagedResourceResp) bool {
 	if this == that {
@@ -626,6 +903,22 @@ func (this *GetManagedResourceResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListManagedResourcesReq) StableEqualVT(that *ListManagedResourcesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListManagedResourcesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListManagedResourcesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListManagedResourcesReq) EqualVT(that *ListManagedResourcesReq) bool {
 	if this == that {
 		return true
@@ -641,6 +934,39 @@ func (this *ListManagedResourcesReq) EqualMessageVT(thatMsg proto.Message) bool 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListManagedResourcesResp) StableEqualVT(that *ListManagedResourcesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ManagedResources) != len(that.ManagedResources) {
+		return false
+	}
+	for i, vx := range this.ManagedResources {
+		vy := that.ManagedResources[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ManagedResource{}
+			}
+			if q == nil {
+				q = &ManagedResource{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListManagedResourcesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListManagedResourcesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListManagedResourcesResp) EqualVT(that *ListManagedResourcesResp) bool {
 	if this == that {
@@ -675,6 +1001,28 @@ func (this *ListManagedResourcesResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *GetArchiveReq) StableEqualVT(that *GetArchiveReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ManagedResource != that.ManagedResource {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetArchiveReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetArchiveReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetArchiveReq) EqualVT(that *GetArchiveReq) bool {
 	if this == that {
 		return true
@@ -697,6 +1045,25 @@ func (this *GetArchiveReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetArchiveResp) StableEqualVT(that *GetArchiveResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Bytes) != string(that.Bytes) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetArchiveResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetArchiveResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetArchiveResp) EqualVT(that *GetArchiveResp) bool {
 	if this == that {
 		return true
@@ -715,6 +1082,34 @@ func (this *GetArchiveResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *MarkRunDoneReq) StableEqualVT(that *MarkRunDoneReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ManagedResource != that.ManagedResource {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.RunId).StableEqualVT((*timestamppb1.Timestamp)(that.RunId)) {
+		return false
+	}
+	if this.Succeeded != that.Succeeded {
+		return false
+	}
+	if this.Msg != that.Msg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MarkRunDoneReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MarkRunDoneReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *MarkRunDoneReq) EqualVT(that *MarkRunDoneReq) bool {
 	if this == that {
@@ -744,6 +1139,22 @@ func (this *MarkRunDoneReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *MarkRunDoneResp) StableEqualVT(that *MarkRunDoneResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MarkRunDoneResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MarkRunDoneResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *MarkRunDoneResp) EqualVT(that *MarkRunDoneResp) bool {
 	if this == that {
 		return true
@@ -759,6 +1170,25 @@ func (this *MarkRunDoneResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeleteManagedResourceReq) StableEqualVT(that *DeleteManagedResourceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ManagedResource != that.ManagedResource {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteManagedResourceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteManagedResourceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeleteManagedResourceReq) EqualVT(that *DeleteManagedResourceReq) bool {
 	if this == that {
@@ -778,6 +1208,28 @@ func (this *DeleteManagedResourceReq) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeleteManagedResourceResp) StableEqualVT(that *DeleteManagedResourceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.RunId).StableEqualVT((*timestamppb1.Timestamp)(that.RunId)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteManagedResourceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteManagedResourceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeleteManagedResourceResp) EqualVT(that *DeleteManagedResourceResp) bool {
 	if this == that {

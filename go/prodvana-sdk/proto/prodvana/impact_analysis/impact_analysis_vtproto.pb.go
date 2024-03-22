@@ -39,6 +39,43 @@ func (m *ImpactAnalysisResult) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ImpactAnalysisResult) StableEqualVT(that *ImpactAnalysisResult) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Category != that.Category {
+		return false
+	}
+	if this.IncidentType != that.IncidentType {
+		return false
+	}
+	if this.ImpactScore != that.ImpactScore {
+		return false
+	}
+	if this.ImpactReasoning != that.ImpactReasoning {
+		return false
+	}
+	if this.LikelihoodScore != that.LikelihoodScore {
+		return false
+	}
+	if this.LikelihoodReasoning != that.LikelihoodReasoning {
+		return false
+	}
+	if this.OverallScore != that.OverallScore {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ImpactAnalysisResult) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ImpactAnalysisResult)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ImpactAnalysisResult) EqualVT(that *ImpactAnalysisResult) bool {
 	if this == that {
 		return true

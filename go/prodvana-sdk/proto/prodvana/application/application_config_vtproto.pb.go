@@ -65,6 +65,99 @@ func (m *ApplicationConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ApplicationConfig) StableEqualVT(that *ApplicationConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.ReleaseChannels) != len(that.ReleaseChannels) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannels {
+		vy := that.ReleaseChannels[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &release_channel.ReleaseChannelConfig{}
+			}
+			if q == nil {
+				q = &release_channel.ReleaseChannelConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Notifications.StableEqualVT(that.Notifications) {
+		return false
+	}
+	if !this.Alerts.StableEqualVT(that.Alerts) {
+		return false
+	}
+	if len(this.Capabilities) != len(that.Capabilities) {
+		return false
+	}
+	for i, vx := range this.Capabilities {
+		vy := that.Capabilities[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &capability.CapabilityConfig{}
+			}
+			if q == nil {
+				q = &capability.CapabilityConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.CapabilityInstances) != len(that.CapabilityInstances) {
+		return false
+	}
+	for i, vx := range this.CapabilityInstances {
+		vy := that.CapabilityInstances[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &capability.CapabilityInstanceConfig{}
+			}
+			if q == nil {
+				q = &capability.CapabilityInstanceConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ReleaseChannelGroups) != len(that.ReleaseChannelGroups) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannelGroups {
+		vy := that.ReleaseChannelGroups[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &release_channel.ReleaseChannelGroupGeneratorConfig{}
+			}
+			if q == nil {
+				q = &release_channel.ReleaseChannelGroupGeneratorConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplicationConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplicationConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ApplicationConfig) EqualVT(that *ApplicationConfig) bool {
 	if this == that {
 		return true

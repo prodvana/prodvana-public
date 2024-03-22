@@ -56,6 +56,34 @@ func (m *PipelineRun) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *PipelineRunState) StableEqualVT(that *PipelineRunState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.Terminal != that.Terminal {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PipelineRunState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PipelineRunState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PipelineRunState) EqualVT(that *PipelineRunState) bool {
 	if this == that {
 		return true
@@ -83,6 +111,28 @@ func (this *PipelineRunState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PipelineRun) StableEqualVT(that *PipelineRun) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PipelineRun) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PipelineRun)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PipelineRun) EqualVT(that *PipelineRun) bool {
 	if this == that {

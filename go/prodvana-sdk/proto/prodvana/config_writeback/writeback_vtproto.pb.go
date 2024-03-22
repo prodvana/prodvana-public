@@ -34,6 +34,28 @@ func (m *ConfigWritebackPath) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ConfigWritebackPath) StableEqualVT(that *ConfigWritebackPath) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DisplayName != that.DisplayName {
+		return false
+	}
+	if this.DisplayPath != that.DisplayPath {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigWritebackPath) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigWritebackPath)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigWritebackPath) EqualVT(that *ConfigWritebackPath) bool {
 	if this == that {
 		return true

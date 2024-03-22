@@ -65,6 +65,63 @@ func (m *OutputFile) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Output) StableEqualVT(that *Output) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExitCode != that.ExitCode {
+		return false
+	}
+	if this.ExecError != that.ExecError {
+		return false
+	}
+	if this.StdoutBlobId != that.StdoutBlobId {
+		return false
+	}
+	if this.StderrBlobId != that.StderrBlobId {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.StartTimestampNs != that.StartTimestampNs {
+		return false
+	}
+	if this.DurationNs != that.DurationNs {
+		return false
+	}
+	if len(this.Files) != len(that.Files) {
+		return false
+	}
+	for i, vx := range this.Files {
+		vy := that.Files[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &OutputFile{}
+			}
+			if q == nil {
+				q = &OutputFile{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Hostname != that.Hostname {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Output) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Output)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Output) EqualVT(that *Output) bool {
 	if this == that {
 		return true
@@ -121,6 +178,28 @@ func (this *Output) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *OutputFile) StableEqualVT(that *OutputFile) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ContentBlobId != that.ContentBlobId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OutputFile) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OutputFile)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *OutputFile) EqualVT(that *OutputFile) bool {
 	if this == that {

@@ -270,6 +270,194 @@ func (m *EntityGraph) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Notifications_ProgramFailures) StableEqualVT(that *Notifications_ProgramFailures) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.FailureCount != that.FailureCount {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.MostRecentFailure).StableEqualVT((*timestamppb1.Timestamp)(that.MostRecentFailure)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications_ProgramFailures) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications_ProgramFailures)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Notifications_RuntimeFailure) StableEqualVT(that *Notifications_RuntimeFailure) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.FailureType != that.FailureType {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications_RuntimeFailure) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications_RuntimeFailure)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Notifications_ProtectionFailure) StableEqualVT(that *Notifications_ProtectionFailure) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ProtectionId.StableEqualVT(that.ProtectionId) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications_ProtectionFailure) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications_ProtectionFailure)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Notifications_ConvergenceExtensionFailure) StableEqualVT(that *Notifications_ConvergenceExtensionFailure) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ExtensionId.StableEqualVT(that.ExtensionId) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications_ConvergenceExtensionFailure) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications_ConvergenceExtensionFailure)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Notifications_DelayedConvergence) StableEqualVT(that *Notifications_DelayedConvergence) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications_DelayedConvergence) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications_DelayedConvergence)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Notifications) StableEqualVT(that *Notifications) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ProgramFailures.StableEqualVT(that.ProgramFailures) {
+		return false
+	}
+	if len(this.RuntimeFailures) != len(that.RuntimeFailures) {
+		return false
+	}
+	for i, vx := range this.RuntimeFailures {
+		vy := that.RuntimeFailures[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Notifications_RuntimeFailure{}
+			}
+			if q == nil {
+				q = &Notifications_RuntimeFailure{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ProtectionFailure) != len(that.ProtectionFailure) {
+		return false
+	}
+	for i, vx := range this.ProtectionFailure {
+		vy := that.ProtectionFailure[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Notifications_ProtectionFailure{}
+			}
+			if q == nil {
+				q = &Notifications_ProtectionFailure{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceExtensionFailure) != len(that.ConvergenceExtensionFailure) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensionFailure {
+		vy := that.ConvergenceExtensionFailure[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Notifications_ConvergenceExtensionFailure{}
+			}
+			if q == nil {
+				q = &Notifications_ConvergenceExtensionFailure{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DelayedConvergence.StableEqualVT(that.DelayedConvergence) {
+		return false
+	}
+	if len(this.ConcurrencyLimitExceededErrors) != len(that.ConcurrencyLimitExceededErrors) {
+		return false
+	}
+	for i, vx := range this.ConcurrencyLimitExceededErrors {
+		vy := that.ConcurrencyLimitExceededErrors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ConcurrencyLimitExceeded{}
+			}
+			if q == nil {
+				q = &ConcurrencyLimitExceeded{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notifications) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notifications)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Notifications_ProgramFailures) EqualVT(that *Notifications_ProgramFailures) bool {
 	if this == that {
 		return true
@@ -458,6 +646,28 @@ func (this *Notifications) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Dependency) StableEqualVT(that *Dependency) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Dependency) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Dependency)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Dependency) EqualVT(that *Dependency) bool {
 	if this == that {
 		return true
@@ -479,6 +689,184 @@ func (this *Dependency) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Entity) StableEqualVT(that *Entity) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if !this.Annotations.StableEqualVT(that.Annotations) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !this.StartingState.StableEqualVT(that.StartingState) {
+		return false
+	}
+	if !this.LastSeenState.StableEqualVT(that.LastSeenState) {
+		return false
+	}
+	if !this.DesiredState.StableEqualVT(that.DesiredState) {
+		return false
+	}
+	if len(this.PreconditionStatuses) != len(that.PreconditionStatuses) {
+		return false
+	}
+	for i, vx := range this.PreconditionStatuses {
+		vy := that.PreconditionStatuses[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ConditionState{}
+			}
+			if q == nil {
+				q = &ConditionState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy := that.StatusExplanations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &StatusExplanation{}
+			}
+			if q == nil {
+				q = &StatusExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Logs) != len(that.Logs) {
+		return false
+	}
+	for i, vx := range this.Logs {
+		vy := that.Logs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DebugLog{}
+			}
+			if q == nil {
+				q = &DebugLog{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.ActionExplanation.StableEqualVT(that.ActionExplanation) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastFetchedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastFetchedTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastAppliedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastAppliedTimestamp)) {
+		return false
+	}
+	if len(this.Dependencies) != len(that.Dependencies) {
+		return false
+	}
+	for i, vx := range this.Dependencies {
+		vy := that.Dependencies[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Identifier{}
+			}
+			if q == nil {
+				q = &Identifier{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.SimpleStatus != that.SimpleStatus {
+		return false
+	}
+	if this.Lifecycle != that.Lifecycle {
+		return false
+	}
+	if !this.TargetState.StableEqualVT(that.TargetState) {
+		return false
+	}
+	if !this.MissingApproval.StableEqualVT(that.MissingApproval) {
+		return false
+	}
+	if !this.ApplyError.StableEqualVT(that.ApplyError) {
+		return false
+	}
+	if !this.Notifications.StableEqualVT(that.Notifications) {
+		return false
+	}
+	if len(this.DirectDependencies) != len(that.DirectDependencies) {
+		return false
+	}
+	for i, vx := range this.DirectDependencies {
+		vy := that.DirectDependencies[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Identifier{}
+			}
+			if q == nil {
+				q = &Identifier{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	if this.ParentDesiredStateId != that.ParentDesiredStateId {
+		return false
+	}
+	if len(this.DependenciesWithType) != len(that.DependenciesWithType) {
+		return false
+	}
+	for i, vx := range this.DependenciesWithType {
+		vy := that.DependenciesWithType[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Dependency{}
+			}
+			if q == nil {
+				q = &Dependency{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Entity) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Entity)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Entity) EqualVT(that *Entity) bool {
 	if this == that {
@@ -657,6 +1045,42 @@ func (this *Entity) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *EntityGraph) StableEqualVT(that *EntityGraph) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Root.StableEqualVT(that.Root) {
+		return false
+	}
+	if len(this.Entities) != len(that.Entities) {
+		return false
+	}
+	for i, vx := range this.Entities {
+		vy := that.Entities[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Entity{}
+			}
+			if q == nil {
+				q = &Entity{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EntityGraph) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EntityGraph)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *EntityGraph) EqualVT(that *EntityGraph) bool {
 	if this == that {

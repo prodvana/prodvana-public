@@ -128,6 +128,127 @@ func (m *CompiledDeliveryExtensionInstanceConfig) CloneMessageVT() proto.Message
 	return m.CloneVT()
 }
 
+func (this *DeliveryExtensionConfig) StableEqualVT(that *DeliveryExtensionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isDeliveryExtensionConfig_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RetryPolicy.StableEqualVT(that.RetryPolicy) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeliveryExtensionConfig_TaskConfig) StableEqualVT(thatIface isDeliveryExtensionConfig_ExecConfig) bool {
+	that, ok := thatIface.(*DeliveryExtensionConfig_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionConfig_KubernetesConfig) StableEqualVT(thatIface isDeliveryExtensionConfig_ExecConfig) bool {
+	that, ok := thatIface.(*DeliveryExtensionConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *DeliveryExtensionConfig) EqualVT(that *DeliveryExtensionConfig) bool {
 	if this == that {
 		return true
@@ -249,6 +370,42 @@ func (this *DeliveryExtensionConfig_KubernetesConfig) EqualVT(thatIface isDelive
 	return true
 }
 
+func (this *DeliveryExtensionInstanceRef) StableEqualVT(that *DeliveryExtensionInstanceRef) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionInstanceRef) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionInstanceRef)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeliveryExtensionInstanceRef) EqualVT(that *DeliveryExtensionInstanceRef) bool {
 	if this == that {
 		return true
@@ -284,6 +441,65 @@ func (this *DeliveryExtensionInstanceRef) EqualMessageVT(thatMsg proto.Message) 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CompiledDeliveryExtensionInstanceConfig) StableEqualVT(that *CompiledDeliveryExtensionInstanceConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Definition.StableEqualVT(that.Definition) {
+		return false
+	}
+	if !this.RuntimeExecution.StableEqualVT(that.RuntimeExecution) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ParameterValues) != len(that.ParameterValues) {
+		return false
+	}
+	for i, vx := range this.ParameterValues {
+		vy := that.ParameterValues[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledDeliveryExtensionInstanceConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledDeliveryExtensionInstanceConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CompiledDeliveryExtensionInstanceConfig) EqualVT(that *CompiledDeliveryExtensionInstanceConfig) bool {
 	if this == that {

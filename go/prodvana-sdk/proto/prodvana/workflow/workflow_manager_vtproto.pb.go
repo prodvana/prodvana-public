@@ -1665,6 +1665,31 @@ func (m *GetInstallGitHubUrlResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *TrackedImageRepository) StableEqualVT(that *TrackedImageRepository) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastIndex).StableEqualVT((*timestamppb1.Timestamp)(that.LastIndex)) {
+		return false
+	}
+	if this.IndexStatus != that.IndexStatus {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TrackedImageRepository) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TrackedImageRepository)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TrackedImageRepository) EqualVT(that *TrackedImageRepository) bool {
 	if this == that {
 		return true
@@ -1689,6 +1714,34 @@ func (this *TrackedImageRepository) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RegistryImage) StableEqualVT(that *RegistryImage) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Created).StableEqualVT((*timestamppb1.Timestamp)(that.Created)) {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Tag != that.Tag {
+		return false
+	}
+	if !this.Commit.StableEqualVT(that.Commit) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RegistryImage) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RegistryImage)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RegistryImage) EqualVT(that *RegistryImage) bool {
 	if this == that {
@@ -1718,6 +1771,34 @@ func (this *RegistryImage) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListRepoCommitsReq) StableEqualVT(that *ListRepoCommitsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.StartingRef != that.StartingRef {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListRepoCommitsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListRepoCommitsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListRepoCommitsReq) EqualVT(that *ListRepoCommitsReq) bool {
 	if this == that {
 		return true
@@ -1745,6 +1826,42 @@ func (this *ListRepoCommitsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListRepoCommitsResp) StableEqualVT(that *ListRepoCommitsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Commits) != len(that.Commits) {
+		return false
+	}
+	for i, vx := range this.Commits {
+		vy := that.Commits[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &repo.Commit{}
+			}
+			if q == nil {
+				q = &repo.Commit{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListRepoCommitsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListRepoCommitsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListRepoCommitsResp) EqualVT(that *ListRepoCommitsResp) bool {
 	if this == that {
@@ -1782,6 +1899,143 @@ func (this *ListRepoCommitsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CreateContainerRegistryIntegrationReq_ECROptions) StableEqualVT(that *CreateContainerRegistryIntegrationReq_ECROptions) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AccessKey != that.AccessKey {
+		return false
+	}
+	if this.SecretKey != that.SecretKey {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	if this.RoleArn != that.RoleArn {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateContainerRegistryIntegrationReq_ECROptions) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateContainerRegistryIntegrationReq_ECROptions)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CreateContainerRegistryIntegrationReq_PublicRegistryOptions) StableEqualVT(that *CreateContainerRegistryIntegrationReq_PublicRegistryOptions) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateContainerRegistryIntegrationReq_PublicRegistryOptions) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateContainerRegistryIntegrationReq_PublicRegistryOptions)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CreateContainerRegistryIntegrationReq) StableEqualVT(that *CreateContainerRegistryIntegrationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RegistryOptions == nil && that.RegistryOptions != nil {
+		return false
+	} else if this.RegistryOptions != nil {
+		if that.RegistryOptions == nil {
+			return false
+		}
+		if !this.RegistryOptions.(interface {
+			StableEqualVT(isCreateContainerRegistryIntegrationReq_RegistryOptions) bool
+		}).StableEqualVT(that.RegistryOptions) {
+			return false
+		}
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Username != that.Username {
+		return false
+	}
+	if this.Secret != that.Secret {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateContainerRegistryIntegrationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateContainerRegistryIntegrationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CreateContainerRegistryIntegrationReq_EcrOptions) StableEqualVT(thatIface isCreateContainerRegistryIntegrationReq_RegistryOptions) bool {
+	that, ok := thatIface.(*CreateContainerRegistryIntegrationReq_EcrOptions)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.EcrOptions, that.EcrOptions; p != q {
+		if p == nil {
+			p = &CreateContainerRegistryIntegrationReq_ECROptions{}
+		}
+		if q == nil {
+			q = &CreateContainerRegistryIntegrationReq_ECROptions{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CreateContainerRegistryIntegrationReq_PublicRegistryOptions_) StableEqualVT(thatIface isCreateContainerRegistryIntegrationReq_RegistryOptions) bool {
+	that, ok := thatIface.(*CreateContainerRegistryIntegrationReq_PublicRegistryOptions_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PublicRegistryOptions, that.PublicRegistryOptions; p != q {
+		if p == nil {
+			p = &CreateContainerRegistryIntegrationReq_PublicRegistryOptions{}
+		}
+		if q == nil {
+			q = &CreateContainerRegistryIntegrationReq_PublicRegistryOptions{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CreateContainerRegistryIntegrationReq_ECROptions) EqualVT(that *CreateContainerRegistryIntegrationReq_ECROptions) bool {
 	if this == that {
 		return true
@@ -1919,6 +2173,25 @@ func (this *CreateContainerRegistryIntegrationReq_PublicRegistryOptions_) EqualV
 	return true
 }
 
+func (this *CreateContainerRegistryIntegrationRes) StableEqualVT(that *CreateContainerRegistryIntegrationRes) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateContainerRegistryIntegrationRes) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateContainerRegistryIntegrationRes)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CreateContainerRegistryIntegrationRes) EqualVT(that *CreateContainerRegistryIntegrationRes) bool {
 	if this == that {
 		return true
@@ -1937,6 +2210,25 @@ func (this *CreateContainerRegistryIntegrationRes) EqualMessageVT(thatMsg proto.
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeleteContainerRegistryIntegrationReq) StableEqualVT(that *DeleteContainerRegistryIntegrationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RegistryName != that.RegistryName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteContainerRegistryIntegrationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteContainerRegistryIntegrationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeleteContainerRegistryIntegrationReq) EqualVT(that *DeleteContainerRegistryIntegrationReq) bool {
 	if this == that {
@@ -1957,6 +2249,22 @@ func (this *DeleteContainerRegistryIntegrationReq) EqualMessageVT(thatMsg proto.
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteContainerRegistryIntegrationResp) StableEqualVT(that *DeleteContainerRegistryIntegrationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteContainerRegistryIntegrationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteContainerRegistryIntegrationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteContainerRegistryIntegrationResp) EqualVT(that *DeleteContainerRegistryIntegrationResp) bool {
 	if this == that {
 		return true
@@ -1972,6 +2280,25 @@ func (this *DeleteContainerRegistryIntegrationResp) EqualMessageVT(thatMsg proto
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListContainerRegistryIntegrationsReq) StableEqualVT(that *ListContainerRegistryIntegrationsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.FetchStatus != that.FetchStatus {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListContainerRegistryIntegrationsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListContainerRegistryIntegrationsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListContainerRegistryIntegrationsReq) EqualVT(that *ListContainerRegistryIntegrationsReq) bool {
 	if this == that {
@@ -1992,6 +2319,110 @@ func (this *ListContainerRegistryIntegrationsReq) EqualMessageVT(thatMsg proto.M
 	}
 	return this.EqualVT(that)
 }
+func (this *ContainerRegistryIntegration_ECRInfo) StableEqualVT(that *ContainerRegistryIntegration_ECRInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerRegistryIntegration_ECRInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerRegistryIntegration_ECRInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ContainerRegistryIntegration) StableEqualVT(that *ContainerRegistryIntegration) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RegistryInfo == nil && that.RegistryInfo != nil {
+		return false
+	} else if this.RegistryInfo != nil {
+		if that.RegistryInfo == nil {
+			return false
+		}
+		if !this.RegistryInfo.(interface {
+			StableEqualVT(isContainerRegistryIntegration_RegistryInfo) bool
+		}).StableEqualVT(that.RegistryInfo) {
+			return false
+		}
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if len(this.Repositories) != len(that.Repositories) {
+		return false
+	}
+	for i, vx := range this.Repositories {
+		vy := that.Repositories[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TrackedImageRepository{}
+			}
+			if q == nil {
+				q = &TrackedImageRepository{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerRegistryIntegration) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerRegistryIntegration)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ContainerRegistryIntegration_EcrInfo) StableEqualVT(thatIface isContainerRegistryIntegration_RegistryInfo) bool {
+	that, ok := thatIface.(*ContainerRegistryIntegration_EcrInfo)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.EcrInfo, that.EcrInfo; p != q {
+		if p == nil {
+			p = &ContainerRegistryIntegration_ECRInfo{}
+		}
+		if q == nil {
+			q = &ContainerRegistryIntegration_ECRInfo{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ContainerRegistryIntegration_ECRInfo) EqualVT(that *ContainerRegistryIntegration_ECRInfo) bool {
 	if this == that {
 		return true
@@ -2096,6 +2527,126 @@ func (this *ContainerRegistryIntegration_EcrInfo) EqualVT(thatIface isContainerR
 	return true
 }
 
+func (this *ListContainerRegistryIntegrationsResp_ECRInfo) StableEqualVT(that *ListContainerRegistryIntegrationsResp_ECRInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListContainerRegistryIntegrationsResp_ECRInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListContainerRegistryIntegrationsResp_ECRInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo) StableEqualVT(that *ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RegistryInfo == nil && that.RegistryInfo != nil {
+		return false
+	} else if this.RegistryInfo != nil {
+		if that.RegistryInfo == nil {
+			return false
+		}
+		if !this.RegistryInfo.(interface {
+			StableEqualVT(isListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo_RegistryInfo) bool
+		}).StableEqualVT(that.RegistryInfo) {
+			return false
+		}
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo_EcrInfo) StableEqualVT(thatIface isListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo_RegistryInfo) bool {
+	that, ok := thatIface.(*ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo_EcrInfo)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.EcrInfo, that.EcrInfo; p != q {
+		if p == nil {
+			p = &ListContainerRegistryIntegrationsResp_ECRInfo{}
+		}
+		if q == nil {
+			q = &ListContainerRegistryIntegrationsResp_ECRInfo{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ListContainerRegistryIntegrationsResp) StableEqualVT(that *ListContainerRegistryIntegrationsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ContainerRegistries) != len(that.ContainerRegistries) {
+		return false
+	}
+	for i, vx := range this.ContainerRegistries {
+		vy := that.ContainerRegistries[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo{}
+			}
+			if q == nil {
+				q = &ListContainerRegistryIntegrationsResp_ContainerRegistryIntegrationInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListContainerRegistryIntegrationsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListContainerRegistryIntegrationsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListContainerRegistryIntegrationsResp_ECRInfo) EqualVT(that *ListContainerRegistryIntegrationsResp_ECRInfo) bool {
 	if this == that {
 		return true
@@ -2216,6 +2767,25 @@ func (this *ListContainerRegistryIntegrationsResp) EqualMessageVT(thatMsg proto.
 	}
 	return this.EqualVT(that)
 }
+func (this *GetContainerRegistryIntegrationReq) StableEqualVT(that *GetContainerRegistryIntegrationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RegistryName != that.RegistryName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetContainerRegistryIntegrationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetContainerRegistryIntegrationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetContainerRegistryIntegrationReq) EqualVT(that *GetContainerRegistryIntegrationReq) bool {
 	if this == that {
 		return true
@@ -2235,6 +2805,25 @@ func (this *GetContainerRegistryIntegrationReq) EqualMessageVT(thatMsg proto.Mes
 	}
 	return this.EqualVT(that)
 }
+func (this *GetContainerRegistryIntegrationResp) StableEqualVT(that *GetContainerRegistryIntegrationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Registry.StableEqualVT(that.Registry) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetContainerRegistryIntegrationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetContainerRegistryIntegrationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetContainerRegistryIntegrationResp) EqualVT(that *GetContainerRegistryIntegrationResp) bool {
 	if this == that {
 		return true
@@ -2253,6 +2842,37 @@ func (this *GetContainerRegistryIntegrationResp) EqualMessageVT(thatMsg proto.Me
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetContainerRegistryImagesReq) StableEqualVT(that *GetContainerRegistryImagesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.ImageRepository != that.ImageRepository {
+		return false
+	}
+	if this.SkipRegistryCache != that.SkipRegistryCache {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetContainerRegistryImagesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetContainerRegistryImagesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetContainerRegistryImagesReq) EqualVT(that *GetContainerRegistryImagesReq) bool {
 	if this == that {
@@ -2284,6 +2904,42 @@ func (this *GetContainerRegistryImagesReq) EqualMessageVT(thatMsg proto.Message)
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetContainerRegistryImagesRes) StableEqualVT(that *GetContainerRegistryImagesRes) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Images) != len(that.Images) {
+		return false
+	}
+	for i, vx := range this.Images {
+		vy := that.Images[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RegistryImage{}
+			}
+			if q == nil {
+				q = &RegistryImage{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetContainerRegistryImagesRes) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetContainerRegistryImagesRes)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetContainerRegistryImagesRes) EqualVT(that *GetContainerRegistryImagesRes) bool {
 	if this == that {
@@ -2321,6 +2977,25 @@ func (this *GetContainerRegistryImagesRes) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *ListTrackedImageRepositoriesReq) StableEqualVT(that *ListTrackedImageRepositoriesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListTrackedImageRepositoriesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListTrackedImageRepositoriesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListTrackedImageRepositoriesReq) EqualVT(that *ListTrackedImageRepositoriesReq) bool {
 	if this == that {
 		return true
@@ -2339,6 +3014,39 @@ func (this *ListTrackedImageRepositoriesReq) EqualMessageVT(thatMsg proto.Messag
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListTrackedImageRepositoriesResp) StableEqualVT(that *ListTrackedImageRepositoriesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Repositories) != len(that.Repositories) {
+		return false
+	}
+	for i, vx := range this.Repositories {
+		vy := that.Repositories[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TrackedImageRepository{}
+			}
+			if q == nil {
+				q = &TrackedImageRepository{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListTrackedImageRepositoriesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListTrackedImageRepositoriesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListTrackedImageRepositoriesResp) EqualVT(that *ListTrackedImageRepositoriesResp) bool {
 	if this == that {
@@ -2373,6 +3081,28 @@ func (this *ListTrackedImageRepositoriesResp) EqualMessageVT(thatMsg proto.Messa
 	}
 	return this.EqualVT(that)
 }
+func (this *GetTrackedImageRepositoryReq) StableEqualVT(that *GetTrackedImageRepositoryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetTrackedImageRepositoryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetTrackedImageRepositoryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetTrackedImageRepositoryReq) EqualVT(that *GetTrackedImageRepositoryReq) bool {
 	if this == that {
 		return true
@@ -2395,6 +3125,25 @@ func (this *GetTrackedImageRepositoryReq) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetTrackedImageRepositoryResp) StableEqualVT(that *GetTrackedImageRepositoryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Repository.StableEqualVT(that.Repository) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetTrackedImageRepositoryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetTrackedImageRepositoryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetTrackedImageRepositoryResp) EqualVT(that *GetTrackedImageRepositoryResp) bool {
 	if this == that {
 		return true
@@ -2413,6 +3162,34 @@ func (this *GetTrackedImageRepositoryResp) EqualMessageVT(thatMsg proto.Message)
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *TrackImageRepositoriesReq) StableEqualVT(that *TrackImageRepositoriesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if len(this.Repositories) != len(that.Repositories) {
+		return false
+	}
+	for i, vx := range this.Repositories {
+		vy := that.Repositories[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TrackImageRepositoriesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TrackImageRepositoriesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *TrackImageRepositoriesReq) EqualVT(that *TrackImageRepositoriesReq) bool {
 	if this == that {
@@ -2442,6 +3219,22 @@ func (this *TrackImageRepositoriesReq) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *TrackImageRepositoriesResp) StableEqualVT(that *TrackImageRepositoriesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TrackImageRepositoriesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TrackImageRepositoriesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TrackImageRepositoriesResp) EqualVT(that *TrackImageRepositoriesResp) bool {
 	if this == that {
 		return true
@@ -2457,6 +3250,28 @@ func (this *TrackImageRepositoriesResp) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *StopTrackingImageRepositoryReq) StableEqualVT(that *StopTrackingImageRepositoryReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StopTrackingImageRepositoryReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StopTrackingImageRepositoryReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *StopTrackingImageRepositoryReq) EqualVT(that *StopTrackingImageRepositoryReq) bool {
 	if this == that {
@@ -2480,6 +3295,22 @@ func (this *StopTrackingImageRepositoryReq) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *StopTrackingImageRepositoryResp) StableEqualVT(that *StopTrackingImageRepositoryResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StopTrackingImageRepositoryResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StopTrackingImageRepositoryResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *StopTrackingImageRepositoryResp) EqualVT(that *StopTrackingImageRepositoryResp) bool {
 	if this == that {
 		return true
@@ -2496,6 +3327,74 @@ func (this *StopTrackingImageRepositoryResp) EqualMessageVT(thatMsg proto.Messag
 	}
 	return this.EqualVT(that)
 }
+func (this *GetImageCommitInfoReq) StableEqualVT(that *GetImageCommitInfoReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ImageIdOneof == nil && that.ImageIdOneof != nil {
+		return false
+	} else if this.ImageIdOneof != nil {
+		if that.ImageIdOneof == nil {
+			return false
+		}
+		if !this.ImageIdOneof.(interface {
+			StableEqualVT(isGetImageCommitInfoReq_ImageIdOneof) bool
+		}).StableEqualVT(that.ImageIdOneof) {
+			return false
+		}
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetImageCommitInfoReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetImageCommitInfoReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetImageCommitInfoReq_Tag) StableEqualVT(thatIface isGetImageCommitInfoReq_ImageIdOneof) bool {
+	that, ok := thatIface.(*GetImageCommitInfoReq_Tag)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Tag != that.Tag {
+		return false
+	}
+	return true
+}
+
+func (this *GetImageCommitInfoReq_Image) StableEqualVT(thatIface isGetImageCommitInfoReq_ImageIdOneof) bool {
+	that, ok := thatIface.(*GetImageCommitInfoReq_Image)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Image != that.Image {
+		return false
+	}
+	return true
+}
+
 func (this *GetImageCommitInfoReq) EqualVT(that *GetImageCommitInfoReq) bool {
 	if this == that {
 		return true
@@ -2564,6 +3463,28 @@ func (this *GetImageCommitInfoReq_Image) EqualVT(thatIface isGetImageCommitInfoR
 	return true
 }
 
+func (this *GetImageCommitInfoResp) StableEqualVT(that *GetImageCommitInfoResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Commit.StableEqualVT(that.Commit) {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetImageCommitInfoResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetImageCommitInfoResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetImageCommitInfoResp) EqualVT(that *GetImageCommitInfoResp) bool {
 	if this == that {
 		return true
@@ -2585,6 +3506,28 @@ func (this *GetImageCommitInfoResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetCommitInfoReq) StableEqualVT(that *GetCommitInfoReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.CommitId != that.CommitId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetCommitInfoReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetCommitInfoReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetCommitInfoReq) EqualVT(that *GetCommitInfoReq) bool {
 	if this == that {
@@ -2608,6 +3551,25 @@ func (this *GetCommitInfoReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetCommitInfoResp) StableEqualVT(that *GetCommitInfoResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Commit.StableEqualVT(that.Commit) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetCommitInfoResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetCommitInfoResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetCommitInfoResp) EqualVT(that *GetCommitInfoResp) bool {
 	if this == that {
 		return true
@@ -2627,6 +3589,77 @@ func (this *GetCommitInfoResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetProgramDefaultsReq) StableEqualVT(that *GetProgramDefaultsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ImageIdOneof == nil && that.ImageIdOneof != nil {
+		return false
+	} else if this.ImageIdOneof != nil {
+		if that.ImageIdOneof == nil {
+			return false
+		}
+		if !this.ImageIdOneof.(interface {
+			StableEqualVT(isGetProgramDefaultsReq_ImageIdOneof) bool
+		}).StableEqualVT(that.ImageIdOneof) {
+			return false
+		}
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.SkipRegistryCache != that.SkipRegistryCache {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetProgramDefaultsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetProgramDefaultsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetProgramDefaultsReq_Tag) StableEqualVT(thatIface isGetProgramDefaultsReq_ImageIdOneof) bool {
+	that, ok := thatIface.(*GetProgramDefaultsReq_Tag)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Tag != that.Tag {
+		return false
+	}
+	return true
+}
+
+func (this *GetProgramDefaultsReq_Image) StableEqualVT(thatIface isGetProgramDefaultsReq_ImageIdOneof) bool {
+	that, ok := thatIface.(*GetProgramDefaultsReq_Image)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Image != that.Image {
+		return false
+	}
+	return true
+}
+
 func (this *GetProgramDefaultsReq) EqualVT(that *GetProgramDefaultsReq) bool {
 	if this == that {
 		return true
@@ -2698,6 +3731,77 @@ func (this *GetProgramDefaultsReq_Image) EqualVT(thatIface isGetProgramDefaultsR
 	return true
 }
 
+func (this *ProgramDefaults) StableEqualVT(that *ProgramDefaults) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Cmd) != len(that.Cmd) {
+		return false
+	}
+	for i, vx := range this.Cmd {
+		vy := that.Cmd[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Entrypoint) != len(that.Entrypoint) {
+		return false
+	}
+	for i, vx := range this.Entrypoint {
+		vy := that.Entrypoint[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Ports) != len(that.Ports) {
+		return false
+	}
+	for i, vx := range this.Ports {
+		vy := that.Ports[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.PortConfig{}
+			}
+			if q == nil {
+				q = &common_config.PortConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProgramDefaults) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProgramDefaults)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ProgramDefaults) EqualVT(that *ProgramDefaults) bool {
 	if this == that {
 		return true
@@ -2769,6 +3873,25 @@ func (this *ProgramDefaults) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetProgramDefaultsResp) StableEqualVT(that *GetProgramDefaultsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ProgramDefaults.StableEqualVT(that.ProgramDefaults) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetProgramDefaultsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetProgramDefaultsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetProgramDefaultsResp) EqualVT(that *GetProgramDefaultsResp) bool {
 	if this == that {
 		return true
@@ -2787,6 +3910,37 @@ func (this *GetProgramDefaultsResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceImageInfoReq) StableEqualVT(that *GetServiceImageInfoReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceImageInfoReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceImageInfoReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceImageInfoReq) EqualVT(that *GetServiceImageInfoReq) bool {
 	if this == that {
@@ -2818,6 +3972,162 @@ func (this *GetServiceImageInfoReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceImageInfoResp_VersionInfo) StableEqualVT(that *GetServiceImageInfoResp_VersionInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if len(this.ProgramInfos) != len(that.ProgramInfos) {
+		return false
+	}
+	for i, vx := range this.ProgramInfos {
+		vy := that.ProgramInfos[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &GetServiceImageInfoResp_ProgramInfo{}
+			}
+			if q == nil {
+				q = &GetServiceImageInfoResp_ProgramInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.PerReleaseChannel) != len(that.PerReleaseChannel) {
+		return false
+	}
+	for i, vx := range this.PerReleaseChannel {
+		vy := that.PerReleaseChannel[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &GetServiceImageInfoResp_PerReleaseChannel{}
+			}
+			if q == nil {
+				q = &GetServiceImageInfoResp_PerReleaseChannel{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceImageInfoResp_VersionInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceImageInfoResp_VersionInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetServiceImageInfoResp_ProgramInfo) StableEqualVT(that *GetServiceImageInfoResp_ProgramInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ImageUrl != that.ImageUrl {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceImageInfoResp_ProgramInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceImageInfoResp_ProgramInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetServiceImageInfoResp_PerReleaseChannel) StableEqualVT(that *GetServiceImageInfoResp_PerReleaseChannel) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if len(this.ProgramInfos) != len(that.ProgramInfos) {
+		return false
+	}
+	for i, vx := range this.ProgramInfos {
+		vy := that.ProgramInfos[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &GetServiceImageInfoResp_ProgramInfo{}
+			}
+			if q == nil {
+				q = &GetServiceImageInfoResp_ProgramInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceImageInfoResp_PerReleaseChannel) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceImageInfoResp_PerReleaseChannel)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetServiceImageInfoResp) StableEqualVT(that *GetServiceImageInfoResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ServiceName != that.ServiceName {
+		return false
+	}
+	if len(this.VersionInfos) != len(that.VersionInfos) {
+		return false
+	}
+	for i, vx := range this.VersionInfos {
+		vy := that.VersionInfos[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &GetServiceImageInfoResp_VersionInfo{}
+			}
+			if q == nil {
+				q = &GetServiceImageInfoResp_VersionInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceImageInfoResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceImageInfoResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceImageInfoResp_VersionInfo) EqualVT(that *GetServiceImageInfoResp_VersionInfo) bool {
 	if this == that {
@@ -2975,6 +4285,31 @@ func (this *GetServiceImageInfoResp) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallSlackReq) StableEqualVT(that *InstallSlackReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	if this.Code != that.Code {
+		return false
+	}
+	if this.RedirectUri != that.RedirectUri {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallSlackReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallSlackReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallSlackReq) EqualVT(that *InstallSlackReq) bool {
 	if this == that {
 		return true
@@ -3000,6 +4335,28 @@ func (this *InstallSlackReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallSlackResp) StableEqualVT(that *InstallSlackResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Success != that.Success {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallSlackResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallSlackResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallSlackResp) EqualVT(that *InstallSlackResp) bool {
 	if this == that {
 		return true
@@ -3022,6 +4379,22 @@ func (this *InstallSlackResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetInstallSlackUrlReq) StableEqualVT(that *GetInstallSlackUrlReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallSlackUrlReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallSlackUrlReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetInstallSlackUrlReq) EqualVT(that *GetInstallSlackUrlReq) bool {
 	if this == that {
 		return true
@@ -3037,6 +4410,25 @@ func (this *GetInstallSlackUrlReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetInstallSlackUrlResp) StableEqualVT(that *GetInstallSlackUrlResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallSlackUrlResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallSlackUrlResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetInstallSlackUrlResp) EqualVT(that *GetInstallSlackUrlResp) bool {
 	if this == that {
@@ -3057,6 +4449,22 @@ func (this *GetInstallSlackUrlResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *UninstallSlackReq) StableEqualVT(that *UninstallSlackReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallSlackReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallSlackReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UninstallSlackReq) EqualVT(that *UninstallSlackReq) bool {
 	if this == that {
 		return true
@@ -3072,6 +4480,25 @@ func (this *UninstallSlackReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UninstallSlackResp) StableEqualVT(that *UninstallSlackResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Success != that.Success {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallSlackResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallSlackResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UninstallSlackResp) EqualVT(that *UninstallSlackResp) bool {
 	if this == that {
@@ -3091,6 +4518,28 @@ func (this *UninstallSlackResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SlackChannel) StableEqualVT(that *SlackChannel) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SlackChannel) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SlackChannel)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SlackChannel) EqualVT(that *SlackChannel) bool {
 	if this == that {
@@ -3113,6 +4562,31 @@ func (this *SlackChannel) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *InstallPagerDutyReq) StableEqualVT(that *InstallPagerDutyReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	if this.Code != that.Code {
+		return false
+	}
+	if this.RedirectUri != that.RedirectUri {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallPagerDutyReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallPagerDutyReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *InstallPagerDutyReq) EqualVT(that *InstallPagerDutyReq) bool {
 	if this == that {
@@ -3139,6 +4613,28 @@ func (this *InstallPagerDutyReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallPagerDutyResp) StableEqualVT(that *InstallPagerDutyResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Success != that.Success {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallPagerDutyResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallPagerDutyResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallPagerDutyResp) EqualVT(that *InstallPagerDutyResp) bool {
 	if this == that {
 		return true
@@ -3161,6 +4657,22 @@ func (this *InstallPagerDutyResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetInstallPagerDutyUrlReq) StableEqualVT(that *GetInstallPagerDutyUrlReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallPagerDutyUrlReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallPagerDutyUrlReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetInstallPagerDutyUrlReq) EqualVT(that *GetInstallPagerDutyUrlReq) bool {
 	if this == that {
 		return true
@@ -3176,6 +4688,25 @@ func (this *GetInstallPagerDutyUrlReq) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetInstallPagerDutyUrlResp) StableEqualVT(that *GetInstallPagerDutyUrlResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallPagerDutyUrlResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallPagerDutyUrlResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetInstallPagerDutyUrlResp) EqualVT(that *GetInstallPagerDutyUrlResp) bool {
 	if this == that {
@@ -3196,6 +4727,22 @@ func (this *GetInstallPagerDutyUrlResp) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *UninstallPagerDutyReq) StableEqualVT(that *UninstallPagerDutyReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallPagerDutyReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallPagerDutyReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UninstallPagerDutyReq) EqualVT(that *UninstallPagerDutyReq) bool {
 	if this == that {
 		return true
@@ -3211,6 +4758,25 @@ func (this *UninstallPagerDutyReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UninstallPagerDutyResp) StableEqualVT(that *UninstallPagerDutyResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Success != that.Success {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallPagerDutyResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallPagerDutyResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UninstallPagerDutyResp) EqualVT(that *UninstallPagerDutyResp) bool {
 	if this == that {
@@ -3230,6 +4796,28 @@ func (this *UninstallPagerDutyResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PagerDutyService) StableEqualVT(that *PagerDutyService) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PagerDutyService) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PagerDutyService)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PagerDutyService) EqualVT(that *PagerDutyService) bool {
 	if this == that {
@@ -3253,6 +4841,28 @@ func (this *PagerDutyService) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallGrafanaReq) StableEqualVT(that *InstallGrafanaReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.ApiToken != that.ApiToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallGrafanaReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallGrafanaReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallGrafanaReq) EqualVT(that *InstallGrafanaReq) bool {
 	if this == that {
 		return true
@@ -3275,6 +4885,25 @@ func (this *InstallGrafanaReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallGrafanaResp) StableEqualVT(that *InstallGrafanaResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallGrafanaResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallGrafanaResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallGrafanaResp) EqualVT(that *InstallGrafanaResp) bool {
 	if this == that {
 		return true
@@ -3294,6 +4923,22 @@ func (this *InstallGrafanaResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *UninstallGrafanaReq) StableEqualVT(that *UninstallGrafanaReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallGrafanaReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallGrafanaReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UninstallGrafanaReq) EqualVT(that *UninstallGrafanaReq) bool {
 	if this == that {
 		return true
@@ -3309,6 +4954,25 @@ func (this *UninstallGrafanaReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UninstallGrafanaResp) StableEqualVT(that *UninstallGrafanaResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallGrafanaResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallGrafanaResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UninstallGrafanaResp) EqualVT(that *UninstallGrafanaResp) bool {
 	if this == that {
@@ -3329,6 +4993,22 @@ func (this *UninstallGrafanaResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetGrafanaInstallationReq) StableEqualVT(that *GetGrafanaInstallationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetGrafanaInstallationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetGrafanaInstallationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetGrafanaInstallationReq) EqualVT(that *GetGrafanaInstallationReq) bool {
 	if this == that {
 		return true
@@ -3344,6 +5024,28 @@ func (this *GetGrafanaInstallationReq) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetGrafanaInstallationResp) StableEqualVT(that *GetGrafanaInstallationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetGrafanaInstallationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetGrafanaInstallationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetGrafanaInstallationResp) EqualVT(that *GetGrafanaInstallationResp) bool {
 	if this == that {
@@ -3367,6 +5069,22 @@ func (this *GetGrafanaInstallationResp) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *ListHoneycombEnvironmentsReq) StableEqualVT(that *ListHoneycombEnvironmentsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListHoneycombEnvironmentsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListHoneycombEnvironmentsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListHoneycombEnvironmentsReq) EqualVT(that *ListHoneycombEnvironmentsReq) bool {
 	if this == that {
 		return true
@@ -3382,6 +5100,61 @@ func (this *ListHoneycombEnvironmentsReq) EqualMessageVT(thatMsg proto.Message) 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListHoneycombEnvironmentsResp_HoneycombEnvironment) StableEqualVT(that *ListHoneycombEnvironmentsResp_HoneycombEnvironment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListHoneycombEnvironmentsResp_HoneycombEnvironment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListHoneycombEnvironmentsResp_HoneycombEnvironment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListHoneycombEnvironmentsResp) StableEqualVT(that *ListHoneycombEnvironmentsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Environments) != len(that.Environments) {
+		return false
+	}
+	for i, vx := range this.Environments {
+		vy := that.Environments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListHoneycombEnvironmentsResp_HoneycombEnvironment{}
+			}
+			if q == nil {
+				q = &ListHoneycombEnvironmentsResp_HoneycombEnvironment{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListHoneycombEnvironmentsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListHoneycombEnvironmentsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListHoneycombEnvironmentsResp_HoneycombEnvironment) EqualVT(that *ListHoneycombEnvironmentsResp_HoneycombEnvironment) bool {
 	if this == that {
@@ -3438,6 +5211,28 @@ func (this *ListHoneycombEnvironmentsResp) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *AddHoneycombEnvironmentReq) StableEqualVT(that *AddHoneycombEnvironmentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ApiKey != that.ApiKey {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AddHoneycombEnvironmentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AddHoneycombEnvironmentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AddHoneycombEnvironmentReq) EqualVT(that *AddHoneycombEnvironmentReq) bool {
 	if this == that {
 		return true
@@ -3460,6 +5255,25 @@ func (this *AddHoneycombEnvironmentReq) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *AddHoneycombEnvironmentResp) StableEqualVT(that *AddHoneycombEnvironmentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AddHoneycombEnvironmentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AddHoneycombEnvironmentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AddHoneycombEnvironmentResp) EqualVT(that *AddHoneycombEnvironmentResp) bool {
 	if this == that {
 		return true
@@ -3478,6 +5292,28 @@ func (this *AddHoneycombEnvironmentResp) EqualMessageVT(thatMsg proto.Message) b
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UpdateHoneycombEnvironmentReq) StableEqualVT(that *UpdateHoneycombEnvironmentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ApiKey != that.ApiKey {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UpdateHoneycombEnvironmentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UpdateHoneycombEnvironmentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UpdateHoneycombEnvironmentReq) EqualVT(that *UpdateHoneycombEnvironmentReq) bool {
 	if this == that {
@@ -3501,6 +5337,22 @@ func (this *UpdateHoneycombEnvironmentReq) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *UpdateHoneycombEnvironmentResp) StableEqualVT(that *UpdateHoneycombEnvironmentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UpdateHoneycombEnvironmentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UpdateHoneycombEnvironmentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UpdateHoneycombEnvironmentResp) EqualVT(that *UpdateHoneycombEnvironmentResp) bool {
 	if this == that {
 		return true
@@ -3516,6 +5368,25 @@ func (this *UpdateHoneycombEnvironmentResp) EqualMessageVT(thatMsg proto.Message
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeleteHoneycombEnvironmentReq) StableEqualVT(that *DeleteHoneycombEnvironmentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteHoneycombEnvironmentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteHoneycombEnvironmentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeleteHoneycombEnvironmentReq) EqualVT(that *DeleteHoneycombEnvironmentReq) bool {
 	if this == that {
@@ -3536,6 +5407,22 @@ func (this *DeleteHoneycombEnvironmentReq) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteHoneycombEnvironmentResp) StableEqualVT(that *DeleteHoneycombEnvironmentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteHoneycombEnvironmentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteHoneycombEnvironmentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteHoneycombEnvironmentResp) EqualVT(that *DeleteHoneycombEnvironmentResp) bool {
 	if this == that {
 		return true
@@ -3552,6 +5439,22 @@ func (this *DeleteHoneycombEnvironmentResp) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *UninstallHoneycombReq) StableEqualVT(that *UninstallHoneycombReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallHoneycombReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallHoneycombReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UninstallHoneycombReq) EqualVT(that *UninstallHoneycombReq) bool {
 	if this == that {
 		return true
@@ -3567,6 +5470,31 @@ func (this *UninstallHoneycombReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UninstallHoneycombResp) StableEqualVT(that *UninstallHoneycombResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.IntegrationIds) != len(that.IntegrationIds) {
+		return false
+	}
+	for i, vx := range this.IntegrationIds {
+		vy := that.IntegrationIds[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallHoneycombResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallHoneycombResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UninstallHoneycombResp) EqualVT(that *UninstallHoneycombResp) bool {
 	if this == that {
@@ -3592,6 +5520,37 @@ func (this *UninstallHoneycombResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CreateGitHubAppReq) StableEqualVT(that *CreateGitHubAppReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AppId != that.AppId {
+		return false
+	}
+	if this.PrivateKey != that.PrivateKey {
+		return false
+	}
+	if this.ClientSecret != that.ClientSecret {
+		return false
+	}
+	if this.WebhookSecret != that.WebhookSecret {
+		return false
+	}
+	if this.GithubOrganization != that.GithubOrganization {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateGitHubAppReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateGitHubAppReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CreateGitHubAppReq) EqualVT(that *CreateGitHubAppReq) bool {
 	if this == that {
@@ -3624,6 +5583,25 @@ func (this *CreateGitHubAppReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CreateGitHubAppResp) StableEqualVT(that *CreateGitHubAppResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateGitHubAppResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateGitHubAppResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CreateGitHubAppResp) EqualVT(that *CreateGitHubAppResp) bool {
 	if this == that {
 		return true
@@ -3642,6 +5620,25 @@ func (this *CreateGitHubAppResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *InstallGitHubReq) StableEqualVT(that *InstallGitHubReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.InstallationId != that.InstallationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallGitHubReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallGitHubReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *InstallGitHubReq) EqualVT(that *InstallGitHubReq) bool {
 	if this == that {
@@ -3662,6 +5659,22 @@ func (this *InstallGitHubReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InstallGitHubResp) StableEqualVT(that *InstallGitHubResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallGitHubResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallGitHubResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InstallGitHubResp) EqualVT(that *InstallGitHubResp) bool {
 	if this == that {
 		return true
@@ -3677,6 +5690,31 @@ func (this *InstallGitHubResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Integration) StableEqualVT(that *Integration) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Integration) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Integration)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Integration) EqualVT(that *Integration) bool {
 	if this == that {
@@ -3703,6 +5741,22 @@ func (this *Integration) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListIntegrationsReq) StableEqualVT(that *ListIntegrationsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListIntegrationsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListIntegrationsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListIntegrationsReq) EqualVT(that *ListIntegrationsReq) bool {
 	if this == that {
 		return true
@@ -3718,6 +5772,39 @@ func (this *ListIntegrationsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListIntegrationsResp) StableEqualVT(that *ListIntegrationsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Integrations) != len(that.Integrations) {
+		return false
+	}
+	for i, vx := range this.Integrations {
+		vy := that.Integrations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Integration{}
+			}
+			if q == nil {
+				q = &Integration{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListIntegrationsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListIntegrationsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListIntegrationsResp) EqualVT(that *ListIntegrationsResp) bool {
 	if this == that {
@@ -3752,6 +5839,25 @@ func (this *ListIntegrationsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteIntegrationReq) StableEqualVT(that *DeleteIntegrationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteIntegrationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteIntegrationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteIntegrationReq) EqualVT(that *DeleteIntegrationReq) bool {
 	if this == that {
 		return true
@@ -3771,6 +5877,22 @@ func (this *DeleteIntegrationReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteIntegrationResp) StableEqualVT(that *DeleteIntegrationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteIntegrationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteIntegrationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteIntegrationResp) EqualVT(that *DeleteIntegrationResp) bool {
 	if this == that {
 		return true
@@ -3786,6 +5908,25 @@ func (this *DeleteIntegrationResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetInstallGitHubUrlReq) StableEqualVT(that *GetInstallGitHubUrlReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.GithubOrg != that.GithubOrg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallGitHubUrlReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallGitHubUrlReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetInstallGitHubUrlReq) EqualVT(that *GetInstallGitHubUrlReq) bool {
 	if this == that {
@@ -3805,6 +5946,28 @@ func (this *GetInstallGitHubUrlReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetInstallGitHubUrlResp) StableEqualVT(that *GetInstallGitHubUrlResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Manifest != that.Manifest {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInstallGitHubUrlResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInstallGitHubUrlResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetInstallGitHubUrlResp) EqualVT(that *GetInstallGitHubUrlResp) bool {
 	if this == that {

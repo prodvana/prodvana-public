@@ -133,6 +133,159 @@ func (m *Cost) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *DeploymentMetrics_Deltas) StableEqualVT(that *DeploymentMetrics_Deltas) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TotalDeployments != that.TotalDeployments {
+		return false
+	}
+	if this.SuccessfulDeployments != that.SuccessfulDeployments {
+		return false
+	}
+	if this.SuccessfulDeploymentsPerDay != that.SuccessfulDeploymentsPerDay {
+		return false
+	}
+	if this.FailedDeployments != that.FailedDeployments {
+		return false
+	}
+	if this.MedianSuccessfulDeploymentDuration != that.MedianSuccessfulDeploymentDuration {
+		return false
+	}
+	if this.DeploymentFailureRate != that.DeploymentFailureRate {
+		return false
+	}
+	if this.TotalRollbacks != that.TotalRollbacks {
+		return false
+	}
+	if this.SuccessfulRollbacks != that.SuccessfulRollbacks {
+		return false
+	}
+	if this.MedianSuccessfulRollbackDuration != that.MedianSuccessfulRollbackDuration {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentMetrics_Deltas) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentMetrics_Deltas)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeploymentMetrics_Values) StableEqualVT(that *DeploymentMetrics_Values) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TotalDeployments != that.TotalDeployments {
+		return false
+	}
+	if this.SuccessfulDeployments != that.SuccessfulDeployments {
+		return false
+	}
+	if this.SuccessfulDeploymentsPerDay != that.SuccessfulDeploymentsPerDay {
+		return false
+	}
+	if this.FailedDeployments != that.FailedDeployments {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.MedianSuccessfulDeploymentDuration).StableEqualVT((*durationpb1.Duration)(that.MedianSuccessfulDeploymentDuration)) {
+		return false
+	}
+	if this.DeploymentFailureRate != that.DeploymentFailureRate {
+		return false
+	}
+	if this.TotalRollbacks != that.TotalRollbacks {
+		return false
+	}
+	if this.SuccessfulRollbacks != that.SuccessfulRollbacks {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.MedianSuccessfulRollbackDuration).StableEqualVT((*durationpb1.Duration)(that.MedianSuccessfulRollbackDuration)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastSuccessfulDeploymentCompletionTime).StableEqualVT((*timestamppb1.Timestamp)(that.LastSuccessfulDeploymentCompletionTime)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentMetrics_Values) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentMetrics_Values)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeploymentMetrics_TimeseriesMetrics) StableEqualVT(that *DeploymentMetrics_TimeseriesMetrics) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Timestamp).StableEqualVT((*timestamppb1.Timestamp)(that.Timestamp)) {
+		return false
+	}
+	if this.SuccessfulDeployments != that.SuccessfulDeployments {
+		return false
+	}
+	if this.FailedDeployments != that.FailedDeployments {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentMetrics_TimeseriesMetrics) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentMetrics_TimeseriesMetrics)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeploymentMetrics) StableEqualVT(that *DeploymentMetrics) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Values.StableEqualVT(that.Values) {
+		return false
+	}
+	if len(this.Timeseries) != len(that.Timeseries) {
+		return false
+	}
+	for i, vx := range this.Timeseries {
+		vy := that.Timeseries[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeploymentMetrics_TimeseriesMetrics{}
+			}
+			if q == nil {
+				q = &DeploymentMetrics_TimeseriesMetrics{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Deltas.StableEqualVT(that.Deltas) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentMetrics) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentMetrics)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentMetrics_Deltas) EqualVT(that *DeploymentMetrics_Deltas) bool {
 	if this == that {
 		return true
@@ -285,6 +438,28 @@ func (this *DeploymentMetrics) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Cost) StableEqualVT(that *Cost) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Configured != that.Configured {
+		return false
+	}
+	if this.Cost != that.Cost {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Cost) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Cost)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Cost) EqualVT(that *Cost) bool {
 	if this == that {

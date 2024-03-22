@@ -141,6 +141,34 @@ func (m *ServiceInstance) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ServiceInstanceProtectionAttachment) StableEqualVT(that *ServiceInstanceProtectionAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Protection != that.Protection {
+		return false
+	}
+	if this.Attachment != that.Attachment {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.AttachmentId != that.AttachmentId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceInstanceProtectionAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceInstanceProtectionAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceInstanceProtectionAttachment) EqualVT(that *ServiceInstanceProtectionAttachment) bool {
 	if this == that {
 		return true
@@ -169,6 +197,28 @@ func (this *ServiceInstanceProtectionAttachment) EqualMessageVT(thatMsg proto.Me
 	}
 	return this.EqualVT(that)
 }
+func (this *ExternalAddr) StableEqualVT(that *ExternalAddr) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Addr != that.Addr {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExternalAddr) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExternalAddr)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ExternalAddr) EqualVT(that *ExternalAddr) bool {
 	if this == that {
 		return true
@@ -191,6 +241,28 @@ func (this *ExternalAddr) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ServiceState) StableEqualVT(that *ServiceState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConvergenceMode != that.ConvergenceMode {
+		return false
+	}
+	if this.MaestroEnabled != that.MaestroEnabled {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceState) EqualVT(that *ServiceState) bool {
 	if this == that {
 		return true
@@ -212,6 +284,34 @@ func (this *ServiceState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Service) StableEqualVT(that *Service) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	if !this.UserMetadata.StableEqualVT(that.UserMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Service) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Service)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Service) EqualVT(that *Service) bool {
 	if this == that {
@@ -240,6 +340,56 @@ func (this *Service) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ServiceInstanceState) StableEqualVT(that *ServiceInstanceState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ExternalAddrs) != len(that.ExternalAddrs) {
+		return false
+	}
+	for i, vx := range this.ExternalAddrs {
+		vy := that.ExternalAddrs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ExternalAddr{}
+			}
+			if q == nil {
+				q = &ExternalAddr{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ProtectionAttachments) != len(that.ProtectionAttachments) {
+		return false
+	}
+	for i, vx := range this.ProtectionAttachments {
+		vy := that.ProtectionAttachments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ServiceInstanceProtectionAttachment{}
+			}
+			if q == nil {
+				q = &ServiceInstanceProtectionAttachment{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceInstanceState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceInstanceState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ServiceInstanceState) EqualVT(that *ServiceInstanceState) bool {
 	if this == that {
@@ -290,6 +440,31 @@ func (this *ServiceInstanceState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ServiceInstance) StableEqualVT(that *ServiceInstance) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceInstance) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceInstance)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ServiceInstance) EqualVT(that *ServiceInstance) bool {
 	if this == that {

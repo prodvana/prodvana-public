@@ -422,6 +422,40 @@ func (m *SetOrganizationSettingsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *OrganizationInfo) StableEqualVT(that *OrganizationInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.DisplayName != that.DisplayName {
+		return false
+	}
+	if !this.WritebackConfig.StableEqualVT(that.WritebackConfig) {
+		return false
+	}
+	if this.Slug != that.Slug {
+		return false
+	}
+	if !this.UserMetadata.StableEqualVT(that.UserMetadata) {
+		return false
+	}
+	if this.UiAddress != that.UiAddress {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *OrganizationInfo) EqualVT(that *OrganizationInfo) bool {
 	if this == that {
 		return true
@@ -456,6 +490,22 @@ func (this *OrganizationInfo) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationReq) StableEqualVT(that *GetOrganizationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationReq) EqualVT(that *GetOrganizationReq) bool {
 	if this == that {
 		return true
@@ -471,6 +521,25 @@ func (this *GetOrganizationReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationResp) StableEqualVT(that *GetOrganizationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Organization.StableEqualVT(that.Organization) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationResp) EqualVT(that *GetOrganizationResp) bool {
 	if this == that {
@@ -490,6 +559,28 @@ func (this *GetOrganizationResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationMetricsReq) StableEqualVT(that *GetOrganizationMetricsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.StartTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.StartTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.EndTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.EndTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationMetricsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationMetricsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationMetricsReq) EqualVT(that *GetOrganizationMetricsReq) bool {
 	if this == that {
@@ -513,6 +604,25 @@ func (this *GetOrganizationMetricsReq) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationMetricsResp) StableEqualVT(that *GetOrganizationMetricsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DeploymentMetrics.StableEqualVT(that.DeploymentMetrics) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationMetricsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationMetricsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationMetricsResp) EqualVT(that *GetOrganizationMetricsResp) bool {
 	if this == that {
 		return true
@@ -532,6 +642,22 @@ func (this *GetOrganizationMetricsResp) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationInsightsReq) StableEqualVT(that *GetOrganizationInsightsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationInsightsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationInsightsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationInsightsReq) EqualVT(that *GetOrganizationInsightsReq) bool {
 	if this == that {
 		return true
@@ -547,6 +673,39 @@ func (this *GetOrganizationInsightsReq) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationInsightsResp) StableEqualVT(that *GetOrganizationInsightsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Insights) != len(that.Insights) {
+		return false
+	}
+	for i, vx := range this.Insights {
+		vy := that.Insights[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &insights.Insight{}
+			}
+			if q == nil {
+				q = &insights.Insight{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationInsightsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationInsightsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationInsightsResp) EqualVT(that *GetOrganizationInsightsResp) bool {
 	if this == that {
@@ -581,6 +740,28 @@ func (this *GetOrganizationInsightsResp) EqualMessageVT(thatMsg proto.Message) b
 	}
 	return this.EqualVT(that)
 }
+func (this *SnoozeOrganizationInsightReq) StableEqualVT(that *SnoozeOrganizationInsightReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Class != that.Class {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Duration).StableEqualVT((*durationpb1.Duration)(that.Duration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SnoozeOrganizationInsightReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SnoozeOrganizationInsightReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SnoozeOrganizationInsightReq) EqualVT(that *SnoozeOrganizationInsightReq) bool {
 	if this == that {
 		return true
@@ -603,6 +784,22 @@ func (this *SnoozeOrganizationInsightReq) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
+func (this *SnoozeOrganizationInsightResp) StableEqualVT(that *SnoozeOrganizationInsightResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SnoozeOrganizationInsightResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SnoozeOrganizationInsightResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SnoozeOrganizationInsightResp) EqualVT(that *SnoozeOrganizationInsightResp) bool {
 	if this == that {
 		return true
@@ -619,6 +816,22 @@ func (this *SnoozeOrganizationInsightResp) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationMetadataReq) StableEqualVT(that *GetOrganizationMetadataReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationMetadataReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationMetadataReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationMetadataReq) EqualVT(that *GetOrganizationMetadataReq) bool {
 	if this == that {
 		return true
@@ -634,6 +847,25 @@ func (this *GetOrganizationMetadataReq) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationMetadataResp) StableEqualVT(that *GetOrganizationMetadataResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.StableEqualVT(that.Metadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationMetadataResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationMetadataResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationMetadataResp) EqualVT(that *GetOrganizationMetadataResp) bool {
 	if this == that {
@@ -654,6 +886,25 @@ func (this *GetOrganizationMetadataResp) EqualMessageVT(thatMsg proto.Message) b
 	}
 	return this.EqualVT(that)
 }
+func (this *SetOrganizationMetadataReq) StableEqualVT(that *SetOrganizationMetadataReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.StableEqualVT(that.Metadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetOrganizationMetadataReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetOrganizationMetadataReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetOrganizationMetadataReq) EqualVT(that *SetOrganizationMetadataReq) bool {
 	if this == that {
 		return true
@@ -673,6 +924,22 @@ func (this *SetOrganizationMetadataReq) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *SetOrganizationMetadataResp) StableEqualVT(that *SetOrganizationMetadataResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetOrganizationMetadataResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetOrganizationMetadataResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetOrganizationMetadataResp) EqualVT(that *SetOrganizationMetadataResp) bool {
 	if this == that {
 		return true
@@ -688,6 +955,25 @@ func (this *SetOrganizationMetadataResp) EqualMessageVT(thatMsg proto.Message) b
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetUserReq) StableEqualVT(that *GetUserReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetUserReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetUserReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetUserReq) EqualVT(that *GetUserReq) bool {
 	if this == that {
@@ -708,6 +994,25 @@ func (this *GetUserReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetUserResp) StableEqualVT(that *GetUserResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.User.StableEqualVT(that.User) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetUserResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetUserResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetUserResp) EqualVT(that *GetUserResp) bool {
 	if this == that {
 		return true
@@ -727,6 +1032,25 @@ func (this *GetUserResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationSubscriptionStatusReq) StableEqualVT(that *GetOrganizationSubscriptionStatusReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.OrgId != that.OrgId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationSubscriptionStatusReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationSubscriptionStatusReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationSubscriptionStatusReq) EqualVT(that *GetOrganizationSubscriptionStatusReq) bool {
 	if this == that {
 		return true
@@ -745,6 +1069,31 @@ func (this *GetOrganizationSubscriptionStatusReq) EqualMessageVT(thatMsg proto.M
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationSubscriptionStatusResp) StableEqualVT(that *GetOrganizationSubscriptionStatusResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Active != that.Active {
+		return false
+	}
+	if this.Trial != that.Trial {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.TrialEndTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.TrialEndTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationSubscriptionStatusResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationSubscriptionStatusResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationSubscriptionStatusResp) EqualVT(that *GetOrganizationSubscriptionStatusResp) bool {
 	if this == that {
@@ -771,6 +1120,25 @@ func (this *GetOrganizationSubscriptionStatusResp) EqualMessageVT(thatMsg proto.
 	}
 	return this.EqualVT(that)
 }
+func (this *OrganizationSettings) StableEqualVT(that *OrganizationSettings) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.EnableAiIntegration != that.EnableAiIntegration {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationSettings) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationSettings)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *OrganizationSettings) EqualVT(that *OrganizationSettings) bool {
 	if this == that {
 		return true
@@ -789,6 +1157,25 @@ func (this *OrganizationSettings) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *OrganizationSettingsDelta) StableEqualVT(that *OrganizationSettingsDelta) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*wrapperspb1.BoolValue)(this.EnableAiIntegration).StableEqualVT((*wrapperspb1.BoolValue)(that.EnableAiIntegration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationSettingsDelta) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationSettingsDelta)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *OrganizationSettingsDelta) EqualVT(that *OrganizationSettingsDelta) bool {
 	if this == that {
@@ -809,6 +1196,22 @@ func (this *OrganizationSettingsDelta) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetOrganizationSettingsReq) StableEqualVT(that *GetOrganizationSettingsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationSettingsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationSettingsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetOrganizationSettingsReq) EqualVT(that *GetOrganizationSettingsReq) bool {
 	if this == that {
 		return true
@@ -824,6 +1227,25 @@ func (this *GetOrganizationSettingsReq) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetOrganizationSettingsResp) StableEqualVT(that *GetOrganizationSettingsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Settings.StableEqualVT(that.Settings) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetOrganizationSettingsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetOrganizationSettingsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetOrganizationSettingsResp) EqualVT(that *GetOrganizationSettingsResp) bool {
 	if this == that {
@@ -844,6 +1266,25 @@ func (this *GetOrganizationSettingsResp) EqualMessageVT(thatMsg proto.Message) b
 	}
 	return this.EqualVT(that)
 }
+func (this *SetOrganizationSettingsReq) StableEqualVT(that *SetOrganizationSettingsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Settings.StableEqualVT(that.Settings) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetOrganizationSettingsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetOrganizationSettingsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetOrganizationSettingsReq) EqualVT(that *SetOrganizationSettingsReq) bool {
 	if this == that {
 		return true
@@ -862,6 +1303,22 @@ func (this *SetOrganizationSettingsReq) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SetOrganizationSettingsResp) StableEqualVT(that *SetOrganizationSettingsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetOrganizationSettingsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetOrganizationSettingsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SetOrganizationSettingsResp) EqualVT(that *SetOrganizationSettingsResp) bool {
 	if this == that {

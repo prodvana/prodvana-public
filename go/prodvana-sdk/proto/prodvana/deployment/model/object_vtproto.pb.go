@@ -165,6 +165,64 @@ func (m *Deployment) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *DeploymentConfig) StableEqualVT(that *DeploymentConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if this.DeploymentSystem != that.DeploymentSystem {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.CommitId != that.CommitId {
+		return false
+	}
+	if this.User != that.User {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceVersion != that.ServiceVersion {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentConfig) EqualVT(that *DeploymentConfig) bool {
 	if this == that {
 		return true
@@ -223,6 +281,28 @@ func (this *DeploymentConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeploymentState) StableEqualVT(that *DeploymentState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentState) EqualVT(that *DeploymentState) bool {
 	if this == that {
 		return true
@@ -244,6 +324,31 @@ func (this *DeploymentState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CommitAnalysis) StableEqualVT(that *CommitAnalysis) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CommitsAdded != that.CommitsAdded {
+		return false
+	}
+	if this.CommitsRemoved != that.CommitsRemoved {
+		return false
+	}
+	if !this.ImpactAnalysis.StableEqualVT(that.ImpactAnalysis) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CommitAnalysis) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CommitAnalysis)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CommitAnalysis) EqualVT(that *CommitAnalysis) bool {
 	if this == that {
@@ -269,6 +374,59 @@ func (this *CommitAnalysis) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ImpactAnalysisComparison) StableEqualVT(that *ImpactAnalysisComparison) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.RelevantAddedCommits) != len(that.RelevantAddedCommits) {
+		return false
+	}
+	for i, vx := range this.RelevantAddedCommits {
+		vy := that.RelevantAddedCommits[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &repo.Commit{}
+			}
+			if q == nil {
+				q = &repo.Commit{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.UnanalyzedCommits != that.UnanalyzedCommits {
+		return false
+	}
+	if len(this.RelevantRemovedCommits) != len(that.RelevantRemovedCommits) {
+		return false
+	}
+	for i, vx := range this.RelevantRemovedCommits {
+		vy := that.RelevantRemovedCommits[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &repo.Commit{}
+			}
+			if q == nil {
+				q = &repo.Commit{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ImpactAnalysisComparison) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ImpactAnalysisComparison)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ImpactAnalysisComparison) EqualVT(that *ImpactAnalysisComparison) bool {
 	if this == that {
@@ -323,6 +481,58 @@ func (this *ImpactAnalysisComparison) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *DeploymentComparison) StableEqualVT(that *DeploymentComparison) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Prev.StableEqualVT(that.Prev) {
+		return false
+	}
+	if this.PrevRepository != that.PrevRepository {
+		return false
+	}
+	if this.NewRepository != that.NewRepository {
+		return false
+	}
+	if this.PrevCommitId != that.PrevCommitId {
+		return false
+	}
+	if this.NewCommitId != that.NewCommitId {
+		return false
+	}
+	if this.PrevServiceId != that.PrevServiceId {
+		return false
+	}
+	if this.PrevReleaseChannelId != that.PrevReleaseChannelId {
+		return false
+	}
+	if this.PrevServiceVersion != that.PrevServiceVersion {
+		return false
+	}
+	if this.NewServiceId != that.NewServiceId {
+		return false
+	}
+	if this.NewReleaseChannelId != that.NewReleaseChannelId {
+		return false
+	}
+	if this.NewServiceVersion != that.NewServiceVersion {
+		return false
+	}
+	if !this.CommitAnalysis.StableEqualVT(that.CommitAnalysis) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentComparison) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentComparison)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentComparison) EqualVT(that *DeploymentComparison) bool {
 	if this == that {
 		return true
@@ -374,6 +584,34 @@ func (this *DeploymentComparison) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Deployment) StableEqualVT(that *Deployment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.Comparison.StableEqualVT(that.Comparison) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Deployment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Deployment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Deployment) EqualVT(that *Deployment) bool {
 	if this == that {

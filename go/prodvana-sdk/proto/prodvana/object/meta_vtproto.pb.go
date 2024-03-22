@@ -39,6 +39,43 @@ func (m *ObjectMeta) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ObjectMeta) StableEqualVT(that *ObjectMeta) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ObjectMeta) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ObjectMeta)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ObjectMeta) EqualVT(that *ObjectMeta) bool {
 	if this == that {
 		return true

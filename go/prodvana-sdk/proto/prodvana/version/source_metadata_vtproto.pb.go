@@ -36,6 +36,34 @@ func (m *SourceMetadata) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *SourceMetadata) StableEqualVT(that *SourceMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RepoUrl != that.RepoUrl {
+		return false
+	}
+	if this.FilePath != that.FilePath {
+		return false
+	}
+	if this.Commit != that.Commit {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SourceMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SourceMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SourceMetadata) EqualVT(that *SourceMetadata) bool {
 	if this == that {
 		return true

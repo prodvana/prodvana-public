@@ -92,6 +92,25 @@ func (m *UploadCasBlobResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *GetCasBlobReq) StableEqualVT(that *GetCasBlobReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetCasBlobReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetCasBlobReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetCasBlobReq) EqualVT(that *GetCasBlobReq) bool {
 	if this == that {
 		return true
@@ -110,6 +129,25 @@ func (this *GetCasBlobReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetCasBlobResp) StableEqualVT(that *GetCasBlobResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Bytes) != string(that.Bytes) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetCasBlobResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetCasBlobResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetCasBlobResp) EqualVT(that *GetCasBlobResp) bool {
 	if this == that {
@@ -130,6 +168,25 @@ func (this *GetCasBlobResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *UploadCasBlobReq) StableEqualVT(that *UploadCasBlobReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Bytes) != string(that.Bytes) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UploadCasBlobReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UploadCasBlobReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UploadCasBlobReq) EqualVT(that *UploadCasBlobReq) bool {
 	if this == that {
 		return true
@@ -148,6 +205,25 @@ func (this *UploadCasBlobReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UploadCasBlobResp) StableEqualVT(that *UploadCasBlobResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UploadCasBlobResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UploadCasBlobResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UploadCasBlobResp) EqualVT(that *UploadCasBlobResp) bool {
 	if this == that {

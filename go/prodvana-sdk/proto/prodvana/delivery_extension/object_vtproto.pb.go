@@ -51,6 +51,31 @@ func (m *DeliveryExtensionState) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *DeliveryExtension) StableEqualVT(that *DeliveryExtension) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtension) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtension)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeliveryExtension) EqualVT(that *DeliveryExtension) bool {
 	if this == that {
 		return true
@@ -75,6 +100,22 @@ func (this *DeliveryExtension) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeliveryExtensionState) StableEqualVT(that *DeliveryExtensionState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeliveryExtensionState) EqualVT(that *DeliveryExtensionState) bool {
 	if this == that {

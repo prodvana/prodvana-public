@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "vtproto/ext.proto";
 import "prodvana/common_config/external_link.proto";
 import "prodvana/common_config/parameters.proto";
 import "prodvana/common_config/program.proto";
@@ -241,7 +242,7 @@ message Version {
 }
 
 message ServiceInstanceState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string application = 2;
     string service = 3;
     string release_channel = 4;
@@ -264,7 +265,7 @@ message ServiceInstanceState {
 }
 
 message ServiceState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string application = 2;
     string service = 3;
     string service_id = 5;  // set internally by prodvana
@@ -302,7 +303,7 @@ message ServiceInstanceLabelSelector {
 }
 
 message ServiceGroupState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     repeated ServiceState services = 2;
     // Definitions for custom tasks used by this service group.
     repeated CustomTaskState custom_tasks = 3;
@@ -486,7 +487,7 @@ message RuntimeObject {
         reserved "fetch_timeout";
         // next tag: 21
     }
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string object_type = 2;
     string namespace = 3;
     string name = 4;
@@ -576,8 +577,8 @@ message ControlState {
     // What is DD doing now?
     ActionExplanation action_explanation = 6;
 
-    google.protobuf.Timestamp last_fetched_timestamp = 7;
-    google.protobuf.Timestamp last_applied_timestamp = 8;
+    google.protobuf.Timestamp last_fetched_timestamp = 7 [(vtproto.unstable_for_equal) = true];
+    google.protobuf.Timestamp last_applied_timestamp = 8 [(vtproto.unstable_for_equal) = true];
     MissingApproval missing_approval = 9;
 
     bool observer_mode = 10;
@@ -596,7 +597,7 @@ enum ManualApprovalStatus {
 }
 
 message ManualApprovalState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     ManualApprovalStatus status = 2;
     string topic = 3;
     string description = 4;
@@ -638,7 +639,7 @@ message CustomTaskExecutionState {
 }
 
 message CustomTaskState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string name = 2 [(validate.rules).string.min_len = 1];
     string description = 3 [(validate.rules).string.min_len = 1];
     string application = 4;
@@ -657,7 +658,7 @@ message CustomTaskState {
 }
 
 message ProtectionLinkState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string attachment_name = 8;
     Status last_seen_attachment_status = 9;  // status of the attachment, used to compute link status
     ConditionStatus status = 2; // status of the link
@@ -690,7 +691,7 @@ message ProtectionLinkState {
 
 // TODO: Rename to ProtectionAttachmentState to be consistent with other entities.
 message ProtectionAttachment {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     repeated Version versions = 2;
     repeated Version last_completed_versions = 5;
     google.protobuf.Timestamp last_completed_timestamp = 6;
@@ -703,7 +704,7 @@ message ProtectionAttachment {
 }
 
 message DeliveryExtensionState {
-    Metadata meta = 1;
+    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     repeated Version versions = 2;
     string extension_id = 3;
     string extension_instance_id = 10;

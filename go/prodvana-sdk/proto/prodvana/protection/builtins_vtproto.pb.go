@@ -139,6 +139,134 @@ func (m *AllowedTimesProtectionConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *CommitDenylistProtectionConfig_CommitDefinition_Range) StableEqualVT(that *CommitDenylistProtectionConfig_CommitDefinition_Range) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.StartCommit != that.StartCommit {
+		return false
+	}
+	if this.EndCommit != that.EndCommit {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CommitDenylistProtectionConfig_CommitDefinition_Range) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CommitDenylistProtectionConfig_CommitDefinition_Range)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CommitDenylistProtectionConfig_CommitDefinition) StableEqualVT(that *CommitDenylistProtectionConfig_CommitDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CommitOneof == nil && that.CommitOneof != nil {
+		return false
+	} else if this.CommitOneof != nil {
+		if that.CommitOneof == nil {
+			return false
+		}
+		if !this.CommitOneof.(interface {
+			StableEqualVT(isCommitDenylistProtectionConfig_CommitDefinition_CommitOneof) bool
+		}).StableEqualVT(that.CommitOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CommitDenylistProtectionConfig_CommitDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CommitDenylistProtectionConfig_CommitDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CommitDenylistProtectionConfig_CommitDefinition_Commit) StableEqualVT(thatIface isCommitDenylistProtectionConfig_CommitDefinition_CommitOneof) bool {
+	that, ok := thatIface.(*CommitDenylistProtectionConfig_CommitDefinition_Commit)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Commit != that.Commit {
+		return false
+	}
+	return true
+}
+
+func (this *CommitDenylistProtectionConfig_CommitDefinition_Range_) StableEqualVT(thatIface isCommitDenylistProtectionConfig_CommitDefinition_CommitOneof) bool {
+	that, ok := thatIface.(*CommitDenylistProtectionConfig_CommitDefinition_Range_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Range, that.Range; p != q {
+		if p == nil {
+			p = &CommitDenylistProtectionConfig_CommitDefinition_Range{}
+		}
+		if q == nil {
+			q = &CommitDenylistProtectionConfig_CommitDefinition_Range{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CommitDenylistProtectionConfig) StableEqualVT(that *CommitDenylistProtectionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if len(this.Commits) != len(that.Commits) {
+		return false
+	}
+	for i, vx := range this.Commits {
+		vy := that.Commits[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CommitDenylistProtectionConfig_CommitDefinition{}
+			}
+			if q == nil {
+				q = &CommitDenylistProtectionConfig_CommitDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CommitDenylistProtectionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CommitDenylistProtectionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CommitDenylistProtectionConfig_CommitDefinition_Range) EqualVT(that *CommitDenylistProtectionConfig_CommitDefinition_Range) bool {
 	if this == that {
 		return true
@@ -267,6 +395,31 @@ func (this *CommitDenylistProtectionConfig) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *TimeWindow) StableEqualVT(that *TimeWindow) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Days != that.Days {
+		return false
+	}
+	if this.Hours != that.Hours {
+		return false
+	}
+	if this.Tz != that.Tz {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TimeWindow) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TimeWindow)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TimeWindow) EqualVT(that *TimeWindow) bool {
 	if this == that {
 		return true
@@ -291,6 +444,39 @@ func (this *TimeWindow) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *AllowedTimesProtectionConfig) StableEqualVT(that *AllowedTimesProtectionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Windows) != len(that.Windows) {
+		return false
+	}
+	for i, vx := range this.Windows {
+		vy := that.Windows[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TimeWindow{}
+			}
+			if q == nil {
+				q = &TimeWindow{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AllowedTimesProtectionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AllowedTimesProtectionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *AllowedTimesProtectionConfig) EqualVT(that *AllowedTimesProtectionConfig) bool {
 	if this == that {

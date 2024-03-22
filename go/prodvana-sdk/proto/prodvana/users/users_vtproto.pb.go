@@ -42,6 +42,46 @@ func (m *User) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *User) StableEqualVT(that *User) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.FirstName != that.FirstName {
+		return false
+	}
+	if this.LastName != that.LastName {
+		return false
+	}
+	if len(this.Emails) != len(that.Emails) {
+		return false
+	}
+	for i, vx := range this.Emails {
+		vy := that.Emails[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ApiUser != that.ApiUser {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *User) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*User)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *User) EqualVT(that *User) bool {
 	if this == that {
 		return true

@@ -520,6 +520,25 @@ func (m *ResumeClusterResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *GetClusterAgentApiTokenReq) StableEqualVT(that *GetClusterAgentApiTokenReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterAgentApiTokenReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterAgentApiTokenReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterAgentApiTokenReq) EqualVT(that *GetClusterAgentApiTokenReq) bool {
 	if this == that {
 		return true
@@ -539,6 +558,25 @@ func (this *GetClusterAgentApiTokenReq) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterAgentApiTokenResp) StableEqualVT(that *GetClusterAgentApiTokenResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ApiToken != that.ApiToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterAgentApiTokenResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterAgentApiTokenResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterAgentApiTokenResp) EqualVT(that *GetClusterAgentApiTokenResp) bool {
 	if this == that {
 		return true
@@ -557,6 +595,40 @@ func (this *GetClusterAgentApiTokenResp) EqualMessageVT(thatMsg proto.Message) b
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *LinkClusterReq) StableEqualVT(that *LinkClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if !this.Auth.StableEqualVT(that.Auth) {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LinkClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LinkClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *LinkClusterReq) EqualVT(that *LinkClusterReq) bool {
 	if this == that {
@@ -591,6 +663,49 @@ func (this *LinkClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *LinkClusterResp) StableEqualVT(that *LinkClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Success != that.Success {
+		return false
+	}
+	if this.Msg != that.Msg {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.K8SAgentUrl != that.K8SAgentUrl {
+		return false
+	}
+	if this.K8SAgentImage != that.K8SAgentImage {
+		return false
+	}
+	if len(this.K8SAgentArgs) != len(that.K8SAgentArgs) {
+		return false
+	}
+	for i, vx := range this.K8SAgentArgs {
+		vy := that.K8SAgentArgs[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.K8SAgentApiToken != that.K8SAgentApiToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LinkClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LinkClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *LinkClusterResp) EqualVT(that *LinkClusterResp) bool {
 	if this == that {
@@ -635,6 +750,25 @@ func (this *LinkClusterResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RemoveClusterReq) StableEqualVT(that *RemoveClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RemoveClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RemoveClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RemoveClusterReq) EqualVT(that *RemoveClusterReq) bool {
 	if this == that {
 		return true
@@ -654,6 +788,22 @@ func (this *RemoveClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RemoveClusterResp) StableEqualVT(that *RemoveClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RemoveClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RemoveClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RemoveClusterResp) EqualVT(that *RemoveClusterResp) bool {
 	if this == that {
 		return true
@@ -669,6 +819,25 @@ func (this *RemoveClusterResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetClusterAuthReq) StableEqualVT(that *GetClusterAuthReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterAuthReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterAuthReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetClusterAuthReq) EqualVT(that *GetClusterAuthReq) bool {
 	if this == that {
@@ -689,6 +858,25 @@ func (this *GetClusterAuthReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterAuthResp) StableEqualVT(that *GetClusterAuthResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Auth.StableEqualVT(that.Auth) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterAuthResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterAuthResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterAuthResp) EqualVT(that *GetClusterAuthResp) bool {
 	if this == that {
 		return true
@@ -708,6 +896,22 @@ func (this *GetClusterAuthResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListClustersReq) StableEqualVT(that *ListClustersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListClustersReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListClustersReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListClustersReq) EqualVT(that *ListClustersReq) bool {
 	if this == that {
 		return true
@@ -723,6 +927,138 @@ func (this *ListClustersReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListClustersResp_ClusterInfo_EcsInfo) StableEqualVT(that *ListClustersResp_ClusterInfo_EcsInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	if this.ClusterArn != that.ClusterArn {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListClustersResp_ClusterInfo_EcsInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListClustersResp_ClusterInfo_EcsInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListClustersResp_ClusterInfo) StableEqualVT(that *ListClustersResp_ClusterInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Info == nil && that.Info != nil {
+		return false
+	} else if this.Info != nil {
+		if that.Info == nil {
+			return false
+		}
+		if !this.Info.(interface {
+			StableEqualVT(isListClustersResp_ClusterInfo_Info) bool
+		}).StableEqualVT(that.Info) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Endpoint != that.Endpoint {
+		return false
+	}
+	if this.ServiceAccount != that.ServiceAccount {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastHeartbeatTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastHeartbeatTimestamp)) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.Auth.StableEqualVT(that.Auth) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListClustersResp_ClusterInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListClustersResp_ClusterInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListClustersResp_ClusterInfo_Ecs) StableEqualVT(thatIface isListClustersResp_ClusterInfo_Info) bool {
+	that, ok := thatIface.(*ListClustersResp_ClusterInfo_Ecs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ecs, that.Ecs; p != q {
+		if p == nil {
+			p = &ListClustersResp_ClusterInfo_EcsInfo{}
+		}
+		if q == nil {
+			q = &ListClustersResp_ClusterInfo_EcsInfo{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ListClustersResp) StableEqualVT(that *ListClustersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Clusters) != len(that.Clusters) {
+		return false
+	}
+	for i, vx := range this.Clusters {
+		vy := that.Clusters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListClustersResp_ClusterInfo{}
+			}
+			if q == nil {
+				q = &ListClustersResp_ClusterInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListClustersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListClustersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListClustersResp_ClusterInfo_EcsInfo) EqualVT(that *ListClustersResp_ClusterInfo_EcsInfo) bool {
 	if this == that {
@@ -856,6 +1192,28 @@ func (this *ListClustersResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterReq) StableEqualVT(that *GetClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	if this.IncludeAuth != that.IncludeAuth {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterReq) EqualVT(that *GetClusterReq) bool {
 	if this == that {
 		return true
@@ -878,6 +1236,25 @@ func (this *GetClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterResp) StableEqualVT(that *GetClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Cluster.StableEqualVT(that.Cluster) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterResp) EqualVT(that *GetClusterResp) bool {
 	if this == that {
 		return true
@@ -896,6 +1273,34 @@ func (this *GetClusterResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ConfigureClusterReq) StableEqualVT(that *ConfigureClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeName != that.RuntimeName {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ConfigureClusterReq) EqualVT(that *ConfigureClusterReq) bool {
 	if this == that {
@@ -925,6 +1330,22 @@ func (this *ConfigureClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfigureClusterResp) StableEqualVT(that *ConfigureClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureClusterResp) EqualVT(that *ConfigureClusterResp) bool {
 	if this == that {
 		return true
@@ -940,6 +1361,28 @@ func (this *ConfigureClusterResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ValidateConfigureClusterResp) StableEqualVT(that *ValidateConfigureClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.InputConfig.StableEqualVT(that.InputConfig) {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateConfigureClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateConfigureClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ValidateConfigureClusterResp) EqualVT(that *ValidateConfigureClusterResp) bool {
 	if this == that {
@@ -963,6 +1406,25 @@ func (this *ValidateConfigureClusterResp) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterConfigReq) StableEqualVT(that *GetClusterConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeName != that.RuntimeName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterConfigReq) EqualVT(that *GetClusterConfigReq) bool {
 	if this == that {
 		return true
@@ -981,6 +1443,25 @@ func (this *GetClusterConfigReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetClusterConfigResp) StableEqualVT(that *GetClusterConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetClusterConfigResp) EqualVT(that *GetClusterConfigResp) bool {
 	if this == that {
@@ -1001,6 +1482,25 @@ func (this *GetClusterConfigResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DetectClusterConfigReq) StableEqualVT(that *DetectClusterConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeName != that.RuntimeName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DetectClusterConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DetectClusterConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DetectClusterConfigReq) EqualVT(that *DetectClusterConfigReq) bool {
 	if this == that {
 		return true
@@ -1019,6 +1519,25 @@ func (this *DetectClusterConfigReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DetectClusterConfigResp) StableEqualVT(that *DetectClusterConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DetectClusterConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DetectClusterConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DetectClusterConfigResp) EqualVT(that *DetectClusterConfigResp) bool {
 	if this == that {
@@ -1039,6 +1558,25 @@ func (this *DetectClusterConfigResp) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetClusterStatusReq) StableEqualVT(that *GetClusterStatusReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterStatusReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterStatusReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetClusterStatusReq) EqualVT(that *GetClusterStatusReq) bool {
 	if this == that {
 		return true
@@ -1057,6 +1595,25 @@ func (this *GetClusterStatusReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetClusterStatusResp) StableEqualVT(that *GetClusterStatusResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastHeartbeatTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastHeartbeatTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetClusterStatusResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetClusterStatusResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetClusterStatusResp) EqualVT(that *GetClusterStatusResp) bool {
 	if this == that {
@@ -1077,6 +1634,25 @@ func (this *GetClusterStatusResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PauseClusterReq) StableEqualVT(that *PauseClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PauseClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PauseClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PauseClusterReq) EqualVT(that *PauseClusterReq) bool {
 	if this == that {
 		return true
@@ -1096,6 +1672,22 @@ func (this *PauseClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PauseClusterResp) StableEqualVT(that *PauseClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PauseClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PauseClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PauseClusterResp) EqualVT(that *PauseClusterResp) bool {
 	if this == that {
 		return true
@@ -1111,6 +1703,25 @@ func (this *PauseClusterResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ResumeClusterReq) StableEqualVT(that *ResumeClusterReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResumeClusterReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResumeClusterReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ResumeClusterReq) EqualVT(that *ResumeClusterReq) bool {
 	if this == that {
@@ -1130,6 +1741,22 @@ func (this *ResumeClusterReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ResumeClusterResp) StableEqualVT(that *ResumeClusterResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResumeClusterResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResumeClusterResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ResumeClusterResp) EqualVT(that *ResumeClusterResp) bool {
 	if this == that {

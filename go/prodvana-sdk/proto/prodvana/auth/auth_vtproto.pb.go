@@ -106,6 +106,25 @@ func (m *Session) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *AuthToken) StableEqualVT(that *AuthToken) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Token != that.Token {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AuthToken) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AuthToken)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AuthToken) EqualVT(that *AuthToken) bool {
 	if this == that {
 		return true
@@ -124,6 +143,34 @@ func (this *AuthToken) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ApiTokenInfo) StableEqualVT(that *ApiTokenInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ExpiresTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ExpiresTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApiTokenInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApiTokenInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ApiTokenInfo) EqualVT(that *ApiTokenInfo) bool {
 	if this == that {
@@ -153,6 +200,31 @@ func (this *ApiTokenInfo) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *AuthContext) StableEqualVT(that *AuthContext) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.AuthToken.StableEqualVT(that.AuthToken) {
+		return false
+	}
+	if this.ApiToken != that.ApiToken {
+		return false
+	}
+	if this.Addr != that.Addr {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AuthContext) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AuthContext)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AuthContext) EqualVT(that *AuthContext) bool {
 	if this == that {
 		return true
@@ -177,6 +249,68 @@ func (this *AuthContext) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Session) StableEqualVT(that *Session) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Contexts) != len(that.Contexts) {
+		return false
+	}
+	for i, vx := range this.Contexts {
+		vy, ok := that.Contexts[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &AuthContext{}
+			}
+			if q == nil {
+				q = &AuthContext{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.CurrentContext != that.CurrentContext {
+		return false
+	}
+	if len(this.AdminContexts) != len(that.AdminContexts) {
+		return false
+	}
+	for i, vx := range this.AdminContexts {
+		vy, ok := that.AdminContexts[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &AuthContext{}
+			}
+			if q == nil {
+				q = &AuthContext{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.CurrentAdminContext != that.CurrentAdminContext {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Session) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Session)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Session) EqualVT(that *Session) bool {
 	if this == that {

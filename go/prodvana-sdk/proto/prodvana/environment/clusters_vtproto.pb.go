@@ -894,6 +894,146 @@ func (m *ClusterConfig_GoogleCloudRun) CloneVT() isClusterConfig_ClusterOneof {
 	return r
 }
 
+func (this *ClusterAuth_ECSAuth) StableEqualVT(that *ClusterAuth_ECSAuth) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AccessKey != that.AccessKey {
+		return false
+	}
+	if this.SecretKey != that.SecretKey {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	if this.AssumeRoleArn != that.AssumeRoleArn {
+		return false
+	}
+	if this.ClusterArn != that.ClusterArn {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterAuth_ECSAuth) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterAuth_ECSAuth)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterAuth_K8SAuth) StableEqualVT(that *ClusterAuth_K8SAuth) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.AgentEnv) != len(that.AgentEnv) {
+		return false
+	}
+	for i, vx := range this.AgentEnv {
+		vy, ok := that.AgentEnv[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.AgentExternallyManaged != that.AgentExternallyManaged {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterAuth_K8SAuth) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterAuth_K8SAuth)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterAuth) StableEqualVT(that *ClusterAuth) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AuthOneof == nil && that.AuthOneof != nil {
+		return false
+	} else if this.AuthOneof != nil {
+		if that.AuthOneof == nil {
+			return false
+		}
+		if !this.AuthOneof.(interface {
+			StableEqualVT(isClusterAuth_AuthOneof) bool
+		}).StableEqualVT(that.AuthOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterAuth) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterAuth)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterAuth_Ecs) StableEqualVT(thatIface isClusterAuth_AuthOneof) bool {
+	that, ok := thatIface.(*ClusterAuth_Ecs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ecs, that.Ecs; p != q {
+		if p == nil {
+			p = &ClusterAuth_ECSAuth{}
+		}
+		if q == nil {
+			q = &ClusterAuth_ECSAuth{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterAuth_K8S) StableEqualVT(thatIface isClusterAuth_AuthOneof) bool {
+	that, ok := thatIface.(*ClusterAuth_K8S)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.K8S, that.K8S; p != q {
+		if p == nil {
+			p = &ClusterAuth_K8SAuth{}
+		}
+		if q == nil {
+			q = &ClusterAuth_K8SAuth{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ClusterAuth_ECSAuth) EqualVT(that *ClusterAuth_ECSAuth) bool {
 	if this == that {
 		return true
@@ -1034,6 +1174,40 @@ func (this *ClusterAuth_K8S) EqualVT(thatIface isClusterAuth_AuthOneof) bool {
 	return true
 }
 
+func (this *Cluster) StableEqualVT(that *Cluster) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if !this.Auth.StableEqualVT(that.Auth) {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastHeartbeatTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastHeartbeatTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Cluster) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Cluster)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Cluster) EqualVT(that *Cluster) bool {
 	if this == that {
 		return true
@@ -1067,6 +1241,64 @@ func (this *Cluster) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *FakeClusterConfig_CrashingProgramPatterns) StableEqualVT(that *FakeClusterConfig_CrashingProgramPatterns) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ImageRegex != that.ImageRegex {
+		return false
+	}
+	if this.CmdRegex != that.CmdRegex {
+		return false
+	}
+	if this.LogOutput != that.LogOutput {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FakeClusterConfig_CrashingProgramPatterns) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FakeClusterConfig_CrashingProgramPatterns)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *FakeClusterConfig) StableEqualVT(that *FakeClusterConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.CrashingPrograms) != len(that.CrashingPrograms) {
+		return false
+	}
+	for i, vx := range this.CrashingPrograms {
+		vy := that.CrashingPrograms[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &FakeClusterConfig_CrashingProgramPatterns{}
+			}
+			if q == nil {
+				q = &FakeClusterConfig_CrashingProgramPatterns{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FakeClusterConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FakeClusterConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *FakeClusterConfig_CrashingProgramPatterns) EqualVT(that *FakeClusterConfig_CrashingProgramPatterns) bool {
 	if this == that {
@@ -1126,6 +1358,31 @@ func (this *FakeClusterConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RetryPolicy) StableEqualVT(that *RetryPolicy) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.BaseInterval).StableEqualVT((*durationpb1.Duration)(that.BaseInterval)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.MaxInterval).StableEqualVT((*durationpb1.Duration)(that.MaxInterval)) {
+		return false
+	}
+	if this.MaxAttempts != that.MaxAttempts {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RetryPolicy) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RetryPolicy)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RetryPolicy) EqualVT(that *RetryPolicy) bool {
 	if this == that {
 		return true
@@ -1151,6 +1408,119 @@ func (this *RetryPolicy) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ExtensionFetchCommand) StableEqualVT(that *ExtensionFetchCommand) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isExtensionFetchCommand_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	if !(*durationpb1.Duration)(this.PollInterval).StableEqualVT((*durationpb1.Duration)(that.PollInterval)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Timeout).StableEqualVT((*durationpb1.Duration)(that.Timeout)) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !(*durationpb1.Duration)(this.SteadyStatePollInterval).StableEqualVT((*durationpb1.Duration)(that.SteadyStatePollInterval)) {
+		return false
+	}
+	if !this.RetryPolicy.StableEqualVT(that.RetryPolicy) {
+		return false
+	}
+	if this.FetchMode != that.FetchMode {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExtensionFetchCommand) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExtensionFetchCommand)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ExtensionFetchCommand_TaskConfig) StableEqualVT(thatIface isExtensionFetchCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionFetchCommand_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ExtensionFetchCommand_KubernetesConfig) StableEqualVT(thatIface isExtensionFetchCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionFetchCommand_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ExtensionFetchCommand) EqualVT(that *ExtensionFetchCommand) bool {
 	if this == that {
 		return true
@@ -1264,6 +1634,113 @@ func (this *ExtensionFetchCommand_KubernetesConfig) EqualVT(thatIface isExtensio
 	return true
 }
 
+func (this *ExtensionGetInfoCommand) StableEqualVT(that *ExtensionGetInfoCommand) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isExtensionGetInfoCommand_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	if !(*durationpb1.Duration)(this.PollInterval).StableEqualVT((*durationpb1.Duration)(that.PollInterval)) {
+		return false
+	}
+	if !this.RetryPolicy.StableEqualVT(that.RetryPolicy) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.TestOnlyDoNotRequirePvnWrapper != that.TestOnlyDoNotRequirePvnWrapper {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExtensionGetInfoCommand) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExtensionGetInfoCommand)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ExtensionGetInfoCommand_TaskConfig) StableEqualVT(thatIface isExtensionGetInfoCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionGetInfoCommand_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ExtensionGetInfoCommand_KubernetesConfig) StableEqualVT(thatIface isExtensionGetInfoCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionGetInfoCommand_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ExtensionGetInfoCommand) EqualVT(that *ExtensionGetInfoCommand) bool {
 	if this == that {
 		return true
@@ -1365,6 +1842,122 @@ func (this *ExtensionGetInfoCommand_KubernetesConfig) EqualVT(thatIface isExtens
 			q = &common_config.KubernetesConfig{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ExtensionApplyCommand) StableEqualVT(that *ExtensionApplyCommand) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isExtensionApplyCommand_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	if !(*durationpb1.Duration)(this.Timeout).StableEqualVT((*durationpb1.Duration)(that.Timeout)) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RetryPolicy.StableEqualVT(that.RetryPolicy) {
+		return false
+	}
+	if len(this.RetryableExitCodes) != len(that.RetryableExitCodes) {
+		return false
+	}
+	for i, vx := range this.RetryableExitCodes {
+		vy := that.RetryableExitCodes[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.MaxConcurrency != that.MaxConcurrency {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExtensionApplyCommand) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExtensionApplyCommand)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ExtensionApplyCommand_TaskConfig) StableEqualVT(thatIface isExtensionApplyCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionApplyCommand_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ExtensionApplyCommand_KubernetesConfig) StableEqualVT(thatIface isExtensionApplyCommand_ExecConfig) bool {
+	that, ok := thatIface.(*ExtensionApplyCommand_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -1487,6 +2080,63 @@ func (this *ExtensionApplyCommand_KubernetesConfig) EqualVT(thatIface isExtensio
 	return true
 }
 
+func (this *ExtensionClusterConfig) StableEqualVT(that *ExtensionClusterConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Apply.StableEqualVT(that.Apply) {
+		return false
+	}
+	if !this.Fetch.StableEqualVT(that.Fetch) {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.ProxyRuntime.StableEqualVT(that.ProxyRuntime) {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.RequireApprovalBeforeApply != that.RequireApprovalBeforeApply {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.ConvergenceGracePeriod).StableEqualVT((*durationpb1.Duration)(that.ConvergenceGracePeriod)) {
+		return false
+	}
+	if !this.Debug.StableEqualVT(that.Debug) {
+		return false
+	}
+	if !this.GetInfo.StableEqualVT(that.GetInfo) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExtensionClusterConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExtensionClusterConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ExtensionClusterConfig) EqualVT(that *ExtensionClusterConfig) bool {
 	if this == that {
 		return true
@@ -1543,6 +2193,129 @@ func (this *ExtensionClusterConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CompiledExtensionCommand_CompiledExtensionCommandExec) StableEqualVT(that *CompiledExtensionCommand_CompiledExtensionCommandExec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isCompiledExtensionCommand_CompiledExtensionCommandExec_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledExtensionCommand_CompiledExtensionCommandExec) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledExtensionCommand_CompiledExtensionCommandExec)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CompiledExtensionCommand_CompiledExtensionCommandExec_TaskConfig) StableEqualVT(thatIface isCompiledExtensionCommand_CompiledExtensionCommandExec_ExecConfig) bool {
+	that, ok := thatIface.(*CompiledExtensionCommand_CompiledExtensionCommandExec_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledExtensionCommand_CompiledExtensionCommandExec_KubernetesConfig) StableEqualVT(thatIface isCompiledExtensionCommand_CompiledExtensionCommandExec_ExecConfig) bool {
+	that, ok := thatIface.(*CompiledExtensionCommand_CompiledExtensionCommandExec_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledExtensionCommand) StableEqualVT(that *CompiledExtensionCommand) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.NamePrefix != that.NamePrefix {
+		return false
+	}
+	if !this.Command.StableEqualVT(that.Command) {
+		return false
+	}
+	if !this.RuntimeExecution.StableEqualVT(that.RuntimeExecution) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledExtensionCommand) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledExtensionCommand)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CompiledExtensionCommand_CompiledExtensionCommandExec) EqualVT(that *CompiledExtensionCommand_CompiledExtensionCommandExec) bool {
 	if this == that {
@@ -1667,6 +2440,25 @@ func (this *CompiledExtensionCommand) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *IacRunnerCommand) StableEqualVT(that *IacRunnerCommand) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Cmd != that.Cmd {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IacRunnerCommand) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IacRunnerCommand)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *IacRunnerCommand) EqualVT(that *IacRunnerCommand) bool {
 	if this == that {
 		return true
@@ -1685,6 +2477,106 @@ func (this *IacRunnerCommand) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *TerraformRunnerConfig) StableEqualVT(that *TerraformRunnerConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ProxyRuntime.StableEqualVT(that.ProxyRuntime) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Volumes) != len(that.Volumes) {
+		return false
+	}
+	for i, vx := range this.Volumes {
+		vy := that.Volumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &volumes.Volume{}
+			}
+			if q == nil {
+				q = &volumes.Volume{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.PreRun) != len(that.PreRun) {
+		return false
+	}
+	for i, vx := range this.PreRun {
+		vy := that.PreRun[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &IacRunnerCommand{}
+			}
+			if q == nil {
+				q = &IacRunnerCommand{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !(*durationpb1.Duration)(this.PollInterval).StableEqualVT((*durationpb1.Duration)(that.PollInterval)) {
+		return false
+	}
+	if this.RequireApprovalBeforeApply != that.RequireApprovalBeforeApply {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.SteadyStatePollInterval).StableEqualVT((*durationpb1.Duration)(that.SteadyStatePollInterval)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.ConvergenceGracePeriod).StableEqualVT((*durationpb1.Duration)(that.ConvergenceGracePeriod)) {
+		return false
+	}
+	if !this.FetchRetryPolicy.StableEqualVT(that.FetchRetryPolicy) {
+		return false
+	}
+	if !this.ApplyRetryPolicy.StableEqualVT(that.ApplyRetryPolicy) {
+		return false
+	}
+	if this.DisableDriftDetection != that.DisableDriftDetection {
+		return false
+	}
+	if !this.TaskResources.StableEqualVT(that.TaskResources) {
+		return false
+	}
+	if this.ServiceAccount != that.ServiceAccount {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TerraformRunnerConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TerraformRunnerConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *TerraformRunnerConfig) EqualVT(that *TerraformRunnerConfig) bool {
 	if this == that {
@@ -1786,6 +2678,31 @@ func (this *TerraformRunnerConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GKEClusterMetadata) StableEqualVT(that *GKEClusterMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ProjectName != that.ProjectName {
+		return false
+	}
+	if this.ClusterLocation != that.ClusterLocation {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GKEClusterMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GKEClusterMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GKEClusterMetadata) EqualVT(that *GKEClusterMetadata) bool {
 	if this == that {
 		return true
@@ -1811,6 +2728,59 @@ func (this *GKEClusterMetadata) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ClusterMetadata) StableEqualVT(that *ClusterMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterMetadata == nil && that.ClusterMetadata != nil {
+		return false
+	} else if this.ClusterMetadata != nil {
+		if that.ClusterMetadata == nil {
+			return false
+		}
+		if !this.ClusterMetadata.(interface {
+			StableEqualVT(isClusterMetadata_ClusterMetadata) bool
+		}).StableEqualVT(that.ClusterMetadata) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterMetadata_Gke) StableEqualVT(thatIface isClusterMetadata_ClusterMetadata) bool {
+	that, ok := thatIface.(*ClusterMetadata_Gke)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Gke, that.Gke; p != q {
+		if p == nil {
+			p = &GKEClusterMetadata{}
+		}
+		if q == nil {
+			q = &GKEClusterMetadata{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ClusterMetadata) EqualVT(that *ClusterMetadata) bool {
 	if this == that {
 		return true
@@ -1858,6 +2828,134 @@ func (this *ClusterMetadata_Gke) EqualVT(thatIface isClusterMetadata_ClusterMeta
 			q = &GKEClusterMetadata{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *AwsEcsConfig_AccessKey) StableEqualVT(that *AwsEcsConfig_AccessKey) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AwsAccessKeyId != that.AwsAccessKeyId {
+		return false
+	}
+	if !this.AwsSecretAccessKey.StableEqualVT(that.AwsSecretAccessKey) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AwsEcsConfig_AccessKey) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AwsEcsConfig_AccessKey)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AwsEcsConfig_InheritRole) StableEqualVT(that *AwsEcsConfig_InheritRole) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.K8SServiceAccount != that.K8SServiceAccount {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AwsEcsConfig_InheritRole) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AwsEcsConfig_InheritRole)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AwsEcsConfig) StableEqualVT(that *AwsEcsConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Credentials == nil && that.Credentials != nil {
+		return false
+	} else if this.Credentials != nil {
+		if that.Credentials == nil {
+			return false
+		}
+		if !this.Credentials.(interface {
+			StableEqualVT(isAwsEcsConfig_Credentials) bool
+		}).StableEqualVT(that.Credentials) {
+			return false
+		}
+	}
+	if !this.ProxyRuntime.StableEqualVT(that.ProxyRuntime) {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	if this.EcsCluster != that.EcsCluster {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AwsEcsConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AwsEcsConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AwsEcsConfig_AccessKey_) StableEqualVT(thatIface isAwsEcsConfig_Credentials) bool {
+	that, ok := thatIface.(*AwsEcsConfig_AccessKey_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AccessKey, that.AccessKey; p != q {
+		if p == nil {
+			p = &AwsEcsConfig_AccessKey{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig_AccessKey{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *AwsEcsConfig_InheritRoleFromRuntimeEnv) StableEqualVT(thatIface isAwsEcsConfig_Credentials) bool {
+	that, ok := thatIface.(*AwsEcsConfig_InheritRoleFromRuntimeEnv)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.InheritRoleFromRuntimeEnv, that.InheritRoleFromRuntimeEnv; p != q {
+		if p == nil {
+			p = &AwsEcsConfig_InheritRole{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig_InheritRole{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -1992,6 +3090,68 @@ func (this *AwsEcsConfig_InheritRoleFromRuntimeEnv) EqualVT(thatIface isAwsEcsCo
 	return true
 }
 
+func (this *GoogleCloudRunConfig) StableEqualVT(that *GoogleCloudRunConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Credentials == nil && that.Credentials != nil {
+		return false
+	} else if this.Credentials != nil {
+		if that.Credentials == nil {
+			return false
+		}
+		if !this.Credentials.(interface {
+			StableEqualVT(isGoogleCloudRunConfig_Credentials) bool
+		}).StableEqualVT(that.Credentials) {
+			return false
+		}
+	}
+	if !this.ProxyRuntime.StableEqualVT(that.ProxyRuntime) {
+		return false
+	}
+	if this.Project != that.Project {
+		return false
+	}
+	if this.Region != that.Region {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GoogleCloudRunConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GoogleCloudRunConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GoogleCloudRunConfig_ServiceAccountJson) StableEqualVT(thatIface isGoogleCloudRunConfig_Credentials) bool {
+	that, ok := thatIface.(*GoogleCloudRunConfig_ServiceAccountJson)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceAccountJson, that.ServiceAccountJson; p != q {
+		if p == nil {
+			p = &common_config.SecretReferenceValue{}
+		}
+		if q == nil {
+			q = &common_config.SecretReferenceValue{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *GoogleCloudRunConfig) EqualVT(that *GoogleCloudRunConfig) bool {
 	if this == that {
 		return true
@@ -2048,6 +3208,435 @@ func (this *GoogleCloudRunConfig_ServiceAccountJson) EqualVT(thatIface isGoogleC
 			q = &common_config.SecretReferenceValue{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_Kubecost) StableEqualVT(that *ClusterConfig_Kubecost) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Enabled != that.Enabled {
+		return false
+	}
+	if this.Managed != that.Managed {
+		return false
+	}
+	if this.KubecostNamespace != that.KubecostNamespace {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_Kubecost) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_Kubecost)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_Datadog) StableEqualVT(that *ClusterConfig_Datadog) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Enabled != that.Enabled {
+		return false
+	}
+	if this.Managed != that.Managed {
+		return false
+	}
+	if this.DatadogNamespace != that.DatadogNamespace {
+		return false
+	}
+	if this.ApiKey != that.ApiKey {
+		return false
+	}
+	if this.Site != that.Site {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_Datadog) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_Datadog)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_ALBIngress) StableEqualVT(that *ClusterConfig_ALBIngress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Enabled != that.Enabled {
+		return false
+	}
+	if this.IngressClass != that.IngressClass {
+		return false
+	}
+	if len(this.DefaultBalancerAttributes) != len(that.DefaultBalancerAttributes) {
+		return false
+	}
+	for i, vx := range this.DefaultBalancerAttributes {
+		vy := that.DefaultBalancerAttributes[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_ALBIngress) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_ALBIngress)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_ArgoRollouts_AnalysisTemplate) StableEqualVT(that *ClusterConfig_ArgoRollouts_AnalysisTemplate) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.ArgMapping) != len(that.ArgMapping) {
+		return false
+	}
+	for i, vx := range this.ArgMapping {
+		vy, ok := that.ArgMapping[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_ArgoRollouts_AnalysisTemplate) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_ArgoRollouts_AnalysisTemplate)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_ArgoRollouts) StableEqualVT(that *ClusterConfig_ArgoRollouts) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Enabled != that.Enabled {
+		return false
+	}
+	if len(this.Templates) != len(that.Templates) {
+		return false
+	}
+	for i, vx := range this.Templates {
+		vy := that.Templates[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ClusterConfig_ArgoRollouts_AnalysisTemplate{}
+			}
+			if q == nil {
+				q = &ClusterConfig_ArgoRollouts_AnalysisTemplate{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_ArgoRollouts) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_ArgoRollouts)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_GKEIngress) StableEqualVT(that *ClusterConfig_GKEIngress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Enabled != that.Enabled {
+		return false
+	}
+	if this.ContainerNative != that.ContainerNative {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig_GKEIngress) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig_GKEIngress)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig) StableEqualVT(that *ClusterConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterOneof == nil && that.ClusterOneof != nil {
+		return false
+	} else if this.ClusterOneof != nil {
+		if that.ClusterOneof == nil {
+			return false
+		}
+		if !this.ClusterOneof.(interface {
+			StableEqualVT(isClusterConfig_ClusterOneof) bool
+		}).StableEqualVT(that.ClusterOneof) {
+			return false
+		}
+	}
+	if !this.Kubecost.StableEqualVT(that.Kubecost) {
+		return false
+	}
+	if !this.Datadog.StableEqualVT(that.Datadog) {
+		return false
+	}
+	if !this.AlbIngress.StableEqualVT(that.AlbIngress) {
+		return false
+	}
+	if !this.ArgoRollouts.StableEqualVT(that.ArgoRollouts) {
+		return false
+	}
+	if !this.GkeIngress.StableEqualVT(that.GkeIngress) {
+		return false
+	}
+	if this.CloudProvider != that.CloudProvider {
+		return false
+	}
+	if !this.SelfManagedGkeIngress.StableEqualVT(that.SelfManagedGkeIngress) {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Labels) != len(that.Labels) {
+		return false
+	}
+	for i, vx := range this.Labels {
+		vy := that.Labels[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &labels.LabelDefinition{}
+			}
+			if q == nil {
+				q = &labels.LabelDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DetectedClusterMetadata.StableEqualVT(that.DetectedClusterMetadata) {
+		return false
+	}
+	if !this.UserSuppliedClusterMetadata.StableEqualVT(that.UserSuppliedClusterMetadata) {
+		return false
+	}
+	if !this.AutoRollback.StableEqualVT(that.AutoRollback) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ClusterConfig_Fake) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_Fake)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fake, that.Fake; p != q {
+		if p == nil {
+			p = &FakeClusterConfig{}
+		}
+		if q == nil {
+			q = &FakeClusterConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_Extension) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_Extension)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Extension, that.Extension; p != q {
+		if p == nil {
+			p = &ExtensionClusterConfig{}
+		}
+		if q == nil {
+			q = &ExtensionClusterConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_TerraformRunner) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_TerraformRunner)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TerraformRunner, that.TerraformRunner; p != q {
+		if p == nil {
+			p = &TerraformRunnerConfig{}
+		}
+		if q == nil {
+			q = &TerraformRunnerConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_PulumiRunner) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_PulumiRunner)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PulumiRunner, that.PulumiRunner; p != q {
+		if p == nil {
+			p = &TerraformRunnerConfig{}
+		}
+		if q == nil {
+			q = &TerraformRunnerConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_AwsEcs) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_AwsEcs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AwsEcs, that.AwsEcs; p != q {
+		if p == nil {
+			p = &AwsEcsConfig{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_GoogleCloudRun) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_GoogleCloudRun)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.GoogleCloudRun, that.GoogleCloudRun; p != q {
+		if p == nil {
+			p = &GoogleCloudRunConfig{}
+		}
+		if q == nil {
+			q = &GoogleCloudRunConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_Custom) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_Custom)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Custom, that.Custom; p != q {
+		if p == nil {
+			p = &ExtensionClusterConfig{}
+		}
+		if q == nil {
+			q = &ExtensionClusterConfig{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}

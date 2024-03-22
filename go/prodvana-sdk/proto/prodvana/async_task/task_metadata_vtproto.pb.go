@@ -37,6 +37,25 @@ func (m *TaskResult) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *TaskResult) StableEqualVT(that *TaskResult) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if string(this.Log) != string(that.Log) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TaskResult) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TaskResult)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TaskResult) EqualVT(that *TaskResult) bool {
 	if this == that {
 		return true

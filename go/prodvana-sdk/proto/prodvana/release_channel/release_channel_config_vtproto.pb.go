@@ -319,6 +319,42 @@ func (m *ReleaseChannelGroupGeneratorConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Policy) StableEqualVT(that *Policy) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DefaultEnv) != len(that.DefaultEnv) {
+		return false
+	}
+	for i, vx := range this.DefaultEnv {
+		vy, ok := that.DefaultEnv[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Policy) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Policy)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Policy) EqualVT(that *Policy) bool {
 	if this == that {
 		return true
@@ -354,6 +390,162 @@ func (this *Policy) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseChannelConfig) StableEqualVT(that *ReleaseChannelConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Order != that.Order {
+		return false
+	}
+	if this.Maturity != that.Maturity {
+		return false
+	}
+	if !this.Policy.StableEqualVT(that.Policy) {
+		return false
+	}
+	if len(this.Runtimes) != len(that.Runtimes) {
+		return false
+	}
+	for i, vx := range this.Runtimes {
+		vy := that.Runtimes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ReleaseChannelRuntimeConfig{}
+			}
+			if q == nil {
+				q = &ReleaseChannelRuntimeConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DeployAnnotations.StableEqualVT(that.DeployAnnotations) {
+		return false
+	}
+	if len(this.Preconditions) != len(that.Preconditions) {
+		return false
+	}
+	for i, vx := range this.Preconditions {
+		vy := that.Preconditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Precondition{}
+			}
+			if q == nil {
+				q = &Precondition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Protections) != len(that.Protections) {
+		return false
+	}
+	for i, vx := range this.Protections {
+		vy := that.Protections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceProtections) != len(that.ConvergenceProtections) {
+		return false
+	}
+	for i, vx := range this.ConvergenceProtections {
+		vy := that.ConvergenceProtections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Constants) != len(that.Constants) {
+		return false
+	}
+	for i, vx := range this.Constants {
+		vy := that.Constants[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Constant{}
+			}
+			if q == nil {
+				q = &common_config.Constant{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ServiceInstanceProtections) != len(that.ServiceInstanceProtections) {
+		return false
+	}
+	for i, vx := range this.ServiceInstanceProtections {
+		vy := that.ServiceInstanceProtections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Group != that.Group {
+		return false
+	}
+	if len(this.Labels) != len(that.Labels) {
+		return false
+	}
+	for i, vx := range this.Labels {
+		vy := that.Labels[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &labels.LabelDefinition{}
+			}
+			if q == nil {
+				q = &labels.LabelDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.DisableAllProtections != that.DisableAllProtections {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseChannelConfig) EqualVT(that *ReleaseChannelConfig) bool {
 	if this == that {
@@ -511,6 +703,265 @@ func (this *ReleaseChannelConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Precondition_ReleaseChannelStable) StableEqualVT(that *Precondition_ReleaseChannelStable) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.StableOneof == nil && that.StableOneof != nil {
+		return false
+	} else if this.StableOneof != nil {
+		if that.StableOneof == nil {
+			return false
+		}
+		if !this.StableOneof.(interface {
+			StableEqualVT(isPrecondition_ReleaseChannelStable_StableOneof) bool
+		}).StableEqualVT(that.StableOneof) {
+			return false
+		}
+	}
+	if this.AllowEmpty != that.AllowEmpty {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Precondition_ReleaseChannelStable) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Precondition_ReleaseChannelStable)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Precondition_ReleaseChannelStable_ReleaseChannel) StableEqualVT(thatIface isPrecondition_ReleaseChannelStable_StableOneof) bool {
+	that, ok := thatIface.(*Precondition_ReleaseChannelStable_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return true
+}
+
+func (this *Precondition_ReleaseChannelStable_Selector) StableEqualVT(thatIface isPrecondition_ReleaseChannelStable_StableOneof) bool {
+	that, ok := thatIface.(*Precondition_ReleaseChannelStable_Selector)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Selector != that.Selector {
+		return false
+	}
+	return true
+}
+
+func (this *Precondition_ManualApproval) StableEqualVT(that *Precondition_ManualApproval) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if this.EveryAction != that.EveryAction {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Precondition_ManualApproval) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Precondition_ManualApproval)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Precondition_CustomTask) StableEqualVT(that *Precondition_CustomTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TaskName != that.TaskName {
+		return false
+	}
+	if !this.CustomTask.StableEqualVT(that.CustomTask) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Precondition_CustomTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Precondition_CustomTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Precondition_SharedManualApproval) StableEqualVT(that *Precondition_SharedManualApproval) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Precondition_SharedManualApproval) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Precondition_SharedManualApproval)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Precondition) StableEqualVT(that *Precondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Precondition == nil && that.Precondition != nil {
+		return false
+	} else if this.Precondition != nil {
+		if that.Precondition == nil {
+			return false
+		}
+		if !this.Precondition.(interface {
+			StableEqualVT(isPrecondition_Precondition) bool
+		}).StableEqualVT(that.Precondition) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Precondition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Precondition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Precondition_ReleaseChannelStable_) StableEqualVT(thatIface isPrecondition_Precondition) bool {
+	that, ok := thatIface.(*Precondition_ReleaseChannelStable_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannelStable, that.ReleaseChannelStable; p != q {
+		if p == nil {
+			p = &Precondition_ReleaseChannelStable{}
+		}
+		if q == nil {
+			q = &Precondition_ReleaseChannelStable{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Precondition_ManualApproval_) StableEqualVT(thatIface isPrecondition_Precondition) bool {
+	that, ok := thatIface.(*Precondition_ManualApproval_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ManualApproval, that.ManualApproval; p != q {
+		if p == nil {
+			p = &Precondition_ManualApproval{}
+		}
+		if q == nil {
+			q = &Precondition_ManualApproval{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Precondition_CustomTask_) StableEqualVT(thatIface isPrecondition_Precondition) bool {
+	that, ok := thatIface.(*Precondition_CustomTask_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomTask, that.CustomTask; p != q {
+		if p == nil {
+			p = &Precondition_CustomTask{}
+		}
+		if q == nil {
+			q = &Precondition_CustomTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Precondition_SharedManualApproval_) StableEqualVT(thatIface isPrecondition_Precondition) bool {
+	that, ok := thatIface.(*Precondition_SharedManualApproval_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SharedManualApproval, that.SharedManualApproval; p != q {
+		if p == nil {
+			p = &Precondition_SharedManualApproval{}
+		}
+		if q == nil {
+			q = &Precondition_SharedManualApproval{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Precondition_ReleaseChannelStable) EqualVT(that *Precondition_ReleaseChannelStable) bool {
 	if this == that {
 		return true
@@ -770,6 +1221,68 @@ func (this *Precondition_SharedManualApproval_) EqualVT(thatIface isPrecondition
 	return true
 }
 
+func (this *ReleaseChannelRuntimeConfig) StableEqualVT(that *ReleaseChannelRuntimeConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Capability == nil && that.Capability != nil {
+		return false
+	} else if this.Capability != nil {
+		if that.Capability == nil {
+			return false
+		}
+		if !this.Capability.(interface {
+			StableEqualVT(isReleaseChannelRuntimeConfig_Capability) bool
+		}).StableEqualVT(that.Capability) {
+			return false
+		}
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelRuntimeConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelRuntimeConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ReleaseChannelRuntimeConfig_ContainerOrchestration) StableEqualVT(thatIface isReleaseChannelRuntimeConfig_Capability) bool {
+	that, ok := thatIface.(*ReleaseChannelRuntimeConfig_ContainerOrchestration)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ContainerOrchestration, that.ContainerOrchestration; p != q {
+		if p == nil {
+			p = &runtimes.ContainerOrchestrationRuntime{}
+		}
+		if q == nil {
+			q = &runtimes.ContainerOrchestrationRuntime{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ReleaseChannelRuntimeConfig) EqualVT(that *ReleaseChannelRuntimeConfig) bool {
 	if this == that {
 		return true
@@ -832,6 +1345,34 @@ func (this *ReleaseChannelRuntimeConfig_ContainerOrchestration) EqualVT(thatIfac
 	return true
 }
 
+func (this *ReleaseChannelGroupGeneratorConfig) StableEqualVT(that *ReleaseChannelGroupGeneratorConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.RuntimeSelector != that.RuntimeSelector {
+		return false
+	}
+	if this.AllowEmpty != that.AllowEmpty {
+		return false
+	}
+	if !this.Template.StableEqualVT(that.Template) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelGroupGeneratorConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelGroupGeneratorConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReleaseChannelGroupGeneratorConfig) EqualVT(that *ReleaseChannelGroupGeneratorConfig) bool {
 	if this == that {
 		return true

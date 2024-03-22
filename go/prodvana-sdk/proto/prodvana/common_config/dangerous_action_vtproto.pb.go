@@ -34,6 +34,28 @@ func (m *DangerousAction) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *DangerousAction) StableEqualVT(that *DangerousAction) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Explanation != that.Explanation {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DangerousAction) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DangerousAction)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DangerousAction) EqualVT(that *DangerousAction) bool {
 	if this == that {
 		return true

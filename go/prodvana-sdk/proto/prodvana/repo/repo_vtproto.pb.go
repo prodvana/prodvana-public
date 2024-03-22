@@ -76,6 +76,28 @@ func (m *FuzzyCommit) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *User) StableEqualVT(that *User) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Email != that.Email {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *User) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*User)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *User) EqualVT(that *User) bool {
 	if this == that {
 		return true
@@ -97,6 +119,40 @@ func (this *User) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Commit) StableEqualVT(that *Commit) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CommitId != that.CommitId {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	if !this.Author.StableEqualVT(that.Author) {
+		return false
+	}
+	if !this.ImpactAnalysis.StableEqualVT(that.ImpactAnalysis) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CommitTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CommitTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Commit) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Commit)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Commit) EqualVT(that *Commit) bool {
 	if this == that {
@@ -131,6 +187,28 @@ func (this *Commit) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *FuzzyCommit) StableEqualVT(that *FuzzyCommit) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CommitIsh != that.CommitIsh {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FuzzyCommit) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FuzzyCommit)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *FuzzyCommit) EqualVT(that *FuzzyCommit) bool {
 	if this == that {

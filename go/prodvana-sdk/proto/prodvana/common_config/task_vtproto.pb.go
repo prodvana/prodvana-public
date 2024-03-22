@@ -76,6 +76,104 @@ func (m *TaskConfig_K8S) CloneVT() isTaskConfig_RuntimeSpecific {
 	return r
 }
 
+func (this *TaskConfig_KubernetesConfig) StableEqualVT(that *TaskConfig_KubernetesConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceAccount != that.ServiceAccount {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TaskConfig_KubernetesConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TaskConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *TaskConfig) StableEqualVT(that *TaskConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeSpecific == nil && that.RuntimeSpecific != nil {
+		return false
+	} else if this.RuntimeSpecific != nil {
+		if that.RuntimeSpecific == nil {
+			return false
+		}
+		if !this.RuntimeSpecific.(interface {
+			StableEqualVT(isTaskConfig_RuntimeSpecific) bool
+		}).StableEqualVT(that.RuntimeSpecific) {
+			return false
+		}
+	}
+	if !this.Program.StableEqualVT(that.Program) {
+		return false
+	}
+	if !this.RetryConfig.StableEqualVT(that.RetryConfig) {
+		return false
+	}
+	if len(this.Volumes) != len(that.Volumes) {
+		return false
+	}
+	for i, vx := range this.Volumes {
+		vy := that.Volumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &volumes.Volume{}
+			}
+			if q == nil {
+				q = &volumes.Volume{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !(*durationpb1.Duration)(this.Ttl).StableEqualVT((*durationpb1.Duration)(that.Ttl)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TaskConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TaskConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *TaskConfig_K8S) StableEqualVT(thatIface isTaskConfig_RuntimeSpecific) bool {
+	that, ok := thatIface.(*TaskConfig_K8S)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.K8S, that.K8S; p != q {
+		if p == nil {
+			p = &TaskConfig_KubernetesConfig{}
+		}
+		if q == nil {
+			q = &TaskConfig_KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *TaskConfig_KubernetesConfig) EqualVT(that *TaskConfig_KubernetesConfig) bool {
 	if this == that {
 		return true

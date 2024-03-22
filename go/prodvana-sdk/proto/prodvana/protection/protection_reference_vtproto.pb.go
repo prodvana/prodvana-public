@@ -166,6 +166,204 @@ func (m *ProtectionReference) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ProtectionLifecycle_PreApproval) StableEqualVT(that *ProtectionLifecycle_PreApproval) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLifecycle_PreApproval) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLifecycle_PreApproval)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionLifecycle_PostApproval) StableEqualVT(that *ProtectionLifecycle_PostApproval) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLifecycle_PostApproval) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLifecycle_PostApproval)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionLifecycle_Deployment) StableEqualVT(that *ProtectionLifecycle_Deployment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLifecycle_Deployment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLifecycle_Deployment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionLifecycle_PostDeployment) StableEqualVT(that *ProtectionLifecycle_PostDeployment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.DelayCheckDuration).StableEqualVT((*durationpb1.Duration)(that.DelayCheckDuration)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.CheckDuration).StableEqualVT((*durationpb1.Duration)(that.CheckDuration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLifecycle_PostDeployment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLifecycle_PostDeployment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionLifecycle) StableEqualVT(that *ProtectionLifecycle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Lifecycle == nil && that.Lifecycle != nil {
+		return false
+	} else if this.Lifecycle != nil {
+		if that.Lifecycle == nil {
+			return false
+		}
+		if !this.Lifecycle.(interface {
+			StableEqualVT(isProtectionLifecycle_Lifecycle) bool
+		}).StableEqualVT(that.Lifecycle) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLifecycle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLifecycle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionLifecycle_PreApproval_) StableEqualVT(thatIface isProtectionLifecycle_Lifecycle) bool {
+	that, ok := thatIface.(*ProtectionLifecycle_PreApproval_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PreApproval, that.PreApproval; p != q {
+		if p == nil {
+			p = &ProtectionLifecycle_PreApproval{}
+		}
+		if q == nil {
+			q = &ProtectionLifecycle_PreApproval{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionLifecycle_PostApproval_) StableEqualVT(thatIface isProtectionLifecycle_Lifecycle) bool {
+	that, ok := thatIface.(*ProtectionLifecycle_PostApproval_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PostApproval, that.PostApproval; p != q {
+		if p == nil {
+			p = &ProtectionLifecycle_PostApproval{}
+		}
+		if q == nil {
+			q = &ProtectionLifecycle_PostApproval{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionLifecycle_Deployment_) StableEqualVT(thatIface isProtectionLifecycle_Lifecycle) bool {
+	that, ok := thatIface.(*ProtectionLifecycle_Deployment_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Deployment, that.Deployment; p != q {
+		if p == nil {
+			p = &ProtectionLifecycle_Deployment{}
+		}
+		if q == nil {
+			q = &ProtectionLifecycle_Deployment{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionLifecycle_PostDeployment_) StableEqualVT(thatIface isProtectionLifecycle_Lifecycle) bool {
+	that, ok := thatIface.(*ProtectionLifecycle_PostDeployment_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PostDeployment, that.PostDeployment; p != q {
+		if p == nil {
+			p = &ProtectionLifecycle_PostDeployment{}
+		}
+		if q == nil {
+			q = &ProtectionLifecycle_PostDeployment{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ProtectionLifecycle_PreApproval) EqualVT(that *ProtectionLifecycle_PreApproval) bool {
 	if this == that {
 		return true
@@ -364,6 +562,42 @@ func (this *ProtectionLifecycle_PostDeployment_) EqualVT(thatIface isProtectionL
 	return true
 }
 
+func (this *ProtectionReference) StableEqualVT(that *ProtectionReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionReference) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionReference)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ProtectionReference) EqualVT(that *ProtectionReference) bool {
 	if this == that {
 		return true

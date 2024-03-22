@@ -220,6 +220,31 @@ func (m *GetDeliveryExtensionInstanceConfigResp) CloneMessageVT() proto.Message 
 	return m.CloneVT()
 }
 
+func (this *ConfigureDeliveryExtensionReq) StableEqualVT(that *ConfigureDeliveryExtensionReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DeliveryExtensionConfig.StableEqualVT(that.DeliveryExtensionConfig) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureDeliveryExtensionReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureDeliveryExtensionReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureDeliveryExtensionReq) EqualVT(that *ConfigureDeliveryExtensionReq) bool {
 	if this == that {
 		return true
@@ -245,6 +270,28 @@ func (this *ConfigureDeliveryExtensionReq) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfigureDeliveryExtensionResp) StableEqualVT(that *ConfigureDeliveryExtensionResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeliveryExtensionId != that.DeliveryExtensionId {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureDeliveryExtensionResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureDeliveryExtensionResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureDeliveryExtensionResp) EqualVT(that *ConfigureDeliveryExtensionResp) bool {
 	if this == that {
 		return true
@@ -266,6 +313,28 @@ func (this *ConfigureDeliveryExtensionResp) EqualMessageVT(thatMsg proto.Message
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ValidateConfigureDeliveryExtensionResp) StableEqualVT(that *ValidateConfigureDeliveryExtensionResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.InputConfig.StableEqualVT(that.InputConfig) {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateConfigureDeliveryExtensionResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateConfigureDeliveryExtensionResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ValidateConfigureDeliveryExtensionResp) EqualVT(that *ValidateConfigureDeliveryExtensionResp) bool {
 	if this == that {
@@ -289,6 +358,28 @@ func (this *ValidateConfigureDeliveryExtensionResp) EqualMessageVT(thatMsg proto
 	}
 	return this.EqualVT(that)
 }
+func (this *ListDeliveryExtensionsReq) StableEqualVT(that *ListDeliveryExtensionsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListDeliveryExtensionsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListDeliveryExtensionsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListDeliveryExtensionsReq) EqualVT(that *ListDeliveryExtensionsReq) bool {
 	if this == that {
 		return true
@@ -310,6 +401,42 @@ func (this *ListDeliveryExtensionsReq) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListDeliveryExtensionsResp) StableEqualVT(that *ListDeliveryExtensionsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
+		return false
+	}
+	for i, vx := range this.DeliveryExtensions {
+		vy := that.DeliveryExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtension{}
+			}
+			if q == nil {
+				q = &DeliveryExtension{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListDeliveryExtensionsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListDeliveryExtensionsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListDeliveryExtensionsResp) EqualVT(that *ListDeliveryExtensionsResp) bool {
 	if this == that {
@@ -347,6 +474,25 @@ func (this *ListDeliveryExtensionsResp) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDeliveryExtensionReq) StableEqualVT(that *GetDeliveryExtensionReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeliveryExtension != that.DeliveryExtension {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDeliveryExtensionReq) EqualVT(that *GetDeliveryExtensionReq) bool {
 	if this == that {
 		return true
@@ -366,6 +512,25 @@ func (this *GetDeliveryExtensionReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDeliveryExtensionResp) StableEqualVT(that *GetDeliveryExtensionResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DeliveryExtension.StableEqualVT(that.DeliveryExtension) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDeliveryExtensionResp) EqualVT(that *GetDeliveryExtensionResp) bool {
 	if this == that {
 		return true
@@ -384,6 +549,28 @@ func (this *GetDeliveryExtensionResp) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetDeliveryExtensionConfigReq) StableEqualVT(that *GetDeliveryExtensionConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeliveryExtension != that.DeliveryExtension {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetDeliveryExtensionConfigReq) EqualVT(that *GetDeliveryExtensionConfigReq) bool {
 	if this == that {
@@ -406,6 +593,31 @@ func (this *GetDeliveryExtensionConfigReq) EqualMessageVT(thatMsg proto.Message)
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetDeliveryExtensionConfigResp) StableEqualVT(that *GetDeliveryExtensionConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.InputConfig.StableEqualVT(that.InputConfig) {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetDeliveryExtensionConfigResp) EqualVT(that *GetDeliveryExtensionConfigResp) bool {
 	if this == that {
@@ -432,6 +644,28 @@ func (this *GetDeliveryExtensionConfigResp) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *GetDeliveryExtensionInstanceConfigReq) StableEqualVT(that *GetDeliveryExtensionInstanceConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeliveryExtensionInstanceId != that.DeliveryExtensionInstanceId {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionInstanceConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionInstanceConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetDeliveryExtensionInstanceConfigReq) EqualVT(that *GetDeliveryExtensionInstanceConfigReq) bool {
 	if this == that {
 		return true
@@ -453,6 +687,28 @@ func (this *GetDeliveryExtensionInstanceConfigReq) EqualMessageVT(thatMsg proto.
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetDeliveryExtensionInstanceConfigResp) StableEqualVT(that *GetDeliveryExtensionInstanceConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDeliveryExtensionInstanceConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDeliveryExtensionInstanceConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetDeliveryExtensionInstanceConfigResp) EqualVT(that *GetDeliveryExtensionInstanceConfigResp) bool {
 	if this == that {

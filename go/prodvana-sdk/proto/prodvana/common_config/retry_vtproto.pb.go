@@ -74,6 +74,28 @@ func (m *RetryConfig_RetryForever) CloneVT() isRetryConfig_Limit {
 	return r
 }
 
+func (this *Notification) StableEqualVT(that *Notification) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ConfigOverride.StableEqualVT(that.ConfigOverride) {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Notification) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Notification)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Notification) EqualVT(that *Notification) bool {
 	if this == that {
 		return true
@@ -96,6 +118,79 @@ func (this *Notification) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RetryConfig) StableEqualVT(that *RetryConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Limit == nil && that.Limit != nil {
+		return false
+	} else if this.Limit != nil {
+		if that.Limit == nil {
+			return false
+		}
+		if !this.Limit.(interface {
+			StableEqualVT(isRetryConfig_Limit) bool
+		}).StableEqualVT(that.Limit) {
+			return false
+		}
+	}
+	if !this.FirstFailureNotification.StableEqualVT(that.FirstFailureNotification) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RetryConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RetryConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RetryConfig_MaxRetryDuration) StableEqualVT(thatIface isRetryConfig_Limit) bool {
+	that, ok := thatIface.(*RetryConfig_MaxRetryDuration)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.MaxRetryDuration, that.MaxRetryDuration; p != q {
+		if p == nil {
+			p = &durationpb.Duration{}
+		}
+		if q == nil {
+			q = &durationpb.Duration{}
+		}
+		if !(*durationpb1.Duration)(p).StableEqualVT((*durationpb1.Duration)(q)) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *RetryConfig_RetryForever) StableEqualVT(thatIface isRetryConfig_Limit) bool {
+	that, ok := thatIface.(*RetryConfig_RetryForever)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.RetryForever != that.RetryForever {
+		return false
+	}
+	return true
+}
+
 func (this *RetryConfig) EqualVT(that *RetryConfig) bool {
 	if this == that {
 		return true

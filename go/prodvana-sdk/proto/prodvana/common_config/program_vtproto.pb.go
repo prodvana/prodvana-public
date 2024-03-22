@@ -295,6 +295,37 @@ func (m *PerReleaseChannelProgramConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *PortConfig) StableEqualVT(that *PortConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.TargetPort != that.TargetPort {
+		return false
+	}
+	if this.External != that.External {
+		return false
+	}
+	if this.Protocol != that.Protocol {
+		return false
+	}
+	if this.Tls != that.Tls {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PortConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PortConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PortConfig) EqualVT(that *PortConfig) bool {
 	if this == that {
 		return true
@@ -326,6 +357,28 @@ func (this *PortConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ResourceList) StableEqualVT(that *ResourceList) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Memory != that.Memory {
+		return false
+	}
+	if this.Cpu != that.Cpu {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceList) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceList)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ResourceList) EqualVT(that *ResourceList) bool {
 	if this == that {
 		return true
@@ -348,6 +401,28 @@ func (this *ResourceList) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ResourceRequirements) StableEqualVT(that *ResourceRequirements) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Requests.StableEqualVT(that.Requests) {
+		return false
+	}
+	if !this.Limits.StableEqualVT(that.Limits) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceRequirements) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceRequirements)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ResourceRequirements) EqualVT(that *ResourceRequirements) bool {
 	if this == that {
 		return true
@@ -369,6 +444,31 @@ func (this *ResourceRequirements) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *HttpProbe) StableEqualVT(that *HttpProbe) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Path != that.Path {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.Tls != that.Tls {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HttpProbe) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HttpProbe)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *HttpProbe) EqualVT(that *HttpProbe) bool {
 	if this == that {
@@ -395,6 +495,31 @@ func (this *HttpProbe) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CmdProbe) StableEqualVT(that *CmdProbe) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Command) != len(that.Command) {
+		return false
+	}
+	for i, vx := range this.Command {
+		vy := that.Command[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CmdProbe) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CmdProbe)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CmdProbe) EqualVT(that *CmdProbe) bool {
 	if this == that {
 		return true
@@ -420,6 +545,28 @@ func (this *CmdProbe) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *TcpProbe) StableEqualVT(that *TcpProbe) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.Host != that.Host {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TcpProbe) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TcpProbe)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TcpProbe) EqualVT(that *TcpProbe) bool {
 	if this == that {
 		return true
@@ -442,6 +589,115 @@ func (this *TcpProbe) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *HealthCheck) StableEqualVT(that *HealthCheck) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ProbeConfig == nil && that.ProbeConfig != nil {
+		return false
+	} else if this.ProbeConfig != nil {
+		if that.ProbeConfig == nil {
+			return false
+		}
+		if !this.ProbeConfig.(interface {
+			StableEqualVT(isHealthCheck_ProbeConfig) bool
+		}).StableEqualVT(that.ProbeConfig) {
+			return false
+		}
+	}
+	if !(*durationpb1.Duration)(this.Delay).StableEqualVT((*durationpb1.Duration)(that.Delay)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Period).StableEqualVT((*durationpb1.Duration)(that.Period)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HealthCheck) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HealthCheck)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *HealthCheck_Http) StableEqualVT(thatIface isHealthCheck_ProbeConfig) bool {
+	that, ok := thatIface.(*HealthCheck_Http)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Http, that.Http; p != q {
+		if p == nil {
+			p = &HttpProbe{}
+		}
+		if q == nil {
+			q = &HttpProbe{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *HealthCheck_Cmd) StableEqualVT(thatIface isHealthCheck_ProbeConfig) bool {
+	that, ok := thatIface.(*HealthCheck_Cmd)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Cmd, that.Cmd; p != q {
+		if p == nil {
+			p = &CmdProbe{}
+		}
+		if q == nil {
+			q = &CmdProbe{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *HealthCheck_Tcp) StableEqualVT(thatIface isHealthCheck_ProbeConfig) bool {
+	that, ok := thatIface.(*HealthCheck_Tcp)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Tcp, that.Tcp; p != q {
+		if p == nil {
+			p = &TcpProbe{}
+		}
+		if q == nil {
+			q = &TcpProbe{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *HealthCheck) EqualVT(that *HealthCheck) bool {
 	if this == that {
 		return true
@@ -551,6 +807,31 @@ func (this *HealthCheck_Tcp) EqualVT(thatIface isHealthCheck_ProbeConfig) bool {
 	return true
 }
 
+func (this *ImageRegistryInfo) StableEqualVT(that *ImageRegistryInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ContainerRegistryId != that.ContainerRegistryId {
+		return false
+	}
+	if this.ContainerRegistry != that.ContainerRegistry {
+		return false
+	}
+	if this.ImageRepository != that.ImageRepository {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ImageRegistryInfo) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ImageRegistryInfo)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ImageRegistryInfo) EqualVT(that *ImageRegistryInfo) bool {
 	if this == that {
 		return true
@@ -576,6 +857,28 @@ func (this *ImageRegistryInfo) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ImageDetails) StableEqualVT(that *ImageDetails) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.RegistryInfo.StableEqualVT(that.RegistryInfo) {
+		return false
+	}
+	if this.Identifier != that.Identifier {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ImageDetails) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ImageDetails)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ImageDetails) EqualVT(that *ImageDetails) bool {
 	if this == that {
 		return true
@@ -597,6 +900,101 @@ func (this *ImageDetails) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ProgramConfig) StableEqualVT(that *ProgramConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Image != that.Image {
+		return false
+	}
+	if len(this.Cmd) != len(that.Cmd) {
+		return false
+	}
+	for i, vx := range this.Cmd {
+		vy := that.Cmd[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Entrypoint) != len(that.Entrypoint) {
+		return false
+	}
+	for i, vx := range this.Entrypoint {
+		vy := that.Entrypoint[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &EnvValue{}
+			}
+			if q == nil {
+				q = &EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Resources.StableEqualVT(that.Resources) {
+		return false
+	}
+	if !this.HealthCheck.StableEqualVT(that.HealthCheck) {
+		return false
+	}
+	if len(this.Ports) != len(that.Ports) {
+		return false
+	}
+	for i, vx := range this.Ports {
+		vy := that.Ports[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PortConfig{}
+			}
+			if q == nil {
+				q = &PortConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.ImageRegistryInfo.StableEqualVT(that.ImageRegistryInfo) {
+		return false
+	}
+	if this.TemplateComplete != that.TemplateComplete {
+		return false
+	}
+	if this.ImageTag != that.ImageTag {
+		return false
+	}
+	if this.WorkingDirectory != that.WorkingDirectory {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProgramConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProgramConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ProgramConfig) EqualVT(that *ProgramConfig) bool {
 	if this == that {
@@ -692,6 +1090,54 @@ func (this *ProgramConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PerReleaseChannelProgramConfig) StableEqualVT(that *PerReleaseChannelProgramConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &EnvValue{}
+			}
+			if q == nil {
+				q = &EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Image != that.Image {
+		return false
+	}
+	if !this.ImageRegistryInfo.StableEqualVT(that.ImageRegistryInfo) {
+		return false
+	}
+	if this.ImageTag != that.ImageTag {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PerReleaseChannelProgramConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PerReleaseChannelProgramConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PerReleaseChannelProgramConfig) EqualVT(that *PerReleaseChannelProgramConfig) bool {
 	if this == that {

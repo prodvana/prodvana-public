@@ -64,6 +64,28 @@ func (m *DeliveryConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *CanaryProgress) StableEqualVT(that *CanaryProgress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CanaryWeight != that.CanaryWeight {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Duration).StableEqualVT((*durationpb1.Duration)(that.Duration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CanaryProgress) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CanaryProgress)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CanaryProgress) EqualVT(that *CanaryProgress) bool {
 	if this == that {
 		return true
@@ -85,6 +107,48 @@ func (this *CanaryProgress) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeliveryConfig) StableEqualVT(that *DeliveryConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.CanaryProgress) != len(that.CanaryProgress) {
+		return false
+	}
+	for i, vx := range this.CanaryProgress {
+		vy := that.CanaryProgress[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CanaryProgress{}
+			}
+			if q == nil {
+				q = &CanaryProgress{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.AnalysisTemplates) != len(that.AnalysisTemplates) {
+		return false
+	}
+	for i, vx := range this.AnalysisTemplates {
+		vy := that.AnalysisTemplates[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeliveryConfig) EqualVT(that *DeliveryConfig) bool {
 	if this == that {

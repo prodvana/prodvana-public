@@ -988,6 +988,37 @@ func (m *EventDetails_ReleaseCreated) CloneVT() isEventDetails_Details {
 	return r
 }
 
+func (this *SetDesiredStateEvent) StableEqualVT(that *SetDesiredStateEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if !this.Desired.StableEqualVT(that.Desired) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if this.IsRollback != that.IsRollback {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetDesiredStateEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetDesiredStateEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetDesiredStateEvent) EqualVT(that *SetDesiredStateEvent) bool {
 	if this == that {
 		return true
@@ -1018,6 +1049,63 @@ func (this *SetDesiredStateEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SetTargetStateEvent) StableEqualVT(that *SetTargetStateEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if !this.Target.StableEqualVT(that.Target) {
+		return false
+	}
+	if !this.Desired.StableEqualVT(that.Desired) {
+		return false
+	}
+	if !this.Current.StableEqualVT(that.Current) {
+		return false
+	}
+	if this.IsAutoRollback != that.IsAutoRollback {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy := that.StatusExplanations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.StatusExplanation{}
+			}
+			if q == nil {
+				q = &model.StatusExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetTargetStateEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetTargetStateEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SetTargetStateEvent) EqualVT(that *SetTargetStateEvent) bool {
 	if this == that {
@@ -1076,6 +1164,46 @@ func (this *SetTargetStateEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ApplyTargetStateEvent) StableEqualVT(that *ApplyTargetStateEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if !this.Target.StableEqualVT(that.Target) {
+		return false
+	}
+	if !this.Current.StableEqualVT(that.Current) {
+		return false
+	}
+	if this.IsAutoRollback != that.IsAutoRollback {
+		return false
+	}
+	if this.Result != that.Result {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyTargetStateEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyTargetStateEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ApplyTargetStateEvent) EqualVT(that *ApplyTargetStateEvent) bool {
 	if this == that {
 		return true
@@ -1115,6 +1243,49 @@ func (this *ApplyTargetStateEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ProgramExitEvent) StableEqualVT(that *ProgramExitEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.Pod != that.Pod {
+		return false
+	}
+	if this.Program != that.Program {
+		return false
+	}
+	if this.RestartCount != that.RestartCount {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.ExitCode != that.ExitCode {
+		return false
+	}
+	if this.Signal != that.Signal {
+		return false
+	}
+	if this.KilledReason != that.KilledReason {
+		return false
+	}
+	if !this.StructuredOutput.StableEqualVT(that.StructuredOutput) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProgramExitEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProgramExitEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ProgramExitEvent) EqualVT(that *ProgramExitEvent) bool {
 	if this == that {
@@ -1159,6 +1330,25 @@ func (this *ProgramExitEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeliveryProgressEvent) StableEqualVT(that *DeliveryProgressEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryProgressEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryProgressEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeliveryProgressEvent) EqualVT(that *DeliveryProgressEvent) bool {
 	if this == that {
 		return true
@@ -1177,6 +1367,31 @@ func (this *DeliveryProgressEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeliveryManualPromotionEvent) StableEqualVT(that *DeliveryManualPromotionEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	if this.Stage != that.Stage {
+		return false
+	}
+	if this.Full != that.Full {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryManualPromotionEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryManualPromotionEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeliveryManualPromotionEvent) EqualVT(that *DeliveryManualPromotionEvent) bool {
 	if this == that {
@@ -1203,6 +1418,28 @@ func (this *DeliveryManualPromotionEvent) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
+func (this *ManualApprovalEvent) StableEqualVT(that *ManualApprovalEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.Topic != that.Topic {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManualApprovalEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManualApprovalEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ManualApprovalEvent) EqualVT(that *ManualApprovalEvent) bool {
 	if this == that {
 		return true
@@ -1224,6 +1461,31 @@ func (this *ManualApprovalEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CustomTaskExecutionEvent) StableEqualVT(that *CustomTaskExecutionEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Successful != that.Successful {
+		return false
+	}
+	if this.Attempts != that.Attempts {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CustomTaskExecutionEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CustomTaskExecutionEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CustomTaskExecutionEvent) EqualVT(that *CustomTaskExecutionEvent) bool {
 	if this == that {
@@ -1249,6 +1511,34 @@ func (this *CustomTaskExecutionEvent) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeObject) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeObject)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RuntimeObject) EqualVT(that *RuntimeObject) bool {
 	if this == that {
@@ -1278,6 +1568,31 @@ func (this *RuntimeObject) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RuntimeUpdateEvent) StableEqualVT(that *RuntimeUpdateEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Action != that.Action {
+		return false
+	}
+	if !this.Object.StableEqualVT(that.Object) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeUpdateEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeUpdateEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RuntimeUpdateEvent) EqualVT(that *RuntimeUpdateEvent) bool {
 	if this == that {
 		return true
@@ -1302,6 +1617,66 @@ func (this *RuntimeUpdateEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DesiredStateStatusChangeEvent) StableEqualVT(that *DesiredStateStatusChangeEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if this.OldStatus != that.OldStatus {
+		return false
+	}
+	if this.NewStatus != that.NewStatus {
+		return false
+	}
+	if !this.Desired.StableEqualVT(that.Desired) {
+		return false
+	}
+	if !this.Target.StableEqualVT(that.Target) {
+		return false
+	}
+	if !this.OldState.StableEqualVT(that.OldState) {
+		return false
+	}
+	if !this.NewState.StableEqualVT(that.NewState) {
+		return false
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy := that.StatusExplanations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.StatusExplanation{}
+			}
+			if q == nil {
+				q = &model.StatusExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DesiredStateStatusChangeEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DesiredStateStatusChangeEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DesiredStateStatusChangeEvent) EqualVT(that *DesiredStateStatusChangeEvent) bool {
 	if this == that {
@@ -1363,6 +1738,66 @@ func (this *DesiredStateStatusChangeEvent) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *KeyDeliveryDecisionEvent) StableEqualVT(that *KeyDeliveryDecisionEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if this.Decision != that.Decision {
+		return false
+	}
+	if this.Explanation != that.Explanation {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !this.Desired.StableEqualVT(that.Desired) {
+		return false
+	}
+	if !this.Target.StableEqualVT(that.Target) {
+		return false
+	}
+	if !this.Current.StableEqualVT(that.Current) {
+		return false
+	}
+	if len(this.StatusExplanations) != len(that.StatusExplanations) {
+		return false
+	}
+	for i, vx := range this.StatusExplanations {
+		vy := that.StatusExplanations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.StatusExplanation{}
+			}
+			if q == nil {
+				q = &model.StatusExplanation{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *KeyDeliveryDecisionEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*KeyDeliveryDecisionEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *KeyDeliveryDecisionEvent) EqualVT(that *KeyDeliveryDecisionEvent) bool {
 	if this == that {
 		return true
@@ -1423,6 +1858,37 @@ func (this *KeyDeliveryDecisionEvent) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *RpcCallEvent) StableEqualVT(that *RpcCallEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.RpcService != that.RpcService {
+		return false
+	}
+	if this.RpcMethod != that.RpcMethod {
+		return false
+	}
+	if !(*anypb1.Any)(this.Request).StableEqualVT((*anypb1.Any)(that.Request)) {
+		return false
+	}
+	if !(*anypb1.Any)(this.Response).StableEqualVT((*anypb1.Any)(that.Response)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RpcCallEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RpcCallEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RpcCallEvent) EqualVT(that *RpcCallEvent) bool {
 	if this == that {
 		return true
@@ -1454,6 +1920,28 @@ func (this *RpcCallEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ApplicationHandle) StableEqualVT(that *ApplicationHandle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplicationHandle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplicationHandle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ApplicationHandle) EqualVT(that *ApplicationHandle) bool {
 	if this == that {
 		return true
@@ -1475,6 +1963,31 @@ func (this *ApplicationHandle) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseChannelHandle) StableEqualVT(that *ReleaseChannelHandle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Application.StableEqualVT(that.Application) {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelHandle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelHandle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseChannelHandle) EqualVT(that *ReleaseChannelHandle) bool {
 	if this == that {
@@ -1500,6 +2013,34 @@ func (this *ReleaseChannelHandle) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ServiceHandle) StableEqualVT(that *ServiceHandle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Application.StableEqualVT(that.Application) {
+		return false
+	}
+	if !this.ReleaseChannel.StableEqualVT(that.ReleaseChannel) {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceHandle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceHandle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ServiceHandle) EqualVT(that *ServiceHandle) bool {
 	if this == that {
@@ -1529,6 +2070,28 @@ func (this *ServiceHandle) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RuntimeHandle) StableEqualVT(that *RuntimeHandle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeHandle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeHandle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RuntimeHandle) EqualVT(that *RuntimeHandle) bool {
 	if this == that {
 		return true
@@ -1550,6 +2113,28 @@ func (this *RuntimeHandle) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ProtectionHandle) StableEqualVT(that *ProtectionHandle) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionHandle) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionHandle)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ProtectionHandle) EqualVT(that *ProtectionHandle) bool {
 	if this == that {
@@ -1573,6 +2158,162 @@ func (this *ProtectionHandle) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PermissionDeniedEvent) StableEqualVT(that *PermissionDeniedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Target == nil && that.Target != nil {
+		return false
+	} else if this.Target != nil {
+		if that.Target == nil {
+			return false
+		}
+		if !this.Target.(interface {
+			StableEqualVT(isPermissionDeniedEvent_Target) bool
+		}).StableEqualVT(that.Target) {
+			return false
+		}
+	}
+	if this.Action != that.Action {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PermissionDeniedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PermissionDeniedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *PermissionDeniedEvent_Application) StableEqualVT(thatIface isPermissionDeniedEvent_Target) bool {
+	that, ok := thatIface.(*PermissionDeniedEvent_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &ApplicationHandle{}
+		}
+		if q == nil {
+			q = &ApplicationHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PermissionDeniedEvent_ReleaseChannel) StableEqualVT(thatIface isPermissionDeniedEvent_Target) bool {
+	that, ok := thatIface.(*PermissionDeniedEvent_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelHandle{}
+		}
+		if q == nil {
+			q = &ReleaseChannelHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PermissionDeniedEvent_Service) StableEqualVT(thatIface isPermissionDeniedEvent_Target) bool {
+	that, ok := thatIface.(*PermissionDeniedEvent_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &ServiceHandle{}
+		}
+		if q == nil {
+			q = &ServiceHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PermissionDeniedEvent_Runtime) StableEqualVT(thatIface isPermissionDeniedEvent_Target) bool {
+	that, ok := thatIface.(*PermissionDeniedEvent_Runtime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Runtime, that.Runtime; p != q {
+		if p == nil {
+			p = &RuntimeHandle{}
+		}
+		if q == nil {
+			q = &RuntimeHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PermissionDeniedEvent_Protection) StableEqualVT(thatIface isPermissionDeniedEvent_Target) bool {
+	that, ok := thatIface.(*PermissionDeniedEvent_Protection)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Protection, that.Protection; p != q {
+		if p == nil {
+			p = &ProtectionHandle{}
+		}
+		if q == nil {
+			q = &ProtectionHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *PermissionDeniedEvent) EqualVT(that *PermissionDeniedEvent) bool {
 	if this == that {
 		return true
@@ -1723,6 +2464,162 @@ func (this *PermissionDeniedEvent_Protection) EqualVT(thatIface isPermissionDeni
 			q = &ProtectionHandle{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectCreatedEvent) StableEqualVT(that *ObjectCreatedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Target == nil && that.Target != nil {
+		return false
+	} else if this.Target != nil {
+		if that.Target == nil {
+			return false
+		}
+		if !this.Target.(interface {
+			StableEqualVT(isObjectCreatedEvent_Target) bool
+		}).StableEqualVT(that.Target) {
+			return false
+		}
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ObjectCreatedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ObjectCreatedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ObjectCreatedEvent_Application) StableEqualVT(thatIface isObjectCreatedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectCreatedEvent_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &ApplicationHandle{}
+		}
+		if q == nil {
+			q = &ApplicationHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectCreatedEvent_ReleaseChannel) StableEqualVT(thatIface isObjectCreatedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectCreatedEvent_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelHandle{}
+		}
+		if q == nil {
+			q = &ReleaseChannelHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectCreatedEvent_Service) StableEqualVT(thatIface isObjectCreatedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectCreatedEvent_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &ServiceHandle{}
+		}
+		if q == nil {
+			q = &ServiceHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectCreatedEvent_Runtime) StableEqualVT(thatIface isObjectCreatedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectCreatedEvent_Runtime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Runtime, that.Runtime; p != q {
+		if p == nil {
+			p = &RuntimeHandle{}
+		}
+		if q == nil {
+			q = &RuntimeHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectCreatedEvent_Protection) StableEqualVT(thatIface isObjectCreatedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectCreatedEvent_Protection)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Protection, that.Protection; p != q {
+		if p == nil {
+			p = &ProtectionHandle{}
+		}
+		if q == nil {
+			q = &ProtectionHandle{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -1885,6 +2782,162 @@ func (this *ObjectCreatedEvent_Protection) EqualVT(thatIface isObjectCreatedEven
 	return true
 }
 
+func (this *ObjectDeletedEvent) StableEqualVT(that *ObjectDeletedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Target == nil && that.Target != nil {
+		return false
+	} else if this.Target != nil {
+		if that.Target == nil {
+			return false
+		}
+		if !this.Target.(interface {
+			StableEqualVT(isObjectDeletedEvent_Target) bool
+		}).StableEqualVT(that.Target) {
+			return false
+		}
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ObjectDeletedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ObjectDeletedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ObjectDeletedEvent_Application) StableEqualVT(thatIface isObjectDeletedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectDeletedEvent_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &ApplicationHandle{}
+		}
+		if q == nil {
+			q = &ApplicationHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectDeletedEvent_ReleaseChannel) StableEqualVT(thatIface isObjectDeletedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectDeletedEvent_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelHandle{}
+		}
+		if q == nil {
+			q = &ReleaseChannelHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectDeletedEvent_Service) StableEqualVT(thatIface isObjectDeletedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectDeletedEvent_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &ServiceHandle{}
+		}
+		if q == nil {
+			q = &ServiceHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectDeletedEvent_Runtime) StableEqualVT(thatIface isObjectDeletedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectDeletedEvent_Runtime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Runtime, that.Runtime; p != q {
+		if p == nil {
+			p = &RuntimeHandle{}
+		}
+		if q == nil {
+			q = &RuntimeHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectDeletedEvent_Protection) StableEqualVT(thatIface isObjectDeletedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectDeletedEvent_Protection)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Protection, that.Protection; p != q {
+		if p == nil {
+			p = &ProtectionHandle{}
+		}
+		if q == nil {
+			q = &ProtectionHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ObjectDeletedEvent) EqualVT(that *ObjectDeletedEvent) bool {
 	if this == that {
 		return true
@@ -2035,6 +3088,165 @@ func (this *ObjectDeletedEvent_Protection) EqualVT(thatIface isObjectDeletedEven
 			q = &ProtectionHandle{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectModifiedEvent) StableEqualVT(that *ObjectModifiedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Target == nil && that.Target != nil {
+		return false
+	} else if this.Target != nil {
+		if that.Target == nil {
+			return false
+		}
+		if !this.Target.(interface {
+			StableEqualVT(isObjectModifiedEvent_Target) bool
+		}).StableEqualVT(that.Target) {
+			return false
+		}
+	}
+	if this.OldConfigVersion != that.OldConfigVersion {
+		return false
+	}
+	if this.NewConfigVersion != that.NewConfigVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ObjectModifiedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ObjectModifiedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ObjectModifiedEvent_Application) StableEqualVT(thatIface isObjectModifiedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectModifiedEvent_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &ApplicationHandle{}
+		}
+		if q == nil {
+			q = &ApplicationHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectModifiedEvent_ReleaseChannel) StableEqualVT(thatIface isObjectModifiedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectModifiedEvent_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelHandle{}
+		}
+		if q == nil {
+			q = &ReleaseChannelHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectModifiedEvent_Service) StableEqualVT(thatIface isObjectModifiedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectModifiedEvent_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &ServiceHandle{}
+		}
+		if q == nil {
+			q = &ServiceHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectModifiedEvent_Runtime) StableEqualVT(thatIface isObjectModifiedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectModifiedEvent_Runtime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Runtime, that.Runtime; p != q {
+		if p == nil {
+			p = &RuntimeHandle{}
+		}
+		if q == nil {
+			q = &RuntimeHandle{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ObjectModifiedEvent_Protection) StableEqualVT(thatIface isObjectModifiedEvent_Target) bool {
+	that, ok := thatIface.(*ObjectModifiedEvent_Protection)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Protection, that.Protection; p != q {
+		if p == nil {
+			p = &ProtectionHandle{}
+		}
+		if q == nil {
+			q = &ProtectionHandle{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -2200,6 +3412,25 @@ func (this *ObjectModifiedEvent_Protection) EqualVT(thatIface isObjectModifiedEv
 	return true
 }
 
+func (this *DeploymentCreatedEvent) StableEqualVT(that *DeploymentCreatedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Deployment.StableEqualVT(that.Deployment) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentCreatedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentCreatedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentCreatedEvent) EqualVT(that *DeploymentCreatedEvent) bool {
 	if this == that {
 		return true
@@ -2218,6 +3449,28 @@ func (this *DeploymentCreatedEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeploymentUpdatedEvent) StableEqualVT(that *DeploymentUpdatedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Deployment.StableEqualVT(that.Deployment) {
+		return false
+	}
+	if this.OldStatus != that.OldStatus {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentUpdatedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentUpdatedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeploymentUpdatedEvent) EqualVT(that *DeploymentUpdatedEvent) bool {
 	if this == that {
@@ -2240,6 +3493,37 @@ func (this *DeploymentUpdatedEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *KubectlCmdEvent) StableEqualVT(that *KubectlCmdEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	if len(this.Args) != len(that.Args) {
+		return false
+	}
+	for i, vx := range this.Args {
+		vy := that.Args[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ExitCode != that.ExitCode {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *KubectlCmdEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*KubectlCmdEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *KubectlCmdEvent) EqualVT(that *KubectlCmdEvent) bool {
 	if this == that {
@@ -2272,6 +3556,34 @@ func (this *KubectlCmdEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *AuditLogDebugEvent) StableEqualVT(that *AuditLogDebugEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Details) != len(that.Details) {
+		return false
+	}
+	for i, vx := range this.Details {
+		vy, ok := that.Details[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AuditLogDebugEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AuditLogDebugEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *AuditLogDebugEvent) EqualVT(that *AuditLogDebugEvent) bool {
 	if this == that {
 		return true
@@ -2299,6 +3611,34 @@ func (this *AuditLogDebugEvent) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseCreatedEvent) StableEqualVT(that *ReleaseCreatedEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	if !this.Desired.StableEqualVT(that.Desired) {
+		return false
+	}
+	if this.IsRollback != that.IsRollback {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseCreatedEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseCreatedEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseCreatedEvent) EqualVT(that *ReleaseCreatedEvent) bool {
 	if this == that {
@@ -2328,6 +3668,559 @@ func (this *ReleaseCreatedEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *EventDetails) StableEqualVT(that *EventDetails) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Details == nil && that.Details != nil {
+		return false
+	} else if this.Details != nil {
+		if that.Details == nil {
+			return false
+		}
+		if !this.Details.(interface {
+			StableEqualVT(isEventDetails_Details) bool
+		}).StableEqualVT(that.Details) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EventDetails) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EventDetails)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *EventDetails_SetDesiredState) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_SetDesiredState)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SetDesiredState, that.SetDesiredState; p != q {
+		if p == nil {
+			p = &SetDesiredStateEvent{}
+		}
+		if q == nil {
+			q = &SetDesiredStateEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_SetTargetState) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_SetTargetState)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SetTargetState, that.SetTargetState; p != q {
+		if p == nil {
+			p = &SetTargetStateEvent{}
+		}
+		if q == nil {
+			q = &SetTargetStateEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ProgramExit) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ProgramExit)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ProgramExit, that.ProgramExit; p != q {
+		if p == nil {
+			p = &ProgramExitEvent{}
+		}
+		if q == nil {
+			q = &ProgramExitEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ApplyTargetState) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ApplyTargetState)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ApplyTargetState, that.ApplyTargetState; p != q {
+		if p == nil {
+			p = &ApplyTargetStateEvent{}
+		}
+		if q == nil {
+			q = &ApplyTargetStateEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ManualApproval) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ManualApproval)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ManualApproval, that.ManualApproval; p != q {
+		if p == nil {
+			p = &ManualApprovalEvent{}
+		}
+		if q == nil {
+			q = &ManualApprovalEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_CustomTaskExecution) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_CustomTaskExecution)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomTaskExecution, that.CustomTaskExecution; p != q {
+		if p == nil {
+			p = &CustomTaskExecutionEvent{}
+		}
+		if q == nil {
+			q = &CustomTaskExecutionEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_RuntimeUpdate) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_RuntimeUpdate)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.RuntimeUpdate, that.RuntimeUpdate; p != q {
+		if p == nil {
+			p = &RuntimeUpdateEvent{}
+		}
+		if q == nil {
+			q = &RuntimeUpdateEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_DeliveryProgress) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_DeliveryProgress)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeliveryProgress, that.DeliveryProgress; p != q {
+		if p == nil {
+			p = &DeliveryProgressEvent{}
+		}
+		if q == nil {
+			q = &DeliveryProgressEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_DeliveryPromotion) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_DeliveryPromotion)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeliveryPromotion, that.DeliveryPromotion; p != q {
+		if p == nil {
+			p = &DeliveryManualPromotionEvent{}
+		}
+		if q == nil {
+			q = &DeliveryManualPromotionEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_DesiredStateStatusChange) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_DesiredStateStatusChange)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DesiredStateStatusChange, that.DesiredStateStatusChange; p != q {
+		if p == nil {
+			p = &DesiredStateStatusChangeEvent{}
+		}
+		if q == nil {
+			q = &DesiredStateStatusChangeEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_KeyDeliveryDecision) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_KeyDeliveryDecision)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KeyDeliveryDecision, that.KeyDeliveryDecision; p != q {
+		if p == nil {
+			p = &KeyDeliveryDecisionEvent{}
+		}
+		if q == nil {
+			q = &KeyDeliveryDecisionEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_RpcCall) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_RpcCall)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.RpcCall, that.RpcCall; p != q {
+		if p == nil {
+			p = &RpcCallEvent{}
+		}
+		if q == nil {
+			q = &RpcCallEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_PermissionDenied) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_PermissionDenied)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.PermissionDenied, that.PermissionDenied; p != q {
+		if p == nil {
+			p = &PermissionDeniedEvent{}
+		}
+		if q == nil {
+			q = &PermissionDeniedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ObjectCreated) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ObjectCreated)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ObjectCreated, that.ObjectCreated; p != q {
+		if p == nil {
+			p = &ObjectCreatedEvent{}
+		}
+		if q == nil {
+			q = &ObjectCreatedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ObjectDeleted) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ObjectDeleted)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ObjectDeleted, that.ObjectDeleted; p != q {
+		if p == nil {
+			p = &ObjectDeletedEvent{}
+		}
+		if q == nil {
+			q = &ObjectDeletedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ObjectModified) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ObjectModified)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ObjectModified, that.ObjectModified; p != q {
+		if p == nil {
+			p = &ObjectModifiedEvent{}
+		}
+		if q == nil {
+			q = &ObjectModifiedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_KubectlCmd) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_KubectlCmd)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubectlCmd, that.KubectlCmd; p != q {
+		if p == nil {
+			p = &KubectlCmdEvent{}
+		}
+		if q == nil {
+			q = &KubectlCmdEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_AuditLogDebug) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_AuditLogDebug)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AuditLogDebug, that.AuditLogDebug; p != q {
+		if p == nil {
+			p = &AuditLogDebugEvent{}
+		}
+		if q == nil {
+			q = &AuditLogDebugEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_DeploymentCreated) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_DeploymentCreated)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeploymentCreated, that.DeploymentCreated; p != q {
+		if p == nil {
+			p = &DeploymentCreatedEvent{}
+		}
+		if q == nil {
+			q = &DeploymentCreatedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_DeploymentUpdated) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_DeploymentUpdated)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeploymentUpdated, that.DeploymentUpdated; p != q {
+		if p == nil {
+			p = &DeploymentUpdatedEvent{}
+		}
+		if q == nil {
+			q = &DeploymentUpdatedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *EventDetails_ReleaseCreated) StableEqualVT(thatIface isEventDetails_Details) bool {
+	that, ok := thatIface.(*EventDetails_ReleaseCreated)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseCreated, that.ReleaseCreated; p != q {
+		if p == nil {
+			p = &ReleaseCreatedEvent{}
+		}
+		if q == nil {
+			q = &ReleaseCreatedEvent{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *EventDetails) EqualVT(that *EventDetails) bool {
 	if this == that {
 		return true

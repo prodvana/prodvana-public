@@ -35,6 +35,31 @@ func (m *ExternalLink) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ExternalLink) StableEqualVT(that *ExternalLink) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Url != that.Url {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExternalLink) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExternalLink)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ExternalLink) EqualVT(that *ExternalLink) bool {
 	if this == that {
 		return true

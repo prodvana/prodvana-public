@@ -251,6 +251,37 @@ func (m *GetReleaseChannelEventsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ConfigureReleaseChannelReq) StableEqualVT(that *ConfigureReleaseChannelReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ReleaseChannel.StableEqualVT(that.ReleaseChannel) {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.ForceCreateNewVersion != that.ForceCreateNewVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureReleaseChannelReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureReleaseChannelReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureReleaseChannelReq) EqualVT(that *ConfigureReleaseChannelReq) bool {
 	if this == that {
 		return true
@@ -282,6 +313,28 @@ func (this *ConfigureReleaseChannelReq) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfigureReleaseChannelResp) StableEqualVT(that *ConfigureReleaseChannelResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.CreatedNewVersion != that.CreatedNewVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureReleaseChannelResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureReleaseChannelResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureReleaseChannelResp) EqualVT(that *ConfigureReleaseChannelResp) bool {
 	if this == that {
 		return true
@@ -303,6 +356,34 @@ func (this *ConfigureReleaseChannelResp) EqualMessageVT(thatMsg proto.Message) b
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeleteReleaseChannelReq) StableEqualVT(that *DeleteReleaseChannelReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteReleaseChannelReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteReleaseChannelReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeleteReleaseChannelReq) EqualVT(that *DeleteReleaseChannelReq) bool {
 	if this == that {
@@ -332,6 +413,25 @@ func (this *DeleteReleaseChannelReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteReleaseChannelResp) StableEqualVT(that *DeleteReleaseChannelResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteReleaseChannelResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteReleaseChannelResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteReleaseChannelResp) EqualVT(that *DeleteReleaseChannelResp) bool {
 	if this == that {
 		return true
@@ -351,6 +451,25 @@ func (this *DeleteReleaseChannelResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *ListReleaseChannelsReq) StableEqualVT(that *ListReleaseChannelsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListReleaseChannelsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListReleaseChannelsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListReleaseChannelsReq) EqualVT(that *ListReleaseChannelsReq) bool {
 	if this == that {
 		return true
@@ -369,6 +488,39 @@ func (this *ListReleaseChannelsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListReleaseChannelsResp) StableEqualVT(that *ListReleaseChannelsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ReleaseChannels) != len(that.ReleaseChannels) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannels {
+		vy := that.ReleaseChannels[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ReleaseChannel{}
+			}
+			if q == nil {
+				q = &ReleaseChannel{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListReleaseChannelsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListReleaseChannelsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListReleaseChannelsResp) EqualVT(that *ListReleaseChannelsResp) bool {
 	if this == that {
@@ -403,6 +555,28 @@ func (this *ListReleaseChannelsResp) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetReleaseChannelReq) StableEqualVT(that *GetReleaseChannelReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetReleaseChannelReq) EqualVT(that *GetReleaseChannelReq) bool {
 	if this == that {
 		return true
@@ -425,6 +599,25 @@ func (this *GetReleaseChannelReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetReleaseChannelResp) StableEqualVT(that *GetReleaseChannelResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ReleaseChannel.StableEqualVT(that.ReleaseChannel) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetReleaseChannelResp) EqualVT(that *GetReleaseChannelResp) bool {
 	if this == that {
 		return true
@@ -443,6 +636,31 @@ func (this *GetReleaseChannelResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetReleaseChannelConfigReq) StableEqualVT(that *GetReleaseChannelConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetReleaseChannelConfigReq) EqualVT(that *GetReleaseChannelConfigReq) bool {
 	if this == that {
@@ -469,6 +687,31 @@ func (this *GetReleaseChannelConfigReq) EqualMessageVT(thatMsg proto.Message) bo
 	}
 	return this.EqualVT(that)
 }
+func (this *GetReleaseChannelConfigResp) StableEqualVT(that *GetReleaseChannelConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetReleaseChannelConfigResp) EqualVT(that *GetReleaseChannelConfigResp) bool {
 	if this == that {
 		return true
@@ -493,6 +736,37 @@ func (this *GetReleaseChannelConfigResp) EqualMessageVT(thatMsg proto.Message) b
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetReleaseChannelEventsReq) StableEqualVT(that *GetReleaseChannelEventsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	if this.OrderByDescTimestamp != that.OrderByDescTimestamp {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelEventsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelEventsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetReleaseChannelEventsReq) EqualVT(that *GetReleaseChannelEventsReq) bool {
 	if this == that {
@@ -524,6 +798,42 @@ func (this *GetReleaseChannelEventsReq) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetReleaseChannelEventsResp) StableEqualVT(that *GetReleaseChannelEventsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Events) != len(that.Events) {
+		return false
+	}
+	for i, vx := range this.Events {
+		vy := that.Events[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &events.Event{}
+			}
+			if q == nil {
+				q = &events.Event{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetReleaseChannelEventsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetReleaseChannelEventsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetReleaseChannelEventsResp) EqualVT(that *GetReleaseChannelEventsResp) bool {
 	if this == that {

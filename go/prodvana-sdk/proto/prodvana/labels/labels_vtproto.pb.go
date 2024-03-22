@@ -34,6 +34,28 @@ func (m *LabelDefinition) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *LabelDefinition) StableEqualVT(that *LabelDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Label != that.Label {
+		return false
+	}
+	if this.Value != that.Value {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LabelDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LabelDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *LabelDefinition) EqualVT(that *LabelDefinition) bool {
 	if this == that {
 		return true

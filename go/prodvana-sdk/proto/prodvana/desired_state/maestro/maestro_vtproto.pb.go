@@ -129,6 +129,25 @@ func (m *MaestroRelease) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *MaestroConfig) StableEqualVT(that *MaestroConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Strategy != that.Strategy {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MaestroConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MaestroConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *MaestroConfig) EqualVT(that *MaestroConfig) bool {
 	if this == that {
 		return true
@@ -147,6 +166,40 @@ func (this *MaestroConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *MaestroReleaseConfig) StableEqualVT(that *MaestroReleaseConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.StableEqualVT(that.EntityId) {
+		return false
+	}
+	if !this.MaestroConfig.StableEqualVT(that.MaestroConfig) {
+		return false
+	}
+	if !this.CompiledDesiredState.StableEqualVT(that.CompiledDesiredState) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if !this.InputDesiredState.StableEqualVT(that.InputDesiredState) {
+		return false
+	}
+	if !this.SetDesiredStateMetadata.StableEqualVT(that.SetDesiredStateMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MaestroReleaseConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MaestroReleaseConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *MaestroReleaseConfig) EqualVT(that *MaestroReleaseConfig) bool {
 	if this == that {
@@ -181,6 +234,63 @@ func (this *MaestroReleaseConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *MaestroReleaseState) StableEqualVT(that *MaestroReleaseState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastUpdateTimestamp)) {
+		return false
+	}
+	if len(this.ReleaseChannelStatuses) != len(that.ReleaseChannelStatuses) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannelStatuses {
+		vy, ok := that.ReleaseChannelStatuses[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ReleaseChannelStates) != len(that.ReleaseChannelStates) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannelStates {
+		vy, ok := that.ReleaseChannelStates[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &MaestroReleaseChannelState{}
+			}
+			if q == nil {
+				q = &MaestroReleaseChannelState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.SharedRootDesiredStateId != that.SharedRootDesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MaestroReleaseState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MaestroReleaseState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *MaestroReleaseState) EqualVT(that *MaestroReleaseState) bool {
 	if this == that {
@@ -239,6 +349,34 @@ func (this *MaestroReleaseState) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *MaestroReleaseChannelState) StableEqualVT(that *MaestroReleaseChannelState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.EntityId != that.EntityId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MaestroReleaseChannelState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MaestroReleaseChannelState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *MaestroReleaseChannelState) EqualVT(that *MaestroReleaseChannelState) bool {
 	if this == that {
 		return true
@@ -266,6 +404,31 @@ func (this *MaestroReleaseChannelState) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *MaestroRelease) StableEqualVT(that *MaestroRelease) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MaestroRelease) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MaestroRelease)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *MaestroRelease) EqualVT(that *MaestroRelease) bool {
 	if this == that {

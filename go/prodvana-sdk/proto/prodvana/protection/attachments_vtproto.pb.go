@@ -41,6 +41,45 @@ func (m *ProtectionAttachmentConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ProtectionAttachmentConfig) StableEqualVT(that *ProtectionAttachmentConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if !this.Ref.StableEqualVT(that.Ref) {
+		return false
+	}
+	if len(this.Lifecycle) != len(that.Lifecycle) {
+		return false
+	}
+	for i, vx := range this.Lifecycle {
+		vy := that.Lifecycle[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProtectionLifecycle{}
+			}
+			if q == nil {
+				q = &ProtectionLifecycle{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionAttachmentConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionAttachmentConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ProtectionAttachmentConfig) EqualVT(that *ProtectionAttachmentConfig) bool {
 	if this == that {
 		return true

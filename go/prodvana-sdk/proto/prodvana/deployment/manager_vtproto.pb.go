@@ -429,6 +429,28 @@ func (m *CheckCommitInDeploymentResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *RecordDeploymentReq) StableEqualVT(that *RecordDeploymentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Pending != that.Pending {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordDeploymentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordDeploymentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordDeploymentReq) EqualVT(that *RecordDeploymentReq) bool {
 	if this == that {
 		return true
@@ -451,6 +473,25 @@ func (this *RecordDeploymentReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *RecordDeploymentResp) StableEqualVT(that *RecordDeploymentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RecordDeploymentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RecordDeploymentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RecordDeploymentResp) EqualVT(that *RecordDeploymentResp) bool {
 	if this == that {
 		return true
@@ -469,6 +510,28 @@ func (this *RecordDeploymentResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UpdateDeploymentStatusReq) StableEqualVT(that *UpdateDeploymentStatusReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeploymentId != that.DeploymentId {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UpdateDeploymentStatusReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UpdateDeploymentStatusReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UpdateDeploymentStatusReq) EqualVT(that *UpdateDeploymentStatusReq) bool {
 	if this == that {
@@ -492,6 +555,25 @@ func (this *UpdateDeploymentStatusReq) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *UpdateDeploymentStatusResp) StableEqualVT(that *UpdateDeploymentStatusResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UpdateDeploymentStatusResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UpdateDeploymentStatusResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *UpdateDeploymentStatusResp) EqualVT(that *UpdateDeploymentStatusResp) bool {
 	if this == that {
 		return true
@@ -510,6 +592,49 @@ func (this *UpdateDeploymentStatusResp) EqualMessageVT(thatMsg proto.Message) bo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DeploymentFilter) StableEqualVT(that *DeploymentFilter) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Services) != len(that.Services) {
+		return false
+	}
+	for i, vx := range this.Services {
+		vy := that.Services[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ReleaseChannels) != len(that.ReleaseChannels) {
+		return false
+	}
+	for i, vx := range this.ReleaseChannels {
+		vy := that.ReleaseChannels[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentFilter) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentFilter)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DeploymentFilter) EqualVT(that *DeploymentFilter) bool {
 	if this == that {
@@ -553,6 +678,54 @@ func (this *DeploymentFilter) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListDeploymentsReq) StableEqualVT(that *ListDeploymentsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Filters) != len(that.Filters) {
+		return false
+	}
+	for i, vx := range this.Filters {
+		vy := that.Filters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeploymentFilter{}
+			}
+			if q == nil {
+				q = &DeploymentFilter{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Filter.StableEqualVT(that.Filter) {
+		return false
+	}
+	if this.StartingDeploymentId != that.StartingDeploymentId {
+		return false
+	}
+	if this.EndingDeploymentId != that.EndingDeploymentId {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListDeploymentsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListDeploymentsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListDeploymentsReq) EqualVT(that *ListDeploymentsReq) bool {
 	if this == that {
@@ -602,6 +775,42 @@ func (this *ListDeploymentsReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListDeploymentsResp) StableEqualVT(that *ListDeploymentsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Deployments) != len(that.Deployments) {
+		return false
+	}
+	for i, vx := range this.Deployments {
+		vy := that.Deployments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.Deployment{}
+			}
+			if q == nil {
+				q = &model.Deployment{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListDeploymentsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListDeploymentsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListDeploymentsResp) EqualVT(that *ListDeploymentsResp) bool {
 	if this == that {
 		return true
@@ -638,6 +847,120 @@ func (this *ListDeploymentsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeploymentRef_ServiceInstanceConfig) StableEqualVT(that *DeploymentRef_ServiceInstanceConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentRef_ServiceInstanceConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentRef_ServiceInstanceConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeploymentRef) StableEqualVT(that *DeploymentRef) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ref == nil && that.Ref != nil {
+		return false
+	} else if this.Ref != nil {
+		if that.Ref == nil {
+			return false
+		}
+		if !this.Ref.(interface {
+			StableEqualVT(isDeploymentRef_Ref) bool
+		}).StableEqualVT(that.Ref) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentRef) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentRef)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeploymentRef_DeploymentId) StableEqualVT(thatIface isDeploymentRef_Ref) bool {
+	that, ok := thatIface.(*DeploymentRef_DeploymentId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DeploymentId != that.DeploymentId {
+		return false
+	}
+	return true
+}
+
+func (this *DeploymentRef_Config) StableEqualVT(thatIface isDeploymentRef_Ref) bool {
+	that, ok := thatIface.(*DeploymentRef_Config)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Config, that.Config; p != q {
+		if p == nil {
+			p = &model.DeploymentConfig{}
+		}
+		if q == nil {
+			q = &model.DeploymentConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeploymentRef_ServiceInstanceConfig_) StableEqualVT(thatIface isDeploymentRef_Ref) bool {
+	that, ok := thatIface.(*DeploymentRef_ServiceInstanceConfig_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceInstanceConfig, that.ServiceInstanceConfig; p != q {
+		if p == nil {
+			p = &DeploymentRef_ServiceInstanceConfig{}
+		}
+		if q == nil {
+			q = &DeploymentRef_ServiceInstanceConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *DeploymentRef_ServiceInstanceConfig) EqualVT(that *DeploymentRef_ServiceInstanceConfig) bool {
 	if this == that {
 		return true
@@ -752,6 +1075,28 @@ func (this *DeploymentRef_ServiceInstanceConfig_) EqualVT(thatIface isDeployment
 	return true
 }
 
+func (this *CompareDeploymentReq) StableEqualVT(that *CompareDeploymentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.NewDeployment.StableEqualVT(that.NewDeployment) {
+		return false
+	}
+	if !this.PrevDeployment.StableEqualVT(that.PrevDeployment) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompareDeploymentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompareDeploymentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CompareDeploymentReq) EqualVT(that *CompareDeploymentReq) bool {
 	if this == that {
 		return true
@@ -774,6 +1119,25 @@ func (this *CompareDeploymentReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CompareDeploymentResp) StableEqualVT(that *CompareDeploymentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Comparison.StableEqualVT(that.Comparison) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompareDeploymentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompareDeploymentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CompareDeploymentResp) EqualVT(that *CompareDeploymentResp) bool {
 	if this == that {
 		return true
@@ -792,6 +1156,28 @@ func (this *CompareDeploymentResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PreviewDeploymentReq) StableEqualVT(that *PreviewDeploymentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.PrevDeployment.StableEqualVT(that.PrevDeployment) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PreviewDeploymentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PreviewDeploymentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PreviewDeploymentReq) EqualVT(that *PreviewDeploymentReq) bool {
 	if this == that {
@@ -815,6 +1201,25 @@ func (this *PreviewDeploymentReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *PreviewDeploymentResp) StableEqualVT(that *PreviewDeploymentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Deployment.StableEqualVT(that.Deployment) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PreviewDeploymentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PreviewDeploymentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *PreviewDeploymentResp) EqualVT(that *PreviewDeploymentResp) bool {
 	if this == that {
 		return true
@@ -833,6 +1238,51 @@ func (this *PreviewDeploymentResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetLatestDeploymentsReq) StableEqualVT(that *GetLatestDeploymentsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Filters) != len(that.Filters) {
+		return false
+	}
+	for i, vx := range this.Filters {
+		vy := that.Filters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeploymentFilter{}
+			}
+			if q == nil {
+				q = &DeploymentFilter{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Filter.StableEqualVT(that.Filter) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLatestDeploymentsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLatestDeploymentsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetLatestDeploymentsReq) EqualVT(that *GetLatestDeploymentsReq) bool {
 	if this == that {
@@ -879,6 +1329,42 @@ func (this *GetLatestDeploymentsReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *GetLatestDeploymentsResp) StableEqualVT(that *GetLatestDeploymentsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Deployments) != len(that.Deployments) {
+		return false
+	}
+	for i, vx := range this.Deployments {
+		vy := that.Deployments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.Deployment{}
+			}
+			if q == nil {
+				q = &model.Deployment{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLatestDeploymentsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLatestDeploymentsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetLatestDeploymentsResp) EqualVT(that *GetLatestDeploymentsResp) bool {
 	if this == that {
 		return true
@@ -915,6 +1401,31 @@ func (this *GetLatestDeploymentsResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *DeploymentServiceInstance) StableEqualVT(that *DeploymentServiceInstance) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentServiceInstance) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentServiceInstance)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeploymentServiceInstance) EqualVT(that *DeploymentServiceInstance) bool {
 	if this == that {
 		return true
@@ -940,6 +1451,82 @@ func (this *DeploymentServiceInstance) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *CheckCommitInDeploymentReq) StableEqualVT(that *CheckCommitInDeploymentReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DeploymentOneof == nil && that.DeploymentOneof != nil {
+		return false
+	} else if this.DeploymentOneof != nil {
+		if that.DeploymentOneof == nil {
+			return false
+		}
+		if !this.DeploymentOneof.(interface {
+			StableEqualVT(isCheckCommitInDeploymentReq_DeploymentOneof) bool
+		}).StableEqualVT(that.DeploymentOneof) {
+			return false
+		}
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.Commit != that.Commit {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CheckCommitInDeploymentReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CheckCommitInDeploymentReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CheckCommitInDeploymentReq_DeploymentId) StableEqualVT(thatIface isCheckCommitInDeploymentReq_DeploymentOneof) bool {
+	that, ok := thatIface.(*CheckCommitInDeploymentReq_DeploymentId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DeploymentId != that.DeploymentId {
+		return false
+	}
+	return true
+}
+
+func (this *CheckCommitInDeploymentReq_DeploymentServiceInstance) StableEqualVT(thatIface isCheckCommitInDeploymentReq_DeploymentOneof) bool {
+	that, ok := thatIface.(*CheckCommitInDeploymentReq_DeploymentServiceInstance)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeploymentServiceInstance, that.DeploymentServiceInstance; p != q {
+		if p == nil {
+			p = &DeploymentServiceInstance{}
+		}
+		if q == nil {
+			q = &DeploymentServiceInstance{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CheckCommitInDeploymentReq) EqualVT(that *CheckCommitInDeploymentReq) bool {
 	if this == that {
 		return true
@@ -1016,6 +1603,25 @@ func (this *CheckCommitInDeploymentReq_DeploymentServiceInstance) EqualVT(thatIf
 	return true
 }
 
+func (this *CheckCommitInDeploymentResp) StableEqualVT(that *CheckCommitInDeploymentResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Result != that.Result {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CheckCommitInDeploymentResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CheckCommitInDeploymentResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CheckCommitInDeploymentResp) EqualVT(that *CheckCommitInDeploymentResp) bool {
 	if this == that {
 		return true

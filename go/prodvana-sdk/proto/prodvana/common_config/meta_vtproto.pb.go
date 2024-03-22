@@ -52,6 +52,28 @@ func (m *PipelineRunObjectMeta) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ServiceInstanceObjectMeta) StableEqualVT(that *ServiceInstanceObjectMeta) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ServiceMeta.StableEqualVT(that.ServiceMeta) {
+		return false
+	}
+	if !this.ReleaseChannelMeta.StableEqualVT(that.ReleaseChannelMeta) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceInstanceObjectMeta) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceInstanceObjectMeta)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceInstanceObjectMeta) EqualVT(that *ServiceInstanceObjectMeta) bool {
 	if this == that {
 		return true
@@ -73,6 +95,28 @@ func (this *ServiceInstanceObjectMeta) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *PipelineRunObjectMeta) StableEqualVT(that *PipelineRunObjectMeta) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.PipelineMeta.StableEqualVT(that.PipelineMeta) {
+		return false
+	}
+	if this.RunName != that.RunName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PipelineRunObjectMeta) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PipelineRunObjectMeta)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *PipelineRunObjectMeta) EqualVT(that *PipelineRunObjectMeta) bool {
 	if this == that {

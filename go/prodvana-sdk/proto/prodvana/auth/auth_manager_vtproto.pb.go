@@ -347,6 +347,34 @@ func (m *ListOrgApiTokensResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *GetTokenRequest) StableEqualVT(that *GetTokenRequest) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Code != that.Code {
+		return false
+	}
+	if this.RedirectUrl != that.RedirectUrl {
+		return false
+	}
+	if this.ForCli != that.ForCli {
+		return false
+	}
+	if this.ProdvanaOnlyAdminOrg != that.ProdvanaOnlyAdminOrg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetTokenRequest) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetTokenRequest)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetTokenRequest) EqualVT(that *GetTokenRequest) bool {
 	if this == that {
 		return true
@@ -375,6 +403,25 @@ func (this *GetTokenRequest) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetAuthUrlResponse) StableEqualVT(that *GetAuthUrlResponse) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AuthUrl != that.AuthUrl {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetAuthUrlResponse) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetAuthUrlResponse)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetAuthUrlResponse) EqualVT(that *GetAuthUrlResponse) bool {
 	if this == that {
 		return true
@@ -393,6 +440,34 @@ func (this *GetAuthUrlResponse) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetAuthUrlRequest) StableEqualVT(that *GetAuthUrlRequest) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.ForCli != that.ForCli {
+		return false
+	}
+	if this.Invitation != that.Invitation {
+		return false
+	}
+	if this.ProdvanaOnlyAdminOrg != that.ProdvanaOnlyAdminOrg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetAuthUrlRequest) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetAuthUrlRequest)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetAuthUrlRequest) EqualVT(that *GetAuthUrlRequest) bool {
 	if this == that {
@@ -422,6 +497,22 @@ func (this *GetAuthUrlRequest) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CliAuthReq) StableEqualVT(that *CliAuthReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CliAuthReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CliAuthReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CliAuthReq) EqualVT(that *CliAuthReq) bool {
 	if this == that {
 		return true
@@ -438,6 +529,109 @@ func (this *CliAuthReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CliAuthResp_UserPrompt) StableEqualVT(that *CliAuthResp_UserPrompt) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserCode != that.UserCode {
+		return false
+	}
+	if this.VerificationUri != that.VerificationUri {
+		return false
+	}
+	if this.VerificationUriComplete != that.VerificationUriComplete {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CliAuthResp_UserPrompt) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CliAuthResp_UserPrompt)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CliAuthResp) StableEqualVT(that *CliAuthResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RespOneof == nil && that.RespOneof != nil {
+		return false
+	} else if this.RespOneof != nil {
+		if that.RespOneof == nil {
+			return false
+		}
+		if !this.RespOneof.(interface {
+			StableEqualVT(isCliAuthResp_RespOneof) bool
+		}).StableEqualVT(that.RespOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CliAuthResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CliAuthResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CliAuthResp_UserPrompt_) StableEqualVT(thatIface isCliAuthResp_RespOneof) bool {
+	that, ok := thatIface.(*CliAuthResp_UserPrompt_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.UserPrompt, that.UserPrompt; p != q {
+		if p == nil {
+			p = &CliAuthResp_UserPrompt{}
+		}
+		if q == nil {
+			q = &CliAuthResp_UserPrompt{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CliAuthResp_Token) StableEqualVT(thatIface isCliAuthResp_RespOneof) bool {
+	that, ok := thatIface.(*CliAuthResp_Token)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Token, that.Token; p != q {
+		if p == nil {
+			p = &AuthToken{}
+		}
+		if q == nil {
+			q = &AuthToken{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CliAuthResp_UserPrompt) EqualVT(that *CliAuthResp_UserPrompt) bool {
 	if this == that {
 		return true
@@ -541,6 +735,31 @@ func (this *CliAuthResp_Token) EqualVT(thatIface isCliAuthResp_RespOneof) bool {
 	return true
 }
 
+func (this *RefreshTokenReq) StableEqualVT(that *RefreshTokenReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Token.StableEqualVT(that.Token) {
+		return false
+	}
+	if this.ForCli != that.ForCli {
+		return false
+	}
+	if this.ProdvanaOnlyAdminOrg != that.ProdvanaOnlyAdminOrg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RefreshTokenReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RefreshTokenReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RefreshTokenReq) EqualVT(that *RefreshTokenReq) bool {
 	if this == that {
 		return true
@@ -566,6 +785,28 @@ func (this *RefreshTokenReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetAuthTokenResp) StableEqualVT(that *GetAuthTokenResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Token.StableEqualVT(that.Token) {
+		return false
+	}
+	if !this.User.StableEqualVT(that.User) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetAuthTokenResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetAuthTokenResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetAuthTokenResp) EqualVT(that *GetAuthTokenResp) bool {
 	if this == that {
 		return true
@@ -588,6 +829,22 @@ func (this *GetAuthTokenResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Empty) StableEqualVT(that *Empty) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Empty) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Empty)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Empty) EqualVT(that *Empty) bool {
 	if this == that {
 		return true
@@ -603,6 +860,31 @@ func (this *Empty) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *LogoutReq) StableEqualVT(that *LogoutReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ForCli != that.ForCli {
+		return false
+	}
+	if this.RedirectUrl != that.RedirectUrl {
+		return false
+	}
+	if this.ProdvanaOnlyAdminOrg != that.ProdvanaOnlyAdminOrg {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LogoutReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LogoutReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *LogoutReq) EqualVT(that *LogoutReq) bool {
 	if this == that {
@@ -629,6 +911,25 @@ func (this *LogoutReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *LogoutResp) StableEqualVT(that *LogoutResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.LogoutUrl != that.LogoutUrl {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LogoutResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LogoutResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *LogoutResp) EqualVT(that *LogoutResp) bool {
 	if this == that {
 		return true
@@ -647,6 +948,31 @@ func (this *LogoutResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CreateOrgApiTokenReq) StableEqualVT(that *CreateOrgApiTokenReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ExpiresTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ExpiresTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateOrgApiTokenReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateOrgApiTokenReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CreateOrgApiTokenReq) EqualVT(that *CreateOrgApiTokenReq) bool {
 	if this == that {
@@ -673,6 +999,28 @@ func (this *CreateOrgApiTokenReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *CreateOrgApiTokenResp) StableEqualVT(that *CreateOrgApiTokenResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ApiToken != that.ApiToken {
+		return false
+	}
+	if !this.Info.StableEqualVT(that.Info) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CreateOrgApiTokenResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CreateOrgApiTokenResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CreateOrgApiTokenResp) EqualVT(that *CreateOrgApiTokenResp) bool {
 	if this == that {
 		return true
@@ -695,6 +1043,25 @@ func (this *CreateOrgApiTokenResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteOrgApiTokenReq) StableEqualVT(that *DeleteOrgApiTokenReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteOrgApiTokenReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteOrgApiTokenReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteOrgApiTokenReq) EqualVT(that *DeleteOrgApiTokenReq) bool {
 	if this == that {
 		return true
@@ -714,6 +1081,22 @@ func (this *DeleteOrgApiTokenReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteOrgApiTokenResp) StableEqualVT(that *DeleteOrgApiTokenResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteOrgApiTokenResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteOrgApiTokenResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteOrgApiTokenResp) EqualVT(that *DeleteOrgApiTokenResp) bool {
 	if this == that {
 		return true
@@ -730,6 +1113,22 @@ func (this *DeleteOrgApiTokenResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListOrgApiTokensReq) StableEqualVT(that *ListOrgApiTokensReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListOrgApiTokensReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListOrgApiTokensReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListOrgApiTokensReq) EqualVT(that *ListOrgApiTokensReq) bool {
 	if this == that {
 		return true
@@ -745,6 +1144,39 @@ func (this *ListOrgApiTokensReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListOrgApiTokensResp) StableEqualVT(that *ListOrgApiTokensResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Tokens) != len(that.Tokens) {
+		return false
+	}
+	for i, vx := range this.Tokens {
+		vy := that.Tokens[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ApiTokenInfo{}
+			}
+			if q == nil {
+				q = &ApiTokenInfo{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListOrgApiTokensResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListOrgApiTokensResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListOrgApiTokensResp) EqualVT(that *ListOrgApiTokensResp) bool {
 	if this == that {

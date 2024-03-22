@@ -62,6 +62,62 @@ func (m *StringConstant) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Constant) StableEqualVT(that *Constant) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isConstant_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Constant) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Constant)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Constant_String_) StableEqualVT(thatIface isConstant_ConfigOneof) bool {
+	that, ok := thatIface.(*Constant_String_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.String_, that.String_; p != q {
+		if p == nil {
+			p = &StringConstant{}
+		}
+		if q == nil {
+			q = &StringConstant{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Constant) EqualVT(that *Constant) bool {
 	if this == that {
 		return true
@@ -118,6 +174,25 @@ func (this *Constant_String_) EqualVT(thatIface isConstant_ConfigOneof) bool {
 	return true
 }
 
+func (this *StringConstant) StableEqualVT(that *StringConstant) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Value != that.Value {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StringConstant) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StringConstant)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *StringConstant) EqualVT(that *StringConstant) bool {
 	if this == that {
 		return true

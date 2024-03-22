@@ -120,6 +120,246 @@ func (m *ProdvanaConfig_ServiceMetadata) CloneVT() isProdvanaConfig_MetadataOneo
 	return r
 }
 
+func (this *ProdvanaConfig) StableEqualVT(that *ProdvanaConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isProdvanaConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.MetadataOneof == nil && that.MetadataOneof != nil {
+		return false
+	} else if this.MetadataOneof != nil {
+		if that.MetadataOneof == nil {
+			return false
+		}
+		if !this.MetadataOneof.(interface {
+			StableEqualVT(isProdvanaConfig_MetadataOneof) bool
+		}).StableEqualVT(that.MetadataOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProdvanaConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProdvanaConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProdvanaConfig_Application) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Application)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Application, that.Application; p != q {
+		if p == nil {
+			p = &application.ApplicationConfig{}
+		}
+		if q == nil {
+			q = &application.ApplicationConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_Service) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &service.ServiceConfig{}
+		}
+		if q == nil {
+			q = &service.ServiceConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_Protection) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Protection)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Protection, that.Protection; p != q {
+		if p == nil {
+			p = &protection.ProtectionConfig{}
+		}
+		if q == nil {
+			q = &protection.ProtectionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_Runtime) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Runtime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Runtime, that.Runtime; p != q {
+		if p == nil {
+			p = &environment.ClusterConfig{}
+		}
+		if q == nil {
+			q = &environment.ClusterConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_ApplicationMetadata) StableEqualVT(thatIface isProdvanaConfig_MetadataOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_ApplicationMetadata)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ApplicationMetadata, that.ApplicationMetadata; p != q {
+		if p == nil {
+			p = &application.ApplicationUserMetadata{}
+		}
+		if q == nil {
+			q = &application.ApplicationUserMetadata{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_ServiceMetadata) StableEqualVT(thatIface isProdvanaConfig_MetadataOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_ServiceMetadata)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceMetadata, that.ServiceMetadata; p != q {
+		if p == nil {
+			p = &service.ServiceUserMetadata{}
+		}
+		if q == nil {
+			q = &service.ServiceUserMetadata{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_DeliveryExtension) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_DeliveryExtension)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DeliveryExtension, that.DeliveryExtension; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_ReleaseChannel) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &release_channel.ReleaseChannelConfig{}
+		}
+		if q == nil {
+			q = &release_channel.ReleaseChannelConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ProdvanaConfig) EqualVT(that *ProdvanaConfig) bool {
 	if this == that {
 		return true

@@ -472,6 +472,25 @@ func (m *ParametersConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ProgramChange) StableEqualVT(that *ProgramChange) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProgramChange) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProgramChange)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ProgramChange) EqualVT(that *ProgramChange) bool {
 	if this == that {
 		return true
@@ -491,6 +510,25 @@ func (this *ProgramChange) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *StringParameterDefinition) StableEqualVT(that *StringParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DefaultValue != that.DefaultValue {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StringParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StringParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *StringParameterDefinition) EqualVT(that *StringParameterDefinition) bool {
 	if this == that {
 		return true
@@ -509,6 +547,98 @@ func (this *StringParameterDefinition) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DockerImageParameterDefinition_Changes) StableEqualVT(that *DockerImageParameterDefinition_Changes) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Oneof == nil && that.Oneof != nil {
+		return false
+	} else if this.Oneof != nil {
+		if that.Oneof == nil {
+			return false
+		}
+		if !this.Oneof.(interface {
+			StableEqualVT(isDockerImageParameterDefinition_Changes_Oneof) bool
+		}).StableEqualVT(that.Oneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DockerImageParameterDefinition_Changes) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DockerImageParameterDefinition_Changes)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DockerImageParameterDefinition_Changes_Program) StableEqualVT(thatIface isDockerImageParameterDefinition_Changes_Oneof) bool {
+	that, ok := thatIface.(*DockerImageParameterDefinition_Changes_Program)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Program, that.Program; p != q {
+		if p == nil {
+			p = &ProgramChange{}
+		}
+		if q == nil {
+			q = &ProgramChange{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DockerImageParameterDefinition) StableEqualVT(that *DockerImageParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DefaultTag != that.DefaultTag {
+		return false
+	}
+	if !this.ImageRegistryInfo.StableEqualVT(that.ImageRegistryInfo) {
+		return false
+	}
+	if len(this.Changes) != len(that.Changes) {
+		return false
+	}
+	for i, vx := range this.Changes {
+		vy := that.Changes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DockerImageParameterDefinition_Changes{}
+			}
+			if q == nil {
+				q = &DockerImageParameterDefinition_Changes{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DockerImageParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DockerImageParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DockerImageParameterDefinition_Changes) EqualVT(that *DockerImageParameterDefinition_Changes) bool {
 	if this == that {
@@ -602,6 +732,22 @@ func (this *DockerImageParameterDefinition) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *FixedReplicaChange) StableEqualVT(that *FixedReplicaChange) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FixedReplicaChange) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FixedReplicaChange)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *FixedReplicaChange) EqualVT(that *FixedReplicaChange) bool {
 	if this == that {
 		return true
@@ -617,6 +763,95 @@ func (this *FixedReplicaChange) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *IntParameterDefinition_Changes) StableEqualVT(that *IntParameterDefinition_Changes) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Oneof == nil && that.Oneof != nil {
+		return false
+	} else if this.Oneof != nil {
+		if that.Oneof == nil {
+			return false
+		}
+		if !this.Oneof.(interface {
+			StableEqualVT(isIntParameterDefinition_Changes_Oneof) bool
+		}).StableEqualVT(that.Oneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IntParameterDefinition_Changes) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IntParameterDefinition_Changes)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *IntParameterDefinition_Changes_FixedReplica) StableEqualVT(thatIface isIntParameterDefinition_Changes_Oneof) bool {
+	that, ok := thatIface.(*IntParameterDefinition_Changes_FixedReplica)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.FixedReplica, that.FixedReplica; p != q {
+		if p == nil {
+			p = &FixedReplicaChange{}
+		}
+		if q == nil {
+			q = &FixedReplicaChange{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *IntParameterDefinition) StableEqualVT(that *IntParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DefaultValue != that.DefaultValue {
+		return false
+	}
+	if len(this.Changes) != len(that.Changes) {
+		return false
+	}
+	for i, vx := range this.Changes {
+		vy := that.Changes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &IntParameterDefinition_Changes{}
+			}
+			if q == nil {
+				q = &IntParameterDefinition_Changes{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IntParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IntParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *IntParameterDefinition_Changes) EqualVT(that *IntParameterDefinition_Changes) bool {
 	if this == that {
@@ -707,6 +942,22 @@ func (this *IntParameterDefinition) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SecretParameterDefinition) StableEqualVT(that *SecretParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SecretParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SecretParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SecretParameterDefinition) EqualVT(that *SecretParameterDefinition) bool {
 	if this == that {
 		return true
@@ -722,6 +973,28 @@ func (this *SecretParameterDefinition) EqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CommitParameterDefinition) StableEqualVT(that *CommitParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Repository != that.Repository {
+		return false
+	}
+	if this.Branch != that.Branch {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CommitParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CommitParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CommitParameterDefinition) EqualVT(that *CommitParameterDefinition) bool {
 	if this == that {
@@ -745,6 +1018,25 @@ func (this *CommitParameterDefinition) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *BlobParameterDefinition) StableEqualVT(that *BlobParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DefaultValue != that.DefaultValue {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *BlobParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*BlobParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *BlobParameterDefinition) EqualVT(that *BlobParameterDefinition) bool {
 	if this == that {
 		return true
@@ -764,6 +1056,193 @@ func (this *BlobParameterDefinition) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *ParameterDefinition) StableEqualVT(that *ParameterDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isParameterDefinition_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	if this.Required != that.Required {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ParameterDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ParameterDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ParameterDefinition_String_) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_String_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.String_, that.String_; p != q {
+		if p == nil {
+			p = &StringParameterDefinition{}
+		}
+		if q == nil {
+			q = &StringParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterDefinition_DockerImage) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_DockerImage)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.DockerImage, that.DockerImage; p != q {
+		if p == nil {
+			p = &DockerImageParameterDefinition{}
+		}
+		if q == nil {
+			q = &DockerImageParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterDefinition_Int) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_Int)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Int, that.Int; p != q {
+		if p == nil {
+			p = &IntParameterDefinition{}
+		}
+		if q == nil {
+			q = &IntParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterDefinition_Secret) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_Secret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Secret, that.Secret; p != q {
+		if p == nil {
+			p = &SecretParameterDefinition{}
+		}
+		if q == nil {
+			q = &SecretParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterDefinition_Commit) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_Commit)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Commit, that.Commit; p != q {
+		if p == nil {
+			p = &CommitParameterDefinition{}
+		}
+		if q == nil {
+			q = &CommitParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterDefinition_Blob) StableEqualVT(thatIface isParameterDefinition_ConfigOneof) bool {
+	that, ok := thatIface.(*ParameterDefinition_Blob)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Blob, that.Blob; p != q {
+		if p == nil {
+			p = &BlobParameterDefinition{}
+		}
+		if q == nil {
+			q = &BlobParameterDefinition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ParameterDefinition) EqualVT(that *ParameterDefinition) bool {
 	if this == that {
 		return true
@@ -951,6 +1430,76 @@ func (this *ParameterDefinition_Blob) EqualVT(thatIface isParameterDefinition_Co
 	return true
 }
 
+func (this *SecretParameterValue) StableEqualVT(that *SecretParameterValue) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SecretOneof == nil && that.SecretOneof != nil {
+		return false
+	} else if this.SecretOneof != nil {
+		if that.SecretOneof == nil {
+			return false
+		}
+		if !this.SecretOneof.(interface {
+			StableEqualVT(isSecretParameterValue_SecretOneof) bool
+		}).StableEqualVT(that.SecretOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SecretParameterValue) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SecretParameterValue)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *SecretParameterValue_RawSecret) StableEqualVT(thatIface isSecretParameterValue_SecretOneof) bool {
+	that, ok := thatIface.(*SecretParameterValue_RawSecret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.RawSecret != that.RawSecret {
+		return false
+	}
+	return true
+}
+
+func (this *SecretParameterValue_SecretRef) StableEqualVT(thatIface isSecretParameterValue_SecretOneof) bool {
+	that, ok := thatIface.(*SecretParameterValue_SecretRef)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SecretRef, that.SecretRef; p != q {
+		if p == nil {
+			p = &Secret{}
+		}
+		if q == nil {
+			q = &Secret{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *SecretParameterValue) EqualVT(that *SecretParameterValue) bool {
 	if this == that {
 		return true
@@ -1021,6 +1570,51 @@ func (this *SecretParameterValue_SecretRef) EqualVT(thatIface isSecretParameterV
 	return true
 }
 
+func (this *BlobParameterValue) StableEqualVT(that *BlobParameterValue) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.BlobOneof == nil && that.BlobOneof != nil {
+		return false
+	} else if this.BlobOneof != nil {
+		if that.BlobOneof == nil {
+			return false
+		}
+		if !this.BlobOneof.(interface {
+			StableEqualVT(isBlobParameterValue_BlobOneof) bool
+		}).StableEqualVT(that.BlobOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *BlobParameterValue) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*BlobParameterValue)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *BlobParameterValue_Inlined) StableEqualVT(thatIface isBlobParameterValue_BlobOneof) bool {
+	that, ok := thatIface.(*BlobParameterValue_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Inlined != that.Inlined {
+		return false
+	}
+	return true
+}
+
 func (this *BlobParameterValue) EqualVT(that *BlobParameterValue) bool {
 	if this == that {
 		return true
@@ -1062,6 +1656,155 @@ func (this *BlobParameterValue_Inlined) EqualVT(thatIface isBlobParameterValue_B
 	}
 	if this.Inlined != that.Inlined {
 		return false
+	}
+	return true
+}
+
+func (this *ParameterValue) StableEqualVT(that *ParameterValue) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ValueOneof == nil && that.ValueOneof != nil {
+		return false
+	} else if this.ValueOneof != nil {
+		if that.ValueOneof == nil {
+			return false
+		}
+		if !this.ValueOneof.(interface {
+			StableEqualVT(isParameterValue_ValueOneof) bool
+		}).StableEqualVT(that.ValueOneof) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ParameterValue) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ParameterValue)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ParameterValue_String_) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_String_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.String_ != that.String_ {
+		return false
+	}
+	return true
+}
+
+func (this *ParameterValue_Int) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_Int)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Int != that.Int {
+		return false
+	}
+	return true
+}
+
+func (this *ParameterValue_DockerImageTag) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_DockerImageTag)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DockerImageTag != that.DockerImageTag {
+		return false
+	}
+	return true
+}
+
+func (this *ParameterValue_Secret) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_Secret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Secret, that.Secret; p != q {
+		if p == nil {
+			p = &SecretParameterValue{}
+		}
+		if q == nil {
+			q = &SecretParameterValue{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ParameterValue_Commit) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_Commit)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Commit != that.Commit {
+		return false
+	}
+	return true
+}
+
+func (this *ParameterValue_Blob) StableEqualVT(thatIface isParameterValue_ValueOneof) bool {
+	that, ok := thatIface.(*ParameterValue_Blob)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Blob, that.Blob; p != q {
+		if p == nil {
+			p = &BlobParameterValue{}
+		}
+		if q == nil {
+			q = &BlobParameterValue{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
 	}
 	return true
 }
@@ -1215,6 +1958,39 @@ func (this *ParameterValue_Blob) EqualVT(thatIface isParameterValue_ValueOneof) 
 	return true
 }
 
+func (this *ParametersConfig) StableEqualVT(that *ParametersConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ParameterDefinition{}
+			}
+			if q == nil {
+				q = &ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ParametersConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ParametersConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ParametersConfig) EqualVT(that *ParametersConfig) bool {
 	if this == that {
 		return true

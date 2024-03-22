@@ -179,6 +179,49 @@ func (m *RuntimeExecutionConfig_ContainerOrchestration) CloneVT() isRuntimeExecu
 	return r
 }
 
+func (this *K8SRuntimeInitializationConfig) StableEqualVT(that *K8SRuntimeInitializationConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AgentImage != that.AgentImage {
+		return false
+	}
+	if this.AuthToken != that.AuthToken {
+		return false
+	}
+	if this.UseResourceDefault != that.UseResourceDefault {
+		return false
+	}
+	if this.InteractionServerAddress != that.InteractionServerAddress {
+		return false
+	}
+	if len(this.EnvVars) != len(that.EnvVars) {
+		return false
+	}
+	for i, vx := range this.EnvVars {
+		vy, ok := that.EnvVars[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.AgentExternallyManaged != that.AgentExternallyManaged {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *K8SRuntimeInitializationConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*K8SRuntimeInitializationConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *K8SRuntimeInitializationConfig) EqualVT(that *K8SRuntimeInitializationConfig) bool {
 	if this == that {
 		return true
@@ -222,6 +265,59 @@ func (this *K8SRuntimeInitializationConfig) EqualMessageVT(thatMsg proto.Message
 	}
 	return this.EqualVT(that)
 }
+func (this *RuntimeInitializationConfig) StableEqualVT(that *RuntimeInitializationConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeSpecific == nil && that.RuntimeSpecific != nil {
+		return false
+	} else if this.RuntimeSpecific != nil {
+		if that.RuntimeSpecific == nil {
+			return false
+		}
+		if !this.RuntimeSpecific.(interface {
+			StableEqualVT(isRuntimeInitializationConfig_RuntimeSpecific) bool
+		}).StableEqualVT(that.RuntimeSpecific) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeInitializationConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeInitializationConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RuntimeInitializationConfig_K8S) StableEqualVT(thatIface isRuntimeInitializationConfig_RuntimeSpecific) bool {
+	that, ok := thatIface.(*RuntimeInitializationConfig_K8S)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.K8S, that.K8S; p != q {
+		if p == nil {
+			p = &K8SRuntimeInitializationConfig{}
+		}
+		if q == nil {
+			q = &K8SRuntimeInitializationConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *RuntimeInitializationConfig) EqualVT(that *RuntimeInitializationConfig) bool {
 	if this == that {
 		return true
@@ -269,6 +365,125 @@ func (this *RuntimeInitializationConfig_K8S) EqualVT(thatIface isRuntimeInitiali
 			q = &K8SRuntimeInitializationConfig{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ContainerOrchestrationRuntime_K8S) StableEqualVT(that *ContainerOrchestrationRuntime_K8S) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.PvnManaged != that.PvnManaged {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerOrchestrationRuntime_K8S) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerOrchestrationRuntime_K8S)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ContainerOrchestrationRuntime_ECS) StableEqualVT(that *ContainerOrchestrationRuntime_ECS) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Prefix != that.Prefix {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerOrchestrationRuntime_ECS) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerOrchestrationRuntime_ECS)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ContainerOrchestrationRuntime) StableEqualVT(that *ContainerOrchestrationRuntime) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Backend == nil && that.Backend != nil {
+		return false
+	} else if this.Backend != nil {
+		if that.Backend == nil {
+			return false
+		}
+		if !this.Backend.(interface {
+			StableEqualVT(isContainerOrchestrationRuntime_Backend) bool
+		}).StableEqualVT(that.Backend) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerOrchestrationRuntime) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerOrchestrationRuntime)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ContainerOrchestrationRuntime_K8S_) StableEqualVT(thatIface isContainerOrchestrationRuntime_Backend) bool {
+	that, ok := thatIface.(*ContainerOrchestrationRuntime_K8S_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.K8S, that.K8S; p != q {
+		if p == nil {
+			p = &ContainerOrchestrationRuntime_K8S{}
+		}
+		if q == nil {
+			q = &ContainerOrchestrationRuntime_K8S{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ContainerOrchestrationRuntime_Ecs) StableEqualVT(thatIface isContainerOrchestrationRuntime_Backend) bool {
+	that, ok := thatIface.(*ContainerOrchestrationRuntime_Ecs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ecs, that.Ecs; p != q {
+		if p == nil {
+			p = &ContainerOrchestrationRuntime_ECS{}
+		}
+		if q == nil {
+			q = &ContainerOrchestrationRuntime_ECS{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -388,6 +603,62 @@ func (this *ContainerOrchestrationRuntime_Ecs) EqualVT(thatIface isContainerOrch
 			q = &ContainerOrchestrationRuntime_ECS{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *RuntimeExecutionConfig) StableEqualVT(that *RuntimeExecutionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TypeOneof == nil && that.TypeOneof != nil {
+		return false
+	} else if this.TypeOneof != nil {
+		if that.TypeOneof == nil {
+			return false
+		}
+		if !this.TypeOneof.(interface {
+			StableEqualVT(isRuntimeExecutionConfig_TypeOneof) bool
+		}).StableEqualVT(that.TypeOneof) {
+			return false
+		}
+	}
+	if this.Runtime != that.Runtime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeExecutionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeExecutionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RuntimeExecutionConfig_ContainerOrchestration) StableEqualVT(thatIface isRuntimeExecutionConfig_TypeOneof) bool {
+	that, ok := thatIface.(*RuntimeExecutionConfig_ContainerOrchestration)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ContainerOrchestration, that.ContainerOrchestration; p != q {
+		if p == nil {
+			p = &ContainerOrchestrationRuntime{}
+		}
+		if q == nil {
+			q = &ContainerOrchestrationRuntime{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}

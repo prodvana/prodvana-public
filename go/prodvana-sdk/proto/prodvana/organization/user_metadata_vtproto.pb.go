@@ -54,6 +54,73 @@ func (m *OrganizationUserMetadata) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *OrganizationUserMetadata) StableEqualVT(that *OrganizationUserMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ApplicationLinks) != len(that.ApplicationLinks) {
+		return false
+	}
+	for i, vx := range this.ApplicationLinks {
+		vy := that.ApplicationLinks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Link{}
+			}
+			if q == nil {
+				q = &common_config.Link{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ServiceLinks) != len(that.ServiceLinks) {
+		return false
+	}
+	for i, vx := range this.ServiceLinks {
+		vy := that.ServiceLinks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Link{}
+			}
+			if q == nil {
+				q = &common_config.Link{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Links) != len(that.Links) {
+		return false
+	}
+	for i, vx := range this.Links {
+		vy := that.Links[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Link{}
+			}
+			if q == nil {
+				q = &common_config.Link{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationUserMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationUserMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *OrganizationUserMetadata) EqualVT(that *OrganizationUserMetadata) bool {
 	if this == that {
 		return true

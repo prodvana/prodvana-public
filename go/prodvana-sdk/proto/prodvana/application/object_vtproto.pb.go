@@ -52,6 +52,22 @@ func (m *Application) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ApplicationState) StableEqualVT(that *ApplicationState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplicationState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplicationState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ApplicationState) EqualVT(that *ApplicationState) bool {
 	if this == that {
 		return true
@@ -67,6 +83,34 @@ func (this *ApplicationState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *Application) StableEqualVT(that *Application) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Meta.StableEqualVT(that.Meta) {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.State.StableEqualVT(that.State) {
+		return false
+	}
+	if !this.UserMetadata.StableEqualVT(that.UserMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Application) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Application)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *Application) EqualVT(that *Application) bool {
 	if this == that {

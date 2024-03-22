@@ -957,6 +957,31 @@ func (m *GetServiceConfigResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ServiceConfigVersionReference) StableEqualVT(that *ServiceConfigVersionReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceConfigVersion != that.ServiceConfigVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceConfigVersionReference) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceConfigVersionReference)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceConfigVersionReference) EqualVT(that *ServiceConfigVersionReference) bool {
 	if this == that {
 		return true
@@ -981,6 +1006,65 @@ func (this *ServiceConfigVersionReference) EqualMessageVT(thatMsg proto.Message)
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GenerateVersionNameReq) StableEqualVT(that *GenerateVersionNameReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceConfigVersion != that.ServiceConfigVersion {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.PerReleaseChannel) != len(that.PerReleaseChannel) {
+		return false
+	}
+	for i, vx := range this.PerReleaseChannel {
+		vy := that.PerReleaseChannel[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ApplyParametersReq_PerReleaseChannel{}
+			}
+			if q == nil {
+				q = &ApplyParametersReq_PerReleaseChannel{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GenerateVersionNameReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GenerateVersionNameReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GenerateVersionNameReq) EqualVT(that *GenerateVersionNameReq) bool {
 	if this == that {
@@ -1041,6 +1125,25 @@ func (this *GenerateVersionNameReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GenerateVersionNameResp) StableEqualVT(that *GenerateVersionNameResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GenerateVersionNameResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GenerateVersionNameResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GenerateVersionNameResp) EqualVT(that *GenerateVersionNameResp) bool {
 	if this == that {
 		return true
@@ -1060,6 +1163,175 @@ func (this *GenerateVersionNameResp) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *ApplyParametersReq_PerReleaseChannel) StableEqualVT(that *ApplyParametersReq_PerReleaseChannel) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyParametersReq_PerReleaseChannel) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyParametersReq_PerReleaseChannel)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ApplyParametersReq) StableEqualVT(that *ApplyParametersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Oneof == nil && that.Oneof != nil {
+		return false
+	} else if this.Oneof != nil {
+		if that.Oneof == nil {
+			return false
+		}
+		if !this.Oneof.(interface {
+			StableEqualVT(isApplyParametersReq_Oneof) bool
+		}).StableEqualVT(that.Oneof) {
+			return false
+		}
+	}
+	if this.TestOnlySkipRegistryCheck != that.TestOnlySkipRegistryCheck {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.PerReleaseChannel) != len(that.PerReleaseChannel) {
+		return false
+	}
+	for i, vx := range this.PerReleaseChannel {
+		vy := that.PerReleaseChannel[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ApplyParametersReq_PerReleaseChannel{}
+			}
+			if q == nil {
+				q = &ApplyParametersReq_PerReleaseChannel{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.BundleNameOverride != that.BundleNameOverride {
+		return false
+	}
+	if this.SkipRuntimeValidation != that.SkipRuntimeValidation {
+		return false
+	}
+	if this.HandleBundleNameDuplicate != that.HandleBundleNameDuplicate {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyParametersReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyParametersReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ApplyParametersReq_ServiceConfig) StableEqualVT(thatIface isApplyParametersReq_Oneof) bool {
+	that, ok := thatIface.(*ApplyParametersReq_ServiceConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceConfig, that.ServiceConfig; p != q {
+		if p == nil {
+			p = &ServiceConfig{}
+		}
+		if q == nil {
+			q = &ServiceConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ApplyParametersReq_ServiceConfigVersion) StableEqualVT(thatIface isApplyParametersReq_Oneof) bool {
+	that, ok := thatIface.(*ApplyParametersReq_ServiceConfigVersion)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceConfigVersion, that.ServiceConfigVersion; p != q {
+		if p == nil {
+			p = &ServiceConfigVersionReference{}
+		}
+		if q == nil {
+			q = &ServiceConfigVersionReference{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ApplyParametersReq_PerReleaseChannel) EqualVT(that *ApplyParametersReq_PerReleaseChannel) bool {
 	if this == that {
 		return true
@@ -1229,6 +1501,31 @@ func (this *ApplyParametersReq_ServiceConfigVersion) EqualVT(thatIface isApplyPa
 	return true
 }
 
+func (this *ApplyParametersResp) StableEqualVT(that *ApplyParametersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !this.EfficiencyStat.StableEqualVT(that.EfficiencyStat) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyParametersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyParametersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ApplyParametersResp) EqualVT(that *ApplyParametersResp) bool {
 	if this == that {
 		return true
@@ -1253,6 +1550,48 @@ func (this *ApplyParametersResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ValidateApplyParametersResp) StableEqualVT(that *ValidateApplyParametersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	if this.AppVersion != that.AppVersion {
+		return false
+	}
+	if len(this.CompiledServiceInstanceConfigs) != len(that.CompiledServiceInstanceConfigs) {
+		return false
+	}
+	for i, vx := range this.CompiledServiceInstanceConfigs {
+		vy := that.CompiledServiceInstanceConfigs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CompiledServiceInstanceConfig{}
+			}
+			if q == nil {
+				q = &CompiledServiceInstanceConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateApplyParametersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateApplyParametersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ValidateApplyParametersResp) EqualVT(that *ValidateApplyParametersResp) bool {
 	if this == that {
@@ -1296,6 +1635,31 @@ func (this *ValidateApplyParametersResp) EqualMessageVT(thatMsg proto.Message) b
 	}
 	return this.EqualVT(that)
 }
+func (this *GetMaterializedConfigReq) StableEqualVT(that *GetMaterializedConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetMaterializedConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetMaterializedConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetMaterializedConfigReq) EqualVT(that *GetMaterializedConfigReq) bool {
 	if this == that {
 		return true
@@ -1320,6 +1684,51 @@ func (this *GetMaterializedConfigReq) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetMaterializedConfigResp) StableEqualVT(that *GetMaterializedConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	if len(this.CompiledServiceInstanceConfigs) != len(that.CompiledServiceInstanceConfigs) {
+		return false
+	}
+	for i, vx := range this.CompiledServiceInstanceConfigs {
+		vy := that.CompiledServiceInstanceConfigs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CompiledServiceInstanceConfig{}
+			}
+			if q == nil {
+				q = &CompiledServiceInstanceConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.VersionMetadata.StableEqualVT(that.VersionMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetMaterializedConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetMaterializedConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetMaterializedConfigResp) EqualVT(that *GetMaterializedConfigResp) bool {
 	if this == that {
@@ -1366,6 +1775,28 @@ func (this *GetMaterializedConfigResp) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteServiceReq) StableEqualVT(that *DeleteServiceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteServiceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteServiceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteServiceReq) EqualVT(that *DeleteServiceReq) bool {
 	if this == that {
 		return true
@@ -1388,6 +1819,22 @@ func (this *DeleteServiceReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeleteServiceResp) StableEqualVT(that *DeleteServiceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeleteServiceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeleteServiceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DeleteServiceResp) EqualVT(that *DeleteServiceResp) bool {
 	if this == that {
 		return true
@@ -1403,6 +1850,28 @@ func (this *DeleteServiceResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServicesReq) StableEqualVT(that *ListServicesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Detailed != that.Detailed {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServicesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServicesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServicesReq) EqualVT(that *ListServicesReq) bool {
 	if this == that {
@@ -1425,6 +1894,39 @@ func (this *ListServicesReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServicesResp) StableEqualVT(that *ListServicesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Services) != len(that.Services) {
+		return false
+	}
+	for i, vx := range this.Services {
+		vy := that.Services[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Service{}
+			}
+			if q == nil {
+				q = &Service{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServicesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServicesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServicesResp) EqualVT(that *ListServicesResp) bool {
 	if this == that {
@@ -1459,6 +1961,28 @@ func (this *ListServicesResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceReq) StableEqualVT(that *GetServiceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceReq) EqualVT(that *GetServiceReq) bool {
 	if this == that {
 		return true
@@ -1481,6 +2005,25 @@ func (this *GetServiceReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceResp) StableEqualVT(that *GetServiceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Service.StableEqualVT(that.Service) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceResp) EqualVT(that *GetServiceResp) bool {
 	if this == that {
 		return true
@@ -1499,6 +2042,28 @@ func (this *GetServiceResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServiceInstancesReq) StableEqualVT(that *ListServiceInstancesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceInstancesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceInstancesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServiceInstancesReq) EqualVT(that *ListServiceInstancesReq) bool {
 	if this == that {
@@ -1521,6 +2086,39 @@ func (this *ListServiceInstancesReq) EqualMessageVT(thatMsg proto.Message) bool 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServiceInstancesResp) StableEqualVT(that *ListServiceInstancesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ServiceInstances) != len(that.ServiceInstances) {
+		return false
+	}
+	for i, vx := range this.ServiceInstances {
+		vy := that.ServiceInstances[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ServiceInstance{}
+			}
+			if q == nil {
+				q = &ServiceInstance{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceInstancesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceInstancesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServiceInstancesResp) EqualVT(that *ListServiceInstancesResp) bool {
 	if this == that {
@@ -1555,6 +2153,31 @@ func (this *ListServiceInstancesResp) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceInstanceReq) StableEqualVT(that *GetServiceInstanceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceInstanceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceInstanceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceInstanceReq) EqualVT(that *GetServiceInstanceReq) bool {
 	if this == that {
 		return true
@@ -1580,6 +2203,25 @@ func (this *GetServiceInstanceReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceInstanceResp) StableEqualVT(that *GetServiceInstanceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.ServiceInstance.StableEqualVT(that.ServiceInstance) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceInstanceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceInstanceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceInstanceResp) EqualVT(that *GetServiceInstanceResp) bool {
 	if this == that {
 		return true
@@ -1598,6 +2240,37 @@ func (this *GetServiceInstanceResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceMetricsReq) StableEqualVT(that *GetServiceMetricsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.StartTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.StartTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.EndTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.EndTimestamp)) {
+		return false
+	}
+	if this.IncludeCost != that.IncludeCost {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceMetricsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceMetricsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceMetricsReq) EqualVT(that *GetServiceMetricsReq) bool {
 	if this == that {
@@ -1630,6 +2303,28 @@ func (this *GetServiceMetricsReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceMetricsResp) StableEqualVT(that *GetServiceMetricsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DeploymentMetrics.StableEqualVT(that.DeploymentMetrics) {
+		return false
+	}
+	if !this.Cost.StableEqualVT(that.Cost) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceMetricsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceMetricsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceMetricsResp) EqualVT(that *GetServiceMetricsResp) bool {
 	if this == that {
 		return true
@@ -1652,6 +2347,28 @@ func (this *GetServiceMetricsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceInsightsReq) StableEqualVT(that *GetServiceInsightsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceInsightsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceInsightsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceInsightsReq) EqualVT(that *GetServiceInsightsReq) bool {
 	if this == that {
 		return true
@@ -1673,6 +2390,34 @@ func (this *GetServiceInsightsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListCommitsReq) StableEqualVT(that *ListCommitsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListCommitsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListCommitsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListCommitsReq) EqualVT(that *ListCommitsReq) bool {
 	if this == that {
@@ -1701,6 +2446,42 @@ func (this *ListCommitsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListCommitsResp) StableEqualVT(that *ListCommitsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Commits) != len(that.Commits) {
+		return false
+	}
+	for i, vx := range this.Commits {
+		vy := that.Commits[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &repo.Commit{}
+			}
+			if q == nil {
+				q = &repo.Commit{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListCommitsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListCommitsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListCommitsResp) EqualVT(that *ListCommitsResp) bool {
 	if this == that {
@@ -1738,6 +2519,39 @@ func (this *ListCommitsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceInsightsResp) StableEqualVT(that *GetServiceInsightsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Insights) != len(that.Insights) {
+		return false
+	}
+	for i, vx := range this.Insights {
+		vy := that.Insights[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &insights.Insight{}
+			}
+			if q == nil {
+				q = &insights.Insight{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceInsightsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceInsightsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceInsightsResp) EqualVT(that *GetServiceInsightsResp) bool {
 	if this == that {
 		return true
@@ -1771,6 +2585,34 @@ func (this *GetServiceInsightsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SnoozeServiceInsightReq) StableEqualVT(that *SnoozeServiceInsightReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.Class != that.Class {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Duration).StableEqualVT((*durationpb1.Duration)(that.Duration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SnoozeServiceInsightReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SnoozeServiceInsightReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SnoozeServiceInsightReq) EqualVT(that *SnoozeServiceInsightReq) bool {
 	if this == that {
 		return true
@@ -1799,6 +2641,22 @@ func (this *SnoozeServiceInsightReq) EqualMessageVT(thatMsg proto.Message) bool 
 	}
 	return this.EqualVT(that)
 }
+func (this *SnoozeServiceInsightResp) StableEqualVT(that *SnoozeServiceInsightResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SnoozeServiceInsightResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SnoozeServiceInsightResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SnoozeServiceInsightResp) EqualVT(that *SnoozeServiceInsightResp) bool {
 	if this == that {
 		return true
@@ -1814,6 +2672,28 @@ func (this *SnoozeServiceInsightResp) EqualMessageVT(thatMsg proto.Message) bool
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceMetadataReq) StableEqualVT(that *GetServiceMetadataReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceMetadataReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceMetadataReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceMetadataReq) EqualVT(that *GetServiceMetadataReq) bool {
 	if this == that {
@@ -1837,6 +2717,25 @@ func (this *GetServiceMetadataReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceMetadataResp) StableEqualVT(that *GetServiceMetadataResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.StableEqualVT(that.Metadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceMetadataResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceMetadataResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceMetadataResp) EqualVT(that *GetServiceMetadataResp) bool {
 	if this == that {
 		return true
@@ -1855,6 +2754,31 @@ func (this *GetServiceMetadataResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SetServiceMetadataReq) StableEqualVT(that *SetServiceMetadataReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if !this.Metadata.StableEqualVT(that.Metadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetServiceMetadataReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetServiceMetadataReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SetServiceMetadataReq) EqualVT(that *SetServiceMetadataReq) bool {
 	if this == that {
@@ -1881,6 +2805,22 @@ func (this *SetServiceMetadataReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SetServiceMetadataResp) StableEqualVT(that *SetServiceMetadataResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetServiceMetadataResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetServiceMetadataResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetServiceMetadataResp) EqualVT(that *SetServiceMetadataResp) bool {
 	if this == that {
 		return true
@@ -1896,6 +2836,31 @@ func (this *SetServiceMetadataResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *SetServiceConvergenceModeReq) StableEqualVT(that *SetServiceConvergenceModeReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ConvergenceMode != that.ConvergenceMode {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetServiceConvergenceModeReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetServiceConvergenceModeReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *SetServiceConvergenceModeReq) EqualVT(that *SetServiceConvergenceModeReq) bool {
 	if this == that {
@@ -1922,6 +2887,22 @@ func (this *SetServiceConvergenceModeReq) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
+func (this *SetServiceConvergenceModeResp) StableEqualVT(that *SetServiceConvergenceModeResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetServiceConvergenceModeResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetServiceConvergenceModeResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetServiceConvergenceModeResp) EqualVT(that *SetServiceConvergenceModeResp) bool {
 	if this == that {
 		return true
@@ -1937,6 +2918,34 @@ func (this *SetServiceConvergenceModeResp) EqualMessageVT(thatMsg proto.Message)
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListMaterializedConfigVersionsReq) StableEqualVT(that *ListMaterializedConfigVersionsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListMaterializedConfigVersionsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListMaterializedConfigVersionsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListMaterializedConfigVersionsReq) EqualVT(that *ListMaterializedConfigVersionsReq) bool {
 	if this == that {
@@ -1965,6 +2974,96 @@ func (this *ListMaterializedConfigVersionsReq) EqualMessageVT(thatMsg proto.Mess
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListMaterializedConfigVersionsResp_VersionMetadata) StableEqualVT(that *ListMaterializedConfigVersionsResp_VersionMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	if !this.ParameterValues.StableEqualVT(that.ParameterValues) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.AppVersion != that.AppVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListMaterializedConfigVersionsResp_VersionMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListMaterializedConfigVersionsResp_VersionMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListMaterializedConfigVersionsResp) StableEqualVT(that *ListMaterializedConfigVersionsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListMaterializedConfigVersionsResp_VersionMetadata{}
+			}
+			if q == nil {
+				q = &ListMaterializedConfigVersionsResp_VersionMetadata{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListMaterializedConfigVersionsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListMaterializedConfigVersionsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListMaterializedConfigVersionsResp_VersionMetadata) EqualVT(that *ListMaterializedConfigVersionsResp_VersionMetadata) bool {
 	if this == that {
@@ -2056,6 +3155,43 @@ func (this *ListMaterializedConfigVersionsResp) EqualMessageVT(thatMsg proto.Mes
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfigureServiceReq) StableEqualVT(that *ConfigureServiceReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if !this.ServiceConfig.StableEqualVT(that.ServiceConfig) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.BundleNameOverride != that.BundleNameOverride {
+		return false
+	}
+	if this.SkipRuntimeValidation != that.SkipRuntimeValidation {
+		return false
+	}
+	if this.ForceCreateNewVersion != that.ForceCreateNewVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureServiceReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureServiceReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureServiceReq) EqualVT(that *ConfigureServiceReq) bool {
 	if this == that {
 		return true
@@ -2093,6 +3229,31 @@ func (this *ConfigureServiceReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ConfigureServiceResp) StableEqualVT(that *ConfigureServiceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	if this.CreatedNewVersion != that.CreatedNewVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConfigureServiceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConfigureServiceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConfigureServiceResp) EqualVT(that *ConfigureServiceResp) bool {
 	if this == that {
 		return true
@@ -2118,6 +3279,28 @@ func (this *ConfigureServiceResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ValidateConfigureServiceResp) StableEqualVT(that *ValidateConfigureServiceResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.InputConfig.StableEqualVT(that.InputConfig) {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ValidateConfigureServiceResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ValidateConfigureServiceResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ValidateConfigureServiceResp) EqualVT(that *ValidateConfigureServiceResp) bool {
 	if this == that {
 		return true
@@ -2139,6 +3322,34 @@ func (this *ValidateConfigureServiceResp) EqualMessageVT(thatMsg proto.Message) 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServiceConfigVersionsReq) StableEqualVT(that *ListServiceConfigVersionsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceConfigVersionsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceConfigVersionsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServiceConfigVersionsReq) EqualVT(that *ListServiceConfigVersionsReq) bool {
 	if this == that {
@@ -2167,6 +3378,70 @@ func (this *ListServiceConfigVersionsReq) EqualMessageVT(thatMsg proto.Message) 
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListServiceConfigVersionsResp_VersionMetadata) StableEqualVT(that *ListServiceConfigVersionsResp_VersionMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.CreationTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CreationTimestamp)) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceConfigVersionsResp_VersionMetadata) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceConfigVersionsResp_VersionMetadata)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ListServiceConfigVersionsResp) StableEqualVT(that *ListServiceConfigVersionsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ListServiceConfigVersionsResp_VersionMetadata{}
+			}
+			if q == nil {
+				q = &ListServiceConfigVersionsResp_VersionMetadata{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListServiceConfigVersionsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListServiceConfigVersionsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListServiceConfigVersionsResp_VersionMetadata) EqualVT(that *ListServiceConfigVersionsResp_VersionMetadata) bool {
 	if this == that {
@@ -2232,6 +3507,31 @@ func (this *ListServiceConfigVersionsResp) EqualMessageVT(thatMsg proto.Message)
 	}
 	return this.EqualVT(that)
 }
+func (this *GetServiceConfigReq) StableEqualVT(that *GetServiceConfigReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceConfigReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceConfigReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetServiceConfigReq) EqualVT(that *GetServiceConfigReq) bool {
 	if this == that {
 		return true
@@ -2256,6 +3556,37 @@ func (this *GetServiceConfigReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetServiceConfigResp) StableEqualVT(that *GetServiceConfigResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if this.ConfigVersion != that.ConfigVersion {
+		return false
+	}
+	if !this.ConfigVersionMetadata.StableEqualVT(that.ConfigVersionMetadata) {
+		return false
+	}
+	if !this.InputConfig.StableEqualVT(that.InputConfig) {
+		return false
+	}
+	if !this.CompiledConfig.StableEqualVT(that.CompiledConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetServiceConfigResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetServiceConfigResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetServiceConfigResp) EqualVT(that *GetServiceConfigResp) bool {
 	if this == that {

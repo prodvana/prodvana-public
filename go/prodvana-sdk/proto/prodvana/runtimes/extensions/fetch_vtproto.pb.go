@@ -104,6 +104,40 @@ func (m *FetchOutput) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ExternalObjectVersion) StableEqualVT(that *ExternalObjectVersion) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.Replicas != that.Replicas {
+		return false
+	}
+	if this.Active != that.Active {
+		return false
+	}
+	if this.Drifted != that.Drifted {
+		return false
+	}
+	if this.AvailableReplicas != that.AvailableReplicas {
+		return false
+	}
+	if this.TargetReplicas != that.TargetReplicas {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExternalObjectVersion) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExternalObjectVersion)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ExternalObjectVersion) EqualVT(that *ExternalObjectVersion) bool {
 	if this == that {
 		return true
@@ -137,6 +171,85 @@ func (this *ExternalObjectVersion) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ExternalObject) StableEqualVT(that *ExternalObject) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ObjectType != that.ObjectType {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ExternalObjectVersion{}
+			}
+			if q == nil {
+				q = &ExternalObjectVersion{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if len(this.ExternalLinks) != len(that.ExternalLinks) {
+		return false
+	}
+	for i, vx := range this.ExternalLinks {
+		vy := that.ExternalLinks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ExternalLink{}
+			}
+			if q == nil {
+				q = &common_config.ExternalLink{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	if len(this.DebugEvents) != len(that.DebugEvents) {
+		return false
+	}
+	for i, vx := range this.DebugEvents {
+		vy := that.DebugEvents[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &runtimes.DebugEvent{}
+			}
+			if q == nil {
+				q = &runtimes.DebugEvent{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExternalObject) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExternalObject)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ExternalObject) EqualVT(that *ExternalObject) bool {
 	if this == that {
@@ -216,6 +329,39 @@ func (this *ExternalObject) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *FetchOutput) StableEqualVT(that *FetchOutput) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Objects) != len(that.Objects) {
+		return false
+	}
+	for i, vx := range this.Objects {
+		vy := that.Objects[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ExternalObject{}
+			}
+			if q == nil {
+				q = &ExternalObject{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FetchOutput) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FetchOutput)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *FetchOutput) EqualVT(that *FetchOutput) bool {
 	if this == that {

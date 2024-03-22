@@ -72,6 +72,46 @@ func (m *RelatedObjects) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *Event) StableEqualVT(that *Event) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Title != that.Title {
+		return false
+	}
+	if !this.Details.StableEqualVT(that.Details) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Timestamp).StableEqualVT((*timestamppb1.Timestamp)(that.Timestamp)) {
+		return false
+	}
+	if !this.RelatedObjects.StableEqualVT(that.RelatedObjects) {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Event) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Event)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Event) EqualVT(that *Event) bool {
 	if this == that {
 		return true
@@ -111,6 +151,55 @@ func (this *Event) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RelatedObjects) StableEqualVT(that *RelatedObjects) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	if this.RuntimeId != that.RuntimeId {
+		return false
+	}
+	if len(this.ExternalLogs) != len(that.ExternalLogs) {
+		return false
+	}
+	for i, vx := range this.ExternalLogs {
+		vy, ok := that.ExternalLogs[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RelatedObjects) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RelatedObjects)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RelatedObjects) EqualVT(that *RelatedObjects) bool {
 	if this == that {

@@ -177,6 +177,28 @@ func (m *GetEventsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ServiceLookup) StableEqualVT(that *ServiceLookup) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceLookup) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceLookup)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceLookup) EqualVT(that *ServiceLookup) bool {
 	if this == that {
 		return true
@@ -198,6 +220,28 @@ func (this *ServiceLookup) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ReleaseChannelLookup) StableEqualVT(that *ReleaseChannelLookup) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelLookup) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelLookup)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ReleaseChannelLookup) EqualVT(that *ReleaseChannelLookup) bool {
 	if this == that {
@@ -221,6 +265,135 @@ func (this *ReleaseChannelLookup) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Lookup) StableEqualVT(that *Lookup) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.LookupOneof == nil && that.LookupOneof != nil {
+		return false
+	} else if this.LookupOneof != nil {
+		if that.LookupOneof == nil {
+			return false
+		}
+		if !this.LookupOneof.(interface {
+			StableEqualVT(isLookup_LookupOneof) bool
+		}).StableEqualVT(that.LookupOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Lookup) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Lookup)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Lookup_RootDesiredStateId) StableEqualVT(thatIface isLookup_LookupOneof) bool {
+	that, ok := thatIface.(*Lookup_RootDesiredStateId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	return true
+}
+
+func (this *Lookup_DesiredStateId) StableEqualVT(thatIface isLookup_LookupOneof) bool {
+	that, ok := thatIface.(*Lookup_DesiredStateId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return true
+}
+
+func (this *Lookup_Service) StableEqualVT(thatIface isLookup_LookupOneof) bool {
+	that, ok := thatIface.(*Lookup_Service)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Service, that.Service; p != q {
+		if p == nil {
+			p = &ServiceLookup{}
+		}
+		if q == nil {
+			q = &ServiceLookup{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Lookup_ReleaseChannel) StableEqualVT(thatIface isLookup_LookupOneof) bool {
+	that, ok := thatIface.(*Lookup_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelLookup{}
+		}
+		if q == nil {
+			q = &ReleaseChannelLookup{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Lookup_ReleaseId) StableEqualVT(thatIface isLookup_LookupOneof) bool {
+	that, ok := thatIface.(*Lookup_ReleaseId)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.ReleaseId != that.ReleaseId {
+		return false
+	}
+	return true
+}
+
 func (this *Lookup) EqualVT(that *Lookup) bool {
 	if this == that {
 		return true
@@ -350,6 +523,69 @@ func (this *Lookup_ReleaseId) EqualVT(thatIface isLookup_LookupOneof) bool {
 	return true
 }
 
+func (this *GetEventsReq) StableEqualVT(that *GetEventsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Lookups) != len(that.Lookups) {
+		return false
+	}
+	for i, vx := range this.Lookups {
+		vy := that.Lookups[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Lookup{}
+			}
+			if q == nil {
+				q = &Lookup{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Types) != len(that.Types) {
+		return false
+	}
+	for i, vx := range this.Types {
+		vy := that.Types[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	if this.OrderByAscTimestamp != that.OrderByAscTimestamp {
+		return false
+	}
+	if this.UseOr != that.UseOr {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.BeforeTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.BeforeTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.AfterTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.AfterTimestamp)) {
+		return false
+	}
+	if this.ExpandForRelease != that.ExpandForRelease {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetEventsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetEventsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetEventsReq) EqualVT(that *GetEventsReq) bool {
 	if this == that {
 		return true
@@ -412,6 +648,42 @@ func (this *GetEventsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetEventsResp) StableEqualVT(that *GetEventsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Events) != len(that.Events) {
+		return false
+	}
+	for i, vx := range this.Events {
+		vy := that.Events[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Event{}
+			}
+			if q == nil {
+				q = &Event{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetEventsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetEventsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetEventsResp) EqualVT(that *GetEventsResp) bool {
 	if this == that {

@@ -36,6 +36,28 @@ func (m *DebugEvent) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *DebugEvent) StableEqualVT(that *DebugEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Timestamp).StableEqualVT((*timestamppb1.Timestamp)(that.Timestamp)) {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DebugEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DebugEvent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *DebugEvent) EqualVT(that *DebugEvent) bool {
 	if this == that {
 		return true

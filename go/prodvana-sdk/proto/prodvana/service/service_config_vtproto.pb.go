@@ -1203,6 +1203,51 @@ func (m *CompiledJobConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *ReplicasConfig) StableEqualVT(that *ReplicasConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isReplicasConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReplicasConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReplicasConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ReplicasConfig_Fixed) StableEqualVT(thatIface isReplicasConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ReplicasConfig_Fixed)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Fixed != that.Fixed {
+		return false
+	}
+	return true
+}
+
 func (this *ReplicasConfig) EqualVT(that *ReplicasConfig) bool {
 	if this == that {
 		return true
@@ -1244,6 +1289,122 @@ func (this *ReplicasConfig_Fixed) EqualVT(thatIface isReplicasConfig_ConfigOneof
 	}
 	if this.Fixed != that.Fixed {
 		return false
+	}
+	return true
+}
+
+func (this *MetricAnalysis_SuccessRateConfig) StableEqualVT(that *MetricAnalysis_SuccessRateConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.MinThresholdPercent != that.MinThresholdPercent {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MetricAnalysis_SuccessRateConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MetricAnalysis_SuccessRateConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *MetricAnalysis_LatencyConfig) StableEqualVT(that *MetricAnalysis_LatencyConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.MaxLatency).StableEqualVT((*durationpb1.Duration)(that.MaxLatency)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MetricAnalysis_LatencyConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MetricAnalysis_LatencyConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *MetricAnalysis) StableEqualVT(that *MetricAnalysis) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.AnalysisOneof == nil && that.AnalysisOneof != nil {
+		return false
+	} else if this.AnalysisOneof != nil {
+		if that.AnalysisOneof == nil {
+			return false
+		}
+		if !this.AnalysisOneof.(interface {
+			StableEqualVT(isMetricAnalysis_AnalysisOneof) bool
+		}).StableEqualVT(that.AnalysisOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MetricAnalysis) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MetricAnalysis)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *MetricAnalysis_SuccessRate) StableEqualVT(thatIface isMetricAnalysis_AnalysisOneof) bool {
+	that, ok := thatIface.(*MetricAnalysis_SuccessRate)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.SuccessRate, that.SuccessRate; p != q {
+		if p == nil {
+			p = &MetricAnalysis_SuccessRateConfig{}
+		}
+		if q == nil {
+			q = &MetricAnalysis_SuccessRateConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *MetricAnalysis_LatencyP95) StableEqualVT(thatIface isMetricAnalysis_AnalysisOneof) bool {
+	that, ok := thatIface.(*MetricAnalysis_LatencyP95)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.LatencyP95, that.LatencyP95; p != q {
+		if p == nil {
+			p = &MetricAnalysis_LatencyConfig{}
+		}
+		if q == nil {
+			q = &MetricAnalysis_LatencyConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
 	}
 	return true
 }
@@ -1364,6 +1525,54 @@ func (this *MetricAnalysis_LatencyP95) EqualVT(thatIface isMetricAnalysis_Analys
 	return true
 }
 
+func (this *ReleaseStrategyConfig) StableEqualVT(that *ReleaseStrategyConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.IndividualStageDeadline).StableEqualVT((*durationpb1.Duration)(that.IndividualStageDeadline)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.AutomatedTestingDuration).StableEqualVT((*durationpb1.Duration)(that.AutomatedTestingDuration)) {
+		return false
+	}
+	if len(this.MetricsAnalysis) != len(that.MetricsAnalysis) {
+		return false
+	}
+	for i, vx := range this.MetricsAnalysis {
+		vy := that.MetricsAnalysis[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &MetricAnalysis{}
+			}
+			if q == nil {
+				q = &MetricAnalysis{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ManualApproval != that.ManualApproval {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.CheckInterval).StableEqualVT((*durationpb1.Duration)(that.CheckInterval)) {
+		return false
+	}
+	if this.FailureThreshold != that.FailureThreshold {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseStrategyConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseStrategyConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReleaseStrategyConfig) EqualVT(that *ReleaseStrategyConfig) bool {
 	if this == that {
 		return true
@@ -1412,6 +1621,76 @@ func (this *ReleaseStrategyConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *TLSSecret) StableEqualVT(that *TLSSecret) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TlsSecret == nil && that.TlsSecret != nil {
+		return false
+	} else if this.TlsSecret != nil {
+		if that.TlsSecret == nil {
+			return false
+		}
+		if !this.TlsSecret.(interface {
+			StableEqualVT(isTLSSecret_TlsSecret) bool
+		}).StableEqualVT(that.TlsSecret) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TLSSecret) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TLSSecret)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *TLSSecret_RawSecret) StableEqualVT(thatIface isTLSSecret_TlsSecret) bool {
+	that, ok := thatIface.(*TLSSecret_RawSecret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.RawSecret != that.RawSecret {
+		return false
+	}
+	return true
+}
+
+func (this *TLSSecret_Secret) StableEqualVT(thatIface isTLSSecret_TlsSecret) bool {
+	that, ok := thatIface.(*TLSSecret_Secret)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Secret, that.Secret; p != q {
+		if p == nil {
+			p = &common_config.Secret{}
+		}
+		if q == nil {
+			q = &common_config.Secret{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *TLSSecret) EqualVT(that *TLSSecret) bool {
 	if this == that {
 		return true
@@ -1482,6 +1761,28 @@ func (this *TLSSecret_Secret) EqualVT(thatIface isTLSSecret_TlsSecret) bool {
 	return true
 }
 
+func (this *TLSCertificate) StableEqualVT(that *TLSCertificate) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.TlsCert.StableEqualVT(that.TlsCert) {
+		return false
+	}
+	if !this.TlsKey.StableEqualVT(that.TlsKey) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TLSCertificate) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TLSCertificate)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TLSCertificate) EqualVT(that *TLSCertificate) bool {
 	if this == that {
 		return true
@@ -1504,6 +1805,76 @@ func (this *TLSCertificate) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *Certificate) StableEqualVT(that *Certificate) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Certificate == nil && that.Certificate != nil {
+		return false
+	} else if this.Certificate != nil {
+		if that.Certificate == nil {
+			return false
+		}
+		if !this.Certificate.(interface {
+			StableEqualVT(isCertificate_Certificate) bool
+		}).StableEqualVT(that.Certificate) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Certificate) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Certificate)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *Certificate_Tls) StableEqualVT(thatIface isCertificate_Certificate) bool {
+	that, ok := thatIface.(*Certificate_Tls)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Tls, that.Tls; p != q {
+		if p == nil {
+			p = &TLSCertificate{}
+		}
+		if q == nil {
+			q = &TLSCertificate{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Certificate_AwsAcmCert) StableEqualVT(thatIface isCertificate_Certificate) bool {
+	that, ok := thatIface.(*Certificate_AwsAcmCert)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.AwsAcmCert != that.AwsAcmCert {
+		return false
+	}
+	return true
+}
+
 func (this *Certificate) EqualVT(that *Certificate) bool {
 	if this == that {
 		return true
@@ -1570,6 +1941,392 @@ func (this *Certificate_AwsAcmCert) EqualVT(thatIface isCertificate_Certificate)
 	}
 	if this.AwsAcmCert != that.AwsAcmCert {
 		return false
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig) StableEqualVT(that *PerReleaseChannelConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isPerReleaseChannelConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if len(this.CustomHostnames) != len(that.CustomHostnames) {
+		return false
+	}
+	for i, vx := range this.CustomHostnames {
+		vy := that.CustomHostnames[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Programs) != len(that.Programs) {
+		return false
+	}
+	for i, vx := range this.Programs {
+		vy := that.Programs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.PerReleaseChannelProgramConfig{}
+			}
+			if q == nil {
+				q = &common_config.PerReleaseChannelProgramConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Cert.StableEqualVT(that.Cert) {
+		return false
+	}
+	if !this.DeliveryConfig.StableEqualVT(that.DeliveryConfig) {
+		return false
+	}
+	if len(this.Volumes) != len(that.Volumes) {
+		return false
+	}
+	for i, vx := range this.Volumes {
+		vy := that.Volumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &volumes.Volume{}
+			}
+			if q == nil {
+				q = &volumes.Volume{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Replicas.StableEqualVT(that.Replicas) {
+		return false
+	}
+	if len(this.PrePushTasks) != len(that.PrePushTasks) {
+		return false
+	}
+	for i, vx := range this.PrePushTasks {
+		vy := that.PrePushTasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TaskConfig{}
+			}
+			if q == nil {
+				q = &TaskConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RuntimeSpecific.StableEqualVT(that.RuntimeSpecific) {
+		return false
+	}
+	if this.RuntimeConnection != that.RuntimeConnection {
+		return false
+	}
+	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
+		return false
+	}
+	for i, vx := range this.DeliveryExtensions {
+		vy := that.DeliveryExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionConfig{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Constants) != len(that.Constants) {
+		return false
+	}
+	for i, vx := range this.Constants {
+		vy := that.Constants[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Constant{}
+			}
+			if q == nil {
+				q = &common_config.Constant{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Protections) != len(that.Protections) {
+		return false
+	}
+	for i, vx := range this.Protections {
+		vy := that.Protections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceProtections) != len(that.ConvergenceProtections) {
+		return false
+	}
+	for i, vx := range this.ConvergenceProtections {
+		vy := that.ConvergenceProtections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceExtensions) != len(that.ConvergenceExtensions) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensions {
+		vy := that.ConvergenceExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionConfig{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PerReleaseChannelConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PerReleaseChannelConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *PerReleaseChannelConfig_RuntimeExtension) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_RuntimeExtension)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.RuntimeExtension, that.RuntimeExtension; p != q {
+		if p == nil {
+			p = &RuntimeExtensionConfig{}
+		}
+		if q == nil {
+			q = &RuntimeExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_KubernetesConfig) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_Helm) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_Helm)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Helm, that.Helm; p != q {
+		if p == nil {
+			p = &common_config.HelmConfig{}
+		}
+		if q == nil {
+			q = &common_config.HelmConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_ExternalConfig) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_ExternalConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ExternalConfig, that.ExternalConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_AwsEcs) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_AwsEcs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AwsEcs, that.AwsEcs; p != q {
+		if p == nil {
+			p = &AwsEcsConfig{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_GoogleCloudRun) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_GoogleCloudRun)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.GoogleCloudRun, that.GoogleCloudRun; p != q {
+		if p == nil {
+			p = &GoogleCloudRunConfig{}
+		}
+		if q == nil {
+			q = &GoogleCloudRunConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_CustomRuntime) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_CustomRuntime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomRuntime, that.CustomRuntime; p != q {
+		if p == nil {
+			p = &RuntimeExtensionConfig{}
+		}
+		if q == nil {
+			q = &RuntimeExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
 	}
 	return true
 }
@@ -1960,6 +2717,25 @@ func (this *PerReleaseChannelConfig_CustomRuntime) EqualVT(thatIface isPerReleas
 	return true
 }
 
+func (this *CapabilityReference) StableEqualVT(that *CapabilityReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CapabilityReference) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CapabilityReference)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CapabilityReference) EqualVT(that *CapabilityReference) bool {
 	if this == that {
 		return true
@@ -1978,6 +2754,25 @@ func (this *CapabilityReference) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *CompiledCapabilityConfig) StableEqualVT(that *CompiledCapabilityConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Capability.StableEqualVT(that.Capability) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledCapabilityConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledCapabilityConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *CompiledCapabilityConfig) EqualVT(that *CompiledCapabilityConfig) bool {
 	if this == that {
@@ -1998,6 +2793,51 @@ func (this *CompiledCapabilityConfig) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *ProgramReference) StableEqualVT(that *ProgramReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ref == nil && that.Ref != nil {
+		return false
+	} else if this.Ref != nil {
+		if that.Ref == nil {
+			return false
+		}
+		if !this.Ref.(interface {
+			StableEqualVT(isProgramReference_Ref) bool
+		}).StableEqualVT(that.Ref) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProgramReference) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProgramReference)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProgramReference_Name) StableEqualVT(thatIface isProgramReference_Ref) bool {
+	that, ok := thatIface.(*ProgramReference_Name)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return true
+}
+
 func (this *ProgramReference) EqualVT(that *ProgramReference) bool {
 	if this == that {
 		return true
@@ -2038,6 +2878,51 @@ func (this *ProgramReference_Name) EqualVT(thatIface isProgramReference_Ref) boo
 		return false
 	}
 	if this.Name != that.Name {
+		return false
+	}
+	return true
+}
+
+func (this *TaskReference) StableEqualVT(that *TaskReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ref == nil && that.Ref != nil {
+		return false
+	} else if this.Ref != nil {
+		if that.Ref == nil {
+			return false
+		}
+		if !this.Ref.(interface {
+			StableEqualVT(isTaskReference_Ref) bool
+		}).StableEqualVT(that.Ref) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TaskReference) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TaskReference)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *TaskReference_ReleaseChannel) StableEqualVT(thatIface isTaskReference_Ref) bool {
+	that, ok := thatIface.(*TaskReference_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
 		return false
 	}
 	return true
@@ -2088,6 +2973,34 @@ func (this *TaskReference_ReleaseChannel) EqualVT(thatIface isTaskReference_Ref)
 	return true
 }
 
+func (this *TaskConfig) StableEqualVT(that *TaskConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Program.StableEqualVT(that.Program) {
+		return false
+	}
+	if !this.BaseProgram.StableEqualVT(that.BaseProgram) {
+		return false
+	}
+	if !this.RetryConfig.StableEqualVT(that.RetryConfig) {
+		return false
+	}
+	if !this.Ref.StableEqualVT(that.Ref) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TaskConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TaskConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *TaskConfig) EqualVT(that *TaskConfig) bool {
 	if this == that {
 		return true
@@ -2116,6 +3029,28 @@ func (this *TaskConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ProtectionLink) StableEqualVT(that *ProtectionLink) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Lifecycle.StableEqualVT(that.Lifecycle) {
+		return false
+	}
+	if this.AttachmentId != that.AttachmentId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionLink) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionLink)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ProtectionLink) EqualVT(that *ProtectionLink) bool {
 	if this == that {
 		return true
@@ -2138,6 +3073,104 @@ func (this *ProtectionLink) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeliveryExtensionConfig) StableEqualVT(that *DeliveryExtensionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Definition == nil && that.Definition != nil {
+		return false
+	} else if this.Definition != nil {
+		if that.Definition == nil {
+			return false
+		}
+		if !this.Definition.(interface {
+			StableEqualVT(isDeliveryExtensionConfig_Definition) bool
+		}).StableEqualVT(that.Definition) {
+			return false
+		}
+	}
+	if this.Lifecycle != that.Lifecycle {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeliveryExtensionConfig_Inlined) StableEqualVT(thatIface isDeliveryExtensionConfig_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionConfig_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Inlined, that.Inlined; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionConfig_Instance) StableEqualVT(thatIface isDeliveryExtensionConfig_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionConfig_Instance)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Instance != that.Instance {
+		return false
+	}
+	return true
+}
+
+func (this *DeliveryExtensionConfig_Ref) StableEqualVT(thatIface isDeliveryExtensionConfig_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionConfig_Ref)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ref, that.Ref; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *DeliveryExtensionConfig) EqualVT(that *DeliveryExtensionConfig) bool {
 	if this == that {
 		return true
@@ -2236,6 +3269,87 @@ func (this *DeliveryExtensionConfig_Ref) EqualVT(thatIface isDeliveryExtensionCo
 	return true
 }
 
+func (this *DeliveryExtensionInstance) StableEqualVT(that *DeliveryExtensionInstance) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Definition == nil && that.Definition != nil {
+		return false
+	} else if this.Definition != nil {
+		if that.Definition == nil {
+			return false
+		}
+		if !this.Definition.(interface {
+			StableEqualVT(isDeliveryExtensionInstance_Definition) bool
+		}).StableEqualVT(that.Definition) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionInstance) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionInstance)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeliveryExtensionInstance_Inlined) StableEqualVT(thatIface isDeliveryExtensionInstance_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionInstance_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Inlined, that.Inlined; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionInstance_Ref) StableEqualVT(thatIface isDeliveryExtensionInstance_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionInstance_Ref)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ref, that.Ref; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *DeliveryExtensionInstance) EqualVT(that *DeliveryExtensionInstance) bool {
 	if this == that {
 		return true
@@ -2311,6 +3425,87 @@ func (this *DeliveryExtensionInstance_Ref) EqualVT(thatIface isDeliveryExtension
 			q = &delivery_extension.DeliveryExtensionInstanceRef{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *RuntimeSpecificConfig_K8SConfig) StableEqualVT(that *RuntimeSpecificConfig_K8SConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ServiceAnnotations) != len(that.ServiceAnnotations) {
+		return false
+	}
+	for i, vx := range this.ServiceAnnotations {
+		vy, ok := that.ServiceAnnotations[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeSpecificConfig_K8SConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeSpecificConfig_K8SConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RuntimeSpecificConfig) StableEqualVT(that *RuntimeSpecificConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeConfig == nil && that.RuntimeConfig != nil {
+		return false
+	} else if this.RuntimeConfig != nil {
+		if that.RuntimeConfig == nil {
+			return false
+		}
+		if !this.RuntimeConfig.(interface {
+			StableEqualVT(isRuntimeSpecificConfig_RuntimeConfig) bool
+		}).StableEqualVT(that.RuntimeConfig) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeSpecificConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeSpecificConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *RuntimeSpecificConfig_K8S) StableEqualVT(thatIface isRuntimeSpecificConfig_RuntimeConfig) bool {
+	that, ok := thatIface.(*RuntimeSpecificConfig_K8S)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.K8S, that.K8S; p != q {
+		if p == nil {
+			p = &RuntimeSpecificConfig_K8SConfig{}
+		}
+		if q == nil {
+			q = &RuntimeSpecificConfig_K8SConfig{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -2398,6 +3593,42 @@ func (this *RuntimeSpecificConfig_K8S) EqualVT(thatIface isRuntimeSpecificConfig
 	return true
 }
 
+func (this *RuntimeExtensionConfig) StableEqualVT(that *RuntimeExtensionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.ParameterValues) != len(that.ParameterValues) {
+		return false
+	}
+	for i, vx := range this.ParameterValues {
+		vy := that.ParameterValues[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ClearOnPerReleaseChannelMerge != that.ClearOnPerReleaseChannelMerge {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeExtensionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeExtensionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RuntimeExtensionConfig) EqualVT(that *RuntimeExtensionConfig) bool {
 	if this == that {
 		return true
@@ -2433,6 +3664,129 @@ func (this *RuntimeExtensionConfig) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *AwsEcsConfig_Spec) StableEqualVT(that *AwsEcsConfig_Spec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SpecOneof == nil && that.SpecOneof != nil {
+		return false
+	} else if this.SpecOneof != nil {
+		if that.SpecOneof == nil {
+			return false
+		}
+		if !this.SpecOneof.(interface {
+			StableEqualVT(isAwsEcsConfig_Spec_SpecOneof) bool
+		}).StableEqualVT(that.SpecOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AwsEcsConfig_Spec) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AwsEcsConfig_Spec)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AwsEcsConfig_Spec_Inlined) StableEqualVT(thatIface isAwsEcsConfig_Spec_SpecOneof) bool {
+	that, ok := thatIface.(*AwsEcsConfig_Spec_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Inlined != that.Inlined {
+		return false
+	}
+	return true
+}
+
+func (this *AwsEcsConfig_Spec_Local) StableEqualVT(thatIface isAwsEcsConfig_Spec_SpecOneof) bool {
+	that, ok := thatIface.(*AwsEcsConfig_Spec_Local)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Local, that.Local; p != q {
+		if p == nil {
+			p = &common_config.LocalConfig{}
+		}
+		if q == nil {
+			q = &common_config.LocalConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *AwsEcsConfig_Spec_Remote) StableEqualVT(thatIface isAwsEcsConfig_Spec_SpecOneof) bool {
+	that, ok := thatIface.(*AwsEcsConfig_Spec_Remote)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Remote, that.Remote; p != q {
+		if p == nil {
+			p = &common_config.RemoteConfig{}
+		}
+		if q == nil {
+			q = &common_config.RemoteConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *AwsEcsConfig) StableEqualVT(that *AwsEcsConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.EcsServiceNameOverride != that.EcsServiceNameOverride {
+		return false
+	}
+	if !this.TaskDefinition.StableEqualVT(that.TaskDefinition) {
+		return false
+	}
+	if this.UpdateTaskDefinitionOnly != that.UpdateTaskDefinitionOnly {
+		return false
+	}
+	if !this.ServiceDefinition.StableEqualVT(that.ServiceDefinition) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AwsEcsConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AwsEcsConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *AwsEcsConfig_Spec) EqualVT(that *AwsEcsConfig_Spec) bool {
 	if this == that {
@@ -2557,6 +3911,101 @@ func (this *AwsEcsConfig) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GoogleCloudRunConfig) StableEqualVT(that *GoogleCloudRunConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SpecOneof == nil && that.SpecOneof != nil {
+		return false
+	} else if this.SpecOneof != nil {
+		if that.SpecOneof == nil {
+			return false
+		}
+		if !this.SpecOneof.(interface {
+			StableEqualVT(isGoogleCloudRunConfig_SpecOneof) bool
+		}).StableEqualVT(that.SpecOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GoogleCloudRunConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GoogleCloudRunConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GoogleCloudRunConfig_Inlined) StableEqualVT(thatIface isGoogleCloudRunConfig_SpecOneof) bool {
+	that, ok := thatIface.(*GoogleCloudRunConfig_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Inlined != that.Inlined {
+		return false
+	}
+	return true
+}
+
+func (this *GoogleCloudRunConfig_Local) StableEqualVT(thatIface isGoogleCloudRunConfig_SpecOneof) bool {
+	that, ok := thatIface.(*GoogleCloudRunConfig_Local)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Local, that.Local; p != q {
+		if p == nil {
+			p = &common_config.LocalConfig{}
+		}
+		if q == nil {
+			q = &common_config.LocalConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *GoogleCloudRunConfig_Remote) StableEqualVT(thatIface isGoogleCloudRunConfig_SpecOneof) bool {
+	that, ok := thatIface.(*GoogleCloudRunConfig_Remote)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Remote, that.Remote; p != q {
+		if p == nil {
+			p = &common_config.RemoteConfig{}
+		}
+		if q == nil {
+			q = &common_config.RemoteConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *GoogleCloudRunConfig) EqualVT(that *GoogleCloudRunConfig) bool {
 	if this == that {
 		return true
@@ -2646,6 +4095,481 @@ func (this *GoogleCloudRunConfig_Remote) EqualVT(thatIface isGoogleCloudRunConfi
 			q = &common_config.RemoteConfig{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig) StableEqualVT(that *ServiceConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isServiceConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.Programs) != len(that.Programs) {
+		return false
+	}
+	for i, vx := range this.Programs {
+		vy := that.Programs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ProgramConfig{}
+			}
+			if q == nil {
+				q = &common_config.ProgramConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Replicas.StableEqualVT(that.Replicas) {
+		return false
+	}
+	if !this.ReleaseStrategy.StableEqualVT(that.ReleaseStrategy) {
+		return false
+	}
+	if len(this.PerReleaseChannel) != len(that.PerReleaseChannel) {
+		return false
+	}
+	for i, vx := range this.PerReleaseChannel {
+		vy := that.PerReleaseChannel[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PerReleaseChannelConfig{}
+			}
+			if q == nil {
+				q = &PerReleaseChannelConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Capabilities) != len(that.Capabilities) {
+		return false
+	}
+	for i, vx := range this.Capabilities {
+		vy := that.Capabilities[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CapabilityReference{}
+			}
+			if q == nil {
+				q = &CapabilityReference{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DeliveryConfig.StableEqualVT(that.DeliveryConfig) {
+		return false
+	}
+	if len(this.Volumes) != len(that.Volumes) {
+		return false
+	}
+	for i, vx := range this.Volumes {
+		vy := that.Volumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &volumes.Volume{}
+			}
+			if q == nil {
+				q = &volumes.Volume{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DeployAnnotations.StableEqualVT(that.DeployAnnotations) {
+		return false
+	}
+	if len(this.PrePushTasks) != len(that.PrePushTasks) {
+		return false
+	}
+	for i, vx := range this.PrePushTasks {
+		vy := that.PrePushTasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TaskConfig{}
+			}
+			if q == nil {
+				q = &TaskConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RuntimeSpecific.StableEqualVT(that.RuntimeSpecific) {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.ParameterValues.StableEqualVT(that.ParameterValues) {
+		return false
+	}
+	if this.ParametersAutogen != that.ParametersAutogen {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.ProgressDeadline).StableEqualVT((*durationpb1.Duration)(that.ProgressDeadline)) {
+		return false
+	}
+	if !this.AutoRollback.StableEqualVT(that.AutoRollback) {
+		return false
+	}
+	if this.RuntimeConnection != that.RuntimeConnection {
+		return false
+	}
+	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
+		return false
+	}
+	for i, vx := range this.DeliveryExtensions {
+		vy := that.DeliveryExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionConfig{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.DeliveryExtensionInstances) != len(that.DeliveryExtensionInstances) {
+		return false
+	}
+	for i, vx := range this.DeliveryExtensionInstances {
+		vy := that.DeliveryExtensionInstances[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionInstance{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionInstance{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NoCleanupOnDelete != that.NoCleanupOnDelete {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Constants) != len(that.Constants) {
+		return false
+	}
+	for i, vx := range this.Constants {
+		vy := that.Constants[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Constant{}
+			}
+			if q == nil {
+				q = &common_config.Constant{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.AsyncSetDesiredState != that.AsyncSetDesiredState {
+		return false
+	}
+	if len(this.ConvergenceProtections) != len(that.ConvergenceProtections) {
+		return false
+	}
+	for i, vx := range this.ConvergenceProtections {
+		vy := that.ConvergenceProtections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Maestro.StableEqualVT(that.Maestro) {
+		return false
+	}
+	if len(this.ConvergenceExtensions) != len(that.ConvergenceExtensions) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensions {
+		vy := that.ConvergenceExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionConfig{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceExtensionInstances) != len(that.ConvergenceExtensionInstances) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensionInstances {
+		vy := that.ConvergenceExtensionInstances[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionInstance{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionInstance{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.BundleName != that.BundleName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ServiceConfig_RuntimeExtension) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_RuntimeExtension)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.RuntimeExtension, that.RuntimeExtension; p != q {
+		if p == nil {
+			p = &RuntimeExtensionConfig{}
+		}
+		if q == nil {
+			q = &RuntimeExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_KubernetesConfig) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_Helm) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_Helm)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Helm, that.Helm; p != q {
+		if p == nil {
+			p = &common_config.HelmConfig{}
+		}
+		if q == nil {
+			q = &common_config.HelmConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_ExternalConfig) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_ExternalConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ExternalConfig, that.ExternalConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_AwsEcs) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_AwsEcs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AwsEcs, that.AwsEcs; p != q {
+		if p == nil {
+			p = &AwsEcsConfig{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_GoogleCloudRun) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_GoogleCloudRun)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.GoogleCloudRun, that.GoogleCloudRun; p != q {
+		if p == nil {
+			p = &GoogleCloudRunConfig{}
+		}
+		if q == nil {
+			q = &GoogleCloudRunConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ServiceConfig_CustomRuntime) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_CustomRuntime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomRuntime, that.CustomRuntime; p != q {
+		if p == nil {
+			p = &RuntimeExtensionConfig{}
+		}
+		if q == nil {
+			q = &RuntimeExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -3127,6 +5051,420 @@ func (this *ServiceConfig_CustomRuntime) EqualVT(thatIface isServiceConfig_Confi
 	return true
 }
 
+func (this *CompiledServiceInstanceConfig) StableEqualVT(that *CompiledServiceInstanceConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConfigOneof == nil && that.ConfigOneof != nil {
+		return false
+	} else if this.ConfigOneof != nil {
+		if that.ConfigOneof == nil {
+			return false
+		}
+		if !this.ConfigOneof.(interface {
+			StableEqualVT(isCompiledServiceInstanceConfig_ConfigOneof) bool
+		}).StableEqualVT(that.ConfigOneof) {
+			return false
+		}
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if len(this.Programs) != len(that.Programs) {
+		return false
+	}
+	for i, vx := range this.Programs {
+		vy := that.Programs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ProgramConfig{}
+			}
+			if q == nil {
+				q = &common_config.ProgramConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Replicas.StableEqualVT(that.Replicas) {
+		return false
+	}
+	if this.Maturity != that.Maturity {
+		return false
+	}
+	if !this.ReleaseStrategy.StableEqualVT(that.ReleaseStrategy) {
+		return false
+	}
+	if len(this.CustomHostnames) != len(that.CustomHostnames) {
+		return false
+	}
+	for i, vx := range this.CustomHostnames {
+		vy := that.CustomHostnames[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Cert.StableEqualVT(that.Cert) {
+		return false
+	}
+	if !this.Runtime.StableEqualVT(that.Runtime) {
+		return false
+	}
+	if len(this.Capabilities) != len(that.Capabilities) {
+		return false
+	}
+	for i, vx := range this.Capabilities {
+		vy := that.Capabilities[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CompiledCapabilityConfig{}
+			}
+			if q == nil {
+				q = &CompiledCapabilityConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DeliveryConfig.StableEqualVT(that.DeliveryConfig) {
+		return false
+	}
+	if len(this.Volumes) != len(that.Volumes) {
+		return false
+	}
+	for i, vx := range this.Volumes {
+		vy := that.Volumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &volumes.Volume{}
+			}
+			if q == nil {
+				q = &volumes.Volume{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.DeployAnnotations.StableEqualVT(that.DeployAnnotations) {
+		return false
+	}
+	if len(this.PrePushTasks) != len(that.PrePushTasks) {
+		return false
+	}
+	for i, vx := range this.PrePushTasks {
+		vy := that.PrePushTasks[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TaskConfig{}
+			}
+			if q == nil {
+				q = &TaskConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if !this.RuntimeSpecific.StableEqualVT(that.RuntimeSpecific) {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ParameterValues) != len(that.ParameterValues) {
+		return false
+	}
+	for i, vx := range this.ParameterValues {
+		vy := that.ParameterValues[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !(*durationpb1.Duration)(this.ProgressDeadline).StableEqualVT((*durationpb1.Duration)(that.ProgressDeadline)) {
+		return false
+	}
+	if !this.RuntimeExecution.StableEqualVT(that.RuntimeExecution) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceExtensions) != len(that.ConvergenceExtensions) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensions {
+		vy := that.ConvergenceExtensions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionConfig{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceExtensionInstances) != len(that.ConvergenceExtensionInstances) {
+		return false
+	}
+	for i, vx := range this.ConvergenceExtensionInstances {
+		vy := that.ConvergenceExtensionInstances[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionInstance{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionInstance{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NoCleanupOnDelete != that.NoCleanupOnDelete {
+		return false
+	}
+	if len(this.Constants) != len(that.Constants) {
+		return false
+	}
+	for i, vx := range this.Constants {
+		vy := that.Constants[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.Constant{}
+			}
+			if q == nil {
+				q = &common_config.Constant{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Protections) != len(that.Protections) {
+		return false
+	}
+	for i, vx := range this.Protections {
+		vy := that.Protections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ConvergenceProtections) != len(that.ConvergenceProtections) {
+		return false
+	}
+	for i, vx := range this.ConvergenceProtections {
+		vy := that.ConvergenceProtections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &protection.ProtectionAttachmentConfig{}
+			}
+			if q == nil {
+				q = &protection.ProtectionAttachmentConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.BundleName != that.BundleName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledServiceInstanceConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledServiceInstanceConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *CompiledServiceInstanceConfig_CustomRuntime) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_CustomRuntime)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CustomRuntime, that.CustomRuntime; p != q {
+		if p == nil {
+			p = &RuntimeExtensionConfig{}
+		}
+		if q == nil {
+			q = &RuntimeExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledServiceInstanceConfig_KubernetesConfig) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledServiceInstanceConfig_Helm) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_Helm)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Helm, that.Helm; p != q {
+		if p == nil {
+			p = &common_config.HelmConfig{}
+		}
+		if q == nil {
+			q = &common_config.HelmConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledServiceInstanceConfig_AwsEcs) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_AwsEcs)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AwsEcs, that.AwsEcs; p != q {
+		if p == nil {
+			p = &AwsEcsConfig{}
+		}
+		if q == nil {
+			q = &AwsEcsConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledServiceInstanceConfig_GoogleCloudRun) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_GoogleCloudRun)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.GoogleCloudRun, that.GoogleCloudRun; p != q {
+		if p == nil {
+			p = &GoogleCloudRunConfig{}
+		}
+		if q == nil {
+			q = &GoogleCloudRunConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CompiledServiceInstanceConfig) EqualVT(that *CompiledServiceInstanceConfig) bool {
 	if this == that {
 		return true
@@ -3541,6 +5879,51 @@ func (this *CompiledServiceInstanceConfig_GoogleCloudRun) EqualVT(thatIface isCo
 	return true
 }
 
+func (this *CompiledJobConfig) StableEqualVT(that *CompiledJobConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.NamePrefix != that.NamePrefix {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if len(this.Programs) != len(that.Programs) {
+		return false
+	}
+	for i, vx := range this.Programs {
+		vy := that.Programs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ProgramConfig{}
+			}
+			if q == nil {
+				q = &common_config.ProgramConfig{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Runtime.StableEqualVT(that.Runtime) {
+		return false
+	}
+	if !this.RuntimeExecution.StableEqualVT(that.RuntimeExecution) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledJobConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledJobConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CompiledJobConfig) EqualVT(that *CompiledJobConfig) bool {
 	if this == that {
 		return true

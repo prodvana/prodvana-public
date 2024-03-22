@@ -57,6 +57,39 @@ func (m *OutputContent) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *GetInfoOutput) StableEqualVT(that *GetInfoOutput) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Outputs) != len(that.Outputs) {
+		return false
+	}
+	for i, vx := range this.Outputs {
+		vy := that.Outputs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &OutputContent{}
+			}
+			if q == nil {
+				q = &OutputContent{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetInfoOutput) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetInfoOutput)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetInfoOutput) EqualVT(that *GetInfoOutput) bool {
 	if this == that {
 		return true
@@ -89,6 +122,28 @@ func (this *GetInfoOutput) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *OutputContent) StableEqualVT(that *OutputContent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Text != that.Text {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OutputContent) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OutputContent)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *OutputContent) EqualVT(that *OutputContent) bool {
 	if this == that {

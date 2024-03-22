@@ -124,6 +124,142 @@ func (m *DumpState) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *EntityDumpState_IOState) StableEqualVT(that *EntityDumpState_IOState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastFetchedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastFetchedTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastAppliedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastAppliedTimestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EntityDumpState_IOState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EntityDumpState_IOState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *EntityDumpState_ChildState) StableEqualVT(that *EntityDumpState_ChildState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EntityDumpState_ChildState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EntityDumpState_ChildState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *EntityDumpState) StableEqualVT(that *EntityDumpState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Id.StableEqualVT(that.Id) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.LastManagerUpdateTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastManagerUpdateTimestamp)) {
+		return false
+	}
+	if !this.Annotations.StableEqualVT(that.Annotations) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !this.Control.StableEqualVT(that.Control) {
+		return false
+	}
+	if !this.IoState.StableEqualVT(that.IoState) {
+		return false
+	}
+	if len(this.Logs) != len(that.Logs) {
+		return false
+	}
+	for i, vx := range this.Logs {
+		vy := that.Logs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &model.DebugLog{}
+			}
+			if q == nil {
+				q = &model.DebugLog{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !(*anypb1.Any)(this.DesiredState).StableEqualVT((*anypb1.Any)(that.DesiredState)) {
+		return false
+	}
+	if !(*anypb1.Any)(this.FetchedState).StableEqualVT((*anypb1.Any)(that.FetchedState)) {
+		return false
+	}
+	if len(this.ChildStates) != len(that.ChildStates) {
+		return false
+	}
+	for i, vx := range this.ChildStates {
+		vy := that.ChildStates[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &EntityDumpState_ChildState{}
+			}
+			if q == nil {
+				q = &EntityDumpState_ChildState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.SimpleStatus != that.SimpleStatus {
+		return false
+	}
+	if !(*anypb1.Any)(this.TargetState).StableEqualVT((*anypb1.Any)(that.TargetState)) {
+		return false
+	}
+	if this.Absent != that.Absent {
+		return false
+	}
+	if this.Deleted != that.Deleted {
+		return false
+	}
+	if this.Observer != that.Observer {
+		return false
+	}
+	if this.Stale != that.Stale {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *EntityDumpState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*EntityDumpState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *EntityDumpState_IOState) EqualVT(that *EntityDumpState_IOState) bool {
 	if this == that {
 		return true
@@ -259,6 +395,39 @@ func (this *EntityDumpState) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *DumpState) StableEqualVT(that *DumpState) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Entities) != len(that.Entities) {
+		return false
+	}
+	for i, vx := range this.Entities {
+		vy := that.Entities[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &EntityDumpState{}
+			}
+			if q == nil {
+				q = &EntityDumpState{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DumpState) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DumpState)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *DumpState) EqualVT(that *DumpState) bool {
 	if this == that {

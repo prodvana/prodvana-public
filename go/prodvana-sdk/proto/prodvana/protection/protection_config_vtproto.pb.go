@@ -258,6 +258,84 @@ func (m *ProtectionAttachment_Convergence) CloneVT() isProtectionAttachment_Atta
 	return r
 }
 
+func (this *BuiltinProtectionConfig) StableEqualVT(that *BuiltinProtectionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.BuiltinOneof == nil && that.BuiltinOneof != nil {
+		return false
+	} else if this.BuiltinOneof != nil {
+		if that.BuiltinOneof == nil {
+			return false
+		}
+		if !this.BuiltinOneof.(interface {
+			StableEqualVT(isBuiltinProtectionConfig_BuiltinOneof) bool
+		}).StableEqualVT(that.BuiltinOneof) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *BuiltinProtectionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*BuiltinProtectionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *BuiltinProtectionConfig_CommitDenylist) StableEqualVT(thatIface isBuiltinProtectionConfig_BuiltinOneof) bool {
+	that, ok := thatIface.(*BuiltinProtectionConfig_CommitDenylist)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.CommitDenylist, that.CommitDenylist; p != q {
+		if p == nil {
+			p = &CommitDenylistProtectionConfig{}
+		}
+		if q == nil {
+			q = &CommitDenylistProtectionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *BuiltinProtectionConfig_AllowedTimes) StableEqualVT(thatIface isBuiltinProtectionConfig_BuiltinOneof) bool {
+	that, ok := thatIface.(*BuiltinProtectionConfig_AllowedTimes)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.AllowedTimes, that.AllowedTimes; p != q {
+		if p == nil {
+			p = &AllowedTimesProtectionConfig{}
+		}
+		if q == nil {
+			q = &AllowedTimesProtectionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *BuiltinProtectionConfig) EqualVT(that *BuiltinProtectionConfig) bool {
 	if this == that {
 		return true
@@ -330,6 +408,155 @@ func (this *BuiltinProtectionConfig_AllowedTimes) EqualVT(thatIface isBuiltinPro
 			q = &AllowedTimesProtectionConfig{}
 		}
 		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionConfig) StableEqualVT(that *ProtectionConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecConfig == nil && that.ExecConfig != nil {
+		return false
+	} else if this.ExecConfig != nil {
+		if that.ExecConfig == nil {
+			return false
+		}
+		if !this.ExecConfig.(interface {
+			StableEqualVT(isProtectionConfig_ExecConfig) bool
+		}).StableEqualVT(that.ExecConfig) {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.PollInterval).StableEqualVT((*durationpb1.Duration)(that.PollInterval)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.Timeout).StableEqualVT((*durationpb1.Duration)(that.Timeout)) {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterDefinition{}
+			}
+			if q == nil {
+				q = &common_config.ParameterDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionConfig_TaskConfig) StableEqualVT(thatIface isProtectionConfig_ExecConfig) bool {
+	that, ok := thatIface.(*ProtectionConfig_TaskConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.TaskConfig, that.TaskConfig; p != q {
+		if p == nil {
+			p = &common_config.TaskConfig{}
+		}
+		if q == nil {
+			q = &common_config.TaskConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionConfig_KubernetesConfig) StableEqualVT(thatIface isProtectionConfig_ExecConfig) bool {
+	that, ok := thatIface.(*ProtectionConfig_KubernetesConfig)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.KubernetesConfig, that.KubernetesConfig; p != q {
+		if p == nil {
+			p = &common_config.KubernetesConfig{}
+		}
+		if q == nil {
+			q = &common_config.KubernetesConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionConfig_Builtin) StableEqualVT(thatIface isProtectionConfig_ExecConfig) bool {
+	that, ok := thatIface.(*ProtectionConfig_Builtin)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Builtin, that.Builtin; p != q {
+		if p == nil {
+			p = &BuiltinProtectionConfig{}
+		}
+		if q == nil {
+			q = &BuiltinProtectionConfig{}
+		}
+		if !p.StableEqualVT(q) {
 			return false
 		}
 	}
@@ -485,6 +712,68 @@ func (this *ProtectionConfig_Builtin) EqualVT(thatIface isProtectionConfig_ExecC
 	return true
 }
 
+func (this *CompiledProtectionAttachmentConfig) StableEqualVT(that *CompiledProtectionAttachmentConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Config.StableEqualVT(that.Config) {
+		return false
+	}
+	if !this.Attachment.StableEqualVT(that.Attachment) {
+		return false
+	}
+	if !this.RuntimeExecution.StableEqualVT(that.RuntimeExecution) {
+		return false
+	}
+	if len(this.Env) != len(that.Env) {
+		return false
+	}
+	for i, vx := range this.Env {
+		vy, ok := that.Env[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.EnvValue{}
+			}
+			if q == nil {
+				q = &common_config.EnvValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ParameterValues) != len(that.ParameterValues) {
+		return false
+	}
+	for i, vx := range this.ParameterValues {
+		vy := that.ParameterValues[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CompiledProtectionAttachmentConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CompiledProtectionAttachmentConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *CompiledProtectionAttachmentConfig) EqualVT(that *CompiledProtectionAttachmentConfig) bool {
 	if this == that {
 		return true
@@ -547,6 +836,31 @@ func (this *CompiledProtectionAttachmentConfig) EqualMessageVT(thatMsg proto.Mes
 	}
 	return this.EqualVT(that)
 }
+func (this *ServiceInstanceAttachment) StableEqualVT(that *ServiceInstanceAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceInstanceAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceInstanceAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ServiceInstanceAttachment) EqualVT(that *ServiceInstanceAttachment) bool {
 	if this == that {
 		return true
@@ -572,6 +886,28 @@ func (this *ServiceInstanceAttachment) EqualMessageVT(thatMsg proto.Message) boo
 	}
 	return this.EqualVT(that)
 }
+func (this *ReleaseChannelAttachment) StableEqualVT(that *ReleaseChannelAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReleaseChannelAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReleaseChannelAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ReleaseChannelAttachment) EqualVT(that *ReleaseChannelAttachment) bool {
 	if this == that {
 		return true
@@ -594,6 +930,25 @@ func (this *ReleaseChannelAttachment) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
+func (this *ConvergenceAttachment) StableEqualVT(that *ConvergenceAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConvergenceAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConvergenceAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ConvergenceAttachment) EqualVT(that *ConvergenceAttachment) bool {
 	if this == that {
 		return true
@@ -613,6 +968,109 @@ func (this *ConvergenceAttachment) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ProtectionAttachment) StableEqualVT(that *ProtectionAttachment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Attachment == nil && that.Attachment != nil {
+		return false
+	} else if this.Attachment != nil {
+		if that.Attachment == nil {
+			return false
+		}
+		if !this.Attachment.(interface {
+			StableEqualVT(isProtectionAttachment_Attachment) bool
+		}).StableEqualVT(that.Attachment) {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionAttachment) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionAttachment)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionAttachment_ServiceInstance) StableEqualVT(thatIface isProtectionAttachment_Attachment) bool {
+	that, ok := thatIface.(*ProtectionAttachment_ServiceInstance)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceInstance, that.ServiceInstance; p != q {
+		if p == nil {
+			p = &ServiceInstanceAttachment{}
+		}
+		if q == nil {
+			q = &ServiceInstanceAttachment{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionAttachment_ReleaseChannel) StableEqualVT(thatIface isProtectionAttachment_Attachment) bool {
+	that, ok := thatIface.(*ProtectionAttachment_ReleaseChannel)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ReleaseChannel, that.ReleaseChannel; p != q {
+		if p == nil {
+			p = &ReleaseChannelAttachment{}
+		}
+		if q == nil {
+			q = &ReleaseChannelAttachment{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProtectionAttachment_Convergence) StableEqualVT(thatIface isProtectionAttachment_Attachment) bool {
+	that, ok := thatIface.(*ProtectionAttachment_Convergence)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Convergence, that.Convergence; p != q {
+		if p == nil {
+			p = &ConvergenceAttachment{}
+		}
+		if q == nil {
+			q = &ConvergenceAttachment{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ProtectionAttachment) EqualVT(that *ProtectionAttachment) bool {
 	if this == that {
 		return true

@@ -98,6 +98,25 @@ func (m *GetLabelsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *QueryObjectReq) StableEqualVT(that *QueryObjectReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Query != that.Query {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *QueryObjectReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*QueryObjectReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *QueryObjectReq) EqualVT(that *QueryObjectReq) bool {
 	if this == that {
 		return true
@@ -116,6 +135,39 @@ func (this *QueryObjectReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *QueryObjectResp) StableEqualVT(that *QueryObjectResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Objects) != len(that.Objects) {
+		return false
+	}
+	for i, vx := range this.Objects {
+		vy := that.Objects[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ObjectMeta{}
+			}
+			if q == nil {
+				q = &ObjectMeta{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *QueryObjectResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*QueryObjectResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *QueryObjectResp) EqualVT(that *QueryObjectResp) bool {
 	if this == that {
@@ -150,6 +202,28 @@ func (this *QueryObjectResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetLabelsReq) StableEqualVT(that *GetLabelsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLabelsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLabelsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetLabelsReq) EqualVT(that *GetLabelsReq) bool {
 	if this == that {
 		return true
@@ -171,6 +245,39 @@ func (this *GetLabelsReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetLabelsResp) StableEqualVT(that *GetLabelsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Labels) != len(that.Labels) {
+		return false
+	}
+	for i, vx := range this.Labels {
+		vy := that.Labels[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &labels.LabelDefinition{}
+			}
+			if q == nil {
+				q = &labels.LabelDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLabelsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLabelsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetLabelsResp) EqualVT(that *GetLabelsResp) bool {
 	if this == that {

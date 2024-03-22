@@ -336,6 +336,34 @@ func (m *RemoveUserResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *SettingsUser) StableEqualVT(that *SettingsUser) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.User.StableEqualVT(that.User) {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SettingsUser) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SettingsUser)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SettingsUser) EqualVT(that *SettingsUser) bool {
 	if this == that {
 		return true
@@ -364,6 +392,25 @@ func (this *SettingsUser) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *GetUserReq) StableEqualVT(that *GetUserReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetUserReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetUserReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *GetUserReq) EqualVT(that *GetUserReq) bool {
 	if this == that {
 		return true
@@ -382,6 +429,25 @@ func (this *GetUserReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *GetUserResp) StableEqualVT(that *GetUserResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.User.StableEqualVT(that.User) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetUserResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetUserResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *GetUserResp) EqualVT(that *GetUserResp) bool {
 	if this == that {
@@ -402,6 +468,22 @@ func (this *GetUserResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListRolesReq) StableEqualVT(that *ListRolesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListRolesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListRolesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListRolesReq) EqualVT(that *ListRolesReq) bool {
 	if this == that {
 		return true
@@ -417,6 +499,28 @@ func (this *ListRolesReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RoleDefinition) StableEqualVT(that *RoleDefinition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Description != that.Description {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RoleDefinition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RoleDefinition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RoleDefinition) EqualVT(that *RoleDefinition) bool {
 	if this == that {
@@ -439,6 +543,39 @@ func (this *RoleDefinition) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListRolesResp) StableEqualVT(that *ListRolesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RoleDefinition{}
+			}
+			if q == nil {
+				q = &RoleDefinition{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListRolesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListRolesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListRolesResp) EqualVT(that *ListRolesResp) bool {
 	if this == that {
@@ -473,6 +610,28 @@ func (this *ListRolesResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ListUsersReq) StableEqualVT(that *ListUsersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.PageToken != that.PageToken {
+		return false
+	}
+	if this.PageSize != that.PageSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListUsersReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListUsersReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ListUsersReq) EqualVT(that *ListUsersReq) bool {
 	if this == that {
 		return true
@@ -494,6 +653,42 @@ func (this *ListUsersReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *ListUsersResp) StableEqualVT(that *ListUsersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Users) != len(that.Users) {
+		return false
+	}
+	for i, vx := range this.Users {
+		vy := that.Users[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &SettingsUser{}
+			}
+			if q == nil {
+				q = &SettingsUser{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NextPageToken != that.NextPageToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ListUsersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ListUsersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *ListUsersResp) EqualVT(that *ListUsersResp) bool {
 	if this == that {
@@ -531,6 +726,34 @@ func (this *ListUsersResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SetRolesReq) StableEqualVT(that *SetRolesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetRolesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetRolesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetRolesReq) EqualVT(that *SetRolesReq) bool {
 	if this == that {
 		return true
@@ -559,6 +782,22 @@ func (this *SetRolesReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *SetRolesResp) StableEqualVT(that *SetRolesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SetRolesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SetRolesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *SetRolesResp) EqualVT(that *SetRolesResp) bool {
 	if this == that {
 		return true
@@ -574,6 +813,34 @@ func (this *SetRolesResp) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *UserInvite) StableEqualVT(that *UserInvite) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Email != that.Email {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UserInvite) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UserInvite)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *UserInvite) EqualVT(that *UserInvite) bool {
 	if this == that {
@@ -602,6 +869,39 @@ func (this *UserInvite) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *InviteUsersReq) StableEqualVT(that *InviteUsersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Users) != len(that.Users) {
+		return false
+	}
+	for i, vx := range this.Users {
+		vy := that.Users[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &UserInvite{}
+			}
+			if q == nil {
+				q = &UserInvite{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InviteUsersReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InviteUsersReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *InviteUsersReq) EqualVT(that *InviteUsersReq) bool {
 	if this == that {
@@ -636,6 +936,22 @@ func (this *InviteUsersReq) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *InviteUsersResp) StableEqualVT(that *InviteUsersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InviteUsersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InviteUsersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *InviteUsersResp) EqualVT(that *InviteUsersResp) bool {
 	if this == that {
 		return true
@@ -652,6 +968,22 @@ func (this *InviteUsersResp) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *OrganizationSupportsInvitesReq) StableEqualVT(that *OrganizationSupportsInvitesReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationSupportsInvitesReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationSupportsInvitesReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *OrganizationSupportsInvitesReq) EqualVT(that *OrganizationSupportsInvitesReq) bool {
 	if this == that {
 		return true
@@ -667,6 +999,25 @@ func (this *OrganizationSupportsInvitesReq) EqualMessageVT(thatMsg proto.Message
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *OrganizationSupportsInvitesResp) StableEqualVT(that *OrganizationSupportsInvitesResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SupportsInvites != that.SupportsInvites {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OrganizationSupportsInvitesResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OrganizationSupportsInvitesResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *OrganizationSupportsInvitesResp) EqualVT(that *OrganizationSupportsInvitesResp) bool {
 	if this == that {
@@ -687,6 +1038,25 @@ func (this *OrganizationSupportsInvitesResp) EqualMessageVT(thatMsg proto.Messag
 	}
 	return this.EqualVT(that)
 }
+func (this *RemoveUserReq) StableEqualVT(that *RemoveUserReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.UserId != that.UserId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RemoveUserReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RemoveUserReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *RemoveUserReq) EqualVT(that *RemoveUserReq) bool {
 	if this == that {
 		return true
@@ -705,6 +1075,22 @@ func (this *RemoveUserReq) EqualMessageVT(thatMsg proto.Message) bool {
 		return false
 	}
 	return this.EqualVT(that)
+}
+func (this *RemoveUserResp) StableEqualVT(that *RemoveUserResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RemoveUserResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RemoveUserResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
 }
 func (this *RemoveUserResp) EqualVT(that *RemoveUserResp) bool {
 	if this == that {
