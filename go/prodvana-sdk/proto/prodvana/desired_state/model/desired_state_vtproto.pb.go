@@ -4070,12 +4070,6 @@ func (this *FetchDetails) StableEqualVT(that *FetchDetails) bool {
 	if !(*timestamppb1.Timestamp)(this.CompletedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.CompletedTimestamp)) {
 		return false
 	}
-	if this.FetchPlanBlobId != that.FetchPlanBlobId {
-		return false
-	}
-	if this.FetchPlanExplanationBlobId != that.FetchPlanExplanationBlobId {
-		return false
-	}
 	if this.Version != that.Version {
 		return false
 	}
@@ -4083,9 +4077,6 @@ func (this *FetchDetails) StableEqualVT(that *FetchDetails) bool {
 		return false
 	}
 	if this.FetcherDesiredStateId != that.FetcherDesiredStateId {
-		return false
-	}
-	if this.Message != that.Message {
 		return false
 	}
 	if this.FetchMode != that.FetchMode {
@@ -4148,15 +4139,6 @@ func (this *RuntimeExtensionFetchOutput) StableEqualVT(that *RuntimeExtensionFet
 	if this == that {
 		return true
 	} else if this == nil || that == nil {
-		return false
-	}
-	if !this.OngoingFetch.StableEqualVT(that.OngoingFetch) {
-		return false
-	}
-	if !this.LastSuccessfulFetch.StableEqualVT(that.LastSuccessfulFetch) {
-		return false
-	}
-	if !this.LastFailedFetch.StableEqualVT(that.LastFailedFetch) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -4242,9 +4224,6 @@ func (this *RuntimeExtensionGetInfoDetails) StableEqualVT(that *RuntimeExtension
 	if this == that {
 		return true
 	} else if this == nil || that == nil {
-		return false
-	}
-	if this.SystemMessage != that.SystemMessage {
 		return false
 	}
 	if len(this.Contents) != len(that.Contents) {
@@ -4388,9 +4367,6 @@ func (this *ApplyDetails) StableEqualVT(that *ApplyDetails) bool {
 		return false
 	}
 	if this.ApplyStatus != that.ApplyStatus {
-		return false
-	}
-	if !this.FetchDetails.StableEqualVT(that.FetchDetails) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -4629,9 +4605,6 @@ func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
 	if this.VersionAgnostic != that.VersionAgnostic {
 		return false
 	}
-	if this.Message != that.Message {
-		return false
-	}
 	if !this.RuntimeExtension.StableEqualVT(that.RuntimeExtension) {
 		return false
 	}
@@ -4660,9 +4633,6 @@ func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
 		return false
 	}
 	if this.RequireApprovalBeforeApply != that.RequireApprovalBeforeApply {
-		return false
-	}
-	if this.RawConfig != that.RawConfig {
 		return false
 	}
 	if this.GenerateName != that.GenerateName {
@@ -4708,23 +4678,6 @@ func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
 			}
 			if q == nil {
 				q = &extensions.ExternalObject{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.DebugEvents) != len(that.DebugEvents) {
-		return false
-	}
-	for i, vx := range this.DebugEvents {
-		vy := that.DebugEvents[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &runtimes.DebugEvent{}
-			}
-			if q == nil {
-				q = &runtimes.DebugEvent{}
 			}
 			if !p.StableEqualVT(q) {
 				return false
