@@ -4,9 +4,13 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 import "validate/validate.proto";
 
+
 message NotificationConfig {
     message Slack {
-        string channel = 1 [(validate.rules).string.min_len = 1];
+        // catch all channel that will recieve all types of notifications
+        string channel = 1;
+        // this channel will only recieve error/failure notifications
+        string error_channel = 2;
     }
     Slack slack = 1;
 }

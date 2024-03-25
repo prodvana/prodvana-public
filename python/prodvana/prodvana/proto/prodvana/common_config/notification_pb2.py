@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)prodvana/common_config/notification.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"x\n\x12NotificationConfig\x12?\n\x05slack\x18\x01 \x01(\x0b\x32\x30.prodvana.common_config.NotificationConfig.Slack\x1a!\n\x05Slack\x12\x18\n\x07\x63hannel\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)prodvana/common_config/notification.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"\x86\x01\n\x12NotificationConfig\x12?\n\x05slack\x18\x01 \x01(\x0b\x32\x30.prodvana.common_config.NotificationConfig.Slack\x1a/\n\x05Slack\x12\x0f\n\x07\x63hannel\x18\x01 \x01(\t\x12\x15\n\rerror_channel\x18\x02 \x01(\tBRZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,10 +23,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config'
-  _NOTIFICATIONCONFIG_SLACK.fields_by_name['channel']._options = None
-  _NOTIFICATIONCONFIG_SLACK.fields_by_name['channel']._serialized_options = b'\372B\004r\002\020\001'
-  _globals['_NOTIFICATIONCONFIG']._serialized_start=94
-  _globals['_NOTIFICATIONCONFIG']._serialized_end=214
-  _globals['_NOTIFICATIONCONFIG_SLACK']._serialized_start=181
-  _globals['_NOTIFICATIONCONFIG_SLACK']._serialized_end=214
+  _globals['_NOTIFICATIONCONFIG']._serialized_start=95
+  _globals['_NOTIFICATIONCONFIG']._serialized_end=229
+  _globals['_NOTIFICATIONCONFIG_SLACK']._serialized_start=182
+  _globals['_NOTIFICATIONCONFIG_SLACK']._serialized_end=229
 # @@protoc_insertion_point(module_scope)

@@ -7694,7 +7694,12 @@
       "type": "object",
       "properties": {
         "channel": {
-          "type": "string"
+          "type": "string",
+          "title": "catch all channel that will recieve all types of notifications"
+        },
+        "errorChannel": {
+          "type": "string",
+          "title": "this channel will only recieve error/failure notifications"
         }
       }
     },

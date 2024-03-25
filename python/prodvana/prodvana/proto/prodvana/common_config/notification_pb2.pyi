@@ -21,13 +21,18 @@ class NotificationConfig(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         CHANNEL_FIELD_NUMBER: builtins.int
+        ERROR_CHANNEL_FIELD_NUMBER: builtins.int
         channel: builtins.str
+        """catch all channel that will recieve all types of notifications"""
+        error_channel: builtins.str
+        """this channel will only recieve error/failure notifications"""
         def __init__(
             self,
             *,
             channel: builtins.str = ...,
+            error_channel: builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["channel", b"channel"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["channel", b"channel", "error_channel", b"error_channel"]) -> None: ...
 
     SLACK_FIELD_NUMBER: builtins.int
     @property

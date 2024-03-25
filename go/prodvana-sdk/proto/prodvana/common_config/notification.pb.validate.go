@@ -188,16 +188,9 @@ func (m *NotificationConfig_Slack) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetChannel()) < 1 {
-		err := NotificationConfig_SlackValidationError{
-			field:  "Channel",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Channel
+
+	// no validation rules for ErrorChannel
 
 	if len(errors) > 0 {
 		return NotificationConfig_SlackMultiError(errors)

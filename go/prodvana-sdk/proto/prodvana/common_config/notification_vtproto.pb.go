@@ -22,6 +22,7 @@ func (m *NotificationConfig_Slack) CloneVT() *NotificationConfig_Slack {
 	}
 	r := new(NotificationConfig_Slack)
 	r.Channel = m.Channel
+	r.ErrorChannel = m.ErrorChannel
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -57,6 +58,9 @@ func (this *NotificationConfig_Slack) StableEqualVT(that *NotificationConfig_Sla
 		return false
 	}
 	if this.Channel != that.Channel {
+		return false
+	}
+	if this.ErrorChannel != that.ErrorChannel {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -95,6 +99,9 @@ func (this *NotificationConfig_Slack) EqualVT(that *NotificationConfig_Slack) bo
 		return false
 	}
 	if this.Channel != that.Channel {
+		return false
+	}
+	if this.ErrorChannel != that.ErrorChannel {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

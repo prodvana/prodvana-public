@@ -1968,7 +1968,30 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "catch all channel that will recieve all types of notifications"
+                },
+                "error_channel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "this channel will only recieve error/failure notifications"
+                },
+                "errorChannel": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "this channel will only recieve error/failure notifications"
                 }
             },
             "additionalProperties": false,
