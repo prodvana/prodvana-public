@@ -71,6 +71,7 @@ func (m *Condition_ManualApproval) CloneVT() *Condition_ManualApproval {
 	r := new(Condition_ManualApproval)
 	r.Topic = m.Topic
 	r.Description = m.Description
+	r.MinApprovers = m.MinApprovers
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -1048,6 +1049,26 @@ func (m *ControlState) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *ManualApprovalState_Approver) CloneVT() *ManualApprovalState_Approver {
+	if m == nil {
+		return (*ManualApprovalState_Approver)(nil)
+	}
+	r := new(ManualApprovalState_Approver)
+	r.Source = m.Source
+	r.SourceMetadata = m.SourceMetadata.CloneVT()
+	r.Status = m.Status
+	r.Timestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.Timestamp).CloneVT())
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ManualApprovalState_Approver) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *ManualApprovalState) CloneVT() *ManualApprovalState {
 	if m == nil {
 		return (*ManualApprovalState)(nil)
@@ -1057,6 +1078,14 @@ func (m *ManualApprovalState) CloneVT() *ManualApprovalState {
 	r.Status = m.Status
 	r.Topic = m.Topic
 	r.Description = m.Description
+	r.MinApprovers = m.MinApprovers
+	if rhs := m.Approvers; rhs != nil {
+		tmpContainer := make([]*ManualApprovalState_Approver, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.Approvers = tmpContainer
+	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -1514,6 +1543,7 @@ func (m *ManualApprovalConfig) CloneVT() *ManualApprovalConfig {
 		return (*ManualApprovalConfig)(nil)
 	}
 	r := new(ManualApprovalConfig)
+	r.MinApprovers = m.MinApprovers
 	if m.Config != nil {
 		r.Config = m.Config.(interface {
 			CloneVT() isManualApprovalConfig_Config
@@ -1904,6 +1934,9 @@ func (this *Condition_ManualApproval) StableEqualVT(that *Condition_ManualApprov
 	if this.Description != that.Description {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -2145,6 +2178,9 @@ func (this *Condition_ManualApproval) EqualVT(that *Condition_ManualApproval) bo
 		return false
 	}
 	if this.Description != that.Description {
+		return false
+	}
+	if this.MinApprovers != that.MinApprovers {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -5326,6 +5362,34 @@ func (this *ControlState) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ManualApprovalState_Approver) StableEqualVT(that *ManualApprovalState_Approver) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Timestamp).StableEqualVT((*timestamppb1.Timestamp)(that.Timestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManualApprovalState_Approver) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManualApprovalState_Approver)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *ManualApprovalState) StableEqualVT(that *ManualApprovalState) bool {
 	if this == that {
 		return true
@@ -5341,6 +5405,9 @@ func (this *ManualApprovalState) StableEqualVT(that *ManualApprovalState) bool {
 	if this.Description != that.Description {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -5350,6 +5417,34 @@ func (this *ManualApprovalState) StableEqualMessageVT(thatMsg proto.Message) boo
 		return false
 	}
 	return this.StableEqualVT(that)
+}
+func (this *ManualApprovalState_Approver) EqualVT(that *ManualApprovalState_Approver) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.EqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.Timestamp).EqualVT((*timestamppb1.Timestamp)(that.Timestamp)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ManualApprovalState_Approver) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ManualApprovalState_Approver)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
 }
 func (this *ManualApprovalState) EqualVT(that *ManualApprovalState) bool {
 	if this == that {
@@ -5367,6 +5462,26 @@ func (this *ManualApprovalState) EqualVT(that *ManualApprovalState) bool {
 		return false
 	}
 	if this.Description != that.Description {
+		return false
+	}
+	if len(this.Approvers) != len(that.Approvers) {
+		return false
+	}
+	for i, vx := range this.Approvers {
+		vy := that.Approvers[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ManualApprovalState_Approver{}
+			}
+			if q == nil {
+				q = &ManualApprovalState_Approver{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.MinApprovers != that.MinApprovers {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -7023,6 +7138,9 @@ func (this *ManualApprovalConfig) StableEqualVT(that *ManualApprovalConfig) bool
 			return false
 		}
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -7075,6 +7193,9 @@ func (this *ManualApprovalConfig) EqualVT(that *ManualApprovalConfig) bool {
 		}).EqualVT(that.Config) {
 			return false
 		}
+	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

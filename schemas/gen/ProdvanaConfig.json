@@ -7190,6 +7190,28 @@
                         },
                         {}
                     ]
+                },
+                "min_approvers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
+                },
+                "minApprovers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
                 }
             },
             "additionalProperties": false,
@@ -7246,6 +7268,28 @@
                         }
                     ],
                     "description": "request approval on every apply action, not just the first. only works for runtime extensions, will do nothing for kubernetes services."
+                },
+                "min_approvers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
+                },
+                "minApprovers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
                 }
             },
             "additionalProperties": false,
@@ -7334,6 +7378,26 @@
                         },
                         {
                             "type": "string"
+                        }
+                    ]
+                },
+                "min_approvers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                },
+                "minApprovers": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "integer"
                         }
                     ]
                 }

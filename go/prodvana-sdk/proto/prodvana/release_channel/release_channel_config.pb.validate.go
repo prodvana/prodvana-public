@@ -1423,6 +1423,8 @@ func (m *Precondition_ManualApproval) validate(all bool) error {
 
 	// no validation rules for EveryAction
 
+	// no validation rules for MinApprovers
+
 	if len(errors) > 0 {
 		return Precondition_ManualApprovalMultiError(errors)
 	}
@@ -1557,6 +1559,17 @@ func (m *Precondition_CustomTask) validate(all bool) error {
 		}
 	}
 
+	if m.GetMinApprovers() < 0 {
+		err := Precondition_CustomTaskValidationError{
+			field:  "MinApprovers",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return Precondition_CustomTaskMultiError(errors)
 	}
@@ -1664,6 +1677,17 @@ func (m *Precondition_SharedManualApproval) validate(all bool) error {
 		err := Precondition_SharedManualApprovalValidationError{
 			field:  "Name",
 			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetMinApprovers() < 0 {
+		err := Precondition_SharedManualApprovalValidationError{
+			field:  "MinApprovers",
+			reason: "value must be greater than or equal to 0",
 		}
 		if !all {
 			return err

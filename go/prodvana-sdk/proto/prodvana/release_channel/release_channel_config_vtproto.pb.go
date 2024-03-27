@@ -163,6 +163,7 @@ func (m *Precondition_ManualApproval) CloneVT() *Precondition_ManualApproval {
 	r.Name = m.Name
 	r.Description = m.Description
 	r.EveryAction = m.EveryAction
+	r.MinApprovers = m.MinApprovers
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -181,6 +182,7 @@ func (m *Precondition_CustomTask) CloneVT() *Precondition_CustomTask {
 	r := new(Precondition_CustomTask)
 	r.TaskName = m.TaskName
 	r.CustomTask = m.CustomTask.CloneVT()
+	r.MinApprovers = m.MinApprovers
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -198,6 +200,7 @@ func (m *Precondition_SharedManualApproval) CloneVT() *Precondition_SharedManual
 	}
 	r := new(Precondition_SharedManualApproval)
 	r.Name = m.Name
+	r.MinApprovers = m.MinApprovers
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -783,6 +786,9 @@ func (this *Precondition_ManualApproval) StableEqualVT(that *Precondition_Manual
 	if this.EveryAction != that.EveryAction {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -805,6 +811,9 @@ func (this *Precondition_CustomTask) StableEqualVT(that *Precondition_CustomTask
 	if !this.CustomTask.StableEqualVT(that.CustomTask) {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -822,6 +831,9 @@ func (this *Precondition_SharedManualApproval) StableEqualVT(that *Precondition_
 		return false
 	}
 	if this.Name != that.Name {
+		return false
+	}
+	if this.MinApprovers != that.MinApprovers {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -1042,6 +1054,9 @@ func (this *Precondition_ManualApproval) EqualVT(that *Precondition_ManualApprov
 	if this.EveryAction != that.EveryAction {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -1064,6 +1079,9 @@ func (this *Precondition_CustomTask) EqualVT(that *Precondition_CustomTask) bool
 	if !this.CustomTask.EqualVT(that.CustomTask) {
 		return false
 	}
+	if this.MinApprovers != that.MinApprovers {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -1081,6 +1099,9 @@ func (this *Precondition_SharedManualApproval) EqualVT(that *Precondition_Shared
 		return false
 	}
 	if this.Name != that.Name {
+		return false
+	}
+	if this.MinApprovers != that.MinApprovers {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

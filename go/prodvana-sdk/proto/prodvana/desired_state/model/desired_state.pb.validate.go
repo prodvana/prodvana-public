@@ -23,6 +23,8 @@ import (
 	environment "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 
 	extensions "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/runtimes/extensions"
+
+	version "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
 )
 
 // ensure the imports are used
@@ -45,6 +47,8 @@ var (
 	_ = environment.ExtensionType(0)
 
 	_ = extensions.FetchMode(0)
+
+	_ = version.Source(0)
 )
 
 // Validate checks the field values on ProtectionLink with the rules defined in
@@ -5608,6 +5612,42 @@ func (m *ManualApprovalState) validate(all bool) error {
 
 	// no validation rules for Description
 
+	for idx, item := range m.GetApprovers() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ManualApprovalStateValidationError{
+						field:  fmt.Sprintf("Approvers[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ManualApprovalStateValidationError{
+						field:  fmt.Sprintf("Approvers[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ManualApprovalStateValidationError{
+					field:  fmt.Sprintf("Approvers[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for MinApprovers
+
 	if len(errors) > 0 {
 		return ManualApprovalStateMultiError(errors)
 	}
@@ -7997,6 +8037,8 @@ func (m *ManualApprovalConfig) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for MinApprovers
+
 	switch v := m.Config.(type) {
 	case *ManualApprovalConfig_RuntimeExtension:
 		if v == nil {
@@ -9627,6 +9669,8 @@ func (m *Condition_ManualApproval) validate(all bool) error {
 
 	// no validation rules for Description
 
+	// no validation rules for MinApprovers
+
 	if len(errors) > 0 {
 		return Condition_ManualApprovalMultiError(errors)
 	}
@@ -10505,6 +10549,171 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RuntimeObject_RuntimeExtensionValidationError{}
+
+// Validate checks the field values on ManualApprovalState_Approver with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ManualApprovalState_Approver) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ManualApprovalState_Approver with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ManualApprovalState_ApproverMultiError, or nil if none found.
+func (m *ManualApprovalState_Approver) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ManualApprovalState_Approver) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ManualApprovalState_ApproverValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ManualApprovalState_ApproverValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ManualApprovalState_ApproverValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetTimestamp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ManualApprovalState_ApproverValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ManualApprovalState_ApproverValidationError{
+					field:  "Timestamp",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ManualApprovalState_ApproverValidationError{
+				field:  "Timestamp",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ManualApprovalState_ApproverMultiError(errors)
+	}
+
+	return nil
+}
+
+// ManualApprovalState_ApproverMultiError is an error wrapping multiple
+// validation errors returned by ManualApprovalState_Approver.ValidateAll() if
+// the designated constraints aren't met.
+type ManualApprovalState_ApproverMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ManualApprovalState_ApproverMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ManualApprovalState_ApproverMultiError) AllErrors() []error { return m }
+
+// ManualApprovalState_ApproverValidationError is the validation error returned
+// by ManualApprovalState_Approver.Validate if the designated constraints
+// aren't met.
+type ManualApprovalState_ApproverValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ManualApprovalState_ApproverValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ManualApprovalState_ApproverValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ManualApprovalState_ApproverValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ManualApprovalState_ApproverValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ManualApprovalState_ApproverValidationError) ErrorName() string {
+	return "ManualApprovalState_ApproverValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ManualApprovalState_ApproverValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sManualApprovalState_Approver.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ManualApprovalState_ApproverValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ManualApprovalState_ApproverValidationError{}
 
 // Validate checks the field values on Annotations_Annotation with the rules
 // defined in the proto definition for this message. If any rules are

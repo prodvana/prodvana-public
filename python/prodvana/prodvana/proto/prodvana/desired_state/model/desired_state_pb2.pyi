@@ -19,6 +19,7 @@ import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
 import prodvana.proto.prodvana.runtimes.debug_event_pb2
 import prodvana.proto.prodvana.runtimes.extensions.fetch_pb2
+import prodvana.proto.prodvana.version.source_metadata_pb2
 import sys
 import typing
 
@@ -386,15 +387,18 @@ class Condition(google.protobuf.message.Message):
 
         TOPIC_FIELD_NUMBER: builtins.int
         DESCRIPTION_FIELD_NUMBER: builtins.int
+        MIN_APPROVERS_FIELD_NUMBER: builtins.int
         topic: builtins.str
         description: builtins.str
+        min_approvers: builtins.int
         def __init__(
             self,
             *,
             topic: builtins.str = ...,
             description: builtins.str = ...,
+            min_approvers: builtins.int = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "topic", b"topic"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "min_approvers", b"min_approvers", "topic", b"topic"]) -> None: ...
 
     class CustomTaskSuccessfulCondition(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1629,15 +1633,44 @@ global___ControlState = ControlState
 class ManualApprovalState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class Approver(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SOURCE_FIELD_NUMBER: builtins.int
+        SOURCE_METADATA_FIELD_NUMBER: builtins.int
+        STATUS_FIELD_NUMBER: builtins.int
+        TIMESTAMP_FIELD_NUMBER: builtins.int
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+        @property
+        def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+        status: global___ManualApprovalStatus.ValueType
+        @property
+        def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+        def __init__(
+            self,
+            *,
+            source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+            source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+            status: global___ManualApprovalStatus.ValueType = ...,
+            timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata", "timestamp", b"timestamp"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["source", b"source", "source_metadata", b"source_metadata", "status", b"status", "timestamp", b"timestamp"]) -> None: ...
+
     META_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     TOPIC_FIELD_NUMBER: builtins.int
     DESCRIPTION_FIELD_NUMBER: builtins.int
+    APPROVERS_FIELD_NUMBER: builtins.int
+    MIN_APPROVERS_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     status: global___ManualApprovalStatus.ValueType
     topic: builtins.str
     description: builtins.str
+    @property
+    def approvers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ManualApprovalState.Approver]: ...
+    min_approvers: builtins.int
     def __init__(
         self,
         *,
@@ -1645,9 +1678,11 @@ class ManualApprovalState(google.protobuf.message.Message):
         status: global___ManualApprovalStatus.ValueType = ...,
         topic: builtins.str = ...,
         description: builtins.str = ...,
+        approvers: collections.abc.Iterable[global___ManualApprovalState.Approver] | None = ...,
+        min_approvers: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "meta", b"meta", "status", b"status", "topic", b"topic"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["approvers", b"approvers", "description", b"description", "meta", b"meta", "min_approvers", b"min_approvers", "status", b"status", "topic", b"topic"]) -> None: ...
 
 global___ManualApprovalState = ManualApprovalState
 
@@ -2103,15 +2138,18 @@ class ManualApprovalConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RUNTIME_EXTENSION_FIELD_NUMBER: builtins.int
+    MIN_APPROVERS_FIELD_NUMBER: builtins.int
     @property
     def runtime_extension(self) -> global___RuntimeExtensionMetadata: ...
+    min_approvers: builtins.int
     def __init__(
         self,
         *,
         runtime_extension: global___RuntimeExtensionMetadata | None = ...,
+        min_approvers: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config", b"config", "runtime_extension", b"runtime_extension"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "runtime_extension", b"runtime_extension"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "min_approvers", b"min_approvers", "runtime_extension", b"runtime_extension"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["runtime_extension"] | None: ...
 
 global___ManualApprovalConfig = ManualApprovalConfig

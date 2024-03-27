@@ -7673,6 +7673,24 @@
         }
       }
     },
+    "ManualApprovalStateApprover": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "status": {
+          "$ref": "#/definitions/modelManualApprovalStatus"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "MetricAnalysisLatencyConfig": {
       "type": "object",
       "properties": {
@@ -7802,6 +7820,10 @@
       "properties": {
         "name": {
           "type": "string"
+        },
+        "minApprovers": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -12829,6 +12851,10 @@
         },
         "description": {
           "type": "string"
+        },
+        "minApprovers": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -13423,6 +13449,17 @@
         },
         "description": {
           "type": "string"
+        },
+        "approvers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ManualApprovalStateApprover"
+          }
+        },
+        "minApprovers": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -15277,6 +15314,11 @@
         },
         "customTask": {
           "$ref": "#/definitions/prodvanapipelinesCustomTask"
+        },
+        "minApprovers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
         }
       }
     },
@@ -15292,6 +15334,11 @@
         "everyAction": {
           "type": "boolean",
           "description": "request approval on every apply action, not just the first.\nonly works for runtime extensions, will do nothing for kubernetes services."
+        },
+        "minApprovers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "if set, a unique number of users must approve this precondition before the release channel can be deployed."
         }
       }
     },

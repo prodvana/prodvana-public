@@ -181,49 +181,60 @@ class Precondition(google.protobuf.message.Message):
         NAME_FIELD_NUMBER: builtins.int
         DESCRIPTION_FIELD_NUMBER: builtins.int
         EVERY_ACTION_FIELD_NUMBER: builtins.int
+        MIN_APPROVERS_FIELD_NUMBER: builtins.int
         name: builtins.str
         description: builtins.str
         every_action: builtins.bool
         """request approval on every apply action, not just the first.
         only works for runtime extensions, will do nothing for kubernetes services.
         """
+        min_approvers: builtins.int
+        """if set, a unique number of users must approve this precondition before the release channel can be deployed."""
         def __init__(
             self,
             *,
             name: builtins.str = ...,
             description: builtins.str = ...,
             every_action: builtins.bool = ...,
+            min_approvers: builtins.int = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "every_action", b"every_action", "name", b"name"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "every_action", b"every_action", "min_approvers", b"min_approvers", "name", b"name"]) -> None: ...
 
     class CustomTask(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         TASK_NAME_FIELD_NUMBER: builtins.int
         CUSTOM_TASK_FIELD_NUMBER: builtins.int
+        MIN_APPROVERS_FIELD_NUMBER: builtins.int
         task_name: builtins.str
         @property
         def custom_task(self) -> prodvana.proto.prodvana.pipelines.pipelines_pb2.CustomTask: ...
+        min_approvers: builtins.int
+        """if set, a unique number of users must approve this precondition before the release channel can be deployed."""
         def __init__(
             self,
             *,
             task_name: builtins.str = ...,
             custom_task: prodvana.proto.prodvana.pipelines.pipelines_pb2.CustomTask | None = ...,
+            min_approvers: builtins.int = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "task_name", b"task_name"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "min_approvers", b"min_approvers", "task_name", b"task_name"]) -> None: ...
 
     class SharedManualApproval(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         NAME_FIELD_NUMBER: builtins.int
+        MIN_APPROVERS_FIELD_NUMBER: builtins.int
         name: builtins.str
+        min_approvers: builtins.int
         def __init__(
             self,
             *,
             name: builtins.str = ...,
+            min_approvers: builtins.int = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["min_approvers", b"min_approvers", "name", b"name"]) -> None: ...
 
     RELEASE_CHANNEL_STABLE_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
