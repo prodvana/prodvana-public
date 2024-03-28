@@ -896,12 +896,9 @@ message TaskRun {
 message TaskEntityContext {
     TaskRun last_completed_run = 1;
     TaskRun last_run = 2;
-    // Can this task be run, ignoring retry limits?
-    // This is used to prevent a task from starting to run in certain scenarios.
-    bool is_active = 3;
 
-    reserved 4, 5;
-    reserved "missing_approval", "is_not_in_grace_period";
+    reserved 3, 4, 5;
+    reserved "is_active", "missing_approval", "is_not_in_grace_period";
     // next tag: 6
 }
 

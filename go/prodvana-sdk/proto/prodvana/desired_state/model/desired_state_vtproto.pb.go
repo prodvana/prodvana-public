@@ -1811,7 +1811,6 @@ func (m *TaskEntityContext) CloneVT() *TaskEntityContext {
 	r := new(TaskEntityContext)
 	r.LastCompletedRun = m.LastCompletedRun.CloneVT()
 	r.LastRun = m.LastRun.CloneVT()
-	r.IsActive = m.IsActive
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -8040,9 +8039,6 @@ func (this *TaskEntityContext) StableEqualVT(that *TaskEntityContext) bool {
 	if !this.LastRun.StableEqualVT(that.LastRun) {
 		return false
 	}
-	if this.IsActive != that.IsActive {
-		return false
-	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -8063,9 +8059,6 @@ func (this *TaskEntityContext) EqualVT(that *TaskEntityContext) bool {
 		return false
 	}
 	if !this.LastRun.EqualVT(that.LastRun) {
-		return false
-	}
-	if this.IsActive != that.IsActive {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
