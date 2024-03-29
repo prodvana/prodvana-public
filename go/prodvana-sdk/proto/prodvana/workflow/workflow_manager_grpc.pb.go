@@ -52,6 +52,9 @@ const (
 	WorkflowManager_InstallGitHub_FullMethodName                      = "/prodvana.workflow.WorkflowManager/InstallGitHub"
 	WorkflowManager_ListRepoCommits_FullMethodName                    = "/prodvana.workflow.WorkflowManager/ListRepoCommits"
 	WorkflowManager_GetCommitInfo_FullMethodName                      = "/prodvana.workflow.WorkflowManager/GetCommitInfo"
+	WorkflowManager_InstallLast9_FullMethodName                       = "/prodvana.workflow.WorkflowManager/InstallLast9"
+	WorkflowManager_UninstallLast9_FullMethodName                     = "/prodvana.workflow.WorkflowManager/UninstallLast9"
+	WorkflowManager_GetLast9Installation_FullMethodName               = "/prodvana.workflow.WorkflowManager/GetLast9Installation"
 )
 
 // WorkflowManagerClient is the client API for WorkflowManager service.
@@ -91,6 +94,9 @@ type WorkflowManagerClient interface {
 	InstallGitHub(ctx context.Context, in *InstallGitHubReq, opts ...grpc.CallOption) (*InstallGitHubResp, error)
 	ListRepoCommits(ctx context.Context, in *ListRepoCommitsReq, opts ...grpc.CallOption) (*ListRepoCommitsResp, error)
 	GetCommitInfo(ctx context.Context, in *GetCommitInfoReq, opts ...grpc.CallOption) (*GetCommitInfoResp, error)
+	InstallLast9(ctx context.Context, in *InstallLast9Req, opts ...grpc.CallOption) (*InstallLast9Resp, error)
+	UninstallLast9(ctx context.Context, in *UninstallLast9Req, opts ...grpc.CallOption) (*UninstallLast9Resp, error)
+	GetLast9Installation(ctx context.Context, in *GetLast9InstallationReq, opts ...grpc.CallOption) (*GetLast9InstallationResp, error)
 }
 
 type workflowManagerClient struct {
@@ -398,6 +404,33 @@ func (c *workflowManagerClient) GetCommitInfo(ctx context.Context, in *GetCommit
 	return out, nil
 }
 
+func (c *workflowManagerClient) InstallLast9(ctx context.Context, in *InstallLast9Req, opts ...grpc.CallOption) (*InstallLast9Resp, error) {
+	out := new(InstallLast9Resp)
+	err := c.cc.Invoke(ctx, WorkflowManager_InstallLast9_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) UninstallLast9(ctx context.Context, in *UninstallLast9Req, opts ...grpc.CallOption) (*UninstallLast9Resp, error) {
+	out := new(UninstallLast9Resp)
+	err := c.cc.Invoke(ctx, WorkflowManager_UninstallLast9_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowManagerClient) GetLast9Installation(ctx context.Context, in *GetLast9InstallationReq, opts ...grpc.CallOption) (*GetLast9InstallationResp, error) {
+	out := new(GetLast9InstallationResp)
+	err := c.cc.Invoke(ctx, WorkflowManager_GetLast9Installation_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowManagerServer is the server API for WorkflowManager service.
 // All implementations must embed UnimplementedWorkflowManagerServer
 // for forward compatibility
@@ -435,6 +468,9 @@ type WorkflowManagerServer interface {
 	InstallGitHub(context.Context, *InstallGitHubReq) (*InstallGitHubResp, error)
 	ListRepoCommits(context.Context, *ListRepoCommitsReq) (*ListRepoCommitsResp, error)
 	GetCommitInfo(context.Context, *GetCommitInfoReq) (*GetCommitInfoResp, error)
+	InstallLast9(context.Context, *InstallLast9Req) (*InstallLast9Resp, error)
+	UninstallLast9(context.Context, *UninstallLast9Req) (*UninstallLast9Resp, error)
+	GetLast9Installation(context.Context, *GetLast9InstallationReq) (*GetLast9InstallationResp, error)
 	mustEmbedUnimplementedWorkflowManagerServer()
 }
 
@@ -540,6 +576,15 @@ func (UnimplementedWorkflowManagerServer) ListRepoCommits(context.Context, *List
 }
 func (UnimplementedWorkflowManagerServer) GetCommitInfo(context.Context, *GetCommitInfoReq) (*GetCommitInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCommitInfo not implemented")
+}
+func (UnimplementedWorkflowManagerServer) InstallLast9(context.Context, *InstallLast9Req) (*InstallLast9Resp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InstallLast9 not implemented")
+}
+func (UnimplementedWorkflowManagerServer) UninstallLast9(context.Context, *UninstallLast9Req) (*UninstallLast9Resp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UninstallLast9 not implemented")
+}
+func (UnimplementedWorkflowManagerServer) GetLast9Installation(context.Context, *GetLast9InstallationReq) (*GetLast9InstallationResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLast9Installation not implemented")
 }
 func (UnimplementedWorkflowManagerServer) mustEmbedUnimplementedWorkflowManagerServer() {}
 
@@ -1148,6 +1193,60 @@ func _WorkflowManager_GetCommitInfo_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowManager_InstallLast9_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InstallLast9Req)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).InstallLast9(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_InstallLast9_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).InstallLast9(ctx, req.(*InstallLast9Req))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_UninstallLast9_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UninstallLast9Req)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).UninstallLast9(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_UninstallLast9_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).UninstallLast9(ctx, req.(*UninstallLast9Req))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowManager_GetLast9Installation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLast9InstallationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowManagerServer).GetLast9Installation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowManager_GetLast9Installation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowManagerServer).GetLast9Installation(ctx, req.(*GetLast9InstallationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowManager_ServiceDesc is the grpc.ServiceDesc for WorkflowManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1286,6 +1385,18 @@ var WorkflowManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCommitInfo",
 			Handler:    _WorkflowManager_GetCommitInfo_Handler,
+		},
+		{
+			MethodName: "InstallLast9",
+			Handler:    _WorkflowManager_InstallLast9_Handler,
+		},
+		{
+			MethodName: "UninstallLast9",
+			Handler:    _WorkflowManager_UninstallLast9_Handler,
+		},
+		{
+			MethodName: "GetLast9Installation",
+			Handler:    _WorkflowManager_GetLast9Installation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -140,6 +140,18 @@ class WorkflowManagerStub:
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoReq,
         prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoResp,
     ]
+    InstallLast9: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallLast9Req,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallLast9Resp,
+    ]
+    UninstallLast9: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallLast9Req,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallLast9Resp,
+    ]
+    GetLast9Installation: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetLast9InstallationReq,
+        prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetLast9InstallationResp,
+    ]
 
 class WorkflowManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -340,5 +352,23 @@ class WorkflowManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetCommitInfoResp: ...
+    @abc.abstractmethod
+    def InstallLast9(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallLast9Req,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.InstallLast9Resp: ...
+    @abc.abstractmethod
+    def UninstallLast9(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallLast9Req,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.UninstallLast9Resp: ...
+    @abc.abstractmethod
+    def GetLast9Installation(
+        self,
+        request: prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetLast9InstallationReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.workflow.workflow_manager_pb2.GetLast9InstallationResp: ...
 
 def add_WorkflowManagerServicer_to_server(servicer: WorkflowManagerServicer, server: grpc.Server) -> None: ...

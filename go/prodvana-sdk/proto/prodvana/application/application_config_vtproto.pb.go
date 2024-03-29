@@ -18,6 +18,40 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+func (m *AnnotationsConfig_Last9) CloneVT() *AnnotationsConfig_Last9 {
+	if m == nil {
+		return (*AnnotationsConfig_Last9)(nil)
+	}
+	r := new(AnnotationsConfig_Last9)
+	r.DataSource = m.DataSource
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *AnnotationsConfig_Last9) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *AnnotationsConfig) CloneVT() *AnnotationsConfig {
+	if m == nil {
+		return (*AnnotationsConfig)(nil)
+	}
+	r := new(AnnotationsConfig)
+	r.Last9 = m.Last9.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *AnnotationsConfig) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *ApplicationConfig) CloneVT() *ApplicationConfig {
 	if m == nil {
 		return (*ApplicationConfig)(nil)
@@ -25,6 +59,7 @@ func (m *ApplicationConfig) CloneVT() *ApplicationConfig {
 	r := new(ApplicationConfig)
 	r.Name = m.Name
 	r.Notifications = m.Notifications.CloneVT()
+	r.Annotations = m.Annotations.CloneVT()
 	r.Alerts = m.Alerts.CloneVT()
 	if rhs := m.ReleaseChannels; rhs != nil {
 		tmpContainer := make([]*release_channel.ReleaseChannelConfig, len(rhs))
@@ -65,6 +100,82 @@ func (m *ApplicationConfig) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (this *AnnotationsConfig_Last9) StableEqualVT(that *AnnotationsConfig_Last9) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DataSource != that.DataSource {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig_Last9) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig_Last9)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AnnotationsConfig) StableEqualVT(that *AnnotationsConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Last9.StableEqualVT(that.Last9) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *AnnotationsConfig_Last9) EqualVT(that *AnnotationsConfig_Last9) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DataSource != that.DataSource {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig_Last9) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig_Last9)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *AnnotationsConfig) EqualVT(that *AnnotationsConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Last9.EqualVT(that.Last9) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AnnotationsConfig) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AnnotationsConfig)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (this *ApplicationConfig) StableEqualVT(that *ApplicationConfig) bool {
 	if this == that {
 		return true
@@ -147,6 +258,9 @@ func (this *ApplicationConfig) StableEqualVT(that *ApplicationConfig) bool {
 				return false
 			}
 		}
+	}
+	if !this.Annotations.StableEqualVT(that.Annotations) {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
@@ -240,6 +354,9 @@ func (this *ApplicationConfig) EqualVT(that *ApplicationConfig) bool {
 				return false
 			}
 		}
+	}
+	if !this.Annotations.EqualVT(that.Annotations) {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

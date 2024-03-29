@@ -4030,6 +4030,80 @@
         ]
       }
     },
+    "/v1/integrations/last9": {
+      "get": {
+        "operationId": "WorkflowManager_GetLast9Installation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowGetLast9InstallationResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      },
+      "delete": {
+        "operationId": "WorkflowManager_UninstallLast9",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowUninstallLast9Resp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
+    "/v1/integrations/last9/install": {
+      "post": {
+        "operationId": "WorkflowManager_InstallLast9",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/workflowInstallLast9Resp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/workflowInstallLast9Req"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.workflow.WorkflowManager"
+        ]
+      }
+    },
     "/v1/integrations/pagerduty/install": {
       "get": {
         "operationId": "WorkflowManager_InstallPagerDuty",
@@ -6848,6 +6922,14 @@
         }
       }
     },
+    "AnnotationsConfigLast9": {
+      "type": "object",
+      "properties": {
+        "dataSource": {
+          "type": "string"
+        }
+      }
+    },
     "ApplyDetailsApplyStatus": {
       "type": "string",
       "enum": [
@@ -8155,6 +8237,9 @@
         },
         "notifications": {
           "$ref": "#/definitions/common_configNotificationConfig"
+        },
+        "annotations": {
+          "$ref": "#/definitions/prodvanaapplicationAnnotationsConfig"
         },
         "alerts": {
           "$ref": "#/definitions/workflowAlertingConfig",
@@ -14432,6 +14517,14 @@
         }
       }
     },
+    "prodvanaapplicationAnnotationsConfig": {
+      "type": "object",
+      "properties": {
+        "last9": {
+          "$ref": "#/definitions/AnnotationsConfigLast9"
+        }
+      }
+    },
     "prodvanacommon_configKubernetesConfig": {
       "type": "object",
       "properties": {
@@ -14835,6 +14928,16 @@
           }
         }
       }
+    },
+    "prodvanaworkflowAnnotationsConfig": {
+      "type": "object",
+      "properties": {
+        "honeycomb": {
+          "$ref": "#/definitions/AnnotationsConfigHoneycomb"
+        }
+      },
+      "description": "Last9's model is configured at the Application level because it does not\nhave a similar concept.\n\nIt doesn't make sense to put Last9 config at the RC level or Honeycomb config\nat the Application level, so these are separate AnnotationConfig messages.\nSee prodvana.application.AnnotationsConfig for Last9 config.",
+      "title": "this is currently used only on the Release Channel level because\nHoneycomb's model means we map environment to a Release Channel"
     },
     "protectionAllowedTimesProtectionConfig": {
       "type": "object",
@@ -15387,7 +15490,7 @@
           }
         },
         "deployAnnotations": {
-          "$ref": "#/definitions/workflowAnnotationsConfig"
+          "$ref": "#/definitions/prodvanaworkflowAnnotationsConfig"
         },
         "preconditions": {
           "type": "array",
@@ -15696,7 +15799,7 @@
           }
         },
         "deployAnnotations": {
-          "$ref": "#/definitions/workflowAnnotationsConfig"
+          "$ref": "#/definitions/prodvanaworkflowAnnotationsConfig"
         },
         "prePushTasks": {
           "type": "array",
@@ -16374,7 +16477,7 @@
           }
         },
         "deployAnnotations": {
-          "$ref": "#/definitions/workflowAnnotationsConfig"
+          "$ref": "#/definitions/prodvanaworkflowAnnotationsConfig"
         },
         "prePushTasks": {
           "type": "array",
@@ -16780,14 +16883,6 @@
         }
       }
     },
-    "workflowAnnotationsConfig": {
-      "type": "object",
-      "properties": {
-        "honeycomb": {
-          "$ref": "#/definitions/AnnotationsConfigHoneycomb"
-        }
-      }
-    },
     "workflowContainerRegistryIntegration": {
       "type": "object",
       "properties": {
@@ -16962,6 +17057,17 @@
         }
       }
     },
+    "workflowGetLast9InstallationResp": {
+      "type": "object",
+      "properties": {
+        "integrationId": {
+          "type": "string"
+        },
+        "orgSlug": {
+          "type": "string"
+        }
+      }
+    },
     "workflowGetProgramDefaultsResp": {
       "type": "object",
       "properties": {
@@ -17037,6 +17143,28 @@
       }
     },
     "workflowInstallGrafanaResp": {
+      "type": "object",
+      "properties": {
+        "integrationId": {
+          "type": "string"
+        }
+      }
+    },
+    "workflowInstallLast9Req": {
+      "type": "object",
+      "properties": {
+        "orgSlug": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "workflowInstallLast9Resp": {
       "type": "object",
       "properties": {
         "integrationId": {
@@ -17257,6 +17385,14 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "workflowUninstallLast9Resp": {
+      "type": "object",
+      "properties": {
+        "integrationId": {
+          "type": "string"
         }
       }
     },

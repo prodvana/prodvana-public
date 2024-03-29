@@ -1437,3 +1437,86 @@ class GetInstallGitHubUrlResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["manifest", b"manifest", "url", b"url"]) -> None: ...
 
 global___GetInstallGitHubUrlResp = GetInstallGitHubUrlResp
+
+class InstallLast9Req(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ORG_SLUG_FIELD_NUMBER: builtins.int
+    ACCESS_TOKEN_FIELD_NUMBER: builtins.int
+    REFRESH_TOKEN_FIELD_NUMBER: builtins.int
+    org_slug: builtins.str
+    access_token: builtins.str
+    refresh_token: builtins.str
+    def __init__(
+        self,
+        *,
+        org_slug: builtins.str = ...,
+        access_token: builtins.str = ...,
+        refresh_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["access_token", b"access_token", "org_slug", b"org_slug", "refresh_token", b"refresh_token"]) -> None: ...
+
+global___InstallLast9Req = InstallLast9Req
+
+class InstallLast9Resp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTEGRATION_ID_FIELD_NUMBER: builtins.int
+    integration_id: builtins.str
+    def __init__(
+        self,
+        *,
+        integration_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["integration_id", b"integration_id"]) -> None: ...
+
+global___InstallLast9Resp = InstallLast9Resp
+
+class UninstallLast9Req(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___UninstallLast9Req = UninstallLast9Req
+
+class UninstallLast9Resp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTEGRATION_ID_FIELD_NUMBER: builtins.int
+    integration_id: builtins.str
+    def __init__(
+        self,
+        *,
+        integration_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["integration_id", b"integration_id"]) -> None: ...
+
+global___UninstallLast9Resp = UninstallLast9Resp
+
+class GetLast9InstallationReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___GetLast9InstallationReq = GetLast9InstallationReq
+
+class GetLast9InstallationResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTEGRATION_ID_FIELD_NUMBER: builtins.int
+    ORG_SLUG_FIELD_NUMBER: builtins.int
+    integration_id: builtins.str
+    org_slug: builtins.str
+    def __init__(
+        self,
+        *,
+        integration_id: builtins.str = ...,
+        org_slug: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["integration_id", b"integration_id", "org_slug", b"org_slug"]) -> None: ...
+
+global___GetLast9InstallationResp = GetLast9InstallationResp

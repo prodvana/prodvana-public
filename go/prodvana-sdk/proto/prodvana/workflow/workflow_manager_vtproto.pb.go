@@ -1665,6 +1665,109 @@ func (m *GetInstallGitHubUrlResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *InstallLast9Req) CloneVT() *InstallLast9Req {
+	if m == nil {
+		return (*InstallLast9Req)(nil)
+	}
+	r := new(InstallLast9Req)
+	r.OrgSlug = m.OrgSlug
+	r.AccessToken = m.AccessToken
+	r.RefreshToken = m.RefreshToken
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *InstallLast9Req) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *InstallLast9Resp) CloneVT() *InstallLast9Resp {
+	if m == nil {
+		return (*InstallLast9Resp)(nil)
+	}
+	r := new(InstallLast9Resp)
+	r.IntegrationId = m.IntegrationId
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *InstallLast9Resp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *UninstallLast9Req) CloneVT() *UninstallLast9Req {
+	if m == nil {
+		return (*UninstallLast9Req)(nil)
+	}
+	r := new(UninstallLast9Req)
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *UninstallLast9Req) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *UninstallLast9Resp) CloneVT() *UninstallLast9Resp {
+	if m == nil {
+		return (*UninstallLast9Resp)(nil)
+	}
+	r := new(UninstallLast9Resp)
+	r.IntegrationId = m.IntegrationId
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *UninstallLast9Resp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *GetLast9InstallationReq) CloneVT() *GetLast9InstallationReq {
+	if m == nil {
+		return (*GetLast9InstallationReq)(nil)
+	}
+	r := new(GetLast9InstallationReq)
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetLast9InstallationReq) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *GetLast9InstallationResp) CloneVT() *GetLast9InstallationResp {
+	if m == nil {
+		return (*GetLast9InstallationResp)(nil)
+	}
+	r := new(GetLast9InstallationResp)
+	r.IntegrationId = m.IntegrationId
+	r.OrgSlug = m.OrgSlug
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetLast9InstallationResp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (this *TrackedImageRepository) StableEqualVT(that *TrackedImageRepository) bool {
 	if this == that {
 		return true
@@ -5986,6 +6089,240 @@ func (this *GetInstallGitHubUrlResp) EqualVT(that *GetInstallGitHubUrlResp) bool
 
 func (this *GetInstallGitHubUrlResp) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*GetInstallGitHubUrlResp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *InstallLast9Req) StableEqualVT(that *InstallLast9Req) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.OrgSlug != that.OrgSlug {
+		return false
+	}
+	if this.AccessToken != that.AccessToken {
+		return false
+	}
+	if this.RefreshToken != that.RefreshToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallLast9Req) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallLast9Req)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *InstallLast9Req) EqualVT(that *InstallLast9Req) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.OrgSlug != that.OrgSlug {
+		return false
+	}
+	if this.AccessToken != that.AccessToken {
+		return false
+	}
+	if this.RefreshToken != that.RefreshToken {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallLast9Req) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallLast9Req)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *InstallLast9Resp) StableEqualVT(that *InstallLast9Resp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallLast9Resp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallLast9Resp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *InstallLast9Resp) EqualVT(that *InstallLast9Resp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *InstallLast9Resp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*InstallLast9Resp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *UninstallLast9Req) StableEqualVT(that *UninstallLast9Req) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallLast9Req) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallLast9Req)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *UninstallLast9Req) EqualVT(that *UninstallLast9Req) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallLast9Req) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallLast9Req)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *UninstallLast9Resp) StableEqualVT(that *UninstallLast9Resp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallLast9Resp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallLast9Resp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *UninstallLast9Resp) EqualVT(that *UninstallLast9Resp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *UninstallLast9Resp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*UninstallLast9Resp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetLast9InstallationReq) StableEqualVT(that *GetLast9InstallationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLast9InstallationReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLast9InstallationReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetLast9InstallationReq) EqualVT(that *GetLast9InstallationReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLast9InstallationReq) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLast9InstallationReq)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetLast9InstallationResp) StableEqualVT(that *GetLast9InstallationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.OrgSlug != that.OrgSlug {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLast9InstallationResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLast9InstallationResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetLast9InstallationResp) EqualVT(that *GetLast9InstallationResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.IntegrationId != that.IntegrationId {
+		return false
+	}
+	if this.OrgSlug != that.OrgSlug {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetLast9InstallationResp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetLast9InstallationResp)
 	if !ok {
 		return false
 	}

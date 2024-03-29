@@ -20,6 +20,34 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class AnnotationsConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class Last9(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DATA_SOURCE_FIELD_NUMBER: builtins.int
+        data_source: builtins.str
+        def __init__(
+            self,
+            *,
+            data_source: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["data_source", b"data_source"]) -> None: ...
+
+    LAST9_FIELD_NUMBER: builtins.int
+    @property
+    def last9(self) -> global___AnnotationsConfig.Last9: ...
+    def __init__(
+        self,
+        *,
+        last9: global___AnnotationsConfig.Last9 | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last9", b"last9"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["last9", b"last9"]) -> None: ...
+
+global___AnnotationsConfig = AnnotationsConfig
+
 class ApplicationConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -27,6 +55,7 @@ class ApplicationConfig(google.protobuf.message.Message):
     RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_GROUPS_FIELD_NUMBER: builtins.int
     NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    ANNOTATIONS_FIELD_NUMBER: builtins.int
     ALERTS_FIELD_NUMBER: builtins.int
     CAPABILITIES_FIELD_NUMBER: builtins.int
     CAPABILITY_INSTANCES_FIELD_NUMBER: builtins.int
@@ -37,6 +66,8 @@ class ApplicationConfig(google.protobuf.message.Message):
     def release_channel_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelGroupGeneratorConfig]: ...
     @property
     def notifications(self) -> prodvana.proto.prodvana.common_config.notification_pb2.NotificationConfig: ...
+    @property
+    def annotations(self) -> global___AnnotationsConfig: ...
     @property
     def alerts(self) -> prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig:
         """deprecated"""
@@ -53,11 +84,12 @@ class ApplicationConfig(google.protobuf.message.Message):
         release_channels: collections.abc.Iterable[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig] | None = ...,
         release_channel_groups: collections.abc.Iterable[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelGroupGeneratorConfig] | None = ...,
         notifications: prodvana.proto.prodvana.common_config.notification_pb2.NotificationConfig | None = ...,
+        annotations: global___AnnotationsConfig | None = ...,
         alerts: prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig | None = ...,
         capabilities: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityConfig] | None = ...,
         capability_instances: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "notifications", b"notifications"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channel_groups", b"release_channel_groups", "release_channels", b"release_channels"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "annotations", b"annotations", "notifications", b"notifications"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "annotations", b"annotations", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channel_groups", b"release_channel_groups", "release_channels", b"release_channels"]) -> None: ...
 
 global___ApplicationConfig = ApplicationConfig

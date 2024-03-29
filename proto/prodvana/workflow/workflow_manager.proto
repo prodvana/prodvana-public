@@ -449,6 +449,31 @@ message GetInstallGitHubUrlResp {
   string manifest = 2;
 }
 
+message InstallLast9Req {
+  string org_slug = 1 [(validate.rules).string.min_len = 1];
+  string access_token = 2 [(validate.rules).string.min_len = 1];
+  string refresh_token = 3 [(validate.rules).string.min_len = 1];
+}
+
+message InstallLast9Resp {
+  string integration_id = 1;
+}
+
+message UninstallLast9Req {
+}
+
+message UninstallLast9Resp {
+  string integration_id = 1;
+}
+
+message GetLast9InstallationReq {
+}
+
+message GetLast9InstallationResp {
+  string integration_id = 1;
+  string org_slug = 2;
+}
+
 service WorkflowManager {
     rpc ListIntegrations(ListIntegrationsReq) returns (ListIntegrationsResp) {
         option (google.api.http) = {
@@ -619,5 +644,21 @@ service WorkflowManager {
       option (google.api.http) = {
           get: "/v1/integrations/repo/commit-info"
       };
+    };
+    rpc InstallLast9(InstallLast9Req) returns (InstallLast9Resp) {
+        option (google.api.http) = {
+            post: "/v1/integrations/last9/install",
+            body: "*"
+        };
+    };
+    rpc UninstallLast9(UninstallLast9Req) returns (UninstallLast9Resp) {
+        option (google.api.http) = {
+            delete: "/v1/integrations/last9"
+        };
+    };
+    rpc GetLast9Installation(GetLast9InstallationReq) returns (GetLast9InstallationResp) {
+        option (google.api.http) = {
+            get: "/v1/integrations/last9"
+        };
     };
 }

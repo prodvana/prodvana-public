@@ -8537,6 +8537,655 @@ var _ interface {
 	ErrorName() string
 } = GetInstallGitHubUrlRespValidationError{}
 
+// Validate checks the field values on InstallLast9Req with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *InstallLast9Req) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InstallLast9Req with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InstallLast9ReqMultiError, or nil if none found.
+func (m *InstallLast9Req) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InstallLast9Req) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetOrgSlug()) < 1 {
+		err := InstallLast9ReqValidationError{
+			field:  "OrgSlug",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetAccessToken()) < 1 {
+		err := InstallLast9ReqValidationError{
+			field:  "AccessToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetRefreshToken()) < 1 {
+		err := InstallLast9ReqValidationError{
+			field:  "RefreshToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return InstallLast9ReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// InstallLast9ReqMultiError is an error wrapping multiple validation errors
+// returned by InstallLast9Req.ValidateAll() if the designated constraints
+// aren't met.
+type InstallLast9ReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InstallLast9ReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InstallLast9ReqMultiError) AllErrors() []error { return m }
+
+// InstallLast9ReqValidationError is the validation error returned by
+// InstallLast9Req.Validate if the designated constraints aren't met.
+type InstallLast9ReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InstallLast9ReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InstallLast9ReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InstallLast9ReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InstallLast9ReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InstallLast9ReqValidationError) ErrorName() string { return "InstallLast9ReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InstallLast9ReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInstallLast9Req.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InstallLast9ReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InstallLast9ReqValidationError{}
+
+// Validate checks the field values on InstallLast9Resp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *InstallLast9Resp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InstallLast9Resp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InstallLast9RespMultiError, or nil if none found.
+func (m *InstallLast9Resp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InstallLast9Resp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	if len(errors) > 0 {
+		return InstallLast9RespMultiError(errors)
+	}
+
+	return nil
+}
+
+// InstallLast9RespMultiError is an error wrapping multiple validation errors
+// returned by InstallLast9Resp.ValidateAll() if the designated constraints
+// aren't met.
+type InstallLast9RespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InstallLast9RespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InstallLast9RespMultiError) AllErrors() []error { return m }
+
+// InstallLast9RespValidationError is the validation error returned by
+// InstallLast9Resp.Validate if the designated constraints aren't met.
+type InstallLast9RespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InstallLast9RespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InstallLast9RespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InstallLast9RespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InstallLast9RespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InstallLast9RespValidationError) ErrorName() string { return "InstallLast9RespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InstallLast9RespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInstallLast9Resp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InstallLast9RespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InstallLast9RespValidationError{}
+
+// Validate checks the field values on UninstallLast9Req with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UninstallLast9Req) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UninstallLast9Req with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UninstallLast9ReqMultiError, or nil if none found.
+func (m *UninstallLast9Req) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UninstallLast9Req) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return UninstallLast9ReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// UninstallLast9ReqMultiError is an error wrapping multiple validation errors
+// returned by UninstallLast9Req.ValidateAll() if the designated constraints
+// aren't met.
+type UninstallLast9ReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UninstallLast9ReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UninstallLast9ReqMultiError) AllErrors() []error { return m }
+
+// UninstallLast9ReqValidationError is the validation error returned by
+// UninstallLast9Req.Validate if the designated constraints aren't met.
+type UninstallLast9ReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UninstallLast9ReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UninstallLast9ReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UninstallLast9ReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UninstallLast9ReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UninstallLast9ReqValidationError) ErrorName() string {
+	return "UninstallLast9ReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UninstallLast9ReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUninstallLast9Req.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UninstallLast9ReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UninstallLast9ReqValidationError{}
+
+// Validate checks the field values on UninstallLast9Resp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UninstallLast9Resp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UninstallLast9Resp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UninstallLast9RespMultiError, or nil if none found.
+func (m *UninstallLast9Resp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UninstallLast9Resp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	if len(errors) > 0 {
+		return UninstallLast9RespMultiError(errors)
+	}
+
+	return nil
+}
+
+// UninstallLast9RespMultiError is an error wrapping multiple validation errors
+// returned by UninstallLast9Resp.ValidateAll() if the designated constraints
+// aren't met.
+type UninstallLast9RespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UninstallLast9RespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UninstallLast9RespMultiError) AllErrors() []error { return m }
+
+// UninstallLast9RespValidationError is the validation error returned by
+// UninstallLast9Resp.Validate if the designated constraints aren't met.
+type UninstallLast9RespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UninstallLast9RespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UninstallLast9RespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UninstallLast9RespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UninstallLast9RespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UninstallLast9RespValidationError) ErrorName() string {
+	return "UninstallLast9RespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UninstallLast9RespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUninstallLast9Resp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UninstallLast9RespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UninstallLast9RespValidationError{}
+
+// Validate checks the field values on GetLast9InstallationReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetLast9InstallationReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetLast9InstallationReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetLast9InstallationReqMultiError, or nil if none found.
+func (m *GetLast9InstallationReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLast9InstallationReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetLast9InstallationReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLast9InstallationReqMultiError is an error wrapping multiple validation
+// errors returned by GetLast9InstallationReq.ValidateAll() if the designated
+// constraints aren't met.
+type GetLast9InstallationReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLast9InstallationReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLast9InstallationReqMultiError) AllErrors() []error { return m }
+
+// GetLast9InstallationReqValidationError is the validation error returned by
+// GetLast9InstallationReq.Validate if the designated constraints aren't met.
+type GetLast9InstallationReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLast9InstallationReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLast9InstallationReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLast9InstallationReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLast9InstallationReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLast9InstallationReqValidationError) ErrorName() string {
+	return "GetLast9InstallationReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLast9InstallationReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLast9InstallationReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLast9InstallationReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLast9InstallationReqValidationError{}
+
+// Validate checks the field values on GetLast9InstallationResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetLast9InstallationResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetLast9InstallationResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetLast9InstallationRespMultiError, or nil if none found.
+func (m *GetLast9InstallationResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLast9InstallationResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IntegrationId
+
+	// no validation rules for OrgSlug
+
+	if len(errors) > 0 {
+		return GetLast9InstallationRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLast9InstallationRespMultiError is an error wrapping multiple validation
+// errors returned by GetLast9InstallationResp.ValidateAll() if the designated
+// constraints aren't met.
+type GetLast9InstallationRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLast9InstallationRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLast9InstallationRespMultiError) AllErrors() []error { return m }
+
+// GetLast9InstallationRespValidationError is the validation error returned by
+// GetLast9InstallationResp.Validate if the designated constraints aren't met.
+type GetLast9InstallationRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLast9InstallationRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLast9InstallationRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLast9InstallationRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLast9InstallationRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLast9InstallationRespValidationError) ErrorName() string {
+	return "GetLast9InstallationRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLast9InstallationRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLast9InstallationResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLast9InstallationRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLast9InstallationRespValidationError{}
+
 // Validate checks the field values on
 // CreateContainerRegistryIntegrationReq_ECROptions with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

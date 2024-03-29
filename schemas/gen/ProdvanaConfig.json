@@ -137,6 +137,64 @@
             "title": "Prodvana Config",
             "description": "schema for config.pvn.yaml"
         },
+        "prodvana.application.AnnotationsConfig": {
+            "properties": {
+                "last9": {
+                    "$ref": "#/definitions/prodvana.application.AnnotationsConfig.Last9",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Annotations Config"
+        },
+        "prodvana.application.AnnotationsConfig.Last9": {
+            "properties": {
+                "data_source": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "dataSource": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Last 9"
+        },
         "prodvana.application.ApplicationConfig": {
             "properties": {
                 "name": {
@@ -207,6 +265,16 @@
                 },
                 "notifications": {
                     "$ref": "#/definitions/prodvana.common_config.NotificationConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "annotations": {
+                    "$ref": "#/definitions/prodvana.application.AnnotationsConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -10687,7 +10755,8 @@
                     "type": "object"
                 }
             ],
-            "title": "Annotations Config"
+            "title": "Annotations Config",
+            "description": "this is currently used only on the Release Channel level because Honeycomb's model means we map environment to a Release Channel Last9's model is configured at the Application level because it does not have a similar concept. It doesn't make sense to put Last9 config at the RC level or Honeycomb config at the Application level, so these are separate AnnotationConfig messages. See prodvana.application.AnnotationsConfig for Last9 config."
         },
         "prodvana.workflow.AnnotationsConfig.Honeycomb": {
             "properties": {

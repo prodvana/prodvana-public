@@ -68,6 +68,15 @@ func (x *AlertingConfig) GetPagerduty() *AlertingConfig_PagerDuty {
 	return nil
 }
 
+// this is currently used only on the Release Channel level because
+// Honeycomb's model means we map environment to a Release Channel
+//
+// Last9's model is configured at the Application level because it does not
+// have a similar concept.
+//
+// It doesn't make sense to put Last9 config at the RC level or Honeycomb config
+// at the Application level, so these are separate AnnotationConfig messages.
+// See prodvana.application.AnnotationsConfig for Last9 config.
 type AnnotationsConfig struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

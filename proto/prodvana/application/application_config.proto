@@ -7,6 +7,14 @@ import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/workflow/integration_config.proto";
 import "validate/validate.proto";
 
+
+message AnnotationsConfig {
+    message Last9 {
+        string data_source = 1 [(validate.rules).string.min_len = 1];
+    }
+    Last9 last9 = 1;
+}
+
 message ApplicationConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -18,6 +26,8 @@ message ApplicationConfig {
     repeated prodvana.release_channel.ReleaseChannelConfig release_channels = 2;
     repeated prodvana.release_channel.ReleaseChannelGroupGeneratorConfig release_channel_groups = 11 [(validate.rules).repeated.items.message.required = true];
     prodvana.common_config.NotificationConfig notifications = 4;
+    AnnotationsConfig annotations = 12;
+
     // deprecated
     prodvana.workflow.AlertingConfig alerts = 5;
 
@@ -29,5 +39,5 @@ message ApplicationConfig {
 
     reserved 3, 8, 9, 10;
     reserved "service_templates", "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
-    // next tag: 12
+    // next tag: 13
 }

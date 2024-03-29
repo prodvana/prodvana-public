@@ -179,6 +179,21 @@ class WorkflowManagerStub(object):
                 request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoReq.SerializeToString,
                 response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoResp.FromString,
                 )
+        self.InstallLast9 = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/InstallLast9',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Req.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Resp.FromString,
+                )
+        self.UninstallLast9 = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/UninstallLast9',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Req.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Resp.FromString,
+                )
+        self.GetLast9Installation = channel.unary_unary(
+                '/prodvana.workflow.WorkflowManager/GetLast9Installation',
+                request_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationReq.SerializeToString,
+                response_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationResp.FromString,
+                )
 
 
 class WorkflowManagerServicer(object):
@@ -382,6 +397,24 @@ class WorkflowManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def InstallLast9(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UninstallLast9(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetLast9Installation(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_WorkflowManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -549,6 +582,21 @@ def add_WorkflowManagerServicer_to_server(servicer, server):
                     servicer.GetCommitInfo,
                     request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoReq.FromString,
                     response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoResp.SerializeToString,
+            ),
+            'InstallLast9': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstallLast9,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Req.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Resp.SerializeToString,
+            ),
+            'UninstallLast9': grpc.unary_unary_rpc_method_handler(
+                    servicer.UninstallLast9,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Req.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Resp.SerializeToString,
+            ),
+            'GetLast9Installation': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLast9Installation,
+                    request_deserializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationReq.FromString,
+                    response_serializer=prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1118,5 +1166,56 @@ class WorkflowManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/GetCommitInfo',
             prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoReq.SerializeToString,
             prodvana_dot_workflow_dot_workflow__manager__pb2.GetCommitInfoResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InstallLast9(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/InstallLast9',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Req.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.InstallLast9Resp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UninstallLast9(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/UninstallLast9',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Req.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.UninstallLast9Resp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLast9Installation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.workflow.WorkflowManager/GetLast9Installation',
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationReq.SerializeToString,
+            prodvana_dot_workflow_dot_workflow__manager__pb2.GetLast9InstallationResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
