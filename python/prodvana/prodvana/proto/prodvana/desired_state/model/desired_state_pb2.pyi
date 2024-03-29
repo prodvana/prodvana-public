@@ -1577,6 +1577,7 @@ class ControlState(google.protobuf.message.Message):
     ACTION_EXPLANATION_FIELD_NUMBER: builtins.int
     LAST_FETCHED_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_APPLIED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    EXPECTED_NEXT_APPLY_TIMESTAMP_FIELD_NUMBER: builtins.int
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     OBSERVER_MODE_FIELD_NUMBER: builtins.int
     APPLY_ERROR_FIELD_NUMBER: builtins.int
@@ -1603,6 +1604,8 @@ class ControlState(google.protobuf.message.Message):
     @property
     def last_applied_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
+    def expected_next_apply_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
     def missing_approval(self) -> global___MissingApproval: ...
     observer_mode: builtins.bool
     @property
@@ -1620,13 +1623,14 @@ class ControlState(google.protobuf.message.Message):
         action_explanation: global___ActionExplanation | None = ...,
         last_fetched_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        expected_next_apply_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         missing_approval: global___MissingApproval | None = ...,
         observer_mode: builtins.bool = ...,
         apply_error: global___ApplyError | None = ...,
         notification_info: global___NotificationInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
 
 global___ControlState = ControlState
 

@@ -16,6 +16,7 @@ message EntityDumpState {
     message IOState {
         google.protobuf.Timestamp last_fetched_timestamp = 1;
         google.protobuf.Timestamp last_applied_timestamp = 2;
+        google.protobuf.Timestamp expected_next_apply_timestamp = 3;
     }
 
     IOState io_state = 6;

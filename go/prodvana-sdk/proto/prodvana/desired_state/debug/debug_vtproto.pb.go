@@ -28,6 +28,7 @@ func (m *EntityDumpState_IOState) CloneVT() *EntityDumpState_IOState {
 	r := new(EntityDumpState_IOState)
 	r.LastFetchedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastFetchedTimestamp).CloneVT())
 	r.LastAppliedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastAppliedTimestamp).CloneVT())
+	r.ExpectedNextApplyTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.ExpectedNextApplyTimestamp).CloneVT())
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -134,6 +135,9 @@ func (this *EntityDumpState_IOState) StableEqualVT(that *EntityDumpState_IOState
 		return false
 	}
 	if !(*timestamppb1.Timestamp)(this.LastAppliedTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LastAppliedTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ExpectedNextApplyTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ExpectedNextApplyTimestamp)) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -270,6 +274,9 @@ func (this *EntityDumpState_IOState) EqualVT(that *EntityDumpState_IOState) bool
 		return false
 	}
 	if !(*timestamppb1.Timestamp)(this.LastAppliedTimestamp).EqualVT((*timestamppb1.Timestamp)(that.LastAppliedTimestamp)) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.ExpectedNextApplyTimestamp).EqualVT((*timestamppb1.Timestamp)(that.ExpectedNextApplyTimestamp)) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

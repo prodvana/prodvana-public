@@ -189,6 +189,7 @@ func (m *Entity) CloneVT() *Entity {
 	r.LastUpdateTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastUpdateTimestamp).CloneVT())
 	r.LastFetchedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastFetchedTimestamp).CloneVT())
 	r.LastAppliedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastAppliedTimestamp).CloneVT())
+	r.ExpectedNextApplyTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.ExpectedNextApplyTimestamp).CloneVT())
 	r.Lifecycle = m.Lifecycle
 	r.MissingApproval = m.MissingApproval.CloneVT()
 	r.ApplyError = m.ApplyError.CloneVT()
@@ -858,6 +859,9 @@ func (this *Entity) StableEqualVT(that *Entity) bool {
 			}
 		}
 	}
+	if !(*timestamppb1.Timestamp)(this.ExpectedNextApplyTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.ExpectedNextApplyTimestamp)) {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -1035,6 +1039,9 @@ func (this *Entity) EqualVT(that *Entity) bool {
 				return false
 			}
 		}
+	}
+	if !(*timestamppb1.Timestamp)(this.ExpectedNextApplyTimestamp).EqualVT((*timestamppb1.Timestamp)(that.ExpectedNextApplyTimestamp)) {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

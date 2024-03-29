@@ -7476,6 +7476,10 @@
         "lastAppliedTimestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "expectedNextApplyTimestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -13006,6 +13010,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "expectedNextApplyTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
         "missingApproval": {
           "$ref": "#/definitions/modelMissingApproval"
         },
@@ -13382,6 +13390,11 @@
           "type": "string",
           "format": "date-time",
           "title": "when prodvana last applied state for this entity, best effort"
+        },
+        "expectedNextApplyTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "when prodvana expects to run apply again for this entity, if there is any work to be done. If nil, apply is expected to happen immediately, again if there is any work to be done."
         },
         "dependencies": {
           "type": "array",
