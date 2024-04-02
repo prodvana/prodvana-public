@@ -696,6 +696,30 @@
                             "type": "string"
                         }
                     ]
+                },
+                "inlined_bytes": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string",
+                            "format": "binary",
+                            "binaryEncoding": "base64"
+                        }
+                    ]
+                },
+                "inlinedBytes": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string",
+                            "format": "binary",
+                            "binaryEncoding": "base64"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,

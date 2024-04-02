@@ -1607,6 +1607,19 @@ func (m *BlobParameterValue) validate(all bool) error {
 		}
 		oneofBlobOneofPresent = true
 		// no validation rules for Inlined
+	case *BlobParameterValue_InlinedBytes:
+		if v == nil {
+			err := BlobParameterValueValidationError{
+				field:  "BlobOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBlobOneofPresent = true
+		// no validation rules for InlinedBytes
 	default:
 		_ = v // ensures v is used
 	}

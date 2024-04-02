@@ -90,6 +90,7 @@ message BlobParameterValue {
     oneof blob_oneof {
         option (validate.required) = true;
         string inlined = 1;
+        bytes inlined_bytes = 2;
     }
 }
 
