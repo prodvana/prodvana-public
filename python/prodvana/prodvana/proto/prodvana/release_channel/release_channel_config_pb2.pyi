@@ -37,6 +37,7 @@ class _RuntimeConnectionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_w
     EXTENSION: _RuntimeConnectionType.ValueType  # 2
     AWS_ECS: _RuntimeConnectionType.ValueType  # 3
     GOOGLE_CLOUD_RUN: _RuntimeConnectionType.ValueType  # 4
+    FLY: _RuntimeConnectionType.ValueType  # 5
 
 class RuntimeConnectionType(_RuntimeConnectionType, metaclass=_RuntimeConnectionTypeEnumTypeWrapper): ...
 
@@ -45,6 +46,7 @@ LONG_LIVED_COMPUTE: RuntimeConnectionType.ValueType  # 1
 EXTENSION: RuntimeConnectionType.ValueType  # 2
 AWS_ECS: RuntimeConnectionType.ValueType  # 3
 GOOGLE_CLOUD_RUN: RuntimeConnectionType.ValueType  # 4
+FLY: RuntimeConnectionType.ValueType  # 5
 global___RuntimeConnectionType = RuntimeConnectionType
 
 class Policy(google.protobuf.message.Message):

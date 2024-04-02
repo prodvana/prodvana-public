@@ -4167,6 +4167,16 @@
                         {}
                     ]
                 },
+                "fly": {
+                    "$ref": "#/definitions/prodvana.environment.FlyConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "labels": {
                     "items": {
                         "$ref": "#/definitions/prodvana.labels.LabelDefinition"
@@ -4904,7 +4914,9 @@
                         "AWS_ECS_EXTENSION",
                         3,
                         "GOOGLE_CLOUD_RUN_EXTENSION",
-                        4
+                        4,
+                        "FLY_EXTENSION",
+                        5
                     ],
                     "oneOf": [
                         {
@@ -5382,6 +5394,60 @@
                 }
             ],
             "title": "Crashing Program Patterns"
+        },
+        "prodvana.environment.FlyConfig": {
+            "properties": {
+                "proxy_runtime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "proxyRuntime": {
+                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "fly_api_token": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "flyApiToken": {
+                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Fly Config"
         },
         "prodvana.environment.GKEClusterMetadata": {
             "properties": {
@@ -5879,6 +5945,50 @@
                 }
             ],
             "title": "Terraform Runner Config"
+        },
+        "prodvana.fly.FlyConfig": {
+            "properties": {
+                "inlined": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "local": {
+                    "$ref": "#/definitions/prodvana.common_config.LocalConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "remote": {
+                    "$ref": "#/definitions/prodvana.common_config.RemoteConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Fly Config"
         },
         "prodvana.labels.LabelDefinition": {
             "properties": {
@@ -7865,7 +7975,9 @@
                         "AWS_ECS",
                         3,
                         "GOOGLE_CLOUD_RUN",
-                        4
+                        4,
+                        "FLY",
+                        5
                     ],
                     "oneOf": [
                         {
@@ -8948,6 +9060,16 @@
                         {}
                     ]
                 },
+                "fly": {
+                    "$ref": "#/definitions/prodvana.fly.FlyConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "env": {
                     "additionalProperties": {
                         "$ref": "#/definitions/prodvana.common_config.EnvValue",
@@ -9970,6 +10092,16 @@
                 },
                 "googleCloudRun": {
                     "$ref": "#/definitions/prodvana.service.GoogleCloudRunConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "fly": {
+                    "$ref": "#/definitions/prodvana.fly.FlyConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

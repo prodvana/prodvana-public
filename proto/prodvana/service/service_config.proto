@@ -17,6 +17,7 @@ import "prodvana/common_config/task.proto";
 import "prodvana/delivery/delivery_config.proto";
 import "prodvana/delivery_extension/config.proto";
 import "prodvana/desired_state/maestro/maestro.proto";
+import "prodvana/fly/fly_config.proto";
 import "prodvana/protection/attachments.proto";
 import "prodvana/protection/protection_reference.proto";
 import "prodvana/release_channel/release_channel_config.proto";
@@ -121,6 +122,7 @@ message PerReleaseChannelConfig {
         prodvana.common_config.HelmConfig helm = 15;
         AwsEcsConfig aws_ecs = 22;
         GoogleCloudRunConfig google_cloud_run = 24;
+        prodvana.fly.FlyConfig fly = 27;
     }
 
     // Additional env variables that are injected to the service.
@@ -144,7 +146,7 @@ message PerReleaseChannelConfig {
 
     reserved 3, 4, 12;
 
-    // next tag: 27
+    // next tag: 28
 }
 
 message CapabilityReference {
@@ -339,6 +341,7 @@ message ServiceConfig {
         prodvana.common_config.HelmConfig helm = 26;
         AwsEcsConfig aws_ecs = 35;
         GoogleCloudRunConfig google_cloud_run = 36;
+        prodvana.fly.FlyConfig fly = 43;
     }
 
     enum ParametersAutogen {
@@ -383,7 +386,7 @@ message ServiceConfig {
     // If the generated bundle name already exists, a number will be appended to resolve conflict.
     string bundle_name = 42;
 
-    // next tag: 43
+    // next tag: 44
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -428,6 +431,7 @@ message CompiledServiceInstanceConfig {
         prodvana.common_config.HelmConfig helm = 29;
         AwsEcsConfig aws_ecs = 37;
         GoogleCloudRunConfig google_cloud_run = 39;
+        prodvana.fly.FlyConfig fly = 41;
     }
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
@@ -451,7 +455,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 41
+    // next tag: 42
 }
 
 message CompiledJobConfig {

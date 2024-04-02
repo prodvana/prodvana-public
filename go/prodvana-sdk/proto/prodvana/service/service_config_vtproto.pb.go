@@ -8,6 +8,7 @@ import (
 	durationpb1 "github.com/planetscale/vtprotobuf/types/known/durationpb"
 	common_config "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
 	delivery_extension "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_extension"
+	fly "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/fly"
 	protection "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection"
 	volumes "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/volumes"
 	proto "google.golang.org/protobuf/proto"
@@ -402,6 +403,15 @@ func (m *PerReleaseChannelConfig_GoogleCloudRun) CloneVT() isPerReleaseChannelCo
 	}
 	r := new(PerReleaseChannelConfig_GoogleCloudRun)
 	r.GoogleCloudRun = m.GoogleCloudRun.CloneVT()
+	return r
+}
+
+func (m *PerReleaseChannelConfig_Fly) CloneVT() isPerReleaseChannelConfig_ConfigOneof {
+	if m == nil {
+		return (*PerReleaseChannelConfig_Fly)(nil)
+	}
+	r := new(PerReleaseChannelConfig_Fly)
+	r.Fly = m.Fly.CloneVT()
 	return r
 }
 
@@ -1006,6 +1016,15 @@ func (m *ServiceConfig_GoogleCloudRun) CloneVT() isServiceConfig_ConfigOneof {
 	return r
 }
 
+func (m *ServiceConfig_Fly) CloneVT() isServiceConfig_ConfigOneof {
+	if m == nil {
+		return (*ServiceConfig_Fly)(nil)
+	}
+	r := new(ServiceConfig_Fly)
+	r.Fly = m.Fly.CloneVT()
+	return r
+}
+
 func (m *CompiledServiceInstanceConfig) CloneVT() *CompiledServiceInstanceConfig {
 	if m == nil {
 		return (*CompiledServiceInstanceConfig)(nil)
@@ -1173,6 +1192,15 @@ func (m *CompiledServiceInstanceConfig_GoogleCloudRun) CloneVT() isCompiledServi
 	}
 	r := new(CompiledServiceInstanceConfig_GoogleCloudRun)
 	r.GoogleCloudRun = m.GoogleCloudRun.CloneVT()
+	return r
+}
+
+func (m *CompiledServiceInstanceConfig_Fly) CloneVT() isCompiledServiceInstanceConfig_ConfigOneof {
+	if m == nil {
+		return (*CompiledServiceInstanceConfig_Fly)(nil)
+	}
+	r := new(CompiledServiceInstanceConfig_Fly)
+	r.Fly = m.Fly.CloneVT()
 	return r
 }
 
@@ -2331,6 +2359,31 @@ func (this *PerReleaseChannelConfig_CustomRuntime) StableEqualVT(thatIface isPer
 	return true
 }
 
+func (this *PerReleaseChannelConfig_Fly) StableEqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *PerReleaseChannelConfig) EqualVT(that *PerReleaseChannelConfig) bool {
 	if this == that {
 		return true
@@ -2709,6 +2762,31 @@ func (this *PerReleaseChannelConfig_CustomRuntime) EqualVT(thatIface isPerReleas
 		}
 		if q == nil {
 			q = &RuntimeExtensionConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *PerReleaseChannelConfig_Fly) EqualVT(thatIface isPerReleaseChannelConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*PerReleaseChannelConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
 		}
 		if !p.EqualVT(q) {
 			return false
@@ -4576,6 +4654,31 @@ func (this *ServiceConfig_CustomRuntime) StableEqualVT(thatIface isServiceConfig
 	return true
 }
 
+func (this *ServiceConfig_Fly) StableEqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ServiceConfig) EqualVT(that *ServiceConfig) bool {
 	if this == that {
 		return true
@@ -5051,6 +5154,31 @@ func (this *ServiceConfig_CustomRuntime) EqualVT(thatIface isServiceConfig_Confi
 	return true
 }
 
+func (this *ServiceConfig_Fly) EqualVT(thatIface isServiceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ServiceConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CompiledServiceInstanceConfig) StableEqualVT(that *CompiledServiceInstanceConfig) bool {
 	if this == that {
 		return true
@@ -5465,6 +5593,31 @@ func (this *CompiledServiceInstanceConfig_GoogleCloudRun) StableEqualVT(thatIfac
 	return true
 }
 
+func (this *CompiledServiceInstanceConfig_Fly) StableEqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *CompiledServiceInstanceConfig) EqualVT(that *CompiledServiceInstanceConfig) bool {
 	if this == that {
 		return true
@@ -5871,6 +6024,31 @@ func (this *CompiledServiceInstanceConfig_GoogleCloudRun) EqualVT(thatIface isCo
 		}
 		if q == nil {
 			q = &GoogleCloudRunConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *CompiledServiceInstanceConfig_Fly) EqualVT(thatIface isCompiledServiceInstanceConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*CompiledServiceInstanceConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &fly.FlyConfig{}
+		}
+		if q == nil {
+			q = &fly.FlyConfig{}
 		}
 		if !p.EqualVT(q) {
 			return false

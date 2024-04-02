@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.fly;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/fly";
+import "prodvana/common_config/kubernetes_config.proto";
+import "validate/validate.proto";
+
+message FlyConfig {
+    oneof toml_oneof {
+        option (validate.required) = true;
+        string inlined = 1 [(validate.rules).string.min_len = 1];
+        prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
+        prodvana.common_config.RemoteConfig remote = 3 [(validate.rules).message.required = true];
+    }
+}

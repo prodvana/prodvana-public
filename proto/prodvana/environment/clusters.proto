@@ -50,6 +50,7 @@ enum ClusterType {
     PULUMI_RUNNER = 6;
     AWS_ECS = 7;
     GOOGLE_CLOUD_RUN = 8;
+    FLY = 9;
 }
 
 message Cluster {
@@ -179,6 +180,7 @@ enum ExtensionType {
     PULUMI = 2;
     AWS_ECS_EXTENSION = 3;
     GOOGLE_CLOUD_RUN_EXTENSION = 4;
+    FLY_EXTENSION = 5;
 }
 
 message ExtensionClusterConfig {
@@ -309,6 +311,15 @@ message GoogleCloudRunConfig {
     // next tag: 5
 }
 
+message FlyConfig {
+    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
+    oneof credentials {
+        option (validate.required) = true;
+        prodvana.common_config.SecretReferenceValue fly_api_token = 2 [(validate.rules).message.required = true];
+    }
+    // next tag: 3
+}
+
 message ClusterConfig {
     string name = 14;
 
@@ -395,6 +406,7 @@ message ClusterConfig {
         TerraformRunnerConfig pulumi_runner = 16;
         AwsEcsConfig aws_ecs = 20;
         GoogleCloudRunConfig google_cloud_run = 21;
+        FlyConfig fly = 24;
     }
 
     reserved 1, 2, 5;
@@ -404,5 +416,5 @@ message ClusterConfig {
 
     prodvana.common_config.AutoRollbackConfig auto_rollback = 22;
 
-    // next tag: 24
+    // next tag: 25
 }

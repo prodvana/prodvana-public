@@ -10917,6 +10917,9 @@
         "googleCloudRun": {
           "$ref": "#/definitions/prodvanaenvironmentGoogleCloudRunConfig"
         },
+        "fly": {
+          "$ref": "#/definitions/prodvanaenvironmentFlyConfig"
+        },
         "labels": {
           "type": "array",
           "items": {
@@ -10948,7 +10951,8 @@
         "TERRAFORM_RUNNER",
         "PULUMI_RUNNER",
         "AWS_ECS",
-        "GOOGLE_CLOUD_RUN"
+        "GOOGLE_CLOUD_RUN",
+        "FLY"
       ],
       "default": "UNKNOWN",
       "title": "- ECS: TODO(naphat) remove, this is legacy ecs implementation not based on runtime extension"
@@ -11161,7 +11165,8 @@
         "TERRAFORM",
         "PULUMI",
         "AWS_ECS_EXTENSION",
-        "GOOGLE_CLOUD_RUN_EXTENSION"
+        "GOOGLE_CLOUD_RUN_EXTENSION",
+        "FLY_EXTENSION"
       ],
       "default": "GENERIC"
     },
@@ -14683,6 +14688,17 @@
         }
       }
     },
+    "prodvanaenvironmentFlyConfig": {
+      "type": "object",
+      "properties": {
+        "proxyRuntime": {
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+        },
+        "flyApiToken": {
+          "$ref": "#/definitions/common_configSecretReferenceValue"
+        }
+      }
+    },
     "prodvanaenvironmentGoogleCloudRunConfig": {
       "type": "object",
       "properties": {
@@ -14719,6 +14735,20 @@
         "url": {
           "type": "string",
           "description": "optional, depends on if there is a unique URL to view this object."
+        }
+      }
+    },
+    "prodvanaflyFlyConfig": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "type": "string"
+        },
+        "local": {
+          "$ref": "#/definitions/common_configLocalConfig"
+        },
+        "remote": {
+          "$ref": "#/definitions/common_configRemoteConfig"
         }
       }
     },
@@ -15630,7 +15660,8 @@
         "LONG_LIVED_COMPUTE",
         "EXTENSION",
         "AWS_ECS",
-        "GOOGLE_CLOUD_RUN"
+        "GOOGLE_CLOUD_RUN",
+        "FLY"
       ],
       "default": "UNKNOWN_CONNECTION"
     },
@@ -15879,6 +15910,9 @@
         },
         "googleCloudRun": {
           "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
+        },
+        "fly": {
+          "$ref": "#/definitions/prodvanaflyFlyConfig"
         },
         "env": {
           "type": "object",
@@ -16303,6 +16337,9 @@
         "googleCloudRun": {
           "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
         },
+        "fly": {
+          "$ref": "#/definitions/prodvanaflyFlyConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -16589,6 +16626,9 @@
         },
         "googleCloudRun": {
           "$ref": "#/definitions/prodvanaserviceGoogleCloudRunConfig"
+        },
+        "fly": {
+          "$ref": "#/definitions/prodvanaflyFlyConfig"
         },
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",

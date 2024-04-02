@@ -663,6 +663,37 @@ func (m *GoogleCloudRunConfig_ServiceAccountJson) CloneVT() isGoogleCloudRunConf
 	return r
 }
 
+func (m *FlyConfig) CloneVT() *FlyConfig {
+	if m == nil {
+		return (*FlyConfig)(nil)
+	}
+	r := new(FlyConfig)
+	r.ProxyRuntime = m.ProxyRuntime.CloneVT()
+	if m.Credentials != nil {
+		r.Credentials = m.Credentials.(interface {
+			CloneVT() isFlyConfig_Credentials
+		}).CloneVT()
+	}
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *FlyConfig) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *FlyConfig_FlyApiToken) CloneVT() isFlyConfig_Credentials {
+	if m == nil {
+		return (*FlyConfig_FlyApiToken)(nil)
+	}
+	r := new(FlyConfig_FlyApiToken)
+	r.FlyApiToken = m.FlyApiToken.CloneVT()
+	return r
+}
+
 func (m *ClusterConfig_Kubecost) CloneVT() *ClusterConfig_Kubecost {
 	if m == nil {
 		return (*ClusterConfig_Kubecost)(nil)
@@ -891,6 +922,15 @@ func (m *ClusterConfig_GoogleCloudRun) CloneVT() isClusterConfig_ClusterOneof {
 	}
 	r := new(ClusterConfig_GoogleCloudRun)
 	r.GoogleCloudRun = m.GoogleCloudRun.CloneVT()
+	return r
+}
+
+func (m *ClusterConfig_Fly) CloneVT() isClusterConfig_ClusterOneof {
+	if m == nil {
+		return (*ClusterConfig_Fly)(nil)
+	}
+	r := new(ClusterConfig_Fly)
+	r.Fly = m.Fly.CloneVT()
 	return r
 }
 
@@ -3214,6 +3254,118 @@ func (this *GoogleCloudRunConfig_ServiceAccountJson) EqualVT(thatIface isGoogleC
 	return true
 }
 
+func (this *FlyConfig) StableEqualVT(that *FlyConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Credentials == nil && that.Credentials != nil {
+		return false
+	} else if this.Credentials != nil {
+		if that.Credentials == nil {
+			return false
+		}
+		if !this.Credentials.(interface {
+			StableEqualVT(isFlyConfig_Credentials) bool
+		}).StableEqualVT(that.Credentials) {
+			return false
+		}
+	}
+	if !this.ProxyRuntime.StableEqualVT(that.ProxyRuntime) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FlyConfig) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FlyConfig)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *FlyConfig_FlyApiToken) StableEqualVT(thatIface isFlyConfig_Credentials) bool {
+	that, ok := thatIface.(*FlyConfig_FlyApiToken)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.FlyApiToken, that.FlyApiToken; p != q {
+		if p == nil {
+			p = &common_config.SecretReferenceValue{}
+		}
+		if q == nil {
+			q = &common_config.SecretReferenceValue{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *FlyConfig) EqualVT(that *FlyConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Credentials == nil && that.Credentials != nil {
+		return false
+	} else if this.Credentials != nil {
+		if that.Credentials == nil {
+			return false
+		}
+		if !this.Credentials.(interface {
+			EqualVT(isFlyConfig_Credentials) bool
+		}).EqualVT(that.Credentials) {
+			return false
+		}
+	}
+	if !this.ProxyRuntime.EqualVT(that.ProxyRuntime) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *FlyConfig) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*FlyConfig)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *FlyConfig_FlyApiToken) EqualVT(thatIface isFlyConfig_Credentials) bool {
+	that, ok := thatIface.(*FlyConfig_FlyApiToken)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.FlyApiToken, that.FlyApiToken; p != q {
+		if p == nil {
+			p = &common_config.SecretReferenceValue{}
+		}
+		if q == nil {
+			q = &common_config.SecretReferenceValue{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ClusterConfig_Kubecost) StableEqualVT(that *ClusterConfig_Kubecost) bool {
 	if this == that {
 		return true
@@ -3643,6 +3795,31 @@ func (this *ClusterConfig_Custom) StableEqualVT(thatIface isClusterConfig_Cluste
 	return true
 }
 
+func (this *ClusterConfig_Fly) StableEqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &FlyConfig{}
+		}
+		if q == nil {
+			q = &FlyConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ClusterConfig_Kubecost) EqualVT(that *ClusterConfig_Kubecost) bool {
 	if this == that {
 		return true
@@ -4064,6 +4241,31 @@ func (this *ClusterConfig_Custom) EqualVT(thatIface isClusterConfig_ClusterOneof
 		}
 		if q == nil {
 			q = &ExtensionClusterConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ClusterConfig_Fly) EqualVT(thatIface isClusterConfig_ClusterOneof) bool {
+	that, ok := thatIface.(*ClusterConfig_Fly)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Fly, that.Fly; p != q {
+		if p == nil {
+			p = &FlyConfig{}
+		}
+		if q == nil {
+			q = &FlyConfig{}
 		}
 		if !p.EqualVT(q) {
 			return false
