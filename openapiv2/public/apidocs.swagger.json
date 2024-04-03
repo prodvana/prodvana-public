@@ -18,6 +18,9 @@
       "name": "prodvana.auth.ApiTokenManager"
     },
     {
+      "name": "prodvana.billing.BillingManager"
+    },
+    {
       "name": "prodvana.blobs.BlobsManager"
     },
     {
@@ -1901,6 +1904,28 @@
         ],
         "tags": [
           "prodvana.auth.AuthSessionManager"
+        ]
+      }
+    },
+    "/v1/billing/usage": {
+      "get": {
+        "operationId": "BillingManager_GetUsageMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/billingGetUsageMetricsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "prodvana.billing.BillingManager"
         ]
       }
     },
@@ -8601,6 +8626,31 @@
         "prodvanaOnlyAdminOrg": {
           "type": "boolean",
           "title": "prodvana internal use"
+        }
+      }
+    },
+    "billingGetUsageMetricsResp": {
+      "type": "object",
+      "properties": {
+        "usageMetrics": {
+          "$ref": "#/definitions/billingUsageMetrics"
+        }
+      }
+    },
+    "billingUsageMetrics": {
+      "type": "object",
+      "properties": {
+        "numUsers": {
+          "type": "string",
+          "format": "int64"
+        },
+        "numRuntimes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "numApplications": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },

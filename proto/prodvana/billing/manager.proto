@@ -1,0 +1,25 @@
+syntax = "proto3";
+package prodvana.billing;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/billing";
+import "google/api/annotations.proto";
+
+message UsageMetrics {
+    int64 num_users = 1;
+    int64 num_runtimes = 2;
+    int64 num_applications = 3;
+}
+
+message GetUsageMetricsReq {
+}
+
+message GetUsageMetricsResp {
+    UsageMetrics usage_metrics = 1;
+}
+
+service BillingManager {
+    rpc GetUsageMetrics(GetUsageMetricsReq) returns (GetUsageMetricsResp) {
+        option (google.api.http) = {
+            get: "/v1/billing/usage"
+        };
+    }
+}
