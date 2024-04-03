@@ -77,10 +77,10 @@ def service_config_protection(
                     if inst_cfg.release_channel == rc:
                         check(inst_cfg)
                         return
-                assert (
-                    False
-                ), f"Could not find service instance cfg for {app}/{rc}/{svc} at version {version}"
-        assert False, f"Could not find service instance {app}/{rc}/{svc}"
+                raise AssertionError(
+                    f"Could not find service instance cfg for {app}/{rc}/{svc} at version {version}"
+                )
+        raise AssertionError(f"Could not find service instance {app}/{rc}/{svc}")
 
     # service-instance level
     inst_resp = client.service_manager.GetServiceInstance(
