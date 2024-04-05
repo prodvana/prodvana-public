@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*prodvana/common_config/external_link.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"\xa6\x01\n\x0c\x45xternalLink\x12;\n\x04type\x18\x01 \x01(\x0e\x32-.prodvana.common_config.ExternalLink.LinkType\x12\x14\n\x03url\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x15\n\x04name\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\",\n\x08LinkType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x44\x45TAIL\x10\x01\x12\x07\n\x03LOG\x10\x02\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*prodvana/common_config/external_link.proto\x12\x16prodvana.common_config\x1a\x17validate/validate.proto\"\xaf\x01\n\x0c\x45xternalLink\x12;\n\x04type\x18\x01 \x01(\x0e\x32-.prodvana.common_config.ExternalLink.LinkType\x12\x14\n\x03url\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x15\n\x04name\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"5\n\x08LinkType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x44\x45TAIL\x10\x01\x12\x07\n\x03LOG\x10\x02\x12\x07\n\x03\x41PP\x10\x03\x42RZPgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_configb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,7 +28,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _EXTERNALLINK.fields_by_name['name']._options = None
   _EXTERNALLINK.fields_by_name['name']._serialized_options = b'\372B\004r\002\020\001'
   _globals['_EXTERNALLINK']._serialized_start=96
-  _globals['_EXTERNALLINK']._serialized_end=262
+  _globals['_EXTERNALLINK']._serialized_end=271
   _globals['_EXTERNALLINK_LINKTYPE']._serialized_start=218
-  _globals['_EXTERNALLINK_LINKTYPE']._serialized_end=262
+  _globals['_EXTERNALLINK_LINKTYPE']._serialized_end=271
 # @@protoc_insertion_point(module_scope)

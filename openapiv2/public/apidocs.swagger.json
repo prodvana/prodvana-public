@@ -7523,9 +7523,11 @@
       "enum": [
         "UNKNOWN",
         "DETAIL",
-        "LOG"
+        "LOG",
+        "APP"
       ],
-      "default": "UNKNOWN"
+      "default": "UNKNOWN",
+      "title": "- APP: link to the running application"
     },
     "FakeClusterConfigCrashingProgramPatterns": {
       "type": "object",

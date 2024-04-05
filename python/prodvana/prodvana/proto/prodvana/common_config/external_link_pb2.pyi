@@ -28,11 +28,15 @@ class ExternalLink(google.protobuf.message.Message):
         UNKNOWN: ExternalLink._LinkType.ValueType  # 0
         DETAIL: ExternalLink._LinkType.ValueType  # 1
         LOG: ExternalLink._LinkType.ValueType  # 2
+        APP: ExternalLink._LinkType.ValueType  # 3
+        """link to the running application"""
 
     class LinkType(_LinkType, metaclass=_LinkTypeEnumTypeWrapper): ...
     UNKNOWN: ExternalLink.LinkType.ValueType  # 0
     DETAIL: ExternalLink.LinkType.ValueType  # 1
     LOG: ExternalLink.LinkType.ValueType  # 2
+    APP: ExternalLink.LinkType.ValueType  # 3
+    """link to the running application"""
 
     TYPE_FIELD_NUMBER: builtins.int
     URL_FIELD_NUMBER: builtins.int

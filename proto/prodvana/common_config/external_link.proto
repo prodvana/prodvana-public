@@ -8,6 +8,8 @@ message ExternalLink {
         UNKNOWN = 0;
         DETAIL = 1;
         LOG = 2;
+        // link to the running application
+        APP = 3;
     }
 
     LinkType type = 1;
