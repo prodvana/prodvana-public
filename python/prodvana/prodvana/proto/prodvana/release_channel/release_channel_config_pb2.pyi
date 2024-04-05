@@ -38,6 +38,8 @@ class _RuntimeConnectionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_w
     AWS_ECS: _RuntimeConnectionType.ValueType  # 3
     GOOGLE_CLOUD_RUN: _RuntimeConnectionType.ValueType  # 4
     FLY: _RuntimeConnectionType.ValueType  # 5
+    TERRAFORM: _RuntimeConnectionType.ValueType  # 6
+    PULUMI: _RuntimeConnectionType.ValueType  # 7
 
 class RuntimeConnectionType(_RuntimeConnectionType, metaclass=_RuntimeConnectionTypeEnumTypeWrapper): ...
 
@@ -47,6 +49,8 @@ EXTENSION: RuntimeConnectionType.ValueType  # 2
 AWS_ECS: RuntimeConnectionType.ValueType  # 3
 GOOGLE_CLOUD_RUN: RuntimeConnectionType.ValueType  # 4
 FLY: RuntimeConnectionType.ValueType  # 5
+TERRAFORM: RuntimeConnectionType.ValueType  # 6
+PULUMI: RuntimeConnectionType.ValueType  # 7
 global___RuntimeConnectionType = RuntimeConnectionType
 
 class Policy(google.protobuf.message.Message):

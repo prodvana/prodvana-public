@@ -15717,7 +15717,9 @@
         "EXTENSION",
         "AWS_ECS",
         "GOOGLE_CLOUD_RUN",
-        "FLY"
+        "FLY",
+        "TERRAFORM",
+        "PULUMI"
       ],
       "default": "UNKNOWN_CONNECTION"
     },

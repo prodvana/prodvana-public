@@ -107,6 +107,8 @@ enum RuntimeConnectionType {
     AWS_ECS = 3;
     GOOGLE_CLOUD_RUN = 4;
     FLY = 5;
+    TERRAFORM = 6;
+    PULUMI = 7;
 }
 
 message ReleaseChannelRuntimeConfig {

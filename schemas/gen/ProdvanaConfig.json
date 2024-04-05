@@ -8001,7 +8001,11 @@
                         "GOOGLE_CLOUD_RUN",
                         4,
                         "FLY",
-                        5
+                        5,
+                        "TERRAFORM",
+                        6,
+                        "PULUMI",
+                        7
                     ],
                     "oneOf": [
                         {
