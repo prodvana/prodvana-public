@@ -9098,6 +9098,26 @@
                         {}
                     ]
                 },
+                "terraform": {
+                    "$ref": "#/definitions/prodvana.service.TerraformConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "pulumi": {
+                    "$ref": "#/definitions/prodvana.service.PulumiConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "env": {
                     "additionalProperties": {
                         "$ref": "#/definitions/prodvana.common_config.EnvValue",
@@ -9261,6 +9281,138 @@
                 }
             ],
             "title": "Program Reference"
+        },
+        "prodvana.service.PulumiConfig": {
+            "properties": {
+                "image": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "pulumi docker image"
+                },
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "the path to directory to run pulumi commands"
+                },
+                "stack": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "pvn_wrapper_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to pvn-wrapper"
+                },
+                "pvnWrapperPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to pvn-wrapper"
+                },
+                "shell_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to /bin/sh"
+                },
+                "shellPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to /bin/sh"
+                },
+                "pulumi_command_prefix": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "optional, prefix for all pulumi commands, for example [poetry, run]"
+                },
+                "pulumiCommandPrefix": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "optional, prefix for all pulumi commands, for example [poetry, run]"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Pulumi Config"
         },
         "prodvana.service.ReleaseStrategyConfig": {
             "properties": {
@@ -10138,6 +10290,26 @@
                         {}
                     ]
                 },
+                "terraform": {
+                    "$ref": "#/definitions/prodvana.service.TerraformConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "pulumi": {
+                    "$ref": "#/definitions/prodvana.service.PulumiConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "parameters_autogen": {
                     "enum": [
                         "UNKNOWN",
@@ -10642,6 +10814,128 @@
                 }
             ],
             "title": "Task Reference"
+        },
+        "prodvana.service.TerraformConfig": {
+            "properties": {
+                "image": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "terraform docker image"
+                },
+                "path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "the path to directory to run terraform commands"
+                },
+                "pvn_wrapper_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to pvn-wrapper"
+                },
+                "pvnWrapperPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to pvn-wrapper"
+                },
+                "shell_path": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to /bin/sh"
+                },
+                "shellPath": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "optional, defaults to /bin/sh"
+                },
+                "backend_config": {
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional, backend config to set for this run (the equivalent of passing --backend-config=key=value to `terraform init`)"
+                },
+                "backendConfig": {
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ],
+                    "description": "optional, backend config to set for this run (the equivalent of passing --backend-config=key=value to `terraform init`)"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Terraform Config"
         },
         "prodvana.volumes.Volume": {
             "properties": {

@@ -15972,6 +15972,12 @@
         "fly": {
           "$ref": "#/definitions/prodvanaflyFlyConfig"
         },
+        "terraform": {
+          "$ref": "#/definitions/serviceTerraformConfig"
+        },
+        "pulumi": {
+          "$ref": "#/definitions/servicePulumiConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -16398,6 +16404,12 @@
         "fly": {
           "$ref": "#/definitions/prodvanaflyFlyConfig"
         },
+        "terraform": {
+          "$ref": "#/definitions/serviceTerraformConfig"
+        },
+        "pulumi": {
+          "$ref": "#/definitions/servicePulumiConfig"
+        },
         "env": {
           "type": "object",
           "additionalProperties": {
@@ -16450,6 +16462,37 @@
       "properties": {
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "servicePulumiConfig": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string",
+          "title": "pulumi docker image"
+        },
+        "path": {
+          "type": "string",
+          "title": "the path to directory to run pulumi commands"
+        },
+        "stack": {
+          "type": "string"
+        },
+        "pvnWrapperPath": {
+          "type": "string",
+          "title": "optional, defaults to pvn-wrapper"
+        },
+        "shellPath": {
+          "type": "string",
+          "title": "optional, defaults to /bin/sh"
+        },
+        "pulumiCommandPrefix": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "optional, prefix for all pulumi commands, for example [poetry, run]"
         }
       }
     },
@@ -16688,6 +16731,12 @@
         "fly": {
           "$ref": "#/definitions/prodvanaflyFlyConfig"
         },
+        "terraform": {
+          "$ref": "#/definitions/serviceTerraformConfig"
+        },
+        "pulumi": {
+          "$ref": "#/definitions/servicePulumiConfig"
+        },
         "parametersAutogen": {
           "$ref": "#/definitions/ServiceConfigParametersAutogen",
           "description": "How to autogenerate parameters, defaults to IMAGE. Ignored for Kubernetes or Helm configs."
@@ -16841,6 +16890,34 @@
       "properties": {
         "releaseChannel": {
           "type": "string"
+        }
+      }
+    },
+    "serviceTerraformConfig": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string",
+          "title": "terraform docker image"
+        },
+        "path": {
+          "type": "string",
+          "title": "the path to directory to run terraform commands"
+        },
+        "pvnWrapperPath": {
+          "type": "string",
+          "title": "optional, defaults to pvn-wrapper"
+        },
+        "shellPath": {
+          "type": "string",
+          "title": "optional, defaults to /bin/sh"
+        },
+        "backendConfig": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "optional, backend config to set for this run (the equivalent of passing --backend-config=key=value to `terraform init`)"
         }
       }
     },

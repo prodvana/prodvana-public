@@ -123,6 +123,8 @@ message PerReleaseChannelConfig {
         AwsEcsConfig aws_ecs = 22;
         GoogleCloudRunConfig google_cloud_run = 24;
         prodvana.fly.FlyConfig fly = 27;
+        TerraformConfig terraform = 28;
+        PulumiConfig pulumi = 29;
     }
 
     // Additional env variables that are injected to the service.
@@ -146,7 +148,7 @@ message PerReleaseChannelConfig {
 
     reserved 3, 4, 12;
 
-    // next tag: 28
+    // next tag: 30
 }
 
 message CapabilityReference {
@@ -272,6 +274,28 @@ message GoogleCloudRunConfig {
     }
 }
 
+message TerraformConfig {
+    // terraform docker image
+    string image = 1 [(validate.rules).string.min_len = 1];
+    // the path to directory to run terraform commands
+    string path = 2 [(validate.rules).string.min_len = 1];
+    string pvn_wrapper_path = 3;  // optional, defaults to pvn-wrapper
+    string shell_path = 4;  // optional, defaults to /bin/sh
+    map<string, string> backend_config = 5; // optional, backend config to set for this run (the equivalent of passing --backend-config=key=value to `terraform init`)
+}
+
+message PulumiConfig {
+    // pulumi docker image
+    string image = 1 [(validate.rules).string.min_len = 1];
+    // the path to directory to run pulumi commands
+    string path = 2 [(validate.rules).string.min_len = 1];
+    string stack = 5 [(validate.rules).string.min_len = 1];
+    string pvn_wrapper_path = 3;  // optional, defaults to pvn-wrapper
+    string shell_path = 4;  // optional, defaults to /bin/sh
+    repeated string pulumi_command_prefix = 6;  // optional, prefix for all pulumi commands, for example [poetry, run]
+    // next tag: 7
+}
+
 message ServiceConfig {
     string name = 1 [
         (validate.rules).string = {
@@ -342,6 +366,8 @@ message ServiceConfig {
         AwsEcsConfig aws_ecs = 35;
         GoogleCloudRunConfig google_cloud_run = 36;
         prodvana.fly.FlyConfig fly = 43;
+        TerraformConfig terraform = 44;
+        PulumiConfig pulumi = 45;
     }
 
     enum ParametersAutogen {
@@ -386,7 +412,7 @@ message ServiceConfig {
     // If the generated bundle name already exists, a number will be appended to resolve conflict.
     string bundle_name = 42;
 
-    // next tag: 44
+    // next tag: 46
 }
 
 // a compiled version of ServiceConfig specific to a service instance, with release-channel configs applied
@@ -432,6 +458,8 @@ message CompiledServiceInstanceConfig {
         AwsEcsConfig aws_ecs = 37;
         GoogleCloudRunConfig google_cloud_run = 39;
         prodvana.fly.FlyConfig fly = 41;
+        TerraformConfig terraform = 42;
+        PulumiConfig pulumi = 43;
     }
 
     // The compiled environment for this instance's context, e.g.  Release Channel.
@@ -455,7 +483,7 @@ message CompiledServiceInstanceConfig {
     reserved 8, 9, 16, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
-    // next tag: 42
+    // next tag: 44
 }
 
 message CompiledJobConfig {
