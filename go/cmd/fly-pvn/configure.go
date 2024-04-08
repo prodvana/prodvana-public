@@ -293,7 +293,7 @@ var configureCmd = &cobra.Command{
 				overallErr = multierror.Append(overallErr, errors.Wrapf(err, "failed to process Prodvana Application %s", appName))
 				continue
 			}
-			fmt.Printf("Configured Prodvana Application. Kick off a deployment at: %s/applications/%s/services/%s", orgResp.Organization.UiAddress, configured.application, configured.service)
+			fmt.Printf("Configured Prodvana Application. Kick off a deployment at: %s/applications/%s/services/%s\n", orgResp.Organization.UiAddress, configured.application, configured.service)
 		}
 		return overallErr
 	},

@@ -45,6 +45,8 @@ class EnvValue(google.protobuf.message.Message):
 global___EnvValue = EnvValue
 
 class SecretReferenceValue(google.protobuf.message.Message):
+    """only works for Kubernetes Runtimes or for Runtimes whose proxy Runtime is Kubernetes"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SECRET_FIELD_NUMBER: builtins.int
@@ -66,6 +68,26 @@ class SecretReferenceValue(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["secret", "kubernetes_secret"] | None: ...
 
 global___SecretReferenceValue = SecretReferenceValue
+
+class NativeSecretReferenceValue(google.protobuf.message.Message):
+    """works for any Runtime"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SECRET_FIELD_NUMBER: builtins.int
+    @property
+    def secret(self) -> global___Secret:
+        """Externally stored secret."""
+    def __init__(
+        self,
+        *,
+        secret: global___Secret | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["secret", b"secret", "value_oneof", b"value_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["secret", b"secret", "value_oneof", b"value_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["value_oneof", b"value_oneof"]) -> typing_extensions.Literal["secret"] | None: ...
+
+global___NativeSecretReferenceValue = NativeSecretReferenceValue
 
 class Secret(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

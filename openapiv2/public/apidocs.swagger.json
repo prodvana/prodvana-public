@@ -9083,6 +9083,16 @@
       "default": "FAST_ITERATION",
       "title": "TODO(naphat) maturity likely should not be hardcoded but be flexible per organization"
     },
+    "common_configNativeSecretReferenceValue": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "$ref": "#/definitions/common_configSecret",
+          "description": "Externally stored secret."
+        }
+      },
+      "title": "works for any Runtime"
+    },
     "common_configNotification": {
       "type": "object",
       "properties": {
@@ -9385,7 +9395,8 @@
           "$ref": "#/definitions/common_configKubernetesSecret",
           "description": "Kubernetes secret, only works for Kubernetes runtimes."
         }
-      }
+      },
+      "title": "only works for Kubernetes Runtimes or for Runtimes whose proxy Runtime is Kubernetes"
     },
     "common_configServiceInstanceObjectMeta": {
       "type": "object",
@@ -14747,11 +14758,8 @@
     "prodvanaenvironmentFlyConfig": {
       "type": "object",
       "properties": {
-        "proxyRuntime": {
-          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
-        },
         "flyApiToken": {
-          "$ref": "#/definitions/common_configSecretReferenceValue"
+          "$ref": "#/definitions/common_configNativeSecretReferenceValue"
         }
       }
     },

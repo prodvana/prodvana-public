@@ -297,6 +297,17 @@ func (m *SecretReferenceValue) validate(all bool) error {
 		}
 		oneofValueOneofPresent = true
 
+		if m.GetSecret() == nil {
+			err := SecretReferenceValueValidationError{
+				field:  "Secret",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 		if all {
 			switch v := interface{}(m.GetSecret()).(type) {
 			case interface{ ValidateAll() error }:
@@ -338,6 +349,17 @@ func (m *SecretReferenceValue) validate(all bool) error {
 			errors = append(errors, err)
 		}
 		oneofValueOneofPresent = true
+
+		if m.GetKubernetesSecret() == nil {
+			err := SecretReferenceValueValidationError{
+				field:  "KubernetesSecret",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetKubernetesSecret()).(type) {
@@ -461,6 +483,177 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SecretReferenceValueValidationError{}
+
+// Validate checks the field values on NativeSecretReferenceValue with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *NativeSecretReferenceValue) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on NativeSecretReferenceValue with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// NativeSecretReferenceValueMultiError, or nil if none found.
+func (m *NativeSecretReferenceValue) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *NativeSecretReferenceValue) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofValueOneofPresent := false
+	switch v := m.ValueOneof.(type) {
+	case *NativeSecretReferenceValue_Secret:
+		if v == nil {
+			err := NativeSecretReferenceValueValidationError{
+				field:  "ValueOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofValueOneofPresent = true
+
+		if m.GetSecret() == nil {
+			err := NativeSecretReferenceValueValidationError{
+				field:  "Secret",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetSecret()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, NativeSecretReferenceValueValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, NativeSecretReferenceValueValidationError{
+						field:  "Secret",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSecret()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return NativeSecretReferenceValueValidationError{
+					field:  "Secret",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofValueOneofPresent {
+		err := NativeSecretReferenceValueValidationError{
+			field:  "ValueOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return NativeSecretReferenceValueMultiError(errors)
+	}
+
+	return nil
+}
+
+// NativeSecretReferenceValueMultiError is an error wrapping multiple
+// validation errors returned by NativeSecretReferenceValue.ValidateAll() if
+// the designated constraints aren't met.
+type NativeSecretReferenceValueMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m NativeSecretReferenceValueMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m NativeSecretReferenceValueMultiError) AllErrors() []error { return m }
+
+// NativeSecretReferenceValueValidationError is the validation error returned
+// by NativeSecretReferenceValue.Validate if the designated constraints aren't met.
+type NativeSecretReferenceValueValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NativeSecretReferenceValueValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NativeSecretReferenceValueValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NativeSecretReferenceValueValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NativeSecretReferenceValueValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NativeSecretReferenceValueValidationError) ErrorName() string {
+	return "NativeSecretReferenceValueValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e NativeSecretReferenceValueValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNativeSecretReferenceValue.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NativeSecretReferenceValueValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NativeSecretReferenceValueValidationError{}
 
 // Validate checks the field values on Secret with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

@@ -312,11 +312,13 @@ message GoogleCloudRunConfig {
 }
 
 message FlyConfig {
-    prodvana.runtimes.RuntimeExecutionConfig proxy_runtime = 1 [(validate.rules).message.required = true];
     oneof credentials {
         option (validate.required) = true;
-        prodvana.common_config.SecretReferenceValue fly_api_token = 2 [(validate.rules).message.required = true];
+        prodvana.common_config.NativeSecretReferenceValue fly_api_token = 3 [(validate.rules).message.required = true];
     }
+
+    reserved 1, 2;
+    reserved "proxy_runtime";
     // next tag: 3
 }
 

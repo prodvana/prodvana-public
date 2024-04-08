@@ -1980,6 +1980,32 @@
             ],
             "title": "Local Config"
         },
+        "prodvana.common_config.NativeSecretReferenceValue": {
+            "properties": {
+                "secret": {
+                    "$ref": "#/definitions/prodvana.common_config.Secret",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "Externally stored secret."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Native Secret Reference Value",
+            "description": "works for any Runtime"
+        },
         "prodvana.common_config.Notification": {
             "properties": {
                 "config_override": {
@@ -3143,7 +3169,8 @@
                     "type": "object"
                 }
             ],
-            "title": "Secret Reference Value"
+            "title": "Secret Reference Value",
+            "description": "only works for Kubernetes Runtimes or for Runtimes whose proxy Runtime is Kubernetes"
         },
         "prodvana.common_config.StringConstant": {
             "properties": {
@@ -5421,28 +5448,8 @@
         },
         "prodvana.environment.FlyConfig": {
             "properties": {
-                "proxy_runtime": {
-                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "proxyRuntime": {
-                    "$ref": "#/definitions/prodvana.runtimes.RuntimeExecutionConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
                 "fly_api_token": {
-                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "$ref": "#/definitions/prodvana.common_config.NativeSecretReferenceValue",
                     "additionalProperties": false,
                     "oneOf": [
                         {
@@ -5452,7 +5459,7 @@
                     ]
                 },
                 "flyApiToken": {
-                    "$ref": "#/definitions/prodvana.common_config.SecretReferenceValue",
+                    "$ref": "#/definitions/prodvana.common_config.NativeSecretReferenceValue",
                     "additionalProperties": false,
                     "oneOf": [
                         {
