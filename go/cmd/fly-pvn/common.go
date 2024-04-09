@@ -7,14 +7,22 @@ import (
 
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/client"
 	application_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application"
+	environment_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
+	secrets_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
 
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 )
 
-func must[T any](f func() (T, error)) func() T {
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func mustValueConstructor[T any](f func() (T, error)) func() T {
 	return func() T {
 		v, err := f()
 		if err != nil {
@@ -41,7 +49,7 @@ var (
 		return client.MakeProdvanaConnection(options)
 	})
 
-	getApplicationManagerClient = must(sync.OnceValues(func() (application_pb.ApplicationManagerClient, error) {
+	getApplicationManagerClient = mustValueConstructor(sync.OnceValues(func() (application_pb.ApplicationManagerClient, error) {
 		conn, err := getProdvanaConnection()
 		if err != nil {
 			return nil, err
@@ -49,7 +57,7 @@ var (
 		return application_pb.NewApplicationManagerClient(conn), nil
 	}))
 
-	getServiceManagerClient = must(sync.OnceValues(func() (service_pb.ServiceManagerClient, error) {
+	getServiceManagerClient = mustValueConstructor(sync.OnceValues(func() (service_pb.ServiceManagerClient, error) {
 		conn, err := getProdvanaConnection()
 		if err != nil {
 			return nil, err
@@ -57,11 +65,27 @@ var (
 		return service_pb.NewServiceManagerClient(conn), nil
 	}))
 
-	getOrganizationManagerClient = must(sync.OnceValues(func() (organization_pb.OrganizationManagerClient, error) {
+	getOrganizationManagerClient = mustValueConstructor(sync.OnceValues(func() (organization_pb.OrganizationManagerClient, error) {
 		conn, err := getProdvanaConnection()
 		if err != nil {
 			return nil, err
 		}
 		return organization_pb.NewOrganizationManagerClient(conn), nil
+	}))
+
+	getEnvironmentManagerClient = mustValueConstructor(sync.OnceValues(func() (environment_pb.EnvironmentManagerClient, error) {
+		conn, err := getProdvanaConnection()
+		if err != nil {
+			return nil, err
+		}
+		return environment_pb.NewEnvironmentManagerClient(conn), nil
+	}))
+
+	getSecretsManagerClient = mustValueConstructor(sync.OnceValues(func() (secrets_pb.SecretsManagerClient, error) {
+		conn, err := getProdvanaConnection()
+		if err != nil {
+			return nil, err
+		}
+		return secrets_pb.NewSecretsManagerClient(conn), nil
 	}))
 )
