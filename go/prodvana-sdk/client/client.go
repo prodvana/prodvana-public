@@ -77,5 +77,5 @@ func MakeProdvanaConnection(options ConnectionOptions) (*grpc.ClientConn, error)
 		}
 		grpcOpts = append(grpcOpts, grpc.WithPerRPCCredentials(authToken{getToken}))
 	}
-	return grpc.Dial(addr, grpcOpts...)
+	return grpc.NewClient(addr, grpcOpts...)
 }
