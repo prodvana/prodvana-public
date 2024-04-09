@@ -1,0 +1,14 @@
+syntax = "proto3";
+package prodvana.common_config;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config";
+
+message ReleaseSettings {
+    message BypassSettings {
+        bool no_bypass_protections = 1;
+        bool no_bypass_convergence_extensions = 2;
+        bool no_bypass_approvals = 3;
+        bool no_bypass_release_channel_ordering = 4;
+    }
+    // customize what is bypassed in the fast releases (the default for rollbacks). Defaults to everything being bypassed.
+    BypassSettings bypass_settings = 1;
+}

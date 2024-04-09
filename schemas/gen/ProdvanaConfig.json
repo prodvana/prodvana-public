@@ -283,6 +283,26 @@
                         {}
                     ]
                 },
+                "release_settings": {
+                    "$ref": "#/definitions/prodvana.common_config.ReleaseSettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "releaseSettings": {
+                    "$ref": "#/definitions/prodvana.common_config.ReleaseSettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "alerts": {
                     "$ref": "#/definitions/prodvana.workflow.AlertingConfig",
                     "additionalProperties": false,
@@ -2775,6 +2795,136 @@
             ],
             "title": "Program Config",
             "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks. The validations expressed here represent the lowest common denominator of the use cases."
+        },
+        "prodvana.common_config.ReleaseSettings": {
+            "properties": {
+                "bypass_settings": {
+                    "$ref": "#/definitions/prodvana.common_config.ReleaseSettings.BypassSettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "customize what is bypassed in the fast releases (the default for rollbacks). Defaults to everything being bypassed."
+                },
+                "bypassSettings": {
+                    "$ref": "#/definitions/prodvana.common_config.ReleaseSettings.BypassSettings",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "customize what is bypassed in the fast releases (the default for rollbacks). Defaults to everything being bypassed."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Release Settings"
+        },
+        "prodvana.common_config.ReleaseSettings.BypassSettings": {
+            "properties": {
+                "no_bypass_protections": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "noBypassProtections": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "no_bypass_convergence_extensions": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "noBypassConvergenceExtensions": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "no_bypass_approvals": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "noBypassApprovals": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "no_bypass_release_channel_ordering": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "noBypassReleaseChannelOrdering": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Bypass Settings"
         },
         "prodvana.common_config.RemoteConfig": {
             "properties": {

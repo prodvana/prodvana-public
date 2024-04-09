@@ -7973,6 +7973,23 @@
       ],
       "default": "UNKNOWN"
     },
+    "ReleaseSettingsBypassSettings": {
+      "type": "object",
+      "properties": {
+        "noBypassProtections": {
+          "type": "boolean"
+        },
+        "noBypassConvergenceExtensions": {
+          "type": "boolean"
+        },
+        "noBypassApprovals": {
+          "type": "boolean"
+        },
+        "noBypassReleaseChannelOrdering": {
+          "type": "boolean"
+        }
+      }
+    },
     "RuntimeFailureFailureType": {
       "type": "string",
       "enum": [
@@ -8271,6 +8288,9 @@
         },
         "annotations": {
           "$ref": "#/definitions/prodvanaapplicationAnnotationsConfig"
+        },
+        "releaseSettings": {
+          "$ref": "#/definitions/common_configReleaseSettings"
         },
         "alerts": {
           "$ref": "#/definitions/workflowAlertingConfig",
@@ -9292,6 +9312,15 @@
         }
       },
       "description": "This ProgramConfig is used in multiple places, including service configuration and custom pipeline tasks.\nThe validations expressed here represent the lowest common denominator of the use cases."
+    },
+    "common_configReleaseSettings": {
+      "type": "object",
+      "properties": {
+        "bypassSettings": {
+          "$ref": "#/definitions/ReleaseSettingsBypassSettings",
+          "description": "customize what is bypassed in the fast releases (the default for rollbacks). Defaults to everything being bypassed."
+        }
+      }
     },
     "common_configRemoteConfig": {
       "type": "object",

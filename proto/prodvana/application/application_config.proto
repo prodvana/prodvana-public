@@ -3,6 +3,7 @@ package prodvana.application;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application";
 import "prodvana/capability/capability.proto";
 import "prodvana/common_config/notification.proto";
+import "prodvana/common_config/release.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/workflow/integration_config.proto";
 import "validate/validate.proto";
@@ -27,6 +28,7 @@ message ApplicationConfig {
     repeated prodvana.release_channel.ReleaseChannelGroupGeneratorConfig release_channel_groups = 11 [(validate.rules).repeated.items.message.required = true];
     prodvana.common_config.NotificationConfig notifications = 4;
     AnnotationsConfig annotations = 12;
+    prodvana.common_config.ReleaseSettings release_settings = 13;
 
     // deprecated
     prodvana.workflow.AlertingConfig alerts = 5;
@@ -39,5 +41,5 @@ message ApplicationConfig {
 
     reserved 3, 8, 9, 10;
     reserved "service_templates", "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
-    // next tag: 13
+    // next tag: 14
 }

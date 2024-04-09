@@ -348,6 +348,35 @@ func (m *ApplicationConfig) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetReleaseSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplicationConfigValidationError{
+					field:  "ReleaseSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplicationConfigValidationError{
+					field:  "ReleaseSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReleaseSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplicationConfigValidationError{
+				field:  "ReleaseSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetAlerts()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
