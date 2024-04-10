@@ -10,7 +10,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"prodvana/perrors"
 	"strings"
 
 	"github.com/bradenaw/juniper/xslices"
@@ -29,6 +28,7 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/maps"
 	grpc_codes "google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 var configureFlags = struct {
@@ -199,7 +199,7 @@ func createRuntimeIfNeeded(ctx context.Context, flyOrg string, runtimeName strin
 		}
 		return errors.Errorf("Runtime %s already exists but is not a Fly runtime", runtimeName)
 	} else {
-		if perrors.GrpcErrCode(err) != grpc_codes.NotFound {
+		if status.Code(err) != grpc_codes.NotFound {
 			return err
 		}
 	}

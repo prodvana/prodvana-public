@@ -1,8 +1,6 @@
 package main
 
 import (
-	// TODO(naphat) use public library
-	"prodvana/auth/cli/session"
 	"sync"
 
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/client"
@@ -11,6 +9,7 @@ import (
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
 	secrets_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
+	"github.com/prodvana/prodvana-public/go/prodvana-sdk/session"
 
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
