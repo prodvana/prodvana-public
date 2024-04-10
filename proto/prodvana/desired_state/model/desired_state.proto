@@ -864,6 +864,10 @@ message TaskRun {
     repeated StatusExplanation status_explanations = 2;
     string version = 3;
     repeated Version seen_versions = 4;
+    // IDs for the entity that started this task
+    string desired_state_id = 18;
+    string release_id = 19;
+
     google.protobuf.Timestamp created_timestamp = 5;
     google.protobuf.Timestamp started_timestamp = 15;
     google.protobuf.Timestamp completed_timestamp = 6;
@@ -891,7 +895,7 @@ message TaskRun {
     // if set, the entity who started this task has a concurrency limit that needs to be renewed and released
     repeated ConcurrencyLease concurrency_leases = 17;
 
-    // next tag: 18
+    // next tag: 19
 }
 
 message TaskEntityContext {

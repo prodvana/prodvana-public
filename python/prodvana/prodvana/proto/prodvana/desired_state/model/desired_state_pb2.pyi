@@ -2348,6 +2348,8 @@ class TaskRun(google.protobuf.message.Message):
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     SEEN_VERSIONS_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     CREATED_TIMESTAMP_FIELD_NUMBER: builtins.int
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
     COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -2367,6 +2369,9 @@ class TaskRun(google.protobuf.message.Message):
     version: builtins.str
     @property
     def seen_versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]: ...
+    desired_state_id: builtins.str
+    """IDs for the entity that started this task"""
+    release_id: builtins.str
     @property
     def created_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
@@ -2408,6 +2413,8 @@ class TaskRun(google.protobuf.message.Message):
         status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         version: builtins.str = ...,
         seen_versions: collections.abc.Iterable[global___Version] | None = ...,
+        desired_state_id: builtins.str = ...,
+        release_id: builtins.str = ...,
         created_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
@@ -2423,7 +2430,7 @@ class TaskRun(google.protobuf.message.Message):
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

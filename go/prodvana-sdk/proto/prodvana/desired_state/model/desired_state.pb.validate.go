@@ -8988,6 +8988,10 @@ func (m *TaskRun) validate(all bool) error {
 
 	}
 
+	// no validation rules for DesiredStateId
+
+	// no validation rules for ReleaseId
+
 	if all {
 		switch v := interface{}(m.GetCreatedTimestamp()).(type) {
 		case interface{ ValidateAll() error }:
