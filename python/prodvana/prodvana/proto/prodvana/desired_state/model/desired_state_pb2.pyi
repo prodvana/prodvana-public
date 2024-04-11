@@ -1873,6 +1873,7 @@ class ProtectionLinkState(google.protobuf.message.Message):
     META_FIELD_NUMBER: builtins.int
     ATTACHMENT_NAME_FIELD_NUMBER: builtins.int
     LAST_SEEN_ATTACHMENT_STATUS_FIELD_NUMBER: builtins.int
+    LAST_SEEN_ATTACHMENT_RESULT_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     LINK_FIELD_NUMBER: builtins.int
     STARTED_TIMESTAMP_FIELD_NUMBER: builtins.int
@@ -1884,6 +1885,8 @@ class ProtectionLinkState(google.protobuf.message.Message):
     attachment_name: builtins.str
     last_seen_attachment_status: global___Status.ValueType
     """status of the attachment, used to compute link status"""
+    @property
+    def last_seen_attachment_result(self) -> global___ProtectionAttachmentResult: ...
     status: global___ConditionStatus.ValueType
     """status of the link"""
     @property
@@ -1907,6 +1910,7 @@ class ProtectionLinkState(google.protobuf.message.Message):
         meta: global___Metadata | None = ...,
         attachment_name: builtins.str = ...,
         last_seen_attachment_status: global___Status.ValueType = ...,
+        last_seen_attachment_result: global___ProtectionAttachmentResult | None = ...,
         status: global___ConditionStatus.ValueType = ...,
         link: global___ProtectionLink | None = ...,
         started_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
@@ -1914,10 +1918,58 @@ class ProtectionLinkState(google.protobuf.message.Message):
         stopped_reason: global___ProtectionLinkState.StopReason.ValueType = ...,
         first_success_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["first_success_timestamp", b"first_success_timestamp", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "stopped_timestamp", b"stopped_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attachment_name", b"attachment_name", "first_success_timestamp", b"first_success_timestamp", "last_seen_attachment_status", b"last_seen_attachment_status", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "status", b"status", "stopped_reason", b"stopped_reason", "stopped_timestamp", b"stopped_timestamp"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["first_success_timestamp", b"first_success_timestamp", "last_seen_attachment_result", b"last_seen_attachment_result", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "stopped_timestamp", b"stopped_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_name", b"attachment_name", "first_success_timestamp", b"first_success_timestamp", "last_seen_attachment_result", b"last_seen_attachment_result", "last_seen_attachment_status", b"last_seen_attachment_status", "link", b"link", "meta", b"meta", "started_timestamp", b"started_timestamp", "status", b"status", "stopped_reason", b"stopped_reason", "stopped_timestamp", b"stopped_timestamp"]) -> None: ...
 
 global___ProtectionLinkState = ProtectionLinkState
+
+class ProtectionAttachmentResult(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Status:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProtectionAttachmentResult._Status.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: ProtectionAttachmentResult._Status.ValueType  # 0
+        PASSING: ProtectionAttachmentResult._Status.ValueType  # 1
+        BLOCKING: ProtectionAttachmentResult._Status.ValueType  # 2
+        CONFIGURATION_ERROR: ProtectionAttachmentResult._Status.ValueType  # 3
+        INTERNAL_ERROR: ProtectionAttachmentResult._Status.ValueType  # 4
+
+    class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
+    UNKNOWN: ProtectionAttachmentResult.Status.ValueType  # 0
+    PASSING: ProtectionAttachmentResult.Status.ValueType  # 1
+    BLOCKING: ProtectionAttachmentResult.Status.ValueType  # 2
+    CONFIGURATION_ERROR: ProtectionAttachmentResult.Status.ValueType  # 3
+    INTERNAL_ERROR: ProtectionAttachmentResult.Status.ValueType  # 4
+
+    STATUS_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    SYSTEM_DEBUG_MESSAGE_FIELD_NUMBER: builtins.int
+    VERSION_FIELD_NUMBER: builtins.int
+    EXECUTION_TIMESTAMP_FIELD_NUMBER: builtins.int
+    status: global___ProtectionAttachmentResult.Status.ValueType
+    message: builtins.str
+    system_debug_message: builtins.str
+    version: builtins.str
+    """protection attachment version that executed"""
+    @property
+    def execution_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        status: global___ProtectionAttachmentResult.Status.ValueType = ...,
+        message: builtins.str = ...,
+        system_debug_message: builtins.str = ...,
+        version: builtins.str = ...,
+        execution_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["execution_timestamp", b"execution_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["execution_timestamp", b"execution_timestamp", "message", b"message", "status", b"status", "system_debug_message", b"system_debug_message", "version", b"version"]) -> None: ...
+
+global___ProtectionAttachmentResult = ProtectionAttachmentResult
 
 class ProtectionAttachment(google.protobuf.message.Message):
     """TODO: Rename to ProtectionAttachmentState to be consistent with other entities."""
@@ -1933,6 +1985,7 @@ class ProtectionAttachment(google.protobuf.message.Message):
     LAST_COMPLETED_APPLIED_VERSION_FIELD_NUMBER: builtins.int
     PROTECTION_ID_FIELD_NUMBER: builtins.int
     ATTACHMENT_ID_FIELD_NUMBER: builtins.int
+    RESULT_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     @property
@@ -1947,7 +2000,9 @@ class ProtectionAttachment(google.protobuf.message.Message):
     last_completed_applied_version: builtins.str
     protection_id: builtins.str
     attachment_id: builtins.str
-    """next tag: 9"""
+    @property
+    def result(self) -> global___ProtectionAttachmentResult:
+        """next tag: 11"""
     def __init__(
         self,
         *,
@@ -1960,9 +2015,10 @@ class ProtectionAttachment(google.protobuf.message.Message):
         last_completed_applied_version: builtins.str = ...,
         protection_id: builtins.str = ...,
         attachment_id: builtins.str = ...,
+        result: global___ProtectionAttachmentResult | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "last_completed_versions", b"last_completed_versions", "meta", b"meta", "protection_id", b"protection_id", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta", "result", b"result"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attachment_id", b"attachment_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "last_completed_versions", b"last_completed_versions", "meta", b"meta", "protection_id", b"protection_id", "result", b"result", "versions", b"versions"]) -> None: ...
 
 global___ProtectionAttachment = ProtectionAttachment
 

@@ -10671,8 +10671,11 @@
           "type": "string"
         },
         "attachmentId": {
-          "type": "string",
-          "title": "next tag: 9"
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/definitions/modelProtectionAttachmentResult",
+          "title": "next tag: 11"
         }
       },
       "description": "TODO: Rename to ProtectionAttachmentState to be consistent with other entities."
@@ -13772,6 +13775,39 @@
         }
       }
     },
+    "modelProtectionAttachmentResult": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/modelProtectionAttachmentResultStatus"
+        },
+        "message": {
+          "type": "string"
+        },
+        "systemDebugMessage": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "title": "protection attachment version that executed"
+        },
+        "executionTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "modelProtectionAttachmentResultStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PASSING",
+        "BLOCKING",
+        "CONFIGURATION_ERROR",
+        "INTERNAL_ERROR"
+      ],
+      "default": "UNKNOWN"
+    },
     "modelProtectionLinkState": {
       "type": "object",
       "properties": {
@@ -13784,6 +13820,9 @@
         "lastSeenAttachmentStatus": {
           "$ref": "#/definitions/desired_statemodelStatus",
           "title": "status of the attachment, used to compute link status"
+        },
+        "lastSeenAttachmentResult": {
+          "$ref": "#/definitions/modelProtectionAttachmentResult"
         },
         "status": {
           "$ref": "#/definitions/modelConditionStatus",
@@ -15094,6 +15133,19 @@
         }
       }
     },
+    "protectionAlwaysFailingProtectionConfig": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "This protection will always fail, mainly used for Prodvana's internal testing."
+        }
+      }
+    },
+    "protectionAlwaysPassingProtectionConfig": {
+      "type": "object",
+      "description": "This protection will always pass, mainly used for Prodvana's internal testing."
+    },
     "protectionBuiltinProtectionConfig": {
       "type": "object",
       "properties": {
@@ -15102,6 +15154,12 @@
         },
         "allowedTimes": {
           "$ref": "#/definitions/protectionAllowedTimesProtectionConfig"
+        },
+        "alwaysPassing": {
+          "$ref": "#/definitions/protectionAlwaysPassingProtectionConfig"
+        },
+        "alwaysFailing": {
+          "$ref": "#/definitions/protectionAlwaysFailingProtectionConfig"
         }
       }
     },
@@ -15131,7 +15189,8 @@
           "title": "Protection source - where did this protection get attached from (service/app/org/...)?"
         },
         "runtimeExecution": {
-          "$ref": "#/definitions/runtimesRuntimeExecutionConfig"
+          "$ref": "#/definitions/runtimesRuntimeExecutionConfig",
+          "title": "will only be set if the protection needs to be executed on a runtime"
         },
         "env": {
           "type": "object",

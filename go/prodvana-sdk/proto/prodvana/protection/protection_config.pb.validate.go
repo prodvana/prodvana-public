@@ -35,6 +35,214 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on AlwaysPassingProtectionConfig with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AlwaysPassingProtectionConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AlwaysPassingProtectionConfig with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// AlwaysPassingProtectionConfigMultiError, or nil if none found.
+func (m *AlwaysPassingProtectionConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AlwaysPassingProtectionConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return AlwaysPassingProtectionConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// AlwaysPassingProtectionConfigMultiError is an error wrapping multiple
+// validation errors returned by AlwaysPassingProtectionConfig.ValidateAll()
+// if the designated constraints aren't met.
+type AlwaysPassingProtectionConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AlwaysPassingProtectionConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AlwaysPassingProtectionConfigMultiError) AllErrors() []error { return m }
+
+// AlwaysPassingProtectionConfigValidationError is the validation error
+// returned by AlwaysPassingProtectionConfig.Validate if the designated
+// constraints aren't met.
+type AlwaysPassingProtectionConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AlwaysPassingProtectionConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AlwaysPassingProtectionConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AlwaysPassingProtectionConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AlwaysPassingProtectionConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AlwaysPassingProtectionConfigValidationError) ErrorName() string {
+	return "AlwaysPassingProtectionConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AlwaysPassingProtectionConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAlwaysPassingProtectionConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AlwaysPassingProtectionConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AlwaysPassingProtectionConfigValidationError{}
+
+// Validate checks the field values on AlwaysFailingProtectionConfig with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AlwaysFailingProtectionConfig) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AlwaysFailingProtectionConfig with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// AlwaysFailingProtectionConfigMultiError, or nil if none found.
+func (m *AlwaysFailingProtectionConfig) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AlwaysFailingProtectionConfig) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Message
+
+	if len(errors) > 0 {
+		return AlwaysFailingProtectionConfigMultiError(errors)
+	}
+
+	return nil
+}
+
+// AlwaysFailingProtectionConfigMultiError is an error wrapping multiple
+// validation errors returned by AlwaysFailingProtectionConfig.ValidateAll()
+// if the designated constraints aren't met.
+type AlwaysFailingProtectionConfigMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AlwaysFailingProtectionConfigMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AlwaysFailingProtectionConfigMultiError) AllErrors() []error { return m }
+
+// AlwaysFailingProtectionConfigValidationError is the validation error
+// returned by AlwaysFailingProtectionConfig.Validate if the designated
+// constraints aren't met.
+type AlwaysFailingProtectionConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AlwaysFailingProtectionConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AlwaysFailingProtectionConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AlwaysFailingProtectionConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AlwaysFailingProtectionConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AlwaysFailingProtectionConfigValidationError) ErrorName() string {
+	return "AlwaysFailingProtectionConfigValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AlwaysFailingProtectionConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAlwaysFailingProtectionConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AlwaysFailingProtectionConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AlwaysFailingProtectionConfigValidationError{}
+
 // Validate checks the field values on BuiltinProtectionConfig with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -159,6 +367,112 @@ func (m *BuiltinProtectionConfig) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return BuiltinProtectionConfigValidationError{
 					field:  "AllowedTimes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *BuiltinProtectionConfig_AlwaysPassing:
+		if v == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "BuiltinOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBuiltinOneofPresent = true
+
+		if m.GetAlwaysPassing() == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "AlwaysPassing",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetAlwaysPassing()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AlwaysPassing",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AlwaysPassing",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAlwaysPassing()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BuiltinProtectionConfigValidationError{
+					field:  "AlwaysPassing",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *BuiltinProtectionConfig_AlwaysFailing:
+		if v == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "BuiltinOneof",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofBuiltinOneofPresent = true
+
+		if m.GetAlwaysFailing() == nil {
+			err := BuiltinProtectionConfigValidationError{
+				field:  "AlwaysFailing",
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetAlwaysFailing()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AlwaysFailing",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BuiltinProtectionConfigValidationError{
+						field:  "AlwaysFailing",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAlwaysFailing()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BuiltinProtectionConfigValidationError{
+					field:  "AlwaysFailing",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

@@ -6748,6 +6748,44 @@
             ],
             "title": "Allowed Times Protection Config"
         },
+        "prodvana.protection.AlwaysFailingProtectionConfig": {
+            "properties": {
+                "message": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "This protection will always fail, mainly used for Prodvana's internal testing."
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Always Failing Protection Config"
+        },
+        "prodvana.protection.AlwaysPassingProtectionConfig": {
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Always Passing Protection Config",
+            "description": "This protection will always pass, mainly used for Prodvana's internal testing."
+        },
         "prodvana.protection.BuiltinProtectionConfig": {
             "properties": {
                 "commit_denylist": {
@@ -6782,6 +6820,46 @@
                 },
                 "allowedTimes": {
                     "$ref": "#/definitions/prodvana.protection.AllowedTimesProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "always_passing": {
+                    "$ref": "#/definitions/prodvana.protection.AlwaysPassingProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "alwaysPassing": {
+                    "$ref": "#/definitions/prodvana.protection.AlwaysPassingProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "always_failing": {
+                    "$ref": "#/definitions/prodvana.protection.AlwaysFailingProtectionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
+                "alwaysFailing": {
+                    "$ref": "#/definitions/prodvana.protection.AlwaysFailingProtectionConfig",
                     "additionalProperties": false,
                     "oneOf": [
                         {

@@ -23,24 +23,58 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class AlwaysPassingProtectionConfig(google.protobuf.message.Message):
+    """This protection will always pass, mainly used for Prodvana's internal testing."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___AlwaysPassingProtectionConfig = AlwaysPassingProtectionConfig
+
+class AlwaysFailingProtectionConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MESSAGE_FIELD_NUMBER: builtins.int
+    message: builtins.str
+    """This protection will always fail, mainly used for Prodvana's internal testing."""
+    def __init__(
+        self,
+        *,
+        message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["message", b"message"]) -> None: ...
+
+global___AlwaysFailingProtectionConfig = AlwaysFailingProtectionConfig
+
 class BuiltinProtectionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     COMMIT_DENYLIST_FIELD_NUMBER: builtins.int
     ALLOWED_TIMES_FIELD_NUMBER: builtins.int
+    ALWAYS_PASSING_FIELD_NUMBER: builtins.int
+    ALWAYS_FAILING_FIELD_NUMBER: builtins.int
     @property
     def commit_denylist(self) -> prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig: ...
     @property
     def allowed_times(self) -> prodvana.proto.prodvana.protection.builtins_pb2.AllowedTimesProtectionConfig: ...
+    @property
+    def always_passing(self) -> global___AlwaysPassingProtectionConfig: ...
+    @property
+    def always_failing(self) -> global___AlwaysFailingProtectionConfig: ...
     def __init__(
         self,
         *,
         commit_denylist: prodvana.proto.prodvana.protection.builtins_pb2.CommitDenylistProtectionConfig | None = ...,
         allowed_times: prodvana.proto.prodvana.protection.builtins_pb2.AllowedTimesProtectionConfig | None = ...,
+        always_passing: global___AlwaysPassingProtectionConfig | None = ...,
+        always_failing: global___AlwaysFailingProtectionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["allowed_times", b"allowed_times", "builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["allowed_times", b"allowed_times", "builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["builtin_oneof", b"builtin_oneof"]) -> typing_extensions.Literal["commit_denylist", "allowed_times"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["allowed_times", b"allowed_times", "always_failing", b"always_failing", "always_passing", b"always_passing", "builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["allowed_times", b"allowed_times", "always_failing", b"always_failing", "always_passing", b"always_passing", "builtin_oneof", b"builtin_oneof", "commit_denylist", b"commit_denylist"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["builtin_oneof", b"builtin_oneof"]) -> typing_extensions.Literal["commit_denylist", "allowed_times", "always_passing", "always_failing"] | None: ...
 
 global___BuiltinProtectionConfig = BuiltinProtectionConfig
 
@@ -145,7 +179,8 @@ class CompiledProtectionAttachmentConfig(google.protobuf.message.Message):
     def attachment(self) -> global___ProtectionAttachment:
         """Protection source - where did this protection get attached from (service/app/org/...)?"""
     @property
-    def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig: ...
+    def runtime_execution(self) -> prodvana.proto.prodvana.runtimes.runtimes_config_pb2.RuntimeExecutionConfig:
+        """will only be set if the protection needs to be executed on a runtime"""
     @property
     def env(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue]:
         """The compiled environment for this attachment's context, e.g.  Release Channel."""

@@ -672,6 +672,7 @@ message ProtectionLinkState {
     Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
     string attachment_name = 8;
     Status last_seen_attachment_status = 9;  // status of the attachment, used to compute link status
+    ProtectionAttachmentResult last_seen_attachment_result = 10;
     ConditionStatus status = 2; // status of the link
     // Copy of ProtectionLink description. Used in FetchState to know retries, durations etc.
     ProtectionLink link = 3;
@@ -697,7 +698,22 @@ message ProtectionLinkState {
     // Useful for time-based protections (post-push - check X succeeds for N mins). We make the ProtectionLink return CONVERGING till time expires.
     google.protobuf.Timestamp first_success_timestamp = 7;
 
-    // next tag: 10
+    // next tag: 11
+}
+
+message ProtectionAttachmentResult {
+    enum Status {
+        UNKNOWN = 0;
+        PASSING = 1;
+        BLOCKING = 2;
+        CONFIGURATION_ERROR = 3;
+        INTERNAL_ERROR = 4;
+    }
+    Status status = 1;
+    string message = 2;
+    string system_debug_message = 3;
+    string version = 4; // protection attachment version that executed
+    google.protobuf.Timestamp execution_timestamp = 5;
 }
 
 // TODO: Rename to ProtectionAttachmentState to be consistent with other entities.
@@ -711,7 +727,8 @@ message ProtectionAttachment {
     string last_completed_applied_version = 9;
     string protection_id = 3;
     string attachment_id = 4;
-    // next tag: 9
+    ProtectionAttachmentResult result = 10;
+    // next tag: 11
 }
 
 message DeliveryExtensionState {
