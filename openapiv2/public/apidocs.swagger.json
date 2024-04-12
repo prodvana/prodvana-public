@@ -13503,6 +13503,13 @@
           "format": "date-time",
           "description": "when prodvana expects to run apply again for this entity, if there is any work to be done. If nil, apply is expected to happen immediately, again if there is any work to be done."
         },
+        "hasWork": {
+          "type": "boolean",
+          "title": "if true, Prodvana will try to run apply at next expected_next_apply_timestamp"
+        },
+        "hasWorkReason": {
+          "type": "string"
+        },
         "dependencies": {
           "type": "array",
           "items": {

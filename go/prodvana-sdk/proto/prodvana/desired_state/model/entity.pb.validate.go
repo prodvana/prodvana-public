@@ -917,6 +917,10 @@ func (m *Entity) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for HasWork
+
+	// no validation rules for HasWorkReason
+
 	for idx, item := range m.GetDependencies() {
 		_, _ = idx, item
 

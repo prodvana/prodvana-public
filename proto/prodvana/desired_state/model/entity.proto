@@ -88,6 +88,8 @@ message Entity {
     google.protobuf.Timestamp last_fetched_timestamp = 14;  // when prodvana last fetched entity state, best effort
     google.protobuf.Timestamp last_applied_timestamp = 15;  // when prodvana last applied state for this entity, best effort
     google.protobuf.Timestamp expected_next_apply_timestamp = 27; // when prodvana expects to run apply again for this entity, if there is any work to be done. If nil, apply is expected to happen immediately, again if there is any work to be done.
+    bool has_work = 28; // if true, Prodvana will try to run apply at next expected_next_apply_timestamp
+    string has_work_reason = 29;
 
     repeated Identifier dependencies = 16;
     repeated Identifier direct_dependencies = 23;
@@ -99,7 +101,7 @@ message Entity {
 
     Notifications notifications = 22;
 
-    // next tag: 28
+    // next tag: 30
 }
 
 message EntityGraph {
