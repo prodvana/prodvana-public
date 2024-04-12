@@ -97,8 +97,9 @@ message ApplyTargetStateEvent {
     bool is_auto_rollback = 4;
     ApplyResult result = 5;
     string error = 8; // set if result = FAILED
+    string has_work_reason = 9;
 
-    // next tag: 9
+    // next tag: 10
 }
 
 message ProgramExitEvent {

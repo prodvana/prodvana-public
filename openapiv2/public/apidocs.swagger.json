@@ -11623,6 +11623,9 @@
         "error": {
           "type": "string",
           "title": "set if result = FAILED"
+        },
+        "hasWorkReason": {
+          "type": "string"
         }
       }
     },

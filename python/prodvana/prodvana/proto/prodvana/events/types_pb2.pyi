@@ -209,6 +209,7 @@ class ApplyTargetStateEvent(google.protobuf.message.Message):
     IS_AUTO_ROLLBACK_FIELD_NUMBER: builtins.int
     RESULT_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
+    HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     @property
     def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     desired_state_id: builtins.str
@@ -224,6 +225,7 @@ class ApplyTargetStateEvent(google.protobuf.message.Message):
     result: global___ApplyTargetStateEvent.ApplyResult.ValueType
     error: builtins.str
     """set if result = FAILED"""
+    has_work_reason: builtins.str
     def __init__(
         self,
         *,
@@ -235,9 +237,10 @@ class ApplyTargetStateEvent(google.protobuf.message.Message):
         is_auto_rollback: builtins.bool = ...,
         result: global___ApplyTargetStateEvent.ApplyResult.ValueType = ...,
         error: builtins.str = ...,
+        has_work_reason: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["current", b"current", "id", b"id", "target", b"target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "desired_state_id", b"desired_state_id", "error", b"error", "id", b"id", "is_auto_rollback", b"is_auto_rollback", "result", b"result", "root_desired_state_id", b"root_desired_state_id", "target", b"target"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "desired_state_id", b"desired_state_id", "error", b"error", "has_work_reason", b"has_work_reason", "id", b"id", "is_auto_rollback", b"is_auto_rollback", "result", b"result", "root_desired_state_id", b"root_desired_state_id", "target", b"target"]) -> None: ...
 
 global___ApplyTargetStateEvent = ApplyTargetStateEvent
 

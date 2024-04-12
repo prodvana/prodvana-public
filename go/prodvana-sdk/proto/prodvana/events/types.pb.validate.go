@@ -588,6 +588,8 @@ func (m *ApplyTargetStateEvent) validate(all bool) error {
 
 	// no validation rules for Error
 
+	// no validation rules for HasWorkReason
+
 	if len(errors) > 0 {
 		return ApplyTargetStateEventMultiError(errors)
 	}
