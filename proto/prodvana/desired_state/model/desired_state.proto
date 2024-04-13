@@ -388,11 +388,18 @@ message FetchDetails {
     string fetch_plan_explanation_blob_id = 4 [(vtproto.unstable_for_equal) = true]; // optional
     // the version of the service associated with this fetch run
     string version = 5;
+    // the resulting versions computed from the fetch.
+    // for exit code, this is always going to match version but with a dirty bit set
+    // for structured output, this is whatever the fetch returns.
+    repeated Version versions = 10 [(vtproto.unstable_for_equal) = true];
+    RuntimeObject.Status runtime_object_status = 11 [(vtproto.unstable_for_equal) = true];
+    repeated prodvana.runtimes.extensions.ExternalObject external_objects = 12 [(vtproto.unstable_for_equal) = true];
     FetchStatus fetch_status = 6;
     string fetcher_desired_state_id = 7;
     // freeform message from the convergence engine explaining the fetch result
     string message = 8 [(vtproto.unstable_for_equal) = true];
     prodvana.runtimes.extensions.FetchMode fetch_mode = 9;
+    // next tag: 13
 }
 
 message RuntimeExtensionFetchOutput {
@@ -454,10 +461,10 @@ message ApplyDetails {
     ApplyStatus apply_status = 4;
     // the fetch details used for this particular apply, including any plan id
     FetchDetails fetch_details = 5;
-    // snapshot of the aggregate object at the time the apply started,
-    // useful to look at the output of the structured fetch
-    RuntimeObject aggregate_object_snapshot = 6 [(vtproto.unstable_for_equal) = true];
+    // why did Prodvana decide to run apply?
     string has_work_reason = 7 [(vtproto.unstable_for_equal) = true];
+    reserved 6;
+    reserved "aggregate_object_snapshot";
 }
 
 message RuntimeExtensionApplyOutput {
@@ -912,11 +919,13 @@ message TaskRun {
     // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
     FetchDetails fetch_details = 10;
     FetchTaskStartDetails fetch_task_start_details = 14;
-    RuntimeObject aggregate_object_snapshot = 20;
     string has_work_reason = 21;
 
     // if set, the entity who started this task has a concurrency limit that needs to be renewed and released
     repeated ConcurrencyLease concurrency_leases = 17;
+
+    reserved 20;
+    reserved "aggregate_object_snapshot";
 
     // next tag: 22
 }

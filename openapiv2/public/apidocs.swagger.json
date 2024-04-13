@@ -12902,12 +12902,9 @@
           "$ref": "#/definitions/modelFetchDetails",
           "title": "the fetch details used for this particular apply, including any plan id"
         },
-        "aggregateObjectSnapshot": {
-          "$ref": "#/definitions/desired_statemodelRuntimeObject",
-          "title": "snapshot of the aggregate object at the time the apply started,\nuseful to look at the output of the structured fetch"
-        },
         "hasWorkReason": {
-          "type": "string"
+          "type": "string",
+          "title": "why did Prodvana decide to run apply?"
         }
       }
     },
@@ -13594,6 +13591,24 @@
           "type": "string",
           "title": "the version of the service associated with this fetch run"
         },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelVersion"
+          },
+          "description": "the resulting versions computed from the fetch.\nfor exit code, this is always going to match version but with a dirty bit set\nfor structured output, this is whatever the fetch returns."
+        },
+        "runtimeObjectStatus": {
+          "$ref": "#/definitions/modelRuntimeObjectStatus"
+        },
+        "externalObjects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/extensionsExternalObject"
+          }
+        },
         "fetchStatus": {
           "$ref": "#/definitions/FetchDetailsFetchStatus"
         },
@@ -13605,7 +13620,8 @@
           "title": "freeform message from the convergence engine explaining the fetch result"
         },
         "fetchMode": {
-          "$ref": "#/definitions/extensionsFetchMode"
+          "$ref": "#/definitions/extensionsFetchMode",
+          "title": "next tag: 13"
         }
       }
     },
@@ -14241,9 +14257,6 @@
         },
         "fetchTaskStartDetails": {
           "$ref": "#/definitions/modelFetchTaskStartDetails"
-        },
-        "aggregateObjectSnapshot": {
-          "$ref": "#/definitions/desired_statemodelRuntimeObject"
         },
         "hasWorkReason": {
           "type": "string"

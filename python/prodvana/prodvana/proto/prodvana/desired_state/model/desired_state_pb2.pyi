@@ -1047,6 +1047,9 @@ class FetchDetails(google.protobuf.message.Message):
     FETCH_PLAN_BLOB_ID_FIELD_NUMBER: builtins.int
     FETCH_PLAN_EXPLANATION_BLOB_ID_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
+    VERSIONS_FIELD_NUMBER: builtins.int
+    RUNTIME_OBJECT_STATUS_FIELD_NUMBER: builtins.int
+    EXTERNAL_OBJECTS_FIELD_NUMBER: builtins.int
     FETCH_STATUS_FIELD_NUMBER: builtins.int
     FETCHER_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
@@ -1067,11 +1070,21 @@ class FetchDetails(google.protobuf.message.Message):
     """
     version: builtins.str
     """the version of the service associated with this fetch run"""
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Version]:
+        """the resulting versions computed from the fetch.
+        for exit code, this is always going to match version but with a dirty bit set
+        for structured output, this is whatever the fetch returns.
+        """
+    runtime_object_status: global___RuntimeObject.Status.ValueType
+    @property
+    def external_objects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject]: ...
     fetch_status: global___FetchDetails.FetchStatus.ValueType
     fetcher_desired_state_id: builtins.str
     message: builtins.str
     """freeform message from the convergence engine explaining the fetch result"""
     fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType
+    """next tag: 13"""
     def __init__(
         self,
         *,
@@ -1080,13 +1093,16 @@ class FetchDetails(google.protobuf.message.Message):
         fetch_plan_blob_id: builtins.str = ...,
         fetch_plan_explanation_blob_id: builtins.str = ...,
         version: builtins.str = ...,
+        versions: collections.abc.Iterable[global___Version] | None = ...,
+        runtime_object_status: global___RuntimeObject.Status.ValueType = ...,
+        external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
         fetch_status: global___FetchDetails.FetchStatus.ValueType = ...,
         fetcher_desired_state_id: builtins.str = ...,
         message: builtins.str = ...,
         fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_mode", b"fetch_mode", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "message", b"message", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "external_objects", b"external_objects", "fetch_mode", b"fetch_mode", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "message", b"message", "runtime_object_status", b"runtime_object_status", "started_timestamp", b"started_timestamp", "version", b"version", "versions", b"versions"]) -> None: ...
 
 global___FetchDetails = FetchDetails
 
@@ -1230,7 +1246,6 @@ class ApplyDetails(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     APPLY_STATUS_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
-    AGGREGATE_OBJECT_SNAPSHOT_FIELD_NUMBER: builtins.int
     HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
@@ -1244,12 +1259,8 @@ class ApplyDetails(google.protobuf.message.Message):
     @property
     def fetch_details(self) -> global___FetchDetails:
         """the fetch details used for this particular apply, including any plan id"""
-    @property
-    def aggregate_object_snapshot(self) -> global___RuntimeObject:
-        """snapshot of the aggregate object at the time the apply started,
-        useful to look at the output of the structured fetch
-        """
     has_work_reason: builtins.str
+    """why did Prodvana decide to run apply?"""
     def __init__(
         self,
         *,
@@ -1258,11 +1269,10 @@ class ApplyDetails(google.protobuf.message.Message):
         version: builtins.str = ...,
         apply_status: global___ApplyDetails.ApplyStatus.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
-        aggregate_object_snapshot: global___RuntimeObject | None = ...,
         has_work_reason: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "has_work_reason", b"has_work_reason", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "has_work_reason", b"has_work_reason", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
 
 global___ApplyDetails = ApplyDetails
 
@@ -2428,7 +2438,6 @@ class TaskRun(google.protobuf.message.Message):
     PHASE_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
     FETCH_TASK_START_DETAILS_FIELD_NUMBER: builtins.int
-    AGGREGATE_OBJECT_SNAPSHOT_FIELD_NUMBER: builtins.int
     HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     CONCURRENCY_LEASES_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
@@ -2471,8 +2480,6 @@ class TaskRun(google.protobuf.message.Message):
         """
     @property
     def fetch_task_start_details(self) -> global___FetchTaskStartDetails: ...
-    @property
-    def aggregate_object_snapshot(self) -> global___RuntimeObject: ...
     has_work_reason: builtins.str
     @property
     def concurrency_leases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLease]:
@@ -2498,12 +2505,11 @@ class TaskRun(google.protobuf.message.Message):
         phase: global___TaskRun.Phase.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
         fetch_task_start_details: global___FetchTaskStartDetails | None = ...,
-        aggregate_object_snapshot: global___RuntimeObject | None = ...,
         has_work_reason: builtins.str = ...,
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

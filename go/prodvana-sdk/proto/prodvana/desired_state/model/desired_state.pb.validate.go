@@ -3188,6 +3188,76 @@ func (m *FetchDetails) validate(all bool) error {
 
 	// no validation rules for Version
 
+	for idx, item := range m.GetVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, FetchDetailsValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, FetchDetailsValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchDetailsValidationError{
+					field:  fmt.Sprintf("Versions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for RuntimeObjectStatus
+
+	for idx, item := range m.GetExternalObjects() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, FetchDetailsValidationError{
+						field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, FetchDetailsValidationError{
+						field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchDetailsValidationError{
+					field:  fmt.Sprintf("ExternalObjects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	// no validation rules for FetchStatus
 
 	// no validation rules for FetcherDesiredStateId
@@ -4012,35 +4082,6 @@ func (m *ApplyDetails) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return ApplyDetailsValidationError{
 				field:  "FetchDetails",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetAggregateObjectSnapshot()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ApplyDetailsValidationError{
-					field:  "AggregateObjectSnapshot",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ApplyDetailsValidationError{
-					field:  "AggregateObjectSnapshot",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetAggregateObjectSnapshot()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ApplyDetailsValidationError{
-				field:  "AggregateObjectSnapshot",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -9399,35 +9440,6 @@ func (m *TaskRun) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return TaskRunValidationError{
 				field:  "FetchTaskStartDetails",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetAggregateObjectSnapshot()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, TaskRunValidationError{
-					field:  "AggregateObjectSnapshot",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, TaskRunValidationError{
-					field:  "AggregateObjectSnapshot",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetAggregateObjectSnapshot()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskRunValidationError{
-				field:  "AggregateObjectSnapshot",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
