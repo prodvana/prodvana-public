@@ -1230,6 +1230,8 @@ class ApplyDetails(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     APPLY_STATUS_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
+    AGGREGATE_OBJECT_SNAPSHOT_FIELD_NUMBER: builtins.int
+    HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the apply job started"""
@@ -1242,6 +1244,12 @@ class ApplyDetails(google.protobuf.message.Message):
     @property
     def fetch_details(self) -> global___FetchDetails:
         """the fetch details used for this particular apply, including any plan id"""
+    @property
+    def aggregate_object_snapshot(self) -> global___RuntimeObject:
+        """snapshot of the aggregate object at the time the apply started,
+        useful to look at the output of the structured fetch
+        """
+    has_work_reason: builtins.str
     def __init__(
         self,
         *,
@@ -1250,9 +1258,11 @@ class ApplyDetails(google.protobuf.message.Message):
         version: builtins.str = ...,
         apply_status: global___ApplyDetails.ApplyStatus.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
+        aggregate_object_snapshot: global___RuntimeObject | None = ...,
+        has_work_reason: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "has_work_reason", b"has_work_reason", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
 
 global___ApplyDetails = ApplyDetails
 
@@ -2418,6 +2428,8 @@ class TaskRun(google.protobuf.message.Message):
     PHASE_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
     FETCH_TASK_START_DETAILS_FIELD_NUMBER: builtins.int
+    AGGREGATE_OBJECT_SNAPSHOT_FIELD_NUMBER: builtins.int
+    HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     CONCURRENCY_LEASES_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
     @property
@@ -2460,6 +2472,9 @@ class TaskRun(google.protobuf.message.Message):
     @property
     def fetch_task_start_details(self) -> global___FetchTaskStartDetails: ...
     @property
+    def aggregate_object_snapshot(self) -> global___RuntimeObject: ...
+    has_work_reason: builtins.str
+    @property
     def concurrency_leases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLease]:
         """if set, the entity who started this task has a concurrency limit that needs to be renewed and released"""
     def __init__(
@@ -2483,10 +2498,12 @@ class TaskRun(google.protobuf.message.Message):
         phase: global___TaskRun.Phase.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
         fetch_task_start_details: global___FetchTaskStartDetails | None = ...,
+        aggregate_object_snapshot: global___RuntimeObject | None = ...,
+        has_work_reason: builtins.str = ...,
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["aggregate_object_snapshot", b"aggregate_object_snapshot", "completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

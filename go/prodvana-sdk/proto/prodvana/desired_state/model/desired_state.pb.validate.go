@@ -4018,6 +4018,37 @@ func (m *ApplyDetails) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetAggregateObjectSnapshot()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "AggregateObjectSnapshot",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "AggregateObjectSnapshot",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAggregateObjectSnapshot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDetailsValidationError{
+				field:  "AggregateObjectSnapshot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for HasWorkReason
+
 	if len(errors) > 0 {
 		return ApplyDetailsMultiError(errors)
 	}
@@ -9373,6 +9404,37 @@ func (m *TaskRun) validate(all bool) error {
 			}
 		}
 	}
+
+	if all {
+		switch v := interface{}(m.GetAggregateObjectSnapshot()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "AggregateObjectSnapshot",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "AggregateObjectSnapshot",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAggregateObjectSnapshot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRunValidationError{
+				field:  "AggregateObjectSnapshot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for HasWorkReason
 
 	for idx, item := range m.GetConcurrencyLeases() {
 		_, _ = idx, item

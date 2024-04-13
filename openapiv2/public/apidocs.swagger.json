@@ -12901,6 +12901,13 @@
         "fetchDetails": {
           "$ref": "#/definitions/modelFetchDetails",
           "title": "the fetch details used for this particular apply, including any plan id"
+        },
+        "aggregateObjectSnapshot": {
+          "$ref": "#/definitions/desired_statemodelRuntimeObject",
+          "title": "snapshot of the aggregate object at the time the apply started,\nuseful to look at the output of the structured fetch"
+        },
+        "hasWorkReason": {
+          "type": "string"
         }
       }
     },
@@ -14234,6 +14241,12 @@
         },
         "fetchTaskStartDetails": {
           "$ref": "#/definitions/modelFetchTaskStartDetails"
+        },
+        "aggregateObjectSnapshot": {
+          "$ref": "#/definitions/desired_statemodelRuntimeObject"
+        },
+        "hasWorkReason": {
+          "type": "string"
         },
         "concurrencyLeases": {
           "type": "array",

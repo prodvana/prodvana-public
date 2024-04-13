@@ -454,6 +454,10 @@ message ApplyDetails {
     ApplyStatus apply_status = 4;
     // the fetch details used for this particular apply, including any plan id
     FetchDetails fetch_details = 5;
+    // snapshot of the aggregate object at the time the apply started,
+    // useful to look at the output of the structured fetch
+    RuntimeObject aggregate_object_snapshot = 6 [(vtproto.unstable_for_equal) = true];
+    string has_work_reason = 7 [(vtproto.unstable_for_equal) = true];
 }
 
 message RuntimeExtensionApplyOutput {
@@ -908,11 +912,13 @@ message TaskRun {
     // for runtime extension aggregate objects only, the fetch details used to start the task (will contain plan id)
     FetchDetails fetch_details = 10;
     FetchTaskStartDetails fetch_task_start_details = 14;
+    RuntimeObject aggregate_object_snapshot = 20;
+    string has_work_reason = 21;
 
     // if set, the entity who started this task has a concurrency limit that needs to be renewed and released
     repeated ConcurrencyLease concurrency_leases = 17;
 
-    // next tag: 19
+    // next tag: 22
 }
 
 message TaskEntityContext {
