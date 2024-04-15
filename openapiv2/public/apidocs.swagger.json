@@ -12621,6 +12621,13 @@
         },
         "rootDesiredStateId": {
           "type": "string"
+        },
+        "releaseChannelDepStatuses": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/maestroStatusWithDetails"
+          },
+          "description": "Status of release channel dependencies, by release channel id."
         }
       }
     },
@@ -12674,6 +12681,15 @@
         },
         "sharedRootDesiredStateId": {
           "type": "string"
+        }
+      }
+    },
+    "maestroStatusWithDetails": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/desired_statemaestroStatus",
+          "description": "Details about the status, like when it was last updated, why and any other relevant information."
         }
       }
     },

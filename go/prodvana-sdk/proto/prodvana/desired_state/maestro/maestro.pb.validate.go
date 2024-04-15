@@ -609,6 +609,110 @@ var _ interface {
 	ErrorName() string
 } = MaestroReleaseStateValidationError{}
 
+// Validate checks the field values on StatusWithDetails with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *StatusWithDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StatusWithDetails with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// StatusWithDetailsMultiError, or nil if none found.
+func (m *StatusWithDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StatusWithDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return StatusWithDetailsMultiError(errors)
+	}
+
+	return nil
+}
+
+// StatusWithDetailsMultiError is an error wrapping multiple validation errors
+// returned by StatusWithDetails.ValidateAll() if the designated constraints
+// aren't met.
+type StatusWithDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StatusWithDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StatusWithDetailsMultiError) AllErrors() []error { return m }
+
+// StatusWithDetailsValidationError is the validation error returned by
+// StatusWithDetails.Validate if the designated constraints aren't met.
+type StatusWithDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StatusWithDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StatusWithDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StatusWithDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StatusWithDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StatusWithDetailsValidationError) ErrorName() string {
+	return "StatusWithDetailsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StatusWithDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStatusWithDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StatusWithDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StatusWithDetailsValidationError{}
+
 // Validate checks the field values on MaestroReleaseChannelState with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -638,6 +742,52 @@ func (m *MaestroReleaseChannelState) validate(all bool) error {
 	// no validation rules for EntityId
 
 	// no validation rules for RootDesiredStateId
+
+	{
+		sorted_keys := make([]string, len(m.GetReleaseChannelDepStatuses()))
+		i := 0
+		for key := range m.GetReleaseChannelDepStatuses() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetReleaseChannelDepStatuses()[key]
+			_ = val
+
+			// no validation rules for ReleaseChannelDepStatuses[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, MaestroReleaseChannelStateValidationError{
+							field:  fmt.Sprintf("ReleaseChannelDepStatuses[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, MaestroReleaseChannelStateValidationError{
+							field:  fmt.Sprintf("ReleaseChannelDepStatuses[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return MaestroReleaseChannelStateValidationError{
+						field:  fmt.Sprintf("ReleaseChannelDepStatuses[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
 
 	if len(errors) > 0 {
 		return MaestroReleaseChannelStateMultiError(errors)

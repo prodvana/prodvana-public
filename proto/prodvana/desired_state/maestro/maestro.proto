@@ -50,11 +50,17 @@ message MaestroReleaseState {
     string shared_root_desired_state_id = 5;
 }
 
+message StatusWithDetails {
+    Status status = 1;
+    // Details about the status, like when it was last updated, why and any other relevant information.
+}
+
 message MaestroReleaseChannelState {
     Status status = 1;
     string desired_state_id = 2;
     string entity_id = 3;
     string root_desired_state_id = 4;
+    map<string, StatusWithDetails> release_channel_dep_statuses = 5;  // Status of release channel dependencies, by release channel id.
 }
 
 message MaestroRelease {
