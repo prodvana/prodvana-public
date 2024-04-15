@@ -3266,6 +3266,35 @@ func (m *FetchDetails) validate(all bool) error {
 
 	// no validation rules for FetchMode
 
+	if all {
+		switch v := interface{}(m.GetTaskRun()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "TaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FetchDetailsValidationError{
+					field:  "TaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTaskRun()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FetchDetailsValidationError{
+				field:  "TaskRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return FetchDetailsMultiError(errors)
 	}
@@ -4089,6 +4118,35 @@ func (m *ApplyDetails) validate(all bool) error {
 	}
 
 	// no validation rules for HasWorkReason
+
+	if all {
+		switch v := interface{}(m.GetTaskRun()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "TaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDetailsValidationError{
+					field:  "TaskRun",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTaskRun()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDetailsValidationError{
+				field:  "TaskRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return ApplyDetailsMultiError(errors)

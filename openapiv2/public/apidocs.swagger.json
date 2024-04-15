@@ -12921,6 +12921,10 @@
         "hasWorkReason": {
           "type": "string",
           "title": "why did Prodvana decide to run apply?"
+        },
+        "taskRun": {
+          "$ref": "#/definitions/modelTaskRun",
+          "title": "the run of the fetch task"
         }
       }
     },
@@ -13636,8 +13640,12 @@
           "title": "freeform message from the convergence engine explaining the fetch result"
         },
         "fetchMode": {
-          "$ref": "#/definitions/extensionsFetchMode",
-          "title": "next tag: 13"
+          "$ref": "#/definitions/extensionsFetchMode"
+        },
+        "taskRun": {
+          "$ref": "#/definitions/modelTaskRun",
+          "description": "next tag: 14",
+          "title": "the run of the fetch task"
         }
       }
     },

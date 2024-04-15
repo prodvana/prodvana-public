@@ -399,7 +399,9 @@ message FetchDetails {
     // freeform message from the convergence engine explaining the fetch result
     string message = 8 [(vtproto.unstable_for_equal) = true];
     prodvana.runtimes.extensions.FetchMode fetch_mode = 9;
-    // next tag: 13
+    // the run of the fetch task
+    TaskRun task_run = 13 [(vtproto.unstable_for_equal) = true];
+    // next tag: 14
 }
 
 message RuntimeExtensionFetchOutput {
@@ -463,6 +465,8 @@ message ApplyDetails {
     FetchDetails fetch_details = 5;
     // why did Prodvana decide to run apply?
     string has_work_reason = 7 [(vtproto.unstable_for_equal) = true];
+    // the run of the fetch task
+    TaskRun task_run = 8 [(vtproto.unstable_for_equal) = true];
     reserved 6;
     reserved "aggregate_object_snapshot";
 }

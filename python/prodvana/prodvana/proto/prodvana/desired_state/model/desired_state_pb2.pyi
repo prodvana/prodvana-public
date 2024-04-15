@@ -1054,6 +1054,7 @@ class FetchDetails(google.protobuf.message.Message):
     FETCHER_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     FETCH_MODE_FIELD_NUMBER: builtins.int
+    TASK_RUN_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the fetch job started"""
@@ -1084,7 +1085,11 @@ class FetchDetails(google.protobuf.message.Message):
     message: builtins.str
     """freeform message from the convergence engine explaining the fetch result"""
     fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType
-    """next tag: 13"""
+    @property
+    def task_run(self) -> global___TaskRun:
+        """the run of the fetch task
+        next tag: 14
+        """
     def __init__(
         self,
         *,
@@ -1100,9 +1105,10 @@ class FetchDetails(google.protobuf.message.Message):
         fetcher_desired_state_id: builtins.str = ...,
         message: builtins.str = ...,
         fetch_mode: prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.FetchMode.ValueType = ...,
+        task_run: global___TaskRun | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "external_objects", b"external_objects", "fetch_mode", b"fetch_mode", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "message", b"message", "runtime_object_status", b"runtime_object_status", "started_timestamp", b"started_timestamp", "version", b"version", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "started_timestamp", b"started_timestamp", "task_run", b"task_run"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "external_objects", b"external_objects", "fetch_mode", b"fetch_mode", "fetch_plan_blob_id", b"fetch_plan_blob_id", "fetch_plan_explanation_blob_id", b"fetch_plan_explanation_blob_id", "fetch_status", b"fetch_status", "fetcher_desired_state_id", b"fetcher_desired_state_id", "message", b"message", "runtime_object_status", b"runtime_object_status", "started_timestamp", b"started_timestamp", "task_run", b"task_run", "version", b"version", "versions", b"versions"]) -> None: ...
 
 global___FetchDetails = FetchDetails
 
@@ -1247,6 +1253,7 @@ class ApplyDetails(google.protobuf.message.Message):
     APPLY_STATUS_FIELD_NUMBER: builtins.int
     FETCH_DETAILS_FIELD_NUMBER: builtins.int
     HAS_WORK_REASON_FIELD_NUMBER: builtins.int
+    TASK_RUN_FIELD_NUMBER: builtins.int
     @property
     def started_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when the apply job started"""
@@ -1261,6 +1268,9 @@ class ApplyDetails(google.protobuf.message.Message):
         """the fetch details used for this particular apply, including any plan id"""
     has_work_reason: builtins.str
     """why did Prodvana decide to run apply?"""
+    @property
+    def task_run(self) -> global___TaskRun:
+        """the run of the fetch task"""
     def __init__(
         self,
         *,
@@ -1270,9 +1280,10 @@ class ApplyDetails(google.protobuf.message.Message):
         apply_status: global___ApplyDetails.ApplyStatus.ValueType = ...,
         fetch_details: global___FetchDetails | None = ...,
         has_work_reason: builtins.str = ...,
+        task_run: global___TaskRun | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "has_work_reason", b"has_work_reason", "started_timestamp", b"started_timestamp", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "started_timestamp", b"started_timestamp", "task_run", b"task_run"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_status", b"apply_status", "completed_timestamp", b"completed_timestamp", "fetch_details", b"fetch_details", "has_work_reason", b"has_work_reason", "started_timestamp", b"started_timestamp", "task_run", b"task_run", "version", b"version"]) -> None: ...
 
 global___ApplyDetails = ApplyDetails
 
