@@ -14252,6 +14252,10 @@
             "format": "int32"
           }
         },
+        "pvnWrapperOutput": {
+          "$ref": "#/definitions/pvn_wrapperOutput",
+          "title": "if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"
+        },
         "taskEntities": {
           "type": "array",
           "items": {

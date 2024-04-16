@@ -9408,6 +9408,35 @@ func (m *TaskRun) validate(all bool) error {
 
 	// no validation rules for StartedByProcessId
 
+	if all {
+		switch v := interface{}(m.GetPvnWrapperOutput()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "PvnWrapperOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRunValidationError{
+					field:  "PvnWrapperOutput",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPvnWrapperOutput()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRunValidationError{
+				field:  "PvnWrapperOutput",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	for idx, item := range m.GetTaskEntities() {
 		_, _ = idx, item
 

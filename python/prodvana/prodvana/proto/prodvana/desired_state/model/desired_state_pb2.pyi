@@ -17,6 +17,7 @@ import prodvana.proto.prodvana.common_config.retry_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
+import prodvana.proto.prodvana.pvn_wrapper.output_pb2
 import prodvana.proto.prodvana.runtimes.debug_event_pb2
 import prodvana.proto.prodvana.runtimes.extensions.fetch_pb2
 import prodvana.proto.prodvana.version.source_metadata_pb2
@@ -2443,6 +2444,7 @@ class TaskRun(google.protobuf.message.Message):
     STARTED_BY_PROCESS_ID_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
+    PVN_WRAPPER_OUTPUT_FIELD_NUMBER: builtins.int
     TASK_ENTITIES_FIELD_NUMBER: builtins.int
     RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
     RETRYABLE_FIELD_NUMBER: builtins.int
@@ -2472,6 +2474,9 @@ class TaskRun(google.protobuf.message.Message):
         """these fields are only populated for completed tasks"""
     @property
     def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def pvn_wrapper_output(self) -> prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output:
+        """if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"""
     @property
     def task_entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]:
         """all entities that make up the task"""
@@ -2510,6 +2515,7 @@ class TaskRun(google.protobuf.message.Message):
         started_by_process_id: builtins.str = ...,
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+        pvn_wrapper_output: prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output | None = ...,
         task_entities: collections.abc.Iterable[global___Identifier] | None = ...,
         retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
         retryable: builtins.bool = ...,
@@ -2519,8 +2525,8 @@ class TaskRun(google.protobuf.message.Message):
         has_work_reason: builtins.str = ...,
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "pvn_wrapper_output", b"pvn_wrapper_output", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "pvn_wrapper_output", b"pvn_wrapper_output", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 

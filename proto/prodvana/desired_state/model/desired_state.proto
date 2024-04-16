@@ -12,6 +12,7 @@ import "prodvana/common_config/retry.proto";
 import "prodvana/common_config/task.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/protection/protection_reference.proto";
+import "prodvana/pvn_wrapper/output.proto";
 import "prodvana/runtimes/extensions/fetch.proto";
 import "prodvana/runtimes/debug_event.proto";
 import "prodvana/version/source_metadata.proto";
@@ -907,6 +908,8 @@ message TaskRun {
     // these fields are only populated for completed tasks
     repeated string output_blob_ids = 7;
     repeated int32 exit_codes = 8;
+    // if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)
+    prodvana.pvn_wrapper.Output pvn_wrapper_output = 22;
     // all entities that make up the task
     repeated Identifier task_entities = 9;
 
@@ -931,7 +934,7 @@ message TaskRun {
     reserved 20;
     reserved "aggregate_object_snapshot";
 
-    // next tag: 22
+    // next tag: 23
 }
 
 message TaskEntityContext {
