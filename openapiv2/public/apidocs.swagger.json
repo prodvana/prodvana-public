@@ -8134,6 +8134,24 @@
       ],
       "default": "RUNNING"
     },
+    "TaskRunRuntimeObjectMetadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier",
+          "title": "light, incomplete metadata about runtime object to identify the object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "objectType": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      }
+    },
     "VolumeSourceEphemeralSource": {
       "type": "object",
       "properties": {
@@ -14252,9 +14270,16 @@
             "format": "int32"
           }
         },
+        "runtimeObjectMetadatas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TaskRunRuntimeObjectMetadata"
+          }
+        },
         "pvnWrapperOutput": {
           "$ref": "#/definitions/pvn_wrapperOutput",
-          "title": "if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"
+          "title": "if set, output_blob_ids, exit_codes and runtime objects can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"
         },
         "taskEntities": {
           "type": "array",

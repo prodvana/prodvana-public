@@ -889,6 +889,13 @@ message ConcurrencyLease {
 }
 
 message TaskRun {
+    message RuntimeObjectMetadata {
+        // light, incomplete metadata about runtime object to identify the object
+        Identifier id = 1;
+        string name = 2;
+        string object_type = 3;
+        string namespace = 4;
+    }
     enum Phase {
         RUNNING = 0;
         NOT_STARTED = 1;
@@ -908,7 +915,9 @@ message TaskRun {
     // these fields are only populated for completed tasks
     repeated string output_blob_ids = 7;
     repeated int32 exit_codes = 8;
-    // if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)
+    repeated RuntimeObjectMetadata runtime_object_metadatas = 23;
+
+    // if set, output_blob_ids, exit_codes and runtime objects can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)
     prodvana.pvn_wrapper.Output pvn_wrapper_output = 22;
     // all entities that make up the task
     repeated Identifier task_entities = 9;
@@ -934,7 +943,7 @@ message TaskRun {
     reserved 20;
     reserved "aggregate_object_snapshot";
 
-    // next tag: 23
+    // next tag: 24
 }
 
 message TaskEntityContext {

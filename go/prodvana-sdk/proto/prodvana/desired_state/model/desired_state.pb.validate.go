@@ -9408,6 +9408,40 @@ func (m *TaskRun) validate(all bool) error {
 
 	// no validation rules for StartedByProcessId
 
+	for idx, item := range m.GetRuntimeObjectMetadatas() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("RuntimeObjectMetadatas[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskRunValidationError{
+						field:  fmt.Sprintf("RuntimeObjectMetadatas[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskRunValidationError{
+					field:  fmt.Sprintf("RuntimeObjectMetadatas[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if all {
 		switch v := interface{}(m.GetPvnWrapperOutput()).(type) {
 		case interface{ ValidateAll() error }:
@@ -11873,3 +11907,141 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ApplyConditionUnsatisfied_InternalMissingApprovalValidationError{}
+
+// Validate checks the field values on TaskRun_RuntimeObjectMetadata with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TaskRun_RuntimeObjectMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TaskRun_RuntimeObjectMetadata with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// TaskRun_RuntimeObjectMetadataMultiError, or nil if none found.
+func (m *TaskRun_RuntimeObjectMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TaskRun_RuntimeObjectMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskRun_RuntimeObjectMetadataValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskRun_RuntimeObjectMetadataValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskRun_RuntimeObjectMetadataValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for ObjectType
+
+	// no validation rules for Namespace
+
+	if len(errors) > 0 {
+		return TaskRun_RuntimeObjectMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// TaskRun_RuntimeObjectMetadataMultiError is an error wrapping multiple
+// validation errors returned by TaskRun_RuntimeObjectMetadata.ValidateAll()
+// if the designated constraints aren't met.
+type TaskRun_RuntimeObjectMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TaskRun_RuntimeObjectMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TaskRun_RuntimeObjectMetadataMultiError) AllErrors() []error { return m }
+
+// TaskRun_RuntimeObjectMetadataValidationError is the validation error
+// returned by TaskRun_RuntimeObjectMetadata.Validate if the designated
+// constraints aren't met.
+type TaskRun_RuntimeObjectMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskRun_RuntimeObjectMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskRun_RuntimeObjectMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskRun_RuntimeObjectMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskRun_RuntimeObjectMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskRun_RuntimeObjectMetadataValidationError) ErrorName() string {
+	return "TaskRun_RuntimeObjectMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TaskRun_RuntimeObjectMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskRun_RuntimeObjectMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskRun_RuntimeObjectMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskRun_RuntimeObjectMetadataValidationError{}

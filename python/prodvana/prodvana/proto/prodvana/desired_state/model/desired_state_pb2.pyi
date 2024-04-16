@@ -2432,6 +2432,30 @@ class TaskRun(google.protobuf.message.Message):
     RUNNING: TaskRun.Phase.ValueType  # 0
     NOT_STARTED: TaskRun.Phase.ValueType  # 1
 
+    class RuntimeObjectMetadata(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        ID_FIELD_NUMBER: builtins.int
+        NAME_FIELD_NUMBER: builtins.int
+        OBJECT_TYPE_FIELD_NUMBER: builtins.int
+        NAMESPACE_FIELD_NUMBER: builtins.int
+        @property
+        def id(self) -> global___Identifier:
+            """light, incomplete metadata about runtime object to identify the object"""
+        name: builtins.str
+        object_type: builtins.str
+        namespace: builtins.str
+        def __init__(
+            self,
+            *,
+            id: global___Identifier | None = ...,
+            name: builtins.str = ...,
+            object_type: builtins.str = ...,
+            namespace: builtins.str = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["id", b"id"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "name", b"name", "namespace", b"namespace", "object_type", b"object_type"]) -> None: ...
+
     STATUS_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
@@ -2444,6 +2468,7 @@ class TaskRun(google.protobuf.message.Message):
     STARTED_BY_PROCESS_ID_FIELD_NUMBER: builtins.int
     OUTPUT_BLOB_IDS_FIELD_NUMBER: builtins.int
     EXIT_CODES_FIELD_NUMBER: builtins.int
+    RUNTIME_OBJECT_METADATAS_FIELD_NUMBER: builtins.int
     PVN_WRAPPER_OUTPUT_FIELD_NUMBER: builtins.int
     TASK_ENTITIES_FIELD_NUMBER: builtins.int
     RETRYABLE_EXIT_CODES_FIELD_NUMBER: builtins.int
@@ -2475,8 +2500,10 @@ class TaskRun(google.protobuf.message.Message):
     @property
     def exit_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
+    def runtime_object_metadatas(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskRun.RuntimeObjectMetadata]: ...
+    @property
     def pvn_wrapper_output(self) -> prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output:
-        """if set, output_blob_ids and exit_codes can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"""
+        """if set, output_blob_ids, exit_codes and runtime objects can be ignored (it'll contain the output that will eventually lead to this pvn-wrapper output)"""
     @property
     def task_entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Identifier]:
         """all entities that make up the task"""
@@ -2515,6 +2542,7 @@ class TaskRun(google.protobuf.message.Message):
         started_by_process_id: builtins.str = ...,
         output_blob_ids: collections.abc.Iterable[builtins.str] | None = ...,
         exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
+        runtime_object_metadatas: collections.abc.Iterable[global___TaskRun.RuntimeObjectMetadata] | None = ...,
         pvn_wrapper_output: prodvana.proto.prodvana.pvn_wrapper.output_pb2.Output | None = ...,
         task_entities: collections.abc.Iterable[global___Identifier] | None = ...,
         retryable_exit_codes: collections.abc.Iterable[builtins.int] | None = ...,
@@ -2526,7 +2554,7 @@ class TaskRun(google.protobuf.message.Message):
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "pvn_wrapper_output", b"pvn_wrapper_output", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "pvn_wrapper_output", b"pvn_wrapper_output", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "pvn_wrapper_output", b"pvn_wrapper_output", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "runtime_object_metadatas", b"runtime_object_metadatas", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 
