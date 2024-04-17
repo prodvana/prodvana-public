@@ -8,4 +8,5 @@ enum Role {
     CLOUD_ADMIN = 2;
     SERVICE_OWNER = 3;
     VIEWER = 4;
+    RELEASE_MANAGER = 5;
 }

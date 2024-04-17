@@ -26,6 +26,7 @@ class _RoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     CLOUD_ADMIN: _Role.ValueType  # 2
     SERVICE_OWNER: _Role.ValueType  # 3
     VIEWER: _Role.ValueType  # 4
+    RELEASE_MANAGER: _Role.ValueType  # 5
 
 class Role(_Role, metaclass=_RoleEnumTypeWrapper): ...
 
@@ -34,4 +35,5 @@ ORG_ADMIN: Role.ValueType  # 1
 CLOUD_ADMIN: Role.ValueType  # 2
 SERVICE_OWNER: Role.ValueType  # 3
 VIEWER: Role.ValueType  # 4
+RELEASE_MANAGER: Role.ValueType  # 5
 global___Role = Role
