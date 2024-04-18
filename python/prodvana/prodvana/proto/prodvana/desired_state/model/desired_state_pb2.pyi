@@ -2062,6 +2062,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     EXTENSION_ID_FIELD_NUMBER: builtins.int
     EXTENSION_INSTANCE_ID_FIELD_NUMBER: builtins.int
     LIFECYCLE_FIELD_NUMBER: builtins.int
+    LAST_RUNS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
@@ -2075,6 +2076,11 @@ class DeliveryExtensionState(google.protobuf.message.Message):
     extension_id: builtins.str
     extension_instance_id: builtins.str
     lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
+    @property
+    def last_runs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskRun]:
+        """last couple of runs for this extension.
+        may not contain the full list, but guaranteed to contain the last.
+        """
     @property
     def last_completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     last_completed_status: global___SimpleStatus.ValueType
@@ -2096,6 +2102,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         extension_id: builtins.str = ...,
         extension_instance_id: builtins.str = ...,
         lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
+        last_runs: collections.abc.Iterable[global___TaskRun] | None = ...,
         last_completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_completed_status: global___SimpleStatus.ValueType = ...,
         last_completed_status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
@@ -2104,7 +2111,7 @@ class DeliveryExtensionState(google.protobuf.message.Message):
         references: collections.abc.Iterable[global___Identifier] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["last_completed_timestamp", b"last_completed_timestamp", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attempts", b"attempts", "extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "lifecycle", b"lifecycle", "meta", b"meta", "references", b"references", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["attempts", b"attempts", "extension_id", b"extension_id", "extension_instance_id", b"extension_instance_id", "last_completed_applied_version", b"last_completed_applied_version", "last_completed_status", b"last_completed_status", "last_completed_status_explanations", b"last_completed_status_explanations", "last_completed_timestamp", b"last_completed_timestamp", "last_runs", b"last_runs", "lifecycle", b"lifecycle", "meta", b"meta", "references", b"references", "versions", b"versions"]) -> None: ...
 
 global___DeliveryExtensionState = DeliveryExtensionState
 

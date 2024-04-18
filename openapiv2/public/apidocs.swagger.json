@@ -10544,6 +10544,14 @@
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
         },
+        "lastRuns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelTaskRun"
+          },
+          "description": "last couple of runs for this extension.\nmay not contain the full list, but guaranteed to contain the last."
+        },
         "lastCompletedTimestamp": {
           "type": "string",
           "format": "date-time"

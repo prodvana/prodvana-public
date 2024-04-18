@@ -754,6 +754,10 @@ message DeliveryExtensionState {
     string extension_instance_id = 10;
     prodvana.common_config.TaskLifecycle lifecycle = 11;
 
+    // last couple of runs for this extension.
+    // may not contain the full list, but guaranteed to contain the last.
+    repeated TaskRun last_runs = 15;
+
     google.protobuf.Timestamp last_completed_timestamp = 6;
     SimpleStatus last_completed_status = 7;
     repeated StatusExplanation last_completed_status_explanations = 8;
@@ -768,7 +772,7 @@ message DeliveryExtensionState {
 
     reserved 13;
     reserved "status";
-    // next tag: 15
+    // next tag: 16
 }
 
 enum SignalType {
