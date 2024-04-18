@@ -297,6 +297,16 @@ message BypassProtectionReq {
 message BypassProtectionResp {
 }
 
+message BypassDependenciesReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    string source = 2 [(validate.rules).string.min_len = 1];
+    prodvana.version.Source call_source = 3;
+    prodvana.version.SourceMetadata source_metadata = 4;
+}
+
+message BypassDependenciesResp {
+}
+
 message ListMaestroReleasesReq {
     prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
 
@@ -462,6 +472,12 @@ service DesiredStateManager {
     rpc BypassProtection(BypassProtectionReq) returns (BypassProtectionResp) {
         option (google.api.http) = {
             post: "/v1/desired_states/bypass_protection"
+            body: "*"
+        };
+    }
+    rpc BypassDependencies(BypassDependenciesReq) returns (BypassDependenciesResp) {
+        option (google.api.http) = {
+            post: "/v1/desired_states/bypass_dependencies"
             body: "*"
         };
     }

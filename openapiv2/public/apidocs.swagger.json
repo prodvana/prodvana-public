@@ -3049,6 +3049,38 @@
         ]
       }
     },
+    "/v1/desired_states/bypass_dependencies": {
+      "post": {
+        "operationId": "DesiredStateManager_BypassDependencies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassDependenciesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassDependenciesReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/bypass_protection": {
       "post": {
         "operationId": "DesiredStateManager_BypassProtection",
@@ -9925,6 +9957,26 @@
         }
       }
     },
+    "desired_stateBypassDependenciesReq": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "callSource": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        }
+      }
+    },
+    "desired_stateBypassDependenciesResp": {
+      "type": "object"
+    },
     "desired_stateBypassProtectionReq": {
       "type": "object",
       "properties": {
@@ -14132,7 +14184,8 @@
         "DELIVERY_PROMOTION",
         "PROTECTION_BYPASS",
         "RUNTIME_EXTENSION_APPROVAL",
-        "SIGNAL_MANUAL_APPROVAL"
+        "SIGNAL_MANUAL_APPROVAL",
+        "RELEASE_CHANNEL_BYPASS"
       ],
       "default": "SIGNAL_UNKNOWN"
     },

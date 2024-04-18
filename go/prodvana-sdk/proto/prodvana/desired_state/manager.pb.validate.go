@@ -5361,6 +5361,263 @@ var _ interface {
 	ErrorName() string
 } = BypassProtectionRespValidationError{}
 
+// Validate checks the field values on BypassDependenciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassDependenciesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassDependenciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassDependenciesReqMultiError, or nil if none found.
+func (m *BypassDependenciesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassDependenciesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
+		err := BypassDependenciesReqValidationError{
+			field:  "DesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetSource()) < 1 {
+		err := BypassDependenciesReqValidationError{
+			field:  "Source",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CallSource
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BypassDependenciesReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BypassDependenciesReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BypassDependenciesReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return BypassDependenciesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassDependenciesReqMultiError is an error wrapping multiple validation
+// errors returned by BypassDependenciesReq.ValidateAll() if the designated
+// constraints aren't met.
+type BypassDependenciesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassDependenciesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassDependenciesReqMultiError) AllErrors() []error { return m }
+
+// BypassDependenciesReqValidationError is the validation error returned by
+// BypassDependenciesReq.Validate if the designated constraints aren't met.
+type BypassDependenciesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassDependenciesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassDependenciesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassDependenciesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassDependenciesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassDependenciesReqValidationError) ErrorName() string {
+	return "BypassDependenciesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassDependenciesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassDependenciesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassDependenciesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassDependenciesReqValidationError{}
+
+// Validate checks the field values on BypassDependenciesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassDependenciesResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassDependenciesResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassDependenciesRespMultiError, or nil if none found.
+func (m *BypassDependenciesResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassDependenciesResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return BypassDependenciesRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassDependenciesRespMultiError is an error wrapping multiple validation
+// errors returned by BypassDependenciesResp.ValidateAll() if the designated
+// constraints aren't met.
+type BypassDependenciesRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassDependenciesRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassDependenciesRespMultiError) AllErrors() []error { return m }
+
+// BypassDependenciesRespValidationError is the validation error returned by
+// BypassDependenciesResp.Validate if the designated constraints aren't met.
+type BypassDependenciesRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassDependenciesRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassDependenciesRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassDependenciesRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassDependenciesRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassDependenciesRespValidationError) ErrorName() string {
+	return "BypassDependenciesRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassDependenciesRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassDependenciesResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassDependenciesRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassDependenciesRespValidationError{}
+
 // Validate checks the field values on ListMaestroReleasesReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

@@ -74,6 +74,10 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp,
     ]
+    BypassDependencies: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.BypassDependenciesReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.BypassDependenciesResp,
+    ]
     ListMaestroReleases: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesReq,
         prodvana.proto.prodvana.desired_state.manager_pb2.ListMaestroReleasesResp,
@@ -203,6 +207,12 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.manager_pb2.BypassProtectionResp: ...
+    @abc.abstractmethod
+    def BypassDependencies(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.BypassDependenciesReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.BypassDependenciesResp: ...
     @abc.abstractmethod
     def ListMaestroReleases(
         self,

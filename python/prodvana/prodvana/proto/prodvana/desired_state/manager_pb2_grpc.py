@@ -85,6 +85,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionResp.FromString,
                 )
+        self.BypassDependencies = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/BypassDependencies',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesResp.FromString,
+                )
         self.ListMaestroReleases = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/ListMaestroReleases',
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.ListMaestroReleasesReq.SerializeToString,
@@ -216,6 +221,12 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BypassDependencies(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ListMaestroReleases(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -335,6 +346,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.BypassProtection,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionResp.SerializeToString,
+            ),
+            'BypassDependencies': grpc.unary_unary_rpc_method_handler(
+                    servicer.BypassDependencies,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesResp.SerializeToString,
             ),
             'ListMaestroReleases': grpc.unary_unary_rpc_method_handler(
                     servicer.ListMaestroReleases,
@@ -616,6 +632,23 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/BypassProtection',
             prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionReq.SerializeToString,
             prodvana_dot_desired__state_dot_manager__pb2.BypassProtectionResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BypassDependencies(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/BypassDependencies',
+            prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.BypassDependenciesResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -781,6 +781,7 @@ enum SignalType {
     PROTECTION_BYPASS = 2;
     RUNTIME_EXTENSION_APPROVAL = 3;
     SIGNAL_MANUAL_APPROVAL = 4;
+    RELEASE_CHANNEL_BYPASS = 5;
 }
 
 message Signal {
@@ -808,10 +809,15 @@ message Signal {
         // TODO: Add some kind of token derived from corresponding fetch which can be passed down to apply.
     }
 
+    message ReleaseChannelBypass {
+        repeated string entity_ids = 1;
+    }
+
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
         ProtectionBypass protection_bypass = 3;
         RuntimeExtensionApproval runtime_extension_approval = 4;
+        ReleaseChannelBypass release_channel_bypass = 5;
     }
 }
 

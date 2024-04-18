@@ -311,6 +311,7 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     PROTECTION_BYPASS: _SignalType.ValueType  # 2
     RUNTIME_EXTENSION_APPROVAL: _SignalType.ValueType  # 3
     SIGNAL_MANUAL_APPROVAL: _SignalType.ValueType  # 4
+    RELEASE_CHANNEL_BYPASS: _SignalType.ValueType  # 5
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
@@ -319,6 +320,7 @@ DELIVERY_PROMOTION: SignalType.ValueType  # 1
 PROTECTION_BYPASS: SignalType.ValueType  # 2
 RUNTIME_EXTENSION_APPROVAL: SignalType.ValueType  # 3
 SIGNAL_MANUAL_APPROVAL: SignalType.ValueType  # 4
+RELEASE_CHANNEL_BYPASS: SignalType.ValueType  # 5
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -2169,10 +2171,24 @@ class Signal(google.protobuf.message.Message):
         def HasField(self, field_name: typing_extensions.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["plan_blob_id", b"plan_blob_id", "reject", b"reject", "timestamp", b"timestamp"]) -> None: ...
 
+    class ReleaseChannelBypass(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        ENTITY_IDS_FIELD_NUMBER: builtins.int
+        @property
+        def entity_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        def __init__(
+            self,
+            *,
+            entity_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["entity_ids", b"entity_ids"]) -> None: ...
+
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
     PROTECTION_BYPASS_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_APPROVAL_FIELD_NUMBER: builtins.int
+    RELEASE_CHANNEL_BYPASS_FIELD_NUMBER: builtins.int
     type: global___SignalType.ValueType
     @property
     def delivery_promotion(self) -> global___Signal.DeliveryPromotionConfig: ...
@@ -2180,6 +2196,8 @@ class Signal(google.protobuf.message.Message):
     def protection_bypass(self) -> global___Signal.ProtectionBypass: ...
     @property
     def runtime_extension_approval(self) -> global___Signal.RuntimeExtensionApproval: ...
+    @property
+    def release_channel_bypass(self) -> global___Signal.ReleaseChannelBypass: ...
     def __init__(
         self,
         *,
@@ -2187,10 +2205,11 @@ class Signal(google.protobuf.message.Message):
         delivery_promotion: global___Signal.DeliveryPromotionConfig | None = ...,
         protection_bypass: global___Signal.ProtectionBypass | None = ...,
         runtime_extension_approval: global___Signal.RuntimeExtensionApproval | None = ...,
+        release_channel_bypass: global___Signal.ReleaseChannelBypass | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval", "release_channel_bypass"] | None: ...
 
 global___Signal = Signal
 
