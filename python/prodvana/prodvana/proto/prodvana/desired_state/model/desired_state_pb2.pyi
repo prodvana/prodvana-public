@@ -609,29 +609,34 @@ class StatusExplanation(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SUBJECT_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     REASON_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def subject(self) -> global___Identifier:
         """the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself."""
+    desired_state_id: builtins.str
+    """desired state id of the subject"""
     reason: global___StatusReason.ValueType
     message: builtins.str
     """Optional freeform message to be shown to the user alongside reason.
     only one of the two will be set
     """
     @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """next tag: 6"""
     def __init__(
         self,
         *,
         subject: global___Identifier | None = ...,
+        desired_state_id: builtins.str = ...,
         reason: global___StatusReason.ValueType = ...,
         message: builtins.str = ...,
         messages: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["message", b"message", "messages", b"messages", "reason", b"reason", "subject", b"subject"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "message", b"message", "messages", b"messages", "reason", b"reason", "subject", b"subject"]) -> None: ...
 
 global___StatusExplanation = StatusExplanation
 

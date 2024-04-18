@@ -14239,6 +14239,10 @@
           "$ref": "#/definitions/modelIdentifier",
           "description": "the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself."
         },
+        "desiredStateId": {
+          "type": "string",
+          "title": "desired state id of the subject"
+        },
         "reason": {
           "$ref": "#/definitions/modelStatusReason"
         },
@@ -14250,7 +14254,8 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "next tag: 6"
         }
       }
     },

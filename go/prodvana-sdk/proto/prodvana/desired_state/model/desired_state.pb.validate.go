@@ -1289,6 +1289,8 @@ func (m *StatusExplanation) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for DesiredStateId
+
 	// no validation rules for Reason
 
 	// no validation rules for Message
