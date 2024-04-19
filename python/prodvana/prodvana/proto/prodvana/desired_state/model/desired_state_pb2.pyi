@@ -723,6 +723,7 @@ class ServiceInstanceState(google.protobuf.message.Message):
     ROLLBACK_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
     DEPLOYMENT_OWNED_BY_CHILDREN_FIELD_NUMBER: builtins.int
+    AUTOROLLBACK_DISABLED_REASON_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     application: builtins.str
@@ -746,6 +747,8 @@ class ServiceInstanceState(google.protobuf.message.Message):
     def delivery(self) -> global___DeliveryState: ...
     deployment_owned_by_children: builtins.bool
     """used internally by prodvana.proto.prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself."""
+    autorollback_disabled_reason: builtins.str
+    """used internally by Prodvana. For display purposes only."""
     def __init__(
         self,
         *,
@@ -761,9 +764,10 @@ class ServiceInstanceState(google.protobuf.message.Message):
         rollback: builtins.bool = ...,
         delivery: global___DeliveryState | None = ...,
         deployment_owned_by_children: builtins.bool = ...,
+        autorollback_disabled_reason: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "meta", b"meta", "rollback_version", b"rollback_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "deployment_owned_by_children", b"deployment_owned_by_children", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "autorollback_disabled_reason", b"autorollback_disabled_reason", "autorollback_oneof", b"autorollback_oneof", "compute_rollback_version", b"compute_rollback_version", "delivery", b"delivery", "deployment_owned_by_children", b"deployment_owned_by_children", "meta", b"meta", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "rollback", b"rollback", "rollback_version", b"rollback_version", "service", b"service", "service_id", b"service_id", "versions", b"versions"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["autorollback_oneof", b"autorollback_oneof"]) -> typing_extensions.Literal["rollback_version", "compute_rollback_version"] | None: ...
 
 global___ServiceInstanceState = ServiceInstanceState

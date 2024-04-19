@@ -59,6 +59,8 @@ func (m *AutoRollbackConfig) validate(all bool) error {
 
 	// no validation rules for Disabled
 
+	// no validation rules for InternalDisabledReason
+
 	if len(errors) > 0 {
 		return AutoRollbackConfigMultiError(errors)
 	}

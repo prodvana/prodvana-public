@@ -4,4 +4,5 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 
 message AutoRollbackConfig {
     bool disabled = 1;
+    string internal_disabled_reason = 2; // Set by Prodvana
 }

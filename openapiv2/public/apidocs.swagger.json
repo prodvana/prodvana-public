@@ -8810,6 +8810,10 @@
       "properties": {
         "disabled": {
           "type": "boolean"
+        },
+        "internalDisabledReason": {
+          "type": "string",
+          "title": "Set by Prodvana"
         }
       }
     },
@@ -10935,6 +10939,10 @@
         "deploymentOwnedByChildren": {
           "type": "boolean",
           "description": "used internally by prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself."
+        },
+        "autorollbackDisabledReason": {
+          "type": "string",
+          "description": "used internally by Prodvana. For display purposes only."
         }
       }
     },

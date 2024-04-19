@@ -1777,6 +1777,8 @@ func (m *ServiceInstanceState) validate(all bool) error {
 
 	// no validation rules for DeploymentOwnedByChildren
 
+	// no validation rules for AutorollbackDisabledReason
+
 	switch v := m.AutorollbackOneof.(type) {
 	case *ServiceInstanceState_RollbackVersion:
 		if v == nil {

@@ -657,6 +657,28 @@
                             "type": "boolean"
                         }
                     ]
+                },
+                "internal_disabled_reason": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Set by Prodvana"
+                },
+                "internalDisabledReason": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Set by Prodvana"
                 }
             },
             "additionalProperties": false,

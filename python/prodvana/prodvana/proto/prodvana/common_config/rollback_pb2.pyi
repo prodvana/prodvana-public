@@ -18,12 +18,16 @@ class AutoRollbackConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DISABLED_FIELD_NUMBER: builtins.int
+    INTERNAL_DISABLED_REASON_FIELD_NUMBER: builtins.int
     disabled: builtins.bool
+    internal_disabled_reason: builtins.str
+    """Set by Prodvana"""
     def __init__(
         self,
         *,
         disabled: builtins.bool = ...,
+        internal_disabled_reason: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["disabled", b"disabled"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["disabled", b"disabled", "internal_disabled_reason", b"internal_disabled_reason"]) -> None: ...
 
 global___AutoRollbackConfig = AutoRollbackConfig

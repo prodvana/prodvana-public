@@ -265,8 +265,9 @@ message ServiceInstanceState {
     DeliveryState delivery = 10;
 
     bool deployment_owned_by_children = 12; // used internally by prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself.
+    string autorollback_disabled_reason = 13; // used internally by Prodvana. For display purposes only.
 
-    // next tag: 12
+    // next tag: 14
 }
 
 message ServiceState {
