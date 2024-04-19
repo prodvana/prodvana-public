@@ -13845,6 +13845,10 @@
         "current": {
           "$ref": "#/definitions/modelState",
           "title": "current state at the time of the delivery decision"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

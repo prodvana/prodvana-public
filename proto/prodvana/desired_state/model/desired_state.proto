@@ -599,6 +599,7 @@ message KeyDeliveryDecision {
     repeated StatusExplanation status_explanations = 4;
     repeated EntitySnapshot status_explanation_entities = 5;
     State current = 6;  // current state at the time of the delivery decision
+    google.protobuf.Timestamp timestamp = 7;
 }
 
 message ControlState {

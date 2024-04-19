@@ -1654,6 +1654,7 @@ class KeyDeliveryDecision(google.protobuf.message.Message):
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATION_ENTITIES_FIELD_NUMBER: builtins.int
     CURRENT_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
     decision: global___KeyDeliveryDecision.Decision.ValueType
     explanation: builtins.str
     status: global___Status.ValueType
@@ -1665,6 +1666,8 @@ class KeyDeliveryDecision(google.protobuf.message.Message):
     @property
     def current(self) -> global___State:
         """current state at the time of the delivery decision"""
+    @property
+    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
@@ -1674,9 +1677,10 @@ class KeyDeliveryDecision(google.protobuf.message.Message):
         status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
         status_explanation_entities: collections.abc.Iterable[global___KeyDeliveryDecision.EntitySnapshot] | None = ...,
         current: global___State | None = ...,
+        timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["current", b"current"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "decision", b"decision", "explanation", b"explanation", "status", b"status", "status_explanation_entities", b"status_explanation_entities", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["current", b"current", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "decision", b"decision", "explanation", b"explanation", "status", b"status", "status_explanation_entities", b"status_explanation_entities", "status_explanations", b"status_explanations", "timestamp", b"timestamp"]) -> None: ...
 
 global___KeyDeliveryDecision = KeyDeliveryDecision
 
