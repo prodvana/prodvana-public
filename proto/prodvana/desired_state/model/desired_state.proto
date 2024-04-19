@@ -582,8 +582,31 @@ message NotificationInfo {
     repeated ConcurrencyLimitExceeded concurrency_limit_exceeded_errors = 13;
 }
 
+message KeyDeliveryDecision {
+    enum Decision  {
+        UNKNOWN = 0;
+        ROLLBACK_INITIATED = 1;
+        FAILED = 2;
+    }
+    message EntitySnapshot {
+        Identifier id = 1;
+        Status status = 2;
+        State current = 3;
+    }
+    Decision decision = 1;
+    string explanation = 2;
+    Status status = 3;  // convergence status at the time of the delivery decision
+    repeated StatusExplanation status_explanations = 4;
+    repeated EntitySnapshot status_explanation_entities = 5;
+    State current = 6;  // current state at the time of the delivery decision
+}
+
 message ControlState {
     bool rollback = 1;
+    // last delivery decision for rollback=false
+    KeyDeliveryDecision key_delivery_decision = 14;
+    // last delivery decision for rollback=true
+    KeyDeliveryDecision rollback_key_delivery_decision = 15;
     repeated ConditionState precondition_states = 2;
     repeated ConditionState invariant_states = 3;
     // An entity is paused if itself or any of its ancestors have paused field set.
@@ -609,7 +632,7 @@ message ControlState {
 
     NotificationInfo notification_info = 12;
 
-    // next tag: 14
+    // next tag: 15
 }
 
 enum ManualApprovalStatus {

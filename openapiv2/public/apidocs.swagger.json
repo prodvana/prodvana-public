@@ -7655,7 +7655,7 @@
         }
       }
     },
-    "KeyDeliveryDecisionEventDecision": {
+    "KeyDeliveryDecisionDecision": {
       "type": "string",
       "enum": [
         "UNKNOWN",
@@ -7663,6 +7663,20 @@
         "FAILED"
       ],
       "default": "UNKNOWN"
+    },
+    "KeyDeliveryDecisionEntitySnapshot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus"
+        },
+        "current": {
+          "$ref": "#/definitions/modelState"
+        }
+      }
     },
     "KubernetesConfigEnvInjectionMode": {
       "type": "string",
@@ -12022,7 +12036,7 @@
           "type": "string"
         },
         "decision": {
-          "$ref": "#/definitions/KeyDeliveryDecisionEventDecision"
+          "$ref": "#/definitions/KeyDeliveryDecisionDecision"
         },
         "explanation": {
           "type": "string",
@@ -12045,6 +12059,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "statusExplanationEntities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/KeyDeliveryDecisionEntitySnapshot"
           }
         }
       }
@@ -13189,6 +13210,14 @@
         "rollback": {
           "type": "boolean"
         },
+        "keyDeliveryDecision": {
+          "$ref": "#/definitions/modelKeyDeliveryDecision",
+          "title": "last delivery decision for rollback=false"
+        },
+        "rollbackKeyDeliveryDecision": {
+          "$ref": "#/definitions/modelKeyDeliveryDecision",
+          "title": "last delivery decision for rollback=true"
+        },
         "preconditionStates": {
           "type": "array",
           "items": {
@@ -13652,6 +13681,12 @@
         },
         "notifications": {
           "$ref": "#/definitions/modelNotifications"
+        },
+        "lastKeyDeliveryDecision": {
+          "$ref": "#/definitions/modelKeyDeliveryDecision"
+        },
+        "lastRollbackKeyDeliveryDecision": {
+          "$ref": "#/definitions/modelKeyDeliveryDecision"
         }
       }
     },
@@ -13777,6 +13812,39 @@
         "unanalyzedCommits": {
           "type": "string",
           "format": "int64"
+        }
+      }
+    },
+    "modelKeyDeliveryDecision": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "$ref": "#/definitions/KeyDeliveryDecisionDecision"
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/desired_statemodelStatus",
+          "title": "convergence status at the time of the delivery decision"
+        },
+        "statusExplanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelStatusExplanation"
+          }
+        },
+        "statusExplanationEntities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/KeyDeliveryDecisionEntitySnapshot"
+          }
+        },
+        "current": {
+          "$ref": "#/definitions/modelState",
+          "title": "current state at the time of the delivery decision"
         }
       }
     },

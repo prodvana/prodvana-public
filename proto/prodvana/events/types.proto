@@ -179,21 +179,17 @@ message DesiredStateStatusChangeEvent {
 }
 
 message KeyDeliveryDecisionEvent {
-    enum Decision {
-        UNKNOWN = 0;
-        ROLLBACK_INITIATED = 1;
-        FAILED = 2;
-    }
     prodvana.desired_state.model.Identifier id = 1;
     string desired_state_id = 2;
     string root_desired_state_id = 3;
-    Decision decision = 4;
+    prodvana.desired_state.model.KeyDeliveryDecision.Decision decision = 4;
     string explanation = 5; // optional, may not always be set. when not set, the context should be obvious from status_explanations
     prodvana.desired_state.model.Status status = 6;
     prodvana.desired_state.model.State desired = 7;
     prodvana.desired_state.model.State target = 8;
     prodvana.desired_state.model.State current = 9;
     repeated prodvana.desired_state.model.StatusExplanation status_explanations = 10;
+    repeated prodvana.desired_state.model.KeyDeliveryDecision.EntitySnapshot status_explanation_entities = 11;
 }
 
 message RpcCallEvent {

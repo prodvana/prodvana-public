@@ -229,6 +229,8 @@ class Entity(google.protobuf.message.Message):
     MISSING_APPROVAL_FIELD_NUMBER: builtins.int
     APPLY_ERROR_FIELD_NUMBER: builtins.int
     NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    LAST_KEY_DELIVERY_DECISION_FIELD_NUMBER: builtins.int
+    LAST_ROLLBACK_KEY_DELIVERY_DECISION_FIELD_NUMBER: builtins.int
     @property
     def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     desired_state_id: builtins.str
@@ -285,6 +287,10 @@ class Entity(google.protobuf.message.Message):
     def apply_error(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ApplyError: ...
     @property
     def notifications(self) -> global___Notifications: ...
+    @property
+    def last_key_delivery_decision(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision: ...
+    @property
+    def last_rollback_key_delivery_decision(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision: ...
     def __init__(
         self,
         *,
@@ -317,9 +323,11 @@ class Entity(google.protobuf.message.Message):
         missing_approval: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.MissingApproval | None = ...,
         apply_error: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ApplyError | None = ...,
         notifications: global___Notifications | None = ...,
+        last_key_delivery_decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision | None = ...,
+        last_rollback_key_delivery_decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "desired_state", b"desired_state", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "dependencies_with_type", b"dependencies_with_type", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "has_work", b"has_work", "has_work_reason", b"has_work_reason", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "desired_state", b"desired_state", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "dependencies_with_type", b"dependencies_with_type", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "has_work", b"has_work", "has_work_reason", b"has_work_reason", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
 
 global___Entity = Entity
 

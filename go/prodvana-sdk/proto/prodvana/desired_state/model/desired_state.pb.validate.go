@@ -5308,6 +5308,211 @@ var _ interface {
 	ErrorName() string
 } = NotificationInfoValidationError{}
 
+// Validate checks the field values on KeyDeliveryDecision with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *KeyDeliveryDecision) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on KeyDeliveryDecision with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// KeyDeliveryDecisionMultiError, or nil if none found.
+func (m *KeyDeliveryDecision) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *KeyDeliveryDecision) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Decision
+
+	// no validation rules for Explanation
+
+	// no validation rules for Status
+
+	for idx, item := range m.GetStatusExplanations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionValidationError{
+						field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return KeyDeliveryDecisionValidationError{
+					field:  fmt.Sprintf("StatusExplanations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetStatusExplanationEntities() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionValidationError{
+						field:  fmt.Sprintf("StatusExplanationEntities[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, KeyDeliveryDecisionValidationError{
+						field:  fmt.Sprintf("StatusExplanationEntities[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return KeyDeliveryDecisionValidationError{
+					field:  fmt.Sprintf("StatusExplanationEntities[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetCurrent()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecisionValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCurrent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecisionValidationError{
+				field:  "Current",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return KeyDeliveryDecisionMultiError(errors)
+	}
+
+	return nil
+}
+
+// KeyDeliveryDecisionMultiError is an error wrapping multiple validation
+// errors returned by KeyDeliveryDecision.ValidateAll() if the designated
+// constraints aren't met.
+type KeyDeliveryDecisionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m KeyDeliveryDecisionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m KeyDeliveryDecisionMultiError) AllErrors() []error { return m }
+
+// KeyDeliveryDecisionValidationError is the validation error returned by
+// KeyDeliveryDecision.Validate if the designated constraints aren't met.
+type KeyDeliveryDecisionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e KeyDeliveryDecisionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e KeyDeliveryDecisionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e KeyDeliveryDecisionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e KeyDeliveryDecisionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e KeyDeliveryDecisionValidationError) ErrorName() string {
+	return "KeyDeliveryDecisionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e KeyDeliveryDecisionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sKeyDeliveryDecision.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = KeyDeliveryDecisionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = KeyDeliveryDecisionValidationError{}
+
 // Validate checks the field values on ControlState with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -5331,6 +5536,64 @@ func (m *ControlState) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for Rollback
+
+	if all {
+		switch v := interface{}(m.GetKeyDeliveryDecision()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "KeyDeliveryDecision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "KeyDeliveryDecision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetKeyDeliveryDecision()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ControlStateValidationError{
+				field:  "KeyDeliveryDecision",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRollbackKeyDeliveryDecision()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "RollbackKeyDeliveryDecision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ControlStateValidationError{
+					field:  "RollbackKeyDeliveryDecision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRollbackKeyDeliveryDecision()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ControlStateValidationError{
+				field:  "RollbackKeyDeliveryDecision",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	for idx, item := range m.GetPreconditionStates() {
 		_, _ = idx, item
@@ -11051,6 +11314,171 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RuntimeObject_RuntimeExtensionValidationError{}
+
+// Validate checks the field values on KeyDeliveryDecision_EntitySnapshot with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *KeyDeliveryDecision_EntitySnapshot) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on KeyDeliveryDecision_EntitySnapshot
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// KeyDeliveryDecision_EntitySnapshotMultiError, or nil if none found.
+func (m *KeyDeliveryDecision_EntitySnapshot) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *KeyDeliveryDecision_EntitySnapshot) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecision_EntitySnapshotValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecision_EntitySnapshotValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecision_EntitySnapshotValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetCurrent()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KeyDeliveryDecision_EntitySnapshotValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KeyDeliveryDecision_EntitySnapshotValidationError{
+					field:  "Current",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCurrent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KeyDeliveryDecision_EntitySnapshotValidationError{
+				field:  "Current",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return KeyDeliveryDecision_EntitySnapshotMultiError(errors)
+	}
+
+	return nil
+}
+
+// KeyDeliveryDecision_EntitySnapshotMultiError is an error wrapping multiple
+// validation errors returned by
+// KeyDeliveryDecision_EntitySnapshot.ValidateAll() if the designated
+// constraints aren't met.
+type KeyDeliveryDecision_EntitySnapshotMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m KeyDeliveryDecision_EntitySnapshotMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m KeyDeliveryDecision_EntitySnapshotMultiError) AllErrors() []error { return m }
+
+// KeyDeliveryDecision_EntitySnapshotValidationError is the validation error
+// returned by KeyDeliveryDecision_EntitySnapshot.Validate if the designated
+// constraints aren't met.
+type KeyDeliveryDecision_EntitySnapshotValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) ErrorName() string {
+	return "KeyDeliveryDecision_EntitySnapshotValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e KeyDeliveryDecision_EntitySnapshotValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sKeyDeliveryDecision_EntitySnapshot.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = KeyDeliveryDecision_EntitySnapshotValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = KeyDeliveryDecision_EntitySnapshotValidationError{}
 
 // Validate checks the field values on ManualApprovalState_Approver with the
 // rules defined in the proto definition for this message. If any rules are

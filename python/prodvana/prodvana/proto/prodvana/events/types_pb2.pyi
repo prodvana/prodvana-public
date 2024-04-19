@@ -499,21 +499,6 @@ global___DesiredStateStatusChangeEvent = DesiredStateStatusChangeEvent
 class KeyDeliveryDecisionEvent(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class _Decision:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _DecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[KeyDeliveryDecisionEvent._Decision.ValueType], builtins.type):  # noqa: F821
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        UNKNOWN: KeyDeliveryDecisionEvent._Decision.ValueType  # 0
-        ROLLBACK_INITIATED: KeyDeliveryDecisionEvent._Decision.ValueType  # 1
-        FAILED: KeyDeliveryDecisionEvent._Decision.ValueType  # 2
-
-    class Decision(_Decision, metaclass=_DecisionEnumTypeWrapper): ...
-    UNKNOWN: KeyDeliveryDecisionEvent.Decision.ValueType  # 0
-    ROLLBACK_INITIATED: KeyDeliveryDecisionEvent.Decision.ValueType  # 1
-    FAILED: KeyDeliveryDecisionEvent.Decision.ValueType  # 2
-
     ID_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
@@ -524,11 +509,12 @@ class KeyDeliveryDecisionEvent(google.protobuf.message.Message):
     TARGET_FIELD_NUMBER: builtins.int
     CURRENT_FIELD_NUMBER: builtins.int
     STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
+    STATUS_EXPLANATION_ENTITIES_FIELD_NUMBER: builtins.int
     @property
     def id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     desired_state_id: builtins.str
     root_desired_state_id: builtins.str
-    decision: global___KeyDeliveryDecisionEvent.Decision.ValueType
+    decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision.Decision.ValueType
     explanation: builtins.str
     """optional, may not always be set. when not set, the context should be obvious from status_explanations"""
     status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType
@@ -540,22 +526,25 @@ class KeyDeliveryDecisionEvent(google.protobuf.message.Message):
     def current(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State: ...
     @property
     def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.StatusExplanation]: ...
+    @property
+    def status_explanation_entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision.EntitySnapshot]: ...
     def __init__(
         self,
         *,
         id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
         desired_state_id: builtins.str = ...,
         root_desired_state_id: builtins.str = ...,
-        decision: global___KeyDeliveryDecisionEvent.Decision.ValueType = ...,
+        decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision.Decision.ValueType = ...,
         explanation: builtins.str = ...,
         status: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Status.ValueType = ...,
         desired: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         target: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         current: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.State | None = ...,
         status_explanations: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.StatusExplanation] | None = ...,
+        status_explanation_entities: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision.EntitySnapshot] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["current", b"current", "desired", b"desired", "id", b"id", "target", b"target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "decision", b"decision", "desired", b"desired", "desired_state_id", b"desired_state_id", "explanation", b"explanation", "id", b"id", "root_desired_state_id", b"root_desired_state_id", "status", b"status", "status_explanations", b"status_explanations", "target", b"target"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "decision", b"decision", "desired", b"desired", "desired_state_id", b"desired_state_id", "explanation", b"explanation", "id", b"id", "root_desired_state_id", b"root_desired_state_id", "status", b"status", "status_explanation_entities", b"status_explanation_entities", "status_explanations", b"status_explanations", "target", b"target"]) -> None: ...
 
 global___KeyDeliveryDecisionEvent = KeyDeliveryDecisionEvent
 

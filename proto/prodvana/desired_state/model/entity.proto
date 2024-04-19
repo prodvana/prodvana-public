@@ -101,7 +101,10 @@ message Entity {
 
     Notifications notifications = 22;
 
-    // next tag: 30
+    KeyDeliveryDecision last_key_delivery_decision = 30;
+    KeyDeliveryDecision last_rollback_key_delivery_decision = 31;
+
+    // next tag: 32
 }
 
 message EntityGraph {

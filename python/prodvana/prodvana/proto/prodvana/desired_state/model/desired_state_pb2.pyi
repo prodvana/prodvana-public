@@ -1609,10 +1609,83 @@ class NotificationInfo(google.protobuf.message.Message):
 
 global___NotificationInfo = NotificationInfo
 
+class KeyDeliveryDecision(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Decision:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _DecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[KeyDeliveryDecision._Decision.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: KeyDeliveryDecision._Decision.ValueType  # 0
+        ROLLBACK_INITIATED: KeyDeliveryDecision._Decision.ValueType  # 1
+        FAILED: KeyDeliveryDecision._Decision.ValueType  # 2
+
+    class Decision(_Decision, metaclass=_DecisionEnumTypeWrapper): ...
+    UNKNOWN: KeyDeliveryDecision.Decision.ValueType  # 0
+    ROLLBACK_INITIATED: KeyDeliveryDecision.Decision.ValueType  # 1
+    FAILED: KeyDeliveryDecision.Decision.ValueType  # 2
+
+    class EntitySnapshot(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        ID_FIELD_NUMBER: builtins.int
+        STATUS_FIELD_NUMBER: builtins.int
+        CURRENT_FIELD_NUMBER: builtins.int
+        @property
+        def id(self) -> global___Identifier: ...
+        status: global___Status.ValueType
+        @property
+        def current(self) -> global___State: ...
+        def __init__(
+            self,
+            *,
+            id: global___Identifier | None = ...,
+            status: global___Status.ValueType = ...,
+            current: global___State | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["current", b"current", "id", b"id"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "id", b"id", "status", b"status"]) -> None: ...
+
+    DECISION_FIELD_NUMBER: builtins.int
+    EXPLANATION_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    STATUS_EXPLANATIONS_FIELD_NUMBER: builtins.int
+    STATUS_EXPLANATION_ENTITIES_FIELD_NUMBER: builtins.int
+    CURRENT_FIELD_NUMBER: builtins.int
+    decision: global___KeyDeliveryDecision.Decision.ValueType
+    explanation: builtins.str
+    status: global___Status.ValueType
+    """convergence status at the time of the delivery decision"""
+    @property
+    def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
+    @property
+    def status_explanation_entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___KeyDeliveryDecision.EntitySnapshot]: ...
+    @property
+    def current(self) -> global___State:
+        """current state at the time of the delivery decision"""
+    def __init__(
+        self,
+        *,
+        decision: global___KeyDeliveryDecision.Decision.ValueType = ...,
+        explanation: builtins.str = ...,
+        status: global___Status.ValueType = ...,
+        status_explanations: collections.abc.Iterable[global___StatusExplanation] | None = ...,
+        status_explanation_entities: collections.abc.Iterable[global___KeyDeliveryDecision.EntitySnapshot] | None = ...,
+        current: global___State | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["current", b"current"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["current", b"current", "decision", b"decision", "explanation", b"explanation", "status", b"status", "status_explanation_entities", b"status_explanation_entities", "status_explanations", b"status_explanations"]) -> None: ...
+
+global___KeyDeliveryDecision = KeyDeliveryDecision
+
 class ControlState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ROLLBACK_FIELD_NUMBER: builtins.int
+    KEY_DELIVERY_DECISION_FIELD_NUMBER: builtins.int
+    ROLLBACK_KEY_DELIVERY_DECISION_FIELD_NUMBER: builtins.int
     PRECONDITION_STATES_FIELD_NUMBER: builtins.int
     INVARIANT_STATES_FIELD_NUMBER: builtins.int
     PAUSED_FIELD_NUMBER: builtins.int
@@ -1626,6 +1699,12 @@ class ControlState(google.protobuf.message.Message):
     APPLY_ERROR_FIELD_NUMBER: builtins.int
     NOTIFICATION_INFO_FIELD_NUMBER: builtins.int
     rollback: builtins.bool
+    @property
+    def key_delivery_decision(self) -> global___KeyDeliveryDecision:
+        """last delivery decision for rollback=false"""
+    @property
+    def rollback_key_delivery_decision(self) -> global___KeyDeliveryDecision:
+        """last delivery decision for rollback=true"""
     @property
     def precondition_states(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConditionState]: ...
     @property
@@ -1659,6 +1738,8 @@ class ControlState(google.protobuf.message.Message):
         self,
         *,
         rollback: builtins.bool = ...,
+        key_delivery_decision: global___KeyDeliveryDecision | None = ...,
+        rollback_key_delivery_decision: global___KeyDeliveryDecision | None = ...,
         precondition_states: collections.abc.Iterable[global___ConditionState] | None = ...,
         invariant_states: collections.abc.Iterable[global___ConditionState] | None = ...,
         paused: builtins.bool = ...,
@@ -1672,8 +1753,8 @@ class ControlState(google.protobuf.message.Message):
         apply_error: global___ApplyError | None = ...,
         notification_info: global___NotificationInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "invariant_states", b"invariant_states", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "status_explanations", b"status_explanations"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "key_delivery_decision", b"key_delivery_decision", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "rollback_key_delivery_decision", b"rollback_key_delivery_decision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "apply_error", b"apply_error", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "invariant_states", b"invariant_states", "key_delivery_decision", b"key_delivery_decision", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "missing_approval", b"missing_approval", "notification_info", b"notification_info", "observer_mode", b"observer_mode", "paused", b"paused", "precondition_states", b"precondition_states", "rollback", b"rollback", "rollback_key_delivery_decision", b"rollback_key_delivery_decision", "status_explanations", b"status_explanations"]) -> None: ...
 
 global___ControlState = ControlState
 
