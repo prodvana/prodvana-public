@@ -336,17 +336,22 @@ class EntityGraph(google.protobuf.message.Message):
 
     ROOT_FIELD_NUMBER: builtins.int
     ENTITIES_FIELD_NUMBER: builtins.int
+    REPLACED_TIMESTAMP_FIELD_NUMBER: builtins.int
     @property
     def root(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
     @property
     def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Entity]: ...
+    @property
+    def replaced_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """if set, this entity graph is for a desired state that has been replaced, and this is the root's replaced timestamp"""
     def __init__(
         self,
         *,
         root: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
         entities: collections.abc.Iterable[global___Entity] | None = ...,
+        replaced_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["root", b"root"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entities", b"entities", "root", b"root"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["replaced_timestamp", b"replaced_timestamp", "root", b"root"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entities", b"entities", "replaced_timestamp", b"replaced_timestamp", "root", b"root"]) -> None: ...
 
 global___EntityGraph = EntityGraph

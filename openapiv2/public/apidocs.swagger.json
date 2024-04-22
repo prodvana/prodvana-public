@@ -13702,6 +13702,11 @@
             "type": "object",
             "$ref": "#/definitions/modelEntity"
           }
+        },
+        "replacedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "if set, this entity graph is for a desired state that has been replaced, and this is the root's replaced timestamp"
         }
       }
     },
