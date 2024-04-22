@@ -9,6 +9,7 @@ import (
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
 	secrets_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
+	workflow_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/workflow"
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/session"
 
 	"github.com/pkg/errors"
@@ -78,6 +79,14 @@ var (
 			return nil, err
 		}
 		return environment_pb.NewEnvironmentManagerClient(conn), nil
+	}))
+
+	getWorkflowManagerClient = mustValueConstructor(sync.OnceValues(func() (workflow_pb.WorkflowManagerClient, error) {
+		conn, err := getProdvanaConnection()
+		if err != nil {
+			return nil, err
+		}
+		return workflow_pb.NewWorkflowManagerClient(conn), nil
 	}))
 
 	getSecretsManagerClient = mustValueConstructor(sync.OnceValues(func() (secrets_pb.SecretsManagerClient, error) {

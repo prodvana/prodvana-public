@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	"github.com/bradenaw/juniper/xslices"
 	"github.com/google/go-containerregistry/pkg/name"
@@ -25,16 +26,27 @@ import (
 	release_channel_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel"
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
+	"github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/workflow"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/maps"
 	grpc_codes "google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	grpc_status "google.golang.org/grpc/status"
+)
+
+const (
+	flyRegistryUrlNoScheme  = "registry.fly.io"
+	dockerhubPublicRegistry = "dockerhub-public"
+)
+
+var (
+	flyRegistryUrl = fmt.Sprintf("https://%s", flyRegistryUrlNoScheme)
 )
 
 var configureFlags = struct {
-	flyctlPath string
-	flyRuntime string
-	flyOrg     string
+	flyctlPath  string
+	flyRuntime  string
+	flyRegistry string
+	flyOrg      string
 }{}
 
 type flyToml struct {
@@ -152,20 +164,29 @@ func maybePatchFlyToml(bytes []byte) (*patchResult, error) {
 
 // extractImageInfo extracts image registry information from a given image string.
 // returns nil if the image info cannot be extracted
-func extractImageInfo(image string) *imageInfo {
+func extractImageInfo(image string) (*imageInfo, error) {
 	parsed, err := name.ParseReference(image)
 	if err != nil {
-		return nil
+		return nil, nil
 	}
 	repository := parsed.Context().RepositoryStr()
-	if !strings.Contains(repository, "/") {
-		repository = "library/" + repository
+	registry := parsed.Context().RegistryStr()
+	var registryIntegration string
+	switch registry {
+	case "index.docker.io":
+		registryIntegration = dockerhubPublicRegistry
+		if !strings.Contains(repository, "/") {
+			repository = "library/" + repository
+		}
+	case flyRegistryUrlNoScheme:
+		registryIntegration = configureFlags.flyRegistry
+	default:
+		return nil, errors.Errorf("Unsupported registry %s", registry)
 	}
 	return &imageInfo{
-		// TODO(naphat) do not hardcode dockerhub
-		registryIntegration: "dockerhub-public",
+		registryIntegration: registryIntegration,
 		repository:          repository,
-	}
+	}, nil
 }
 
 type imageInfo struct {
@@ -173,7 +194,7 @@ type imageInfo struct {
 	repository          string
 }
 
-func makeOrgAuthToken(ctx context.Context, flyOrg string) (string, error) {
+func makeOrgAuthTokenOnce(ctx context.Context, flyOrg string) (string, error) {
 	flyCmd := exec.CommandContext(ctx, "fly", "tokens", "create", "org", "--org", flyOrg, "--json", "--name", "Prodvana deploy token")
 	flyCmd.Stderr = os.Stderr
 	output, err := flyCmd.Output()
@@ -189,7 +210,7 @@ func makeOrgAuthToken(ctx context.Context, flyOrg string) (string, error) {
 	return token.Token, nil
 }
 
-func createRuntimeIfNeeded(ctx context.Context, flyOrg string, runtimeName string) error {
+func makeFlyRuntimeIfNeeded(ctx context.Context, getToken func() (string, error), flyOrg string, runtimeName string) error {
 	resp, err := getEnvironmentManagerClient().GetCluster(ctx, &environment.GetClusterReq{
 		Runtime: runtimeName,
 	})
@@ -197,15 +218,15 @@ func createRuntimeIfNeeded(ctx context.Context, flyOrg string, runtimeName strin
 		if resp.Cluster.Config.GetFly() != nil {
 			return nil
 		}
-		return errors.Errorf("Runtime %s already exists but is not a Fly runtime", runtimeName)
+		return errors.Errorf("Runtime %s already exists but is not a Fly runtime. Please delete it and rerun.", runtimeName)
 	} else {
-		if status.Code(err) != grpc_codes.NotFound {
+		if grpc_status.Code(err) != grpc_codes.NotFound {
 			return err
 		}
 	}
-	token, err := makeOrgAuthToken(ctx, flyOrg)
+	token, err := getToken()
 	if err != nil {
-		return errors.Wrap(err, "failed to create fly token")
+		return err
 	}
 	secretKey := fmt.Sprintf("fly-token-%s", flyOrg)
 	secretResp, err := getSecretsManagerClient().SetSecret(ctx, &secrets.SetSecretReq{
@@ -242,6 +263,47 @@ func createRuntimeIfNeeded(ctx context.Context, flyOrg string, runtimeName strin
 	return nil
 }
 
+func makeFlyIntegrationIfNeeded(ctx context.Context, getToken func() (string, error), flyRegistry string) error {
+	resp, err := getWorkflowManagerClient().GetContainerRegistryIntegration(ctx, &workflow.GetContainerRegistryIntegrationReq{
+		RegistryName: flyRegistry,
+	})
+	if err == nil {
+		if resp.Registry.Url == flyRegistryUrl {
+			return nil
+		}
+		return errors.Errorf("Registry %s already exists but is not a Fly registry. Please delete it and rerun.", flyRegistry)
+	} else {
+		if grpc_status.Code(err) != grpc_codes.NotFound {
+			return err
+		}
+	}
+	token, err := getToken()
+	if err != nil {
+		return err
+	}
+	_, err = getWorkflowManagerClient().CreateContainerRegistryIntegration(ctx, &workflow.CreateContainerRegistryIntegrationReq{
+		Name:     flyRegistry,
+		Url:      flyRegistryUrl,
+		Username: "x",
+		Secret:   token,
+		Type:     workflow.RegistryType_DOCKER_REGISTRY,
+	})
+	return errors.Wrapf(err, "failed to create Fly registry %s", flyRegistry)
+}
+
+func setupFlyIntegrations(ctx context.Context, flyOrg, runtimeName, flyRegistry string) error {
+	getFlyToken := sync.OnceValues[string, error](func() (string, error) {
+		return makeOrgAuthTokenOnce(ctx, flyOrg)
+	})
+	if err := makeFlyRuntimeIfNeeded(ctx, getFlyToken, flyOrg, runtimeName); err != nil {
+		return err
+	}
+	if err := makeFlyIntegrationIfNeeded(ctx, getFlyToken, flyRegistry); err != nil {
+		return err
+	}
+	return nil
+}
+
 var configureCmd = &cobra.Command{
 	Use:   "configure",
 	Short: "configure [<root directory>]",
@@ -259,7 +321,7 @@ var configureCmd = &cobra.Command{
 		} else {
 			dir = args[0]
 		}
-		err := createRuntimeIfNeeded(ctx, configureFlags.flyOrg, configureFlags.flyRuntime)
+		err := setupFlyIntegrations(ctx, configureFlags.flyOrg, configureFlags.flyRuntime, configureFlags.flyRegistry)
 		if err != nil {
 			return err
 		}
@@ -340,7 +402,10 @@ var configureCmd = &cobra.Command{
 					bytesForCfg = bytes
 				} else {
 					bytesForCfg = patched.patched
-					info := extractImageInfo(patched.origImage)
+					info, err := extractImageInfo(patched.origImage)
+					if err != nil {
+						return err
+					}
 					if info != nil {
 						if _, ok := imageInfos[cfg.Prodvana.Application]; !ok {
 							imageInfos[cfg.Prodvana.Application] = map[imageInfo]struct{}{}
@@ -388,6 +453,7 @@ var configureCmd = &cobra.Command{
 
 func init() {
 	configureCmd.Flags().StringVar(&configureFlags.flyRuntime, "fly-runtime", "fly", "Name of the Fly Runtime on Prodvana")
+	configureCmd.Flags().StringVar(&configureFlags.flyRegistry, "fly-registry", "fly-registry", "Name of the Fly registry integration on Prodvana")
 	configureCmd.Flags().StringVar(&configureFlags.flyctlPath, "flyctl-path", "fly", "Path to flyctl binary")
 	configureCmd.Flags().StringVar(&configureFlags.flyOrg, "fly-org", "", "Name of the Fly organization.")
 	// TODO(naphat) we can infer this?
