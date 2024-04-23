@@ -7301,6 +7301,52 @@
             "title": "Protection Lifecycle"
         },
         "prodvana.protection.ProtectionLifecycle.Deployment": {
+            "properties": {
+                "failure_behavior": {
+                    "enum": [
+                        "UNKNOWN_PROTECTION_FAILURE_BEHAVIOR",
+                        0,
+                        "BLOCK",
+                        1,
+                        "FAIL",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Protection Failure Behavior"
+                },
+                "failureBehavior": {
+                    "enum": [
+                        "UNKNOWN_PROTECTION_FAILURE_BEHAVIOR",
+                        0,
+                        "BLOCK",
+                        1,
+                        "FAIL",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Protection Failure Behavior"
+                }
+            },
             "additionalProperties": false,
             "oneOf": [
                 {

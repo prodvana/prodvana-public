@@ -15651,6 +15651,16 @@
         }
       }
     },
+    "protectionProtectionFailureBehavior": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_PROTECTION_FAILURE_BEHAVIOR",
+        "BLOCK",
+        "FAIL"
+      ],
+      "default": "UNKNOWN_PROTECTION_FAILURE_BEHAVIOR",
+      "description": " - BLOCK: Only check this protection *before* a deployment.\nThis shouldn't be used to trigger a failure or rollback during Deployment.\n - FAIL: If protection is failed, mark the protected instance failed and, if required, trigger a rollback."
+    },
     "protectionProtectionLifecycle": {
       "type": "object",
       "properties": {
@@ -15671,7 +15681,12 @@
       }
     },
     "protectionProtectionLifecycleDeployment": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "failureBehavior": {
+          "$ref": "#/definitions/protectionProtectionFailureBehavior"
+        }
+      }
     },
     "protectionProtectionReference": {
       "type": "object",

@@ -6,6 +6,15 @@ import "google/protobuf/duration.proto";
 import "validate/validate.proto";
 import "prodvana/common_config/parameters.proto";
 
+enum ProtectionFailureBehavior {
+    UNKNOWN_PROTECTION_FAILURE_BEHAVIOR = 0;
+    // Only check this protection *before* a deployment.
+    // This shouldn't be used to trigger a failure or rollback during Deployment.
+    BLOCK = 1;
+    // If protection is failed, mark the protected instance failed and, if required, trigger a rollback.
+    FAIL = 2;
+}
+
 message ProtectionLifecycle {
     message PreApproval {
     }
@@ -17,6 +26,7 @@ message ProtectionLifecycle {
     }
 
     message Deployment {
+        ProtectionFailureBehavior failure_behavior = 1;
     }
 
     message PostDeployment {
@@ -50,8 +60,8 @@ message ProtectionLifecycle {
     // - PreApproval
     // - Approval
     // - PostApproval
-    // - Push
-    // - PostPush(check_duration=check_duration)
+    // - Deployment
+    // - PostDeployment(check_duration=check_duration)
 
     // Migration/resources present:
     // - must be true up to the deployment
@@ -63,7 +73,7 @@ message ProtectionLifecycle {
     // - must start after deployment initiated
     // - must never fail for at least X minutes after deployment initiated
     // becomes:
-    // - PostPush(check_duration=readiness_deadline)
+    // - PostDeployment(check_duration=readiness_deadline)
 }
 
 message ProtectionReference {

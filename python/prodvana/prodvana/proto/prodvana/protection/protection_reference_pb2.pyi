@@ -7,16 +7,43 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import prodvana.proto.prodvana.common_config.parameters_pb2
 import sys
+import typing
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _ProtectionFailureBehavior:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ProtectionFailureBehaviorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProtectionFailureBehavior.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    UNKNOWN_PROTECTION_FAILURE_BEHAVIOR: _ProtectionFailureBehavior.ValueType  # 0
+    BLOCK: _ProtectionFailureBehavior.ValueType  # 1
+    """Only check this protection *before* a deployment.
+    This shouldn't be used to trigger a failure or rollback during Deployment.
+    """
+    FAIL: _ProtectionFailureBehavior.ValueType  # 2
+    """If protection is failed, mark the protected instance failed and, if required, trigger a rollback."""
+
+class ProtectionFailureBehavior(_ProtectionFailureBehavior, metaclass=_ProtectionFailureBehaviorEnumTypeWrapper): ...
+
+UNKNOWN_PROTECTION_FAILURE_BEHAVIOR: ProtectionFailureBehavior.ValueType  # 0
+BLOCK: ProtectionFailureBehavior.ValueType  # 1
+"""Only check this protection *before* a deployment.
+This shouldn't be used to trigger a failure or rollback during Deployment.
+"""
+FAIL: ProtectionFailureBehavior.ValueType  # 2
+"""If protection is failed, mark the protected instance failed and, if required, trigger a rollback."""
+global___ProtectionFailureBehavior = ProtectionFailureBehavior
 
 class ProtectionLifecycle(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -42,9 +69,14 @@ class ProtectionLifecycle(google.protobuf.message.Message):
     class Deployment(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        FAILURE_BEHAVIOR_FIELD_NUMBER: builtins.int
+        failure_behavior: global___ProtectionFailureBehavior.ValueType
         def __init__(
             self,
+            *,
+            failure_behavior: global___ProtectionFailureBehavior.ValueType = ...,
         ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["failure_behavior", b"failure_behavior"]) -> None: ...
 
     class PostDeployment(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor

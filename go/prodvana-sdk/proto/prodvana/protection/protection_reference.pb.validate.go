@@ -711,6 +711,8 @@ func (m *ProtectionLifecycle_Deployment) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for FailureBehavior
+
 	if len(errors) > 0 {
 		return ProtectionLifecycle_DeploymentMultiError(errors)
 	}
