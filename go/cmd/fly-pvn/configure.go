@@ -10,8 +10,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"prodvana/sets"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/bradenaw/juniper/xslices"
 	"github.com/google/go-containerregistry/pkg/name"
@@ -20,6 +22,8 @@ import (
 	"github.com/pkg/errors"
 	application_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application"
 	common_config_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
+	ds_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state"
+	ds_model_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 	fly_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/fly"
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
@@ -65,7 +69,7 @@ type prodvanaServiceAndApp struct {
 	service     string
 }
 
-func configureOneApplication(ctx context.Context, appName string, rcs []*release_channel_pb.ReleaseChannelConfig, perRc []*service_pb.PerReleaseChannelConfig, imageInfos []imageInfo) (*prodvanaServiceAndApp, error) {
+func deployOneApplication(ctx context.Context, appName string, rcs []*release_channel_pb.ReleaseChannelConfig, perRc []*service_pb.PerReleaseChannelConfig, imageInfos []imageInfo, tag string) (*prodvanaServiceAndApp, error) {
 	if len(imageInfos) > 1 {
 		return nil, errors.Errorf("Inconsistent image used. %+v", imageInfos)
 	}
@@ -112,12 +116,62 @@ func configureOneApplication(ctx context.Context, appName string, rcs []*release
 		return nil, errors.Wrap(err, "failed to configure application")
 	}
 
-	_, err = getServiceManagerClient().ConfigureService(ctx, &service_pb.ConfigureServiceReq{
+	svcConfigureResp, err := getServiceManagerClient().ConfigureService(ctx, &service_pb.ConfigureServiceReq{
 		Application:   appName,
 		ServiceConfig: svcCfg,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to configure service")
+	}
+	var params []*common_config_pb.ParameterValue
+	if tag != "" {
+		params = []*common_config_pb.ParameterValue{
+			{
+				Name: "image",
+				ValueOneof: &common_config_pb.ParameterValue_DockerImageTag{
+					DockerImageTag: tag,
+				},
+			},
+		}
+	}
+	applyResp, err := getServiceManagerClient().ApplyParameters(ctx, &service_pb.ApplyParametersReq{
+		Oneof: &service_pb.ApplyParametersReq_ServiceConfigVersion{
+			ServiceConfigVersion: &service_pb.ServiceConfigVersionReference{
+				Application:          appCfg.Name,
+				Service:              svcCfg.Name,
+				ServiceConfigVersion: svcConfigureResp.ConfigVersion,
+			},
+		},
+		Parameters:                params,
+		HandleBundleNameDuplicate: true,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to apply parameters")
+	}
+	_, err = getDesiredStateManagerClient().SetDesiredState(ctx, &ds_pb.SetDesiredStateReq{
+		DesiredState: &ds_model_pb.State{
+			StateOneof: &ds_model_pb.State_Service{
+				Service: &ds_model_pb.ServiceState{
+					Application: appCfg.Name,
+					Service:     svcCfg.Name,
+					ReleaseChannelLabelSelectors: []*ds_model_pb.ServiceInstanceLabelSelector{
+						{
+							SelectorOneof: &ds_model_pb.ServiceInstanceLabelSelector_All{
+								All: true,
+							},
+							Versions: []*ds_model_pb.Version{
+								{
+									Version: applyResp.Version,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to set desired state")
 	}
 	return &prodvanaServiceAndApp{
 		application: appCfg.Name,
@@ -126,8 +180,10 @@ func configureOneApplication(ctx context.Context, appName string, rcs []*release
 }
 
 type patchResult struct {
-	patched   []byte
-	origImage string
+	patched []byte
+	// either one of origImage or requiresBuild will be set
+	origImage     string
+	requiresBuild bool
 }
 
 type notPatchError struct {
@@ -147,27 +203,43 @@ func maybePatchFlyToml(bytes []byte) (*patchResult, error) {
 	if !ok {
 		return nil, &notPatchError{"no build section"}
 	}
-	image, ok := build["image"].(string)
-	if !ok {
-		return nil, &notPatchError{"no build.image not set to a string"}
+	_, ok = build["builder"]
+	if ok {
+		return nil, errors.Errorf("buildpack is not supported")
 	}
-	build["image"] = "{{.Params.image}}"
+
+	image, ok := build["image"].(string)
+	if ok {
+		build["image"] = "{{.Params.image}}"
+		bytes, err := toml.Marshal(cfg)
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to marshal Fly configuration")
+		}
+		return &patchResult{
+			patched:   bytes,
+			origImage: image,
+		}, nil
+	}
+	// assume this is now a docker build
+	cfg["build"] = map[string]interface{}{
+		"image": "{{.Params.image}}",
+	}
 	bytes, err := toml.Marshal(cfg)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to marshal Fly configuration")
 	}
 	return &patchResult{
-		patched:   bytes,
-		origImage: image,
+		patched:       bytes,
+		requiresBuild: true,
 	}, nil
 }
 
 // extractImageInfo extracts image registry information from a given image string.
 // returns nil if the image info cannot be extracted
-func extractImageInfo(image string) (*imageInfo, error) {
+func extractImageInfo(image string) (info *imageInfo, tag string, err error) {
 	parsed, err := name.ParseReference(image)
 	if err != nil {
-		return nil, nil
+		return nil, "", nil
 	}
 	repository := parsed.Context().RepositoryStr()
 	registry := parsed.Context().RegistryStr()
@@ -181,12 +253,58 @@ func extractImageInfo(image string) (*imageInfo, error) {
 	case flyRegistryUrlNoScheme:
 		registryIntegration = configureFlags.flyRegistry
 	default:
-		return nil, errors.Errorf("Unsupported registry %s", registry)
+		return nil, "", errors.Errorf("Unsupported registry %s", registry)
 	}
 	return &imageInfo{
 		registryIntegration: registryIntegration,
 		repository:          repository,
-	}, nil
+	}, parsed.Identifier(), nil
+}
+
+func createAppIfNeeded(ctx context.Context, tomlFile string) error {
+	bytes, err := os.ReadFile(tomlFile)
+	if err != nil {
+		return errors.Wrap(err, "failed to read toml file")
+	}
+	var cfg flyToml
+	if err := toml.Unmarshal(bytes, &cfg); err != nil {
+		return errors.Wrap(err, "failed to unmarshal toml file")
+	}
+	createCmd := exec.CommandContext(
+		ctx,
+		configureFlags.flyctlPath,
+		"app",
+		"create",
+		cfg.App,
+	)
+	_, err = createCmd.Output()
+	if err != nil {
+		var exitErr *exec.ExitError
+		if go_errors.As(err, &exitErr) {
+			if strings.Contains(string(exitErr.Stderr), "Name has already been taken") {
+				return nil
+			}
+		}
+		return errors.Wrap(err, "failed to create app")
+	}
+	return nil
+}
+
+func buildApp(ctx context.Context, tomlPath, tag string) error {
+	// HACK(naphat) fly deploy --build-only doesn't work until an app is created
+	if err := createAppIfNeeded(ctx, tomlPath); err != nil {
+		return err
+	}
+	// fly uses the current directory as the docker context.
+	// since our cli walks the tree for toml files, we need to set the context to the directory of the toml file.
+	// TODO(naphat) what should we set the docker context to be?
+	tomlDir, tomlBase := filepath.Split(tomlPath)
+	// TODO(naphat) how does this work for first time, uncreated apps?
+	cmd := exec.CommandContext(ctx, configureFlags.flyctlPath, "deploy", "--config", tomlBase, "--image-label", tag, "--build-only", "--push")
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Dir = tomlDir
+	return errors.Wrap(cmd.Run(), "failed to build app")
 }
 
 type imageInfo struct {
@@ -194,8 +312,12 @@ type imageInfo struct {
 	repository          string
 }
 
+type buildInfo struct {
+	requiresBuild bool
+}
+
 func makeOrgAuthTokenOnce(ctx context.Context, flyOrg string) (string, error) {
-	flyCmd := exec.CommandContext(ctx, "fly", "tokens", "create", "org", "--org", flyOrg, "--json", "--name", "Prodvana deploy token")
+	flyCmd := exec.CommandContext(ctx, configureFlags.flyctlPath, "tokens", "create", "org", "--org", flyOrg, "--json", "--name", "Prodvana deploy token")
 	flyCmd.Stderr = os.Stderr
 	output, err := flyCmd.Output()
 	if err != nil {
@@ -304,6 +426,10 @@ func setupFlyIntegrations(ctx context.Context, flyOrg, runtimeName, flyRegistry 
 	return nil
 }
 
+func makeDefaultTag() string {
+	return strings.ReplaceAll("deployment-"+time.Now().UTC().Format(time.RFC3339), ":", "-")
+}
+
 var configureCmd = &cobra.Command{
 	Use:   "configure",
 	Short: "configure [<root directory>]",
@@ -325,6 +451,7 @@ var configureCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		imageTags := map[string]string{}
 		releaseChannels := map[string][]*release_channel_pb.ReleaseChannelConfig{}
 		perReleaseChannelConfigs := map[string][]*service_pb.PerReleaseChannelConfig{}
 		imageInfos := map[string]map[imageInfo]struct{}{}
@@ -359,6 +486,8 @@ var configureCmd = &cobra.Command{
 			}
 			return cfg, nil
 		}
+		buildTag := makeDefaultTag()
+		buildRequiredTomls := sets.NewSet[string]()
 		err = filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return err
@@ -402,15 +531,30 @@ var configureCmd = &cobra.Command{
 					bytesForCfg = bytes
 				} else {
 					bytesForCfg = patched.patched
-					info, err := extractImageInfo(patched.origImage)
-					if err != nil {
-						return err
+					var info *imageInfo
+					var tag string
+					if patched.requiresBuild {
+						info = &imageInfo{
+							registryIntegration: configureFlags.flyRegistry,
+							repository:          cfg.App,
+						}
+						tag = buildTag
+						buildRequiredTomls.Add(path)
+					} else {
+						info, tag, err = extractImageInfo(patched.origImage)
+						if err != nil {
+							return err
+						}
 					}
 					if info != nil {
 						if _, ok := imageInfos[cfg.Prodvana.Application]; !ok {
 							imageInfos[cfg.Prodvana.Application] = map[imageInfo]struct{}{}
 						}
 						imageInfos[cfg.Prodvana.Application][*info] = struct{}{}
+						if oldTag, ok := imageTags[cfg.Prodvana.Application]; ok && oldTag != tag {
+							return errors.Errorf("Inconsistent image tags for application %s: %s and %s", cfg.Prodvana.Application, oldTag, tag)
+						}
+						imageTags[cfg.Prodvana.Application] = tag
 					}
 				}
 				rc, err := makeReleaseChannelConfig(&cfg)
@@ -434,18 +578,26 @@ var configureCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+
+		err = buildRequiredTomls.Iterate(func(path string) error {
+			return buildApp(ctx, path, buildTag)
+		})
+		if err != nil {
+			return err
+		}
 		var overallErr error
 		orgResp, err := getOrganizationManagerClient().GetOrganization(ctx, &organization_pb.GetOrganizationReq{})
 		if err != nil {
 			return errors.Wrap(err, "failed to get organization")
 		}
 		for appName, channels := range releaseChannels {
-			configured, err := configureOneApplication(ctx, appName, channels, perReleaseChannelConfigs[appName], maps.Keys(imageInfos[appName]))
+			configured, err := deployOneApplication(ctx, appName, channels, perReleaseChannelConfigs[appName], maps.Keys(imageInfos[appName]), imageTags[appName])
 			if err != nil {
 				overallErr = multierror.Append(overallErr, errors.Wrapf(err, "failed to process Prodvana Application %s", appName))
 				continue
 			}
-			fmt.Printf("Configured Prodvana Application. Kick off a deployment at: %s/applications/%s/services/%s\n", orgResp.Organization.UiAddress, configured.application, configured.service)
+			// TODO(naphat) if it's a single environment fly app, say something like "deployed fly app ..."
+			fmt.Printf("Deployed %[2]s/%[3]s. Follow along at: %[1]s/applications/%[2]s/services/%[3]s\n", orgResp.Organization.UiAddress, configured.application, configured.service)
 		}
 		return overallErr
 	},

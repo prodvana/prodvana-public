@@ -5,6 +5,7 @@ import (
 
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/client"
 	application_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/application"
+	ds_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state"
 	environment_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
 	secrets_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
@@ -63,6 +64,14 @@ var (
 			return nil, err
 		}
 		return service_pb.NewServiceManagerClient(conn), nil
+	}))
+
+	getDesiredStateManagerClient = mustValueConstructor(sync.OnceValues(func() (ds_pb.DesiredStateManagerClient, error) {
+		conn, err := getProdvanaConnection()
+		if err != nil {
+			return nil, err
+		}
+		return ds_pb.NewDesiredStateManagerClient(conn), nil
 	}))
 
 	getOrganizationManagerClient = mustValueConstructor(sync.OnceValues(func() (organization_pb.OrganizationManagerClient, error) {
