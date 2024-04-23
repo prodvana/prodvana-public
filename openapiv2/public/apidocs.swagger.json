@@ -3049,6 +3049,38 @@
         ]
       }
     },
+    "/v1/desired_states/bypass_concurrency_limit": {
+      "post": {
+        "operationId": "DesiredStateManager_BypassConcurrencyLimit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassConcurrencyLimitResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateBypassConcurrencyLimitReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/bypass_dependencies": {
       "post": {
         "operationId": "DesiredStateManager_BypassDependencies",
@@ -9975,6 +10007,26 @@
         }
       }
     },
+    "desired_stateBypassConcurrencyLimitReq": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "callSource": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        }
+      }
+    },
+    "desired_stateBypassConcurrencyLimitResp": {
+      "type": "object"
+    },
     "desired_stateBypassDependenciesReq": {
       "type": "object",
       "properties": {
@@ -13139,6 +13191,12 @@
           "description": "entity being blocked",
           "title": "apply cannot run due to a concurrency limit"
         },
+        "desiredStateId": {
+          "type": "string"
+        },
+        "releaseId": {
+          "type": "string"
+        },
         "blockers": {
           "type": "array",
           "items": {
@@ -14270,7 +14328,8 @@
         "PROTECTION_BYPASS",
         "RUNTIME_EXTENSION_APPROVAL",
         "SIGNAL_MANUAL_APPROVAL",
-        "RELEASE_CHANNEL_BYPASS"
+        "RELEASE_CHANNEL_BYPASS",
+        "CONCURRENCY_LIMIT_BYPASS"
       ],
       "default": "SIGNAL_UNKNOWN"
     },

@@ -312,6 +312,7 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     RUNTIME_EXTENSION_APPROVAL: _SignalType.ValueType  # 3
     SIGNAL_MANUAL_APPROVAL: _SignalType.ValueType  # 4
     RELEASE_CHANNEL_BYPASS: _SignalType.ValueType  # 5
+    CONCURRENCY_LIMIT_BYPASS: _SignalType.ValueType  # 6
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
@@ -321,6 +322,7 @@ PROTECTION_BYPASS: SignalType.ValueType  # 2
 RUNTIME_EXTENSION_APPROVAL: SignalType.ValueType  # 3
 SIGNAL_MANUAL_APPROVAL: SignalType.ValueType  # 4
 RELEASE_CHANNEL_BYPASS: SignalType.ValueType  # 5
+CONCURRENCY_LIMIT_BYPASS: SignalType.ValueType  # 6
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -2278,11 +2280,19 @@ class Signal(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["entity_ids", b"entity_ids"]) -> None: ...
 
+    class ConcurrencyLimitBypass(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        def __init__(
+            self,
+        ) -> None: ...
+
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
     PROTECTION_BYPASS_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_APPROVAL_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_BYPASS_FIELD_NUMBER: builtins.int
+    CONCURRENCY_LIMIT_BYPASS_FIELD_NUMBER: builtins.int
     type: global___SignalType.ValueType
     @property
     def delivery_promotion(self) -> global___Signal.DeliveryPromotionConfig: ...
@@ -2292,6 +2302,8 @@ class Signal(google.protobuf.message.Message):
     def runtime_extension_approval(self) -> global___Signal.RuntimeExtensionApproval: ...
     @property
     def release_channel_bypass(self) -> global___Signal.ReleaseChannelBypass: ...
+    @property
+    def concurrency_limit_bypass(self) -> global___Signal.ConcurrencyLimitBypass: ...
     def __init__(
         self,
         *,
@@ -2300,10 +2312,11 @@ class Signal(google.protobuf.message.Message):
         protection_bypass: global___Signal.ProtectionBypass | None = ...,
         runtime_extension_approval: global___Signal.RuntimeExtensionApproval | None = ...,
         release_channel_bypass: global___Signal.ReleaseChannelBypass | None = ...,
+        concurrency_limit_bypass: global___Signal.ConcurrencyLimitBypass | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval", "release_channel_bypass"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval", "release_channel_bypass", "concurrency_limit_bypass"] | None: ...
 
 global___Signal = Signal
 
@@ -2426,6 +2439,8 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
         def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "held_since_timestamp", b"held_since_timestamp", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id"]) -> None: ...
 
     ENTITY_ID_FIELD_NUMBER: builtins.int
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    RELEASE_ID_FIELD_NUMBER: builtins.int
     BLOCKERS_FIELD_NUMBER: builtins.int
     LIMIT_DESCRIPTION_FIELD_NUMBER: builtins.int
     @property
@@ -2433,6 +2448,8 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
         """apply cannot run due to a concurrency limit
         entity being blocked
         """
+    desired_state_id: builtins.str
+    release_id: builtins.str
     @property
     def blockers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded.Blocker]:
         """list of entities that are blocking this entity"""
@@ -2441,11 +2458,13 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
         self,
         *,
         entity_id: global___Identifier | None = ...,
+        desired_state_id: builtins.str = ...,
+        release_id: builtins.str = ...,
         blockers: collections.abc.Iterable[global___ConcurrencyLimitExceeded.Blocker] | None = ...,
         limit_description: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blockers", b"blockers", "entity_id", b"entity_id", "limit_description", b"limit_description"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blockers", b"blockers", "desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "limit_description", b"limit_description", "release_id", b"release_id"]) -> None: ...
 
 global___ConcurrencyLimitExceeded = ConcurrencyLimitExceeded
 

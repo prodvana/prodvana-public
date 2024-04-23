@@ -5618,6 +5618,263 @@ var _ interface {
 	ErrorName() string
 } = BypassDependenciesRespValidationError{}
 
+// Validate checks the field values on BypassConcurrencyLimitReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassConcurrencyLimitReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassConcurrencyLimitReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassConcurrencyLimitReqMultiError, or nil if none found.
+func (m *BypassConcurrencyLimitReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassConcurrencyLimitReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
+		err := BypassConcurrencyLimitReqValidationError{
+			field:  "DesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetSource()) < 1 {
+		err := BypassConcurrencyLimitReqValidationError{
+			field:  "Source",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CallSource
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BypassConcurrencyLimitReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BypassConcurrencyLimitReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BypassConcurrencyLimitReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return BypassConcurrencyLimitReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassConcurrencyLimitReqMultiError is an error wrapping multiple validation
+// errors returned by BypassConcurrencyLimitReq.ValidateAll() if the
+// designated constraints aren't met.
+type BypassConcurrencyLimitReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassConcurrencyLimitReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassConcurrencyLimitReqMultiError) AllErrors() []error { return m }
+
+// BypassConcurrencyLimitReqValidationError is the validation error returned by
+// BypassConcurrencyLimitReq.Validate if the designated constraints aren't met.
+type BypassConcurrencyLimitReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassConcurrencyLimitReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassConcurrencyLimitReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassConcurrencyLimitReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassConcurrencyLimitReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassConcurrencyLimitReqValidationError) ErrorName() string {
+	return "BypassConcurrencyLimitReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassConcurrencyLimitReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassConcurrencyLimitReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassConcurrencyLimitReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassConcurrencyLimitReqValidationError{}
+
+// Validate checks the field values on BypassConcurrencyLimitResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BypassConcurrencyLimitResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BypassConcurrencyLimitResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BypassConcurrencyLimitRespMultiError, or nil if none found.
+func (m *BypassConcurrencyLimitResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BypassConcurrencyLimitResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return BypassConcurrencyLimitRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// BypassConcurrencyLimitRespMultiError is an error wrapping multiple
+// validation errors returned by BypassConcurrencyLimitResp.ValidateAll() if
+// the designated constraints aren't met.
+type BypassConcurrencyLimitRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BypassConcurrencyLimitRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BypassConcurrencyLimitRespMultiError) AllErrors() []error { return m }
+
+// BypassConcurrencyLimitRespValidationError is the validation error returned
+// by BypassConcurrencyLimitResp.Validate if the designated constraints aren't met.
+type BypassConcurrencyLimitRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BypassConcurrencyLimitRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BypassConcurrencyLimitRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BypassConcurrencyLimitRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BypassConcurrencyLimitRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BypassConcurrencyLimitRespValidationError) ErrorName() string {
+	return "BypassConcurrencyLimitRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BypassConcurrencyLimitRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBypassConcurrencyLimitResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BypassConcurrencyLimitRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BypassConcurrencyLimitRespValidationError{}
+
 // Validate checks the field values on ListMaestroReleasesReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

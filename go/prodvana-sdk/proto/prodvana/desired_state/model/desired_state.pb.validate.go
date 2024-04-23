@@ -8398,6 +8398,47 @@ func (m *Signal) validate(all bool) error {
 			}
 		}
 
+	case *Signal_ConcurrencyLimitBypass_:
+		if v == nil {
+			err := SignalValidationError{
+				field:  "Config",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetConcurrencyLimitBypass()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SignalValidationError{
+						field:  "ConcurrencyLimitBypass",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SignalValidationError{
+						field:  "ConcurrencyLimitBypass",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetConcurrencyLimitBypass()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignalValidationError{
+					field:  "ConcurrencyLimitBypass",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -9079,6 +9120,10 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for DesiredStateId
+
+	// no validation rules for ReleaseId
 
 	for idx, item := range m.GetBlockers() {
 		_, _ = idx, item
@@ -12229,6 +12274,109 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Signal_ReleaseChannelBypassValidationError{}
+
+// Validate checks the field values on Signal_ConcurrencyLimitBypass with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *Signal_ConcurrencyLimitBypass) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Signal_ConcurrencyLimitBypass with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// Signal_ConcurrencyLimitBypassMultiError, or nil if none found.
+func (m *Signal_ConcurrencyLimitBypass) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Signal_ConcurrencyLimitBypass) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return Signal_ConcurrencyLimitBypassMultiError(errors)
+	}
+
+	return nil
+}
+
+// Signal_ConcurrencyLimitBypassMultiError is an error wrapping multiple
+// validation errors returned by Signal_ConcurrencyLimitBypass.ValidateAll()
+// if the designated constraints aren't met.
+type Signal_ConcurrencyLimitBypassMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Signal_ConcurrencyLimitBypassMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Signal_ConcurrencyLimitBypassMultiError) AllErrors() []error { return m }
+
+// Signal_ConcurrencyLimitBypassValidationError is the validation error
+// returned by Signal_ConcurrencyLimitBypass.Validate if the designated
+// constraints aren't met.
+type Signal_ConcurrencyLimitBypassValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Signal_ConcurrencyLimitBypassValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Signal_ConcurrencyLimitBypassValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Signal_ConcurrencyLimitBypassValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Signal_ConcurrencyLimitBypassValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Signal_ConcurrencyLimitBypassValidationError) ErrorName() string {
+	return "Signal_ConcurrencyLimitBypassValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Signal_ConcurrencyLimitBypassValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignal_ConcurrencyLimitBypass.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Signal_ConcurrencyLimitBypassValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Signal_ConcurrencyLimitBypassValidationError{}
 
 // Validate checks the field values on ConcurrencyLimitExceeded_Blocker with
 // the rules defined in the proto definition for this message. If any rules

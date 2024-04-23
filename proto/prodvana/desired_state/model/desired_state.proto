@@ -809,6 +809,7 @@ enum SignalType {
     RUNTIME_EXTENSION_APPROVAL = 3;
     SIGNAL_MANUAL_APPROVAL = 4;
     RELEASE_CHANNEL_BYPASS = 5;
+    CONCURRENCY_LIMIT_BYPASS = 6;
 }
 
 message Signal {
@@ -840,11 +841,15 @@ message Signal {
         repeated string entity_ids = 1;
     }
 
+    message ConcurrencyLimitBypass {
+    }
+
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
         ProtectionBypass protection_bypass = 3;
         RuntimeExtensionApproval runtime_extension_approval = 4;
         ReleaseChannelBypass release_channel_bypass = 5;
+        ConcurrencyLimitBypass concurrency_limit_bypass = 6;
     }
 }
 
@@ -886,10 +891,13 @@ message ConcurrencyLimitExceeded {
     }
     // apply cannot run due to a concurrency limit
     Identifier entity_id = 1; // entity being blocked
+    string desired_state_id = 5;
+    string release_id = 6;
+
     repeated Blocker blockers = 4; // list of entities that are blocking this entity
     string limit_description = 3;
 
-    // next tag: 5
+    // next tag: 7
     reserved 2;
     reserved "blocking_ids";
 }
