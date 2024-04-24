@@ -195,6 +195,8 @@ enum StatusReason {
     STUCK_ENTITY = 9;
     // the active version is explicitly marked as dirty
     VERSION_DIRTY = 10;
+    // the Runtime indicated an apply is needed
+    RUNTIME_OBJECT_APPLY_NEEDED = 11;
 }
 
 message StatusExplanation {
@@ -267,7 +269,9 @@ message ServiceInstanceState {
     bool deployment_owned_by_children = 12; // used internally by prodvana. If set, the deployment action (apply) is done by the children, not by the Service Instance itself.
     string autorollback_disabled_reason = 13; // used internally by Prodvana. For display purposes only.
 
-    // next tag: 14
+    bool needs_apply = 14;
+
+    // next tag: 15
 }
 
 message ServiceState {
@@ -526,6 +530,7 @@ message RuntimeObject {
     bool version_agnostic = 10; // This object just needs to exist - it doesn't change from version to version
     bool desired_version_dirty_only = 20;  // when checking for whether or not to apply, only use the desired version and check if it's active and not dirty. that is, active && at desired version && dirty = hasWork, no work otherwise.
     string message = 12 [(vtproto.unstable_for_equal) = true]; // Human readable message (typically for errors) explaining the status
+    bool needs_apply = 33;
     repeated prodvana.runtimes.DebugEvent debug_events = 31 [(vtproto.unstable_for_equal) = true];
     RuntimeExtension runtime_extension = 13; // additional config if this runtime object belongs to a runtime extension
     google.protobuf.Duration interval = 15; // if set, runtime object is continuously applied instead of being done once when there is a version mismatch
@@ -554,7 +559,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 33
+    // next tag: 34
 }
 
 enum ConditionStatus {

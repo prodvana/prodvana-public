@@ -1779,6 +1779,8 @@ func (m *ServiceInstanceState) validate(all bool) error {
 
 	// no validation rules for AutorollbackDisabledReason
 
+	// no validation rules for NeedsApply
+
 	switch v := m.AutorollbackOneof.(type) {
 	case *ServiceInstanceState_RollbackVersion:
 		if v == nil {
@@ -4577,6 +4579,8 @@ func (m *RuntimeObject) validate(all bool) error {
 	// no validation rules for DesiredVersionDirtyOnly
 
 	// no validation rules for Message
+
+	// no validation rules for NeedsApply
 
 	for idx, item := range m.GetDebugEvents() {
 		_, _ = idx, item
