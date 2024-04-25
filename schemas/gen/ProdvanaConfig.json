@@ -8758,6 +8758,21 @@
                         }
                     ],
                     "title": "Task Lifecycle"
+                },
+                "dependencies": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "a list of other delivery extensions that must be executed before this one"
                 }
             },
             "additionalProperties": false,
@@ -8804,6 +8819,21 @@
                             "type": "string"
                         }
                     ]
+                },
+                "dependencies": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "a list of other delivery extensions that must be executed before this one"
                 }
             },
             "additionalProperties": false,

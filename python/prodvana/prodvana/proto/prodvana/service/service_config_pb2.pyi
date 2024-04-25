@@ -477,6 +477,7 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
     INSTANCE_FIELD_NUMBER: builtins.int
     REF_FIELD_NUMBER: builtins.int
     LIFECYCLE_FIELD_NUMBER: builtins.int
+    DEPENDENCIES_FIELD_NUMBER: builtins.int
     @property
     def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig:
         """Inline definition of a delivery extension."""
@@ -486,6 +487,9 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
     def ref(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef:
         """Reference to a delivery extension defined externally."""
     lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
+    @property
+    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]:
+        """a list of other delivery extensions that must be executed before this one"""
     def __init__(
         self,
         *,
@@ -493,9 +497,10 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         instance: builtins.str = ...,
         ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
         lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
+        dependencies: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "instance", b"instance", "ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "instance", b"instance", "lifecycle", b"lifecycle", "ref", b"ref"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "dependencies", b"dependencies", "inlined", b"inlined", "instance", b"instance", "lifecycle", b"lifecycle", "ref", b"ref"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["definition", b"definition"]) -> typing_extensions.Literal["inlined", "instance", "ref"] | None: ...
 
 global___DeliveryExtensionConfig = DeliveryExtensionConfig
@@ -506,6 +511,7 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
     INLINED_FIELD_NUMBER: builtins.int
     REF_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    DEPENDENCIES_FIELD_NUMBER: builtins.int
     @property
     def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig:
         """Inline definition of the delivery extension."""
@@ -513,15 +519,19 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
     def ref(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef:
         """Reference to a delivery extension defined externally."""
     name: builtins.str
+    @property
+    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]:
+        """a list of other delivery extensions that must be executed before this one"""
     def __init__(
         self,
         *,
         inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
         ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
         name: builtins.str = ...,
+        dependencies: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "ref", b"ref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "name", b"name", "ref", b"ref"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "dependencies", b"dependencies", "inlined", b"inlined", "name", b"name", "ref", b"ref"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["definition", b"definition"]) -> typing_extensions.Literal["inlined", "ref"] | None: ...
 
 global___DeliveryExtensionInstance = DeliveryExtensionInstance

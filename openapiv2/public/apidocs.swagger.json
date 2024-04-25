@@ -15314,6 +15314,14 @@
         },
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+          },
+          "title": "a list of other delivery extensions that must be executed before this one"
         }
       }
     },
@@ -16462,6 +16470,14 @@
         },
         "name": {
           "type": "string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+          },
+          "title": "a list of other delivery extensions that must be executed before this one"
         }
       }
     },

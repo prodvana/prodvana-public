@@ -209,6 +209,9 @@ message DeliveryExtensionConfig {
         prodvana.delivery_extension.DeliveryExtensionInstanceRef ref = 4;
     }
     prodvana.common_config.TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0, 1]}];
+
+    // a list of other delivery extensions that must be executed before this one
+    repeated DeliveryExtensionConfig dependencies = 5;
 }
 
 message DeliveryExtensionInstance {
@@ -222,6 +225,9 @@ message DeliveryExtensionInstance {
     string name = 2 [(validate.rules).string.min_len = 1];
     reserved 4;
     reserved "lifecycle";
+
+    // a list of other delivery extensions that must be executed before this one
+    repeated DeliveryExtensionConfig dependencies = 5;
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a
