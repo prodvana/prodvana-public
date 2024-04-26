@@ -69,6 +69,7 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
     PARAMETERS_FIELD_NUMBER: builtins.int
     ENV_FIELD_NUMBER: builtins.int
     RETRY_POLICY_FIELD_NUMBER: builtins.int
+    SHARED_INSTANCE_KEY_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def task_config(self) -> prodvana.proto.prodvana.common_config.task_pb2.TaskConfig: ...
@@ -81,6 +82,15 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         """optional env variables to inject and override from exec_config"""
     @property
     def retry_policy(self) -> prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy: ...
+    shared_instance_key: builtins.str
+    """a string used to de-duplicate instances of the same delivery extension.
+    by building this string with the parameters that make this instance unique,
+    Prodvana will ensure only one instance of this delivery extension is created
+    and it will be used to satisfy all references with this same key.
+
+    By default this will be set to the name of the release channel that the
+    delivery extension will be executed in.
+    """
     def __init__(
         self,
         *,
@@ -90,9 +100,10 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterDefinition] | None = ...,
         env: collections.abc.Mapping[builtins.str, prodvana.proto.prodvana.common_config.env_pb2.EnvValue] | None = ...,
         retry_policy: prodvana.proto.prodvana.environment.clusters_pb2.RetryPolicy | None = ...,
+        shared_instance_key: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "retry_policy", b"retry_policy", "task_config", b"task_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["env", b"env", "exec_config", b"exec_config", "kubernetes_config", b"kubernetes_config", "name", b"name", "parameters", b"parameters", "retry_policy", b"retry_policy", "shared_instance_key", b"shared_instance_key", "task_config", b"task_config"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["exec_config", b"exec_config"]) -> typing_extensions.Literal["task_config", "kubernetes_config"] | None: ...
 
 global___DeliveryExtensionConfig = DeliveryExtensionConfig

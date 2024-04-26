@@ -3778,6 +3778,28 @@
                         },
                         {}
                     ]
+                },
+                "shared_instance_key": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "a string used to de-duplicate instances of the same delivery extension. by building this string with the parameters that make this instance unique, Prodvana will ensure only one instance of this delivery extension is created and it will be used to satisfy all references with this same key. By default this will be set to the name of the release channel that the delivery extension will be executed in."
+                },
+                "sharedInstanceKey": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "a string used to de-duplicate instances of the same delivery extension. by building this string with the parameters that make this instance unique, Prodvana will ensure only one instance of this delivery extension is created and it will be used to satisfy all references with this same key. By default this will be set to the name of the release channel that the delivery extension will be executed in."
                 }
             },
             "additionalProperties": false,

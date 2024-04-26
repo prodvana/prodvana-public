@@ -219,6 +219,8 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for SharedInstanceKey
+
 	oneofExecConfigPresent := false
 	switch v := m.ExecConfig.(type) {
 	case *DeliveryExtensionConfig_TaskConfig:

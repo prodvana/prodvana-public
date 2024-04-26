@@ -15087,6 +15087,10 @@
         },
         "retryPolicy": {
           "$ref": "#/definitions/environmentRetryPolicy"
+        },
+        "sharedInstanceKey": {
+          "type": "string",
+          "description": "a string used to de-duplicate instances of the same delivery extension.\nby building this string with the parameters that make this instance unique,\nProdvana will ensure only one instance of this delivery extension is created\nand it will be used to satisfy all references with this same key.\n\nBy default this will be set to the name of the release channel that the\ndelivery extension will be executed in."
         }
       }
     },
