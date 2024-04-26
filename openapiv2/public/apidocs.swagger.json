@@ -10891,6 +10891,9 @@
           "$ref": "#/definitions/modelVersion",
           "title": "if set, this is the version of the fetch command that resulted in the rest of this object"
         },
+        "applyId": {
+          "type": "string"
+        },
         "status": {
           "$ref": "#/definitions/modelRuntimeObjectStatus"
         },
@@ -11365,7 +11368,11 @@
         },
         "convergenceGracePeriod": {
           "type": "string",
-          "description": "How long after apply ran the first time should it be restarted if the service still has not converged.\nThis duration is computed from the *start* of apply run.\nDefaults to 10m.\n\nnext tag: 10"
+          "description": "How long after apply ran the first time should it be restarted if the service still has not converged.\nThis duration is computed from the *start* of apply run.\nDefaults to 10m."
+        },
+        "applyId": {
+          "type": "string",
+          "title": "next tag: 11"
         }
       }
     },
@@ -14560,6 +14567,9 @@
             "$ref": "#/definitions/modelConcurrencyLease"
           },
           "title": "if set, the entity who started this task has a concurrency limit that needs to be renewed and released"
+        },
+        "applyId": {
+          "type": "string"
         }
       }
     },

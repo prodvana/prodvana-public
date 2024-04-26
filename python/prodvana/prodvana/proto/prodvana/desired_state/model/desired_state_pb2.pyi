@@ -1451,6 +1451,7 @@ class RuntimeObject(google.protobuf.message.Message):
     GENERATE_NAME_FIELD_NUMBER: builtins.int
     VERSIONS_FIELD_NUMBER: builtins.int
     FETCH_VERSION_FIELD_NUMBER: builtins.int
+    APPLY_ID_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     ROLLBACK_VERSION_FIELD_NUMBER: builtins.int
     DELIVERY_FIELD_NUMBER: builtins.int
@@ -1483,6 +1484,7 @@ class RuntimeObject(google.protobuf.message.Message):
     @property
     def fetch_version(self) -> global___Version:
         """if set, this is the version of the fetch command that resulted in the rest of this object"""
+    apply_id: builtins.str
     status: global___RuntimeObject.Status.ValueType
     @property
     def rollback_version(self) -> global___Version: ...
@@ -1536,6 +1538,7 @@ class RuntimeObject(google.protobuf.message.Message):
         generate_name: builtins.str = ...,
         versions: collections.abc.Iterable[global___Version] | None = ...,
         fetch_version: global___Version | None = ...,
+        apply_id: builtins.str = ...,
         status: global___RuntimeObject.Status.ValueType = ...,
         rollback_version: global___Version | None = ...,
         delivery: global___DeliveryState | None = ...,
@@ -1558,7 +1561,7 @@ class RuntimeObject(google.protobuf.message.Message):
         rollback: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -2627,6 +2630,7 @@ class TaskRun(google.protobuf.message.Message):
     FETCH_TASK_START_DETAILS_FIELD_NUMBER: builtins.int
     HAS_WORK_REASON_FIELD_NUMBER: builtins.int
     CONCURRENCY_LEASES_FIELD_NUMBER: builtins.int
+    APPLY_ID_FIELD_NUMBER: builtins.int
     status: global___SimpleStatus.ValueType
     @property
     def status_explanations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusExplanation]: ...
@@ -2676,6 +2680,7 @@ class TaskRun(google.protobuf.message.Message):
     @property
     def concurrency_leases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLease]:
         """if set, the entity who started this task has a concurrency limit that needs to be renewed and released"""
+    apply_id: builtins.str
     def __init__(
         self,
         *,
@@ -2701,29 +2706,52 @@ class TaskRun(google.protobuf.message.Message):
         fetch_task_start_details: global___FetchTaskStartDetails | None = ...,
         has_work_reason: builtins.str = ...,
         concurrency_leases: collections.abc.Iterable[global___ConcurrencyLease] | None = ...,
+        apply_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "created_timestamp", b"created_timestamp", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "pvn_wrapper_output", b"pvn_wrapper_output", "started_timestamp", b"started_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "pvn_wrapper_output", b"pvn_wrapper_output", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "runtime_object_metadatas", b"runtime_object_metadatas", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "completed_timestamp", b"completed_timestamp", "concurrency_leases", b"concurrency_leases", "created_timestamp", b"created_timestamp", "desired_state_id", b"desired_state_id", "exit_codes", b"exit_codes", "fetch_details", b"fetch_details", "fetch_task_start_details", b"fetch_task_start_details", "has_work_reason", b"has_work_reason", "output_blob_ids", b"output_blob_ids", "phase", b"phase", "pvn_wrapper_output", b"pvn_wrapper_output", "release_id", b"release_id", "retryable", b"retryable", "retryable_exit_codes", b"retryable_exit_codes", "runtime_object_metadatas", b"runtime_object_metadatas", "seen_versions", b"seen_versions", "started_by_process_id", b"started_by_process_id", "started_timestamp", b"started_timestamp", "status", b"status", "status_explanations", b"status_explanations", "task_entities", b"task_entities", "version", b"version"]) -> None: ...
 
 global___TaskRun = TaskRun
 
 class TaskEntityContext(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class ApplyIdWithVersion(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        APPLY_ID_FIELD_NUMBER: builtins.int
+        VERSION_FIELD_NUMBER: builtins.int
+        apply_id: builtins.str
+        version: builtins.str
+        def __init__(
+            self,
+            *,
+            apply_id: builtins.str = ...,
+            version: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "version", b"version"]) -> None: ...
+
     LAST_COMPLETED_RUN_FIELD_NUMBER: builtins.int
     LAST_RUN_FIELD_NUMBER: builtins.int
+    APPLY_ID_FIELD_NUMBER: builtins.int
+    APPLY_ID_VERSION_OVERRIDE_FIELD_NUMBER: builtins.int
     @property
     def last_completed_run(self) -> global___TaskRun: ...
     @property
     def last_run(self) -> global___TaskRun: ...
+    apply_id: builtins.str
+    @property
+    def apply_id_version_override(self) -> global___TaskEntityContext.ApplyIdWithVersion: ...
     def __init__(
         self,
         *,
         last_completed_run: global___TaskRun | None = ...,
         last_run: global___TaskRun | None = ...,
+        apply_id: builtins.str = ...,
+        apply_id_version_override: global___TaskEntityContext.ApplyIdWithVersion | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply_id_version_override", b"apply_id_version_override", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "apply_id_version_override", b"apply_id_version_override", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
 
 global___TaskEntityContext = TaskEntityContext
 

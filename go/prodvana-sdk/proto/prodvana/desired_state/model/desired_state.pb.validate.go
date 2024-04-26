@@ -4514,6 +4514,8 @@ func (m *RuntimeObject) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ApplyId
+
 	// no validation rules for Status
 
 	if all {
@@ -10023,6 +10025,8 @@ func (m *TaskRun) validate(all bool) error {
 
 	}
 
+	// no validation rules for ApplyId
+
 	if len(errors) > 0 {
 		return TaskRunMultiError(errors)
 	}
@@ -10174,6 +10178,37 @@ func (m *TaskEntityContext) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return TaskEntityContextValidationError{
 				field:  "LastRun",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ApplyId
+
+	if all {
+		switch v := interface{}(m.GetApplyIdVersionOverride()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "ApplyIdVersionOverride",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TaskEntityContextValidationError{
+					field:  "ApplyIdVersionOverride",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplyIdVersionOverride()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskEntityContextValidationError{
+				field:  "ApplyIdVersionOverride",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -12836,3 +12871,112 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TaskRun_RuntimeObjectMetadataValidationError{}
+
+// Validate checks the field values on TaskEntityContext_ApplyIdWithVersion
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *TaskEntityContext_ApplyIdWithVersion) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TaskEntityContext_ApplyIdWithVersion
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// TaskEntityContext_ApplyIdWithVersionMultiError, or nil if none found.
+func (m *TaskEntityContext_ApplyIdWithVersion) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TaskEntityContext_ApplyIdWithVersion) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApplyId
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return TaskEntityContext_ApplyIdWithVersionMultiError(errors)
+	}
+
+	return nil
+}
+
+// TaskEntityContext_ApplyIdWithVersionMultiError is an error wrapping multiple
+// validation errors returned by
+// TaskEntityContext_ApplyIdWithVersion.ValidateAll() if the designated
+// constraints aren't met.
+type TaskEntityContext_ApplyIdWithVersionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TaskEntityContext_ApplyIdWithVersionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TaskEntityContext_ApplyIdWithVersionMultiError) AllErrors() []error { return m }
+
+// TaskEntityContext_ApplyIdWithVersionValidationError is the validation error
+// returned by TaskEntityContext_ApplyIdWithVersion.Validate if the designated
+// constraints aren't met.
+type TaskEntityContext_ApplyIdWithVersionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) ErrorName() string {
+	return "TaskEntityContext_ApplyIdWithVersionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TaskEntityContext_ApplyIdWithVersionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskEntityContext_ApplyIdWithVersion.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskEntityContext_ApplyIdWithVersionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskEntityContext_ApplyIdWithVersionValidationError{}

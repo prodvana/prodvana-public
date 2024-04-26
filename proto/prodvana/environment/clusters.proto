@@ -197,7 +197,9 @@ message ExtensionClusterConfig {
     // This duration is computed from the *start* of apply run.
     // Defaults to 10m.
     google.protobuf.Duration convergence_grace_period = 7 [(validate.rules).duration.gt.seconds = 0];
-    // next tag: 10
+
+    string apply_id = 10;
+    // next tag: 11
 }
 
 message CompiledExtensionCommand {

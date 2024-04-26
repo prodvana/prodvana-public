@@ -2029,6 +2029,8 @@ func (m *ExtensionClusterConfig) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ApplyId
+
 	if len(errors) > 0 {
 		return ExtensionClusterConfigMultiError(errors)
 	}

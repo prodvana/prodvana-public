@@ -460,6 +460,7 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
     TYPE_FIELD_NUMBER: builtins.int
     REQUIRE_APPROVAL_BEFORE_APPLY_FIELD_NUMBER: builtins.int
     CONVERGENCE_GRACE_PERIOD_FIELD_NUMBER: builtins.int
+    APPLY_ID_FIELD_NUMBER: builtins.int
     @property
     def apply(self) -> global___ExtensionApplyCommand: ...
     @property
@@ -481,8 +482,9 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         """How long after apply ran the first time should it be restarted if the service still has not converged.
         This duration is computed from the *start* of apply run.
         Defaults to 10m.
-        next tag: 10
         """
+    apply_id: builtins.str
+    """next tag: 11"""
     def __init__(
         self,
         *,
@@ -495,9 +497,10 @@ class ExtensionClusterConfig(google.protobuf.message.Message):
         type: global___ExtensionType.ValueType = ...,
         require_approval_before_apply: builtins.bool = ...,
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
+        apply_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "get_info", b"get_info", "proxy_runtime", b"proxy_runtime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "get_info", b"get_info", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply", b"apply", "apply_id", b"apply_id", "convergence_grace_period", b"convergence_grace_period", "debug", b"debug", "fetch", b"fetch", "get_info", b"get_info", "parameters", b"parameters", "proxy_runtime", b"proxy_runtime", "require_approval_before_apply", b"require_approval_before_apply", "type", b"type"]) -> None: ...
 
 global___ExtensionClusterConfig = ExtensionClusterConfig
 

@@ -524,6 +524,7 @@ message RuntimeObject {
     }
     repeated Version versions = 5;
     Version fetch_version = 29; // if set, this is the version of the fetch command that resulted in the rest of this object
+    string apply_id = 34;
     Status status = 6;
     Version rollback_version = 7;
     DeliveryState delivery = 8;
@@ -559,7 +560,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 34
+    // next tag: 35
 }
 
 enum ConditionStatus {
@@ -990,19 +991,30 @@ message TaskRun {
     // if set, the entity who started this task has a concurrency limit that needs to be renewed and released
     repeated ConcurrencyLease concurrency_leases = 17;
 
+    string apply_id = 24;
+
     reserved 20;
     reserved "aggregate_object_snapshot";
 
-    // next tag: 24
+    // next tag: 25
 }
 
 message TaskEntityContext {
     TaskRun last_completed_run = 1;
     TaskRun last_run = 2;
 
+    string apply_id = 6;
+
+    message ApplyIdWithVersion {
+        string apply_id = 1;
+        string version = 2;
+    }
+
+    ApplyIdWithVersion apply_id_version_override = 7;
+
     reserved 3, 4, 5;
     reserved "is_active", "missing_approval", "is_not_in_grace_period";
-    // next tag: 6
+    // next tag: 8
 }
 
 // metadata about the desired state, set at the time of SetDesiredState
