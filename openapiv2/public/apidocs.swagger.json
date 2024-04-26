@@ -7629,6 +7629,18 @@
         }
       }
     },
+    "GetDesiredStateGraphReqLiteEntitiesFilter": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/desired_statemodelType"
+          },
+          "description": "anything that matches this filter will not have desired, target, or current states returned, nor will it have precondition statuses.\nthis is useful for reducing the size of the response when the caller is not interested in the detailed states of certain entities."
+        }
+      }
+    },
     "GetDesiredStateGraphReqQueryByService": {
       "type": "object",
       "properties": {
@@ -10252,6 +10264,9 @@
         "includeDesiredStateTimestamps": {
           "type": "boolean"
         },
+        "includeDesiredStateMetadata": {
+          "type": "boolean"
+        },
         "includeParents": {
           "type": "boolean"
         },
@@ -10260,6 +10275,9 @@
           "items": {
             "$ref": "#/definitions/modelDependencyType"
           }
+        },
+        "liteEntitiesFilter": {
+          "$ref": "#/definitions/GetDesiredStateGraphReqLiteEntitiesFilter"
         }
       }
     },
@@ -10274,7 +10292,11 @@
           "title": "will only be set if DS was queried by service and there is a pending set desired state"
         },
         "timestamps": {
-          "$ref": "#/definitions/desired_stateDesiredStateTimestamps"
+          "$ref": "#/definitions/desired_stateDesiredStateTimestamps",
+          "title": "only set if requested"
+        },
+        "setDesiredStateMetadata": {
+          "$ref": "#/definitions/modelSetDesiredStateMetadata"
         }
       }
     },

@@ -3390,7 +3390,38 @@ func (m *GetDesiredStateGraphReq) validate(all bool) error {
 
 	// no validation rules for IncludeDesiredStateTimestamps
 
+	// no validation rules for IncludeDesiredStateMetadata
+
 	// no validation rules for IncludeParents
+
+	if all {
+		switch v := interface{}(m.GetLiteEntitiesFilter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphReqValidationError{
+					field:  "LiteEntitiesFilter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphReqValidationError{
+					field:  "LiteEntitiesFilter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLiteEntitiesFilter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphReqValidationError{
+				field:  "LiteEntitiesFilter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Query.(type) {
 	case *GetDesiredStateGraphReq_DesiredStateId:
@@ -3833,6 +3864,35 @@ func (m *GetDesiredStateGraphResp) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return GetDesiredStateGraphRespValidationError{
 				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSetDesiredStateMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDesiredStateGraphRespValidationError{
+					field:  "SetDesiredStateMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSetDesiredStateMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDesiredStateGraphRespValidationError{
+				field:  "SetDesiredStateMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -7353,6 +7413,112 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetLatestCombinedReleaseDesiredStateRespValidationError{}
+
+// Validate checks the field values on
+// GetDesiredStateGraphReq_LiteEntitiesFilter with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GetDesiredStateGraphReq_LiteEntitiesFilter) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetDesiredStateGraphReq_LiteEntitiesFilter with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// GetDesiredStateGraphReq_LiteEntitiesFilterMultiError, or nil if none found.
+func (m *GetDesiredStateGraphReq_LiteEntitiesFilter) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDesiredStateGraphReq_LiteEntitiesFilter) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetDesiredStateGraphReq_LiteEntitiesFilterMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDesiredStateGraphReq_LiteEntitiesFilterMultiError is an error wrapping
+// multiple validation errors returned by
+// GetDesiredStateGraphReq_LiteEntitiesFilter.ValidateAll() if the designated
+// constraints aren't met.
+type GetDesiredStateGraphReq_LiteEntitiesFilterMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDesiredStateGraphReq_LiteEntitiesFilterMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDesiredStateGraphReq_LiteEntitiesFilterMultiError) AllErrors() []error { return m }
+
+// GetDesiredStateGraphReq_LiteEntitiesFilterValidationError is the validation
+// error returned by GetDesiredStateGraphReq_LiteEntitiesFilter.Validate if
+// the designated constraints aren't met.
+type GetDesiredStateGraphReq_LiteEntitiesFilterValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) ErrorName() string {
+	return "GetDesiredStateGraphReq_LiteEntitiesFilterValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDesiredStateGraphReq_LiteEntitiesFilterValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDesiredStateGraphReq_LiteEntitiesFilter.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDesiredStateGraphReq_LiteEntitiesFilterValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDesiredStateGraphReq_LiteEntitiesFilterValidationError{}
 
 // Validate checks the field values on GetDesiredStateGraphReq_QueryByService
 // with the rules defined in the proto definition for this message. If any

@@ -170,6 +170,11 @@ message GetDesiredStateResp {
 }
 
 message GetDesiredStateGraphReq {
+    message LiteEntitiesFilter {
+        // anything that matches this filter will not have desired, target, or current states returned, nor will it have precondition statuses.
+        // this is useful for reducing the size of the response when the caller is not interested in the detailed states of certain entities.
+        repeated prodvana.desired_state.model.Type types = 1;
+    }
     message QueryByService {
         string application = 1 [(validate.rules).string.min_len = 1];
         string service = 2 [(validate.rules).string.min_len = 1];
@@ -201,14 +206,17 @@ message GetDesiredStateGraphReq {
     repeated DepthOverrideByStatus depth_overrides_by_status = 8;
 
     bool include_desired_state_timestamps = 5;
+    bool include_desired_state_metadata = 13;
     bool include_parents = 10;
 
     repeated prodvana.desired_state.model.DependencyType exclude_dependency_type = 11;
 
+    LiteEntitiesFilter lite_entities_filter = 12;
+
     reserved 2;
     reserved "type";
 
-    // next tag: 12
+    // next tag: 14
 }
 
 message DesiredStateTimestamps {
@@ -222,7 +230,9 @@ message GetDesiredStateGraphResp {
     prodvana.desired_state.model.EntityGraph entity_graph = 1;
     // will only be set if DS was queried by service and there is a pending set desired state
     PendingSetDesiredState pending_set_desired_state = 2;
+    // only set if requested
     DesiredStateTimestamps timestamps = 3;
+    prodvana.desired_state.model.SetDesiredStateMetadata set_desired_state_metadata = 4;
 }
 
 message GetServiceLatestDesiredStateIdReq {

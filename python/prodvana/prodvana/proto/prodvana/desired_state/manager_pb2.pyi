@@ -642,6 +642,22 @@ global___GetDesiredStateResp = GetDesiredStateResp
 class GetDesiredStateGraphReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class LiteEntitiesFilter(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        TYPES_FIELD_NUMBER: builtins.int
+        @property
+        def types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType]:
+            """anything that matches this filter will not have desired, target, or current states returned, nor will it have precondition statuses.
+            this is useful for reducing the size of the response when the caller is not interested in the detailed states of certain entities.
+            """
+        def __init__(
+            self,
+            *,
+            types: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Type.ValueType] | None = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["types", b"types"]) -> None: ...
+
     class QueryByService(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -680,8 +696,10 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
     DEPTH_FIELD_NUMBER: builtins.int
     DEPTH_OVERRIDES_BY_STATUS_FIELD_NUMBER: builtins.int
     INCLUDE_DESIRED_STATE_TIMESTAMPS_FIELD_NUMBER: builtins.int
+    INCLUDE_DESIRED_STATE_METADATA_FIELD_NUMBER: builtins.int
     INCLUDE_PARENTS_FIELD_NUMBER: builtins.int
     EXCLUDE_DEPENDENCY_TYPE_FIELD_NUMBER: builtins.int
+    LITE_ENTITIES_FILTER_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
     @property
     def query_by_service(self) -> global___GetDesiredStateGraphReq.QueryByService: ...
@@ -702,9 +720,12 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
     @property
     def depth_overrides_by_status(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GetDesiredStateGraphReq.DepthOverrideByStatus]: ...
     include_desired_state_timestamps: builtins.bool
+    include_desired_state_metadata: builtins.bool
     include_parents: builtins.bool
     @property
     def exclude_dependency_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[prodvana.proto.prodvana.desired_state.model.entity_pb2.DependencyType.ValueType]: ...
+    @property
+    def lite_entities_filter(self) -> global___GetDesiredStateGraphReq.LiteEntitiesFilter: ...
     def __init__(
         self,
         *,
@@ -716,11 +737,13 @@ class GetDesiredStateGraphReq(google.protobuf.message.Message):
         depth: builtins.int = ...,
         depth_overrides_by_status: collections.abc.Iterable[global___GetDesiredStateGraphReq.DepthOverrideByStatus] | None = ...,
         include_desired_state_timestamps: builtins.bool = ...,
+        include_desired_state_metadata: builtins.bool = ...,
         include_parents: builtins.bool = ...,
         exclude_dependency_type: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.entity_pb2.DependencyType.ValueType] | None = ...,
+        lite_entities_filter: global___GetDesiredStateGraphReq.LiteEntitiesFilter | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "depth_overrides_by_status", b"depth_overrides_by_status", "desired_state_id", b"desired_state_id", "exclude_dependency_type", b"exclude_dependency_type", "include_desired_state_timestamps", b"include_desired_state_timestamps", "include_parents", b"include_parents", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "required_entity_names", b"required_entity_names", "types", b"types"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "lite_entities_filter", b"lite_entities_filter", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["depth", b"depth", "depth_overrides_by_status", b"depth_overrides_by_status", "desired_state_id", b"desired_state_id", "exclude_dependency_type", b"exclude_dependency_type", "include_desired_state_metadata", b"include_desired_state_metadata", "include_desired_state_timestamps", b"include_desired_state_timestamps", "include_parents", b"include_parents", "lite_entities_filter", b"lite_entities_filter", "query", b"query", "query_by_service", b"query_by_service", "required_annotations", b"required_annotations", "required_entity_names", b"required_entity_names", "types", b"types"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["query", b"query"]) -> typing_extensions.Literal["desired_state_id", "query_by_service"] | None: ...
 
 global___GetDesiredStateGraphReq = GetDesiredStateGraphReq
@@ -756,22 +779,27 @@ class GetDesiredStateGraphResp(google.protobuf.message.Message):
     ENTITY_GRAPH_FIELD_NUMBER: builtins.int
     PENDING_SET_DESIRED_STATE_FIELD_NUMBER: builtins.int
     TIMESTAMPS_FIELD_NUMBER: builtins.int
+    SET_DESIRED_STATE_METADATA_FIELD_NUMBER: builtins.int
     @property
     def entity_graph(self) -> prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph: ...
     @property
     def pending_set_desired_state(self) -> global___PendingSetDesiredState:
         """will only be set if DS was queried by service and there is a pending set desired state"""
     @property
-    def timestamps(self) -> global___DesiredStateTimestamps: ...
+    def timestamps(self) -> global___DesiredStateTimestamps:
+        """only set if requested"""
+    @property
+    def set_desired_state_metadata(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata: ...
     def __init__(
         self,
         *,
         entity_graph: prodvana.proto.prodvana.desired_state.model.entity_pb2.EntityGraph | None = ...,
         pending_set_desired_state: global___PendingSetDesiredState | None = ...,
         timestamps: global___DesiredStateTimestamps | None = ...,
+        set_desired_state_metadata: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.SetDesiredStateMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "timestamps", b"timestamps"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "timestamps", b"timestamps"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "timestamps", b"timestamps"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_graph", b"entity_graph", "pending_set_desired_state", b"pending_set_desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "timestamps", b"timestamps"]) -> None: ...
 
 global___GetDesiredStateGraphResp = GetDesiredStateGraphResp
 
