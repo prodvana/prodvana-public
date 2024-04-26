@@ -10688,6 +10688,10 @@
         "lifecycle": {
           "$ref": "#/definitions/common_configTaskLifecycle"
         },
+        "ongoingRun": {
+          "$ref": "#/definitions/modelTaskRun",
+          "title": "only set if there is an ongoing run"
+        },
         "lastRuns": {
           "type": "array",
           "items": {

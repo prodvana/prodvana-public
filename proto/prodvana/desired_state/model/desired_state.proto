@@ -787,6 +787,8 @@ message DeliveryExtensionState {
     string extension_instance_id = 10;
     prodvana.common_config.TaskLifecycle lifecycle = 11;
 
+    TaskRun ongoing_run = 16; // only set if there is an ongoing run
+
     // last couple of runs for this extension.
     // may not contain the full list, but guaranteed to contain the last.
     repeated TaskRun last_runs = 15;
@@ -805,7 +807,7 @@ message DeliveryExtensionState {
 
     reserved 13;
     reserved "status";
-    // next tag: 16
+    // next tag: 17
 }
 
 enum SignalType {
