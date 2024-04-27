@@ -15,7 +15,7 @@ from prodvana.proto.prodvana.common_config import kubernetes_config_pb2 as prodv
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/fly/fly_config.proto\x12\x0cprodvana.fly\x1a.prodvana/common_config/kubernetes_config.proto\x1a\x17validate/validate.proto\"\xbc\x01\n\tFlyConfig\x12\x1a\n\x07inlined\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12>\n\x05local\x18\x02 \x01(\x0b\x32#.prodvana.common_config.LocalConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00\x12@\n\x06remote\x18\x03 \x01(\x0b\x32$.prodvana.common_config.RemoteConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00\x42\x11\n\ntoml_oneof\x12\x03\xf8\x42\x01\x42HZFgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/flyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/fly/fly_config.proto\x12\x0cprodvana.fly\x1a.prodvana/common_config/kubernetes_config.proto\x1a\x17validate/validate.proto\"\xcd\x01\n\tFlyConfig\x12\x1a\n\x07inlined\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x00\x12>\n\x05local\x18\x02 \x01(\x0b\x32#.prodvana.common_config.LocalConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00\x12@\n\x06remote\x18\x03 \x01(\x0b\x32$.prodvana.common_config.RemoteConfigB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00\x12\x0f\n\x07regions\x18\x04 \x03(\tB\x11\n\ntoml_oneof\x12\x03\xf8\x42\x01\x42HZFgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/flyb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,5 +33,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _FLYCONFIG.fields_by_name['remote']._options = None
   _FLYCONFIG.fields_by_name['remote']._serialized_options = b'\372B\005\212\001\002\020\001'
   _globals['_FLYCONFIG']._serialized_start=121
-  _globals['_FLYCONFIG']._serialized_end=309
+  _globals['_FLYCONFIG']._serialized_end=326
 # @@protoc_insertion_point(module_scope)

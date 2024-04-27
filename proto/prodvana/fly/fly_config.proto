@@ -11,4 +11,6 @@ message FlyConfig {
         prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
         prodvana.common_config.RemoteConfig remote = 3 [(validate.rules).message.required = true];
     }
+    // if set, only manage these regions
+    repeated string regions = 4;
 }

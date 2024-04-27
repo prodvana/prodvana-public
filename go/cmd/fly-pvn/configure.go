@@ -54,8 +54,17 @@ var configureFlags = struct {
 }{}
 
 type flyToml struct {
-	App      string           `toml:"app"`
-	Prodvana *flyProdvanaToml `toml:"prodvana"`
+	App           string                   `toml:"app"`
+	Prodvana      *flyProdvanaToml         `toml:"prodvana"`
+	PrimaryRegion string                   `toml:"primary_region"`
+	Replicas      *int                     `toml:"replicas"`
+	Regions       map[string]*flyRegionCfg `toml:"regions"`
+	Tier          *string                  `toml:"tier"`
+}
+
+type flyRegionCfg struct {
+	Replicas *int    `toml:"replicas"`
+	Tier     *string `toml:"tier"`
 }
 
 type flyProdvanaToml struct {
@@ -290,20 +299,23 @@ func createAppIfNeeded(ctx context.Context, tomlFile string) error {
 	return nil
 }
 
-func buildApp(ctx context.Context, tomlPath, tag string) error {
+func buildApp(ctx context.Context, tomlPath, tag string, patchWorkingDirectory bool) error {
 	// HACK(naphat) fly deploy --build-only doesn't work until an app is created
 	if err := createAppIfNeeded(ctx, tomlPath); err != nil {
 		return err
 	}
-	// fly uses the current directory as the docker context.
-	// since our cli walks the tree for toml files, we need to set the context to the directory of the toml file.
-	// TODO(naphat) what should we set the docker context to be?
-	tomlDir, tomlBase := filepath.Split(tomlPath)
-	// TODO(naphat) how does this work for first time, uncreated apps?
-	cmd := exec.CommandContext(ctx, configureFlags.flyctlPath, "deploy", "--config", tomlBase, "--image-label", tag, "--build-only", "--push")
+	var workingDir string
+	if patchWorkingDirectory {
+		// fly uses the current directory as the docker context.
+		// since our cli walks the tree for toml files, we need to set the context to the directory of the toml file.
+		tomlDir, tomlBase := filepath.Split(tomlPath)
+		workingDir = tomlDir
+		tomlPath = tomlBase
+	}
+	cmd := exec.CommandContext(ctx, configureFlags.flyctlPath, "deploy", "--config", tomlPath, "--image-label", tag, "--build-only", "--push")
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
-	cmd.Dir = tomlDir
+	cmd.Dir = workingDir
 	return errors.Wrap(cmd.Run(), "failed to build app")
 }
 
@@ -381,7 +393,6 @@ func makeFlyRuntimeIfNeeded(ctx context.Context, getToken func() (string, error)
 	if err != nil {
 		return errors.Wrap(err, "failed to configure runtime")
 	}
-	log.Printf("Created Fly runtime %s", runtimeName)
 	return nil
 }
 
@@ -580,7 +591,7 @@ var configureCmd = &cobra.Command{
 		}
 
 		err = buildRequiredTomls.Iterate(func(path string) error {
-			return buildApp(ctx, path, buildTag)
+			return buildApp(ctx, path, buildTag, true)
 		})
 		if err != nil {
 			return err
@@ -604,6 +615,7 @@ var configureCmd = &cobra.Command{
 }
 
 func init() {
+	rootCmd.AddCommand(configureCmd)
 	configureCmd.Flags().StringVar(&configureFlags.flyRuntime, "fly-runtime", "fly", "Name of the Fly Runtime on Prodvana")
 	configureCmd.Flags().StringVar(&configureFlags.flyRegistry, "fly-registry", "fly-registry", "Name of the Fly registry integration on Prodvana")
 	configureCmd.Flags().StringVar(&configureFlags.flyctlPath, "flyctl-path", "fly", "Path to flyctl binary")

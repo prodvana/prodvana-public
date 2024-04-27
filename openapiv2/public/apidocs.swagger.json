@@ -15234,6 +15234,13 @@
         },
         "remote": {
           "$ref": "#/definitions/common_configRemoteConfig"
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "if set, only manage these regions"
         }
       }
     },

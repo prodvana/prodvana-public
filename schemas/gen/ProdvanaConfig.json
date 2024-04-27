@@ -6224,6 +6224,27 @@
                         },
                         {}
                     ]
+                },
+                "regions": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set, only manage these regions"
                 }
             },
             "additionalProperties": false,
