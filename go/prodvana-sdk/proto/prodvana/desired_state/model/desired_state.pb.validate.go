@@ -787,6 +787,8 @@ func (m *ConcurrencyLimit) validate(all bool) error {
 
 	// no validation rules for LimitId
 
+	// no validation rules for Description
+
 	if len(errors) > 0 {
 		return ConcurrencyLimitMultiError(errors)
 	}
@@ -9195,6 +9197,8 @@ func (m *ConcurrencyLimitExceeded) validate(all bool) error {
 	}
 
 	// no validation rules for LimitDescription
+
+	// no validation rules for LimitId
 
 	if len(errors) > 0 {
 		return ConcurrencyLimitExceededMultiError(errors)

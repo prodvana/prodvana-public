@@ -534,13 +534,16 @@ class ConcurrencyLimit(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     LIMIT_ID_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
     limit_id: builtins.str
+    description: builtins.str
     def __init__(
         self,
         *,
         limit_id: builtins.str = ...,
+        description: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["limit_id", b"limit_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "limit_id", b"limit_id"]) -> None: ...
 
 global___ConcurrencyLimit = ConcurrencyLimit
 
@@ -2461,6 +2464,7 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
     RELEASE_ID_FIELD_NUMBER: builtins.int
     BLOCKERS_FIELD_NUMBER: builtins.int
     LIMIT_DESCRIPTION_FIELD_NUMBER: builtins.int
+    LIMIT_ID_FIELD_NUMBER: builtins.int
     @property
     def entity_id(self) -> global___Identifier:
         """apply cannot run due to a concurrency limit
@@ -2472,6 +2476,7 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
     def blockers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded.Blocker]:
         """list of entities that are blocking this entity"""
     limit_description: builtins.str
+    limit_id: builtins.str
     def __init__(
         self,
         *,
@@ -2480,9 +2485,10 @@ class ConcurrencyLimitExceeded(google.protobuf.message.Message):
         release_id: builtins.str = ...,
         blockers: collections.abc.Iterable[global___ConcurrencyLimitExceeded.Blocker] | None = ...,
         limit_description: builtins.str = ...,
+        limit_id: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blockers", b"blockers", "desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "limit_description", b"limit_description", "release_id", b"release_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["blockers", b"blockers", "desired_state_id", b"desired_state_id", "entity_id", b"entity_id", "limit_description", b"limit_description", "limit_id", b"limit_id", "release_id", b"release_id"]) -> None: ...
 
 global___ConcurrencyLimitExceeded = ConcurrencyLimitExceeded
 

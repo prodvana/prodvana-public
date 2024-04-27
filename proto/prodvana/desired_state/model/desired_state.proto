@@ -117,6 +117,7 @@ message Identifier {
 
 message ConcurrencyLimit {
     string limit_id = 1;
+    string description = 2;
 }
 
 message Metadata {
@@ -904,8 +905,9 @@ message ConcurrencyLimitExceeded {
 
     repeated Blocker blockers = 4; // list of entities that are blocking this entity
     string limit_description = 3;
+    string limit_id = 7;
 
-    // next tag: 7
+    // next tag: 8
     reserved 2;
     reserved "blocking_ids";
 }

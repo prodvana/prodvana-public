@@ -13219,6 +13219,9 @@
       "properties": {
         "limitId": {
           "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       }
     },
@@ -13245,6 +13248,9 @@
           "title": "list of entities that are blocking this entity"
         },
         "limitDescription": {
+          "type": "string"
+        },
+        "limitId": {
           "type": "string"
         }
       }
