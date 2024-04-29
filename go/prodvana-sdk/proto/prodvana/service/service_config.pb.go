@@ -1935,9 +1935,10 @@ type ServiceConfig struct {
 	// DEPRECATED: Replace with convergence_extensions
 	PrePushTasks []*TaskConfig `protobuf:"bytes,15,rep,name=pre_push_tasks,json=prePushTasks,proto3" json:"pre_push_tasks,omitempty"`
 	// DEPRECATED: use convergence_extensions
-	DeliveryExtensions            []*DeliveryExtensionConfig   `protobuf:"bytes,29,rep,name=delivery_extensions,json=deliveryExtensions,proto3" json:"delivery_extensions,omitempty"`
-	DeliveryExtensionInstances    []*DeliveryExtensionInstance `protobuf:"bytes,30,rep,name=delivery_extension_instances,json=deliveryExtensionInstances,proto3" json:"delivery_extension_instances,omitempty"`
-	ConvergenceExtensions         []*DeliveryExtensionConfig   `protobuf:"bytes,40,rep,name=convergence_extensions,json=convergenceExtensions,proto3" json:"convergence_extensions,omitempty"`
+	DeliveryExtensions         []*DeliveryExtensionConfig   `protobuf:"bytes,29,rep,name=delivery_extensions,json=deliveryExtensions,proto3" json:"delivery_extensions,omitempty"`
+	DeliveryExtensionInstances []*DeliveryExtensionInstance `protobuf:"bytes,30,rep,name=delivery_extension_instances,json=deliveryExtensionInstances,proto3" json:"delivery_extension_instances,omitempty"`
+	ConvergenceExtensions      []*DeliveryExtensionConfig   `protobuf:"bytes,40,rep,name=convergence_extensions,json=convergenceExtensions,proto3" json:"convergence_extensions,omitempty"`
+	// DEPRECATED: use the `shared_instance_key` field in on prodvana.delivery_extension.DeliveryExtensionConfig instead
 	ConvergenceExtensionInstances []*DeliveryExtensionInstance `protobuf:"bytes,41,rep,name=convergence_extension_instances,json=convergenceExtensionInstances,proto3" json:"convergence_extension_instances,omitempty"`
 	// Convergence protections applied to all release channels.
 	ConvergenceProtections []*protection.ProtectionAttachmentConfig `protobuf:"bytes,37,rep,name=convergence_protections,json=convergenceProtections,proto3" json:"convergence_protections,omitempty"`

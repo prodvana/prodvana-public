@@ -17158,7 +17158,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/serviceDeliveryExtensionInstance"
-          }
+          },
+          "title": "DEPRECATED: use the `shared_instance_key` field in on prodvana.delivery_extension.DeliveryExtensionConfig instead"
         },
         "convergenceProtections": {
           "type": "array",

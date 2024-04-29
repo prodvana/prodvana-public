@@ -10393,7 +10393,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "DEPRECATED: use the `shared_instance_key` field in on prodvana.delivery_extension.DeliveryExtensionConfig instead"
                 },
                 "convergenceExtensionInstances": {
                     "items": {
@@ -10407,7 +10408,8 @@
                         {
                             "type": "array"
                         }
-                    ]
+                    ],
+                    "description": "DEPRECATED: use the `shared_instance_key` field in on prodvana.delivery_extension.DeliveryExtensionConfig instead"
                 },
                 "convergence_protections": {
                     "items": {

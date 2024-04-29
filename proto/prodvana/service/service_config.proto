@@ -337,6 +337,7 @@ message ServiceConfig {
     repeated DeliveryExtensionConfig delivery_extensions = 29;
     repeated DeliveryExtensionInstance delivery_extension_instances = 30;
     repeated DeliveryExtensionConfig convergence_extensions = 40;
+    // DEPRECATED: use the `shared_instance_key` field in on prodvana.delivery_extension.DeliveryExtensionConfig instead
     repeated DeliveryExtensionInstance convergence_extension_instances = 41;
 
     // Convergence protections applied to all release channels.

@@ -878,7 +878,8 @@ class ServiceConfig(google.protobuf.message.Message):
     @property
     def convergence_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]: ...
     @property
-    def convergence_extension_instances(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionInstance]: ...
+    def convergence_extension_instances(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionInstance]:
+        """DEPRECATED: use the `shared_instance_key` field in on prodvana.proto.prodvana.delivery_extension.DeliveryExtensionConfig instead"""
     @property
     def convergence_protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.protection.attachments_pb2.ProtectionAttachmentConfig]:
         """Convergence protections applied to all release channels."""
