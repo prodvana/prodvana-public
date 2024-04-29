@@ -15247,6 +15247,13 @@
             "type": "string"
           },
           "title": "if set, only manage these regions"
+        },
+        "excludeRegions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "if set, exclude these regions, applies after regions"
         }
       }
     },

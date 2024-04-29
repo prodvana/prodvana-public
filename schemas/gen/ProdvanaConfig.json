@@ -6245,6 +6245,48 @@
                         }
                     ],
                     "description": "if set, only manage these regions"
+                },
+                "exclude_regions": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set, exclude these regions, applies after regions"
+                },
+                "excludeRegions": {
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "if set, exclude these regions, applies after regions"
                 }
             },
             "additionalProperties": false,

@@ -57,7 +57,6 @@ func (m *FlyConfig) validate(all bool) error {
 
 	var errors []error
 
-	oneofTomlOneofPresent := false
 	switch v := m.TomlOneof.(type) {
 	case *FlyConfig_Inlined:
 		if v == nil {
@@ -70,7 +69,6 @@ func (m *FlyConfig) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
-		oneofTomlOneofPresent = true
 
 		if utf8.RuneCountInString(m.GetInlined()) < 1 {
 			err := FlyConfigValidationError{
@@ -94,7 +92,6 @@ func (m *FlyConfig) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
-		oneofTomlOneofPresent = true
 
 		if m.GetLocal() == nil {
 			err := FlyConfigValidationError{
@@ -147,7 +144,6 @@ func (m *FlyConfig) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
-		oneofTomlOneofPresent = true
 
 		if m.GetRemote() == nil {
 			err := FlyConfigValidationError{
@@ -191,16 +187,6 @@ func (m *FlyConfig) validate(all bool) error {
 
 	default:
 		_ = v // ensures v is used
-	}
-	if !oneofTomlOneofPresent {
-		err := FlyConfigValidationError{
-			field:  "TomlOneof",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

@@ -24,6 +24,7 @@ class FlyConfig(google.protobuf.message.Message):
     LOCAL_FIELD_NUMBER: builtins.int
     REMOTE_FIELD_NUMBER: builtins.int
     REGIONS_FIELD_NUMBER: builtins.int
+    EXCLUDE_REGIONS_FIELD_NUMBER: builtins.int
     inlined: builtins.str
     @property
     def local(self) -> prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig: ...
@@ -32,6 +33,9 @@ class FlyConfig(google.protobuf.message.Message):
     @property
     def regions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """if set, only manage these regions"""
+    @property
+    def exclude_regions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """if set, exclude these regions, applies after regions"""
     def __init__(
         self,
         *,
@@ -39,9 +43,10 @@ class FlyConfig(google.protobuf.message.Message):
         local: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.LocalConfig | None = ...,
         remote: prodvana.proto.prodvana.common_config.kubernetes_config_pb2.RemoteConfig | None = ...,
         regions: collections.abc.Iterable[builtins.str] | None = ...,
+        exclude_regions: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "remote", b"remote", "toml_oneof", b"toml_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["inlined", b"inlined", "local", b"local", "regions", b"regions", "remote", b"remote", "toml_oneof", b"toml_oneof"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["exclude_regions", b"exclude_regions", "inlined", b"inlined", "local", b"local", "regions", b"regions", "remote", b"remote", "toml_oneof", b"toml_oneof"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["toml_oneof", b"toml_oneof"]) -> typing_extensions.Literal["inlined", "local", "remote"] | None: ...
 
 global___FlyConfig = FlyConfig

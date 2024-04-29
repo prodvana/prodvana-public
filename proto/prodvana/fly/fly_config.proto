@@ -6,11 +6,12 @@ import "validate/validate.proto";
 
 message FlyConfig {
     oneof toml_oneof {
-        option (validate.required) = true;
         string inlined = 1 [(validate.rules).string.min_len = 1];
         prodvana.common_config.LocalConfig local = 2 [(validate.rules).message.required = true];
         prodvana.common_config.RemoteConfig remote = 3 [(validate.rules).message.required = true];
     }
     // if set, only manage these regions
     repeated string regions = 4;
+    // if set, exclude these regions, applies after regions
+    repeated string exclude_regions = 5;
 }

@@ -54,12 +54,13 @@ var configureFlags = struct {
 }{}
 
 type flyToml struct {
-	App           string                   `toml:"app"`
-	Prodvana      *flyProdvanaToml         `toml:"prodvana"`
-	PrimaryRegion string                   `toml:"primary_region"`
-	Replicas      *int                     `toml:"replicas"`
-	Regions       map[string]*flyRegionCfg `toml:"regions"`
-	Tier          *string                  `toml:"tier"`
+	App                           string                   `toml:"app"`
+	Prodvana                      *flyProdvanaToml         `toml:"prodvana"`
+	PrimaryRegion                 string                   `toml:"primary_region"`
+	Replicas                      *int                     `toml:"replicas"`
+	Regions                       map[string]*flyRegionCfg `toml:"regions"`
+	Tier                          *string                  `toml:"tier"`
+	SingleRegionPerReleaseChannel bool                     `toml:"single_region_per_release_channel"`
 }
 
 type flyRegionCfg struct {

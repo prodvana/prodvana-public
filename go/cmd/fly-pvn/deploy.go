@@ -91,12 +91,12 @@ func constructAppAndServiceCfg(tomlBytes []byte, tomlCfg *flyToml, defaultTagFor
 		}
 		bundleName = "{{.Params.image.Tag}}"
 	}
-	if tomlCfg.Replicas == nil {
+	if tomlCfg.Replicas == nil && len(tomlCfg.Regions) == 0 {
 		appCfg := &application_pb.ApplicationConfig{
 			Name: tomlCfg.App,
 			ReleaseChannels: []*release_channel_pb.ReleaseChannelConfig{
 				{
-					Name: "all-regions",
+					Name: "production",
 					Runtimes: []*release_channel_pb.ReleaseChannelRuntimeConfig{
 						{
 							Runtime: configureFlags.flyRuntime,
@@ -126,49 +126,64 @@ func constructAppAndServiceCfg(tomlBytes []byte, tomlCfg *flyToml, defaultTagFor
 	}
 
 	type rcInputConfig struct {
-		region   string
-		replicas int
-		tier     string
+		name           string
+		regions        []string
+		excludeRegions []string
+		tier           string
 	}
-	rcInputs := []*rcInputConfig{
-		{
-			region:   tomlCfg.PrimaryRegion,
-			replicas: *tomlCfg.Replicas,
-			tier:     getTier(tomlCfg.Tier),
-		},
-	}
-	for region, rc := range tomlCfg.Regions {
-		if rc.Replicas == nil {
-			return nil, errors.Errorf("replicas not specified for region %s", region)
+	var rcInputs []*rcInputConfig
+	if tomlCfg.SingleRegionPerReleaseChannel {
+		rcInputs = []*rcInputConfig{
+			{
+				name:    tomlCfg.PrimaryRegion,
+				regions: []string{tomlCfg.PrimaryRegion},
+				tier:    getTier(tomlCfg.Tier),
+			},
+		}
+		for region, rc := range tomlCfg.Regions {
+			rcInputs = append(rcInputs, &rcInputConfig{
+				name:    region,
+				regions: []string{region},
+				tier:    getTier(rc.Tier),
+			})
+		}
+	} else {
+		var canaryRegions []string
+		if getTier(tomlCfg.Tier) == "canary" {
+			canaryRegions = append(canaryRegions, tomlCfg.PrimaryRegion)
+		}
+		for region, rc := range tomlCfg.Regions {
+			if getTier(rc.Tier) == "canary" {
+				canaryRegions = append(canaryRegions, region)
+			}
+		}
+		if len(canaryRegions) > 0 {
+			rcInputs = []*rcInputConfig{
+				{
+					name:    "canary",
+					regions: canaryRegions,
+					tier:    "canary",
+				},
+			}
 		}
 		rcInputs = append(rcInputs, &rcInputConfig{
-			region:   region,
-			replicas: *rc.Replicas,
-			tier:     getTier(rc.Tier),
+			name:           "production",
+			excludeRegions: canaryRegions,
+			tier:           "production",
 		})
 	}
 	hasMultiStage := slices.ContainsFunc(rcInputs, func(rc *rcInputConfig) bool {
 		return rc.tier == "canary"
 	})
-	const regionConstantName = "region"
 	releaseChannels := make([]*release_channel_pb.ReleaseChannelConfig, 0, len(rcInputs))
+	perReleaseChannelConfigs := make([]*service_pb.PerReleaseChannelConfig, 0, len(rcInputs))
 	for _, rcInput := range rcInputs {
 		rcCfg := &release_channel_pb.ReleaseChannelConfig{
-			Name:  rcInput.region,
+			Name:  rcInput.name,
 			Group: rcInput.tier,
 			Runtimes: []*release_channel_pb.ReleaseChannelRuntimeConfig{
 				{
 					Runtime: configureFlags.flyRuntime,
-				},
-			},
-			Constants: []*common_config_pb.Constant{
-				{
-					Name: regionConstantName,
-					ConfigOneof: &common_config_pb.Constant_String_{
-						String_: &common_config_pb.StringConstant{
-							Value: rcInput.region,
-						},
-					},
 				},
 			},
 		}
@@ -190,6 +205,15 @@ func constructAppAndServiceCfg(tomlBytes []byte, tomlCfg *flyToml, defaultTagFor
 			}
 		}
 		releaseChannels = append(releaseChannels, rcCfg)
+		perReleaseChannelConfigs = append(perReleaseChannelConfigs, &service_pb.PerReleaseChannelConfig{
+			ReleaseChannel: rcInput.name,
+			ConfigOneof: &service_pb.PerReleaseChannelConfig_Fly{
+				Fly: &fly_pb.FlyConfig{
+					Regions:        rcInput.regions,
+					ExcludeRegions: rcInput.excludeRegions,
+				},
+			},
+		})
 	}
 	appCfg := &application_pb.ApplicationConfig{
 		Name:            tomlCfg.App,
@@ -203,10 +227,10 @@ func constructAppAndServiceCfg(tomlBytes []byte, tomlCfg *flyToml, defaultTagFor
 				TomlOneof: &fly_pb.FlyConfig_Inlined{
 					Inlined: string(patched.patched),
 				},
-				Regions: []string{"{{.Constants.region}}"},
 			},
 		},
-		Parameters: params,
+		Parameters:        params,
+		PerReleaseChannel: perReleaseChannelConfigs,
 	}
 	return &appAndServiceCfg{
 		appCfg:        appCfg,
@@ -348,8 +372,6 @@ func init() {
 	deployCmd.Flags().StringVar(&configureFlags.flyRuntime, "fly-runtime", "fly", "Name of the Fly Runtime on Prodvana")
 	deployCmd.Flags().StringVar(&configureFlags.flyRegistry, "fly-registry", "fly-registry", "Name of the Fly registry integration on Prodvana")
 	deployCmd.Flags().StringVar(&configureFlags.flyctlPath, "flyctl-path", "fly", "Path to flyctl binary")
-	deployCmd.Flags().StringVar(&configureFlags.flyOrg, "fly-org", "", "Name of the Fly organization.")
+	deployCmd.Flags().StringVar(&configureFlags.flyOrg, "fly-org", "personal", "Name of the Fly organization.")
 	deployCmd.Flags().StringVarP(&deployFlags.flyToml, "config", "c", "", "Path to fly toml, defaults to fly.toml inside the working directory.")
-	// TODO(naphat) we can infer this?
-	must(deployCmd.MarkFlagRequired("fly-org"))
 }
