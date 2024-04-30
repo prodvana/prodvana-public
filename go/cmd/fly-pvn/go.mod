@@ -9,7 +9,7 @@ require (
 	google.golang.org/protobuf v1.33.0 // indirect
 )
 
-replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../../prodvana-sdk
+replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../../../go-sdk
 
 require (
 	github.com/bradenaw/juniper v0.15.3
