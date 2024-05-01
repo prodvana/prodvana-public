@@ -195,6 +195,9 @@ class _StatusReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """the active version is explicitly marked as dirty"""
     RUNTIME_OBJECT_APPLY_NEEDED: _StatusReason.ValueType  # 11
     """the Runtime indicated an apply is needed"""
+    LIFECYCLE_CHECK_FAILED: _StatusReason.ValueType  # 13
+    """one of protections or convergence extensions are either failing or pending"""
+    LIFECYCLE_CHECK_PENDING: _StatusReason.ValueType  # 14
 
 class StatusReason(_StatusReason, metaclass=_StatusReasonEnumTypeWrapper): ...
 
@@ -220,6 +223,9 @@ VERSION_DIRTY: StatusReason.ValueType  # 10
 """the active version is explicitly marked as dirty"""
 RUNTIME_OBJECT_APPLY_NEEDED: StatusReason.ValueType  # 11
 """the Runtime indicated an apply is needed"""
+LIFECYCLE_CHECK_FAILED: StatusReason.ValueType  # 13
+"""one of protections or convergence extensions are either failing or pending"""
+LIFECYCLE_CHECK_PENDING: StatusReason.ValueType  # 14
 global___StatusReason = StatusReason
 
 class _ActionType:

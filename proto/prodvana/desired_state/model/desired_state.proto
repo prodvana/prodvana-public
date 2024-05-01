@@ -198,6 +198,9 @@ enum StatusReason {
     VERSION_DIRTY = 10;
     // the Runtime indicated an apply is needed
     RUNTIME_OBJECT_APPLY_NEEDED = 11;
+    // one of protections or convergence extensions are either failing or pending
+    LIFECYCLE_CHECK_FAILED = 13;
+    LIFECYCLE_CHECK_PENDING = 14;
 }
 
 message StatusExplanation {
