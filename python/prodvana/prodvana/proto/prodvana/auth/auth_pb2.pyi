@@ -63,19 +63,22 @@ class AuthContext(google.protobuf.message.Message):
     AUTH_TOKEN_FIELD_NUMBER: builtins.int
     API_TOKEN_FIELD_NUMBER: builtins.int
     ADDR_FIELD_NUMBER: builtins.int
+    SKIP_TLS_FIELD_NUMBER: builtins.int
     @property
     def auth_token(self) -> global___AuthToken: ...
     api_token: builtins.str
     addr: builtins.str
+    skip_tls: builtins.bool
     def __init__(
         self,
         *,
         auth_token: global___AuthToken | None = ...,
         api_token: builtins.str = ...,
         addr: builtins.str = ...,
+        skip_tls: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auth_token", b"auth_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["addr", b"addr", "api_token", b"api_token", "auth_token", b"auth_token"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["addr", b"addr", "api_token", b"api_token", "auth_token", b"auth_token", "skip_tls", b"skip_tls"]) -> None: ...
 
 global___AuthContext = AuthContext
 

@@ -352,6 +352,8 @@ func (m *AuthContext) validate(all bool) error {
 
 	// no validation rules for Addr
 
+	// no validation rules for SkipTls
+
 	if len(errors) > 0 {
 		return AuthContextMultiError(errors)
 	}

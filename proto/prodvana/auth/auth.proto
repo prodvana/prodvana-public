@@ -18,6 +18,7 @@ message AuthContext {
     AuthToken auth_token = 1;
     string api_token = 2;
     string addr = 3;
+    bool skip_tls = 4;
 }
 
 message Session {
