@@ -550,6 +550,40 @@ func showDiff(ctx context.Context, oldVersionName string, oldConfig proto.Messag
 	return nil
 }
 
+func expandConvergenceExtension(ctx context.Context, cfgFile *utils.ConfigFile, cfg *service_pb.DeliveryExtensionConfig) error {
+	switch inner := cfg.Definition.(type) {
+	case *service_pb.DeliveryExtensionConfig_Inlined:
+		err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
+		if err != nil {
+			return err
+		}
+	}
+	for _, dep := range cfg.Dependencies {
+		err := expandConvergenceExtension(ctx, cfgFile, dep)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func expandConvergenceExtensionInstance(ctx context.Context, cfgFile *utils.ConfigFile, cfg *service_pb.DeliveryExtensionInstance) error {
+	switch inner := cfg.Definition.(type) {
+	case *service_pb.DeliveryExtensionInstance_Inlined:
+		err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
+		if err != nil {
+			return err
+		}
+	}
+	for _, dep := range cfg.Dependencies {
+		err := expandConvergenceExtension(ctx, cfgFile, dep)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func processServiceConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *service_pb.ServiceConfig, meta *service_pb.ServiceUserMetadata, validateOnly bool) error {
 	switch inner := cfg.ConfigOneof.(type) {
 	case *service_pb.ServiceConfig_ExternalConfig:
@@ -602,39 +636,27 @@ func processServiceConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *s
 		}
 	}
 	for _, ext := range cfg.DeliveryExtensions {
-		switch inner := ext.Definition.(type) {
-		case *service_pb.DeliveryExtensionConfig_Inlined:
-			err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
-			if err != nil {
-				return err
-			}
+		err := expandConvergenceExtension(ctx, cfgFile, ext)
+		if err != nil {
+			return err
 		}
 	}
 	for _, ext := range cfg.ConvergenceExtensions {
-		switch inner := ext.Definition.(type) {
-		case *service_pb.DeliveryExtensionConfig_Inlined:
-			err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
-			if err != nil {
-				return err
-			}
+		err := expandConvergenceExtension(ctx, cfgFile, ext)
+		if err != nil {
+			return err
 		}
 	}
 	for _, ext := range cfg.DeliveryExtensionInstances {
-		switch inner := ext.Definition.(type) {
-		case *service_pb.DeliveryExtensionInstance_Inlined:
-			err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
-			if err != nil {
-				return err
-			}
+		err := expandConvergenceExtensionInstance(ctx, cfgFile, ext)
+		if err != nil {
+			return err
 		}
 	}
 	for _, ext := range cfg.ConvergenceExtensionInstances {
-		switch inner := ext.Definition.(type) {
-		case *service_pb.DeliveryExtensionInstance_Inlined:
-			err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
-			if err != nil {
-				return err
-			}
+		err := expandConvergenceExtensionInstance(ctx, cfgFile, ext)
+		if err != nil {
+			return err
 		}
 	}
 	for _, perRc := range cfg.PerReleaseChannel {
@@ -689,12 +711,9 @@ func processServiceConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *s
 			}
 		}
 		for _, ext := range perRc.DeliveryExtensions {
-			switch inner := ext.Definition.(type) {
-			case *service_pb.DeliveryExtensionConfig_Inlined:
-				err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
-				if err != nil {
-					return err
-				}
+			err := expandConvergenceExtension(ctx, cfgFile, ext)
+			if err != nil {
+				return err
 			}
 		}
 	}
