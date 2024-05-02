@@ -2738,37 +2738,50 @@ class TaskEntityContext(google.protobuf.message.Message):
 
         APPLY_ID_FIELD_NUMBER: builtins.int
         VERSION_FIELD_NUMBER: builtins.int
+        ACTIVE_FIELD_NUMBER: builtins.int
+        SUCCESSFUL_FIELD_NUMBER: builtins.int
         apply_id: builtins.str
         version: builtins.str
+        active: builtins.bool
+        """True if it is the version in which the underlying object is converging to."""
+        successful: builtins.bool
+        """Did this applyId get successfully applied?"""
         def __init__(
             self,
             *,
             apply_id: builtins.str = ...,
             version: builtins.str = ...,
+            active: builtins.bool = ...,
+            successful: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "version", b"version"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "apply_id", b"apply_id", "successful", b"successful", "version", b"version"]) -> None: ...
 
     LAST_COMPLETED_RUN_FIELD_NUMBER: builtins.int
     LAST_RUN_FIELD_NUMBER: builtins.int
-    APPLY_ID_FIELD_NUMBER: builtins.int
+    LAST_SUCCESSFUL_APPLY_ID_FIELD_NUMBER: builtins.int
     APPLY_ID_VERSION_OVERRIDE_FIELD_NUMBER: builtins.int
+    APPLY_ID_WITH_VERSIONS_FIELD_NUMBER: builtins.int
     @property
     def last_completed_run(self) -> global___TaskRun: ...
     @property
     def last_run(self) -> global___TaskRun: ...
-    apply_id: builtins.str
+    last_successful_apply_id: builtins.str
     @property
-    def apply_id_version_override(self) -> global___TaskEntityContext.ApplyIdWithVersion: ...
+    def apply_id_version_override(self) -> global___TaskEntityContext.ApplyIdWithVersion:
+        """DEPRECATED"""
+    @property
+    def apply_id_with_versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TaskEntityContext.ApplyIdWithVersion]: ...
     def __init__(
         self,
         *,
         last_completed_run: global___TaskRun | None = ...,
         last_run: global___TaskRun | None = ...,
-        apply_id: builtins.str = ...,
+        last_successful_apply_id: builtins.str = ...,
         apply_id_version_override: global___TaskEntityContext.ApplyIdWithVersion | None = ...,
+        apply_id_with_versions: collections.abc.Iterable[global___TaskEntityContext.ApplyIdWithVersion] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["apply_id_version_override", b"apply_id_version_override", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "apply_id_version_override", b"apply_id_version_override", "last_completed_run", b"last_completed_run", "last_run", b"last_run"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id_version_override", b"apply_id_version_override", "apply_id_with_versions", b"apply_id_with_versions", "last_completed_run", b"last_completed_run", "last_run", b"last_run", "last_successful_apply_id", b"last_successful_apply_id"]) -> None: ...
 
 global___TaskEntityContext = TaskEntityContext
 

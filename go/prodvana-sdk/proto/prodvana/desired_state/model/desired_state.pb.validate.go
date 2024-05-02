@@ -10217,7 +10217,7 @@ func (m *TaskEntityContext) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ApplyId
+	// no validation rules for LastSuccessfulApplyId
 
 	if all {
 		switch v := interface{}(m.GetApplyIdVersionOverride()).(type) {
@@ -10246,6 +10246,40 @@ func (m *TaskEntityContext) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	for idx, item := range m.GetApplyIdWithVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TaskEntityContextValidationError{
+						field:  fmt.Sprintf("ApplyIdWithVersions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TaskEntityContextValidationError{
+						field:  fmt.Sprintf("ApplyIdWithVersions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TaskEntityContextValidationError{
+					field:  fmt.Sprintf("ApplyIdWithVersions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {
@@ -12931,6 +12965,10 @@ func (m *TaskEntityContext_ApplyIdWithVersion) validate(all bool) error {
 	// no validation rules for ApplyId
 
 	// no validation rules for Version
+
+	// no validation rules for Active
+
+	// no validation rules for Successful
 
 	if len(errors) > 0 {
 		return TaskEntityContext_ApplyIdWithVersionMultiError(errors)

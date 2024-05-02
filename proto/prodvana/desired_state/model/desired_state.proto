@@ -1010,18 +1010,23 @@ message TaskEntityContext {
     TaskRun last_completed_run = 1;
     TaskRun last_run = 2;
 
-    string apply_id = 6;
+    string last_successful_apply_id = 6;
 
     message ApplyIdWithVersion {
         string apply_id = 1;
         string version = 2;
+        // True if it is the version in which the underlying object is converging to.
+        bool active = 3;
+        // Did this applyId get successfully applied?
+        bool successful = 4;
     }
 
-    ApplyIdWithVersion apply_id_version_override = 7;
+    ApplyIdWithVersion apply_id_version_override = 7; // DEPRECATED
+    repeated ApplyIdWithVersion apply_id_with_versions = 8;
 
     reserved 3, 4, 5;
     reserved "is_active", "missing_approval", "is_not_in_grace_period";
-    // next tag: 8
+    // next tag: 9
 }
 
 // metadata about the desired state, set at the time of SetDesiredState
