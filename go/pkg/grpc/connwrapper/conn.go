@@ -6,9 +6,11 @@ import (
 	"io"
 	"log"
 	"net"
-	"prodvana/errlog"
-	"prodvana/perrors"
 	"strings"
+
+	"github.com/prodvana/prodvana-public/go/pkg/perrors"
+
+	"github.com/prodvana/prodvana-public/go/pkg/errlog"
 
 	"github.com/pkg/errors"
 	grpc_codes "google.golang.org/grpc/codes"
