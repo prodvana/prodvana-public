@@ -1,0 +1,20 @@
+# WARNING: Comments are *not* preserved
+name: <app name>
+release_channels:
+- name: staging
+  runtimes:
+  - runtime: <runtime name to run this release channel on>
+  # optionally set default values for release channel
+  # policy:
+  #   default_env:
+  #     MY_ENV:
+  #       value: MY_VALUE
+- name: prod
+  order: 1  # this tells Prodvana to push prod after staging
+  runtimes:
+  - runtime: <runtime name to run this release channel on>
+  # optionally set default values for release channel
+  # policy:
+  #   default_env:
+  #     MY_ENV:
+  #       value: MY_VALUE

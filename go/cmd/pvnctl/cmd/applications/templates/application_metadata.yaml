@@ -1,0 +1,7 @@
+description: <description of your app>
+links:
+- url: <useful link for your app>
+  display_name: <name of link>
+service_links:  # variables $application and $service gets substituted with application and service names
+- url: <useful link for services in your app>
+  display_name: <name of link>

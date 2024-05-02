@@ -1,0 +1,17 @@
+# WARNING: Comments are *not* preserved
+name: <service name>
+programs:
+  - image: <your image>
+    cmd: [<your>, <cmd>]
+    ports:
+      # adjust port accordingly
+      - port: 0
+    # optional fields, uncomment if you need them
+    # env:
+    #   <your var>:
+    #     value: <your value>
+    #   <your var>:
+    #     raw_secret: <secret value>
+replicas:
+  # recommended number for high availability
+  fixed: 3

@@ -1,0 +1,7 @@
+service:
+  application: <app>
+  service: <service>
+  release_channels:
+    - release_channel: <release channel>
+      versions:
+        - version: <service version to push>

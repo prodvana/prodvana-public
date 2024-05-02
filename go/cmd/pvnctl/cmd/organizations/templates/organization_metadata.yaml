@@ -1,0 +1,9 @@
+links:
+- url: <useful link for your org>
+  display_name: <name of link>
+application_links:  # variables $application gets substituted with application name
+- url: <useful link for apps in your org>
+  display_name: <name of link>
+service_links:  # variables $application and $service gets substituted with application and service names
+- url: <useful link for services in your org>
+  display_name: <name of link>

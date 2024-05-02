@@ -16,12 +16,14 @@ require (
 	cloud.google.com/go/spanner v1.61.0
 	github.com/aws/aws-sdk-go v1.52.0
 	github.com/getsentry/sentry-go v0.27.0
+	github.com/klauspost/compress v1.16.0
 	github.com/prodvana/prodvana-public/go/prodvana-sdk v0.0.0-00010101000000-000000000000
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.51.0
 	go.opentelemetry.io/otel v1.26.0
 	go.opentelemetry.io/otel/trace v1.26.0
 	golang.org/x/exp v0.0.0-20220827204233-334a2380cb91
 	golang.org/x/time v0.5.0
+	sigs.k8s.io/yaml v1.4.0
 )
 
 require (

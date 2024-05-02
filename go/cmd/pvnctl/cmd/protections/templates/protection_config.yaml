@@ -1,0 +1,12 @@
+# WARNING: Comments are *not* preserved
+name: <protection name>
+task_config:
+  program:
+    cmd: ["sleep", "1"]
+    image: busybox:latest
+# Optionally set env
+#    env:
+#      MY_ENV:
+#        value: MY_VALUE
+#      MY_ENV2:
+#        value: MY_VALUE2

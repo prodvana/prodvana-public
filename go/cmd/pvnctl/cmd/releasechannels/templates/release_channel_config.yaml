@@ -1,0 +1,9 @@
+# WARNING: Comments are *not* preserved
+name: <release channel name> 
+runtimes:
+- runtime: <runtime name to run this release channel on>
+# optionally set default values for release channel
+# policy:
+#   default_env:
+#     MY_ENV:
+#       value: MY_VALUE
