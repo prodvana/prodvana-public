@@ -1,0 +1,10 @@
+go 1.22.0
+
+toolchain go1.22.1
+
+use (
+	./go/cmd/prodvana-agent
+	./go/cmd/fly-pvn
+	./go/pkg
+	./go/prodvana-sdk
+)
