@@ -14616,6 +14616,9 @@
         "dirty": {
           "type": "boolean",
           "description": "A version is dirty if its state no longer matches desired state and must be fixed by a redeploy.\nFor example, a terraform version is dirty if its plan output returns differences.\nDD will only take action on dirty if the version is also active."
+        },
+        "skipInUi": {
+          "type": "boolean"
         }
       }
     },

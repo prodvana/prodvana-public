@@ -246,6 +246,8 @@ message Version {
     // DD will only take action on dirty if the version is also active.
     bool dirty = 9;
 
+    bool skip_in_ui = 10;
+
     reserved 3, 7;
     reserved "unhealthy", "unhealthy_reasons";
 

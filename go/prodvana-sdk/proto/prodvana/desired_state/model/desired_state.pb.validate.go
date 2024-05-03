@@ -1574,6 +1574,8 @@ func (m *Version) validate(all bool) error {
 
 	// no validation rules for Dirty
 
+	// no validation rules for SkipInUi
+
 	if len(errors) > 0 {
 		return VersionMultiError(errors)
 	}

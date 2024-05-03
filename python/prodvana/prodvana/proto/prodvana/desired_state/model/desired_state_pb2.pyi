@@ -689,6 +689,7 @@ class Version(google.protobuf.message.Message):
     ACTIVE_FIELD_NUMBER: builtins.int
     TARGET_REPLICAS_FIELD_NUMBER: builtins.int
     DIRTY_FIELD_NUMBER: builtins.int
+    SKIP_IN_UI_FIELD_NUMBER: builtins.int
     version: builtins.str
     replicas: builtins.int
     """Created/running replicas, can be in any state"""
@@ -707,6 +708,7 @@ class Version(google.protobuf.message.Message):
     For example, a terraform version is dirty if its plan output returns differences.
     DD will only take action on dirty if the version is also active.
     """
+    skip_in_ui: builtins.bool
     def __init__(
         self,
         *,
@@ -717,9 +719,10 @@ class Version(google.protobuf.message.Message):
         active: builtins.bool = ...,
         target_replicas: builtins.int = ...,
         dirty: builtins.bool = ...,
+        skip_in_ui: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["push_timestamp", b"push_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "dirty", b"dirty", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "available_replicas", b"available_replicas", "dirty", b"dirty", "push_timestamp", b"push_timestamp", "replicas", b"replicas", "skip_in_ui", b"skip_in_ui", "target_replicas", b"target_replicas", "version", b"version"]) -> None: ...
 
 global___Version = Version
 

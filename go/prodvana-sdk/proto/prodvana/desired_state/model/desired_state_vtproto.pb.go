@@ -381,6 +381,7 @@ func (m *Version) CloneVT() *Version {
 	r.Active = m.Active
 	r.TargetReplicas = m.TargetReplicas
 	r.Dirty = m.Dirty
+	r.SkipInUi = m.SkipInUi
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -3258,6 +3259,9 @@ func (this *Version) StableEqualVT(that *Version) bool {
 	if this.Dirty != that.Dirty {
 		return false
 	}
+	if this.SkipInUi != that.SkipInUi {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -3293,6 +3297,9 @@ func (this *Version) EqualVT(that *Version) bool {
 		return false
 	}
 	if this.Dirty != that.Dirty {
+		return false
+	}
+	if this.SkipInUi != that.SkipInUi {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
