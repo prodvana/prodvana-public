@@ -162,7 +162,8 @@ enum Status {
     DELETED = 11;
     PREVIEW = 13; // status for all entities in a preview desired state. will never show up in a real desired state.
     PENDING_SET_DESIRED_STATE = 14;
-    // next tag: 15
+    BLOCKED = 15;
+    // next tag: 16
 }
 
 enum SimpleStatus {
@@ -201,6 +202,10 @@ enum StatusReason {
     // one of protections or convergence extensions are either failing or pending
     LIFECYCLE_CHECK_FAILED = 13;
     LIFECYCLE_CHECK_PENDING = 14;
+
+    CONCURRENCY_LIMIT_EXCEEDED = 15;
+
+    // next tag: 16
 }
 
 message StatusExplanation {

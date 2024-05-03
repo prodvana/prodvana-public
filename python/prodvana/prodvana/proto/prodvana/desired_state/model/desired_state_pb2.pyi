@@ -120,7 +120,8 @@ class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     PREVIEW: _Status.ValueType  # 13
     """status for all entities in a preview desired state. will never show up in a real desired state."""
     PENDING_SET_DESIRED_STATE: _Status.ValueType  # 14
-    """next tag: 15"""
+    BLOCKED: _Status.ValueType  # 15
+    """next tag: 16"""
 
 class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
 
@@ -143,7 +144,8 @@ DELETED: Status.ValueType  # 11
 PREVIEW: Status.ValueType  # 13
 """status for all entities in a preview desired state. will never show up in a real desired state."""
 PENDING_SET_DESIRED_STATE: Status.ValueType  # 14
-"""next tag: 15"""
+BLOCKED: Status.ValueType  # 15
+"""next tag: 16"""
 global___Status = Status
 
 class _SimpleStatus:
@@ -198,6 +200,7 @@ class _StatusReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     LIFECYCLE_CHECK_FAILED: _StatusReason.ValueType  # 13
     """one of protections or convergence extensions are either failing or pending"""
     LIFECYCLE_CHECK_PENDING: _StatusReason.ValueType  # 14
+    CONCURRENCY_LIMIT_EXCEEDED: _StatusReason.ValueType  # 15
 
 class StatusReason(_StatusReason, metaclass=_StatusReasonEnumTypeWrapper): ...
 
@@ -226,6 +229,7 @@ RUNTIME_OBJECT_APPLY_NEEDED: StatusReason.ValueType  # 11
 LIFECYCLE_CHECK_FAILED: StatusReason.ValueType  # 13
 """one of protections or convergence extensions are either failing or pending"""
 LIFECYCLE_CHECK_PENDING: StatusReason.ValueType  # 14
+CONCURRENCY_LIMIT_EXCEEDED: StatusReason.ValueType  # 15
 global___StatusReason = StatusReason
 
 class _ActionType:
