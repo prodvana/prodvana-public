@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"prodvana/cmd/cmdutil"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	workflow_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/workflow"
 

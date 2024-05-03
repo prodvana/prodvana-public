@@ -3,8 +3,9 @@ package labels
 import (
 	"context"
 	"fmt"
-	"prodvana/cmd/cmdutil"
 	"sort"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	object_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object"
 	"github.com/spf13/cobra"

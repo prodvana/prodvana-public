@@ -3,8 +3,10 @@ package healthcheck
 import (
 	"context"
 	"log"
-	"prodvana/cmd/cmdutil"
-	"prodvana/cmd/pvnctl/cmd/services/primitives"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/services/primitives"
 
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc/health/grpc_health_v1"

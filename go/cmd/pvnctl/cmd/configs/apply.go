@@ -13,11 +13,12 @@ import (
 	"sort"
 	"strings"
 
-	"prodvana/cmd/cmdutil"
-	"prodvana/cmd/pvnctl/cmd/configs/internal/utils"
-	"prodvana/cmd/pvnctl/cmd/configs/internal/utils/helm"
-	"prodvana/cmd/pvnctl/cmd/configs/internal/utils/kustomize"
-	"prodvana/cmd/pvnctl/cmd/services"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/configs/internal/utils"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/configs/internal/utils/helm"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/configs/internal/utils/kustomize"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/services"
 
 	"github.com/bradenaw/juniper/xslices"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"

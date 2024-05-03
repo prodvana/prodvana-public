@@ -1,8 +1,9 @@
 package applications
 
 import (
-	"prodvana/cmd/cmdutil"
-	"prodvana/cmd/pvnctl/cmd/services/primitives"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/services/primitives"
 
 	"github.com/spf13/cobra"
 )

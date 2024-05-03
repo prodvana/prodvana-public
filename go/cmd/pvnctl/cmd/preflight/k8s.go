@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"prodvana/cmd/cmdutil/tui"
 	"sort"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil/tui"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"

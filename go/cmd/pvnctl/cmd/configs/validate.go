@@ -5,7 +5,7 @@ import (
 	"log"
 	"sort"
 
-	"prodvana/cmd/pvnctl/cmd/configs/internal/utils"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/configs/internal/utils"
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/pkg/errors"

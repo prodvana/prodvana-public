@@ -5,12 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"prodvana/cmd/cmdutil"
-	"prodvana/containerregistry/imageutils"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/containerregistry/imageutils"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/prodvana/prodvana-public/go/pkg/sets"
 

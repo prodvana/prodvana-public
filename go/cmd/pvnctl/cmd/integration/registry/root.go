@@ -1,7 +1,7 @@
 package registry
 
 import (
-	"prodvana/cmd/pvnctl/cmd/integration/registry/add"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/integration/registry/add"
 
 	"github.com/spf13/cobra"
 )

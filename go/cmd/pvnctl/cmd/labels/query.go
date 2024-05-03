@@ -2,8 +2,9 @@ package labels
 
 import (
 	"context"
-	"prodvana/cmd/cmdutil"
 	"sort"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/bradenaw/juniper/xmaps"
 	object_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object"

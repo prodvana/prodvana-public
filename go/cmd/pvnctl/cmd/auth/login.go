@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/url"
-	"prodvana/cmd/cmdutil"
 	"strings"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/prodvana/prodvana-public/go/pkg/client"
 

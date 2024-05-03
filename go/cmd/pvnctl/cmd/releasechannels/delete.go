@@ -4,7 +4,8 @@ import (
 	"context"
 	"log"
 	"os"
-	"prodvana/cmd/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	release_channel_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel"
 	"github.com/spf13/cobra"

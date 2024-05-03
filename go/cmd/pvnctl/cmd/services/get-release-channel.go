@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"prodvana/cmd/cmdutil"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"google.golang.org/protobuf/encoding/protojson"
 

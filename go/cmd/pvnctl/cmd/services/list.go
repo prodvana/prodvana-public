@@ -7,7 +7,7 @@ import (
 	"sort"
 	"sync"
 
-	"prodvana/cmd/cmdutil"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
 

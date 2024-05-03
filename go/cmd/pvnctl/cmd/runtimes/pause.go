@@ -3,7 +3,8 @@ package runtimes
 import (
 	"context"
 	"os"
-	"prodvana/cmd/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 	"github.com/spf13/cobra"

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"prodvana/cmd/cmdutil"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	common_config_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"

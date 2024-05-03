@@ -5,10 +5,11 @@ import (
 	go_errors "errors"
 	"fmt"
 	"io"
-	"prodvana/cmd/cmdutil"
 	"strings"
 	"text/tabwriter"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/fatih/color"
 	"github.com/pkg/errors"

@@ -7,9 +7,10 @@ import (
 	"io"
 	"log"
 	"os"
-	"prodvana/cmd/cmdutil"
 	"strings"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/fatih/color"
 	"github.com/pkg/errors"

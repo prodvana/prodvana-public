@@ -1,11 +1,12 @@
 package integration
 
 import (
-	"prodvana/cmd/cmdutil"
-	"prodvana/cmd/pvnctl/cmd/integration/grafana"
-	"prodvana/cmd/pvnctl/cmd/integration/pagerduty"
-	"prodvana/cmd/pvnctl/cmd/integration/registry"
-	"prodvana/cmd/pvnctl/cmd/integration/slack"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/integration/grafana"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/integration/pagerduty"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/integration/registry"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/integration/slack"
 
 	"github.com/spf13/cobra"
 )

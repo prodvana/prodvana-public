@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"prodvana/cmd/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	auth_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/auth"
 

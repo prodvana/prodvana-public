@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"prodvana/cmd/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"

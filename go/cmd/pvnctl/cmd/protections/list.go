@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"prodvana/cmd/cmdutil"
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	protection_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection"
 

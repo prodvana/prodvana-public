@@ -32,10 +32,6 @@ var (
 	authSessionManagerClient     auth_pb.AuthSessionManagerClient
 	authSessionManagerClientOnce sync.Once
 
-	AdminServerAddr     string
-	adminServerConn     *grpc.ClientConn
-	adminServerConnOnce sync.Once
-
 	GlobalApiAddr     string
 	globalApiConn     *grpc.ClientConn
 	globalApiConnOnce sync.Once
@@ -48,7 +44,7 @@ var (
 )
 
 func SetWaitForReady(waitForReady bool) error {
-	if apiserverConn != nil || globalApiConn != nil || adminServerConn != nil {
+	if apiserverConn != nil || globalApiConn != nil {
 		return errors.Errorf("Cannot change wait for ready after connection has been initialized")
 	}
 	grpcClientWaitForReady = waitForReady
@@ -56,7 +52,7 @@ func SetWaitForReady(waitForReady bool) error {
 }
 
 func SetDefaultApiServerAddr(addr string, noTls bool) error {
-	if apiserverConn != nil || globalApiConn != nil || adminServerConn != nil {
+	if apiserverConn != nil || globalApiConn != nil {
 		return errors.Errorf("Cannot change apiserver address after connection has been initialized")
 	}
 	ApiServerAddr = addr
@@ -69,7 +65,7 @@ func EnableTraceAPIRequests() {
 }
 
 func SetSource(source string) error {
-	if apiserverConn != nil || globalApiConn != nil || adminServerConn != nil {
+	if apiserverConn != nil || globalApiConn != nil {
 		return errors.Errorf("Cannot change source after connection has been initialized")
 	}
 	grpcSource = source
@@ -187,21 +183,6 @@ func GetApiserverConn() *grpc.ClientConn {
 	})
 
 	return apiserverConn
-}
-
-func GetAdminServerConn() *grpc.ClientConn {
-	adminServerConnOnce.Do(func() {
-		conn, err := grpc.NewClient(AdminServerAddr,
-			grpc.WithTransportCredentials(insecure.NewCredentials()),
-			grpc.WithStatsHandler(otelgrpc.NewClientHandler()),
-			grpc.WithDefaultCallOptions(grpc.WaitForReady(grpcClientWaitForReady)),
-		)
-		if err != nil {
-			log.Fatalf("Failed to connect to admin server: %s", err)
-		}
-		adminServerConn = conn
-	})
-	return adminServerConn
 }
 
 func GetAuthManagerClient() auth_pb.AuthManagerClient {

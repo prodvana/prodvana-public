@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"prodvana/cmd/pvnctl/cmd/auth/conn"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/auth/conn"
 
 	"github.com/spf13/cobra"
 )

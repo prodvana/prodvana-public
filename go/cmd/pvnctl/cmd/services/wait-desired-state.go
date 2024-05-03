@@ -5,8 +5,9 @@ import (
 	go_errors "errors"
 	"log"
 	"os"
-	"prodvana/cmd/cmdutil"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	ds_model_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
 	"github.com/spf13/cobra"

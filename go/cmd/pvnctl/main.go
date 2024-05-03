@@ -1,7 +1,7 @@
 package main
 
 import (
-	"prodvana/cmd/pvnctl/cmd"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd"
 )
 
 func main() {

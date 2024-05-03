@@ -3,7 +3,8 @@ package preflight
 import (
 	"fmt"
 	"os"
-	"prodvana/cmd/cmdutil/tui"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil/tui"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"

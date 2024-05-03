@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"prodvana/cmd/cmdutil"
 	"time"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	auth_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/auth"
 	"google.golang.org/protobuf/types/known/timestamppb"

@@ -3,7 +3,8 @@ package utils
 import (
 	"log"
 	"path/filepath"
-	"prodvana/cmd/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	version_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
 )

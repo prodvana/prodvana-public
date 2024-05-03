@@ -2,9 +2,10 @@ package preflight
 
 import (
 	"fmt"
-	"prodvana/cmd/cmdutil/tui"
 	"regexp"
 	"strings"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil/tui"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"

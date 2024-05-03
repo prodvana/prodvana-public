@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"prodvana/cmd/cmdutil"
-	"prodvana/cmd/pvnctl/cmd/auth"
-	"prodvana/cmd/pvnctl/cmd/auth/conn"
+
+	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
+
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/auth"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/auth/conn"
 
 	"github.com/prodvana/prodvana-public/go/pkg/client"
 
