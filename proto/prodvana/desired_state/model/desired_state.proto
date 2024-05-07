@@ -204,8 +204,9 @@ enum StatusReason {
     LIFECYCLE_CHECK_PENDING = 14;
 
     CONCURRENCY_LIMIT_EXCEEDED = 15;
+    RELEASE_CHANNEL_DEPENDENCY_UNMET = 16;
 
-    // next tag: 16
+    // next tag: 17
 }
 
 message StatusExplanation {

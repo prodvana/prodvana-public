@@ -14466,7 +14466,8 @@
         "RUNTIME_OBJECT_APPLY_NEEDED",
         "LIFECYCLE_CHECK_FAILED",
         "LIFECYCLE_CHECK_PENDING",
-        "CONCURRENCY_LIMIT_EXCEEDED"
+        "CONCURRENCY_LIMIT_EXCEEDED",
+        "RELEASE_CHANNEL_DEPENDENCY_UNMET"
       ],
       "default": "REASON_UNKNOWN",
       "title": "- NO_CURRENT_STATE: Prodvana has not fetched the data it needs to act on the entity\n - APPLY_FAILED: the command to apply target state failed\n - UNHEALTHY_PODS: unhealthy pods detected\n - UPDATING_PODS: pods are being updated\n - VERSION_MISMATCH: no update in progress, but there are pods on the wrong version. This could be a transient state with the runtime, or something was updated out of band\n - RUNTIME_OBJECT_FAILED: after applying successfully, the object arrived at a failed state\n - PRECONDITIONS_FAILED: a precondition failed in an unrecoverable way\n - STUCK_ENTITY: Entity has not been updated in a long time\n - VERSION_DIRTY: the active version is explicitly marked as dirty\n - RUNTIME_OBJECT_APPLY_NEEDED: the Runtime indicated an apply is needed\n - LIFECYCLE_CHECK_FAILED: one of protections or convergence extensions are either failing or pending"

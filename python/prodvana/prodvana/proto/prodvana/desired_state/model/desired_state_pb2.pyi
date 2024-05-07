@@ -201,6 +201,7 @@ class _StatusReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """one of protections or convergence extensions are either failing or pending"""
     LIFECYCLE_CHECK_PENDING: _StatusReason.ValueType  # 14
     CONCURRENCY_LIMIT_EXCEEDED: _StatusReason.ValueType  # 15
+    RELEASE_CHANNEL_DEPENDENCY_UNMET: _StatusReason.ValueType  # 16
 
 class StatusReason(_StatusReason, metaclass=_StatusReasonEnumTypeWrapper): ...
 
@@ -230,6 +231,7 @@ LIFECYCLE_CHECK_FAILED: StatusReason.ValueType  # 13
 """one of protections or convergence extensions are either failing or pending"""
 LIFECYCLE_CHECK_PENDING: StatusReason.ValueType  # 14
 CONCURRENCY_LIMIT_EXCEEDED: StatusReason.ValueType  # 15
+RELEASE_CHANNEL_DEPENDENCY_UNMET: StatusReason.ValueType  # 16
 global___StatusReason = StatusReason
 
 class _ActionType:
