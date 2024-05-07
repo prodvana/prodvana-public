@@ -24,7 +24,7 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
 	github.com/gosuri/uilive v0.0.4
 	github.com/gosuri/uitable v0.0.4
-	github.com/klauspost/compress v1.16.5
+	github.com/klauspost/compress v1.17.8
 	github.com/mattn/go-isatty v0.0.20
 	github.com/prodvana/prodvana-public/go/prodvana-sdk v0.0.0-00010101000000-000000000000
 	github.com/spf13/cobra v1.8.0
