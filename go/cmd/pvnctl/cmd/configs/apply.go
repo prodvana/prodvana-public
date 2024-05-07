@@ -717,6 +717,12 @@ func processServiceConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *s
 				return err
 			}
 		}
+		for _, ext := range perRc.ConvergenceExtensions {
+			err := expandConvergenceExtension(ctx, cfgFile, ext)
+			if err != nil {
+				return err
+			}
+		}
 	}
 	if cfg.Application == "" {
 		return errors.Errorf("Must specify application in service config file.")
