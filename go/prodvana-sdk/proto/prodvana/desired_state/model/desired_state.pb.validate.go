@@ -1293,6 +1293,35 @@ func (m *StatusExplanation) validate(all bool) error {
 
 	// no validation rules for DesiredStateId
 
+	if all {
+		switch v := interface{}(m.GetServiceInstance()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, StatusExplanationValidationError{
+					field:  "ServiceInstance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, StatusExplanationValidationError{
+					field:  "ServiceInstance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetServiceInstance()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return StatusExplanationValidationError{
+				field:  "ServiceInstance",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	// no validation rules for Reason
 
 	// no validation rules for Message

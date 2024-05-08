@@ -14433,6 +14433,10 @@
           "type": "string",
           "title": "desired state id of the subject"
         },
+        "serviceInstance": {
+          "$ref": "#/definitions/modelIdentifier",
+          "description": "if set, the service instance ID that the explanation got rolled up through."
+        },
         "reason": {
           "$ref": "#/definitions/modelStatusReason"
         },
@@ -14445,7 +14449,7 @@
           "items": {
             "type": "string"
           },
-          "title": "next tag: 6"
+          "title": "next tag: 7"
         }
       }
     },

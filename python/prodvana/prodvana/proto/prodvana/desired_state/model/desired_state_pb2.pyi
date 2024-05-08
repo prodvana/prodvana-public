@@ -631,6 +631,7 @@ class StatusExplanation(google.protobuf.message.Message):
 
     SUBJECT_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    SERVICE_INSTANCE_FIELD_NUMBER: builtins.int
     REASON_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     MESSAGES_FIELD_NUMBER: builtins.int
@@ -639,6 +640,9 @@ class StatusExplanation(google.protobuf.message.Message):
         """the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself."""
     desired_state_id: builtins.str
     """desired state id of the subject"""
+    @property
+    def service_instance(self) -> global___Identifier:
+        """if set, the service instance ID that the explanation got rolled up through."""
     reason: global___StatusReason.ValueType
     message: builtins.str
     """Optional freeform message to be shown to the user alongside reason.
@@ -646,18 +650,19 @@ class StatusExplanation(google.protobuf.message.Message):
     """
     @property
     def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """next tag: 6"""
+        """next tag: 7"""
     def __init__(
         self,
         *,
         subject: global___Identifier | None = ...,
         desired_state_id: builtins.str = ...,
+        service_instance: global___Identifier | None = ...,
         reason: global___StatusReason.ValueType = ...,
         message: builtins.str = ...,
         messages: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "message", b"message", "messages", b"messages", "reason", b"reason", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["service_instance", b"service_instance", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "message", b"message", "messages", b"messages", "reason", b"reason", "service_instance", b"service_instance", "subject", b"subject"]) -> None: ...
 
 global___StatusExplanation = StatusExplanation
 

@@ -332,6 +332,7 @@ func (m *StatusExplanation) CloneVT() *StatusExplanation {
 	r := new(StatusExplanation)
 	r.Subject = m.Subject.CloneVT()
 	r.DesiredStateId = m.DesiredStateId
+	r.ServiceInstance = m.ServiceInstance.CloneVT()
 	r.Reason = m.Reason
 	r.Message = m.Message
 	if rhs := m.Messages; rhs != nil {
@@ -3135,6 +3136,9 @@ func (this *StatusExplanation) StableEqualVT(that *StatusExplanation) bool {
 	if this.DesiredStateId != that.DesiredStateId {
 		return false
 	}
+	if !this.ServiceInstance.StableEqualVT(that.ServiceInstance) {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -3170,6 +3174,9 @@ func (this *StatusExplanation) EqualVT(that *StatusExplanation) bool {
 		}
 	}
 	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if !this.ServiceInstance.EqualVT(that.ServiceInstance) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

@@ -212,12 +212,13 @@ enum StatusReason {
 message StatusExplanation {
     Identifier subject = 1;  // the id of the object that resulted in this status. In the case of parent entities, this may be one of the child entities, or itself.
     string desired_state_id = 5; // desired state id of the subject
+    Identifier service_instance = 6; // if set, the service instance ID that the explanation got rolled up through.
     StatusReason reason = 2;
     // Optional freeform message to be shown to the user alongside reason.
     // only one of the two will be set
     string message = 3;
     repeated string messages = 4;
-    // next tag: 6
+    // next tag: 7
 }
 
 enum ActionType {

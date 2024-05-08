@@ -34,6 +34,11 @@ type VTMessage interface {
 	EqualMessageVT(proto.Message) bool
 }
 
+type VTMessageTyped[T proto.Message] interface {
+	VTMessage
+	CloneVT() T
+}
+
 // faster version of proto.Equal that doesn't involve allocations
 func Equal(m1, m2 proto.Message) bool {
 	if m1 == nil && m2 == nil {
@@ -43,6 +48,14 @@ func Equal(m1, m2 proto.Message) bool {
 		return false
 	}
 	return m1.(VTMessage).EqualMessageVT(m2)
+}
+
+func CloneList[T VTMessageTyped[T]](list []T) []T {
+	clone := make([]T, len(list))
+	for i, item := range list {
+		clone[i] = item.CloneVT()
+	}
+	return clone
 }
 
 const FileTypeInfer = "infer"
