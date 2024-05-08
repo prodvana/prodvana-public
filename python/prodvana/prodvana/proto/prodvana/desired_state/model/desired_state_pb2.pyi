@@ -1616,6 +1616,25 @@ class ApplyError(google.protobuf.message.Message):
 
 global___ApplyError = ApplyError
 
+class ProtectionFailure(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LINK_ID_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    @property
+    def link_id(self) -> global___Identifier: ...
+    status: global___ProtectionAttachmentResult.Status.ValueType
+    def __init__(
+        self,
+        *,
+        link_id: global___Identifier | None = ...,
+        status: global___ProtectionAttachmentResult.Status.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["link_id", b"link_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["link_id", b"link_id", "status", b"status"]) -> None: ...
+
+global___ProtectionFailure = ProtectionFailure
+
 class NotificationInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1624,6 +1643,7 @@ class NotificationInfo(google.protobuf.message.Message):
     RUNTIME_FETCH_INVOKE_ERROR_FIELD_NUMBER: builtins.int
     RUNTIME_APPLY_INVOKE_ERROR_FIELD_NUMBER: builtins.int
     CONCURRENCY_LIMIT_EXCEEDED_ERRORS_FIELD_NUMBER: builtins.int
+    PROTECTION_FAILURES_FIELD_NUMBER: builtins.int
     failure_count: builtins.int
     @property
     def most_recent_failure(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -1633,6 +1653,8 @@ class NotificationInfo(google.protobuf.message.Message):
     def runtime_apply_invoke_error(self) -> global___ApplyError: ...
     @property
     def concurrency_limit_exceeded_errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded]: ...
+    @property
+    def protection_failures(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionFailure]: ...
     def __init__(
         self,
         *,
@@ -1641,9 +1663,10 @@ class NotificationInfo(google.protobuf.message.Message):
         runtime_fetch_invoke_error: global___ApplyError | None = ...,
         runtime_apply_invoke_error: global___ApplyError | None = ...,
         concurrency_limit_exceeded_errors: collections.abc.Iterable[global___ConcurrencyLimitExceeded] | None = ...,
+        protection_failures: collections.abc.Iterable[global___ProtectionFailure] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "protection_failures", b"protection_failures", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
 
 global___NotificationInfo = NotificationInfo
 

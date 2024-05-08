@@ -107,20 +107,6 @@ class Notifications(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["failure_type", b"failure_type", "message", b"message"]) -> None: ...
 
-    class ProtectionFailure(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        PROTECTION_ID_FIELD_NUMBER: builtins.int
-        @property
-        def protection_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
-        def __init__(
-            self,
-            *,
-            protection_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["protection_id", b"protection_id"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["protection_id", b"protection_id"]) -> None: ...
-
     class ConvergenceExtensionFailure(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -155,7 +141,7 @@ class Notifications(google.protobuf.message.Message):
     @property
     def runtime_failures(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Notifications.RuntimeFailure]: ...
     @property
-    def protection_failure(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Notifications.ProtectionFailure]: ...
+    def protection_failure(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ProtectionFailure]: ...
     @property
     def convergence_extension_failure(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Notifications.ConvergenceExtensionFailure]: ...
     @property
@@ -168,7 +154,7 @@ class Notifications(google.protobuf.message.Message):
         *,
         program_failures: global___Notifications.ProgramFailures | None = ...,
         runtime_failures: collections.abc.Iterable[global___Notifications.RuntimeFailure] | None = ...,
-        protection_failure: collections.abc.Iterable[global___Notifications.ProtectionFailure] | None = ...,
+        protection_failure: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ProtectionFailure] | None = ...,
         convergence_extension_failure: collections.abc.Iterable[global___Notifications.ConvergenceExtensionFailure] | None = ...,
         delayed_convergence: global___Notifications.DelayedConvergence | None = ...,
         concurrency_limit_exceeded_errors: collections.abc.Iterable[prodvana.proto.prodvana.desired_state.model.desired_state_pb2.ConcurrencyLimitExceeded] | None = ...,

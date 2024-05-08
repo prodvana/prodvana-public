@@ -5124,6 +5124,139 @@ var _ interface {
 	ErrorName() string
 } = ApplyErrorValidationError{}
 
+// Validate checks the field values on ProtectionFailure with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ProtectionFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtectionFailure with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ProtectionFailureMultiError, or nil if none found.
+func (m *ProtectionFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtectionFailure) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetLinkId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProtectionFailureValidationError{
+					field:  "LinkId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProtectionFailureValidationError{
+					field:  "LinkId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLinkId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProtectionFailureValidationError{
+				field:  "LinkId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return ProtectionFailureMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProtectionFailureMultiError is an error wrapping multiple validation errors
+// returned by ProtectionFailure.ValidateAll() if the designated constraints
+// aren't met.
+type ProtectionFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtectionFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtectionFailureMultiError) AllErrors() []error { return m }
+
+// ProtectionFailureValidationError is the validation error returned by
+// ProtectionFailure.Validate if the designated constraints aren't met.
+type ProtectionFailureValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProtectionFailureValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProtectionFailureValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProtectionFailureValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProtectionFailureValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProtectionFailureValidationError) ErrorName() string {
+	return "ProtectionFailureValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProtectionFailureValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProtectionFailure.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProtectionFailureValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProtectionFailureValidationError{}
+
 // Validate checks the field values on NotificationInfo with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -5261,6 +5394,40 @@ func (m *NotificationInfo) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return NotificationInfoValidationError{
 					field:  fmt.Sprintf("ConcurrencyLimitExceededErrors[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetProtectionFailures() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, NotificationInfoValidationError{
+						field:  fmt.Sprintf("ProtectionFailures[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, NotificationInfoValidationError{
+						field:  fmt.Sprintf("ProtectionFailures[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return NotificationInfoValidationError{
+					field:  fmt.Sprintf("ProtectionFailures[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

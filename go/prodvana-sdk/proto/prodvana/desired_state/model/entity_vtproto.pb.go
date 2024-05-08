@@ -54,23 +54,6 @@ func (m *Notifications_RuntimeFailure) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
-func (m *Notifications_ProtectionFailure) CloneVT() *Notifications_ProtectionFailure {
-	if m == nil {
-		return (*Notifications_ProtectionFailure)(nil)
-	}
-	r := new(Notifications_ProtectionFailure)
-	r.ProtectionId = m.ProtectionId.CloneVT()
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *Notifications_ProtectionFailure) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
 func (m *Notifications_ConvergenceExtensionFailure) CloneVT() *Notifications_ConvergenceExtensionFailure {
 	if m == nil {
 		return (*Notifications_ConvergenceExtensionFailure)(nil)
@@ -119,7 +102,7 @@ func (m *Notifications) CloneVT() *Notifications {
 		r.RuntimeFailures = tmpContainer
 	}
 	if rhs := m.ProtectionFailure; rhs != nil {
-		tmpContainer := make([]*Notifications_ProtectionFailure, len(rhs))
+		tmpContainer := make([]*ProtectionFailure, len(rhs))
 		for k, v := range rhs {
 			tmpContainer[k] = v.CloneVT()
 		}
@@ -320,25 +303,6 @@ func (this *Notifications_RuntimeFailure) StableEqualMessageVT(thatMsg proto.Mes
 	}
 	return this.StableEqualVT(that)
 }
-func (this *Notifications_ProtectionFailure) StableEqualVT(that *Notifications_ProtectionFailure) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if !this.ProtectionId.StableEqualVT(that.ProtectionId) {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Notifications_ProtectionFailure) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Notifications_ProtectionFailure)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
 func (this *Notifications_ConvergenceExtensionFailure) StableEqualVT(that *Notifications_ConvergenceExtensionFailure) bool {
 	if this == that {
 		return true
@@ -407,10 +371,10 @@ func (this *Notifications) StableEqualVT(that *Notifications) bool {
 		vy := that.ProtectionFailure[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &Notifications_ProtectionFailure{}
+				p = &ProtectionFailure{}
 			}
 			if q == nil {
-				q = &Notifications_ProtectionFailure{}
+				q = &ProtectionFailure{}
 			}
 			if !p.StableEqualVT(q) {
 				return false
@@ -508,25 +472,6 @@ func (this *Notifications_RuntimeFailure) EqualMessageVT(thatMsg proto.Message) 
 	}
 	return this.EqualVT(that)
 }
-func (this *Notifications_ProtectionFailure) EqualVT(that *Notifications_ProtectionFailure) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if !this.ProtectionId.EqualVT(that.ProtectionId) {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Notifications_ProtectionFailure) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Notifications_ProtectionFailure)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
 func (this *Notifications_ConvergenceExtensionFailure) EqualVT(that *Notifications_ConvergenceExtensionFailure) bool {
 	if this == that {
 		return true
@@ -595,10 +540,10 @@ func (this *Notifications) EqualVT(that *Notifications) bool {
 		vy := that.ProtectionFailure[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &Notifications_ProtectionFailure{}
+				p = &ProtectionFailure{}
 			}
 			if q == nil {
-				q = &Notifications_ProtectionFailure{}
+				q = &ProtectionFailure{}
 			}
 			if !p.EqualVT(q) {
 				return false

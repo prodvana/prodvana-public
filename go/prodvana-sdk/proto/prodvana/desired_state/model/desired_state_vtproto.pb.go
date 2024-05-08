@@ -1002,6 +1002,24 @@ func (m *ApplyError) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *ProtectionFailure) CloneVT() *ProtectionFailure {
+	if m == nil {
+		return (*ProtectionFailure)(nil)
+	}
+	r := new(ProtectionFailure)
+	r.LinkId = m.LinkId.CloneVT()
+	r.Status = m.Status
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ProtectionFailure) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *NotificationInfo) CloneVT() *NotificationInfo {
 	if m == nil {
 		return (*NotificationInfo)(nil)
@@ -1017,6 +1035,13 @@ func (m *NotificationInfo) CloneVT() *NotificationInfo {
 			tmpContainer[k] = v.CloneVT()
 		}
 		r.ConcurrencyLimitExceededErrors = tmpContainer
+	}
+	if rhs := m.ProtectionFailures; rhs != nil {
+		tmpContainer := make([]*ProtectionFailure, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.ProtectionFailures = tmpContainer
 	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
@@ -5416,6 +5441,50 @@ func (this *ApplyError) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ProtectionFailure) StableEqualVT(that *ProtectionFailure) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.LinkId.StableEqualVT(that.LinkId) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionFailure) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionFailure)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ProtectionFailure) EqualVT(that *ProtectionFailure) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.LinkId.EqualVT(that.LinkId) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtectionFailure) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtectionFailure)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (this *NotificationInfo) StableEqualVT(that *NotificationInfo) bool {
 	if this == that {
 		return true
@@ -5445,6 +5514,23 @@ func (this *NotificationInfo) StableEqualVT(that *NotificationInfo) bool {
 			}
 			if q == nil {
 				q = &ConcurrencyLimitExceeded{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ProtectionFailures) != len(that.ProtectionFailures) {
+		return false
+	}
+	for i, vx := range this.ProtectionFailures {
+		vy := that.ProtectionFailures[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProtectionFailure{}
+			}
+			if q == nil {
+				q = &ProtectionFailure{}
 			}
 			if !p.StableEqualVT(q) {
 				return false
@@ -5490,6 +5576,23 @@ func (this *NotificationInfo) EqualVT(that *NotificationInfo) bool {
 			}
 			if q == nil {
 				q = &ConcurrencyLimitExceeded{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ProtectionFailures) != len(that.ProtectionFailures) {
+		return false
+	}
+	for i, vx := range this.ProtectionFailures {
+		vy := that.ProtectionFailures[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProtectionFailure{}
+			}
+			if q == nil {
+				q = &ProtectionFailure{}
 			}
 			if !p.EqualVT(q) {
 				return false

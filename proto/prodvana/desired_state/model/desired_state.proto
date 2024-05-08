@@ -592,6 +592,11 @@ message ApplyError {
     string message = 1;
 }
 
+message ProtectionFailure {
+    Identifier link_id = 1;
+    ProtectionAttachmentResult.Status status = 2;
+}
+
 message NotificationInfo {
     int32 failure_count = 1;
     google.protobuf.Timestamp most_recent_failure = 2;
@@ -599,6 +604,7 @@ message NotificationInfo {
     ApplyError runtime_fetch_invoke_error = 11;
     ApplyError runtime_apply_invoke_error = 12;
     repeated ConcurrencyLimitExceeded concurrency_limit_exceeded_errors = 13;
+    repeated ProtectionFailure protection_failures = 14;
 }
 
 message KeyDeliveryDecision {

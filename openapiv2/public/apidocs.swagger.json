@@ -7950,14 +7950,6 @@
         }
       }
     },
-    "NotificationsProtectionFailure": {
-      "type": "object",
-      "properties": {
-        "protectionId": {
-          "$ref": "#/definitions/modelIdentifier"
-        }
-      }
-    },
     "NotificationsRuntimeFailure": {
       "type": "object",
       "properties": {
@@ -14041,6 +14033,13 @@
             "type": "object",
             "$ref": "#/definitions/modelConcurrencyLimitExceeded"
           }
+        },
+        "protectionFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelProtectionFailure"
+          }
         }
       }
     },
@@ -14061,7 +14060,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/NotificationsProtectionFailure"
+            "$ref": "#/definitions/modelProtectionFailure"
           }
         },
         "convergenceExtensionFailure": {
@@ -14131,6 +14130,17 @@
         "INTERNAL_ERROR"
       ],
       "default": "UNKNOWN"
+    },
+    "modelProtectionFailure": {
+      "type": "object",
+      "properties": {
+        "linkId": {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        "status": {
+          "$ref": "#/definitions/modelProtectionAttachmentResultStatus"
+        }
+      }
     },
     "modelProtectionLinkState": {
       "type": "object",

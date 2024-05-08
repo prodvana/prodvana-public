@@ -32,10 +32,6 @@ message Notifications {
         // TODO: Indicate event id if possible
     }
 
-    message ProtectionFailure {
-        Identifier protection_id = 1;
-    }
-
     message ConvergenceExtensionFailure {
         Identifier extension_id = 1;
     }
