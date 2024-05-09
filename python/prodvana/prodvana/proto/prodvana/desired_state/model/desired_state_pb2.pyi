@@ -1635,6 +1635,20 @@ class ProtectionFailure(google.protobuf.message.Message):
 
 global___ProtectionFailure = ProtectionFailure
 
+class ExecError(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MESSAGE_FIELD_NUMBER: builtins.int
+    message: builtins.str
+    def __init__(
+        self,
+        *,
+        message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["message", b"message"]) -> None: ...
+
+global___ExecError = ExecError
+
 class NotificationInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1644,6 +1658,8 @@ class NotificationInfo(google.protobuf.message.Message):
     RUNTIME_APPLY_INVOKE_ERROR_FIELD_NUMBER: builtins.int
     CONCURRENCY_LIMIT_EXCEEDED_ERRORS_FIELD_NUMBER: builtins.int
     PROTECTION_FAILURES_FIELD_NUMBER: builtins.int
+    RUNTIME_FETCH_EXEC_ERROR_FIELD_NUMBER: builtins.int
+    RUNTIME_APPLY_EXEC_ERROR_FIELD_NUMBER: builtins.int
     failure_count: builtins.int
     @property
     def most_recent_failure(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -1655,6 +1671,10 @@ class NotificationInfo(google.protobuf.message.Message):
     def concurrency_limit_exceeded_errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConcurrencyLimitExceeded]: ...
     @property
     def protection_failures(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionFailure]: ...
+    @property
+    def runtime_fetch_exec_error(self) -> global___ExecError: ...
+    @property
+    def runtime_apply_exec_error(self) -> global___ExecError: ...
     def __init__(
         self,
         *,
@@ -1664,9 +1684,11 @@ class NotificationInfo(google.protobuf.message.Message):
         runtime_apply_invoke_error: global___ApplyError | None = ...,
         concurrency_limit_exceeded_errors: collections.abc.Iterable[global___ConcurrencyLimitExceeded] | None = ...,
         protection_failures: collections.abc.Iterable[global___ProtectionFailure] | None = ...,
+        runtime_fetch_exec_error: global___ExecError | None = ...,
+        runtime_apply_exec_error: global___ExecError | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "protection_failures", b"protection_failures", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["most_recent_failure", b"most_recent_failure", "runtime_apply_exec_error", b"runtime_apply_exec_error", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_exec_error", b"runtime_fetch_exec_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_exceeded_errors", b"concurrency_limit_exceeded_errors", "failure_count", b"failure_count", "most_recent_failure", b"most_recent_failure", "protection_failures", b"protection_failures", "runtime_apply_exec_error", b"runtime_apply_exec_error", "runtime_apply_invoke_error", b"runtime_apply_invoke_error", "runtime_fetch_exec_error", b"runtime_fetch_exec_error", "runtime_fetch_invoke_error", b"runtime_fetch_invoke_error"]) -> None: ...
 
 global___NotificationInfo = NotificationInfo
 

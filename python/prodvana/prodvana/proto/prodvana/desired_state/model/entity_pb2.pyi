@@ -86,6 +86,7 @@ class Notifications(google.protobuf.message.Message):
             EXTENSION_FETCH_RESULT_ERROR: Notifications.RuntimeFailure._FailureType.ValueType  # 2
             RUNTIME_APPLY_ERROR: Notifications.RuntimeFailure._FailureType.ValueType  # 3
             EXTENSION_APPLY_INVOKE_ERROR: Notifications.RuntimeFailure._FailureType.ValueType  # 4
+            EXTENSION_APPLY_RESULT_ERROR: Notifications.RuntimeFailure._FailureType.ValueType  # 5
 
         class FailureType(_FailureType, metaclass=_FailureTypeEnumTypeWrapper): ...
         UNKNOWN: Notifications.RuntimeFailure.FailureType.ValueType  # 0
@@ -93,6 +94,7 @@ class Notifications(google.protobuf.message.Message):
         EXTENSION_FETCH_RESULT_ERROR: Notifications.RuntimeFailure.FailureType.ValueType  # 2
         RUNTIME_APPLY_ERROR: Notifications.RuntimeFailure.FailureType.ValueType  # 3
         EXTENSION_APPLY_INVOKE_ERROR: Notifications.RuntimeFailure.FailureType.ValueType  # 4
+        EXTENSION_APPLY_RESULT_ERROR: Notifications.RuntimeFailure.FailureType.ValueType  # 5
 
         FAILURE_TYPE_FIELD_NUMBER: builtins.int
         MESSAGE_FIELD_NUMBER: builtins.int

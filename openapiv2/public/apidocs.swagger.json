@@ -8201,7 +8201,8 @@
         "EXTENSION_FETCH_INVOKE_ERROR",
         "EXTENSION_FETCH_RESULT_ERROR",
         "RUNTIME_APPLY_ERROR",
-        "EXTENSION_APPLY_INVOKE_ERROR"
+        "EXTENSION_APPLY_INVOKE_ERROR",
+        "EXTENSION_APPLY_RESULT_ERROR"
       ],
       "default": "UNKNOWN"
     },
@@ -13965,6 +13966,14 @@
         }
       }
     },
+    "modelExecError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
     "modelFetchDetails": {
       "type": "object",
       "properties": {
@@ -14199,6 +14208,12 @@
             "type": "object",
             "$ref": "#/definitions/modelProtectionFailure"
           }
+        },
+        "runtimeFetchExecError": {
+          "$ref": "#/definitions/modelExecError"
+        },
+        "runtimeApplyExecError": {
+          "$ref": "#/definitions/modelExecError"
         }
       }
     },

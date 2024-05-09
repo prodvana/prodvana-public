@@ -25,6 +25,7 @@ message Notifications {
             EXTENSION_FETCH_RESULT_ERROR = 2;
             RUNTIME_APPLY_ERROR = 3;
             EXTENSION_APPLY_INVOKE_ERROR = 4;
+            EXTENSION_APPLY_RESULT_ERROR = 5;
         }
 
         FailureType failure_type = 1;

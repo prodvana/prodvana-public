@@ -1020,6 +1020,23 @@ func (m *ProtectionFailure) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *ExecError) CloneVT() *ExecError {
+	if m == nil {
+		return (*ExecError)(nil)
+	}
+	r := new(ExecError)
+	r.Message = m.Message
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ExecError) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *NotificationInfo) CloneVT() *NotificationInfo {
 	if m == nil {
 		return (*NotificationInfo)(nil)
@@ -1029,6 +1046,8 @@ func (m *NotificationInfo) CloneVT() *NotificationInfo {
 	r.MostRecentFailure = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.MostRecentFailure).CloneVT())
 	r.RuntimeFetchInvokeError = m.RuntimeFetchInvokeError.CloneVT()
 	r.RuntimeApplyInvokeError = m.RuntimeApplyInvokeError.CloneVT()
+	r.RuntimeFetchExecError = m.RuntimeFetchExecError.CloneVT()
+	r.RuntimeApplyExecError = m.RuntimeApplyExecError.CloneVT()
 	if rhs := m.ConcurrencyLimitExceededErrors; rhs != nil {
 		tmpContainer := make([]*ConcurrencyLimitExceeded, len(rhs))
 		for k, v := range rhs {
@@ -5486,6 +5505,44 @@ func (this *ProtectionFailure) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *ExecError) StableEqualVT(that *ExecError) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExecError) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExecError)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ExecError) EqualVT(that *ExecError) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ExecError) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ExecError)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (this *NotificationInfo) StableEqualVT(that *NotificationInfo) bool {
 	if this == that {
 		return true
@@ -5537,6 +5594,12 @@ func (this *NotificationInfo) StableEqualVT(that *NotificationInfo) bool {
 				return false
 			}
 		}
+	}
+	if !this.RuntimeFetchExecError.StableEqualVT(that.RuntimeFetchExecError) {
+		return false
+	}
+	if !this.RuntimeApplyExecError.StableEqualVT(that.RuntimeApplyExecError) {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
@@ -5599,6 +5662,12 @@ func (this *NotificationInfo) EqualVT(that *NotificationInfo) bool {
 				return false
 			}
 		}
+	}
+	if !this.RuntimeFetchExecError.EqualVT(that.RuntimeFetchExecError) {
+		return false
+	}
+	if !this.RuntimeApplyExecError.EqualVT(that.RuntimeApplyExecError) {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
