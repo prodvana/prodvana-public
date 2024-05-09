@@ -649,6 +649,8 @@ message ControlState {
 
     google.protobuf.Timestamp last_fetched_timestamp = 7 [(vtproto.unstable_for_equal) = true];
     google.protobuf.Timestamp last_applied_timestamp = 8 [(vtproto.unstable_for_equal) = true];
+    // only relevant if there is a last_applied_timestamp
+    google.protobuf.Timestamp deployment_completed_timestamp = 16 [(vtproto.unstable_for_equal) = true];
     google.protobuf.Timestamp expected_next_apply_timestamp = 13 [(vtproto.unstable_for_equal) = true];
     MissingApproval missing_approval = 9;
 
@@ -658,7 +660,7 @@ message ControlState {
 
     NotificationInfo notification_info = 12;
 
-    // next tag: 15
+    // next tag: 17
 }
 
 enum ManualApprovalStatus {

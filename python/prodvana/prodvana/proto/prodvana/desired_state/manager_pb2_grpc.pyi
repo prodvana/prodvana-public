@@ -116,6 +116,10 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
         prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState,
     ]
+    GetHistoricalEntityStats: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetHistoricalEntityStatsReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetHistoricalEntityStatsResp,
+    ]
 
 class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -271,5 +275,11 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState: ...
+    @abc.abstractmethod
+    def GetHistoricalEntityStats(
+        self,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetHistoricalEntityStatsReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetHistoricalEntityStatsResp: ...
 
 def add_DesiredStateManagerServicer_to_server(servicer: DesiredStateManagerServicer, server: grpc.Server) -> None: ...

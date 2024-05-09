@@ -7414,6 +7414,441 @@ var _ interface {
 	ErrorName() string
 } = GetLatestCombinedReleaseDesiredStateRespValidationError{}
 
+// Validate checks the field values on GetHistoricalEntityStatsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetHistoricalEntityStatsReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetHistoricalEntityStatsReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetHistoricalEntityStatsReqMultiError, or nil if none found.
+func (m *GetHistoricalEntityStatsReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetHistoricalEntityStatsReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetEntityId() == nil {
+		err := GetHistoricalEntityStatsReqValidationError{
+			field:  "EntityId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEntityId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetHistoricalEntityStatsReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetHistoricalEntityStatsReqValidationError{
+					field:  "EntityId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEntityId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetHistoricalEntityStatsReqValidationError{
+				field:  "EntityId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetHistoricalEntityStatsReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetHistoricalEntityStatsReqMultiError is an error wrapping multiple
+// validation errors returned by GetHistoricalEntityStatsReq.ValidateAll() if
+// the designated constraints aren't met.
+type GetHistoricalEntityStatsReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetHistoricalEntityStatsReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetHistoricalEntityStatsReqMultiError) AllErrors() []error { return m }
+
+// GetHistoricalEntityStatsReqValidationError is the validation error returned
+// by GetHistoricalEntityStatsReq.Validate if the designated constraints
+// aren't met.
+type GetHistoricalEntityStatsReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetHistoricalEntityStatsReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetHistoricalEntityStatsReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetHistoricalEntityStatsReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetHistoricalEntityStatsReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetHistoricalEntityStatsReqValidationError) ErrorName() string {
+	return "GetHistoricalEntityStatsReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetHistoricalEntityStatsReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetHistoricalEntityStatsReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetHistoricalEntityStatsReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetHistoricalEntityStatsReqValidationError{}
+
+// Validate checks the field values on HistoricalEntityStats with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *HistoricalEntityStats) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on HistoricalEntityStats with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// HistoricalEntityStatsMultiError, or nil if none found.
+func (m *HistoricalEntityStats) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *HistoricalEntityStats) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetAvgDeploymentDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HistoricalEntityStatsValidationError{
+					field:  "AvgDeploymentDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HistoricalEntityStatsValidationError{
+					field:  "AvgDeploymentDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAvgDeploymentDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoricalEntityStatsValidationError{
+				field:  "AvgDeploymentDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetP95DeploymentDuration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HistoricalEntityStatsValidationError{
+					field:  "P95DeploymentDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HistoricalEntityStatsValidationError{
+					field:  "P95DeploymentDuration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetP95DeploymentDuration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoricalEntityStatsValidationError{
+				field:  "P95DeploymentDuration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return HistoricalEntityStatsMultiError(errors)
+	}
+
+	return nil
+}
+
+// HistoricalEntityStatsMultiError is an error wrapping multiple validation
+// errors returned by HistoricalEntityStats.ValidateAll() if the designated
+// constraints aren't met.
+type HistoricalEntityStatsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m HistoricalEntityStatsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m HistoricalEntityStatsMultiError) AllErrors() []error { return m }
+
+// HistoricalEntityStatsValidationError is the validation error returned by
+// HistoricalEntityStats.Validate if the designated constraints aren't met.
+type HistoricalEntityStatsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HistoricalEntityStatsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HistoricalEntityStatsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HistoricalEntityStatsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HistoricalEntityStatsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HistoricalEntityStatsValidationError) ErrorName() string {
+	return "HistoricalEntityStatsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e HistoricalEntityStatsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHistoricalEntityStats.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HistoricalEntityStatsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HistoricalEntityStatsValidationError{}
+
+// Validate checks the field values on GetHistoricalEntityStatsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetHistoricalEntityStatsResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetHistoricalEntityStatsResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetHistoricalEntityStatsRespMultiError, or nil if none found.
+func (m *GetHistoricalEntityStatsResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetHistoricalEntityStatsResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetStats()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetHistoricalEntityStatsRespValidationError{
+					field:  "Stats",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetHistoricalEntityStatsRespValidationError{
+					field:  "Stats",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStats()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetHistoricalEntityStatsRespValidationError{
+				field:  "Stats",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetHistoricalEntityStatsRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetHistoricalEntityStatsRespMultiError is an error wrapping multiple
+// validation errors returned by GetHistoricalEntityStatsResp.ValidateAll() if
+// the designated constraints aren't met.
+type GetHistoricalEntityStatsRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetHistoricalEntityStatsRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetHistoricalEntityStatsRespMultiError) AllErrors() []error { return m }
+
+// GetHistoricalEntityStatsRespValidationError is the validation error returned
+// by GetHistoricalEntityStatsResp.Validate if the designated constraints
+// aren't met.
+type GetHistoricalEntityStatsRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetHistoricalEntityStatsRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetHistoricalEntityStatsRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetHistoricalEntityStatsRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetHistoricalEntityStatsRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetHistoricalEntityStatsRespValidationError) ErrorName() string {
+	return "GetHistoricalEntityStatsRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetHistoricalEntityStatsRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetHistoricalEntityStatsResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetHistoricalEntityStatsRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetHistoricalEntityStatsRespValidationError{}
+
 // Validate checks the field values on
 // GetDesiredStateGraphReq_LiteEntitiesFilter with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

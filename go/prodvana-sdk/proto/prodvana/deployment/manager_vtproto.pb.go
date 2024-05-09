@@ -105,6 +105,11 @@ func (m *DeploymentFilter) CloneVT() *DeploymentFilter {
 		copy(tmpContainer, rhs)
 		r.ReleaseChannels = tmpContainer
 	}
+	if rhs := m.Statuses; rhs != nil {
+		tmpContainer := make([]model.DeploymentStatus, len(rhs))
+		copy(tmpContainer, rhs)
+		r.Statuses = tmpContainer
+	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -626,6 +631,15 @@ func (this *DeploymentFilter) StableEqualVT(that *DeploymentFilter) bool {
 	if this.ReleaseId != that.ReleaseId {
 		return false
 	}
+	if len(this.Statuses) != len(that.Statuses) {
+		return false
+	}
+	for i, vx := range this.Statuses {
+		vy := that.Statuses[i]
+		if vx != vy {
+			return false
+		}
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -668,6 +682,15 @@ func (this *DeploymentFilter) EqualVT(that *DeploymentFilter) bool {
 	}
 	if this.ReleaseId != that.ReleaseId {
 		return false
+	}
+	if len(this.Statuses) != len(that.Statuses) {
+		return false
+	}
+	for i, vx := range this.Statuses {
+		vy := that.Statuses[i]
+		if vx != vy {
+			return false
+		}
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

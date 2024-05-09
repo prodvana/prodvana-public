@@ -205,6 +205,7 @@ class Entity(google.protobuf.message.Message):
     LAST_UPDATE_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_FETCHED_TIMESTAMP_FIELD_NUMBER: builtins.int
     LAST_APPLIED_TIMESTAMP_FIELD_NUMBER: builtins.int
+    DEPLOYMENT_COMPLETED_TIMESTAMP_FIELD_NUMBER: builtins.int
     EXPECTED_NEXT_APPLY_TIMESTAMP_FIELD_NUMBER: builtins.int
     HAS_WORK_FIELD_NUMBER: builtins.int
     HAS_WORK_REASON_FIELD_NUMBER: builtins.int
@@ -255,6 +256,9 @@ class Entity(google.protobuf.message.Message):
     def last_applied_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when prodvana last applied state for this entity, best effort"""
     @property
+    def deployment_completed_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """after apply, when did the entity reach a success or failed state?"""
+    @property
     def expected_next_apply_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """when prodvana expects to run apply again for this entity, if there is any work to be done. If nil, apply is expected to happen immediately, again if there is any work to be done."""
     has_work: builtins.bool
@@ -299,6 +303,7 @@ class Entity(google.protobuf.message.Message):
         last_update_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_fetched_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         last_applied_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        deployment_completed_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         expected_next_apply_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         has_work: builtins.bool = ...,
         has_work_reason: builtins.str = ...,
@@ -312,8 +317,8 @@ class Entity(google.protobuf.message.Message):
         last_key_delivery_decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision | None = ...,
         last_rollback_key_delivery_decision: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.KeyDeliveryDecision | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "desired_state", b"desired_state", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "dependencies_with_type", b"dependencies_with_type", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "has_work", b"has_work", "has_work_reason", b"has_work_reason", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "deployment_completed_timestamp", b"deployment_completed_timestamp", "desired_state", b"desired_state", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "missing_approval", b"missing_approval", "notifications", b"notifications", "starting_state", b"starting_state", "target_state", b"target_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action_explanation", b"action_explanation", "annotations", b"annotations", "apply_error", b"apply_error", "dependencies", b"dependencies", "dependencies_with_type", b"dependencies_with_type", "deployment_completed_timestamp", b"deployment_completed_timestamp", "desired_state", b"desired_state", "desired_state_id", b"desired_state_id", "direct_dependencies", b"direct_dependencies", "expected_next_apply_timestamp", b"expected_next_apply_timestamp", "has_work", b"has_work", "has_work_reason", b"has_work_reason", "id", b"id", "last_applied_timestamp", b"last_applied_timestamp", "last_fetched_timestamp", b"last_fetched_timestamp", "last_key_delivery_decision", b"last_key_delivery_decision", "last_rollback_key_delivery_decision", b"last_rollback_key_delivery_decision", "last_seen_state", b"last_seen_state", "last_update_timestamp", b"last_update_timestamp", "lifecycle", b"lifecycle", "logs", b"logs", "missing_approval", b"missing_approval", "notifications", b"notifications", "parent_desired_state_id", b"parent_desired_state_id", "precondition_statuses", b"precondition_statuses", "release_id", b"release_id", "root_desired_state_id", b"root_desired_state_id", "simple_status", b"simple_status", "starting_state", b"starting_state", "status", b"status", "status_explanations", b"status_explanations", "target_state", b"target_state"]) -> None: ...
 
 global___Entity = Entity
 

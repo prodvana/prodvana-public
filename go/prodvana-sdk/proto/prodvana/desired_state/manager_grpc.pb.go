@@ -43,6 +43,7 @@ const (
 	DesiredStateManager_GetLatestCombinedReleaseDesiredState_FullMethodName        = "/prodvana.desired_state.DesiredStateManager/GetLatestCombinedReleaseDesiredState"
 	DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState_FullMethodName = "/prodvana.desired_state.DesiredStateManager/GetServiceLatestCombinedReleaseDesiredState"
 	DesiredStateManager_GetDebugState_FullMethodName                               = "/prodvana.desired_state.DesiredStateManager/GetDebugState"
+	DesiredStateManager_GetHistoricalEntityStats_FullMethodName                    = "/prodvana.desired_state.DesiredStateManager/GetHistoricalEntityStats"
 )
 
 // DesiredStateManagerClient is the client API for DesiredStateManager service.
@@ -84,6 +85,7 @@ type DesiredStateManagerClient interface {
 	GetLatestCombinedReleaseDesiredState(ctx context.Context, in *GetLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(ctx context.Context, in *GetServiceLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetDebugState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*debug.DumpState, error)
+	GetHistoricalEntityStats(ctx context.Context, in *GetHistoricalEntityStatsReq, opts ...grpc.CallOption) (*GetHistoricalEntityStatsResp, error)
 }
 
 type desiredStateManagerClient struct {
@@ -301,6 +303,15 @@ func (c *desiredStateManagerClient) GetDebugState(ctx context.Context, in *GetDe
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) GetHistoricalEntityStats(ctx context.Context, in *GetHistoricalEntityStatsReq, opts ...grpc.CallOption) (*GetHistoricalEntityStatsResp, error) {
+	out := new(GetHistoricalEntityStatsResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_GetHistoricalEntityStats_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DesiredStateManagerServer is the server API for DesiredStateManager service.
 // All implementations must embed UnimplementedDesiredStateManagerServer
 // for forward compatibility
@@ -340,6 +351,7 @@ type DesiredStateManagerServer interface {
 	GetLatestCombinedReleaseDesiredState(context.Context, *GetLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(context.Context, *GetServiceLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error)
+	GetHistoricalEntityStats(context.Context, *GetHistoricalEntityStatsReq) (*GetHistoricalEntityStatsResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
 
@@ -415,6 +427,9 @@ func (UnimplementedDesiredStateManagerServer) GetServiceLatestCombinedReleaseDes
 }
 func (UnimplementedDesiredStateManagerServer) GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDebugState not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) GetHistoricalEntityStats(context.Context, *GetHistoricalEntityStatsReq) (*GetHistoricalEntityStatsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHistoricalEntityStats not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) mustEmbedUnimplementedDesiredStateManagerServer() {}
 
@@ -843,6 +858,24 @@ func _DesiredStateManager_GetDebugState_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_GetHistoricalEntityStats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHistoricalEntityStatsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).GetHistoricalEntityStats(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_GetHistoricalEntityStats_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).GetHistoricalEntityStats(ctx, req.(*GetHistoricalEntityStatsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DesiredStateManager_ServiceDesc is the grpc.ServiceDesc for DesiredStateManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -941,6 +974,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDebugState",
 			Handler:    _DesiredStateManager_GetDebugState_Handler,
+		},
+		{
+			MethodName: "GetHistoricalEntityStats",
+			Handler:    _DesiredStateManager_GetHistoricalEntityStats_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

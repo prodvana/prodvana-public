@@ -98,6 +98,7 @@ class DeploymentFilter(google.protobuf.message.Message):
     APPLICATION_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     RELEASE_ID_FIELD_NUMBER: builtins.int
+    STATUSES_FIELD_NUMBER: builtins.int
     @property
     def services(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """filters to deployments for join(join(services, OR), join(release_channels, OR), AND)"""
@@ -112,6 +113,9 @@ class DeploymentFilter(google.protobuf.message.Message):
     """desired_state_id filter is AND'ed with everything else in the same filter object"""
     release_id: builtins.str
     """release_id filter is AND'ed with everything else in the same filter object"""
+    @property
+    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType]:
+        """statuses filter is OR'ed with everything else in the same filter object"""
     def __init__(
         self,
         *,
@@ -120,8 +124,9 @@ class DeploymentFilter(google.protobuf.message.Message):
         application: builtins.str = ...,
         desired_state_id: builtins.str = ...,
         release_id: builtins.str = ...,
+        statuses: collections.abc.Iterable[prodvana.proto.prodvana.deployment.model.object_pb2.DeploymentStatus.ValueType] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "desired_state_id", b"desired_state_id", "release_channels", b"release_channels", "release_id", b"release_id", "services", b"services"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "desired_state_id", b"desired_state_id", "release_channels", b"release_channels", "release_id", b"release_id", "services", b"services", "statuses", b"statuses"]) -> None: ...
 
 global___DeploymentFilter = DeploymentFilter
 

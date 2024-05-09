@@ -2,6 +2,7 @@ syntax = "proto3";
 package prodvana.desired_state;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state";
 import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "prodvana/async_task/task_metadata.proto";
 import "prodvana/desired_state/debug/debug.proto";
@@ -410,6 +411,20 @@ message GetLatestCombinedReleaseDesiredStateResp {
     prodvana.version.SourceMetadata source_metadata = 6;
 }
 
+message GetHistoricalEntityStatsReq {
+    prodvana.desired_state.model.Identifier entity_id = 1 [(validate.rules).message.required = true];
+}
+
+message HistoricalEntityStats {
+    // unknown = unset
+    google.protobuf.Duration avg_deployment_duration = 1;
+    google.protobuf.Duration p95_deployment_duration = 2;
+}
+
+message GetHistoricalEntityStatsResp {
+    HistoricalEntityStats stats = 1;
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -545,6 +560,11 @@ service DesiredStateManager {
     rpc GetDebugState(GetDesiredStateReq) returns (prodvana.desired_state.debug.DumpState) {
         option (google.api.http) = {
             get: "/v1/desired_states/{desired_state_id=*}/debug"
+        };
+    }
+    rpc GetHistoricalEntityStats(GetHistoricalEntityStatsReq) returns (GetHistoricalEntityStatsResp) {
+        option (google.api.http) = {
+            get: "/v1/historical_entity_stats"
         };
     }
 }

@@ -1120,6 +1120,7 @@ func (m *ControlState) CloneVT() *ControlState {
 	r.ActionExplanation = m.ActionExplanation.CloneVT()
 	r.LastFetchedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastFetchedTimestamp).CloneVT())
 	r.LastAppliedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LastAppliedTimestamp).CloneVT())
+	r.DeploymentCompletedTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.DeploymentCompletedTimestamp).CloneVT())
 	r.ExpectedNextApplyTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.ExpectedNextApplyTimestamp).CloneVT())
 	r.MissingApproval = m.MissingApproval.CloneVT()
 	r.ObserverMode = m.ObserverMode
@@ -5974,6 +5975,9 @@ func (this *ControlState) EqualVT(that *ControlState) bool {
 		return false
 	}
 	if !this.RollbackKeyDeliveryDecision.EqualVT(that.RollbackKeyDeliveryDecision) {
+		return false
+	}
+	if !(*timestamppb1.Timestamp)(this.DeploymentCompletedTimestamp).EqualVT((*timestamppb1.Timestamp)(that.DeploymentCompletedTimestamp)) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

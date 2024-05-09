@@ -130,6 +130,11 @@ class DesiredStateManagerStub(object):
                 request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
                 response_deserializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
                 )
+        self.GetHistoricalEntityStats = channel.unary_unary(
+                '/prodvana.desired_state.DesiredStateManager/GetHistoricalEntityStats',
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsResp.FromString,
+                )
 
 
 class DesiredStateManagerServicer(object):
@@ -285,6 +290,12 @@ class DesiredStateManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetHistoricalEntityStats(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DesiredStateManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -402,6 +413,11 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
                     servicer.GetDebugState,
                     request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.FromString,
                     response_serializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.SerializeToString,
+            ),
+            'GetHistoricalEntityStats': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetHistoricalEntityStats,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -801,5 +817,22 @@ class DesiredStateManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetDebugState',
             prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
             prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetHistoricalEntityStats(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetHistoricalEntityStats',
+            prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetHistoricalEntityStatsResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

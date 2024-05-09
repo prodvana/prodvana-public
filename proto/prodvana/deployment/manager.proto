@@ -37,6 +37,7 @@ message DeploymentFilter {
     string application = 3;
     string desired_state_id = 4;  // desired_state_id filter is AND'ed with everything else in the same filter object
     string release_id = 5;  // release_id filter is AND'ed with everything else in the same filter object
+    repeated prodvana.deployment.model.DeploymentStatus statuses = 6; // statuses filter is OR'ed with everything else in the same filter object
 }
 
 message ListDeploymentsReq {

@@ -2660,6 +2660,24 @@
             "type": "string"
           },
           {
+            "name": "filter.statuses",
+            "description": "statuses filter is OR'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "UNKNOWN_STATUS",
+                "PENDING",
+                "SUCCEEDED",
+                "FAILED",
+                "PREVIEW"
+              ]
+            },
+            "collectionFormat": "multi"
+          },
+          {
             "name": "startingDeploymentId",
             "description": "newer deployment, inclusive",
             "in": "query",
@@ -2874,6 +2892,24 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "filter.statuses",
+            "description": "statuses filter is OR'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "UNKNOWN_STATUS",
+                "PENDING",
+                "SUCCEEDED",
+                "FAILED",
+                "PREVIEW"
+              ]
+            },
+            "collectionFormat": "multi"
           },
           {
             "name": "status",
@@ -3632,6 +3668,56 @@
         ],
         "tags": [
           "prodvana.events.EventsManager"
+        ]
+      }
+    },
+    "/v1/historical_entity_stats": {
+      "get": {
+        "operationId": "DesiredStateManager_GetHistoricalEntityStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetHistoricalEntityStatsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "entityId.type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "SERVICE",
+              "SERVICE_INSTANCE",
+              "SERVICE_GROUP",
+              "RUNTIME_OBJECT",
+              "MANUAL_APPROVAL",
+              "CUSTOM_TASK",
+              "PROTECTION_ATTACHMENT",
+              "PROTECTION_LINK",
+              "DELIVERY_EXTENSION"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "entityId.name",
+            "description": "globally unique identifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
         ]
       }
     },
@@ -5676,6 +5762,24 @@
             "type": "string"
           },
           {
+            "name": "filter.statuses",
+            "description": "statuses filter is OR'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "UNKNOWN_STATUS",
+                "PENDING",
+                "SUCCEEDED",
+                "FAILED",
+                "PREVIEW"
+              ]
+            },
+            "collectionFormat": "multi"
+          },
+          {
             "name": "startingDeploymentId",
             "description": "newer deployment, inclusive",
             "in": "query",
@@ -5890,6 +5994,24 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "filter.statuses",
+            "description": "statuses filter is OR'ed with everything else in the same filter object",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "UNKNOWN_STATUS",
+                "PENDING",
+                "SUCCEEDED",
+                "FAILED",
+                "PREVIEW"
+              ]
+            },
+            "collectionFormat": "multi"
           },
           {
             "name": "status",
@@ -9904,6 +10026,13 @@
         "releaseId": {
           "type": "string",
           "title": "release_id filter is AND'ed with everything else in the same filter object"
+        },
+        "statuses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelDeploymentStatus"
+          },
+          "title": "statuses filter is OR'ed with everything else in the same filter object"
         }
       }
     },
@@ -10317,6 +10446,14 @@
         }
       }
     },
+    "desired_stateGetHistoricalEntityStatsResp": {
+      "type": "object",
+      "properties": {
+        "stats": {
+          "$ref": "#/definitions/desired_stateHistoricalEntityStats"
+        }
+      }
+    },
     "desired_stateGetLatestCombinedReleaseDesiredStateResp": {
       "type": "object",
       "properties": {
@@ -10407,6 +10544,18 @@
         },
         "pendingSetDesiredState": {
           "$ref": "#/definitions/desired_statePendingSetDesiredState"
+        }
+      }
+    },
+    "desired_stateHistoricalEntityStats": {
+      "type": "object",
+      "properties": {
+        "avgDeploymentDuration": {
+          "type": "string",
+          "title": "unknown = unset"
+        },
+        "p95DeploymentDuration": {
+          "type": "string"
         }
       }
     },
@@ -13352,6 +13501,11 @@
           "type": "string",
           "format": "date-time"
         },
+        "deploymentCompletedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "only relevant if there is a last_applied_timestamp"
+        },
         "expectedNextApplyTimestamp": {
           "type": "string",
           "format": "date-time"
@@ -13732,6 +13886,11 @@
           "type": "string",
           "format": "date-time",
           "title": "when prodvana last applied state for this entity, best effort"
+        },
+        "deploymentCompletedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "after apply, when did the entity reach a success or failed state?"
         },
         "expectedNextApplyTimestamp": {
           "type": "string",

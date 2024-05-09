@@ -5,12 +5,14 @@
 package desired_state
 
 import (
+	durationpb1 "github.com/planetscale/vtprotobuf/types/known/durationpb"
 	timestamppb1 "github.com/planetscale/vtprotobuf/types/known/timestamppb"
 	maestro "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/maestro"
 	model "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/model"
 	service "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
 	proto "google.golang.org/protobuf/proto"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -1158,6 +1160,58 @@ func (m *GetLatestCombinedReleaseDesiredStateResp) CloneVT() *GetLatestCombinedR
 }
 
 func (m *GetLatestCombinedReleaseDesiredStateResp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *GetHistoricalEntityStatsReq) CloneVT() *GetHistoricalEntityStatsReq {
+	if m == nil {
+		return (*GetHistoricalEntityStatsReq)(nil)
+	}
+	r := new(GetHistoricalEntityStatsReq)
+	r.EntityId = m.EntityId.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetHistoricalEntityStatsReq) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *HistoricalEntityStats) CloneVT() *HistoricalEntityStats {
+	if m == nil {
+		return (*HistoricalEntityStats)(nil)
+	}
+	r := new(HistoricalEntityStats)
+	r.AvgDeploymentDuration = (*durationpb.Duration)((*durationpb1.Duration)(m.AvgDeploymentDuration).CloneVT())
+	r.P95DeploymentDuration = (*durationpb.Duration)((*durationpb1.Duration)(m.P95DeploymentDuration).CloneVT())
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *HistoricalEntityStats) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *GetHistoricalEntityStatsResp) CloneVT() *GetHistoricalEntityStatsResp {
+	if m == nil {
+		return (*GetHistoricalEntityStatsResp)(nil)
+	}
+	r := new(GetHistoricalEntityStatsResp)
+	r.Stats = m.Stats.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetHistoricalEntityStatsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
@@ -4518,6 +4572,126 @@ func (this *GetLatestCombinedReleaseDesiredStateResp) EqualVT(that *GetLatestCom
 
 func (this *GetLatestCombinedReleaseDesiredStateResp) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*GetLatestCombinedReleaseDesiredStateResp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetHistoricalEntityStatsReq) StableEqualVT(that *GetHistoricalEntityStatsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.StableEqualVT(that.EntityId) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetHistoricalEntityStatsReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetHistoricalEntityStatsReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetHistoricalEntityStatsReq) EqualVT(that *GetHistoricalEntityStatsReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.EntityId.EqualVT(that.EntityId) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetHistoricalEntityStatsReq) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetHistoricalEntityStatsReq)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HistoricalEntityStats) StableEqualVT(that *HistoricalEntityStats) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.AvgDeploymentDuration).StableEqualVT((*durationpb1.Duration)(that.AvgDeploymentDuration)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.P95DeploymentDuration).StableEqualVT((*durationpb1.Duration)(that.P95DeploymentDuration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HistoricalEntityStats) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HistoricalEntityStats)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *HistoricalEntityStats) EqualVT(that *HistoricalEntityStats) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.AvgDeploymentDuration).EqualVT((*durationpb1.Duration)(that.AvgDeploymentDuration)) {
+		return false
+	}
+	if !(*durationpb1.Duration)(this.P95DeploymentDuration).EqualVT((*durationpb1.Duration)(that.P95DeploymentDuration)) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HistoricalEntityStats) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HistoricalEntityStats)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetHistoricalEntityStatsResp) StableEqualVT(that *GetHistoricalEntityStatsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Stats.StableEqualVT(that.Stats) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetHistoricalEntityStatsResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetHistoricalEntityStatsResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetHistoricalEntityStatsResp) EqualVT(that *GetHistoricalEntityStatsResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Stats.EqualVT(that.Stats) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetHistoricalEntityStatsResp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetHistoricalEntityStatsResp)
 	if !ok {
 		return false
 	}

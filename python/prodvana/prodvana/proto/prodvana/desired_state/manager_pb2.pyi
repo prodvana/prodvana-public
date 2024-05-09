@@ -5,6 +5,7 @@ isort:skip_file
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
@@ -1328,3 +1329,56 @@ class GetLatestCombinedReleaseDesiredStateResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["compiled_desired_state", b"compiled_desired_state", "creation_timestamp", b"creation_timestamp", "input_desired_state", b"input_desired_state", "set_desired_state_metadata", b"set_desired_state_metadata", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
 
 global___GetLatestCombinedReleaseDesiredStateResp = GetLatestCombinedReleaseDesiredStateResp
+
+class GetHistoricalEntityStatsReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENTITY_ID_FIELD_NUMBER: builtins.int
+    @property
+    def entity_id(self) -> prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier: ...
+    def __init__(
+        self,
+        *,
+        entity_id: prodvana.proto.prodvana.desired_state.model.desired_state_pb2.Identifier | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entity_id", b"entity_id"]) -> None: ...
+
+global___GetHistoricalEntityStatsReq = GetHistoricalEntityStatsReq
+
+class HistoricalEntityStats(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    AVG_DEPLOYMENT_DURATION_FIELD_NUMBER: builtins.int
+    P95_DEPLOYMENT_DURATION_FIELD_NUMBER: builtins.int
+    @property
+    def avg_deployment_duration(self) -> google.protobuf.duration_pb2.Duration:
+        """unknown = unset"""
+    @property
+    def p95_deployment_duration(self) -> google.protobuf.duration_pb2.Duration: ...
+    def __init__(
+        self,
+        *,
+        avg_deployment_duration: google.protobuf.duration_pb2.Duration | None = ...,
+        p95_deployment_duration: google.protobuf.duration_pb2.Duration | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["avg_deployment_duration", b"avg_deployment_duration", "p95_deployment_duration", b"p95_deployment_duration"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["avg_deployment_duration", b"avg_deployment_duration", "p95_deployment_duration", b"p95_deployment_duration"]) -> None: ...
+
+global___HistoricalEntityStats = HistoricalEntityStats
+
+class GetHistoricalEntityStatsResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATS_FIELD_NUMBER: builtins.int
+    @property
+    def stats(self) -> global___HistoricalEntityStats: ...
+    def __init__(
+        self,
+        *,
+        stats: global___HistoricalEntityStats | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["stats", b"stats"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["stats", b"stats"]) -> None: ...
+
+global___GetHistoricalEntityStatsResp = GetHistoricalEntityStatsResp
