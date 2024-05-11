@@ -22,12 +22,47 @@ var queryGraphCmd = &cobra.Command{
 
 pvnctl desired-states query-graph <desired state id>
 `,
-	Args: cobra.ExactArgs(1),
+	Args: cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-		dsId := args[0]
 		ctx := context.Background()
-		req := &ds_pb.GetDesiredStateGraphReq{
-			Query: &ds_pb.GetDesiredStateGraphReq_DesiredStateId{DesiredStateId: dsId},
+		req := &ds_pb.GetDesiredStateGraphReq{}
+
+		dsId, err := cmd.Flags().GetString("dsid")
+		cmdutil.Must(err)
+
+		service, err := cmd.Flags().GetString("service")
+		cmdutil.Must(err)
+
+		app, err := cmd.Flags().GetString("app")
+		cmdutil.Must(err)
+
+		if dsId != "" {
+			if service != "" {
+				log.Fatal("Cannot set both -dsid and -service")
+			}
+
+			if app != "" {
+				log.Fatal("Cannot set both -dsid and -app")
+			}
+		} else {
+			if service == "" {
+				log.Fatal("Must set one of (-dsid, -service)")
+			}
+
+			if app == "" {
+				log.Fatal("Must set -app when setting -service")
+			}
+		}
+
+		if dsId != "" {
+			req.Query = &ds_pb.GetDesiredStateGraphReq_DesiredStateId{DesiredStateId: dsId}
+		} else {
+			req.Query = &ds_pb.GetDesiredStateGraphReq_QueryByService_{
+				QueryByService: &ds_pb.GetDesiredStateGraphReq_QueryByService{
+					Application: app,
+					Service:     service,
+				},
+			}
 		}
 
 		types, err := cmd.Flags().GetStringSlice("types")
@@ -85,6 +120,9 @@ pvnctl desired-states query-graph <desired state id>
 
 func init() {
 	RootCmd.AddCommand(queryGraphCmd)
+	queryGraphCmd.Flags().String("dsid", "", "Desired state id to query for")
+	queryGraphCmd.Flags().String("app", "", "Application to query for (must set service)")
+	queryGraphCmd.Flags().String("service", "", "Service to query for (must set app)")
 	queryGraphCmd.Flags().StringSlice("types", nil, "Types to query for")
 	queryGraphCmd.Flags().StringSlice("required-entity-names", nil, "Required entity names")
 	queryGraphCmd.Flags().Bool("include-parents", false, "Should include parents in the graph")
