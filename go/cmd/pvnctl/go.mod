@@ -23,7 +23,7 @@ require (
 	github.com/aws/aws-sdk-go v1.52.3
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/bradenaw/juniper v0.15.3
-	github.com/charmbracelet/bubbletea v0.26.1
+	github.com/charmbracelet/bubbletea v0.26.2
 	github.com/charmbracelet/lipgloss v0.10.0
 	github.com/fatih/color v1.16.0
 	github.com/go-git/go-git/v5 v5.12.0
