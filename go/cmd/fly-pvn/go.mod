@@ -39,6 +39,6 @@ require (
 
 require (
 	github.com/pkg/errors v0.9.1
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )

@@ -16,7 +16,7 @@ require (
 	cloud.google.com/go/spanner v1.61.0
 	github.com/aws/aws-sdk-go v1.52.1
 	github.com/charmbracelet/bubbles v0.18.0
-	github.com/charmbracelet/bubbletea v0.26.1
+	github.com/charmbracelet/bubbletea v0.26.2
 	github.com/charmbracelet/lipgloss v0.10.0
 	github.com/fatih/color v1.17.0
 	github.com/getsentry/sentry-go v0.27.0
@@ -32,7 +32,7 @@ require (
 	go.opentelemetry.io/otel v1.26.0
 	go.opentelemetry.io/otel/trace v1.26.0
 	golang.org/x/exp v0.0.0-20220827204233-334a2380cb91
-	golang.org/x/term v0.19.0
+	golang.org/x/term v0.20.0
 	golang.org/x/time v0.5.0
 	sigs.k8s.io/yaml v1.4.0
 )
@@ -95,7 +95,7 @@ require (
 require (
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
 
