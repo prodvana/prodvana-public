@@ -40,6 +40,7 @@ func ValidateAndSaveAuthContext(ctx context.Context, name, addr string, skipTls 
 		authSession.Contexts[name] = &auth_pb.AuthContext{}
 	}
 	authSession.Contexts[name].Addr = addr
+	authSession.Contexts[name].SkipTls = skipTls
 	authSession.CurrentContext = name
 	err = session.SaveSession(authSession)
 	if err != nil {
