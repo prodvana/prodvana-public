@@ -25,7 +25,7 @@ require (
 	github.com/bradenaw/juniper v0.15.3
 	github.com/charmbracelet/bubbletea v0.26.2
 	github.com/charmbracelet/lipgloss v0.10.0
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.17.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/prodvana/prodvana-public/go/pkg v0.0.0-00010101000000-000000000000
