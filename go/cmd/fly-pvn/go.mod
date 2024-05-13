@@ -8,7 +8,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
 	github.com/spf13/cobra v1.8.0
 	google.golang.org/grpc v1.63.2
-	google.golang.org/protobuf v1.34.0 // indirect
+	google.golang.org/protobuf v1.34.1 // indirect
 )
 
 replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../../prodvana-sdk

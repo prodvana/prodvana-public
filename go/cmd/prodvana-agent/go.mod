@@ -7,7 +7,7 @@ toolchain go1.22.1
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
 	google.golang.org/grpc v1.63.2 // indirect
-	google.golang.org/protobuf v1.34.0 // indirect
+	google.golang.org/protobuf v1.34.1 // indirect
 	k8s.io/apimachinery v0.30.0 // indirect
 	k8s.io/client-go v0.30.0
 )
