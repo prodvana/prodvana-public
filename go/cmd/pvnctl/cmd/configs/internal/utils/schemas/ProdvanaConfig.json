@@ -8868,7 +8868,7 @@
                 },
                 "dependencies": {
                     "items": {
-                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionDependency"
                     },
                     "additionalProperties": false,
                     "oneOf": [
@@ -8892,6 +8892,109 @@
                 }
             ],
             "title": "Delivery Extension Config"
+        },
+        "prodvana.service.DeliveryExtensionDependency": {
+            "properties": {
+                "inlined": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "DEPRECATED: only use the name field"
+                },
+                "instance": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "DEPRECATED: only use the name field"
+                },
+                "ref": {
+                    "$ref": "#/definitions/prodvana.delivery_extension.DeliveryExtensionInstanceRef",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ],
+                    "description": "DEPRECATED: only use the name field"
+                },
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "the name of a delivery extension that exists in the convergence_extensions list on ServiceConfig"
+                },
+                "lifecycle": {
+                    "enum": [
+                        "UNKNOWN_TASK_LIFECYCLE",
+                        0,
+                        "CONVERGENCE_START",
+                        1,
+                        "PRE_APPROVAL",
+                        2,
+                        "APPROVAL",
+                        3,
+                        "POST_APPROVAL",
+                        4,
+                        "DEPLOYMENT",
+                        5,
+                        "POST_DEPLOYMENT",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Task Lifecycle"
+                },
+                "dependencies": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionDependency"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "DEPRECATED: this field is ignored when using definition.name"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Delivery Extension Dependency"
         },
         "prodvana.service.DeliveryExtensionInstance": {
             "properties": {
@@ -8929,7 +9032,7 @@
                 },
                 "dependencies": {
                     "items": {
-                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
+                        "$ref": "#/definitions/prodvana.service.DeliveryExtensionDependency"
                     },
                     "additionalProperties": false,
                     "oneOf": [

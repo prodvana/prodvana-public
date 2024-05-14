@@ -15575,7 +15575,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+            "$ref": "#/definitions/serviceDeliveryExtensionDependency"
           },
           "title": "a list of other delivery extensions that must be executed before this one"
         }
@@ -16713,6 +16713,39 @@
     "serviceDeleteServiceResp": {
       "type": "object"
     },
+    "serviceDeliveryExtensionDependency": {
+      "type": "object",
+      "properties": {
+        "inlined": {
+          "$ref": "#/definitions/prodvanadelivery_extensionDeliveryExtensionConfig",
+          "title": "DEPRECATED: only use the name field"
+        },
+        "instance": {
+          "type": "string",
+          "title": "DEPRECATED: only use the name field"
+        },
+        "ref": {
+          "$ref": "#/definitions/delivery_extensionDeliveryExtensionInstanceRef",
+          "title": "DEPRECATED: only use the name field"
+        },
+        "name": {
+          "type": "string",
+          "title": "the name of a delivery extension that exists in the convergence_extensions list on ServiceConfig"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/common_configTaskLifecycle",
+          "title": "DEPRECATED: this field is ignored when using definition.name"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/serviceDeliveryExtensionDependency"
+          },
+          "title": "DEPRECATED: this field is ignored when using definition.name"
+        }
+      }
+    },
     "serviceDeliveryExtensionInstance": {
       "type": "object",
       "properties": {
@@ -16731,7 +16764,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanaserviceDeliveryExtensionConfig"
+            "$ref": "#/definitions/serviceDeliveryExtensionDependency"
           },
           "title": "a list of other delivery extensions that must be executed before this one"
         }

@@ -561,6 +561,71 @@ func (m *ProtectionLink) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *DeliveryExtensionDependency) CloneVT() *DeliveryExtensionDependency {
+	if m == nil {
+		return (*DeliveryExtensionDependency)(nil)
+	}
+	r := new(DeliveryExtensionDependency)
+	r.Lifecycle = m.Lifecycle
+	if m.Definition != nil {
+		r.Definition = m.Definition.(interface {
+			CloneVT() isDeliveryExtensionDependency_Definition
+		}).CloneVT()
+	}
+	if rhs := m.Dependencies; rhs != nil {
+		tmpContainer := make([]*DeliveryExtensionDependency, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.Dependencies = tmpContainer
+	}
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *DeliveryExtensionDependency) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *DeliveryExtensionDependency_Inlined) CloneVT() isDeliveryExtensionDependency_Definition {
+	if m == nil {
+		return (*DeliveryExtensionDependency_Inlined)(nil)
+	}
+	r := new(DeliveryExtensionDependency_Inlined)
+	r.Inlined = m.Inlined.CloneVT()
+	return r
+}
+
+func (m *DeliveryExtensionDependency_Instance) CloneVT() isDeliveryExtensionDependency_Definition {
+	if m == nil {
+		return (*DeliveryExtensionDependency_Instance)(nil)
+	}
+	r := new(DeliveryExtensionDependency_Instance)
+	r.Instance = m.Instance
+	return r
+}
+
+func (m *DeliveryExtensionDependency_Ref) CloneVT() isDeliveryExtensionDependency_Definition {
+	if m == nil {
+		return (*DeliveryExtensionDependency_Ref)(nil)
+	}
+	r := new(DeliveryExtensionDependency_Ref)
+	r.Ref = m.Ref.CloneVT()
+	return r
+}
+
+func (m *DeliveryExtensionDependency_Name) CloneVT() isDeliveryExtensionDependency_Definition {
+	if m == nil {
+		return (*DeliveryExtensionDependency_Name)(nil)
+	}
+	r := new(DeliveryExtensionDependency_Name)
+	r.Name = m.Name
+	return r
+}
+
 func (m *DeliveryExtensionConfig) CloneVT() *DeliveryExtensionConfig {
 	if m == nil {
 		return (*DeliveryExtensionConfig)(nil)
@@ -573,7 +638,7 @@ func (m *DeliveryExtensionConfig) CloneVT() *DeliveryExtensionConfig {
 		}).CloneVT()
 	}
 	if rhs := m.Dependencies; rhs != nil {
-		tmpContainer := make([]*DeliveryExtensionConfig, len(rhs))
+		tmpContainer := make([]*DeliveryExtensionDependency, len(rhs))
 		for k, v := range rhs {
 			tmpContainer[k] = v.CloneVT()
 		}
@@ -629,7 +694,7 @@ func (m *DeliveryExtensionInstance) CloneVT() *DeliveryExtensionInstance {
 		}).CloneVT()
 	}
 	if rhs := m.Dependencies; rhs != nil {
-		tmpContainer := make([]*DeliveryExtensionConfig, len(rhs))
+		tmpContainer := make([]*DeliveryExtensionDependency, len(rhs))
 		for k, v := range rhs {
 			tmpContainer[k] = v.CloneVT()
 		}
@@ -3372,6 +3437,270 @@ func (this *ProtectionLink) EqualMessageVT(thatMsg proto.Message) bool {
 	}
 	return this.EqualVT(that)
 }
+func (this *DeliveryExtensionDependency) StableEqualVT(that *DeliveryExtensionDependency) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Definition == nil && that.Definition != nil {
+		return false
+	} else if this.Definition != nil {
+		if that.Definition == nil {
+			return false
+		}
+		if !this.Definition.(interface {
+			StableEqualVT(isDeliveryExtensionDependency_Definition) bool
+		}).StableEqualVT(that.Definition) {
+			return false
+		}
+	}
+	if this.Lifecycle != that.Lifecycle {
+		return false
+	}
+	if len(this.Dependencies) != len(that.Dependencies) {
+		return false
+	}
+	for i, vx := range this.Dependencies {
+		vy := that.Dependencies[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionDependency{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionDependency{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionDependency) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionDependency)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *DeliveryExtensionDependency_Inlined) StableEqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Inlined, that.Inlined; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Instance) StableEqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Instance)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Instance != that.Instance {
+		return false
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Ref) StableEqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Ref)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ref, that.Ref; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Name) StableEqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Name)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency) EqualVT(that *DeliveryExtensionDependency) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Definition == nil && that.Definition != nil {
+		return false
+	} else if this.Definition != nil {
+		if that.Definition == nil {
+			return false
+		}
+		if !this.Definition.(interface {
+			EqualVT(isDeliveryExtensionDependency_Definition) bool
+		}).EqualVT(that.Definition) {
+			return false
+		}
+	}
+	if this.Lifecycle != that.Lifecycle {
+		return false
+	}
+	if len(this.Dependencies) != len(that.Dependencies) {
+		return false
+	}
+	for i, vx := range this.Dependencies {
+		vy := that.Dependencies[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeliveryExtensionDependency{}
+			}
+			if q == nil {
+				q = &DeliveryExtensionDependency{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeliveryExtensionDependency) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeliveryExtensionDependency)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DeliveryExtensionDependency_Inlined) EqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Inlined)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Inlined, that.Inlined; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Instance) EqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Instance)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Instance != that.Instance {
+		return false
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Ref) EqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Ref)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Ref, that.Ref; p != q {
+		if p == nil {
+			p = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if q == nil {
+			q = &delivery_extension.DeliveryExtensionInstanceRef{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *DeliveryExtensionDependency_Name) EqualVT(thatIface isDeliveryExtensionDependency_Definition) bool {
+	that, ok := thatIface.(*DeliveryExtensionDependency_Name)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return true
+}
+
 func (this *DeliveryExtensionConfig) StableEqualVT(that *DeliveryExtensionConfig) bool {
 	if this == that {
 		return true
@@ -3400,10 +3729,10 @@ func (this *DeliveryExtensionConfig) StableEqualVT(that *DeliveryExtensionConfig
 		vy := that.Dependencies[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &DeliveryExtensionConfig{}
+				p = &DeliveryExtensionDependency{}
 			}
 			if q == nil {
-				q = &DeliveryExtensionConfig{}
+				q = &DeliveryExtensionDependency{}
 			}
 			if !p.StableEqualVT(q) {
 				return false
@@ -3515,10 +3844,10 @@ func (this *DeliveryExtensionConfig) EqualVT(that *DeliveryExtensionConfig) bool
 		vy := that.Dependencies[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &DeliveryExtensionConfig{}
+				p = &DeliveryExtensionDependency{}
 			}
 			if q == nil {
-				q = &DeliveryExtensionConfig{}
+				q = &DeliveryExtensionDependency{}
 			}
 			if !p.EqualVT(q) {
 				return false
@@ -3630,10 +3959,10 @@ func (this *DeliveryExtensionInstance) StableEqualVT(that *DeliveryExtensionInst
 		vy := that.Dependencies[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &DeliveryExtensionConfig{}
+				p = &DeliveryExtensionDependency{}
 			}
 			if q == nil {
-				q = &DeliveryExtensionConfig{}
+				q = &DeliveryExtensionDependency{}
 			}
 			if !p.StableEqualVT(q) {
 				return false
@@ -3728,10 +4057,10 @@ func (this *DeliveryExtensionInstance) EqualVT(that *DeliveryExtensionInstance) 
 		vy := that.Dependencies[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
-				p = &DeliveryExtensionConfig{}
+				p = &DeliveryExtensionDependency{}
 			}
 			if q == nil {
-				q = &DeliveryExtensionConfig{}
+				q = &DeliveryExtensionDependency{}
 			}
 			if !p.EqualVT(q) {
 				return false

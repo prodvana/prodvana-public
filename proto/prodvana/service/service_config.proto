@@ -198,6 +198,27 @@ message ProtectionLink {
     // next tag: 5
 }
 
+message DeliveryExtensionDependency {
+    oneof definition {
+        option (validate.required) = true;
+        // DEPRECATED: only use the name field
+        prodvana.delivery_extension.DeliveryExtensionConfig inlined = 1;
+        // DEPRECATED: only use the name field
+        string instance = 3 [(validate.rules).string.min_len = 1];
+        // DEPRECATED: only use the name field
+        prodvana.delivery_extension.DeliveryExtensionInstanceRef ref = 4;
+
+        // the name of a delivery extension that exists in the convergence_extensions list on ServiceConfig
+        string name = 6 [(validate.rules).string.min_len = 1];
+    }
+
+    // DEPRECATED: this field is ignored when using definition.name
+    prodvana.common_config.TaskLifecycle lifecycle = 2;
+
+    // DEPRECATED: this field is ignored when using definition.name
+    repeated DeliveryExtensionDependency dependencies = 5;
+}
+
 message DeliveryExtensionConfig {
     oneof definition {
         option (validate.required) = true;
@@ -211,7 +232,7 @@ message DeliveryExtensionConfig {
     prodvana.common_config.TaskLifecycle lifecycle = 2 [(validate.rules).enum = {not_in: [0, 1]}];
 
     // a list of other delivery extensions that must be executed before this one
-    repeated DeliveryExtensionConfig dependencies = 5;
+    repeated DeliveryExtensionDependency dependencies = 5;
 }
 
 message DeliveryExtensionInstance {
@@ -227,7 +248,7 @@ message DeliveryExtensionInstance {
     reserved "lifecycle";
 
     // a list of other delivery extensions that must be executed before this one
-    repeated DeliveryExtensionConfig dependencies = 5;
+    repeated DeliveryExtensionDependency dependencies = 5;
 }
 
 // RuntimeSpecificConfig contains Service level configuration options that only make sense for a

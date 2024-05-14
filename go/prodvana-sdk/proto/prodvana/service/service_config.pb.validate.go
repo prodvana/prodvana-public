@@ -3037,6 +3037,293 @@ var _ interface {
 	ErrorName() string
 } = ProtectionLinkValidationError{}
 
+// Validate checks the field values on DeliveryExtensionDependency with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeliveryExtensionDependency) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeliveryExtensionDependency with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeliveryExtensionDependencyMultiError, or nil if none found.
+func (m *DeliveryExtensionDependency) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeliveryExtensionDependency) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Lifecycle
+
+	for idx, item := range m.GetDependencies() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  fmt.Sprintf("Dependencies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  fmt.Sprintf("Dependencies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionDependencyValidationError{
+					field:  fmt.Sprintf("Dependencies[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	oneofDefinitionPresent := false
+	switch v := m.Definition.(type) {
+	case *DeliveryExtensionDependency_Inlined:
+		if v == nil {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if all {
+			switch v := interface{}(m.GetInlined()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  "Inlined",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  "Inlined",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetInlined()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionDependencyValidationError{
+					field:  "Inlined",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *DeliveryExtensionDependency_Instance:
+		if v == nil {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if utf8.RuneCountInString(m.GetInstance()) < 1 {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Instance",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *DeliveryExtensionDependency_Ref:
+		if v == nil {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if all {
+			switch v := interface{}(m.GetRef()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeliveryExtensionDependencyValidationError{
+						field:  "Ref",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRef()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DeliveryExtensionDependencyValidationError{
+					field:  "Ref",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *DeliveryExtensionDependency_Name:
+		if v == nil {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Definition",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDefinitionPresent = true
+
+		if utf8.RuneCountInString(m.GetName()) < 1 {
+			err := DeliveryExtensionDependencyValidationError{
+				field:  "Name",
+				reason: "value length must be at least 1 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofDefinitionPresent {
+		err := DeliveryExtensionDependencyValidationError{
+			field:  "Definition",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeliveryExtensionDependencyMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeliveryExtensionDependencyMultiError is an error wrapping multiple
+// validation errors returned by DeliveryExtensionDependency.ValidateAll() if
+// the designated constraints aren't met.
+type DeliveryExtensionDependencyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeliveryExtensionDependencyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeliveryExtensionDependencyMultiError) AllErrors() []error { return m }
+
+// DeliveryExtensionDependencyValidationError is the validation error returned
+// by DeliveryExtensionDependency.Validate if the designated constraints
+// aren't met.
+type DeliveryExtensionDependencyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeliveryExtensionDependencyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeliveryExtensionDependencyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeliveryExtensionDependencyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeliveryExtensionDependencyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeliveryExtensionDependencyValidationError) ErrorName() string {
+	return "DeliveryExtensionDependencyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeliveryExtensionDependencyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeliveryExtensionDependency.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeliveryExtensionDependencyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeliveryExtensionDependencyValidationError{}
+
 // Validate checks the field values on DeliveryExtensionConfig with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

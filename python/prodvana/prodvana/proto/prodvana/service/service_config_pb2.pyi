@@ -470,6 +470,46 @@ class ProtectionLink(google.protobuf.message.Message):
 
 global___ProtectionLink = ProtectionLink
 
+class DeliveryExtensionDependency(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INLINED_FIELD_NUMBER: builtins.int
+    INSTANCE_FIELD_NUMBER: builtins.int
+    REF_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    LIFECYCLE_FIELD_NUMBER: builtins.int
+    DEPENDENCIES_FIELD_NUMBER: builtins.int
+    @property
+    def inlined(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig:
+        """DEPRECATED: only use the name field"""
+    instance: builtins.str
+    """DEPRECATED: only use the name field"""
+    @property
+    def ref(self) -> prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef:
+        """DEPRECATED: only use the name field"""
+    name: builtins.str
+    """the name of a delivery extension that exists in the convergence_extensions list on ServiceConfig"""
+    lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
+    """DEPRECATED: this field is ignored when using definition.name"""
+    @property
+    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionDependency]:
+        """DEPRECATED: this field is ignored when using definition.name"""
+    def __init__(
+        self,
+        *,
+        inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
+        instance: builtins.str = ...,
+        ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
+        name: builtins.str = ...,
+        lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
+        dependencies: collections.abc.Iterable[global___DeliveryExtensionDependency] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "instance", b"instance", "name", b"name", "ref", b"ref"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "dependencies", b"dependencies", "inlined", b"inlined", "instance", b"instance", "lifecycle", b"lifecycle", "name", b"name", "ref", b"ref"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["definition", b"definition"]) -> typing_extensions.Literal["inlined", "instance", "ref", "name"] | None: ...
+
+global___DeliveryExtensionDependency = DeliveryExtensionDependency
+
 class DeliveryExtensionConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -488,7 +528,7 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         """Reference to a delivery extension defined externally."""
     lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType
     @property
-    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]:
+    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionDependency]:
         """a list of other delivery extensions that must be executed before this one"""
     def __init__(
         self,
@@ -497,7 +537,7 @@ class DeliveryExtensionConfig(google.protobuf.message.Message):
         instance: builtins.str = ...,
         ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
         lifecycle: prodvana.proto.prodvana.common_config.task_pb2.TaskLifecycle.ValueType = ...,
-        dependencies: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
+        dependencies: collections.abc.Iterable[global___DeliveryExtensionDependency] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "instance", b"instance", "ref", b"ref"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "dependencies", b"dependencies", "inlined", b"inlined", "instance", b"instance", "lifecycle", b"lifecycle", "ref", b"ref"]) -> None: ...
@@ -520,7 +560,7 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
         """Reference to a delivery extension defined externally."""
     name: builtins.str
     @property
-    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionConfig]:
+    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionDependency]:
         """a list of other delivery extensions that must be executed before this one"""
     def __init__(
         self,
@@ -528,7 +568,7 @@ class DeliveryExtensionInstance(google.protobuf.message.Message):
         inlined: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionConfig | None = ...,
         ref: prodvana.proto.prodvana.delivery_extension.config_pb2.DeliveryExtensionInstanceRef | None = ...,
         name: builtins.str = ...,
-        dependencies: collections.abc.Iterable[global___DeliveryExtensionConfig] | None = ...,
+        dependencies: collections.abc.Iterable[global___DeliveryExtensionDependency] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["definition", b"definition", "inlined", b"inlined", "ref", b"ref"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["definition", b"definition", "dependencies", b"dependencies", "inlined", b"inlined", "name", b"name", "ref", b"ref"]) -> None: ...

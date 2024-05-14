@@ -560,7 +560,7 @@ func expandConvergenceExtension(ctx context.Context, cfgFile *utils.ConfigFile, 
 		}
 	}
 	for _, dep := range cfg.Dependencies {
-		err := expandConvergenceExtension(ctx, cfgFile, dep)
+		err := expandConvergenceExtensionDependency(ctx, cfgFile, dep)
 		if err != nil {
 			return err
 		}
@@ -577,9 +577,26 @@ func expandConvergenceExtensionInstance(ctx context.Context, cfgFile *utils.Conf
 		}
 	}
 	for _, dep := range cfg.Dependencies {
-		err := expandConvergenceExtension(ctx, cfgFile, dep)
+		err := expandConvergenceExtensionDependency(ctx, cfgFile, dep)
 		if err != nil {
 			return err
+		}
+	}
+	return nil
+}
+
+func expandConvergenceExtensionDependency(ctx context.Context, cfgFile *utils.ConfigFile, cfg *service_pb.DeliveryExtensionDependency) error {
+	switch inner := cfg.Definition.(type) {
+	case *service_pb.DeliveryExtensionDependency_Inlined:
+		err := expandDeliveryExtensionConfig(ctx, cfgFile, inner.Inlined)
+		if err != nil {
+			return err
+		}
+		for _, dep := range cfg.Dependencies {
+			err := expandConvergenceExtensionDependency(ctx, cfgFile, dep)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
