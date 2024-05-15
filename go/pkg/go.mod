@@ -14,7 +14,7 @@ replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../prodvana-sdk
 
 require (
 	cloud.google.com/go/spanner v1.61.0
-	github.com/aws/aws-sdk-go v1.52.1
+	github.com/aws/aws-sdk-go v1.53.2
 	github.com/charmbracelet/bubbles v0.18.0
 	github.com/charmbracelet/bubbletea v0.26.2
 	github.com/charmbracelet/lipgloss v0.10.0
