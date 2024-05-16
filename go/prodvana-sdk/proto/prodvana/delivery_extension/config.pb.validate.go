@@ -57,10 +57,10 @@ func (m *DeliveryExtensionConfig) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetName()); l < 0 || l > 63 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
 		err := DeliveryExtensionConfigValidationError{
 			field:  "Name",
-			reason: "value length must be between 0 and 63 runes, inclusive",
+			reason: "value length must be between 1 and 63 runes, inclusive",
 		}
 		if !all {
 			return err

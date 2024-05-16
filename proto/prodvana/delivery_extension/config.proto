@@ -20,7 +20,7 @@ enum Type {
 message DeliveryExtensionConfig {
     string name = 1 [
         (validate.rules).string = {
-            min_len: 0,  // name not requried when inlined
+            min_len: 1,
             max_len: 63,
             pattern: '^[a-z]?([a-z0-9-]*[a-z0-9]){0,1}$',
         }
