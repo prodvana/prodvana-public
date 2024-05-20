@@ -8,8 +8,8 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
 	google.golang.org/grpc v1.63.2 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
-	k8s.io/apimachinery v0.30.0 // indirect
-	k8s.io/client-go v0.30.0
+	k8s.io/apimachinery v0.30.1 // indirect
+	k8s.io/client-go v0.30.1
 )
 
 replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../../prodvana-sdk
@@ -80,7 +80,7 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.51.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	k8s.io/api v0.30.0 // indirect
+	k8s.io/api v0.30.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
