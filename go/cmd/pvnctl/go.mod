@@ -142,7 +142,7 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.51.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
-	k8s.io/api v0.30.0
+	k8s.io/api v0.30.1
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
