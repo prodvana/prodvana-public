@@ -40,7 +40,6 @@ class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     UNKNOWN: _Type.ValueType  # 0
     SERVICE: _Type.ValueType  # 1
     SERVICE_INSTANCE: _Type.ValueType  # 2
-    SERVICE_GROUP: _Type.ValueType  # 3
     RUNTIME_OBJECT: _Type.ValueType  # 4
     MANUAL_APPROVAL: _Type.ValueType  # 5
     CUSTOM_TASK: _Type.ValueType  # 6
@@ -53,7 +52,6 @@ class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
 UNKNOWN: Type.ValueType  # 0
 SERVICE: Type.ValueType  # 1
 SERVICE_INSTANCE: Type.ValueType  # 2
-SERVICE_GROUP: Type.ValueType  # 3
 RUNTIME_OBJECT: Type.ValueType  # 4
 MANUAL_APPROVAL: Type.ValueType  # 5
 CUSTOM_TASK: Type.ValueType  # 6
@@ -895,35 +893,6 @@ class ServiceInstanceLabelSelector(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["selector_oneof", b"selector_oneof"]) -> typing_extensions.Literal["release_channel_selector", "all"] | None: ...
 
 global___ServiceInstanceLabelSelector = ServiceInstanceLabelSelector
-
-class ServiceGroupState(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    META_FIELD_NUMBER: builtins.int
-    SERVICES_FIELD_NUMBER: builtins.int
-    CUSTOM_TASKS_FIELD_NUMBER: builtins.int
-    DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def meta(self) -> global___Metadata: ...
-    @property
-    def services(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ServiceState]: ...
-    @property
-    def custom_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomTaskState]:
-        """Definitions for custom tasks used by this service group."""
-    @property
-    def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionState]: ...
-    def __init__(
-        self,
-        *,
-        meta: global___Metadata | None = ...,
-        services: collections.abc.Iterable[global___ServiceState] | None = ...,
-        custom_tasks: collections.abc.Iterable[global___CustomTaskState] | None = ...,
-        delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionState] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "services", b"services"]) -> None: ...
-
-global___ServiceGroupState = ServiceGroupState
 
 class CanaryProgressState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1918,7 +1887,6 @@ class State(google.protobuf.message.Message):
 
     SERVICE_FIELD_NUMBER: builtins.int
     SERVICE_INSTANCE_FIELD_NUMBER: builtins.int
-    SERVICE_GROUP_FIELD_NUMBER: builtins.int
     RUNTIME_OBJECT_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
     CUSTOM_TASK_FIELD_NUMBER: builtins.int
@@ -1929,8 +1897,6 @@ class State(google.protobuf.message.Message):
     def service(self) -> global___ServiceState: ...
     @property
     def service_instance(self) -> global___ServiceInstanceState: ...
-    @property
-    def service_group(self) -> global___ServiceGroupState: ...
     @property
     def runtime_object(self) -> global___RuntimeObject: ...
     @property
@@ -1948,7 +1914,6 @@ class State(google.protobuf.message.Message):
         *,
         service: global___ServiceState | None = ...,
         service_instance: global___ServiceInstanceState | None = ...,
-        service_group: global___ServiceGroupState | None = ...,
         runtime_object: global___RuntimeObject | None = ...,
         manual_approval: global___ManualApprovalState | None = ...,
         custom_task: global___CustomTaskState | None = ...,
@@ -1956,9 +1921,9 @@ class State(google.protobuf.message.Message):
         protection_link: global___ProtectionLinkState | None = ...,
         delivery_extension: global___DeliveryExtensionState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_group", b"service_group", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "service_group", "runtime_object", "manual_approval", "custom_task", "protection_attachment", "protection_link", "delivery_extension"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "runtime_object", "manual_approval", "custom_task", "protection_attachment", "protection_link", "delivery_extension"] | None: ...
 
 global___State = State
 

@@ -21,13 +21,15 @@ enum Type {
     UNKNOWN = 0;
     SERVICE = 1;
     SERVICE_INSTANCE = 2;
-    SERVICE_GROUP = 3;
     RUNTIME_OBJECT = 4;
     MANUAL_APPROVAL = 5;
     CUSTOM_TASK = 6;
     PROTECTION_ATTACHMENT = 7;
     PROTECTION_LINK = 8;
     DELIVERY_EXTENSION = 9;
+
+    reserved 3;
+    reserved "SERVICE_GROUP";
 }
 
 enum CustomTaskType {
@@ -323,16 +325,6 @@ message ServiceInstanceLabelSelector {
     // set internally by Prodvana in compiled desired state to track what this selector evaluated to. This includes all release channels,
     // including ones that would be overridden by something else.
     repeated string materialized_release_channels = 6;
-}
-
-message ServiceGroupState {
-    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
-    repeated ServiceState services = 2;
-    // Definitions for custom tasks used by this service group.
-    repeated CustomTaskState custom_tasks = 3;
-    repeated DeliveryExtensionState delivery_extensions = 5;
-    reserved 4;
-    // next tag: 6
 }
 
 message CanaryProgressState {
@@ -696,7 +688,6 @@ message State {
     oneof state_oneof {
         ServiceState service = 1;
         ServiceInstanceState service_instance = 2;
-        ServiceGroupState service_group = 3;
         RuntimeObject runtime_object = 4;
         ManualApprovalState manual_approval = 5;
         CustomTaskState custom_task = 6;
@@ -704,6 +695,8 @@ message State {
         ProtectionLinkState protection_link = 8;
         DeliveryExtensionState delivery_extension = 9;
     }
+    reserved 3;
+    reserved "service_group";
 }
 
 message Annotations {

@@ -27,18 +27,6 @@ def get_target_image_tags_for_desired_state(
                 )
             )
 
-    if summary.desired_state.HasField("service_group"):
-        service_group = summary.desired_state.service_group
-        for service in service_group.services:
-            for rc in service.release_channels:
-                target_versions.add(
-                    ServiceVersion(
-                        application=service.application,
-                        service=service.service,
-                        version=rc.versions[0].version,
-                    )
-                )
-
     images = set[str]()
     for version in target_versions:
         this_images = get_image_tags_from_service_version(

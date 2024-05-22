@@ -3209,7 +3209,6 @@
               "UNKNOWN",
               "SERVICE",
               "SERVICE_INSTANCE",
-              "SERVICE_GROUP",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
               "CUSTOM_TASK",
@@ -3279,7 +3278,6 @@
               "UNKNOWN",
               "SERVICE",
               "SERVICE_INSTANCE",
-              "SERVICE_GROUP",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
               "CUSTOM_TASK",
@@ -3361,7 +3359,6 @@
               "UNKNOWN",
               "SERVICE",
               "SERVICE_INSTANCE",
-              "SERVICE_GROUP",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
               "CUSTOM_TASK",
@@ -3698,7 +3695,6 @@
               "UNKNOWN",
               "SERVICE",
               "SERVICE_INSTANCE",
-              "SERVICE_GROUP",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
               "CUSTOM_TASK",
@@ -11270,7 +11266,6 @@
         "UNKNOWN",
         "SERVICE",
         "SERVICE_INSTANCE",
-        "SERVICE_GROUP",
         "RUNTIME_OBJECT",
         "MANUAL_APPROVAL",
         "CUSTOM_TASK",
@@ -14477,36 +14472,6 @@
       ],
       "default": "PENDING"
     },
-    "modelServiceGroupState": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/desired_statemodelMetadata"
-        },
-        "services": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/desired_statemodelServiceState"
-          }
-        },
-        "customTasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/modelCustomTaskState"
-          },
-          "description": "Definitions for custom tasks used by this service group."
-        },
-        "deliveryExtensions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/desired_statemodelDeliveryExtensionState"
-          }
-        }
-      }
-    },
     "modelServiceInstanceLabelSelector": {
       "type": "object",
       "properties": {
@@ -14587,9 +14552,6 @@
         },
         "serviceInstance": {
           "$ref": "#/definitions/desired_statemodelServiceInstanceState"
-        },
-        "serviceGroup": {
-          "$ref": "#/definitions/modelServiceGroupState"
         },
         "runtimeObject": {
           "$ref": "#/definitions/desired_statemodelRuntimeObject"

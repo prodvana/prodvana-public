@@ -9,8 +9,6 @@ func GetMeta(state *ds_model_pb.State) (*ds_model_pb.Metadata, error) {
 	switch inner := state.StateOneof.(type) {
 	case *ds_model_pb.State_Service:
 		return inner.Service.Meta, nil
-	case *ds_model_pb.State_ServiceGroup:
-		return inner.ServiceGroup.Meta, nil
 	case *ds_model_pb.State_ServiceInstance:
 		return inner.ServiceInstance.Meta, nil
 	case *ds_model_pb.State_CustomTask:

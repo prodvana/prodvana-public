@@ -573,44 +573,6 @@ func (m *ServiceInstanceLabelSelector_ComputeRollbackVersion) CloneVT() isServic
 	return r
 }
 
-func (m *ServiceGroupState) CloneVT() *ServiceGroupState {
-	if m == nil {
-		return (*ServiceGroupState)(nil)
-	}
-	r := new(ServiceGroupState)
-	r.Meta = m.Meta.CloneVT()
-	if rhs := m.Services; rhs != nil {
-		tmpContainer := make([]*ServiceState, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.Services = tmpContainer
-	}
-	if rhs := m.CustomTasks; rhs != nil {
-		tmpContainer := make([]*CustomTaskState, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.CustomTasks = tmpContainer
-	}
-	if rhs := m.DeliveryExtensions; rhs != nil {
-		tmpContainer := make([]*DeliveryExtensionState, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.DeliveryExtensions = tmpContainer
-	}
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *ServiceGroupState) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
 func (m *CanaryProgressState) CloneVT() *CanaryProgressState {
 	if m == nil {
 		return (*CanaryProgressState)(nil)
@@ -1260,15 +1222,6 @@ func (m *State_ServiceInstance) CloneVT() isState_StateOneof {
 	}
 	r := new(State_ServiceInstance)
 	r.ServiceInstance = m.ServiceInstance.CloneVT()
-	return r
-}
-
-func (m *State_ServiceGroup) CloneVT() isState_StateOneof {
-	if m == nil {
-		return (*State_ServiceGroup)(nil)
-	}
-	r := new(State_ServiceGroup)
-	r.ServiceGroup = m.ServiceGroup.CloneVT()
 	return r
 }
 
@@ -4100,143 +4053,6 @@ func (this *ServiceInstanceLabelSelector_ComputeRollbackVersion) EqualVT(thatIfa
 	return true
 }
 
-func (this *ServiceGroupState) StableEqualVT(that *ServiceGroupState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if len(this.Services) != len(that.Services) {
-		return false
-	}
-	for i, vx := range this.Services {
-		vy := that.Services[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &ServiceState{}
-			}
-			if q == nil {
-				q = &ServiceState{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.CustomTasks) != len(that.CustomTasks) {
-		return false
-	}
-	for i, vx := range this.CustomTasks {
-		vy := that.CustomTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &CustomTaskState{}
-			}
-			if q == nil {
-				q = &CustomTaskState{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
-		return false
-	}
-	for i, vx := range this.DeliveryExtensions {
-		vy := that.DeliveryExtensions[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &DeliveryExtensionState{}
-			}
-			if q == nil {
-				q = &DeliveryExtensionState{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *ServiceGroupState) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*ServiceGroupState)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *ServiceGroupState) EqualVT(that *ServiceGroupState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if !this.Meta.EqualVT(that.Meta) {
-		return false
-	}
-	if len(this.Services) != len(that.Services) {
-		return false
-	}
-	for i, vx := range this.Services {
-		vy := that.Services[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &ServiceState{}
-			}
-			if q == nil {
-				q = &ServiceState{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.CustomTasks) != len(that.CustomTasks) {
-		return false
-	}
-	for i, vx := range this.CustomTasks {
-		vy := that.CustomTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &CustomTaskState{}
-			}
-			if q == nil {
-				q = &CustomTaskState{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
-		return false
-	}
-	for i, vx := range this.DeliveryExtensions {
-		vy := that.DeliveryExtensions[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &DeliveryExtensionState{}
-			}
-			if q == nil {
-				q = &DeliveryExtensionState{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *ServiceGroupState) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*ServiceGroupState)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
 func (this *CanaryProgressState) StableEqualVT(that *CanaryProgressState) bool {
 	if this == that {
 		return true
@@ -6299,31 +6115,6 @@ func (this *State_ServiceInstance) StableEqualVT(thatIface isState_StateOneof) b
 	return true
 }
 
-func (this *State_ServiceGroup) StableEqualVT(thatIface isState_StateOneof) bool {
-	that, ok := thatIface.(*State_ServiceGroup)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.ServiceGroup, that.ServiceGroup; p != q {
-		if p == nil {
-			p = &ServiceGroupState{}
-		}
-		if q == nil {
-			q = &ServiceGroupState{}
-		}
-		if !p.StableEqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *State_RuntimeObject) StableEqualVT(thatIface isState_StateOneof) bool {
 	that, ok := thatIface.(*State_RuntimeObject)
 	if !ok {
@@ -6542,31 +6333,6 @@ func (this *State_ServiceInstance) EqualVT(thatIface isState_StateOneof) bool {
 		}
 		if q == nil {
 			q = &ServiceInstanceState{}
-		}
-		if !p.EqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
-func (this *State_ServiceGroup) EqualVT(thatIface isState_StateOneof) bool {
-	that, ok := thatIface.(*State_ServiceGroup)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.ServiceGroup, that.ServiceGroup; p != q {
-		if p == nil {
-			p = &ServiceGroupState{}
-		}
-		if q == nil {
-			q = &ServiceGroupState{}
 		}
 		if !p.EqualVT(q) {
 			return false
