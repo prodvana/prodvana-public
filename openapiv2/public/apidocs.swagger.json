@@ -11112,6 +11112,10 @@
           "$ref": "#/definitions/modelTaskRun",
           "title": "For entities that run jobs/tasks multiple times, what is the most recent status we have?"
         },
+        "lastTaskRun": {
+          "$ref": "#/definitions/modelTaskRun",
+          "title": "For entities that run jobs/tasks multiple times, what is the most recent created run?"
+        },
         "externalLinks": {
           "type": "array",
           "items": {
@@ -14559,7 +14563,8 @@
         "RUNTIME_EXTENSION_APPROVAL",
         "SIGNAL_MANUAL_APPROVAL",
         "RELEASE_CHANNEL_BYPASS",
-        "CONCURRENCY_LIMIT_BYPASS"
+        "CONCURRENCY_LIMIT_BYPASS",
+        "FORCE_EXECUTE_TASK"
       ],
       "default": "SIGNAL_UNKNOWN"
     },

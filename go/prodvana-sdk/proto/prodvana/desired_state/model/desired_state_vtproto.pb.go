@@ -918,6 +918,7 @@ func (m *RuntimeObject) CloneVT() *RuntimeObject {
 	r.RawConfig = m.RawConfig
 	r.ManagementStatus = m.ManagementStatus
 	r.LastCompletedTaskRun = m.LastCompletedTaskRun.CloneVT()
+	r.LastTaskRun = m.LastTaskRun.CloneVT()
 	r.Rollback = m.Rollback
 	if rhs := m.Versions; rhs != nil {
 		tmpContainer := make([]*Version, len(rhs))
@@ -1651,6 +1652,22 @@ func (m *Signal_ConcurrencyLimitBypass) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *Signal_ForceExecuteTask) CloneVT() *Signal_ForceExecuteTask {
+	if m == nil {
+		return (*Signal_ForceExecuteTask)(nil)
+	}
+	r := new(Signal_ForceExecuteTask)
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *Signal_ForceExecuteTask) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *Signal) CloneVT() *Signal {
 	if m == nil {
 		return (*Signal)(nil)
@@ -1713,6 +1730,15 @@ func (m *Signal_ConcurrencyLimitBypass_) CloneVT() isSignal_Config {
 	}
 	r := new(Signal_ConcurrencyLimitBypass_)
 	r.ConcurrencyLimitBypass = m.ConcurrencyLimitBypass.CloneVT()
+	return r
+}
+
+func (m *Signal_ForceExecuteTask_) CloneVT() isSignal_Config {
+	if m == nil {
+		return (*Signal_ForceExecuteTask_)(nil)
+	}
+	r := new(Signal_ForceExecuteTask_)
+	r.ForceExecuteTask = m.ForceExecuteTask.CloneVT()
 	return r
 }
 
@@ -5100,6 +5126,9 @@ func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
 	if this.ApplyId != that.ApplyId {
 		return false
 	}
+	if !this.LastTaskRun.StableEqualVT(that.LastTaskRun) {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -5373,6 +5402,9 @@ func (this *RuntimeObject) EqualVT(that *RuntimeObject) bool {
 		return false
 	}
 	if this.ApplyId != that.ApplyId {
+		return false
+	}
+	if !this.LastTaskRun.EqualVT(that.LastTaskRun) {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -7610,6 +7642,22 @@ func (this *Signal_ConcurrencyLimitBypass) StableEqualMessageVT(thatMsg proto.Me
 	}
 	return this.StableEqualVT(that)
 }
+func (this *Signal_ForceExecuteTask) StableEqualVT(that *Signal_ForceExecuteTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Signal_ForceExecuteTask) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Signal_ForceExecuteTask)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Signal) StableEqualVT(that *Signal) bool {
 	if this == that {
 		return true
@@ -7764,6 +7812,31 @@ func (this *Signal_ConcurrencyLimitBypass_) StableEqualVT(thatIface isSignal_Con
 	return true
 }
 
+func (this *Signal_ForceExecuteTask_) StableEqualVT(thatIface isSignal_Config) bool {
+	that, ok := thatIface.(*Signal_ForceExecuteTask_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ForceExecuteTask, that.ForceExecuteTask; p != q {
+		if p == nil {
+			p = &Signal_ForceExecuteTask{}
+		}
+		if q == nil {
+			q = &Signal_ForceExecuteTask{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Signal_DeliveryPromotionConfig) EqualVT(that *Signal_DeliveryPromotionConfig) bool {
 	if this == that {
 		return true
@@ -7866,6 +7939,22 @@ func (this *Signal_ConcurrencyLimitBypass) EqualVT(that *Signal_ConcurrencyLimit
 
 func (this *Signal_ConcurrencyLimitBypass) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*Signal_ConcurrencyLimitBypass)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Signal_ForceExecuteTask) EqualVT(that *Signal_ForceExecuteTask) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Signal_ForceExecuteTask) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Signal_ForceExecuteTask)
 	if !ok {
 		return false
 	}
@@ -8017,6 +8106,31 @@ func (this *Signal_ConcurrencyLimitBypass_) EqualVT(thatIface isSignal_Config) b
 		}
 		if q == nil {
 			q = &Signal_ConcurrencyLimitBypass{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Signal_ForceExecuteTask_) EqualVT(thatIface isSignal_Config) bool {
+	that, ok := thatIface.(*Signal_ForceExecuteTask_)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ForceExecuteTask, that.ForceExecuteTask; p != q {
+		if p == nil {
+			p = &Signal_ForceExecuteTask{}
+		}
+		if q == nil {
+			q = &Signal_ForceExecuteTask{}
 		}
 		if !p.EqualVT(q) {
 			return false

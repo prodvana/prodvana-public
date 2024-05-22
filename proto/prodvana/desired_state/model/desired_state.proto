@@ -565,6 +565,7 @@ message RuntimeObject {
     ManagementStatus management_status = 25;
 
     TaskRun last_completed_task_run = 27; // For entities that run jobs/tasks multiple times, what is the most recent status we have?
+    TaskRun last_task_run = 35; // For entities that run jobs/tasks multiple times, what is the most recent created run?
 
     repeated prodvana.common_config.ExternalLink external_links = 28;
 
@@ -573,7 +574,7 @@ message RuntimeObject {
 
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 35
+    // next tag: 36
 }
 
 enum ConditionStatus {
@@ -846,6 +847,7 @@ enum SignalType {
     SIGNAL_MANUAL_APPROVAL = 4;
     RELEASE_CHANNEL_BYPASS = 5;
     CONCURRENCY_LIMIT_BYPASS = 6;
+    FORCE_EXECUTE_TASK = 7;
 }
 
 message Signal {
@@ -880,12 +882,16 @@ message Signal {
     message ConcurrencyLimitBypass {
     }
 
+    message ForceExecuteTask {
+    }
+
     oneof config {
         DeliveryPromotionConfig delivery_promotion = 2;
         ProtectionBypass protection_bypass = 3;
         RuntimeExtensionApproval runtime_extension_approval = 4;
         ReleaseChannelBypass release_channel_bypass = 5;
         ConcurrencyLimitBypass concurrency_limit_bypass = 6;
+        ForceExecuteTask force_execute_task = 7;
     }
 }
 

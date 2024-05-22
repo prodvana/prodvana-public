@@ -329,6 +329,7 @@ class _SignalTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     SIGNAL_MANUAL_APPROVAL: _SignalType.ValueType  # 4
     RELEASE_CHANNEL_BYPASS: _SignalType.ValueType  # 5
     CONCURRENCY_LIMIT_BYPASS: _SignalType.ValueType  # 6
+    FORCE_EXECUTE_TASK: _SignalType.ValueType  # 7
 
 class SignalType(_SignalType, metaclass=_SignalTypeEnumTypeWrapper): ...
 
@@ -339,6 +340,7 @@ RUNTIME_EXTENSION_APPROVAL: SignalType.ValueType  # 3
 SIGNAL_MANUAL_APPROVAL: SignalType.ValueType  # 4
 RELEASE_CHANNEL_BYPASS: SignalType.ValueType  # 5
 CONCURRENCY_LIMIT_BYPASS: SignalType.ValueType  # 6
+FORCE_EXECUTE_TASK: SignalType.ValueType  # 7
 global___SignalType = SignalType
 
 class ProtectionLink(google.protobuf.message.Message):
@@ -1492,6 +1494,7 @@ class RuntimeObject(google.protobuf.message.Message):
     RAW_CONFIG_FIELD_NUMBER: builtins.int
     MANAGEMENT_STATUS_FIELD_NUMBER: builtins.int
     LAST_COMPLETED_TASK_RUN_FIELD_NUMBER: builtins.int
+    LAST_TASK_RUN_FIELD_NUMBER: builtins.int
     EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     EXTERNAL_OBJECTS_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
@@ -1546,6 +1549,9 @@ class RuntimeObject(google.protobuf.message.Message):
     def last_completed_task_run(self) -> global___TaskRun:
         """For entities that run jobs/tasks multiple times, what is the most recent status we have?"""
     @property
+    def last_task_run(self) -> global___TaskRun:
+        """For entities that run jobs/tasks multiple times, what is the most recent created run?"""
+    @property
     def external_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink]: ...
     @property
     def external_objects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject]:
@@ -1579,12 +1585,13 @@ class RuntimeObject(google.protobuf.message.Message):
         raw_config: builtins.str = ...,
         management_status: global___RuntimeObject.ManagementStatus.ValueType = ...,
         last_completed_task_run: global___TaskRun | None = ...,
+        last_task_run: global___TaskRun | None = ...,
         external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
         external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
         rollback: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "last_task_run", b"last_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "last_task_run", b"last_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 
@@ -2378,12 +2385,20 @@ class Signal(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
+    class ForceExecuteTask(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        def __init__(
+            self,
+        ) -> None: ...
+
     TYPE_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
     PROTECTION_BYPASS_FIELD_NUMBER: builtins.int
     RUNTIME_EXTENSION_APPROVAL_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_BYPASS_FIELD_NUMBER: builtins.int
     CONCURRENCY_LIMIT_BYPASS_FIELD_NUMBER: builtins.int
+    FORCE_EXECUTE_TASK_FIELD_NUMBER: builtins.int
     type: global___SignalType.ValueType
     @property
     def delivery_promotion(self) -> global___Signal.DeliveryPromotionConfig: ...
@@ -2395,6 +2410,8 @@ class Signal(google.protobuf.message.Message):
     def release_channel_bypass(self) -> global___Signal.ReleaseChannelBypass: ...
     @property
     def concurrency_limit_bypass(self) -> global___Signal.ConcurrencyLimitBypass: ...
+    @property
+    def force_execute_task(self) -> global___Signal.ForceExecuteTask: ...
     def __init__(
         self,
         *,
@@ -2404,10 +2421,11 @@ class Signal(google.protobuf.message.Message):
         runtime_extension_approval: global___Signal.RuntimeExtensionApproval | None = ...,
         release_channel_bypass: global___Signal.ReleaseChannelBypass | None = ...,
         concurrency_limit_bypass: global___Signal.ConcurrencyLimitBypass | None = ...,
+        force_execute_task: global___Signal.ForceExecuteTask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval", "release_channel_bypass", "concurrency_limit_bypass"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "force_execute_task", b"force_execute_task", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["concurrency_limit_bypass", b"concurrency_limit_bypass", "config", b"config", "delivery_promotion", b"delivery_promotion", "force_execute_task", b"force_execute_task", "protection_bypass", b"protection_bypass", "release_channel_bypass", b"release_channel_bypass", "runtime_extension_approval", b"runtime_extension_approval", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["config", b"config"]) -> typing_extensions.Literal["delivery_promotion", "protection_bypass", "runtime_extension_approval", "release_channel_bypass", "concurrency_limit_bypass", "force_execute_task"] | None: ...
 
 global___Signal = Signal
 
