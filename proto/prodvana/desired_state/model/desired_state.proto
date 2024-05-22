@@ -564,9 +564,11 @@ message RuntimeObject {
     repeated prodvana.runtimes.extensions.ExternalObject external_objects = 30;  // external objects tracked by this runtime, not represented in entity graph but useful to display to users
     bool rollback = 32;
 
+    bool job_deleted = 36; // for Kubernetes Jobs only, if the job has since been deleted from the cluster but we are showing a snapshot of what it was
+
     reserved 9, 11, 14, 16, 17, 22;
     reserved "unhealthy_pods", "state_hash", "missing_approval", "timeout";
-    // next tag: 36
+    // next tag: 37
 }
 
 enum ConditionStatus {

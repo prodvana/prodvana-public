@@ -1467,6 +1467,7 @@ class RuntimeObject(google.protobuf.message.Message):
     EXTERNAL_LINKS_FIELD_NUMBER: builtins.int
     EXTERNAL_OBJECTS_FIELD_NUMBER: builtins.int
     ROLLBACK_FIELD_NUMBER: builtins.int
+    JOB_DELETED_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___Metadata: ...
     object_type: builtins.str
@@ -1526,6 +1527,8 @@ class RuntimeObject(google.protobuf.message.Message):
     def external_objects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject]:
         """external objects tracked by this runtime, not represented in entity graph but useful to display to users"""
     rollback: builtins.bool
+    job_deleted: builtins.bool
+    """for Kubernetes Jobs only, if the job has since been deleted from the cluster but we are showing a snapshot of what it was"""
     def __init__(
         self,
         *,
@@ -1558,9 +1561,10 @@ class RuntimeObject(google.protobuf.message.Message):
         external_links: collections.abc.Iterable[prodvana.proto.prodvana.common_config.external_link_pb2.ExternalLink] | None = ...,
         external_objects: collections.abc.Iterable[prodvana.proto.prodvana.runtimes.extensions.fetch_pb2.ExternalObject] | None = ...,
         rollback: builtins.bool = ...,
+        job_deleted: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delivery", b"delivery", "fetch_version", b"fetch_version", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "last_task_run", b"last_task_run", "meta", b"meta", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "steady_state_interval", b"steady_state_interval"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "last_completed_task_run", b"last_completed_task_run", "last_task_run", b"last_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_id", b"apply_id", "debug_events", b"debug_events", "delivery", b"delivery", "desired_version_dirty_only", b"desired_version_dirty_only", "exit_codes", b"exit_codes", "external_links", b"external_links", "external_objects", b"external_objects", "fetch_version", b"fetch_version", "generate_name", b"generate_name", "interval", b"interval", "job_deleted", b"job_deleted", "last_completed_task_run", b"last_completed_task_run", "last_task_run", b"last_task_run", "management_status", b"management_status", "message", b"message", "meta", b"meta", "name", b"name", "namespace", b"namespace", "needs_apply", b"needs_apply", "object_type", b"object_type", "output_blob_ids", b"output_blob_ids", "raw_config", b"raw_config", "require_approval_before_apply", b"require_approval_before_apply", "rollback", b"rollback", "rollback_version", b"rollback_version", "runtime_extension", b"runtime_extension", "status", b"status", "steady_state_interval", b"steady_state_interval", "version_agnostic", b"version_agnostic", "versions", b"versions"]) -> None: ...
 
 global___RuntimeObject = RuntimeObject
 

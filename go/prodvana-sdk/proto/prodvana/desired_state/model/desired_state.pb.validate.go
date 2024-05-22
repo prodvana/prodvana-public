@@ -4639,6 +4639,8 @@ func (m *RuntimeObject) validate(all bool) error {
 
 	// no validation rules for Rollback
 
+	// no validation rules for JobDeleted
+
 	if len(errors) > 0 {
 		return RuntimeObjectMultiError(errors)
 	}

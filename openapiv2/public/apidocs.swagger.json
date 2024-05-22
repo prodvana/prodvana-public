@@ -11129,6 +11129,10 @@
         },
         "rollback": {
           "type": "boolean"
+        },
+        "jobDeleted": {
+          "type": "boolean",
+          "title": "for Kubernetes Jobs only, if the job has since been deleted from the cluster but we are showing a snapshot of what it was"
         }
       }
     },

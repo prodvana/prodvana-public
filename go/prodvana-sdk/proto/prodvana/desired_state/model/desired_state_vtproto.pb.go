@@ -882,6 +882,7 @@ func (m *RuntimeObject) CloneVT() *RuntimeObject {
 	r.LastCompletedTaskRun = m.LastCompletedTaskRun.CloneVT()
 	r.LastTaskRun = m.LastTaskRun.CloneVT()
 	r.Rollback = m.Rollback
+	r.JobDeleted = m.JobDeleted
 	if rhs := m.Versions; rhs != nil {
 		tmpContainer := make([]*Version, len(rhs))
 		for k, v := range rhs {
@@ -4945,6 +4946,9 @@ func (this *RuntimeObject) StableEqualVT(that *RuntimeObject) bool {
 	if !this.LastTaskRun.StableEqualVT(that.LastTaskRun) {
 		return false
 	}
+	if this.JobDeleted != that.JobDeleted {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -5221,6 +5225,9 @@ func (this *RuntimeObject) EqualVT(that *RuntimeObject) bool {
 		return false
 	}
 	if !this.LastTaskRun.EqualVT(that.LastTaskRun) {
+		return false
+	}
+	if this.JobDeleted != that.JobDeleted {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
