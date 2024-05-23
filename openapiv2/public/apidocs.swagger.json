@@ -3300,6 +3300,38 @@
         ]
       }
     },
+    "/v1/desired_states/force_execute_task": {
+      "post": {
+        "operationId": "DesiredStateManager_ForceExecuteTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateForceExecuteTaskResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/desired_stateForceExecuteTaskReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
     "/v1/desired_states/graph": {
       "post": {
         "operationId": "DesiredStateManager_GetDesiredStateGraph",
@@ -10332,6 +10364,26 @@
           "title": "will only be set if desired state has been replaced"
         }
       }
+    },
+    "desired_stateForceExecuteTaskReq": {
+      "type": "object",
+      "properties": {
+        "desiredStateId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "callSource": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        }
+      }
+    },
+    "desired_stateForceExecuteTaskResp": {
+      "type": "object"
     },
     "desired_stateGetDesiredStateConvergenceSummaryResp": {
       "type": "object",

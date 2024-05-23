@@ -1090,6 +1090,40 @@ class BypassConcurrencyLimitResp(google.protobuf.message.Message):
 
 global___BypassConcurrencyLimitResp = BypassConcurrencyLimitResp
 
+class ForceExecuteTaskReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    SOURCE_FIELD_NUMBER: builtins.int
+    CALL_SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    source: builtins.str
+    call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        source: builtins.str = ...,
+        call_source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_source", b"call_source", "desired_state_id", b"desired_state_id", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+
+global___ForceExecuteTaskReq = ForceExecuteTaskReq
+
+class ForceExecuteTaskResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ForceExecuteTaskResp = ForceExecuteTaskResp
+
 class ListMaestroReleasesReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

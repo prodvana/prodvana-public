@@ -36,6 +36,7 @@ const (
 	DesiredStateManager_BypassProtection_FullMethodName                            = "/prodvana.desired_state.DesiredStateManager/BypassProtection"
 	DesiredStateManager_BypassConcurrencyLimit_FullMethodName                      = "/prodvana.desired_state.DesiredStateManager/BypassConcurrencyLimit"
 	DesiredStateManager_BypassDependencies_FullMethodName                          = "/prodvana.desired_state.DesiredStateManager/BypassDependencies"
+	DesiredStateManager_ForceExecuteTask_FullMethodName                            = "/prodvana.desired_state.DesiredStateManager/ForceExecuteTask"
 	DesiredStateManager_ListMaestroReleases_FullMethodName                         = "/prodvana.desired_state.DesiredStateManager/ListMaestroReleases"
 	DesiredStateManager_GetMaestroRelease_FullMethodName                           = "/prodvana.desired_state.DesiredStateManager/GetMaestroRelease"
 	DesiredStateManager_ListCombinedReleases_FullMethodName                        = "/prodvana.desired_state.DesiredStateManager/ListCombinedReleases"
@@ -73,6 +74,7 @@ type DesiredStateManagerClient interface {
 	BypassProtection(ctx context.Context, in *BypassProtectionReq, opts ...grpc.CallOption) (*BypassProtectionResp, error)
 	BypassConcurrencyLimit(ctx context.Context, in *BypassConcurrencyLimitReq, opts ...grpc.CallOption) (*BypassConcurrencyLimitResp, error)
 	BypassDependencies(ctx context.Context, in *BypassDependenciesReq, opts ...grpc.CallOption) (*BypassDependenciesResp, error)
+	ForceExecuteTask(ctx context.Context, in *ForceExecuteTaskReq, opts ...grpc.CallOption) (*ForceExecuteTaskResp, error)
 	ListMaestroReleases(ctx context.Context, in *ListMaestroReleasesReq, opts ...grpc.CallOption) (*ListMaestroReleasesResp, error)
 	GetMaestroRelease(ctx context.Context, in *GetMaestroReleaseReq, opts ...grpc.CallOption) (*GetMaestroReleaseResp, error)
 	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
@@ -240,6 +242,15 @@ func (c *desiredStateManagerClient) BypassDependencies(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *desiredStateManagerClient) ForceExecuteTask(ctx context.Context, in *ForceExecuteTaskReq, opts ...grpc.CallOption) (*ForceExecuteTaskResp, error) {
+	out := new(ForceExecuteTaskResp)
+	err := c.cc.Invoke(ctx, DesiredStateManager_ForceExecuteTask_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *desiredStateManagerClient) ListMaestroReleases(ctx context.Context, in *ListMaestroReleasesReq, opts ...grpc.CallOption) (*ListMaestroReleasesResp, error) {
 	out := new(ListMaestroReleasesResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_ListMaestroReleases_FullMethodName, in, out, opts...)
@@ -339,6 +350,7 @@ type DesiredStateManagerServer interface {
 	BypassProtection(context.Context, *BypassProtectionReq) (*BypassProtectionResp, error)
 	BypassConcurrencyLimit(context.Context, *BypassConcurrencyLimitReq) (*BypassConcurrencyLimitResp, error)
 	BypassDependencies(context.Context, *BypassDependenciesReq) (*BypassDependenciesResp, error)
+	ForceExecuteTask(context.Context, *ForceExecuteTaskReq) (*ForceExecuteTaskResp, error)
 	ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error)
 	GetMaestroRelease(context.Context, *GetMaestroReleaseReq) (*GetMaestroReleaseResp, error)
 	// Get release history, where a release is either a Maestro Release or a Desired State from calling SetDesiredState
@@ -406,6 +418,9 @@ func (UnimplementedDesiredStateManagerServer) BypassConcurrencyLimit(context.Con
 }
 func (UnimplementedDesiredStateManagerServer) BypassDependencies(context.Context, *BypassDependenciesReq) (*BypassDependenciesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BypassDependencies not implemented")
+}
+func (UnimplementedDesiredStateManagerServer) ForceExecuteTask(context.Context, *ForceExecuteTaskReq) (*ForceExecuteTaskResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForceExecuteTask not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) ListMaestroReleases(context.Context, *ListMaestroReleasesReq) (*ListMaestroReleasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMaestroReleases not implemented")
@@ -732,6 +747,24 @@ func _DesiredStateManager_BypassDependencies_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DesiredStateManager_ForceExecuteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForceExecuteTaskReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DesiredStateManagerServer).ForceExecuteTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DesiredStateManager_ForceExecuteTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DesiredStateManagerServer).ForceExecuteTask(ctx, req.(*ForceExecuteTaskReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DesiredStateManager_ListMaestroReleases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListMaestroReleasesReq)
 	if err := dec(in); err != nil {
@@ -946,6 +979,10 @@ var DesiredStateManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BypassDependencies",
 			Handler:    _DesiredStateManager_BypassDependencies_Handler,
+		},
+		{
+			MethodName: "ForceExecuteTask",
+			Handler:    _DesiredStateManager_ForceExecuteTask_Handler,
 		},
 		{
 			MethodName: "ListMaestroReleases",

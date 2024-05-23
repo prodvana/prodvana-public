@@ -922,6 +922,42 @@ func (m *BypassConcurrencyLimitResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *ForceExecuteTaskReq) CloneVT() *ForceExecuteTaskReq {
+	if m == nil {
+		return (*ForceExecuteTaskReq)(nil)
+	}
+	r := new(ForceExecuteTaskReq)
+	r.DesiredStateId = m.DesiredStateId
+	r.Source = m.Source
+	r.CallSource = m.CallSource
+	r.SourceMetadata = m.SourceMetadata.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ForceExecuteTaskReq) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *ForceExecuteTaskResp) CloneVT() *ForceExecuteTaskResp {
+	if m == nil {
+		return (*ForceExecuteTaskResp)(nil)
+	}
+	r := new(ForceExecuteTaskResp)
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ForceExecuteTaskResp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *ListMaestroReleasesReq) CloneVT() *ListMaestroReleasesReq {
 	if m == nil {
 		return (*ListMaestroReleasesReq)(nil)
@@ -3892,6 +3928,94 @@ func (this *BypassConcurrencyLimitResp) EqualVT(that *BypassConcurrencyLimitResp
 
 func (this *BypassConcurrencyLimitResp) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*BypassConcurrencyLimitResp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ForceExecuteTaskReq) StableEqualVT(that *ForceExecuteTaskReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if this.CallSource != that.CallSource {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ForceExecuteTaskReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ForceExecuteTaskReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ForceExecuteTaskReq) EqualVT(that *ForceExecuteTaskReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if this.CallSource != that.CallSource {
+		return false
+	}
+	if !this.SourceMetadata.EqualVT(that.SourceMetadata) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ForceExecuteTaskReq) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ForceExecuteTaskReq)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ForceExecuteTaskResp) StableEqualVT(that *ForceExecuteTaskResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ForceExecuteTaskResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ForceExecuteTaskResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ForceExecuteTaskResp) EqualVT(that *ForceExecuteTaskResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ForceExecuteTaskResp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ForceExecuteTaskResp)
 	if !ok {
 		return false
 	}
