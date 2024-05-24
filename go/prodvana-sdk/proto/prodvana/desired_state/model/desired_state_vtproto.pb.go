@@ -268,6 +268,7 @@ func (m *Metadata) CloneVT() *Metadata {
 	r.DesiredStateId = m.DesiredStateId
 	r.RootDesiredStateId = m.RootDesiredStateId
 	r.ReleaseId = m.ReleaseId
+	r.TimingId = m.TimingId
 	r.TargetStateSetByParent = m.TargetStateSetByParent
 	r.RequireApprovalBeforeApply = m.RequireApprovalBeforeApply
 	r.AppliesInObserverMode = m.AppliesInObserverMode
@@ -2982,6 +2983,9 @@ func (this *Metadata) StableEqualVT(that *Metadata) bool {
 			}
 		}
 	}
+	if this.TimingId != that.TimingId {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -3123,6 +3127,9 @@ func (this *Metadata) EqualVT(that *Metadata) bool {
 				return false
 			}
 		}
+	}
+	if this.TimingId != that.TimingId {
+		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

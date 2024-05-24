@@ -10950,6 +10950,10 @@
         "releaseId": {
           "type": "string"
         },
+        "timingId": {
+          "type": "string",
+          "title": "if set, record timing metrics from when this entity had changes applied to when it either converged or failed the first time"
+        },
         "protectionLinks": {
           "type": "array",
           "items": {

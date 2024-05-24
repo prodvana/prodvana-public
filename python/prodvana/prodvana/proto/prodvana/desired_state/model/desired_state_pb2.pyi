@@ -568,6 +568,7 @@ class Metadata(google.protobuf.message.Message):
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     RELEASE_ID_FIELD_NUMBER: builtins.int
+    TIMING_ID_FIELD_NUMBER: builtins.int
     PROTECTION_LINKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     CONVERGENCE_PROTECTION_ATTACHMENTS_FIELD_NUMBER: builtins.int
@@ -585,6 +586,8 @@ class Metadata(google.protobuf.message.Message):
     desired_state_id: builtins.str
     root_desired_state_id: builtins.str
     release_id: builtins.str
+    timing_id: builtins.str
+    """if set, record timing metrics from when this entity had changes applied to when it either converged or failed the first time"""
     @property
     def protection_links(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtectionLink]: ...
     @property
@@ -612,6 +615,7 @@ class Metadata(google.protobuf.message.Message):
         desired_state_id: builtins.str = ...,
         root_desired_state_id: builtins.str = ...,
         release_id: builtins.str = ...,
+        timing_id: builtins.str = ...,
         protection_links: collections.abc.Iterable[global___ProtectionLink] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtension] | None = ...,
         convergence_protection_attachments: collections.abc.Iterable[global___ProtectionAttachmentDefinition] | None = ...,
@@ -622,7 +626,7 @@ class Metadata(google.protobuf.message.Message):
         convergence_grace_period: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["convergence_grace_period", b"convergence_grace_period", "self", b"self"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "concurrency_limits", b"concurrency_limits", "convergence_grace_period", b"convergence_grace_period", "convergence_protection_attachments", b"convergence_protection_attachments", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "release_id", b"release_id", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["applies_in_observer_mode", b"applies_in_observer_mode", "concurrency_limits", b"concurrency_limits", "convergence_grace_period", b"convergence_grace_period", "convergence_protection_attachments", b"convergence_protection_attachments", "delivery_extensions", b"delivery_extensions", "desired_state_id", b"desired_state_id", "invariants", b"invariants", "preconditions", b"preconditions", "protection_links", b"protection_links", "release_id", b"release_id", "require_approval_before_apply", b"require_approval_before_apply", "root_desired_state_id", b"root_desired_state_id", "self", b"self", "target_state_set_by_parent", b"target_state_set_by_parent", "timing_id", b"timing_id"]) -> None: ...
 
 global___Metadata = Metadata
 

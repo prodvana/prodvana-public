@@ -27,3 +27,4 @@ type ReleaseId string
 type ConcurrencyLimitId string
 type ConcurrencyLeaseId string
 type JobId string
+type TimingRecordId string
