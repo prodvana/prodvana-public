@@ -19,6 +19,10 @@ func GetMeta(state *ds_model_pb.State) (*ds_model_pb.Metadata, error) {
 		return inner.ManualApproval.Meta, nil
 	case *ds_model_pb.State_RuntimeObject:
 		return inner.RuntimeObject.Meta, nil
+	case *ds_model_pb.State_DeliveryExtension:
+		return inner.DeliveryExtension.Meta, nil
+	case *ds_model_pb.State_ProtectionLink:
+		return inner.ProtectionLink.Meta, nil
 	default:
 		return nil, errors.Errorf("Unsupported state %T", inner)
 	}
