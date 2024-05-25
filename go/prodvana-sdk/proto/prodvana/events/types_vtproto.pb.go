@@ -175,25 +175,6 @@ func (m *ManualApprovalEvent) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
-func (m *CustomTaskExecutionEvent) CloneVT() *CustomTaskExecutionEvent {
-	if m == nil {
-		return (*CustomTaskExecutionEvent)(nil)
-	}
-	r := new(CustomTaskExecutionEvent)
-	r.Successful = m.Successful
-	r.Attempts = m.Attempts
-	r.Reason = m.Reason
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *CustomTaskExecutionEvent) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
 func (m *RuntimeObject) CloneVT() *RuntimeObject {
 	if m == nil {
 		return (*RuntimeObject)(nil)
@@ -852,15 +833,6 @@ func (m *EventDetails_ManualApproval) CloneVT() isEventDetails_Details {
 	return r
 }
 
-func (m *EventDetails_CustomTaskExecution) CloneVT() isEventDetails_Details {
-	if m == nil {
-		return (*EventDetails_CustomTaskExecution)(nil)
-	}
-	r := new(EventDetails_CustomTaskExecution)
-	r.CustomTaskExecution = m.CustomTaskExecution.CloneVT()
-	return r
-}
-
 func (m *EventDetails_RuntimeUpdate) CloneVT() isEventDetails_Details {
 	if m == nil {
 		return (*EventDetails_RuntimeUpdate)(nil)
@@ -1471,56 +1443,6 @@ func (this *ManualApprovalEvent) EqualVT(that *ManualApprovalEvent) bool {
 
 func (this *ManualApprovalEvent) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*ManualApprovalEvent)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
-func (this *CustomTaskExecutionEvent) StableEqualVT(that *CustomTaskExecutionEvent) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Successful != that.Successful {
-		return false
-	}
-	if this.Attempts != that.Attempts {
-		return false
-	}
-	if this.Reason != that.Reason {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskExecutionEvent) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskExecutionEvent)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *CustomTaskExecutionEvent) EqualVT(that *CustomTaskExecutionEvent) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Successful != that.Successful {
-		return false
-	}
-	if this.Attempts != that.Attempts {
-		return false
-	}
-	if this.Reason != that.Reason {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskExecutionEvent) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskExecutionEvent)
 	if !ok {
 		return false
 	}
@@ -3869,31 +3791,6 @@ func (this *EventDetails_ManualApproval) StableEqualVT(thatIface isEventDetails_
 	return true
 }
 
-func (this *EventDetails_CustomTaskExecution) StableEqualVT(thatIface isEventDetails_Details) bool {
-	that, ok := thatIface.(*EventDetails_CustomTaskExecution)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTaskExecution, that.CustomTaskExecution; p != q {
-		if p == nil {
-			p = &CustomTaskExecutionEvent{}
-		}
-		if q == nil {
-			q = &CustomTaskExecutionEvent{}
-		}
-		if !p.StableEqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *EventDetails_RuntimeUpdate) StableEqualVT(thatIface isEventDetails_Details) bool {
 	that, ok := thatIface.(*EventDetails_RuntimeUpdate)
 	if !ok {
@@ -4414,31 +4311,6 @@ func (this *EventDetails_ManualApproval) EqualVT(thatIface isEventDetails_Detail
 		}
 		if q == nil {
 			q = &ManualApprovalEvent{}
-		}
-		if !p.EqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
-func (this *EventDetails_CustomTaskExecution) EqualVT(thatIface isEventDetails_Details) bool {
-	that, ok := thatIface.(*EventDetails_CustomTaskExecution)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTaskExecution, that.CustomTaskExecution; p != q {
-		if p == nil {
-			p = &CustomTaskExecutionEvent{}
-		}
-		if q == nil {
-			q = &CustomTaskExecutionEvent{}
 		}
 		if !p.EqualVT(q) {
 			return false

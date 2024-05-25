@@ -11,8 +11,6 @@ func GetMeta(state *ds_model_pb.State) (*ds_model_pb.Metadata, error) {
 		return inner.Service.Meta, nil
 	case *ds_model_pb.State_ServiceInstance:
 		return inner.ServiceInstance.Meta, nil
-	case *ds_model_pb.State_CustomTask:
-		return inner.CustomTask.Meta, nil
 	case *ds_model_pb.State_ProtectionAttachment:
 		return inner.ProtectionAttachment.Meta, nil
 	case *ds_model_pb.State_ManualApproval:

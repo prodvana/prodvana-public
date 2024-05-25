@@ -278,13 +278,6 @@ func (m *PerReleaseChannelConfig) CloneVT() *PerReleaseChannelConfig {
 		}
 		r.Volumes = tmpContainer
 	}
-	if rhs := m.PrePushTasks; rhs != nil {
-		tmpContainer := make([]*TaskConfig, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.PrePushTasks = tmpContainer
-	}
 	if rhs := m.DeliveryExtensions; rhs != nil {
 		tmpContainer := make([]*DeliveryExtensionConfig, len(rhs))
 		for k, v := range rhs {
@@ -1024,13 +1017,6 @@ func (m *ServiceConfig) CloneVT() *ServiceConfig {
 		}
 		r.Volumes = tmpContainer
 	}
-	if rhs := m.PrePushTasks; rhs != nil {
-		tmpContainer := make([]*TaskConfig, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.PrePushTasks = tmpContainer
-	}
 	if rhs := m.DeliveryExtensions; rhs != nil {
 		tmpContainer := make([]*DeliveryExtensionConfig, len(rhs))
 		for k, v := range rhs {
@@ -1238,13 +1224,6 @@ func (m *CompiledServiceInstanceConfig) CloneVT() *CompiledServiceInstanceConfig
 			tmpContainer[k] = v.CloneVT()
 		}
 		r.Volumes = tmpContainer
-	}
-	if rhs := m.PrePushTasks; rhs != nil {
-		tmpContainer := make([]*TaskConfig, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.PrePushTasks = tmpContainer
 	}
 	if rhs := m.ConvergenceExtensions; rhs != nil {
 		tmpContainer := make([]*DeliveryExtensionConfig, len(rhs))
@@ -2232,23 +2211,6 @@ func (this *PerReleaseChannelConfig) StableEqualVT(that *PerReleaseChannelConfig
 	if !this.Replicas.StableEqualVT(that.Replicas) {
 		return false
 	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
 	if !this.RuntimeSpecific.StableEqualVT(that.RuntimeSpecific) {
 		return false
 	}
@@ -2692,23 +2654,6 @@ func (this *PerReleaseChannelConfig) EqualVT(that *PerReleaseChannelConfig) bool
 	}
 	if !this.Replicas.EqualVT(that.Replicas) {
 		return false
-	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
 	}
 	if !this.RuntimeSpecific.EqualVT(that.RuntimeSpecific) {
 		return false
@@ -5058,23 +5003,6 @@ func (this *ServiceConfig) StableEqualVT(that *ServiceConfig) bool {
 	if !this.DeployAnnotations.StableEqualVT(that.DeployAnnotations) {
 		return false
 	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
 	if !this.RuntimeSpecific.StableEqualVT(that.RuntimeSpecific) {
 		return false
 	}
@@ -5607,23 +5535,6 @@ func (this *ServiceConfig) EqualVT(that *ServiceConfig) bool {
 	}
 	if !this.DeployAnnotations.EqualVT(that.DeployAnnotations) {
 		return false
-	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
 	}
 	if !this.RuntimeSpecific.EqualVT(that.RuntimeSpecific) {
 		return false
@@ -6162,23 +6073,6 @@ func (this *CompiledServiceInstanceConfig) StableEqualVT(that *CompiledServiceIn
 	if !this.DeployAnnotations.StableEqualVT(that.DeployAnnotations) {
 		return false
 	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
 	if this.Application != that.Application {
 		return false
 	}
@@ -6650,23 +6544,6 @@ func (this *CompiledServiceInstanceConfig) EqualVT(that *CompiledServiceInstance
 	}
 	if !this.DeployAnnotations.EqualVT(that.DeployAnnotations) {
 		return false
-	}
-	if len(this.PrePushTasks) != len(that.PrePushTasks) {
-		return false
-	}
-	for i, vx := range this.PrePushTasks {
-		vy := that.PrePushTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &TaskConfig{}
-			}
-			if q == nil {
-				q = &TaskConfig{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
 	}
 	if this.Application != that.Application {
 		return false

@@ -23,27 +23,12 @@ enum Type {
     SERVICE_INSTANCE = 2;
     RUNTIME_OBJECT = 4;
     MANUAL_APPROVAL = 5;
-    CUSTOM_TASK = 6;
     PROTECTION_ATTACHMENT = 7;
     PROTECTION_LINK = 8;
     DELIVERY_EXTENSION = 9;
 
-    reserved 3;
-    reserved "SERVICE_GROUP";
-}
-
-enum CustomTaskType {
-    CUSTOM_TASK_TYPE_UNKNOWN = 0;
-    // Runs before everything else. May wait for any dependent RCs to be stable.
-    PRE_APPROVAL_TASK = 1;
-    // Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.
-    APPROVAL = 2;
-    // Runs after approval, just before service push.
-    POST_APPROVAL_TASK = 3;
-    // Runs as long as service push is in progress.
-    DEPLOYMENT_TASK = 4;
-    // Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED.
-    POST_DEPLOYMENT_TASK = 5;
+    reserved 3, 6;
+    reserved "SERVICE_GROUP", "CUSTOM_TASK";
 }
 
 message ProtectionLink {
@@ -75,27 +60,17 @@ message Condition {
         int32 min_approvers = 3;
     }
 
-    message CustomTaskSuccessfulCondition {
-        message Protection {
-            string name = 1;
-            CustomTaskType task_type = 3;
-        }
-
-        string custom_task_name = 1;
-        oneof source {
-            Protection protection = 2;
-        }
-    }
-
     oneof condition {
         ReleaseChannelStableCondition rc_cond = 1;
         ManualApproval manual_approval = 2;
-        CustomTaskSuccessfulCondition custom_task = 3;
     }
 
     // Generated during SetDesiredState.
     // Do not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions.
     string desired_state_id = 4;
+
+    reserved "custom_task";
+    reserved 3;
 }
 
 message DeliveryExtension {
@@ -296,15 +271,13 @@ message ServiceState {
     string service = 3;
     string service_id = 5;  // set internally by prodvana
     repeated ServiceInstanceState release_channels = 6;
-    // Definitions for custom tasks used by this service. Must be empty if part of service group.
-    repeated CustomTaskState custom_tasks = 7;
     repeated DeliveryExtensionState delivery_extensions = 9;
 
     // in leau of listing out individual release channels, specify versions for release channels using label selectors instead.
     // This can only be used as input to SetDesiredState and will never be returned as output from a convergence summary.
     repeated ServiceInstanceLabelSelector release_channel_label_selectors = 10;
 
-    reserved 4, 8;
+    reserved 4, 7, 8;
     // next tag: 11
 }
 
@@ -693,13 +666,12 @@ message State {
         ServiceInstanceState service_instance = 2;
         RuntimeObject runtime_object = 4;
         ManualApprovalState manual_approval = 5;
-        CustomTaskState custom_task = 6;
         ProtectionAttachment protection_attachment = 7;
         ProtectionLinkState protection_link = 8;
         DeliveryExtensionState delivery_extension = 9;
     }
-    reserved 3;
-    reserved "service_group";
+    reserved 3, 6;
+    reserved "service_group", "custom_task";
 }
 
 message Annotations {
@@ -708,38 +680,6 @@ message Annotations {
         string value = 2;
     }
     repeated Annotation annotations = 1;
-}
-
-enum CustomTaskStatus {
-    CUSTOM_TASK_PENDING = 0;
-    CUSTOM_TASK_SUCCESSFUL = 1;
-    CUSTOM_TASK_RETRIES_EXHAUSTED = 2;
-    CUSTOM_TASK_TIMED_OUT = 3;
-}
-
-message CustomTaskExecutionState {
-    CustomTaskStatus status = 1;
-    int64 attempts = 2;
-    google.protobuf.Timestamp latest_attempt_end_timestamp = 3;
-}
-
-message CustomTaskState {
-    Metadata meta = 1 [(vtproto.unstable_for_equal) = true];
-    string name = 2 [(validate.rules).string.min_len = 1];
-    string description = 3 [(validate.rules).string.min_len = 1];
-    string application = 4;
-    string application_id = 5;
-    string release_channel = 6;
-    string release_channel_id = 7;
-
-    prodvana.common_config.ProgramConfig program = 9 [(validate.rules).message.required = true];
-    CustomTaskExecutionState task_state = 12;
-    // if not set, the custom task will not be retried once it starts executing once.
-    prodvana.common_config.RetryConfig retry_config = 13;
-
-    repeated string service_ids = 14;
-
-    reserved 8, 10, 11;
 }
 
 message ProtectionLinkState {

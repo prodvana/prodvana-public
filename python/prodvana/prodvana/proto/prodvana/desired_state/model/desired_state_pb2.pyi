@@ -12,8 +12,6 @@ import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import prodvana.proto.prodvana.common_config.external_link_pb2
 import prodvana.proto.prodvana.common_config.parameters_pb2
-import prodvana.proto.prodvana.common_config.program_pb2
-import prodvana.proto.prodvana.common_config.retry_pb2
 import prodvana.proto.prodvana.common_config.task_pb2
 import prodvana.proto.prodvana.environment.clusters_pb2
 import prodvana.proto.prodvana.protection.protection_reference_pb2
@@ -42,7 +40,6 @@ class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     SERVICE_INSTANCE: _Type.ValueType  # 2
     RUNTIME_OBJECT: _Type.ValueType  # 4
     MANUAL_APPROVAL: _Type.ValueType  # 5
-    CUSTOM_TASK: _Type.ValueType  # 6
     PROTECTION_ATTACHMENT: _Type.ValueType  # 7
     PROTECTION_LINK: _Type.ValueType  # 8
     DELIVERY_EXTENSION: _Type.ValueType  # 9
@@ -54,44 +51,10 @@ SERVICE: Type.ValueType  # 1
 SERVICE_INSTANCE: Type.ValueType  # 2
 RUNTIME_OBJECT: Type.ValueType  # 4
 MANUAL_APPROVAL: Type.ValueType  # 5
-CUSTOM_TASK: Type.ValueType  # 6
 PROTECTION_ATTACHMENT: Type.ValueType  # 7
 PROTECTION_LINK: Type.ValueType  # 8
 DELIVERY_EXTENSION: Type.ValueType  # 9
 global___Type = Type
-
-class _CustomTaskType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
-
-class _CustomTaskTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CustomTaskType.ValueType], builtins.type):  # noqa: F821
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    CUSTOM_TASK_TYPE_UNKNOWN: _CustomTaskType.ValueType  # 0
-    PRE_APPROVAL_TASK: _CustomTaskType.ValueType  # 1
-    """Runs before everything else. May wait for any dependent RCs to be stable."""
-    APPROVAL: _CustomTaskType.ValueType  # 2
-    """Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
-    POST_APPROVAL_TASK: _CustomTaskType.ValueType  # 3
-    """Runs after approval, just before service push."""
-    DEPLOYMENT_TASK: _CustomTaskType.ValueType  # 4
-    """Runs as long as service push is in progress."""
-    POST_DEPLOYMENT_TASK: _CustomTaskType.ValueType  # 5
-    """Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
-
-class CustomTaskType(_CustomTaskType, metaclass=_CustomTaskTypeEnumTypeWrapper): ...
-
-CUSTOM_TASK_TYPE_UNKNOWN: CustomTaskType.ValueType  # 0
-PRE_APPROVAL_TASK: CustomTaskType.ValueType  # 1
-"""Runs before everything else. May wait for any dependent RCs to be stable."""
-APPROVAL: CustomTaskType.ValueType  # 2
-"""Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied."""
-POST_APPROVAL_TASK: CustomTaskType.ValueType  # 3
-"""Runs after approval, just before service push."""
-DEPLOYMENT_TASK: CustomTaskType.ValueType  # 4
-"""Runs as long as service push is in progress."""
-POST_DEPLOYMENT_TASK: CustomTaskType.ValueType  # 5
-"""Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."""
-global___CustomTaskType = CustomTaskType
 
 class _Status:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -295,25 +258,6 @@ APPROVED: ManualApprovalStatus.ValueType  # 1
 REJECTED: ManualApprovalStatus.ValueType  # 2
 global___ManualApprovalStatus = ManualApprovalStatus
 
-class _CustomTaskStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
-
-class _CustomTaskStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CustomTaskStatus.ValueType], builtins.type):  # noqa: F821
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    CUSTOM_TASK_PENDING: _CustomTaskStatus.ValueType  # 0
-    CUSTOM_TASK_SUCCESSFUL: _CustomTaskStatus.ValueType  # 1
-    CUSTOM_TASK_RETRIES_EXHAUSTED: _CustomTaskStatus.ValueType  # 2
-    CUSTOM_TASK_TIMED_OUT: _CustomTaskStatus.ValueType  # 3
-
-class CustomTaskStatus(_CustomTaskStatus, metaclass=_CustomTaskStatusEnumTypeWrapper): ...
-
-CUSTOM_TASK_PENDING: CustomTaskStatus.ValueType  # 0
-CUSTOM_TASK_SUCCESSFUL: CustomTaskStatus.ValueType  # 1
-CUSTOM_TASK_RETRIES_EXHAUSTED: CustomTaskStatus.ValueType  # 2
-CUSTOM_TASK_TIMED_OUT: CustomTaskStatus.ValueType  # 3
-global___CustomTaskStatus = CustomTaskStatus
-
 class _SignalType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -421,49 +365,13 @@ class Condition(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "min_approvers", b"min_approvers", "topic", b"topic"]) -> None: ...
 
-    class CustomTaskSuccessfulCondition(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        class Protection(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-            NAME_FIELD_NUMBER: builtins.int
-            TASK_TYPE_FIELD_NUMBER: builtins.int
-            name: builtins.str
-            task_type: global___CustomTaskType.ValueType
-            def __init__(
-                self,
-                *,
-                name: builtins.str = ...,
-                task_type: global___CustomTaskType.ValueType = ...,
-            ) -> None: ...
-            def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "task_type", b"task_type"]) -> None: ...
-
-        CUSTOM_TASK_NAME_FIELD_NUMBER: builtins.int
-        PROTECTION_FIELD_NUMBER: builtins.int
-        custom_task_name: builtins.str
-        @property
-        def protection(self) -> global___Condition.CustomTaskSuccessfulCondition.Protection: ...
-        def __init__(
-            self,
-            *,
-            custom_task_name: builtins.str = ...,
-            protection: global___Condition.CustomTaskSuccessfulCondition.Protection | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["protection", b"protection", "source", b"source"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["custom_task_name", b"custom_task_name", "protection", b"protection", "source", b"source"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing_extensions.Literal["source", b"source"]) -> typing_extensions.Literal["protection"] | None: ...
-
     RC_COND_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
-    CUSTOM_TASK_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     @property
     def rc_cond(self) -> global___Condition.ReleaseChannelStableCondition: ...
     @property
     def manual_approval(self) -> global___Condition.ManualApproval: ...
-    @property
-    def custom_task(self) -> global___Condition.CustomTaskSuccessfulCondition: ...
     desired_state_id: builtins.str
     """Generated during SetDesiredState.
     Do not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions.
@@ -473,12 +381,11 @@ class Condition(google.protobuf.message.Message):
         *,
         rc_cond: global___Condition.ReleaseChannelStableCondition | None = ...,
         manual_approval: global___Condition.ManualApproval | None = ...,
-        custom_task: global___Condition.CustomTaskSuccessfulCondition | None = ...,
         desired_state_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["condition", b"condition", "custom_task", b"custom_task", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["condition", b"condition", "custom_task", b"custom_task", "desired_state_id", b"desired_state_id", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["condition", b"condition"]) -> typing_extensions.Literal["rc_cond", "manual_approval", "custom_task"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["condition", b"condition", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["condition", b"condition", "desired_state_id", b"desired_state_id", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["condition", b"condition"]) -> typing_extensions.Literal["rc_cond", "manual_approval"] | None: ...
 
 global___Condition = Condition
 
@@ -816,7 +723,6 @@ class ServiceState(google.protobuf.message.Message):
     SERVICE_FIELD_NUMBER: builtins.int
     SERVICE_ID_FIELD_NUMBER: builtins.int
     RELEASE_CHANNELS_FIELD_NUMBER: builtins.int
-    CUSTOM_TASKS_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSIONS_FIELD_NUMBER: builtins.int
     RELEASE_CHANNEL_LABEL_SELECTORS_FIELD_NUMBER: builtins.int
     @property
@@ -827,9 +733,6 @@ class ServiceState(google.protobuf.message.Message):
     """set internally by prodvana"""
     @property
     def release_channels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ServiceInstanceState]: ...
-    @property
-    def custom_tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomTaskState]:
-        """Definitions for custom tasks used by this service. Must be empty if part of service group."""
     @property
     def delivery_extensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeliveryExtensionState]: ...
     @property
@@ -845,12 +748,11 @@ class ServiceState(google.protobuf.message.Message):
         service: builtins.str = ...,
         service_id: builtins.str = ...,
         release_channels: collections.abc.Iterable[global___ServiceInstanceState] | None = ...,
-        custom_tasks: collections.abc.Iterable[global___CustomTaskState] | None = ...,
         delivery_extensions: collections.abc.Iterable[global___DeliveryExtensionState] | None = ...,
         release_channel_label_selectors: collections.abc.Iterable[global___ServiceInstanceLabelSelector] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "custom_tasks", b"custom_tasks", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "release_channel_label_selectors", b"release_channel_label_selectors", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "delivery_extensions", b"delivery_extensions", "meta", b"meta", "release_channel_label_selectors", b"release_channel_label_selectors", "release_channels", b"release_channels", "service", b"service", "service_id", b"service_id"]) -> None: ...
 
 global___ServiceState = ServiceState
 
@@ -1897,7 +1799,6 @@ class State(google.protobuf.message.Message):
     SERVICE_INSTANCE_FIELD_NUMBER: builtins.int
     RUNTIME_OBJECT_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
-    CUSTOM_TASK_FIELD_NUMBER: builtins.int
     PROTECTION_ATTACHMENT_FIELD_NUMBER: builtins.int
     PROTECTION_LINK_FIELD_NUMBER: builtins.int
     DELIVERY_EXTENSION_FIELD_NUMBER: builtins.int
@@ -1909,8 +1810,6 @@ class State(google.protobuf.message.Message):
     def runtime_object(self) -> global___RuntimeObject: ...
     @property
     def manual_approval(self) -> global___ManualApprovalState: ...
-    @property
-    def custom_task(self) -> global___CustomTaskState: ...
     @property
     def protection_attachment(self) -> global___ProtectionAttachment: ...
     @property
@@ -1924,14 +1823,13 @@ class State(google.protobuf.message.Message):
         service_instance: global___ServiceInstanceState | None = ...,
         runtime_object: global___RuntimeObject | None = ...,
         manual_approval: global___ManualApprovalState | None = ...,
-        custom_task: global___CustomTaskState | None = ...,
         protection_attachment: global___ProtectionAttachment | None = ...,
         protection_link: global___ProtectionLinkState | None = ...,
         delivery_extension: global___DeliveryExtensionState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_task", b"custom_task", "delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "runtime_object", "manual_approval", "custom_task", "protection_attachment", "protection_link", "delivery_extension"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delivery_extension", b"delivery_extension", "manual_approval", b"manual_approval", "protection_attachment", b"protection_attachment", "protection_link", b"protection_link", "runtime_object", b"runtime_object", "service", b"service", "service_instance", b"service_instance", "state_oneof", b"state_oneof"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["state_oneof", b"state_oneof"]) -> typing_extensions.Literal["service", "service_instance", "runtime_object", "manual_approval", "protection_attachment", "protection_link", "delivery_extension"] | None: ...
 
 global___State = State
 
@@ -1964,79 +1862,6 @@ class Annotations(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["annotations", b"annotations"]) -> None: ...
 
 global___Annotations = Annotations
-
-class CustomTaskExecutionState(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    STATUS_FIELD_NUMBER: builtins.int
-    ATTEMPTS_FIELD_NUMBER: builtins.int
-    LATEST_ATTEMPT_END_TIMESTAMP_FIELD_NUMBER: builtins.int
-    status: global___CustomTaskStatus.ValueType
-    attempts: builtins.int
-    @property
-    def latest_attempt_end_timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    def __init__(
-        self,
-        *,
-        status: global___CustomTaskStatus.ValueType = ...,
-        attempts: builtins.int = ...,
-        latest_attempt_end_timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["latest_attempt_end_timestamp", b"latest_attempt_end_timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attempts", b"attempts", "latest_attempt_end_timestamp", b"latest_attempt_end_timestamp", "status", b"status"]) -> None: ...
-
-global___CustomTaskExecutionState = CustomTaskExecutionState
-
-class CustomTaskState(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    META_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    APPLICATION_FIELD_NUMBER: builtins.int
-    APPLICATION_ID_FIELD_NUMBER: builtins.int
-    RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
-    RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
-    PROGRAM_FIELD_NUMBER: builtins.int
-    TASK_STATE_FIELD_NUMBER: builtins.int
-    RETRY_CONFIG_FIELD_NUMBER: builtins.int
-    SERVICE_IDS_FIELD_NUMBER: builtins.int
-    @property
-    def meta(self) -> global___Metadata: ...
-    name: builtins.str
-    description: builtins.str
-    application: builtins.str
-    application_id: builtins.str
-    release_channel: builtins.str
-    release_channel_id: builtins.str
-    @property
-    def program(self) -> prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig: ...
-    @property
-    def task_state(self) -> global___CustomTaskExecutionState: ...
-    @property
-    def retry_config(self) -> prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig:
-        """if not set, the custom task will not be retried once it starts executing once."""
-    @property
-    def service_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    def __init__(
-        self,
-        *,
-        meta: global___Metadata | None = ...,
-        name: builtins.str = ...,
-        description: builtins.str = ...,
-        application: builtins.str = ...,
-        application_id: builtins.str = ...,
-        release_channel: builtins.str = ...,
-        release_channel_id: builtins.str = ...,
-        program: prodvana.proto.prodvana.common_config.program_pb2.ProgramConfig | None = ...,
-        task_state: global___CustomTaskExecutionState | None = ...,
-        retry_config: prodvana.proto.prodvana.common_config.retry_pb2.RetryConfig | None = ...,
-        service_ids: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["meta", b"meta", "program", b"program", "retry_config", b"retry_config", "task_state", b"task_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "description", b"description", "meta", b"meta", "name", b"name", "program", b"program", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "retry_config", b"retry_config", "service_ids", b"service_ids", "task_state", b"task_state"]) -> None: ...
-
-global___CustomTaskState = CustomTaskState
 
 class ProtectionLinkState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

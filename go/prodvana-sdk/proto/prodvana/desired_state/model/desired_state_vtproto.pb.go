@@ -83,55 +83,6 @@ func (m *Condition_ManualApproval) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
-func (m *Condition_CustomTaskSuccessfulCondition_Protection) CloneVT() *Condition_CustomTaskSuccessfulCondition_Protection {
-	if m == nil {
-		return (*Condition_CustomTaskSuccessfulCondition_Protection)(nil)
-	}
-	r := new(Condition_CustomTaskSuccessfulCondition_Protection)
-	r.Name = m.Name
-	r.TaskType = m.TaskType
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *Condition_CustomTaskSuccessfulCondition_Protection) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
-func (m *Condition_CustomTaskSuccessfulCondition) CloneVT() *Condition_CustomTaskSuccessfulCondition {
-	if m == nil {
-		return (*Condition_CustomTaskSuccessfulCondition)(nil)
-	}
-	r := new(Condition_CustomTaskSuccessfulCondition)
-	r.CustomTaskName = m.CustomTaskName
-	if m.Source != nil {
-		r.Source = m.Source.(interface {
-			CloneVT() isCondition_CustomTaskSuccessfulCondition_Source
-		}).CloneVT()
-	}
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *Condition_CustomTaskSuccessfulCondition) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
-func (m *Condition_CustomTaskSuccessfulCondition_Protection_) CloneVT() isCondition_CustomTaskSuccessfulCondition_Source {
-	if m == nil {
-		return (*Condition_CustomTaskSuccessfulCondition_Protection_)(nil)
-	}
-	r := new(Condition_CustomTaskSuccessfulCondition_Protection_)
-	r.Protection = m.Protection.CloneVT()
-	return r
-}
-
 func (m *Condition) CloneVT() *Condition {
 	if m == nil {
 		return (*Condition)(nil)
@@ -167,15 +118,6 @@ func (m *Condition_ManualApproval_) CloneVT() isCondition_Condition {
 	}
 	r := new(Condition_ManualApproval_)
 	r.ManualApproval = m.ManualApproval.CloneVT()
-	return r
-}
-
-func (m *Condition_CustomTask) CloneVT() isCondition_Condition {
-	if m == nil {
-		return (*Condition_CustomTask)(nil)
-	}
-	r := new(Condition_CustomTask)
-	r.CustomTask = m.CustomTask.CloneVT()
 	return r
 }
 
@@ -467,13 +409,6 @@ func (m *ServiceState) CloneVT() *ServiceState {
 			tmpContainer[k] = v.CloneVT()
 		}
 		r.ReleaseChannels = tmpContainer
-	}
-	if rhs := m.CustomTasks; rhs != nil {
-		tmpContainer := make([]*CustomTaskState, len(rhs))
-		for k, v := range rhs {
-			tmpContainer[k] = v.CloneVT()
-		}
-		r.CustomTasks = tmpContainer
 	}
 	if rhs := m.DeliveryExtensions; rhs != nil {
 		tmpContainer := make([]*DeliveryExtensionState, len(rhs))
@@ -1245,15 +1180,6 @@ func (m *State_ManualApproval) CloneVT() isState_StateOneof {
 	return r
 }
 
-func (m *State_CustomTask) CloneVT() isState_StateOneof {
-	if m == nil {
-		return (*State_CustomTask)(nil)
-	}
-	r := new(State_CustomTask)
-	r.CustomTask = m.CustomTask.CloneVT()
-	return r
-}
-
 func (m *State_ProtectionAttachment) CloneVT() isState_StateOneof {
 	if m == nil {
 		return (*State_ProtectionAttachment)(nil)
@@ -1319,56 +1245,6 @@ func (m *Annotations) CloneVT() *Annotations {
 }
 
 func (m *Annotations) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
-func (m *CustomTaskExecutionState) CloneVT() *CustomTaskExecutionState {
-	if m == nil {
-		return (*CustomTaskExecutionState)(nil)
-	}
-	r := new(CustomTaskExecutionState)
-	r.Status = m.Status
-	r.Attempts = m.Attempts
-	r.LatestAttemptEndTimestamp = (*timestamppb.Timestamp)((*timestamppb1.Timestamp)(m.LatestAttemptEndTimestamp).CloneVT())
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *CustomTaskExecutionState) CloneMessageVT() proto.Message {
-	return m.CloneVT()
-}
-
-func (m *CustomTaskState) CloneVT() *CustomTaskState {
-	if m == nil {
-		return (*CustomTaskState)(nil)
-	}
-	r := new(CustomTaskState)
-	r.Meta = m.Meta.CloneVT()
-	r.Name = m.Name
-	r.Description = m.Description
-	r.Application = m.Application
-	r.ApplicationId = m.ApplicationId
-	r.ReleaseChannel = m.ReleaseChannel
-	r.ReleaseChannelId = m.ReleaseChannelId
-	r.Program = m.Program.CloneVT()
-	r.TaskState = m.TaskState.CloneVT()
-	r.RetryConfig = m.RetryConfig.CloneVT()
-	if rhs := m.ServiceIds; rhs != nil {
-		tmpContainer := make([]string, len(rhs))
-		copy(tmpContainer, rhs)
-		r.ServiceIds = tmpContainer
-	}
-	if len(m.unknownFields) > 0 {
-		r.unknownFields = make([]byte, len(m.unknownFields))
-		copy(r.unknownFields, m.unknownFields)
-	}
-	return r
-}
-
-func (m *CustomTaskState) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
@@ -2205,84 +2081,6 @@ func (this *Condition_ManualApproval) StableEqualMessageVT(thatMsg proto.Message
 	}
 	return this.StableEqualVT(that)
 }
-func (this *Condition_CustomTaskSuccessfulCondition_Protection) StableEqualVT(that *Condition_CustomTaskSuccessfulCondition_Protection) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Name != that.Name {
-		return false
-	}
-	if this.TaskType != that.TaskType {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Condition_CustomTaskSuccessfulCondition_Protection) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Condition_CustomTaskSuccessfulCondition_Protection)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *Condition_CustomTaskSuccessfulCondition) StableEqualVT(that *Condition_CustomTaskSuccessfulCondition) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Source == nil && that.Source != nil {
-		return false
-	} else if this.Source != nil {
-		if that.Source == nil {
-			return false
-		}
-		if !this.Source.(interface {
-			StableEqualVT(isCondition_CustomTaskSuccessfulCondition_Source) bool
-		}).StableEqualVT(that.Source) {
-			return false
-		}
-	}
-	if this.CustomTaskName != that.CustomTaskName {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Condition_CustomTaskSuccessfulCondition) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Condition_CustomTaskSuccessfulCondition)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *Condition_CustomTaskSuccessfulCondition_Protection_) StableEqualVT(thatIface isCondition_CustomTaskSuccessfulCondition_Source) bool {
-	that, ok := thatIface.(*Condition_CustomTaskSuccessfulCondition_Protection_)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.Protection, that.Protection; p != q {
-		if p == nil {
-			p = &Condition_CustomTaskSuccessfulCondition_Protection{}
-		}
-		if q == nil {
-			q = &Condition_CustomTaskSuccessfulCondition_Protection{}
-		}
-		if !p.StableEqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *Condition) StableEqualVT(that *Condition) bool {
 	if this == that {
 		return true
@@ -2364,31 +2162,6 @@ func (this *Condition_ManualApproval_) StableEqualVT(thatIface isCondition_Condi
 	return true
 }
 
-func (this *Condition_CustomTask) StableEqualVT(thatIface isCondition_Condition) bool {
-	that, ok := thatIface.(*Condition_CustomTask)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTask, that.CustomTask; p != q {
-		if p == nil {
-			p = &Condition_CustomTaskSuccessfulCondition{}
-		}
-		if q == nil {
-			q = &Condition_CustomTaskSuccessfulCondition{}
-		}
-		if !p.StableEqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *Condition_ReleaseChannelStableCondition) EqualVT(that *Condition_ReleaseChannelStableCondition) bool {
 	if this == that {
 		return true
@@ -2451,84 +2224,6 @@ func (this *Condition_ManualApproval) EqualMessageVT(thatMsg proto.Message) bool
 	}
 	return this.EqualVT(that)
 }
-func (this *Condition_CustomTaskSuccessfulCondition_Protection) EqualVT(that *Condition_CustomTaskSuccessfulCondition_Protection) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Name != that.Name {
-		return false
-	}
-	if this.TaskType != that.TaskType {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Condition_CustomTaskSuccessfulCondition_Protection) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Condition_CustomTaskSuccessfulCondition_Protection)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
-func (this *Condition_CustomTaskSuccessfulCondition) EqualVT(that *Condition_CustomTaskSuccessfulCondition) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Source == nil && that.Source != nil {
-		return false
-	} else if this.Source != nil {
-		if that.Source == nil {
-			return false
-		}
-		if !this.Source.(interface {
-			EqualVT(isCondition_CustomTaskSuccessfulCondition_Source) bool
-		}).EqualVT(that.Source) {
-			return false
-		}
-	}
-	if this.CustomTaskName != that.CustomTaskName {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *Condition_CustomTaskSuccessfulCondition) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*Condition_CustomTaskSuccessfulCondition)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
-func (this *Condition_CustomTaskSuccessfulCondition_Protection_) EqualVT(thatIface isCondition_CustomTaskSuccessfulCondition_Source) bool {
-	that, ok := thatIface.(*Condition_CustomTaskSuccessfulCondition_Protection_)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.Protection, that.Protection; p != q {
-		if p == nil {
-			p = &Condition_CustomTaskSuccessfulCondition_Protection{}
-		}
-		if q == nil {
-			q = &Condition_CustomTaskSuccessfulCondition_Protection{}
-		}
-		if !p.EqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *Condition) EqualVT(that *Condition) bool {
 	if this == that {
 		return true
@@ -2602,31 +2297,6 @@ func (this *Condition_ManualApproval_) EqualVT(thatIface isCondition_Condition) 
 		}
 		if q == nil {
 			q = &Condition_ManualApproval{}
-		}
-		if !p.EqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
-func (this *Condition_CustomTask) EqualVT(thatIface isCondition_Condition) bool {
-	that, ok := thatIface.(*Condition_CustomTask)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTask, that.CustomTask; p != q {
-		if p == nil {
-			p = &Condition_CustomTaskSuccessfulCondition{}
-		}
-		if q == nil {
-			q = &Condition_CustomTaskSuccessfulCondition{}
 		}
 		if !p.EqualVT(q) {
 			return false
@@ -3620,23 +3290,6 @@ func (this *ServiceState) StableEqualVT(that *ServiceState) bool {
 			}
 		}
 	}
-	if len(this.CustomTasks) != len(that.CustomTasks) {
-		return false
-	}
-	for i, vx := range this.CustomTasks {
-		vy := that.CustomTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &CustomTaskState{}
-			}
-			if q == nil {
-				q = &CustomTaskState{}
-			}
-			if !p.StableEqualVT(q) {
-				return false
-			}
-		}
-	}
 	if len(this.DeliveryExtensions) != len(that.DeliveryExtensions) {
 		return false
 	}
@@ -3710,23 +3363,6 @@ func (this *ServiceState) EqualVT(that *ServiceState) bool {
 			}
 			if q == nil {
 				q = &ServiceInstanceState{}
-			}
-			if !p.EqualVT(q) {
-				return false
-			}
-		}
-	}
-	if len(this.CustomTasks) != len(that.CustomTasks) {
-		return false
-	}
-	for i, vx := range this.CustomTasks {
-		vy := that.CustomTasks[i]
-		if p, q := vx, vy; p != q {
-			if p == nil {
-				p = &CustomTaskState{}
-			}
-			if q == nil {
-				q = &CustomTaskState{}
 			}
 			if !p.EqualVT(q) {
 				return false
@@ -6179,31 +5815,6 @@ func (this *State_ManualApproval) StableEqualVT(thatIface isState_StateOneof) bo
 	return true
 }
 
-func (this *State_CustomTask) StableEqualVT(thatIface isState_StateOneof) bool {
-	that, ok := thatIface.(*State_CustomTask)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTask, that.CustomTask; p != q {
-		if p == nil {
-			p = &CustomTaskState{}
-		}
-		if q == nil {
-			q = &CustomTaskState{}
-		}
-		if !p.StableEqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *State_ProtectionAttachment) StableEqualVT(thatIface isState_StateOneof) bool {
 	that, ok := thatIface.(*State_ProtectionAttachment)
 	if !ok {
@@ -6405,31 +6016,6 @@ func (this *State_ManualApproval) EqualVT(thatIface isState_StateOneof) bool {
 	return true
 }
 
-func (this *State_CustomTask) EqualVT(thatIface isState_StateOneof) bool {
-	that, ok := thatIface.(*State_CustomTask)
-	if !ok {
-		return false
-	}
-	if this == that {
-		return true
-	}
-	if this == nil && that != nil || this != nil && that == nil {
-		return false
-	}
-	if p, q := this.CustomTask, that.CustomTask; p != q {
-		if p == nil {
-			p = &CustomTaskState{}
-		}
-		if q == nil {
-			q = &CustomTaskState{}
-		}
-		if !p.EqualVT(q) {
-			return false
-		}
-	}
-	return true
-}
-
 func (this *State_ProtectionAttachment) EqualVT(thatIface isState_StateOneof) bool {
 	that, ok := thatIface.(*State_ProtectionAttachment)
 	if !ok {
@@ -6610,163 +6196,6 @@ func (this *Annotations) EqualVT(that *Annotations) bool {
 
 func (this *Annotations) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*Annotations)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
-func (this *CustomTaskExecutionState) StableEqualVT(that *CustomTaskExecutionState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Status != that.Status {
-		return false
-	}
-	if this.Attempts != that.Attempts {
-		return false
-	}
-	if !(*timestamppb1.Timestamp)(this.LatestAttemptEndTimestamp).StableEqualVT((*timestamppb1.Timestamp)(that.LatestAttemptEndTimestamp)) {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskExecutionState) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskExecutionState)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *CustomTaskExecutionState) EqualVT(that *CustomTaskExecutionState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Status != that.Status {
-		return false
-	}
-	if this.Attempts != that.Attempts {
-		return false
-	}
-	if !(*timestamppb1.Timestamp)(this.LatestAttemptEndTimestamp).EqualVT((*timestamppb1.Timestamp)(that.LatestAttemptEndTimestamp)) {
-		return false
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskExecutionState) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskExecutionState)
-	if !ok {
-		return false
-	}
-	return this.EqualVT(that)
-}
-func (this *CustomTaskState) StableEqualVT(that *CustomTaskState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if this.Name != that.Name {
-		return false
-	}
-	if this.Description != that.Description {
-		return false
-	}
-	if this.Application != that.Application {
-		return false
-	}
-	if this.ApplicationId != that.ApplicationId {
-		return false
-	}
-	if this.ReleaseChannel != that.ReleaseChannel {
-		return false
-	}
-	if this.ReleaseChannelId != that.ReleaseChannelId {
-		return false
-	}
-	if !this.Program.StableEqualVT(that.Program) {
-		return false
-	}
-	if !this.TaskState.StableEqualVT(that.TaskState) {
-		return false
-	}
-	if !this.RetryConfig.StableEqualVT(that.RetryConfig) {
-		return false
-	}
-	if len(this.ServiceIds) != len(that.ServiceIds) {
-		return false
-	}
-	for i, vx := range this.ServiceIds {
-		vy := that.ServiceIds[i]
-		if vx != vy {
-			return false
-		}
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskState) StableEqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskState)
-	if !ok {
-		return false
-	}
-	return this.StableEqualVT(that)
-}
-func (this *CustomTaskState) EqualVT(that *CustomTaskState) bool {
-	if this == that {
-		return true
-	} else if this == nil || that == nil {
-		return false
-	}
-	if !this.Meta.EqualVT(that.Meta) {
-		return false
-	}
-	if this.Name != that.Name {
-		return false
-	}
-	if this.Description != that.Description {
-		return false
-	}
-	if this.Application != that.Application {
-		return false
-	}
-	if this.ApplicationId != that.ApplicationId {
-		return false
-	}
-	if this.ReleaseChannel != that.ReleaseChannel {
-		return false
-	}
-	if this.ReleaseChannelId != that.ReleaseChannelId {
-		return false
-	}
-	if !this.Program.EqualVT(that.Program) {
-		return false
-	}
-	if !this.TaskState.EqualVT(that.TaskState) {
-		return false
-	}
-	if !this.RetryConfig.EqualVT(that.RetryConfig) {
-		return false
-	}
-	if len(this.ServiceIds) != len(that.ServiceIds) {
-		return false
-	}
-	for i, vx := range this.ServiceIds {
-		vy := that.ServiceIds[i]
-		if vx != vy {
-			return false
-		}
-	}
-	return string(this.unknownFields) == string(that.unknownFields)
-}
-
-func (this *CustomTaskState) EqualMessageVT(thatMsg proto.Message) bool {
-	that, ok := thatMsg.(*CustomTaskState)
 	if !ok {
 		return false
 	}

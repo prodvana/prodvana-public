@@ -9367,36 +9367,6 @@
                         {}
                     ]
                 },
-                "pre_push_tasks": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.service.TaskConfig"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "DEPRECATED: use convergence_extensions"
-                },
-                "prePushTasks": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.service.TaskConfig"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "DEPRECATED: use convergence_extensions"
-                },
                 "delivery_extensions": {
                     "items": {
                         "$ref": "#/definitions/prodvana.service.DeliveryExtensionConfig"
@@ -9800,30 +9770,6 @@
                 }
             ],
             "title": "Per Release Channel Parameter Values"
-        },
-        "prodvana.service.ProgramReference": {
-            "properties": {
-                "name": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Program Reference"
         },
         "prodvana.service.PulumiConfig": {
             "properties": {
@@ -10409,36 +10355,6 @@
                         },
                         {}
                     ]
-                },
-                "pre_push_tasks": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.service.TaskConfig"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "DEPRECATED: Replace with convergence_extensions"
-                },
-                "prePushTasks": {
-                    "items": {
-                        "$ref": "#/definitions/prodvana.service.TaskConfig"
-                    },
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ],
-                    "description": "DEPRECATED: Replace with convergence_extensions"
                 },
                 "delivery_extensions": {
                     "items": {
@@ -11246,119 +11162,6 @@
                 }
             ],
             "title": "TLS Secret"
-        },
-        "prodvana.service.TaskConfig": {
-            "properties": {
-                "program": {
-                    "$ref": "#/definitions/prodvana.common_config.ProgramConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ]
-                },
-                "base_program": {
-                    "$ref": "#/definitions/prodvana.service.ProgramReference",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "optional base program to take configs from. If specified, `program` field will act like an override instead."
-                },
-                "baseProgram": {
-                    "$ref": "#/definitions/prodvana.service.ProgramReference",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "optional base program to take configs from. If specified, `program` field will act like an override instead."
-                },
-                "retry_config": {
-                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "if not set, the task will not be retried once it starts executing once."
-                },
-                "retryConfig": {
-                    "$ref": "#/definitions/prodvana.common_config.RetryConfig",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "if not set, the task will not be retried once it starts executing once."
-                },
-                "ref": {
-                    "$ref": "#/definitions/prodvana.service.TaskReference",
-                    "additionalProperties": false,
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {}
-                    ],
-                    "description": "Instead of defining a new task, reference an existing custom task and use that. This is meant to be used in conjunection with per_release_channel to allow multiple release channels to use a single custom task. If set, the program definition is ignored except for program name."
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Task Config"
-        },
-        "prodvana.service.TaskReference": {
-            "properties": {
-                "release_channel": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                },
-                "releaseChannel": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "type": "object"
-                }
-            ],
-            "title": "Task Reference"
         },
         "prodvana.service.TerraformConfig": {
             "properties": {

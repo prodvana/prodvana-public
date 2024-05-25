@@ -3211,7 +3211,6 @@
               "SERVICE_INSTANCE",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
-              "CUSTOM_TASK",
               "PROTECTION_ATTACHMENT",
               "PROTECTION_LINK",
               "DELIVERY_EXTENSION"
@@ -3280,7 +3279,6 @@
               "SERVICE_INSTANCE",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
-              "CUSTOM_TASK",
               "PROTECTION_ATTACHMENT",
               "PROTECTION_LINK",
               "DELIVERY_EXTENSION"
@@ -3393,7 +3391,6 @@
               "SERVICE_INSTANCE",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
-              "CUSTOM_TASK",
               "PROTECTION_ATTACHMENT",
               "PROTECTION_LINK",
               "DELIVERY_EXTENSION"
@@ -3729,7 +3726,6 @@
               "SERVICE_INSTANCE",
               "RUNTIME_OBJECT",
               "MANUAL_APPROVAL",
-              "CUSTOM_TASK",
               "PROTECTION_ATTACHMENT",
               "PROTECTION_LINK",
               "DELIVERY_EXTENSION"
@@ -7458,28 +7454,6 @@
           "type": "string",
           "format": "date-time",
           "description": "time since this blocker has held on to its lease. This is *not* the time since this entity has been blocked."
-        }
-      }
-    },
-    "ConditionCustomTaskSuccessfulCondition": {
-      "type": "object",
-      "properties": {
-        "customTaskName": {
-          "type": "string"
-        },
-        "protection": {
-          "$ref": "#/definitions/ConditionCustomTaskSuccessfulConditionProtection"
-        }
-      }
-    },
-    "ConditionCustomTaskSuccessfulConditionProtection": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "taskType": {
-          "$ref": "#/definitions/modelCustomTaskType"
         }
       }
     },
@@ -11272,14 +11246,6 @@
             "$ref": "#/definitions/desired_statemodelServiceInstanceState"
           }
         },
-        "customTasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/modelCustomTaskState"
-          },
-          "description": "Definitions for custom tasks used by this service. Must be empty if part of service group."
-        },
         "deliveryExtensions": {
           "type": "array",
           "items": {
@@ -11328,7 +11294,6 @@
         "SERVICE_INSTANCE",
         "RUNTIME_OBJECT",
         "MANUAL_APPROVAL",
-        "CUSTOM_TASK",
         "PROTECTION_ATTACHMENT",
         "PROTECTION_LINK",
         "DELIVERY_EXTENSION"
@@ -12033,22 +11998,6 @@
         }
       }
     },
-    "eventsCustomTaskExecutionEvent": {
-      "type": "object",
-      "properties": {
-        "successful": {
-          "type": "boolean"
-        },
-        "attempts": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "reason": {
-          "type": "string",
-          "title": "Why did this job exit/fail?"
-        }
-      }
-    },
     "eventsDeliveryManualPromotionEvent": {
       "type": "object",
       "properties": {
@@ -12179,9 +12128,6 @@
         "manualApproval": {
           "$ref": "#/definitions/eventsManualApprovalEvent"
         },
-        "customTaskExecution": {
-          "$ref": "#/definitions/eventsCustomTaskExecutionEvent"
-        },
         "runtimeUpdate": {
           "$ref": "#/definitions/eventsRuntimeUpdateEvent"
         },
@@ -12238,7 +12184,6 @@
         "PROGRAM_EXIT",
         "APPLY_TARGET_STATE",
         "MANUAL_APPROVAL",
-        "CUSTOM_TASK_EXECUTION",
         "RUNTIME_UPDATE",
         "DELIVERY_PROGRESS",
         "DELIVERY_MANUAL_PROMOTION",
@@ -13466,9 +13411,6 @@
         "manualApproval": {
           "$ref": "#/definitions/modelConditionManualApproval"
         },
-        "customTask": {
-          "$ref": "#/definitions/ConditionCustomTaskSuccessfulCondition"
-        },
         "desiredStateId": {
           "type": "string",
           "description": "Generated during SetDesiredState.\nDo not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions."
@@ -13583,87 +13525,6 @@
           "$ref": "#/definitions/modelNotificationInfo"
         }
       }
-    },
-    "modelCustomTaskExecutionState": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/modelCustomTaskStatus"
-        },
-        "attempts": {
-          "type": "string",
-          "format": "int64"
-        },
-        "latestAttemptEndTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "modelCustomTaskState": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/desired_statemodelMetadata"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "application": {
-          "type": "string"
-        },
-        "applicationId": {
-          "type": "string"
-        },
-        "releaseChannel": {
-          "type": "string"
-        },
-        "releaseChannelId": {
-          "type": "string"
-        },
-        "program": {
-          "$ref": "#/definitions/common_configProgramConfig"
-        },
-        "taskState": {
-          "$ref": "#/definitions/modelCustomTaskExecutionState"
-        },
-        "retryConfig": {
-          "$ref": "#/definitions/common_configRetryConfig",
-          "description": "if not set, the custom task will not be retried once it starts executing once."
-        },
-        "serviceIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "modelCustomTaskStatus": {
-      "type": "string",
-      "enum": [
-        "CUSTOM_TASK_PENDING",
-        "CUSTOM_TASK_SUCCESSFUL",
-        "CUSTOM_TASK_RETRIES_EXHAUSTED",
-        "CUSTOM_TASK_TIMED_OUT"
-      ],
-      "default": "CUSTOM_TASK_PENDING"
-    },
-    "modelCustomTaskType": {
-      "type": "string",
-      "enum": [
-        "CUSTOM_TASK_TYPE_UNKNOWN",
-        "PRE_APPROVAL_TASK",
-        "APPROVAL",
-        "POST_APPROVAL_TASK",
-        "DEPLOYMENT_TASK",
-        "POST_DEPLOYMENT_TASK"
-      ],
-      "default": "CUSTOM_TASK_TYPE_UNKNOWN",
-      "description": " - PRE_APPROVAL_TASK: Runs before everything else. May wait for any dependent RCs to be stable.\n - APPROVAL: Approval tasks, manual or automated. Must wait for all PRE_APPROVAL_TASK to be satisfied.\n - POST_APPROVAL_TASK: Runs after approval, just before service push.\n - DEPLOYMENT_TASK: Runs as long as service push is in progress.\n - POST_DEPLOYMENT_TASK: Runs after service push succeeds (pods are replaced and healthy, ...), before declaring the service CONVERGED."
     },
     "modelDebugLog": {
       "type": "object",
@@ -14619,9 +14480,6 @@
         "manualApproval": {
           "$ref": "#/definitions/modelManualApprovalState"
         },
-        "customTask": {
-          "$ref": "#/definitions/modelCustomTaskState"
-        },
         "protectionAttachment": {
           "$ref": "#/definitions/desired_statemodelProtectionAttachment"
         },
@@ -15521,21 +15379,6 @@
         }
       }
     },
-    "prodvanaprotectionProtection": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/objectObjectMeta"
-        },
-        "config": {
-          "$ref": "#/definitions/protectionProtectionConfig"
-        },
-        "builtin": {
-          "type": "boolean",
-          "description": "indicates this protection is provided by Prodvana by default."
-        }
-      }
-    },
     "prodvanaprotectionProtectionAttachment": {
       "type": "object",
       "properties": {
@@ -15649,26 +15492,6 @@
         },
         "maestroEnabled": {
           "type": "boolean"
-        }
-      }
-    },
-    "prodvanaserviceTaskConfig": {
-      "type": "object",
-      "properties": {
-        "program": {
-          "$ref": "#/definitions/common_configProgramConfig"
-        },
-        "baseProgram": {
-          "$ref": "#/definitions/serviceProgramReference",
-          "description": "optional base program to take configs from. If specified, `program` field will act\nlike an override instead."
-        },
-        "retryConfig": {
-          "$ref": "#/definitions/common_configRetryConfig",
-          "description": "if not set, the task will not be retried once it starts executing once."
-        },
-        "ref": {
-          "$ref": "#/definitions/serviceTaskReference",
-          "description": "Instead of defining a new task, reference an existing custom task and use that. This is meant\nto be used in conjunection with per_release_channel to allow multiple release channels to use\na single custom task. If set, the program definition is ignored except for program name."
         }
       }
     },
@@ -15869,7 +15692,7 @@
       "type": "object",
       "properties": {
         "protection": {
-          "$ref": "#/definitions/prodvanaprotectionProtection"
+          "$ref": "#/definitions/protectionProtection"
         }
       }
     },
@@ -15880,11 +15703,26 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/prodvanaprotectionProtection"
+            "$ref": "#/definitions/protectionProtection"
           }
         },
         "nextPageToken": {
           "type": "string"
+        }
+      }
+    },
+    "protectionProtection": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/protectionProtectionConfig"
+        },
+        "builtin": {
+          "type": "boolean",
+          "description": "indicates this protection is provided by Prodvana by default."
         }
       }
     },
@@ -16618,14 +16456,6 @@
         "deployAnnotations": {
           "$ref": "#/definitions/prodvanaworkflowAnnotationsConfig"
         },
-        "prePushTasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/prodvanaserviceTaskConfig"
-          },
-          "title": "DEPRECATED: use convergence_extensions"
-        },
         "convergenceExtensions": {
           "type": "array",
           "items": {
@@ -17104,14 +16934,6 @@
         "replicas": {
           "$ref": "#/definitions/serviceReplicasConfig"
         },
-        "prePushTasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/prodvanaserviceTaskConfig"
-          },
-          "title": "DEPRECATED: use convergence_extensions"
-        },
         "deliveryExtensions": {
           "type": "array",
           "items": {
@@ -17210,14 +17032,6 @@
             "type": "object",
             "$ref": "#/definitions/common_configParameterValue"
           }
-        }
-      }
-    },
-    "serviceProgramReference": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
         }
       }
     },
@@ -17385,14 +17199,6 @@
         },
         "deployAnnotations": {
           "$ref": "#/definitions/prodvanaworkflowAnnotationsConfig"
-        },
-        "prePushTasks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/prodvanaserviceTaskConfig"
-          },
-          "title": "DEPRECATED: Replace with convergence_extensions"
         },
         "deliveryExtensions": {
           "type": "array",
@@ -17639,14 +17445,6 @@
         "secret": {
           "$ref": "#/definitions/common_configSecret",
           "description": "Externally stored secret."
-        }
-      }
-    },
-    "serviceTaskReference": {
-      "type": "object",
-      "properties": {
-        "releaseChannel": {
-          "type": "string"
         }
       }
     },

@@ -41,7 +41,6 @@ class _EventTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     Each SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.
     """
     MANUAL_APPROVAL: _EventType.ValueType  # 6
-    CUSTOM_TASK_EXECUTION: _EventType.ValueType  # 7
     RUNTIME_UPDATE: _EventType.ValueType  # 8
     """generic runtime events when more specific event types are not available."""
     DELIVERY_PROGRESS: _EventType.ValueType  # 9
@@ -79,7 +78,6 @@ APPLY_TARGET_STATE: EventType.ValueType  # 4
 Each SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.
 """
 MANUAL_APPROVAL: EventType.ValueType  # 6
-CUSTOM_TASK_EXECUTION: EventType.ValueType  # 7
 RUNTIME_UPDATE: EventType.ValueType  # 8
 """generic runtime events when more specific event types are not available."""
 DELIVERY_PROGRESS: EventType.ValueType  # 9
@@ -346,27 +344,6 @@ class ManualApprovalEvent(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["status", b"status", "topic", b"topic"]) -> None: ...
 
 global___ManualApprovalEvent = ManualApprovalEvent
-
-class CustomTaskExecutionEvent(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    SUCCESSFUL_FIELD_NUMBER: builtins.int
-    ATTEMPTS_FIELD_NUMBER: builtins.int
-    REASON_FIELD_NUMBER: builtins.int
-    successful: builtins.bool
-    attempts: builtins.int
-    reason: builtins.str
-    """Why did this job exit/fail?"""
-    def __init__(
-        self,
-        *,
-        successful: builtins.bool = ...,
-        attempts: builtins.int = ...,
-        reason: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["attempts", b"attempts", "reason", b"reason", "successful", b"successful"]) -> None: ...
-
-global___CustomTaskExecutionEvent = CustomTaskExecutionEvent
 
 class RuntimeObject(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -973,7 +950,6 @@ class EventDetails(google.protobuf.message.Message):
     PROGRAM_EXIT_FIELD_NUMBER: builtins.int
     APPLY_TARGET_STATE_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
-    CUSTOM_TASK_EXECUTION_FIELD_NUMBER: builtins.int
     RUNTIME_UPDATE_FIELD_NUMBER: builtins.int
     DELIVERY_PROGRESS_FIELD_NUMBER: builtins.int
     DELIVERY_PROMOTION_FIELD_NUMBER: builtins.int
@@ -999,8 +975,6 @@ class EventDetails(google.protobuf.message.Message):
     def apply_target_state(self) -> global___ApplyTargetStateEvent: ...
     @property
     def manual_approval(self) -> global___ManualApprovalEvent: ...
-    @property
-    def custom_task_execution(self) -> global___CustomTaskExecutionEvent: ...
     @property
     def runtime_update(self) -> global___RuntimeUpdateEvent: ...
     @property
@@ -1039,7 +1013,6 @@ class EventDetails(google.protobuf.message.Message):
         program_exit: global___ProgramExitEvent | None = ...,
         apply_target_state: global___ApplyTargetStateEvent | None = ...,
         manual_approval: global___ManualApprovalEvent | None = ...,
-        custom_task_execution: global___CustomTaskExecutionEvent | None = ...,
         runtime_update: global___RuntimeUpdateEvent | None = ...,
         delivery_progress: global___DeliveryProgressEvent | None = ...,
         delivery_promotion: global___DeliveryManualPromotionEvent | None = ...,
@@ -1056,8 +1029,8 @@ class EventDetails(google.protobuf.message.Message):
         deployment_updated: global___DeploymentUpdatedEvent | None = ...,
         release_created: global___ReleaseCreatedEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "deployment_created", b"deployment_created", "deployment_updated", b"deployment_updated", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "release_created", b"release_created", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "custom_task_execution", b"custom_task_execution", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "deployment_created", b"deployment_created", "deployment_updated", b"deployment_updated", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "release_created", b"release_created", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "custom_task_execution", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision", "rpc_call", "permission_denied", "object_created", "object_deleted", "object_modified", "kubectl_cmd", "audit_log_debug", "deployment_created", "deployment_updated", "release_created"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "deployment_created", b"deployment_created", "deployment_updated", b"deployment_updated", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "release_created", b"release_created", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["apply_target_state", b"apply_target_state", "audit_log_debug", b"audit_log_debug", "delivery_progress", b"delivery_progress", "delivery_promotion", b"delivery_promotion", "deployment_created", b"deployment_created", "deployment_updated", b"deployment_updated", "desired_state_status_change", b"desired_state_status_change", "details", b"details", "key_delivery_decision", b"key_delivery_decision", "kubectl_cmd", b"kubectl_cmd", "manual_approval", b"manual_approval", "object_created", b"object_created", "object_deleted", b"object_deleted", "object_modified", b"object_modified", "permission_denied", b"permission_denied", "program_exit", b"program_exit", "release_created", b"release_created", "rpc_call", b"rpc_call", "runtime_update", b"runtime_update", "set_desired_state", b"set_desired_state", "set_target_state", b"set_target_state"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["details", b"details"]) -> typing_extensions.Literal["set_desired_state", "set_target_state", "program_exit", "apply_target_state", "manual_approval", "runtime_update", "delivery_progress", "delivery_promotion", "desired_state_status_change", "key_delivery_decision", "rpc_call", "permission_denied", "object_created", "object_deleted", "object_modified", "kubectl_cmd", "audit_log_debug", "deployment_created", "deployment_updated", "release_created"] | None: ...
 
 global___EventDetails = EventDetails

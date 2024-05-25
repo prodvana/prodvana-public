@@ -98,11 +98,6 @@ message PerReleaseChannelConfig {
     ReplicasConfig replicas = 9;
 
     // DEPRECATED: use convergence_extensions
-    repeated TaskConfig pre_push_tasks = 10 [
-        (validate.rules).repeated.items.message.required = true
-    ];
-
-    // DEPRECATED: use convergence_extensions
     repeated DeliveryExtensionConfig delivery_extensions = 18 [(validate.rules).repeated.items.message.required = true];
     repeated DeliveryExtensionConfig convergence_extensions = 26 [(validate.rules).repeated.items.message.required = true];
 
@@ -146,7 +141,7 @@ message PerReleaseChannelConfig {
     // TODO: unused today, but will be used for per-service per-RC convergence protections in the future
     repeated prodvana.protection.ProtectionAttachmentConfig convergence_protections = 23;
 
-    reserved 3, 4, 12;
+    reserved 3, 4, 10, 12;
 
     // next tag: 30
 }
@@ -352,8 +347,6 @@ message ServiceConfig {
     repeated prodvana.volumes.Volume volumes = 12 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 13;
 
-    // DEPRECATED: Replace with convergence_extensions
-    repeated TaskConfig pre_push_tasks = 15;
     // DEPRECATED: use convergence_extensions
     repeated DeliveryExtensionConfig delivery_extensions = 29;
     repeated DeliveryExtensionInstance delivery_extension_instances = 30;
@@ -380,7 +373,7 @@ message ServiceConfig {
     // how long to wait before marking deployment as failed
     google.protobuf.Duration progress_deadline = 24;
 
-    reserved 6, 7, 8, 14, 17;
+    reserved 6, 7, 8, 14, 15, 17;
     reserved "external", "image_repository", "base_template", "container_registry_id", "protections";
 
     oneof config_oneof {
@@ -463,8 +456,6 @@ message CompiledServiceInstanceConfig {
     repeated prodvana.volumes.Volume volumes = 14 [(validate.rules).repeated.items.message.required = true];
     prodvana.workflow.AnnotationsConfig deploy_annotations = 15;
 
-    // DEPRECATED: use convergence_extensions
-    repeated TaskConfig pre_push_tasks = 17;
     repeated DeliveryExtensionConfig convergence_extensions = 30;
     repeated DeliveryExtensionInstance convergence_extension_instances = 31;
 
@@ -508,7 +499,7 @@ message CompiledServiceInstanceConfig {
 
     string bundle_name = 40;
 
-    reserved 8, 9, 16, 20, 21, 35, 36;
+    reserved 8, 9, 16, 17, 20, 21, 35, 36;
     reserved "base_template", "runtime_type";
 
     // next tag: 44

@@ -163,13 +163,6 @@ func (s *desiredStateStatus) renderDesiredStateJSON(ctx context.Context, writer 
 					Status:         node.Status.String(),
 					DesiredVersion: ds.Versions[0].Version,
 				})
-			case ds_model_pb.Type_CUSTOM_TASK:
-				ds := node.DesiredState.GetCustomTask()
-				result.CustomTasks = append(result.CustomTasks, resultT{
-					Name:           ds.Name,
-					DesiredStateId: ds.Meta.DesiredStateId,
-					Status:         node.Status.String(),
-				})
 			case ds_model_pb.Type_DELIVERY_EXTENSION:
 				ds := node.DesiredState.GetDeliveryExtension()
 				result.DeliveryExtensions = append(result.DeliveryExtensions, resultT{

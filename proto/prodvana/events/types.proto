@@ -19,7 +19,6 @@ enum EventType {
     // Each SET_TARGET_STATE is followed by one or more APPLY_TARGET_STATE, unless convergence is aborted.
     APPLY_TARGET_STATE = 4;
     MANUAL_APPROVAL = 6;
-    CUSTOM_TASK_EXECUTION = 7;
     // generic runtime events when more specific event types are not available.
     RUNTIME_UPDATE = 8;
     DELIVERY_PROGRESS = 9;
@@ -47,7 +46,7 @@ enum EventType {
 
     RELEASE_CREATED = 22;
 
-    reserved 5;
+    reserved 5, 7;
 }
 
 message SetDesiredStateEvent {
@@ -131,14 +130,6 @@ message ManualApprovalEvent {
     prodvana.desired_state.model.ManualApprovalStatus status = 1;
     string topic = 2;
     // Actor etc ...
-}
-
-message CustomTaskExecutionEvent {
-    bool successful = 1;
-    int32 attempts = 2;
-    string reason = 3; // Why did this job exit/fail?
-    reserved 4;
-    reserved "logs";
 }
 
 message RuntimeObject {
@@ -314,7 +305,6 @@ message EventDetails {
         ProgramExitEvent program_exit = 3;
         ApplyTargetStateEvent apply_target_state = 4;
         ManualApprovalEvent manual_approval = 6;
-        CustomTaskExecutionEvent custom_task_execution = 7;
         RuntimeUpdateEvent runtime_update = 8;
         DeliveryProgressEvent delivery_progress = 9;
         DeliveryManualPromotionEvent delivery_promotion = 10;
@@ -331,5 +321,5 @@ message EventDetails {
         DeploymentUpdatedEvent deployment_updated = 21;
         ReleaseCreatedEvent release_created = 22;
     }
-    reserved 5;
+    reserved 5, 7;
 }
