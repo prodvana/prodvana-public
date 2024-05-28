@@ -326,10 +326,6 @@ type imageInfo struct {
 	repository          string
 }
 
-type buildInfo struct {
-	requiresBuild bool
-}
-
 func makeOrgAuthTokenOnce(ctx context.Context, flyOrg string) (string, error) {
 	flyCmd := exec.CommandContext(ctx, configureFlags.flyctlPath, "tokens", "create", "org", "--org", flyOrg, "--json", "--name", "Prodvana deploy token")
 	flyCmd.Stderr = os.Stderr
