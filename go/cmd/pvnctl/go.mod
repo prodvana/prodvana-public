@@ -24,7 +24,7 @@ require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/bradenaw/juniper v0.15.3
 	github.com/charmbracelet/bubbletea v0.26.2
-	github.com/charmbracelet/lipgloss v0.10.0
+	github.com/charmbracelet/lipgloss v0.11.0
 	github.com/fatih/color v1.17.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/hashicorp/go-multierror v1.1.1
@@ -50,6 +50,7 @@ require (
 	github.com/census-instrumentation/opencensus-proto v0.4.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/charmbracelet/bubbles v0.18.0 // indirect
+	github.com/charmbracelet/x/ansi v0.1.1 // indirect
 	github.com/cncf/xds/go v0.0.0-20240318125728-8a4994d93e50 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
