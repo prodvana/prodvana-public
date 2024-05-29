@@ -119,6 +119,17 @@ func (m *ProtectionAttachmentConfig) validate(all bool) error {
 		}
 	}
 
+	if len(m.GetLifecycle()) < 1 {
+		err := ProtectionAttachmentConfigValidationError{
+			field:  "Lifecycle",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	for idx, item := range m.GetLifecycle() {
 		_, _ = idx, item
 

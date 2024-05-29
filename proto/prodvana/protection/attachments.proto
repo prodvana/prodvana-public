@@ -25,6 +25,7 @@ message ProtectionAttachmentConfig {
     // if set, the attachment is automatically used in all deployments for the subject of this attachment.
     // e.g. for release channels, all service instances in that release channel will use the attachment.
     repeated ProtectionLifecycle lifecycle = 3 [(validate.rules).repeated = {
+        min_items: 1,
         items: {
             message: {
                 required: true,
