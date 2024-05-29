@@ -20,7 +20,7 @@ replace github.com/prodvana/prodvana-public/go/prodvana-sdk => ../../prodvana-sd
 replace github.com/prodvana/prodvana-public/go/pkg => ../../pkg
 
 require (
-	github.com/aws/aws-sdk-go v1.53.10
+	github.com/aws/aws-sdk-go v1.53.11
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/bradenaw/juniper v0.15.3
 	github.com/charmbracelet/bubbletea v0.26.3
