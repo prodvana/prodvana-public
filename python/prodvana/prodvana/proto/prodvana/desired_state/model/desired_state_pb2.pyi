@@ -365,13 +365,43 @@ class Condition(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "min_approvers", b"min_approvers", "topic", b"topic"]) -> None: ...
 
+    class ServiceStableCondition(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        APPLICATION_FIELD_NUMBER: builtins.int
+        SERVICE_FIELD_NUMBER: builtins.int
+        SERVICE_ID_FIELD_NUMBER: builtins.int
+        RELEASE_CHANNEL_FIELD_NUMBER: builtins.int
+        RELEASE_CHANNEL_ID_FIELD_NUMBER: builtins.int
+        SERVICE_VERSION_FIELD_NUMBER: builtins.int
+        application: builtins.str
+        service: builtins.str
+        service_id: builtins.str
+        release_channel: builtins.str
+        release_channel_id: builtins.str
+        service_version: builtins.str
+        def __init__(
+            self,
+            *,
+            application: builtins.str = ...,
+            service: builtins.str = ...,
+            service_id: builtins.str = ...,
+            release_channel: builtins.str = ...,
+            release_channel_id: builtins.str = ...,
+            service_version: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "release_channel", b"release_channel", "release_channel_id", b"release_channel_id", "service", b"service", "service_id", b"service_id", "service_version", b"service_version"]) -> None: ...
+
     RC_COND_FIELD_NUMBER: builtins.int
     MANUAL_APPROVAL_FIELD_NUMBER: builtins.int
+    SERVICE_STABLE_FIELD_NUMBER: builtins.int
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     @property
     def rc_cond(self) -> global___Condition.ReleaseChannelStableCondition: ...
     @property
     def manual_approval(self) -> global___Condition.ManualApproval: ...
+    @property
+    def service_stable(self) -> global___Condition.ServiceStableCondition: ...
     desired_state_id: builtins.str
     """Generated during SetDesiredState.
     Do not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions.
@@ -381,11 +411,12 @@ class Condition(google.protobuf.message.Message):
         *,
         rc_cond: global___Condition.ReleaseChannelStableCondition | None = ...,
         manual_approval: global___Condition.ManualApproval | None = ...,
+        service_stable: global___Condition.ServiceStableCondition | None = ...,
         desired_state_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["condition", b"condition", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["condition", b"condition", "desired_state_id", b"desired_state_id", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["condition", b"condition"]) -> typing_extensions.Literal["rc_cond", "manual_approval"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["condition", b"condition", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond", "service_stable", b"service_stable"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["condition", b"condition", "desired_state_id", b"desired_state_id", "manual_approval", b"manual_approval", "rc_cond", b"rc_cond", "service_stable", b"service_stable"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["condition", b"condition"]) -> typing_extensions.Literal["rc_cond", "manual_approval", "service_stable"] | None: ...
 
 global___Condition = Condition
 

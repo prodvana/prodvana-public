@@ -33,6 +33,7 @@ class _DependencyTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper.
     DEPENDENCY_RELEASE_CHANNEL: _DependencyType.ValueType  # 3
     DEPENDENCY_PRECONDITION: _DependencyType.ValueType  # 4
     DEPENDENCY_DELIVERY_EXTENSION: _DependencyType.ValueType  # 5
+    DEPENDENCY_SERVICE: _DependencyType.ValueType  # 6
 
 class DependencyType(_DependencyType, metaclass=_DependencyTypeEnumTypeWrapper): ...
 
@@ -42,6 +43,7 @@ DEPENDENCY_PROTECTION_ATTACHMENT: DependencyType.ValueType  # 2
 DEPENDENCY_RELEASE_CHANNEL: DependencyType.ValueType  # 3
 DEPENDENCY_PRECONDITION: DependencyType.ValueType  # 4
 DEPENDENCY_DELIVERY_EXTENSION: DependencyType.ValueType  # 5
+DEPENDENCY_SERVICE: DependencyType.ValueType  # 6
 global___DependencyType = DependencyType
 
 class Notifications(google.protobuf.message.Message):

@@ -60,9 +60,19 @@ message Condition {
         int32 min_approvers = 3;
     }
 
+    message ServiceStableCondition {
+        string application = 1;
+        string service = 2;
+        string service_id = 3;
+        string release_channel = 4;
+        string release_channel_id = 5;
+        string service_version = 6;
+    }
+
     oneof condition {
         ReleaseChannelStableCondition rc_cond = 1;
         ManualApproval manual_approval = 2;
+        ServiceStableCondition service_stable = 5;
     }
 
     // Generated during SetDesiredState.

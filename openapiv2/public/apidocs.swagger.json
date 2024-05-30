@@ -7489,6 +7489,29 @@
       },
       "title": "TODO(naphat) conditions need health"
     },
+    "ConditionServiceStableCondition": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "releaseChannel": {
+          "type": "string"
+        },
+        "releaseChannelId": {
+          "type": "string"
+        },
+        "serviceVersion": {
+          "type": "string"
+        }
+      }
+    },
     "ConfigureK8sClusterReqEKSOptions": {
       "type": "object",
       "properties": {
@@ -13411,6 +13434,9 @@
         "manualApproval": {
           "$ref": "#/definitions/modelConditionManualApproval"
         },
+        "serviceStable": {
+          "$ref": "#/definitions/ConditionServiceStableCondition"
+        },
         "desiredStateId": {
           "type": "string",
           "description": "Generated during SetDesiredState.\nDo not set as part of input unless reusing an existing precondition, e.g., patching an existing desired state without regenerating some preconditions."
@@ -13602,7 +13628,8 @@
         "DEPENDENCY_PROTECTION_ATTACHMENT",
         "DEPENDENCY_RELEASE_CHANNEL",
         "DEPENDENCY_PRECONDITION",
-        "DEPENDENCY_DELIVERY_EXTENSION"
+        "DEPENDENCY_DELIVERY_EXTENSION",
+        "DEPENDENCY_SERVICE"
       ],
       "default": "DEPENDENCY_UNKNOWN"
     },

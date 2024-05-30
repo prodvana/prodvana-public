@@ -57,6 +57,7 @@ enum DependencyType {
     DEPENDENCY_RELEASE_CHANNEL = 3;
     DEPENDENCY_PRECONDITION = 4;
     DEPENDENCY_DELIVERY_EXTENSION = 5;
+    DEPENDENCY_SERVICE = 6;
 }
 
 message Dependency {

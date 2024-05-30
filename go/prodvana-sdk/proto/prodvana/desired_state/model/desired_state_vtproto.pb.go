@@ -83,6 +83,28 @@ func (m *Condition_ManualApproval) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *Condition_ServiceStableCondition) CloneVT() *Condition_ServiceStableCondition {
+	if m == nil {
+		return (*Condition_ServiceStableCondition)(nil)
+	}
+	r := new(Condition_ServiceStableCondition)
+	r.Application = m.Application
+	r.Service = m.Service
+	r.ServiceId = m.ServiceId
+	r.ReleaseChannel = m.ReleaseChannel
+	r.ReleaseChannelId = m.ReleaseChannelId
+	r.ServiceVersion = m.ServiceVersion
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *Condition_ServiceStableCondition) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (m *Condition) CloneVT() *Condition {
 	if m == nil {
 		return (*Condition)(nil)
@@ -118,6 +140,15 @@ func (m *Condition_ManualApproval_) CloneVT() isCondition_Condition {
 	}
 	r := new(Condition_ManualApproval_)
 	r.ManualApproval = m.ManualApproval.CloneVT()
+	return r
+}
+
+func (m *Condition_ServiceStable) CloneVT() isCondition_Condition {
+	if m == nil {
+		return (*Condition_ServiceStable)(nil)
+	}
+	r := new(Condition_ServiceStable)
+	r.ServiceStable = m.ServiceStable.CloneVT()
 	return r
 }
 
@@ -2081,6 +2112,40 @@ func (this *Condition_ManualApproval) StableEqualMessageVT(thatMsg proto.Message
 	}
 	return this.StableEqualVT(that)
 }
+func (this *Condition_ServiceStableCondition) StableEqualVT(that *Condition_ServiceStableCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceVersion != that.ServiceVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Condition_ServiceStableCondition) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Condition_ServiceStableCondition)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
 func (this *Condition) StableEqualVT(that *Condition) bool {
 	if this == that {
 		return true
@@ -2162,6 +2227,31 @@ func (this *Condition_ManualApproval_) StableEqualVT(thatIface isCondition_Condi
 	return true
 }
 
+func (this *Condition_ServiceStable) StableEqualVT(thatIface isCondition_Condition) bool {
+	that, ok := thatIface.(*Condition_ServiceStable)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceStable, that.ServiceStable; p != q {
+		if p == nil {
+			p = &Condition_ServiceStableCondition{}
+		}
+		if q == nil {
+			q = &Condition_ServiceStableCondition{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *Condition_ReleaseChannelStableCondition) EqualVT(that *Condition_ReleaseChannelStableCondition) bool {
 	if this == that {
 		return true
@@ -2219,6 +2309,40 @@ func (this *Condition_ManualApproval) EqualVT(that *Condition_ManualApproval) bo
 
 func (this *Condition_ManualApproval) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*Condition_ManualApproval)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Condition_ServiceStableCondition) EqualVT(that *Condition_ServiceStableCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ReleaseChannel != that.ReleaseChannel {
+		return false
+	}
+	if this.ReleaseChannelId != that.ReleaseChannelId {
+		return false
+	}
+	if this.ServiceVersion != that.ServiceVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Condition_ServiceStableCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Condition_ServiceStableCondition)
 	if !ok {
 		return false
 	}
@@ -2297,6 +2421,31 @@ func (this *Condition_ManualApproval_) EqualVT(thatIface isCondition_Condition) 
 		}
 		if q == nil {
 			q = &Condition_ManualApproval{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *Condition_ServiceStable) EqualVT(thatIface isCondition_Condition) bool {
+	that, ok := thatIface.(*Condition_ServiceStable)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.ServiceStable, that.ServiceStable; p != q {
+		if p == nil {
+			p = &Condition_ServiceStableCondition{}
+		}
+		if q == nil {
+			q = &Condition_ServiceStableCondition{}
 		}
 		if !p.EqualVT(q) {
 			return false
