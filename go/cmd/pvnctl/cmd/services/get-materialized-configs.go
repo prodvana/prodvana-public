@@ -8,6 +8,7 @@ import (
 	"github.com/prodvana/prodvana-public/go/pkg/cmdutil"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/encoding/prototext"
 
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
@@ -39,7 +40,17 @@ pvnctl services --app <app> get-materialized-configs <service>
 			log.Fatalf("error getting materialized configs: %+v", err)
 		}
 
-		fmt.Println(prototext.Format(resp))
+		outputFormat, err := cmd.Flags().GetString("format")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		switch outputFormat {
+		case "json":
+			fmt.Println(protojson.Format(resp))
+		default:
+			fmt.Println(prototext.Format(resp))
+		}
 	},
 }
 
