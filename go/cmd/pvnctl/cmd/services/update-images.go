@@ -226,6 +226,10 @@ func isConvergenceCompleted(summary *desired_state.DesiredStateSummary, releaseC
 			}
 		}
 	}
+
+	if releaseChannelsSet.Len() > 0 {
+		return false, errors.Errorf("desired state does not have release channels %s", releaseChannelsSet.AsSlice())
+	}
 	return completed == len(releaseChannels), nil
 }
 
