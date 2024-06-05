@@ -49,14 +49,14 @@ def make_channel(
     """
     Make a new connection to Prodvana API.
 
-    If `org` is provided, it is used to construct the api address automatically, i.e. api.<org>.prodvana.io.
+    If `org` is provided, it is used to construct the api address automatically, i.e. <org>.grpc.runprodvana.com.
     If `apiserver_addr` is provided, it is used. It must include both host name and port.
     Otherwise, env var PVN_APISERVER_ADDR is used.
 
     if `api_token` is not passed, env var PVN_TOKEN will be used.
     """
     if org is not None:
-        apiserver_addr = f"api.{org}.prodvana.io:443"
+        apiserver_addr = f"{org}.grpc.runprodvana.com:443"
     elif apiserver_addr is None:
         apiserver_addr = os.getenv("PVN_APISERVER_ADDR")
     assert (
