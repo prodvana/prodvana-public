@@ -16,6 +16,7 @@ import (
 	object_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/object"
 	organization_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
 	protection_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection"
+	recipe_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe"
 	release_channel_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel"
 	secrets_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/secrets"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
@@ -45,6 +46,9 @@ var (
 
 	releaseChannelManagerClient     release_channel_pb.ReleaseChannelManagerClient
 	releaseChannelManagerClientOnce sync.Once
+
+	recipeManagerClient     recipe_pb.RecipeManagerClient
+	recipeManagerClientOnce sync.Once
 
 	workflowManagerClient     workflow_pb.WorkflowManagerClient
 	workflowManagerClientOnce sync.Once
@@ -107,6 +111,13 @@ func GetReleaseChannelManagerClient() release_channel_pb.ReleaseChannelManagerCl
 		releaseChannelManagerClient = release_channel_pb.NewReleaseChannelManagerClient(client.GetApiserverConn())
 	})
 	return releaseChannelManagerClient
+}
+
+func GetRecipeManagerClient() recipe_pb.RecipeManagerClient {
+	recipeManagerClientOnce.Do(func() {
+		recipeManagerClient = recipe_pb.NewRecipeManagerClient(client.GetApiserverConn())
+	})
+	return recipeManagerClient
 }
 
 func GetWorkflowManagerClient() workflow_pb.WorkflowManagerClient {

@@ -54,6 +54,9 @@
       "name": "prodvana.pvn_wrapper.JobManager"
     },
     {
+      "name": "prodvana.recipe.RecipeManager"
+    },
+    {
       "name": "prodvana.release.ReleaseManager"
     },
     {
@@ -5098,7 +5101,8 @@
               "RELEASE_CHANNEL",
               "PROTECTION",
               "DEPLOYMENT",
-              "RELEASE"
+              "RELEASE",
+              "RECIPE"
             ],
             "default": "UNKNOWN"
           },
@@ -5642,6 +5646,188 @@
         ],
         "tags": [
           "prodvana.protection.ProtectionManager"
+        ]
+      }
+    },
+    "/v1/recipes": {
+      "get": {
+        "operationId": "RecipeManager_ListRecipes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeListRecipesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "serviceFilter.application",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceFilter.service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
+        ]
+      }
+    },
+    "/v1/recipes/configure": {
+      "post": {
+        "operationId": "RecipeManager_ConfigureRecipe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeConfigureRecipeResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recipeConfigureRecipeReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
+        ]
+      }
+    },
+    "/v1/recipes/configure/validate": {
+      "post": {
+        "operationId": "RecipeManager_ValidateConfigureRecipe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeValidateConfigureRecipeResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recipeConfigureRecipeReq"
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
+        ]
+      }
+    },
+    "/v1/recipes/{recipe}": {
+      "get": {
+        "operationId": "RecipeManager_GetRecipe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeGetRecipeResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recipe",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
+        ]
+      }
+    },
+    "/v1/recipes/{recipe}/config": {
+      "get": {
+        "operationId": "RecipeManager_GetRecipeConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeGetRecipeConfigResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recipe",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "description": "omit to get latest version",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
         ]
       }
     },
@@ -7894,27 +8080,6 @@
         }
       }
     },
-    "KubernetesPatchTarget": {
-      "type": "object",
-      "properties": {
-        "group": {
-          "type": "string",
-          "title": "omit any of these fields to match all values"
-        },
-        "version": {
-          "type": "string"
-        },
-        "kind": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        }
-      }
-    },
     "ListClustersRespClusterInfo": {
       "type": "object",
       "properties": {
@@ -7994,6 +8159,17 @@
           "type": "string"
         },
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ListRecipesReqByService": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "service": {
           "type": "string"
         }
       }
@@ -9281,11 +9457,32 @@
       "type": "object",
       "properties": {
         "target": {
-          "$ref": "#/definitions/KubernetesPatchTarget",
+          "$ref": "#/definitions/common_configKubernetesPatchTarget",
           "description": "filter to a specific Kubernetes object. Omit to apply to all objects."
         },
         "replace": {
           "$ref": "#/definitions/KubernetesPatchReplace"
+        }
+      }
+    },
+    "common_configKubernetesPatchTarget": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string",
+          "title": "omit any of these fields to match all values"
+        },
+        "version": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
         }
       }
     },
@@ -10834,6 +11031,16 @@
       ],
       "default": "UNKNOWN_STATUS",
       "description": " - PENDING: Pending means this train entry has never been started and is waiting for dependencies to be met.\n - IN_PROGRESS: Dependencies have been met and this train entry has been promoted.\n - SUCCEEDED: Successfully converged.\n - FAILED: Promoted but failed to converge.\n - SKIPPED: This train entry was skipped - any dependencies on this entry can proceed."
+    },
+    "desired_statemaestroStrategy": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_STRATEGY",
+        "RELEASE_TRAIN",
+        "MAESTRO_DISABLED",
+        "IMMEDIATE"
+      ],
+      "default": "UNKNOWN_STRATEGY"
     },
     "desired_statemodelDeliveryExtension": {
       "type": "object",
@@ -12957,7 +13164,7 @@
       "type": "object",
       "properties": {
         "strategy": {
-          "$ref": "#/definitions/maestroStrategy"
+          "$ref": "#/definitions/desired_statemaestroStrategy"
         }
       }
     },
@@ -13060,16 +13267,6 @@
           "description": "Details about the status, like when it was last updated, why and any other relevant information."
         }
       }
-    },
-    "maestroStrategy": {
-      "type": "string",
-      "enum": [
-        "UNKNOWN_STRATEGY",
-        "RELEASE_TRAIN",
-        "MAESTRO_DISABLED",
-        "IMMEDIATE"
-      ],
-      "default": "UNKNOWN_STRATEGY"
     },
     "managed_resourceConfigureK8sClusterReq": {
       "type": "object",
@@ -14774,7 +14971,8 @@
         "RELEASE_CHANNEL",
         "PROTECTION",
         "DEPLOYMENT",
-        "RELEASE"
+        "RELEASE",
+        "RECIPE"
       ],
       "default": "UNKNOWN"
     },
@@ -15420,6 +15618,14 @@
         }
       }
     },
+    "prodvanarecipeTarget": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "$ref": "#/definitions/recipeServiceTarget"
+        }
+      }
+    },
     "prodvanarepoUser": {
       "type": "object",
       "properties": {
@@ -15987,6 +16193,150 @@
     },
     "pvn_wrapperReportJobResultResp": {
       "type": "object"
+    },
+    "recipeConfigureRecipeReq": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/versionSource"
+        },
+        "sourceMetadata": {
+          "$ref": "#/definitions/versionSourceMetadata"
+        },
+        "recipeConfig": {
+          "$ref": "#/definitions/recipeRecipeConfig"
+        }
+      }
+    },
+    "recipeConfigureRecipeResp": {
+      "type": "object",
+      "properties": {
+        "recipeId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "recipeGetRecipeConfigResp": {
+      "type": "object",
+      "properties": {
+        "inputConfig": {
+          "$ref": "#/definitions/recipeRecipeConfig"
+        },
+        "compiledConfig": {
+          "$ref": "#/definitions/recipeRecipeConfig"
+        },
+        "version": {
+          "type": "string",
+          "title": "next tag: 4"
+        }
+      }
+    },
+    "recipeGetRecipeResp": {
+      "type": "object",
+      "properties": {
+        "recipe": {
+          "$ref": "#/definitions/recipeRecipe"
+        }
+      }
+    },
+    "recipeListRecipesResp": {
+      "type": "object",
+      "properties": {
+        "protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/recipeRecipe"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "recipeRecipe": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/objectObjectMeta"
+        },
+        "config": {
+          "$ref": "#/definitions/recipeRecipeConfig"
+        }
+      }
+    },
+    "recipeRecipeConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "application": {
+          "type": "string",
+          "description": "Optional application name. If unset, application name will need to be explicitly set within recipe stages."
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/recipeRecipeStage"
+          },
+          "description": "Sequential stages of the recipe."
+        },
+        "strategy": {
+          "$ref": "#/definitions/recipeRecipeConfigStrategy"
+        }
+      }
+    },
+    "recipeRecipeConfigStrategy": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "BY_SERVICE",
+        "BY_RELEASE_CHANNEL"
+      ],
+      "default": "UNKNOWN",
+      "description": " - BY_SERVICE: Complete stages for entire services before moving to the next stage.\n - BY_RELEASE_CHANNEL: Stages are used as per-release channel configuration. Different release channels can be in different stages."
+    },
+    "recipeRecipeStage": {
+      "type": "object",
+      "properties": {
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/prodvanarecipeTarget"
+          }
+        }
+      }
+    },
+    "recipeServiceTarget": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "applicationId": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        }
+      }
+    },
+    "recipeValidateConfigureRecipeResp": {
+      "type": "object",
+      "properties": {
+        "compiledConfig": {
+          "$ref": "#/definitions/recipeRecipeConfig"
+        }
+      }
     },
     "release_channelConfigureReleaseChannelResp": {
       "type": "object",

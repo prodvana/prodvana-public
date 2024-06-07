@@ -1,0 +1,50 @@
+syntax = "proto3";
+package prodvana.recipe;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe";
+
+import "validate/validate.proto";
+
+message ServiceTarget {
+    string application = 1;
+    string application_id = 2;
+    string service = 3;
+    string service_id = 4;
+}
+
+message Target {
+    oneof target {
+        ServiceTarget service = 1;
+    }
+}
+
+message RecipeStage {
+    repeated Target targets = 1;
+}
+
+message RecipeConfig {
+    string name = 1 [
+        (validate.rules).string = {
+            min_len: 1,
+            max_len: 63,
+            pattern: '^[a-z]([a-z0-9-]*[a-z0-9]){0,1}$',
+        }
+    ];
+
+    // Optional application name. If unset, application name will need to be explicitly set within recipe stages.
+    string application = 2;
+
+    // Sequential stages of the recipe.
+    repeated RecipeStage stages = 3;
+
+    enum Strategy {
+        UNKNOWN = 0;
+        // Complete stages for entire services before moving to the next stage.
+        BY_SERVICE = 1;
+        // Stages are used as per-release channel configuration. Different release channels can be in different stages.
+        BY_RELEASE_CHANNEL = 2;
+    }
+
+    Strategy strategy = 4;
+
+    // next tags: 5
+}

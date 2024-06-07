@@ -84,6 +84,16 @@
                         {}
                     ]
                 },
+                "recipe": {
+                    "$ref": "#/definitions/prodvana.recipe.RecipeConfig",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                },
                 "application_metadata": {
                     "$ref": "#/definitions/prodvana.application.ApplicationUserMetadata",
                     "additionalProperties": false,
@@ -7612,6 +7622,204 @@
                 }
             ],
             "title": "Time Window"
+        },
+        "prodvana.recipe.RecipeConfig": {
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "application": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Optional application name. If unset, application name will need to be explicitly set within recipe stages."
+                },
+                "stages": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.recipe.RecipeStage"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ],
+                    "description": "Sequential stages of the recipe."
+                },
+                "strategy": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "BY_SERVICE",
+                        1,
+                        "BY_RELEASE_CHANNEL",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "title": "Strategy"
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Recipe Config"
+        },
+        "prodvana.recipe.RecipeStage": {
+            "properties": {
+                "targets": {
+                    "items": {
+                        "$ref": "#/definitions/prodvana.recipe.Target"
+                    },
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Recipe Stage"
+        },
+        "prodvana.recipe.ServiceTarget": {
+            "properties": {
+                "application": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "application_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "applicationId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "service": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "service_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "serviceId": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Service Target"
+        },
+        "prodvana.recipe.Target": {
+            "properties": {
+                "service": {
+                    "$ref": "#/definitions/prodvana.recipe.ServiceTarget",
+                    "additionalProperties": false,
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {}
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "object"
+                }
+            ],
+            "title": "Target"
         },
         "prodvana.release_channel.Policy": {
             "properties": {

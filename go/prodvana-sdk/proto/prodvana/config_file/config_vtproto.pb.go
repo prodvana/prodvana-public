@@ -9,6 +9,7 @@ import (
 	delivery_extension "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/delivery_extension"
 	environment "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/environment"
 	protection "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection"
+	recipe "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe"
 	release_channel "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/release_channel"
 	service "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
 	proto "google.golang.org/protobuf/proto"
@@ -99,6 +100,15 @@ func (m *ProdvanaConfig_ReleaseChannel) CloneVT() isProdvanaConfig_ConfigOneof {
 	}
 	r := new(ProdvanaConfig_ReleaseChannel)
 	r.ReleaseChannel = m.ReleaseChannel.CloneVT()
+	return r
+}
+
+func (m *ProdvanaConfig_Recipe) CloneVT() isProdvanaConfig_ConfigOneof {
+	if m == nil {
+		return (*ProdvanaConfig_Recipe)(nil)
+	}
+	r := new(ProdvanaConfig_Recipe)
+	r.Recipe = m.Recipe.CloneVT()
 	return r
 }
 
@@ -360,6 +370,31 @@ func (this *ProdvanaConfig_ReleaseChannel) StableEqualVT(thatIface isProdvanaCon
 	return true
 }
 
+func (this *ProdvanaConfig_Recipe) StableEqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Recipe)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Recipe, that.Recipe; p != q {
+		if p == nil {
+			p = &recipe.RecipeConfig{}
+		}
+		if q == nil {
+			q = &recipe.RecipeConfig{}
+		}
+		if !p.StableEqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
 func (this *ProdvanaConfig) EqualVT(that *ProdvanaConfig) bool {
 	if this == that {
 		return true
@@ -592,6 +627,31 @@ func (this *ProdvanaConfig_ReleaseChannel) EqualVT(thatIface isProdvanaConfig_Co
 		}
 		if q == nil {
 			q = &release_channel.ReleaseChannelConfig{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProdvanaConfig_Recipe) EqualVT(thatIface isProdvanaConfig_ConfigOneof) bool {
+	that, ok := thatIface.(*ProdvanaConfig_Recipe)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Recipe, that.Recipe; p != q {
+		if p == nil {
+			p = &recipe.RecipeConfig{}
+		}
+		if q == nil {
+			q = &recipe.RecipeConfig{}
 		}
 		if !p.EqualVT(q) {
 			return false

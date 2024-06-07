@@ -12,6 +12,7 @@ enum ObjectType {
     PROTECTION = 5;
     DEPLOYMENT = 6;
     RELEASE = 7;
+    RECIPE = 8;
 }
 
 message ObjectMeta {

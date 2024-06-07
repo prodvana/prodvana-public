@@ -7,6 +7,7 @@ import "prodvana/application/user_metadata.proto";
 import "prodvana/environment/clusters.proto";
 import "prodvana/delivery_extension/config.proto";
 import "prodvana/protection/protection_config.proto";
+import "prodvana/recipe/recipe_config.proto";
 import "prodvana/release_channel/release_channel_config.proto";
 import "prodvana/service/service_config.proto";
 import "prodvana/service/user_metadata.proto";
@@ -22,6 +23,7 @@ message ProdvanaConfig {
         prodvana.environment.ClusterConfig runtime = 4;
         prodvana.delivery_extension.DeliveryExtensionConfig delivery_extension = 7;
         prodvana.release_channel.ReleaseChannelConfig release_channel = 8;
+        prodvana.recipe.RecipeConfig recipe = 9;
     }
 
     // TODO(naphat) unify metadata format?
@@ -30,5 +32,5 @@ message ProdvanaConfig {
         prodvana.service.ServiceUserMetadata service_metadata = 6;
     }
 
-    // next tag: 9
+    // next tag: 10
 }

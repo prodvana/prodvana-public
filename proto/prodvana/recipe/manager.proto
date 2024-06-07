@@ -1,0 +1,98 @@
+syntax = "proto3";
+package prodvana.recipe;
+option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe";
+
+import "google/api/annotations.proto";
+import "prodvana/object/meta.proto";
+import "prodvana/recipe/recipe_config.proto";
+import "prodvana/version/source_metadata.proto";
+import "validate/validate.proto";
+
+message ConfigureRecipeReq {
+    prodvana.version.Source source = 1;
+    prodvana.version.SourceMetadata source_metadata = 2;
+    RecipeConfig recipe_config = 3;
+}
+
+message ConfigureRecipeResp {
+    string recipe_id = 1;
+    string version = 2;
+}
+
+message ValidateConfigureRecipeResp {
+    RecipeConfig compiled_config = 1;
+}
+
+message ListRecipesReq {
+    string page_token = 1;
+    int32 page_size = 2;
+
+    message ByService {
+        string application = 1;
+        string service = 2;
+    }
+
+    oneof filter {
+        ByService service_filter = 3;
+    }
+}
+
+message ListRecipesResp {
+    repeated Recipe protections = 1;
+    string next_page_token = 2;
+}
+
+message GetRecipeReq {
+    string recipe = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetRecipeResp {
+    Recipe recipe = 1;
+}
+
+message GetRecipeConfigReq {
+    string recipe = 1 [(validate.rules).string.min_len = 1];
+    string version = 2; // omit to get latest version
+}
+
+message GetRecipeConfigResp {
+    RecipeConfig input_config = 1;
+    RecipeConfig compiled_config = 2;
+    string version = 3;
+    // next tag: 4
+}
+
+message Recipe {
+    prodvana.object.ObjectMeta meta = 1;
+    RecipeConfig config = 2;
+}
+
+service RecipeManager {
+    rpc ConfigureRecipe (ConfigureRecipeReq) returns (ConfigureRecipeResp) {
+        option (google.api.http) = {
+            post: "/v1/recipes/configure"
+            body: "*"
+        };
+    }
+    rpc ValidateConfigureRecipe (ConfigureRecipeReq) returns (ValidateConfigureRecipeResp) {
+        option (google.api.http) = {
+            post: "/v1/recipes/configure/validate"
+            body: "*"
+        };
+    }
+    rpc ListRecipes (ListRecipesReq) returns (ListRecipesResp) {
+        option (google.api.http) = {
+            get: "/v1/recipes"
+        };
+    }
+    rpc GetRecipe (GetRecipeReq) returns (GetRecipeResp) {
+        option (google.api.http) = {
+            get: "/v1/recipes/{recipe=*}"
+        };
+    }
+    rpc GetRecipeConfig (GetRecipeConfigReq) returns (GetRecipeConfigResp) {
+        option (google.api.http) = {
+            get: "/v1/recipes/{recipe=*}/config"
+        };
+    }
+}

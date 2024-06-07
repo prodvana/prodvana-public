@@ -35,6 +35,7 @@ import (
 	fly_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/fly"
 	"github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/organization"
 	protection_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/protection"
+	recipe_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe"
 	service_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/service"
 	version_pb "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/version"
 
@@ -1041,6 +1042,45 @@ func processDeliveryExtensionConfig(ctx context.Context, cfgFile *utils.ConfigFi
 	return nil
 }
 
+func processRecipeConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *recipe_pb.RecipeConfig, validateOnly bool) error {
+	validationResp, err := cmdutil.GetRecipeManagerClient().ValidateConfigureRecipe(ctx, &recipe_pb.ConfigureRecipeReq{
+		RecipeConfig: cfg,
+	})
+	if err != nil {
+		return errors.Wrapf(err, "validation failed")
+	}
+	if validateOnly {
+		return nil
+	}
+
+	err = handleConfigDiffPrompt(ctx, "recipe", validationResp.CompiledConfig, func(ctx context.Context) (string, proto.Message, error) {
+		getLatestConfigResp, err := cmdutil.GetRecipeManagerClient().GetRecipeConfig(ctx, &recipe_pb.GetRecipeConfigReq{
+			Recipe: cfg.Name,
+		})
+		if err != nil {
+			return "", nil, err
+		}
+		return getLatestConfigResp.Version, getLatestConfigResp.CompiledConfig, nil
+	})
+	if err != nil {
+		return err
+	}
+
+	resp, err := cmdutil.GetRecipeManagerClient().ConfigureRecipe(ctx,
+		&recipe_pb.ConfigureRecipeReq{
+			RecipeConfig:   cfg,
+			Source:         version_pb.Source_CONFIG_FILE,
+			SourceMetadata: utils.DetectSourceMetadata(cfgFile),
+		},
+	)
+	if err != nil {
+		return errors.Wrap(err, "failed to configure recipe")
+	} else {
+		fmt.Printf("Successfully configured %s\n", resp.Version)
+	}
+	return nil
+}
+
 func expandRuntimeExtensionApplyCommand(ctx context.Context, cfgFile *utils.ConfigFile, cfg *environment_pb.ExtensionApplyCommand) error {
 	if cfg == nil {
 		return nil
@@ -1167,6 +1207,8 @@ func processConfig(ctx context.Context, cfgFile *utils.ConfigFile, cfg *config_f
 		return processServiceConfig(ctx, cfgFile, inner.Service, cfg.GetServiceMetadata(), validateOnly)
 	case *config_file_pb.ProdvanaConfig_Runtime:
 		return processRuntimeConfig(ctx, cfgFile, inner.Runtime, validateOnly)
+	case *config_file_pb.ProdvanaConfig_Recipe:
+		return processRecipeConfig(ctx, cfgFile, inner.Recipe, validateOnly)
 	default:
 		return errors.Errorf("unsupported config %T", cfg.ConfigOneof)
 	}

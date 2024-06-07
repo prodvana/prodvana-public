@@ -28,3 +28,4 @@ type ConcurrencyLimitId string
 type ConcurrencyLeaseId string
 type JobId string
 type TimingRecordId string
+type RecipeId string
