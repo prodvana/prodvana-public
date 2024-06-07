@@ -3591,6 +3591,12 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "rootDesiredStateId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -3622,6 +3628,12 @@
             "required": true,
             "type": "string",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "rootDesiredStateId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -9971,6 +9983,18 @@
             "type": "object",
             "$ref": "#/definitions/debugEntityDumpState"
           }
+        },
+        "applicationConfig": {
+          "$ref": "#/definitions/applicationApplicationConfig"
+        },
+        "compiledApplicationConfig": {
+          "$ref": "#/definitions/applicationApplicationConfig"
+        },
+        "serviceConfig": {
+          "$ref": "#/definitions/serviceServiceConfig"
+        },
+        "compiledServiceConfig": {
+          "$ref": "#/definitions/serviceServiceConfig"
         }
       }
     },

@@ -507,6 +507,122 @@ func (m *DumpState) validate(all bool) error {
 
 	}
 
+	if all {
+		switch v := interface{}(m.GetApplicationConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "ApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "ApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplicationConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DumpStateValidationError{
+				field:  "ApplicationConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledApplicationConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "CompiledApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "CompiledApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledApplicationConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DumpStateValidationError{
+				field:  "CompiledApplicationConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetServiceConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DumpStateValidationError{
+				field:  "ServiceConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledServiceConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "CompiledServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DumpStateValidationError{
+					field:  "CompiledServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledServiceConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DumpStateValidationError{
+				field:  "CompiledServiceConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return DumpStateMultiError(errors)
 	}
