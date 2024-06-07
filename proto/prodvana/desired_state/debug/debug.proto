@@ -2,8 +2,6 @@ syntax = "proto3";
 package prodvana.desired_state.debug;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/debug";
 import "prodvana/desired_state/model/desired_state.proto";
-import "prodvana/application/application_config.proto";
-import "prodvana/service/service_config.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -45,8 +43,4 @@ message EntityDumpState {
 
 message DumpState {
     repeated EntityDumpState entities = 1;
-    prodvana.application.ApplicationConfig application_config = 2;
-    prodvana.application.ApplicationConfig compiled_application_config = 3;
-    prodvana.service.ServiceConfig service_config = 4;
-    prodvana.service.ServiceConfig compiled_service_config = 5;
 }

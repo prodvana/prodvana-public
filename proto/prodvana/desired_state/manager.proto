@@ -158,7 +158,6 @@ message GetServiceDesiredStateHistoryResp {
 
 message GetDesiredStateReq {
     string desired_state_id = 1 [(validate.rules).string.min_len = 1];
-    string root_desired_state_id = 2 [(validate.rules).string.min_len = 1];
 }
 
 message GetDesiredStateResp {

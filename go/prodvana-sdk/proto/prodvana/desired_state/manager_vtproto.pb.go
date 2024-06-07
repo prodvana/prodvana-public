@@ -445,7 +445,6 @@ func (m *GetDesiredStateReq) CloneVT() *GetDesiredStateReq {
 	}
 	r := new(GetDesiredStateReq)
 	r.DesiredStateId = m.DesiredStateId
-	r.RootDesiredStateId = m.RootDesiredStateId
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -2615,9 +2614,6 @@ func (this *GetDesiredStateReq) StableEqualVT(that *GetDesiredStateReq) bool {
 	if this.DesiredStateId != that.DesiredStateId {
 		return false
 	}
-	if this.RootDesiredStateId != that.RootDesiredStateId {
-		return false
-	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -2635,9 +2631,6 @@ func (this *GetDesiredStateReq) EqualVT(that *GetDesiredStateReq) bool {
 		return false
 	}
 	if this.DesiredStateId != that.DesiredStateId {
-		return false
-	}
-	if this.RootDesiredStateId != that.RootDesiredStateId {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

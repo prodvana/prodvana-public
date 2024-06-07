@@ -9,9 +9,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
-import prodvana.proto.prodvana.application.application_config_pb2
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
-import prodvana.proto.prodvana.service.service_config_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -134,30 +132,13 @@ class DumpState(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ENTITIES_FIELD_NUMBER: builtins.int
-    APPLICATION_CONFIG_FIELD_NUMBER: builtins.int
-    COMPILED_APPLICATION_CONFIG_FIELD_NUMBER: builtins.int
-    SERVICE_CONFIG_FIELD_NUMBER: builtins.int
-    COMPILED_SERVICE_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityDumpState]: ...
-    @property
-    def application_config(self) -> prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig: ...
-    @property
-    def compiled_application_config(self) -> prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig: ...
-    @property
-    def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
-    @property
-    def compiled_service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
     def __init__(
         self,
         *,
         entities: collections.abc.Iterable[global___EntityDumpState] | None = ...,
-        application_config: prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig | None = ...,
-        compiled_application_config: prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig | None = ...,
-        service_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
-        compiled_service_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "compiled_application_config", b"compiled_application_config", "compiled_service_config", b"compiled_service_config", "service_config", b"service_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "compiled_application_config", b"compiled_application_config", "compiled_service_config", b"compiled_service_config", "entities", b"entities", "service_config", b"service_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["entities", b"entities"]) -> None: ...
 
 global___DumpState = DumpState

@@ -107,10 +107,6 @@ func (m *DumpState) CloneVT() *DumpState {
 		return (*DumpState)(nil)
 	}
 	r := new(DumpState)
-	r.ApplicationConfig = m.ApplicationConfig.CloneVT()
-	r.CompiledApplicationConfig = m.CompiledApplicationConfig.CloneVT()
-	r.ServiceConfig = m.ServiceConfig.CloneVT()
-	r.CompiledServiceConfig = m.CompiledServiceConfig.CloneVT()
 	if rhs := m.Entities; rhs != nil {
 		tmpContainer := make([]*EntityDumpState, len(rhs))
 		for k, v := range rhs {
@@ -430,18 +426,6 @@ func (this *DumpState) StableEqualVT(that *DumpState) bool {
 			}
 		}
 	}
-	if !this.ApplicationConfig.StableEqualVT(that.ApplicationConfig) {
-		return false
-	}
-	if !this.CompiledApplicationConfig.StableEqualVT(that.CompiledApplicationConfig) {
-		return false
-	}
-	if !this.ServiceConfig.StableEqualVT(that.ServiceConfig) {
-		return false
-	}
-	if !this.CompiledServiceConfig.StableEqualVT(that.CompiledServiceConfig) {
-		return false
-	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -474,18 +458,6 @@ func (this *DumpState) EqualVT(that *DumpState) bool {
 				return false
 			}
 		}
-	}
-	if !this.ApplicationConfig.EqualVT(that.ApplicationConfig) {
-		return false
-	}
-	if !this.CompiledApplicationConfig.EqualVT(that.CompiledApplicationConfig) {
-		return false
-	}
-	if !this.ServiceConfig.EqualVT(that.ServiceConfig) {
-		return false
-	}
-	if !this.CompiledServiceConfig.EqualVT(that.CompiledServiceConfig) {
-		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }

@@ -513,10 +513,6 @@ func local_request_DesiredStateManager_GetServiceDesiredStateHistory_0(ctx conte
 
 }
 
-var (
-	filter_DesiredStateManager_GetDesiredState_0 = &utilities.DoubleArray{Encoding: map[string]int{"desired_state_id": 0, "desiredStateId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_DesiredStateManager_GetDesiredState_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDesiredStateReq
 	var metadata runtime.ServerMetadata
@@ -536,13 +532,6 @@ func request_DesiredStateManager_GetDesiredState_0(ctx context.Context, marshale
 	protoReq.DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDesiredState_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetDesiredState(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -569,13 +558,6 @@ func local_request_DesiredStateManager_GetDesiredState_0(ctx context.Context, ma
 	protoReq.DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDesiredState_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetDesiredState(ctx, &protoReq)
@@ -1247,10 +1229,6 @@ func local_request_DesiredStateManager_GetServiceLatestCombinedReleaseDesiredSta
 
 }
 
-var (
-	filter_DesiredStateManager_GetDebugState_0 = &utilities.DoubleArray{Encoding: map[string]int{"desired_state_id": 0, "desiredStateId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_DesiredStateManager_GetDebugState_0(ctx context.Context, marshaler runtime.Marshaler, client DesiredStateManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDesiredStateReq
 	var metadata runtime.ServerMetadata
@@ -1270,13 +1248,6 @@ func request_DesiredStateManager_GetDebugState_0(ctx context.Context, marshaler 
 	protoReq.DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDebugState_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetDebugState(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1303,13 +1274,6 @@ func local_request_DesiredStateManager_GetDebugState_0(ctx context.Context, mars
 	protoReq.DesiredStateId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "desired_state_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DesiredStateManager_GetDebugState_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetDebugState(ctx, &protoReq)

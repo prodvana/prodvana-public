@@ -2972,17 +2972,6 @@ func (m *GetDesiredStateReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetRootDesiredStateId()) < 1 {
-		err := GetDesiredStateReqValidationError{
-			field:  "RootDesiredStateId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return GetDesiredStateReqMultiError(errors)
 	}

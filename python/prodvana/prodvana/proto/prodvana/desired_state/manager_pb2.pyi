@@ -594,16 +594,13 @@ class GetDesiredStateReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
-    ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
     desired_state_id: builtins.str
-    root_desired_state_id: builtins.str
     def __init__(
         self,
         *,
         desired_state_id: builtins.str = ...,
-        root_desired_state_id: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "root_desired_state_id", b"root_desired_state_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id"]) -> None: ...
 
 global___GetDesiredStateReq = GetDesiredStateReq
 
