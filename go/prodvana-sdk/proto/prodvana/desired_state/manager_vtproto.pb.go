@@ -1251,6 +1251,45 @@ func (m *GetHistoricalEntityStatsResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
+func (m *GetDebugStateReq) CloneVT() *GetDebugStateReq {
+	if m == nil {
+		return (*GetDebugStateReq)(nil)
+	}
+	r := new(GetDebugStateReq)
+	r.DesiredStateId = m.DesiredStateId
+	r.RootDesiredStateId = m.RootDesiredStateId
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetDebugStateReq) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *GetDebugStateResp) CloneVT() *GetDebugStateResp {
+	if m == nil {
+		return (*GetDebugStateResp)(nil)
+	}
+	r := new(GetDebugStateResp)
+	r.DumpState = m.DumpState.CloneVT()
+	r.ApplicationConfig = m.ApplicationConfig.CloneVT()
+	r.CompiledApplicationConfig = m.CompiledApplicationConfig.CloneVT()
+	r.ServiceConfig = m.ServiceConfig.CloneVT()
+	r.CompiledServiceConfig = m.CompiledServiceConfig.CloneVT()
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *GetDebugStateResp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
 func (this *SetDesiredStateReq) StableEqualVT(that *SetDesiredStateReq) bool {
 	if this == that {
 		return true
@@ -4816,6 +4855,112 @@ func (this *GetHistoricalEntityStatsResp) EqualVT(that *GetHistoricalEntityStats
 
 func (this *GetHistoricalEntityStatsResp) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*GetHistoricalEntityStatsResp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetDebugStateReq) StableEqualVT(that *GetDebugStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDebugStateReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDebugStateReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetDebugStateReq) EqualVT(that *GetDebugStateReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredStateId != that.DesiredStateId {
+		return false
+	}
+	if this.RootDesiredStateId != that.RootDesiredStateId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDebugStateReq) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDebugStateReq)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GetDebugStateResp) StableEqualVT(that *GetDebugStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DumpState.StableEqualVT(that.DumpState) {
+		return false
+	}
+	if !this.ApplicationConfig.StableEqualVT(that.ApplicationConfig) {
+		return false
+	}
+	if !this.CompiledApplicationConfig.StableEqualVT(that.CompiledApplicationConfig) {
+		return false
+	}
+	if !this.ServiceConfig.StableEqualVT(that.ServiceConfig) {
+		return false
+	}
+	if !this.CompiledServiceConfig.StableEqualVT(that.CompiledServiceConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDebugStateResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDebugStateResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *GetDebugStateResp) EqualVT(that *GetDebugStateResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DumpState.EqualVT(that.DumpState) {
+		return false
+	}
+	if !this.ApplicationConfig.EqualVT(that.ApplicationConfig) {
+		return false
+	}
+	if !this.CompiledApplicationConfig.EqualVT(that.CompiledApplicationConfig) {
+		return false
+	}
+	if !this.ServiceConfig.EqualVT(that.ServiceConfig) {
+		return false
+	}
+	if !this.CompiledServiceConfig.EqualVT(that.CompiledServiceConfig) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GetDebugStateResp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GetDebugStateResp)
 	if !ok {
 		return false
 	}

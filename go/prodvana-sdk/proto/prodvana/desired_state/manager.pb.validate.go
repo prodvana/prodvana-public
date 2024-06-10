@@ -8106,6 +8106,375 @@ var _ interface {
 	ErrorName() string
 } = GetHistoricalEntityStatsRespValidationError{}
 
+// Validate checks the field values on GetDebugStateReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetDebugStateReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetDebugStateReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetDebugStateReqMultiError, or nil if none found.
+func (m *GetDebugStateReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDebugStateReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetDesiredStateId()) < 1 {
+		err := GetDebugStateReqValidationError{
+			field:  "DesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetRootDesiredStateId()) < 1 {
+		err := GetDebugStateReqValidationError{
+			field:  "RootDesiredStateId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetDebugStateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDebugStateReqMultiError is an error wrapping multiple validation errors
+// returned by GetDebugStateReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetDebugStateReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDebugStateReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDebugStateReqMultiError) AllErrors() []error { return m }
+
+// GetDebugStateReqValidationError is the validation error returned by
+// GetDebugStateReq.Validate if the designated constraints aren't met.
+type GetDebugStateReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDebugStateReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDebugStateReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDebugStateReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDebugStateReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDebugStateReqValidationError) ErrorName() string { return "GetDebugStateReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetDebugStateReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDebugStateReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDebugStateReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDebugStateReqValidationError{}
+
+// Validate checks the field values on GetDebugStateResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetDebugStateResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetDebugStateResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetDebugStateRespMultiError, or nil if none found.
+func (m *GetDebugStateResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetDebugStateResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDumpState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "DumpState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "DumpState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDumpState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDebugStateRespValidationError{
+				field:  "DumpState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetApplicationConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "ApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "ApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApplicationConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDebugStateRespValidationError{
+				field:  "ApplicationConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledApplicationConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "CompiledApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "CompiledApplicationConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledApplicationConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDebugStateRespValidationError{
+				field:  "CompiledApplicationConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetServiceConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "ServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetServiceConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDebugStateRespValidationError{
+				field:  "ServiceConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCompiledServiceConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "CompiledServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetDebugStateRespValidationError{
+					field:  "CompiledServiceConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompiledServiceConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetDebugStateRespValidationError{
+				field:  "CompiledServiceConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetDebugStateRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetDebugStateRespMultiError is an error wrapping multiple validation errors
+// returned by GetDebugStateResp.ValidateAll() if the designated constraints
+// aren't met.
+type GetDebugStateRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetDebugStateRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetDebugStateRespMultiError) AllErrors() []error { return m }
+
+// GetDebugStateRespValidationError is the validation error returned by
+// GetDebugStateResp.Validate if the designated constraints aren't met.
+type GetDebugStateRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetDebugStateRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetDebugStateRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetDebugStateRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetDebugStateRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetDebugStateRespValidationError) ErrorName() string {
+	return "GetDebugStateRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetDebugStateRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetDebugStateResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetDebugStateRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetDebugStateRespValidationError{}
+
 // Validate checks the field values on
 // GetDesiredStateGraphReq_LiteEntitiesFilter with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

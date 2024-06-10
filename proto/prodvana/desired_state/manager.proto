@@ -4,6 +4,7 @@ option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/p
 import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
+import "prodvana/application/application_config.proto";
 import "prodvana/async_task/task_metadata.proto";
 import "prodvana/desired_state/debug/debug.proto";
 import "prodvana/desired_state/maestro/maestro.proto";
@@ -435,6 +436,19 @@ message GetHistoricalEntityStatsResp {
     HistoricalEntityStats stats = 1;
 }
 
+message GetDebugStateReq {
+    string desired_state_id = 1 [(validate.rules).string.min_len = 1];
+    string root_desired_state_id = 2 [(validate.rules).string.min_len = 1];
+}
+
+message GetDebugStateResp {
+    prodvana.desired_state.debug.DumpState dump_state = 1;
+    prodvana.application.ApplicationConfig application_config = 2;
+    prodvana.application.ApplicationConfig compiled_application_config = 3;
+    prodvana.service.ServiceConfig service_config = 4;
+    prodvana.service.ServiceConfig compiled_service_config = 5;
+}
+
 service DesiredStateManager {
     rpc SetDesiredState(SetDesiredStateReq) returns (SetDesiredStateResp) {
         option (google.api.http) = {
@@ -573,9 +587,9 @@ service DesiredStateManager {
             get: "/v1/applications/{application=*}/services/{service=*}/combined_releases/latest_desired_state"
         };
     }
-    rpc GetDebugState(GetDesiredStateReq) returns (prodvana.desired_state.debug.DumpState) {
+    rpc GetDebugState(GetDebugStateReq) returns (GetDebugStateResp) {
         option (google.api.http) = {
-            get: "/v1/desired_states/{desired_state_id=*}/debug"
+            get: "/v1/desired_states/{root_desired_state_id=*}/debug"
         };
     }
     rpc GetHistoricalEntityStats(GetHistoricalEntityStatsReq) returns (GetHistoricalEntityStatsResp) {

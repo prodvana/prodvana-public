@@ -3598,37 +3598,6 @@
         ]
       }
     },
-    "/v1/desired_states/{desiredStateId}/debug": {
-      "get": {
-        "operationId": "DesiredStateManager_GetDebugState",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/debugDumpState"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "desiredStateId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "pattern": "[^/]+"
-          }
-        ],
-        "tags": [
-          "prodvana.desired_state.DesiredStateManager"
-        ]
-      }
-    },
     "/v1/desired_states/{desiredStateId}/summary": {
       "get": {
         "summary": "Get the convergence summary for a desired state id.\nIf the desired state id is pending, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to PENDING_SET_DESIRED_STATE.\nIf the desired state id was pending and failed to be set, the returned summary will not have the entity_graph set but will have pending_set_desired_state set.\nThe status will be set to FAILED.",
@@ -3661,6 +3630,43 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          }
+        ],
+        "tags": [
+          "prodvana.desired_state.DesiredStateManager"
+        ]
+      }
+    },
+    "/v1/desired_states/{rootDesiredStateId}/debug": {
+      "get": {
+        "operationId": "DesiredStateManager_GetDebugState",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/desired_stateGetDebugStateResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rootDesiredStateId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "desiredStateId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -10578,6 +10584,26 @@
     },
     "desired_stateForceExecuteTaskResp": {
       "type": "object"
+    },
+    "desired_stateGetDebugStateResp": {
+      "type": "object",
+      "properties": {
+        "dumpState": {
+          "$ref": "#/definitions/debugDumpState"
+        },
+        "applicationConfig": {
+          "$ref": "#/definitions/applicationApplicationConfig"
+        },
+        "compiledApplicationConfig": {
+          "$ref": "#/definitions/applicationApplicationConfig"
+        },
+        "serviceConfig": {
+          "$ref": "#/definitions/serviceServiceConfig"
+        },
+        "compiledServiceConfig": {
+          "$ref": "#/definitions/serviceServiceConfig"
+        }
+      }
     },
     "desired_stateGetDesiredStateConvergenceSummaryResp": {
       "type": "object",

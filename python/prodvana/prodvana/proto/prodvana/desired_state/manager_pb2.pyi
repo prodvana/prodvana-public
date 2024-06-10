@@ -9,7 +9,9 @@ import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import prodvana.proto.prodvana.application.application_config_pb2
 import prodvana.proto.prodvana.async_task.task_metadata_pb2
+import prodvana.proto.prodvana.desired_state.debug.debug_pb2
 import prodvana.proto.prodvana.desired_state.maestro.maestro_pb2
 import prodvana.proto.prodvana.desired_state.model.desired_state_pb2
 import prodvana.proto.prodvana.desired_state.model.entity_pb2
@@ -1416,3 +1418,52 @@ class GetHistoricalEntityStatsResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["stats", b"stats"]) -> None: ...
 
 global___GetHistoricalEntityStatsResp = GetHistoricalEntityStatsResp
+
+class GetDebugStateReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    ROOT_DESIRED_STATE_ID_FIELD_NUMBER: builtins.int
+    desired_state_id: builtins.str
+    root_desired_state_id: builtins.str
+    def __init__(
+        self,
+        *,
+        desired_state_id: builtins.str = ...,
+        root_desired_state_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["desired_state_id", b"desired_state_id", "root_desired_state_id", b"root_desired_state_id"]) -> None: ...
+
+global___GetDebugStateReq = GetDebugStateReq
+
+class GetDebugStateResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DUMP_STATE_FIELD_NUMBER: builtins.int
+    APPLICATION_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_APPLICATION_CONFIG_FIELD_NUMBER: builtins.int
+    SERVICE_CONFIG_FIELD_NUMBER: builtins.int
+    COMPILED_SERVICE_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def dump_state(self) -> prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState: ...
+    @property
+    def application_config(self) -> prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig: ...
+    @property
+    def compiled_application_config(self) -> prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig: ...
+    @property
+    def service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
+    @property
+    def compiled_service_config(self) -> prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig: ...
+    def __init__(
+        self,
+        *,
+        dump_state: prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState | None = ...,
+        application_config: prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig | None = ...,
+        compiled_application_config: prodvana.proto.prodvana.application.application_config_pb2.ApplicationConfig | None = ...,
+        service_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+        compiled_service_config: prodvana.proto.prodvana.service.service_config_pb2.ServiceConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "compiled_application_config", b"compiled_application_config", "compiled_service_config", b"compiled_service_config", "dump_state", b"dump_state", "service_config", b"service_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["application_config", b"application_config", "compiled_application_config", b"compiled_application_config", "compiled_service_config", b"compiled_service_config", "dump_state", b"dump_state", "service_config", b"service_config"]) -> None: ...
+
+global___GetDebugStateResp = GetDebugStateResp

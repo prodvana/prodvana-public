@@ -4,7 +4,6 @@ isort:skip_file
 """
 import abc
 import grpc
-import prodvana.proto.prodvana.desired_state.debug.debug_pb2
 import prodvana.proto.prodvana.desired_state.manager_pb2
 
 class DesiredStateManagerStub:
@@ -117,8 +116,8 @@ class DesiredStateManagerStub:
         prodvana.proto.prodvana.desired_state.manager_pb2.GetLatestCombinedReleaseDesiredStateResp,
     ]
     GetDebugState: grpc.UnaryUnaryMultiCallable[
-        prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
-        prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetDebugStateReq,
+        prodvana.proto.prodvana.desired_state.manager_pb2.GetDebugStateResp,
     ]
     GetHistoricalEntityStats: grpc.UnaryUnaryMultiCallable[
         prodvana.proto.prodvana.desired_state.manager_pb2.GetHistoricalEntityStatsReq,
@@ -282,9 +281,9 @@ class DesiredStateManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def GetDebugState(
         self,
-        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDesiredStateReq,
+        request: prodvana.proto.prodvana.desired_state.manager_pb2.GetDebugStateReq,
         context: grpc.ServicerContext,
-    ) -> prodvana.proto.prodvana.desired_state.debug.debug_pb2.DumpState: ...
+    ) -> prodvana.proto.prodvana.desired_state.manager_pb2.GetDebugStateResp: ...
     @abc.abstractmethod
     def GetHistoricalEntityStats(
         self,

@@ -8,7 +8,6 @@ package desired_state
 
 import (
 	context "context"
-	debug "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/desired_state/debug"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -86,7 +85,7 @@ type DesiredStateManagerClient interface {
 	// then GetDesiredState or GetMaestroRelease depending on the type of release.
 	GetLatestCombinedReleaseDesiredState(ctx context.Context, in *GetLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(ctx context.Context, in *GetServiceLatestCombinedReleaseDesiredStateReq, opts ...grpc.CallOption) (*GetLatestCombinedReleaseDesiredStateResp, error)
-	GetDebugState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*debug.DumpState, error)
+	GetDebugState(ctx context.Context, in *GetDebugStateReq, opts ...grpc.CallOption) (*GetDebugStateResp, error)
 	GetHistoricalEntityStats(ctx context.Context, in *GetHistoricalEntityStatsReq, opts ...grpc.CallOption) (*GetHistoricalEntityStatsResp, error)
 }
 
@@ -305,8 +304,8 @@ func (c *desiredStateManagerClient) GetServiceLatestCombinedReleaseDesiredState(
 	return out, nil
 }
 
-func (c *desiredStateManagerClient) GetDebugState(ctx context.Context, in *GetDesiredStateReq, opts ...grpc.CallOption) (*debug.DumpState, error) {
-	out := new(debug.DumpState)
+func (c *desiredStateManagerClient) GetDebugState(ctx context.Context, in *GetDebugStateReq, opts ...grpc.CallOption) (*GetDebugStateResp, error) {
+	out := new(GetDebugStateResp)
 	err := c.cc.Invoke(ctx, DesiredStateManager_GetDebugState_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -362,7 +361,7 @@ type DesiredStateManagerServer interface {
 	// then GetDesiredState or GetMaestroRelease depending on the type of release.
 	GetLatestCombinedReleaseDesiredState(context.Context, *GetLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
 	GetServiceLatestCombinedReleaseDesiredState(context.Context, *GetServiceLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error)
-	GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error)
+	GetDebugState(context.Context, *GetDebugStateReq) (*GetDebugStateResp, error)
 	GetHistoricalEntityStats(context.Context, *GetHistoricalEntityStatsReq) (*GetHistoricalEntityStatsResp, error)
 	mustEmbedUnimplementedDesiredStateManagerServer()
 }
@@ -440,7 +439,7 @@ func (UnimplementedDesiredStateManagerServer) GetLatestCombinedReleaseDesiredSta
 func (UnimplementedDesiredStateManagerServer) GetServiceLatestCombinedReleaseDesiredState(context.Context, *GetServiceLatestCombinedReleaseDesiredStateReq) (*GetLatestCombinedReleaseDesiredStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceLatestCombinedReleaseDesiredState not implemented")
 }
-func (UnimplementedDesiredStateManagerServer) GetDebugState(context.Context, *GetDesiredStateReq) (*debug.DumpState, error) {
+func (UnimplementedDesiredStateManagerServer) GetDebugState(context.Context, *GetDebugStateReq) (*GetDebugStateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDebugState not implemented")
 }
 func (UnimplementedDesiredStateManagerServer) GetHistoricalEntityStats(context.Context, *GetHistoricalEntityStatsReq) (*GetHistoricalEntityStatsResp, error) {
@@ -874,7 +873,7 @@ func _DesiredStateManager_GetServiceLatestCombinedReleaseDesiredState_Handler(sr
 }
 
 func _DesiredStateManager_GetDebugState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDesiredStateReq)
+	in := new(GetDebugStateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -886,7 +885,7 @@ func _DesiredStateManager_GetDebugState_Handler(srv interface{}, ctx context.Con
 		FullMethod: DesiredStateManager_GetDebugState_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DesiredStateManagerServer).GetDebugState(ctx, req.(*GetDesiredStateReq))
+		return srv.(DesiredStateManagerServer).GetDebugState(ctx, req.(*GetDebugStateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

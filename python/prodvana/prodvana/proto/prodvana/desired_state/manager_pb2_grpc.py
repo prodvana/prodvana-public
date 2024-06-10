@@ -2,7 +2,6 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from prodvana.proto.prodvana.desired_state.debug import debug_pb2 as prodvana_dot_desired__state_dot_debug_dot_debug__pb2
 from prodvana.proto.prodvana.desired_state import manager_pb2 as prodvana_dot_desired__state_dot_manager__pb2
 
 
@@ -132,8 +131,8 @@ class DesiredStateManagerStub(object):
                 )
         self.GetDebugState = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetDebugState',
-                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
-                response_deserializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
+                request_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateReq.SerializeToString,
+                response_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateResp.FromString,
                 )
         self.GetHistoricalEntityStats = channel.unary_unary(
                 '/prodvana.desired_state.DesiredStateManager/GetHistoricalEntityStats',
@@ -427,8 +426,8 @@ def add_DesiredStateManagerServicer_to_server(servicer, server):
             ),
             'GetDebugState': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDebugState,
-                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.FromString,
-                    response_serializer=prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.SerializeToString,
+                    request_deserializer=prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateReq.FromString,
+                    response_serializer=prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateResp.SerializeToString,
             ),
             'GetHistoricalEntityStats': grpc.unary_unary_rpc_method_handler(
                     servicer.GetHistoricalEntityStats,
@@ -848,8 +847,8 @@ class DesiredStateManager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/prodvana.desired_state.DesiredStateManager/GetDebugState',
-            prodvana_dot_desired__state_dot_manager__pb2.GetDesiredStateReq.SerializeToString,
-            prodvana_dot_desired__state_dot_debug_dot_debug__pb2.DumpState.FromString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateReq.SerializeToString,
+            prodvana_dot_desired__state_dot_manager__pb2.GetDebugStateResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
