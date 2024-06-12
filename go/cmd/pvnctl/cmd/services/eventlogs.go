@@ -56,16 +56,13 @@ pvnctl services --app <app> event-logs <desired-state-id>
 		if err != nil {
 			log.Fatal(err)
 		}
-		tail, err := cmd.Flags().GetInt32("tail")
+		limit, err := cmd.Flags().GetInt32("limit")
 		if err != nil {
 			log.Fatal(err)
 		}
 		includeDsIdDeps, err := cmd.Flags().GetBool("include-desired-state-dependencies")
 		if err != nil {
 			log.Fatal(err)
-		}
-		if tail < 1 {
-			tail = 1
 		}
 
 		if rootDesiredStateId != "" {
@@ -153,44 +150,43 @@ pvnctl services --app <app> event-logs <desired-state-id>
 			}
 		}
 
-		// Find most recent events
-		eventsResp, err := cmdutil.GetEventsManagerClient().GetEvents(ctx, &events_pb.GetEventsReq{
-			Lookups:  lookups,
-			UseOr:    true,
-			PageSize: tail,
-		})
-		if err != nil {
-			log.Fatalf("Failed to get convergence details: %s", err)
-		}
-		for _, event := range eventsResp.Events {
-			printEvent(event)
-		}
-
-		// Then find all new events since the last seen event
-		if follow {
-			ticker := time.NewTicker(5 * time.Second)
-			defer ticker.Stop()
-
-			for {
-				eventsResp, err := cmdutil.GetEventsManagerClient().GetEvents(ctx, &events_pb.GetEventsReq{
-					Lookups:             lookups,
-					OrderByAscTimestamp: true,
-					UseOr:               true,
-					AfterTimestamp:      timestamppb.New(afterTimestamp),
-				})
-				if err != nil {
-					log.Fatalf("Failed to get convergence details: %s", err)
-				}
-				for _, event := range eventsResp.Events {
-					printEvent(event)
-				}
-
-				if !follow {
-					break
-				}
-
-				<-ticker.C
+		// Find events
+		for {
+			toFetch := limit
+			if toFetch > 100 || toFetch <= 0 {
+				toFetch = 100
 			}
+			eventsResp, err := cmdutil.GetEventsManagerClient().GetEvents(ctx, &events_pb.GetEventsReq{
+				Lookups:             lookups,
+				OrderByAscTimestamp: true,
+				UseOr:               true,
+				PageSize:            toFetch,
+				AfterTimestamp:      timestamppb.New(afterTimestamp),
+			})
+			if err != nil {
+				log.Fatalf("Failed to get convergence details: %s", err)
+			}
+			for _, event := range eventsResp.Events {
+				printEvent(event)
+			}
+
+			if limit <= 0 || follow {
+				// No new events
+				if len(eventsResp.Events) != 0 {
+					continue
+				}
+			} else {
+				limit -= int32(len(eventsResp.Events))
+				if limit > 0 {
+					continue
+				}
+			}
+
+			if !follow {
+				break
+			}
+
+			time.Sleep(5 * time.Second)
 		}
 	},
 }
@@ -198,7 +194,7 @@ pvnctl services --app <app> event-logs <desired-state-id>
 func init() {
 	RootCmd.AddCommand(eventLogsCmd)
 	eventLogsCmd.Flags().Bool("follow", false, "Stream event logs")
-	eventLogsCmd.Flags().Int32("tail", 100, "Number of recent log lines to show")
+	eventLogsCmd.Flags().Int32("limit", -1, "Limit number of events to show (default: all)")
 	eventLogsCmd.Flags().String("root-desired-state-id", "", "Root Desired state ID to get event logs for")
 	eventLogsCmd.Flags().String("desired-state-id", "", "Desired state ID to get event logs for")
 	eventLogsCmd.Flags().Bool("include-desired-state-dependencies", false, "Include dependencies of desired state id in event logs")
