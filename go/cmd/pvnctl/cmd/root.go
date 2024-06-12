@@ -21,6 +21,7 @@ import (
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/organizations"
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/preflight"
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/protections"
+	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/recipes"
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/releasechannels"
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/runtimes"
 	"github.com/prodvana/prodvana-public/go/cmd/pvnctl/cmd/secrets"
@@ -150,6 +151,7 @@ func init() {
 	rootCmd.AddCommand(blobs.RootCmd)
 	rootCmd.AddCommand(labels.RootCmd)
 	rootCmd.AddCommand(deployments.RootCmd)
+	rootCmd.AddCommand(recipes.RootCmd)
 	rootCmd.AddCommand(selfUpdateCmd)
 	rootCmd.AddCommand(initCmd)
 	rootCmd.AddCommand(preflight.RootCmd)

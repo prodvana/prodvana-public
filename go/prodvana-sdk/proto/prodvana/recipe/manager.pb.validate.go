@@ -611,7 +611,7 @@ func (m *ListRecipesResp) validate(all bool) error {
 
 	var errors []error
 
-	for idx, item := range m.GetProtections() {
+	for idx, item := range m.GetRecipes() {
 		_, _ = idx, item
 
 		if all {
@@ -619,7 +619,7 @@ func (m *ListRecipesResp) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ListRecipesRespValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
+						field:  fmt.Sprintf("Recipes[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -627,7 +627,7 @@ func (m *ListRecipesResp) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ListRecipesRespValidationError{
-						field:  fmt.Sprintf("Protections[%v]", idx),
+						field:  fmt.Sprintf("Recipes[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -636,7 +636,7 @@ func (m *ListRecipesResp) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ListRecipesRespValidationError{
-					field:  fmt.Sprintf("Protections[%v]", idx),
+					field:  fmt.Sprintf("Recipes[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1241,6 +1241,331 @@ var _ interface {
 	ErrorName() string
 } = GetRecipeConfigRespValidationError{}
 
+// Validate checks the field values on ApplyRecipeParametersReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApplyRecipeParametersReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplyRecipeParametersReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplyRecipeParametersReqMultiError, or nil if none found.
+func (m *ApplyRecipeParametersReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyRecipeParametersReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Source
+
+	if all {
+		switch v := interface{}(m.GetSourceMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyRecipeParametersReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyRecipeParametersReqValidationError{
+					field:  "SourceMetadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSourceMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyRecipeParametersReqValidationError{
+				field:  "SourceMetadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetRecipe()) < 1 {
+		err := ApplyRecipeParametersReqValidationError{
+			field:  "Recipe",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetParameters() {
+		_, _ = idx, item
+
+		if item == nil {
+			err := ApplyRecipeParametersReqValidationError{
+				field:  fmt.Sprintf("Parameters[%v]", idx),
+				reason: "value is required",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplyRecipeParametersReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplyRecipeParametersReqValidationError{
+						field:  fmt.Sprintf("Parameters[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplyRecipeParametersReqValidationError{
+					field:  fmt.Sprintf("Parameters[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ApplyRecipeParametersReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyRecipeParametersReqMultiError is an error wrapping multiple validation
+// errors returned by ApplyRecipeParametersReq.ValidateAll() if the designated
+// constraints aren't met.
+type ApplyRecipeParametersReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyRecipeParametersReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyRecipeParametersReqMultiError) AllErrors() []error { return m }
+
+// ApplyRecipeParametersReqValidationError is the validation error returned by
+// ApplyRecipeParametersReq.Validate if the designated constraints aren't met.
+type ApplyRecipeParametersReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyRecipeParametersReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyRecipeParametersReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyRecipeParametersReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyRecipeParametersReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyRecipeParametersReqValidationError) ErrorName() string {
+	return "ApplyRecipeParametersReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplyRecipeParametersReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyRecipeParametersReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyRecipeParametersReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyRecipeParametersReqValidationError{}
+
+// Validate checks the field values on ApplyRecipeParametersResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApplyRecipeParametersResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplyRecipeParametersResp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplyRecipeParametersRespMultiError, or nil if none found.
+func (m *ApplyRecipeParametersResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyRecipeParametersResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetVersions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplyRecipeParametersRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplyRecipeParametersRespValidationError{
+						field:  fmt.Sprintf("Versions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplyRecipeParametersRespValidationError{
+					field:  fmt.Sprintf("Versions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ApplyRecipeParametersRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyRecipeParametersRespMultiError is an error wrapping multiple validation
+// errors returned by ApplyRecipeParametersResp.ValidateAll() if the
+// designated constraints aren't met.
+type ApplyRecipeParametersRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyRecipeParametersRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyRecipeParametersRespMultiError) AllErrors() []error { return m }
+
+// ApplyRecipeParametersRespValidationError is the validation error returned by
+// ApplyRecipeParametersResp.Validate if the designated constraints aren't met.
+type ApplyRecipeParametersRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyRecipeParametersRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyRecipeParametersRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyRecipeParametersRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyRecipeParametersRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyRecipeParametersRespValidationError) ErrorName() string {
+	return "ApplyRecipeParametersRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplyRecipeParametersRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyRecipeParametersResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyRecipeParametersRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyRecipeParametersRespValidationError{}
+
 // Validate checks the field values on Recipe with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1502,3 +1827,119 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListRecipesReq_ByServiceValidationError{}
+
+// Validate checks the field values on ApplyRecipeParametersResp_ServiceVersion
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *ApplyRecipeParametersResp_ServiceVersion) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ApplyRecipeParametersResp_ServiceVersion with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// ApplyRecipeParametersResp_ServiceVersionMultiError, or nil if none found.
+func (m *ApplyRecipeParametersResp_ServiceVersion) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyRecipeParametersResp_ServiceVersion) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Service
+
+	// no validation rules for ServiceId
+
+	// no validation rules for ServiceVersion
+
+	// no validation rules for Application
+
+	// no validation rules for ApplicationId
+
+	if len(errors) > 0 {
+		return ApplyRecipeParametersResp_ServiceVersionMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyRecipeParametersResp_ServiceVersionMultiError is an error wrapping
+// multiple validation errors returned by
+// ApplyRecipeParametersResp_ServiceVersion.ValidateAll() if the designated
+// constraints aren't met.
+type ApplyRecipeParametersResp_ServiceVersionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyRecipeParametersResp_ServiceVersionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyRecipeParametersResp_ServiceVersionMultiError) AllErrors() []error { return m }
+
+// ApplyRecipeParametersResp_ServiceVersionValidationError is the validation
+// error returned by ApplyRecipeParametersResp_ServiceVersion.Validate if the
+// designated constraints aren't met.
+type ApplyRecipeParametersResp_ServiceVersionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) ErrorName() string {
+	return "ApplyRecipeParametersResp_ServiceVersionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplyRecipeParametersResp_ServiceVersionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyRecipeParametersResp_ServiceVersion.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyRecipeParametersResp_ServiceVersionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyRecipeParametersResp_ServiceVersionValidationError{}

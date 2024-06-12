@@ -12,13 +12,14 @@ _sym_db = _symbol_database.Default()
 
 
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from prodvana.proto.prodvana.common_config import parameters_pb2 as prodvana_dot_common__config_dot_parameters__pb2
 from prodvana.proto.prodvana.object import meta_pb2 as prodvana_dot_object_dot_meta__pb2
 from prodvana.proto.prodvana.recipe import recipe_config_pb2 as prodvana_dot_recipe_dot_recipe__config__pb2
 from prodvana.proto.prodvana.version import source_metadata_pb2 as prodvana_dot_version_dot_source__metadata__pb2
 from prodvana.proto.validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/recipe/manager.proto\x12\x0fprodvana.recipe\x1a\x1cgoogle/api/annotations.proto\x1a\x1aprodvana/object/meta.proto\x1a#prodvana/recipe/recipe_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\xaf\x01\n\x12\x43onfigureRecipeReq\x12(\n\x06source\x18\x01 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x02 \x01(\x0b\x32 .prodvana.version.SourceMetadata\x12\x34\n\rrecipe_config\x18\x03 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\"9\n\x13\x43onfigureRecipeResp\x12\x11\n\trecipe_id\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\"U\n\x1bValidateConfigureRecipeResp\x12\x36\n\x0f\x63ompiled_config\x18\x01 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\"\xb9\x01\n\x0eListRecipesReq\x12\x12\n\npage_token\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x43\n\x0eservice_filter\x18\x03 \x01(\x0b\x32).prodvana.recipe.ListRecipesReq.ByServiceH\x00\x1a\x31\n\tByService\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x0f\n\x07service\x18\x02 \x01(\tB\x08\n\x06\x66ilter\"X\n\x0fListRecipesResp\x12,\n\x0bprotections\x18\x01 \x03(\x0b\x32\x17.prodvana.recipe.Recipe\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"\'\n\x0cGetRecipeReq\x12\x17\n\x06recipe\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"8\n\rGetRecipeResp\x12\'\n\x06recipe\x18\x01 \x01(\x0b\x32\x17.prodvana.recipe.Recipe\">\n\x12GetRecipeConfigReq\x12\x17\n\x06recipe\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"\x93\x01\n\x13GetRecipeConfigResp\x12\x33\n\x0cinput_config\x18\x01 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\x12\x36\n\x0f\x63ompiled_config\x18\x02 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\x12\x0f\n\x07version\x18\x03 \x01(\t\"b\n\x06Recipe\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12-\n\x06\x63onfig\x18\x02 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig2\x82\x05\n\rRecipeManager\x12~\n\x0f\x43onfigureRecipe\x12#.prodvana.recipe.ConfigureRecipeReq\x1a$.prodvana.recipe.ConfigureRecipeResp\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/recipes/configure:\x01*\x12\x97\x01\n\x17ValidateConfigureRecipe\x12#.prodvana.recipe.ConfigureRecipeReq\x1a,.prodvana.recipe.ValidateConfigureRecipeResp\")\x82\xd3\xe4\x93\x02#\"\x1e/v1/recipes/configure/validate:\x01*\x12\x65\n\x0bListRecipes\x12\x1f.prodvana.recipe.ListRecipesReq\x1a .prodvana.recipe.ListRecipesResp\"\x13\x82\xd3\xe4\x93\x02\r\x12\x0b/v1/recipes\x12j\n\tGetRecipe\x12\x1d.prodvana.recipe.GetRecipeReq\x1a\x1e.prodvana.recipe.GetRecipeResp\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/v1/recipes/{recipe=*}\x12\x83\x01\n\x0fGetRecipeConfig\x12#.prodvana.recipe.GetRecipeConfigReq\x1a$.prodvana.recipe.GetRecipeConfigResp\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/v1/recipes/{recipe=*}/configBKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipeb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dprodvana/recipe/manager.proto\x12\x0fprodvana.recipe\x1a\x1cgoogle/api/annotations.proto\x1a\'prodvana/common_config/parameters.proto\x1a\x1aprodvana/object/meta.proto\x1a#prodvana/recipe/recipe_config.proto\x1a&prodvana/version/source_metadata.proto\x1a\x17validate/validate.proto\"\xaf\x01\n\x12\x43onfigureRecipeReq\x12(\n\x06source\x18\x01 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x02 \x01(\x0b\x32 .prodvana.version.SourceMetadata\x12\x34\n\rrecipe_config\x18\x03 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\"9\n\x13\x43onfigureRecipeResp\x12\x11\n\trecipe_id\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\"U\n\x1bValidateConfigureRecipeResp\x12\x36\n\x0f\x63ompiled_config\x18\x01 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\"\xb9\x01\n\x0eListRecipesReq\x12\x12\n\npage_token\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x43\n\x0eservice_filter\x18\x03 \x01(\x0b\x32).prodvana.recipe.ListRecipesReq.ByServiceH\x00\x1a\x31\n\tByService\x12\x13\n\x0b\x61pplication\x18\x01 \x01(\t\x12\x0f\n\x07service\x18\x02 \x01(\tB\x08\n\x06\x66ilter\"T\n\x0fListRecipesResp\x12(\n\x07recipes\x18\x01 \x03(\x0b\x32\x17.prodvana.recipe.Recipe\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"\'\n\x0cGetRecipeReq\x12\x17\n\x06recipe\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\"8\n\rGetRecipeResp\x12\'\n\x06recipe\x18\x01 \x01(\x0b\x32\x17.prodvana.recipe.Recipe\">\n\x12GetRecipeConfigReq\x12\x17\n\x06recipe\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12\x0f\n\x07version\x18\x02 \x01(\t\"\x93\x01\n\x13GetRecipeConfigResp\x12\x33\n\x0cinput_config\x18\x01 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\x12\x36\n\x0f\x63ompiled_config\x18\x02 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig\x12\x0f\n\x07version\x18\x03 \x01(\t\"\xe3\x01\n\x18\x41pplyRecipeParametersReq\x12(\n\x06source\x18\x01 \x01(\x0e\x32\x18.prodvana.version.Source\x12\x39\n\x0fsource_metadata\x18\x02 \x01(\x0b\x32 .prodvana.version.SourceMetadata\x12\x17\n\x06recipe\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01\x12I\n\nparameters\x18\x04 \x03(\x0b\x32&.prodvana.common_config.ParameterValueB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01\"\xe5\x01\n\x19\x41pplyRecipeParametersResp\x12K\n\x08versions\x18\x01 \x03(\x0b\x32\x39.prodvana.recipe.ApplyRecipeParametersResp.ServiceVersion\x1a{\n\x0eServiceVersion\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x12\n\nservice_id\x18\x02 \x01(\t\x12\x17\n\x0fservice_version\x18\x03 \x01(\t\x12\x13\n\x0b\x61pplication\x18\x04 \x01(\t\x12\x16\n\x0e\x61pplication_id\x18\x05 \x01(\t\"b\n\x06Recipe\x12)\n\x04meta\x18\x01 \x01(\x0b\x32\x1b.prodvana.object.ObjectMeta\x12-\n\x06\x63onfig\x18\x02 \x01(\x0b\x32\x1d.prodvana.recipe.RecipeConfig2\xa7\x06\n\rRecipeManager\x12~\n\x0f\x43onfigureRecipe\x12#.prodvana.recipe.ConfigureRecipeReq\x1a$.prodvana.recipe.ConfigureRecipeResp\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/recipes/configure:\x01*\x12\x97\x01\n\x17ValidateConfigureRecipe\x12#.prodvana.recipe.ConfigureRecipeReq\x1a,.prodvana.recipe.ValidateConfigureRecipeResp\")\x82\xd3\xe4\x93\x02#\"\x1e/v1/recipes/configure/validate:\x01*\x12\x65\n\x0bListRecipes\x12\x1f.prodvana.recipe.ListRecipesReq\x1a .prodvana.recipe.ListRecipesResp\"\x13\x82\xd3\xe4\x93\x02\r\x12\x0b/v1/recipes\x12j\n\tGetRecipe\x12\x1d.prodvana.recipe.GetRecipeReq\x1a\x1e.prodvana.recipe.GetRecipeResp\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/v1/recipes/{recipe=*}\x12\x83\x01\n\x0fGetRecipeConfig\x12#.prodvana.recipe.GetRecipeConfigReq\x1a$.prodvana.recipe.GetRecipeConfigResp\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/v1/recipes/{recipe=*}/config\x12\xa2\x01\n\x15\x41pplyRecipeParameters\x12).prodvana.recipe.ApplyRecipeParametersReq\x1a*.prodvana.recipe.ApplyRecipeParametersResp\"2\x82\xd3\xe4\x93\x02,\"\'/v1/recipes/{recipe=*}/apply-parameters:\x01*BKZIgithub.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipeb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -31,6 +32,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETRECIPEREQ.fields_by_name['recipe']._serialized_options = b'\372B\004r\002\020\001'
   _GETRECIPECONFIGREQ.fields_by_name['recipe']._options = None
   _GETRECIPECONFIGREQ.fields_by_name['recipe']._serialized_options = b'\372B\004r\002\020\001'
+  _APPLYRECIPEPARAMETERSREQ.fields_by_name['recipe']._options = None
+  _APPLYRECIPEPARAMETERSREQ.fields_by_name['recipe']._serialized_options = b'\372B\004r\002\020\001'
+  _APPLYRECIPEPARAMETERSREQ.fields_by_name['parameters']._options = None
+  _APPLYRECIPEPARAMETERSREQ.fields_by_name['parameters']._serialized_options = b'\372B\n\222\001\007\"\005\212\001\002\020\001'
   _RECIPEMANAGER.methods_by_name['ConfigureRecipe']._options = None
   _RECIPEMANAGER.methods_by_name['ConfigureRecipe']._serialized_options = b'\202\323\344\223\002\032\"\025/v1/recipes/configure:\001*'
   _RECIPEMANAGER.methods_by_name['ValidateConfigureRecipe']._options = None
@@ -41,28 +46,36 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RECIPEMANAGER.methods_by_name['GetRecipe']._serialized_options = b'\202\323\344\223\002\030\022\026/v1/recipes/{recipe=*}'
   _RECIPEMANAGER.methods_by_name['GetRecipeConfig']._options = None
   _RECIPEMANAGER.methods_by_name['GetRecipeConfig']._serialized_options = b'\202\323\344\223\002\037\022\035/v1/recipes/{recipe=*}/config'
-  _globals['_CONFIGURERECIPEREQ']._serialized_start=211
-  _globals['_CONFIGURERECIPEREQ']._serialized_end=386
-  _globals['_CONFIGURERECIPERESP']._serialized_start=388
-  _globals['_CONFIGURERECIPERESP']._serialized_end=445
-  _globals['_VALIDATECONFIGURERECIPERESP']._serialized_start=447
-  _globals['_VALIDATECONFIGURERECIPERESP']._serialized_end=532
-  _globals['_LISTRECIPESREQ']._serialized_start=535
-  _globals['_LISTRECIPESREQ']._serialized_end=720
-  _globals['_LISTRECIPESREQ_BYSERVICE']._serialized_start=661
-  _globals['_LISTRECIPESREQ_BYSERVICE']._serialized_end=710
-  _globals['_LISTRECIPESRESP']._serialized_start=722
-  _globals['_LISTRECIPESRESP']._serialized_end=810
-  _globals['_GETRECIPEREQ']._serialized_start=812
-  _globals['_GETRECIPEREQ']._serialized_end=851
-  _globals['_GETRECIPERESP']._serialized_start=853
-  _globals['_GETRECIPERESP']._serialized_end=909
-  _globals['_GETRECIPECONFIGREQ']._serialized_start=911
-  _globals['_GETRECIPECONFIGREQ']._serialized_end=973
-  _globals['_GETRECIPECONFIGRESP']._serialized_start=976
-  _globals['_GETRECIPECONFIGRESP']._serialized_end=1123
-  _globals['_RECIPE']._serialized_start=1125
-  _globals['_RECIPE']._serialized_end=1223
-  _globals['_RECIPEMANAGER']._serialized_start=1226
-  _globals['_RECIPEMANAGER']._serialized_end=1868
+  _RECIPEMANAGER.methods_by_name['ApplyRecipeParameters']._options = None
+  _RECIPEMANAGER.methods_by_name['ApplyRecipeParameters']._serialized_options = b'\202\323\344\223\002,\"\'/v1/recipes/{recipe=*}/apply-parameters:\001*'
+  _globals['_CONFIGURERECIPEREQ']._serialized_start=252
+  _globals['_CONFIGURERECIPEREQ']._serialized_end=427
+  _globals['_CONFIGURERECIPERESP']._serialized_start=429
+  _globals['_CONFIGURERECIPERESP']._serialized_end=486
+  _globals['_VALIDATECONFIGURERECIPERESP']._serialized_start=488
+  _globals['_VALIDATECONFIGURERECIPERESP']._serialized_end=573
+  _globals['_LISTRECIPESREQ']._serialized_start=576
+  _globals['_LISTRECIPESREQ']._serialized_end=761
+  _globals['_LISTRECIPESREQ_BYSERVICE']._serialized_start=702
+  _globals['_LISTRECIPESREQ_BYSERVICE']._serialized_end=751
+  _globals['_LISTRECIPESRESP']._serialized_start=763
+  _globals['_LISTRECIPESRESP']._serialized_end=847
+  _globals['_GETRECIPEREQ']._serialized_start=849
+  _globals['_GETRECIPEREQ']._serialized_end=888
+  _globals['_GETRECIPERESP']._serialized_start=890
+  _globals['_GETRECIPERESP']._serialized_end=946
+  _globals['_GETRECIPECONFIGREQ']._serialized_start=948
+  _globals['_GETRECIPECONFIGREQ']._serialized_end=1010
+  _globals['_GETRECIPECONFIGRESP']._serialized_start=1013
+  _globals['_GETRECIPECONFIGRESP']._serialized_end=1160
+  _globals['_APPLYRECIPEPARAMETERSREQ']._serialized_start=1163
+  _globals['_APPLYRECIPEPARAMETERSREQ']._serialized_end=1390
+  _globals['_APPLYRECIPEPARAMETERSRESP']._serialized_start=1393
+  _globals['_APPLYRECIPEPARAMETERSRESP']._serialized_end=1622
+  _globals['_APPLYRECIPEPARAMETERSRESP_SERVICEVERSION']._serialized_start=1499
+  _globals['_APPLYRECIPEPARAMETERSRESP_SERVICEVERSION']._serialized_end=1622
+  _globals['_RECIPE']._serialized_start=1624
+  _globals['_RECIPE']._serialized_end=1722
+  _globals['_RECIPEMANAGER']._serialized_start=1725
+  _globals['_RECIPEMANAGER']._serialized_end=2532
 # @@protoc_insertion_point(module_scope)

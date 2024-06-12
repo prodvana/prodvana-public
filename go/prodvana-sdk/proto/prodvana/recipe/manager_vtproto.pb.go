@@ -5,6 +5,7 @@
 package recipe
 
 import (
+	common_config "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/common_config"
 	proto "google.golang.org/protobuf/proto"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
@@ -126,12 +127,12 @@ func (m *ListRecipesResp) CloneVT() *ListRecipesResp {
 	}
 	r := new(ListRecipesResp)
 	r.NextPageToken = m.NextPageToken
-	if rhs := m.Protections; rhs != nil {
+	if rhs := m.Recipes; rhs != nil {
 		tmpContainer := make([]*Recipe, len(rhs))
 		for k, v := range rhs {
 			tmpContainer[k] = v.CloneVT()
 		}
-		r.Protections = tmpContainer
+		r.Recipes = tmpContainer
 	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
@@ -212,6 +213,76 @@ func (m *GetRecipeConfigResp) CloneVT() *GetRecipeConfigResp {
 }
 
 func (m *GetRecipeConfigResp) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *ApplyRecipeParametersReq) CloneVT() *ApplyRecipeParametersReq {
+	if m == nil {
+		return (*ApplyRecipeParametersReq)(nil)
+	}
+	r := new(ApplyRecipeParametersReq)
+	r.Source = m.Source
+	r.SourceMetadata = m.SourceMetadata.CloneVT()
+	r.Recipe = m.Recipe
+	if rhs := m.Parameters; rhs != nil {
+		tmpContainer := make([]*common_config.ParameterValue, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.Parameters = tmpContainer
+	}
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ApplyRecipeParametersReq) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *ApplyRecipeParametersResp_ServiceVersion) CloneVT() *ApplyRecipeParametersResp_ServiceVersion {
+	if m == nil {
+		return (*ApplyRecipeParametersResp_ServiceVersion)(nil)
+	}
+	r := new(ApplyRecipeParametersResp_ServiceVersion)
+	r.Service = m.Service
+	r.ServiceId = m.ServiceId
+	r.ServiceVersion = m.ServiceVersion
+	r.Application = m.Application
+	r.ApplicationId = m.ApplicationId
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ApplyRecipeParametersResp_ServiceVersion) CloneMessageVT() proto.Message {
+	return m.CloneVT()
+}
+
+func (m *ApplyRecipeParametersResp) CloneVT() *ApplyRecipeParametersResp {
+	if m == nil {
+		return (*ApplyRecipeParametersResp)(nil)
+	}
+	r := new(ApplyRecipeParametersResp)
+	if rhs := m.Versions; rhs != nil {
+		tmpContainer := make([]*ApplyRecipeParametersResp_ServiceVersion, len(rhs))
+		for k, v := range rhs {
+			tmpContainer[k] = v.CloneVT()
+		}
+		r.Versions = tmpContainer
+	}
+	if len(m.unknownFields) > 0 {
+		r.unknownFields = make([]byte, len(m.unknownFields))
+		copy(r.unknownFields, m.unknownFields)
+	}
+	return r
+}
+
+func (m *ApplyRecipeParametersResp) CloneMessageVT() proto.Message {
 	return m.CloneVT()
 }
 
@@ -533,11 +604,11 @@ func (this *ListRecipesResp) StableEqualVT(that *ListRecipesResp) bool {
 	} else if this == nil || that == nil {
 		return false
 	}
-	if len(this.Protections) != len(that.Protections) {
+	if len(this.Recipes) != len(that.Recipes) {
 		return false
 	}
-	for i, vx := range this.Protections {
-		vy := that.Protections[i]
+	for i, vx := range this.Recipes {
+		vy := that.Recipes[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
 				p = &Recipe{}
@@ -569,11 +640,11 @@ func (this *ListRecipesResp) EqualVT(that *ListRecipesResp) bool {
 	} else if this == nil || that == nil {
 		return false
 	}
-	if len(this.Protections) != len(that.Protections) {
+	if len(this.Recipes) != len(that.Recipes) {
 		return false
 	}
-	for i, vx := range this.Protections {
-		vy := that.Protections[i]
+	for i, vx := range this.Recipes {
+		vy := that.Recipes[i]
 		if p, q := vx, vy; p != q {
 			if p == nil {
 				p = &Recipe{}
@@ -764,6 +835,218 @@ func (this *GetRecipeConfigResp) EqualVT(that *GetRecipeConfigResp) bool {
 
 func (this *GetRecipeConfigResp) EqualMessageVT(thatMsg proto.Message) bool {
 	that, ok := thatMsg.(*GetRecipeConfigResp)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ApplyRecipeParametersReq) StableEqualVT(that *ApplyRecipeParametersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.StableEqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Recipe != that.Recipe {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersReq) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersReq)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ApplyRecipeParametersReq) EqualVT(that *ApplyRecipeParametersReq) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Source != that.Source {
+		return false
+	}
+	if !this.SourceMetadata.EqualVT(that.SourceMetadata) {
+		return false
+	}
+	if this.Recipe != that.Recipe {
+		return false
+	}
+	if len(this.Parameters) != len(that.Parameters) {
+		return false
+	}
+	for i, vx := range this.Parameters {
+		vy := that.Parameters[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &common_config.ParameterValue{}
+			}
+			if q == nil {
+				q = &common_config.ParameterValue{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersReq) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersReq)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ApplyRecipeParametersResp_ServiceVersion) StableEqualVT(that *ApplyRecipeParametersResp_ServiceVersion) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ServiceVersion != that.ServiceVersion {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersResp_ServiceVersion) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersResp_ServiceVersion)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ApplyRecipeParametersResp) StableEqualVT(that *ApplyRecipeParametersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ApplyRecipeParametersResp_ServiceVersion{}
+			}
+			if q == nil {
+				q = &ApplyRecipeParametersResp_ServiceVersion{}
+			}
+			if !p.StableEqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersResp) StableEqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersResp)
+	if !ok {
+		return false
+	}
+	return this.StableEqualVT(that)
+}
+func (this *ApplyRecipeParametersResp_ServiceVersion) EqualVT(that *ApplyRecipeParametersResp_ServiceVersion) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Service != that.Service {
+		return false
+	}
+	if this.ServiceId != that.ServiceId {
+		return false
+	}
+	if this.ServiceVersion != that.ServiceVersion {
+		return false
+	}
+	if this.Application != that.Application {
+		return false
+	}
+	if this.ApplicationId != that.ApplicationId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersResp_ServiceVersion) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersResp_ServiceVersion)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ApplyRecipeParametersResp) EqualVT(that *ApplyRecipeParametersResp) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Versions) != len(that.Versions) {
+		return false
+	}
+	for i, vx := range this.Versions {
+		vy := that.Versions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ApplyRecipeParametersResp_ServiceVersion{}
+			}
+			if q == nil {
+				q = &ApplyRecipeParametersResp_ServiceVersion{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ApplyRecipeParametersResp) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ApplyRecipeParametersResp)
 	if !ok {
 		return false
 	}

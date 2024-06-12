@@ -7,6 +7,7 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import prodvana.proto.prodvana.common_config.parameters_pb2
 import prodvana.proto.prodvana.object.meta_pb2
 import prodvana.proto.prodvana.recipe.recipe_config_pb2
 import prodvana.proto.prodvana.version.source_metadata_pb2
@@ -116,18 +117,18 @@ global___ListRecipesReq = ListRecipesReq
 class ListRecipesResp(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    PROTECTIONS_FIELD_NUMBER: builtins.int
+    RECIPES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
-    def protections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Recipe]: ...
+    def recipes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Recipe]: ...
     next_page_token: builtins.str
     def __init__(
         self,
         *,
-        protections: collections.abc.Iterable[global___Recipe] | None = ...,
+        recipes: collections.abc.Iterable[global___Recipe] | None = ...,
         next_page_token: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "protections", b"protections"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "recipes", b"recipes"]) -> None: ...
 
 global___ListRecipesResp = ListRecipesResp
 
@@ -202,6 +203,71 @@ class GetRecipeConfigResp(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["compiled_config", b"compiled_config", "input_config", b"input_config", "version", b"version"]) -> None: ...
 
 global___GetRecipeConfigResp = GetRecipeConfigResp
+
+class ApplyRecipeParametersReq(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOURCE_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
+    RECIPE_FIELD_NUMBER: builtins.int
+    PARAMETERS_FIELD_NUMBER: builtins.int
+    source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType
+    @property
+    def source_metadata(self) -> prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata: ...
+    recipe: builtins.str
+    @property
+    def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue]: ...
+    def __init__(
+        self,
+        *,
+        source: prodvana.proto.prodvana.version.source_metadata_pb2.Source.ValueType = ...,
+        source_metadata: prodvana.proto.prodvana.version.source_metadata_pb2.SourceMetadata | None = ...,
+        recipe: builtins.str = ...,
+        parameters: collections.abc.Iterable[prodvana.proto.prodvana.common_config.parameters_pb2.ParameterValue] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_metadata", b"source_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["parameters", b"parameters", "recipe", b"recipe", "source", b"source", "source_metadata", b"source_metadata"]) -> None: ...
+
+global___ApplyRecipeParametersReq = ApplyRecipeParametersReq
+
+class ApplyRecipeParametersResp(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class ServiceVersion(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SERVICE_FIELD_NUMBER: builtins.int
+        SERVICE_ID_FIELD_NUMBER: builtins.int
+        SERVICE_VERSION_FIELD_NUMBER: builtins.int
+        APPLICATION_FIELD_NUMBER: builtins.int
+        APPLICATION_ID_FIELD_NUMBER: builtins.int
+        service: builtins.str
+        service_id: builtins.str
+        service_version: builtins.str
+        application: builtins.str
+        application_id: builtins.str
+        def __init__(
+            self,
+            *,
+            service: builtins.str = ...,
+            service_id: builtins.str = ...,
+            service_version: builtins.str = ...,
+            application: builtins.str = ...,
+            application_id: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["application", b"application", "application_id", b"application_id", "service", b"service", "service_id", b"service_id", "service_version", b"service_version"]) -> None: ...
+
+    VERSIONS_FIELD_NUMBER: builtins.int
+    @property
+    def versions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApplyRecipeParametersResp.ServiceVersion]: ...
+    def __init__(
+        self,
+        *,
+        versions: collections.abc.Iterable[global___ApplyRecipeParametersResp.ServiceVersion] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["versions", b"versions"]) -> None: ...
+
+global___ApplyRecipeParametersResp = ApplyRecipeParametersResp
 
 class Recipe(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

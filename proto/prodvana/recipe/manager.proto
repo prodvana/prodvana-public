@@ -3,6 +3,7 @@ package prodvana.recipe;
 option go_package = "github.com/prodvana/prodvana-public/go/prodvana-sdk/proto/prodvana/recipe";
 
 import "google/api/annotations.proto";
+import "prodvana/common_config/parameters.proto";
 import "prodvana/object/meta.proto";
 import "prodvana/recipe/recipe_config.proto";
 import "prodvana/version/source_metadata.proto";
@@ -38,7 +39,7 @@ message ListRecipesReq {
 }
 
 message ListRecipesResp {
-    repeated Recipe protections = 1;
+    repeated Recipe recipes = 1;
     string next_page_token = 2;
 }
 
@@ -60,6 +61,26 @@ message GetRecipeConfigResp {
     RecipeConfig compiled_config = 2;
     string version = 3;
     // next tag: 4
+}
+
+message ApplyRecipeParametersReq {
+    prodvana.version.Source source = 1;
+    prodvana.version.SourceMetadata source_metadata = 2;
+
+    string recipe = 3 [(validate.rules).string.min_len = 1];
+    repeated prodvana.common_config.ParameterValue parameters = 4 [(validate.rules).repeated.items.message.required = true];
+}
+
+message ApplyRecipeParametersResp {
+    message ServiceVersion {
+        string service = 1;
+        string service_id = 2;
+        string service_version = 3;
+        string application = 4;
+        string application_id = 5;
+    }
+
+    repeated ServiceVersion versions = 1;
 }
 
 message Recipe {
@@ -93,6 +114,12 @@ service RecipeManager {
     rpc GetRecipeConfig (GetRecipeConfigReq) returns (GetRecipeConfigResp) {
         option (google.api.http) = {
             get: "/v1/recipes/{recipe=*}/config"
+        };
+    }
+    rpc ApplyRecipeParameters (ApplyRecipeParametersReq) returns (ApplyRecipeParametersResp) {
+       option (google.api.http) = {
+            post: "/v1/recipes/{recipe=*}/apply-parameters"
+            body: "*"
         };
     }
 }

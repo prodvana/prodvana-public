@@ -24,6 +24,7 @@ const (
 	RecipeManager_ListRecipes_FullMethodName             = "/prodvana.recipe.RecipeManager/ListRecipes"
 	RecipeManager_GetRecipe_FullMethodName               = "/prodvana.recipe.RecipeManager/GetRecipe"
 	RecipeManager_GetRecipeConfig_FullMethodName         = "/prodvana.recipe.RecipeManager/GetRecipeConfig"
+	RecipeManager_ApplyRecipeParameters_FullMethodName   = "/prodvana.recipe.RecipeManager/ApplyRecipeParameters"
 )
 
 // RecipeManagerClient is the client API for RecipeManager service.
@@ -35,6 +36,7 @@ type RecipeManagerClient interface {
 	ListRecipes(ctx context.Context, in *ListRecipesReq, opts ...grpc.CallOption) (*ListRecipesResp, error)
 	GetRecipe(ctx context.Context, in *GetRecipeReq, opts ...grpc.CallOption) (*GetRecipeResp, error)
 	GetRecipeConfig(ctx context.Context, in *GetRecipeConfigReq, opts ...grpc.CallOption) (*GetRecipeConfigResp, error)
+	ApplyRecipeParameters(ctx context.Context, in *ApplyRecipeParametersReq, opts ...grpc.CallOption) (*ApplyRecipeParametersResp, error)
 }
 
 type recipeManagerClient struct {
@@ -90,6 +92,15 @@ func (c *recipeManagerClient) GetRecipeConfig(ctx context.Context, in *GetRecipe
 	return out, nil
 }
 
+func (c *recipeManagerClient) ApplyRecipeParameters(ctx context.Context, in *ApplyRecipeParametersReq, opts ...grpc.CallOption) (*ApplyRecipeParametersResp, error) {
+	out := new(ApplyRecipeParametersResp)
+	err := c.cc.Invoke(ctx, RecipeManager_ApplyRecipeParameters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RecipeManagerServer is the server API for RecipeManager service.
 // All implementations must embed UnimplementedRecipeManagerServer
 // for forward compatibility
@@ -99,6 +110,7 @@ type RecipeManagerServer interface {
 	ListRecipes(context.Context, *ListRecipesReq) (*ListRecipesResp, error)
 	GetRecipe(context.Context, *GetRecipeReq) (*GetRecipeResp, error)
 	GetRecipeConfig(context.Context, *GetRecipeConfigReq) (*GetRecipeConfigResp, error)
+	ApplyRecipeParameters(context.Context, *ApplyRecipeParametersReq) (*ApplyRecipeParametersResp, error)
 	mustEmbedUnimplementedRecipeManagerServer()
 }
 
@@ -120,6 +132,9 @@ func (UnimplementedRecipeManagerServer) GetRecipe(context.Context, *GetRecipeReq
 }
 func (UnimplementedRecipeManagerServer) GetRecipeConfig(context.Context, *GetRecipeConfigReq) (*GetRecipeConfigResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecipeConfig not implemented")
+}
+func (UnimplementedRecipeManagerServer) ApplyRecipeParameters(context.Context, *ApplyRecipeParametersReq) (*ApplyRecipeParametersResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApplyRecipeParameters not implemented")
 }
 func (UnimplementedRecipeManagerServer) mustEmbedUnimplementedRecipeManagerServer() {}
 
@@ -224,6 +239,24 @@ func _RecipeManager_GetRecipeConfig_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RecipeManager_ApplyRecipeParameters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApplyRecipeParametersReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RecipeManagerServer).ApplyRecipeParameters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RecipeManager_ApplyRecipeParameters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RecipeManagerServer).ApplyRecipeParameters(ctx, req.(*ApplyRecipeParametersReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RecipeManager_ServiceDesc is the grpc.ServiceDesc for RecipeManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +283,10 @@ var RecipeManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRecipeConfig",
 			Handler:    _RecipeManager_GetRecipeConfig_Handler,
+		},
+		{
+			MethodName: "ApplyRecipeParameters",
+			Handler:    _RecipeManager_ApplyRecipeParameters_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

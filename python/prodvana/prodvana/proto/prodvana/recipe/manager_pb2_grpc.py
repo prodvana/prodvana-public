@@ -39,6 +39,11 @@ class RecipeManagerStub(object):
                 request_serializer=prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigReq.SerializeToString,
                 response_deserializer=prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigResp.FromString,
                 )
+        self.ApplyRecipeParameters = channel.unary_unary(
+                '/prodvana.recipe.RecipeManager/ApplyRecipeParameters',
+                request_serializer=prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersReq.SerializeToString,
+                response_deserializer=prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersResp.FromString,
+                )
 
 
 class RecipeManagerServicer(object):
@@ -74,6 +79,12 @@ class RecipeManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ApplyRecipeParameters(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RecipeManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_RecipeManagerServicer_to_server(servicer, server):
                     servicer.GetRecipeConfig,
                     request_deserializer=prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigReq.FromString,
                     response_serializer=prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigResp.SerializeToString,
+            ),
+            'ApplyRecipeParameters': grpc.unary_unary_rpc_method_handler(
+                    servicer.ApplyRecipeParameters,
+                    request_deserializer=prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersReq.FromString,
+                    response_serializer=prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +210,22 @@ class RecipeManager(object):
         return grpc.experimental.unary_unary(request, target, '/prodvana.recipe.RecipeManager/GetRecipeConfig',
             prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigReq.SerializeToString,
             prodvana_dot_recipe_dot_manager__pb2.GetRecipeConfigResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ApplyRecipeParameters(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prodvana.recipe.RecipeManager/ApplyRecipeParameters',
+            prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersReq.SerializeToString,
+            prodvana_dot_recipe_dot_manager__pb2.ApplyRecipeParametersResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

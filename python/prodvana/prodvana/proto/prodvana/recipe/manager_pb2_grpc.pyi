@@ -28,6 +28,10 @@ class RecipeManagerStub:
         prodvana.proto.prodvana.recipe.manager_pb2.GetRecipeConfigReq,
         prodvana.proto.prodvana.recipe.manager_pb2.GetRecipeConfigResp,
     ]
+    ApplyRecipeParameters: grpc.UnaryUnaryMultiCallable[
+        prodvana.proto.prodvana.recipe.manager_pb2.ApplyRecipeParametersReq,
+        prodvana.proto.prodvana.recipe.manager_pb2.ApplyRecipeParametersResp,
+    ]
 
 class RecipeManagerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -60,5 +64,11 @@ class RecipeManagerServicer(metaclass=abc.ABCMeta):
         request: prodvana.proto.prodvana.recipe.manager_pb2.GetRecipeConfigReq,
         context: grpc.ServicerContext,
     ) -> prodvana.proto.prodvana.recipe.manager_pb2.GetRecipeConfigResp: ...
+    @abc.abstractmethod
+    def ApplyRecipeParameters(
+        self,
+        request: prodvana.proto.prodvana.recipe.manager_pb2.ApplyRecipeParametersReq,
+        context: grpc.ServicerContext,
+    ) -> prodvana.proto.prodvana.recipe.manager_pb2.ApplyRecipeParametersResp: ...
 
 def add_RecipeManagerServicer_to_server(servicer: RecipeManagerServicer, server: grpc.Server) -> None: ...

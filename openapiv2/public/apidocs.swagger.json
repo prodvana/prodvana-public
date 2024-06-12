@@ -5799,6 +5799,60 @@
         ]
       }
     },
+    "/v1/recipes/{recipe}/apply-parameters": {
+      "post": {
+        "operationId": "RecipeManager_ApplyRecipeParameters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recipeApplyRecipeParametersResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recipe",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "$ref": "#/definitions/versionSource"
+                },
+                "sourceMetadata": {
+                  "$ref": "#/definitions/versionSourceMetadata"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/common_configParameterValue"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "prodvana.recipe.RecipeManager"
+        ]
+      }
+    },
     "/v1/recipes/{recipe}/config": {
       "get": {
         "operationId": "RecipeManager_GetRecipeConfig",
@@ -7366,6 +7420,26 @@
         "RETRYABLE"
       ],
       "default": "UNKNOWN"
+    },
+    "ApplyRecipeParametersRespServiceVersion": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "serviceVersion": {
+          "type": "string"
+        },
+        "application": {
+          "type": "string"
+        },
+        "applicationId": {
+          "type": "string"
+        }
+      }
     },
     "ApplyTargetStateEventApplyResult": {
       "type": "string",
@@ -16220,6 +16294,18 @@
     "pvn_wrapperReportJobResultResp": {
       "type": "object"
     },
+    "recipeApplyRecipeParametersResp": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ApplyRecipeParametersRespServiceVersion"
+          }
+        }
+      }
+    },
     "recipeConfigureRecipeReq": {
       "type": "object",
       "properties": {
@@ -16271,7 +16357,7 @@
     "recipeListRecipesResp": {
       "type": "object",
       "properties": {
-        "protections": {
+        "recipes": {
           "type": "array",
           "items": {
             "type": "object",
