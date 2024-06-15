@@ -23,11 +23,36 @@ pvnctl recipes list
 	Args: cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
-		recipesResp, err := cmdutil.GetRecipeManagerClient().ListRecipes(ctx, &recipe_pb.ListRecipesReq{})
+
+		service, err := cmd.Flags().GetString("service")
 		if err != nil {
 			log.Fatal(err)
 		}
 
+		app, err := cmd.Flags().GetString("app")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if service == "" {
+			log.Fatal("service is required")
+		}
+
+		if app == "" {
+			log.Fatal("app is required")
+		}
+
+		recipesResp, err := cmdutil.GetRecipeManagerClient().ListRecipes(ctx, &recipe_pb.ListRecipesReq{
+			Filter: &recipe_pb.ListRecipesReq_ServiceFilter{
+				ServiceFilter: &recipe_pb.ListRecipesReq_ByService{
+					Service:     service,
+					Application: app,
+				},
+			},
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
 		recipes := recipesResp.Recipes
 		sort.Slice(recipes, func(i, j int) bool {
 			return recipes[i].Meta.Name < recipes[j].Meta.Name
@@ -46,4 +71,6 @@ pvnctl recipes list
 
 func init() {
 	RootCmd.AddCommand(listCmd)
+	listCmd.Flags().String("service", "", "Service name to filter by")
+	listCmd.Flags().String("app", "", "App name to filter by")
 }

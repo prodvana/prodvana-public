@@ -465,6 +465,7 @@ func (m *ListRecipesReq) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	oneofFilterPresent := false
 	switch v := m.Filter.(type) {
 	case *ListRecipesReq_ServiceFilter:
 		if v == nil {
@@ -477,6 +478,7 @@ func (m *ListRecipesReq) validate(all bool) error {
 			}
 			errors = append(errors, err)
 		}
+		oneofFilterPresent = true
 
 		if all {
 			switch v := interface{}(m.GetServiceFilter()).(type) {
@@ -509,6 +511,16 @@ func (m *ListRecipesReq) validate(all bool) error {
 
 	default:
 		_ = v // ensures v is used
+	}
+	if !oneofFilterPresent {
+		err := ListRecipesReqValidationError{
+			field:  "Filter",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -1744,9 +1756,27 @@ func (m *ListRecipesReq_ByService) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Application
+	if utf8.RuneCountInString(m.GetApplication()) < 1 {
+		err := ListRecipesReq_ByServiceValidationError{
+			field:  "Application",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Service
+	if utf8.RuneCountInString(m.GetService()) < 1 {
+		err := ListRecipesReq_ByServiceValidationError{
+			field:  "Service",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ListRecipesReq_ByServiceMultiError(errors)
