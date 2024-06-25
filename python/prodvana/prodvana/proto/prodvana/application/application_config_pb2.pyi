@@ -61,6 +61,7 @@ class ApplicationConfig(google.protobuf.message.Message):
     ALERTS_FIELD_NUMBER: builtins.int
     CAPABILITIES_FIELD_NUMBER: builtins.int
     CAPABILITY_INSTANCES_FIELD_NUMBER: builtins.int
+    NO_CLEANUP_ON_DELETE_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
     def release_channels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.release_channel.release_channel_config_pb2.ReleaseChannelConfig]: ...
@@ -81,6 +82,7 @@ class ApplicationConfig(google.protobuf.message.Message):
     @property
     def capability_instances(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig]:
         """deprecated"""
+    no_cleanup_on_delete: builtins.bool
     def __init__(
         self,
         *,
@@ -93,8 +95,9 @@ class ApplicationConfig(google.protobuf.message.Message):
         alerts: prodvana.proto.prodvana.workflow.integration_config_pb2.AlertingConfig | None = ...,
         capabilities: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityConfig] | None = ...,
         capability_instances: collections.abc.Iterable[prodvana.proto.prodvana.capability.capability_pb2.CapabilityInstanceConfig] | None = ...,
+        no_cleanup_on_delete: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "annotations", b"annotations", "notifications", b"notifications", "release_settings", b"release_settings"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "annotations", b"annotations", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "notifications", b"notifications", "release_channel_groups", b"release_channel_groups", "release_channels", b"release_channels", "release_settings", b"release_settings"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["alerts", b"alerts", "annotations", b"annotations", "capabilities", b"capabilities", "capability_instances", b"capability_instances", "name", b"name", "no_cleanup_on_delete", b"no_cleanup_on_delete", "notifications", b"notifications", "release_channel_groups", b"release_channel_groups", "release_channels", b"release_channels", "release_settings", b"release_settings"]) -> None: ...
 
 global___ApplicationConfig = ApplicationConfig

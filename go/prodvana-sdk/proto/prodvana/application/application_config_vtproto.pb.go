@@ -62,6 +62,7 @@ func (m *ApplicationConfig) CloneVT() *ApplicationConfig {
 	r.Annotations = m.Annotations.CloneVT()
 	r.ReleaseSettings = m.ReleaseSettings.CloneVT()
 	r.Alerts = m.Alerts.CloneVT()
+	r.NoCleanupOnDelete = m.NoCleanupOnDelete
 	if rhs := m.ReleaseChannels; rhs != nil {
 		tmpContainer := make([]*release_channel.ReleaseChannelConfig, len(rhs))
 		for k, v := range rhs {
@@ -266,6 +267,9 @@ func (this *ApplicationConfig) StableEqualVT(that *ApplicationConfig) bool {
 	if !this.ReleaseSettings.StableEqualVT(that.ReleaseSettings) {
 		return false
 	}
+	if this.NoCleanupOnDelete != that.NoCleanupOnDelete {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -363,6 +367,9 @@ func (this *ApplicationConfig) EqualVT(that *ApplicationConfig) bool {
 		return false
 	}
 	if !this.ReleaseSettings.EqualVT(that.ReleaseSettings) {
+		return false
+	}
+	if this.NoCleanupOnDelete != that.NoCleanupOnDelete {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)

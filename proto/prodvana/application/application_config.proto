@@ -39,6 +39,8 @@ message ApplicationConfig {
     // deprecated
     repeated prodvana.capability.CapabilityInstanceConfig capability_instances = 7 [(validate.rules).repeated.items.message.required = true];
 
+    bool no_cleanup_on_delete = 14;
+
     reserved 3, 8, 9, 10;
     reserved "service_templates", "pipeline_templates", "use_dynamic_delivery", "enable_custom_tasks_dynamic_delivery";
     // next tag: 14

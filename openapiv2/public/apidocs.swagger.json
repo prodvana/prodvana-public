@@ -8815,6 +8815,9 @@
             "$ref": "#/definitions/capabilityCapabilityInstanceConfig"
           },
           "title": "deprecated"
+        },
+        "noCleanupOnDelete": {
+          "type": "boolean"
         }
       }
     },

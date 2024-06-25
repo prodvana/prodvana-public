@@ -495,6 +495,8 @@ func (m *ApplicationConfig) validate(all bool) error {
 
 	}
 
+	// no validation rules for NoCleanupOnDelete
+
 	if len(errors) > 0 {
 		return ApplicationConfigMultiError(errors)
 	}
